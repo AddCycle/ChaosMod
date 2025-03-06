@@ -1,0 +1,26 @@
+//Tools
+item.oxonium_sword.name=Oxonium Sword
+item.oxonium_hoe.name=Oxonium Hoe
+item.oxonium_pickaxe.name=Oxonium Pickaxe
+item.oxonium_axe.name=Oxonium Axe
+item.oxonium_shovel.name=Oxonium Shovel
+
+//Armor
+item.oxonium_helmet.name=Oxonium Helmet
+item.oxonium_chestplate.name=Oxonium Chestplate
+item.oxonium_leggings.name=Oxonium Leggings
+item.oxonium_boots.name=Oxonium Boots
+
+// Items
+item.oxonium.name=Oxonium Ingot
+
+//Food
+item.oxonium_carrot.name=Oxonium Carrot
+
+// Blocks
+tile.oxonium_block.name=Oxonium Block
+tile.oxonium_ore.name=Oxonium Ore
+tile.allemanite_ore.name=Allemanite Ore
+
+//Gui
+itemGroup.chaosmodtab=Chaos Items

@@ -1,0 +1,26 @@
+//Tools
+item.oxonium_sword.name=Epée en oxonium
+item.oxonium_hoe.name=Houe en oxonium
+item.oxonium_pickaxe.name=Pioche en oxonium
+item.oxonium_axe.name=Hache en oxonium
+item.oxonium_shovel.name=Pelle en oxonium
+
+//Armor
+item.oxonium_helmet.name=Casque en oxonium
+item.oxonium_chestplate.name=Plastron en oxonium
+item.oxoinum_leggings.name=Jambières en oxonium
+item.oxonium_boots.name=Bottes en oxonium
+
+// Items
+item.oxonium.name=Lingot d'Oxonium
+
+//Food
+item.oxonium_carrot.name=Carotte en oxonium
+
+// Blocks
+tile.oxonium_block.name=Bloc d'Oxonium
+tile.oxonium_ore.name=Minerais d'Oxonium
+tile.allemanite_ore.name=Minerais d'Allemanite
+
+//Gui
+itemGroup.chaosmodtab=Objets du Chaos
