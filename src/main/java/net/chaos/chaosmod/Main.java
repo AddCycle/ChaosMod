@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import net.chaos.chaosmod.blocks.AllemaniteOre;
 import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.commands.DimensionWarpCommand;
+import net.chaos.chaosmod.commands.TopCommand;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.init.Blocks;
@@ -63,5 +64,6 @@ public class Main
     @EventHandler
     public void ServerInit(FMLServerStartingEvent event) {
     	event.registerServerCommand(new DimensionWarpCommand());
+    	event.registerServerCommand(new TopCommand());
     }
 }
