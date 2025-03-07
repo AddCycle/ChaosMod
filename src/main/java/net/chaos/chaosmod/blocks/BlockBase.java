@@ -14,8 +14,6 @@ import util.IHasModel;
 // Defines a basic block structure along with a name and a material property
 public class BlockBase extends Block implements IHasModel {
 	
-	public CreativeTabs[] displayOnCreativeTab = new CreativeTabs[] { CreativeTabs.BUILDING_BLOCKS, ModTabs.GENERAL_TAB };
-
 	public BlockBase(String name, Material material) {
 		super(material);
 		setUnlocalizedName(name);
