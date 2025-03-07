@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import proxy.CommonProxy;
 import util.Reference;
+import util.handlers.RegistryHandler;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
 public class Main
@@ -42,7 +43,6 @@ public class Main
     {
         logger = event.getModLog();
         proxy.preInit(event);
-        GameRegistry.registerWorldGenerator(new ModWorldGen(), 3);
         logger.info("Generating world ore >> {}", ModBlocks.ALLEMANITE_ORE.getRegistryName());
     }
 
@@ -53,6 +53,7 @@ public class Main
         // some example code
         logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         proxy.init(event);
+        RegistryHandler.otherRegistries();
     }
     
     // After the launching of the instance

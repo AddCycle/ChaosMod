@@ -38,6 +38,7 @@ public class DimensionWarpCommand extends CommandBase {
             throw new WrongUsageException("/warp <dimension_id OR dimension_name> [player]");
         }
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
+		System.out.println(player.getEntityWorld().provider.getDimensionType());
 		if (args.length == 1)
 		{
 			entity = getEntity(server, sender, player.getName()); 
