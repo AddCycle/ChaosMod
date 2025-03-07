@@ -35,11 +35,17 @@ public class FindBlockCommand extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		Random random = new Random();
+		int box = 20;
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
 		Block block = player.getEntityWorld().getBlockState(new BlockPos(0, 0, 0)).getBlock();
 		BlockPos player_pos = player.getPosition();
-		System.out.println("Le BLOCK en question en 0, 0, 0, est: " + block.getLocalizedName());
-		System.out.println("Son nom est : " + block.getUnlocalizedName());
-		System.out.println("Tu es en : " + player_pos);
+		BlockPos pos1 = new BlockPos(player_pos.getX() - box, player_pos.getY() - box, player_pos.getZ() - box);
+		BlockPos pos2 = new BlockPos(player_pos.getX() + box, player_pos.getY() + box, player_pos.getZ() + box);
+		for(BlockPos pos : BlockPos.getAllInBox(pos1, pos2)) {
+			Block curr = player.getEntityWorld().getBlockState(pos).getBlock();
+			//if(curr.isAssociatedBlock(Block.getBlockById(Block.getIdFromBlock(curr)))) {
+				System.out.println("LE BLOC EST DU TYPE : " + curr + "EN POSITION : " + pos);
+			//}
+		}
 	}
 }
