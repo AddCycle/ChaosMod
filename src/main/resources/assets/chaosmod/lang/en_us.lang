@@ -13,6 +13,7 @@ item.oxonium_boots.name=Oxonium Boots
 
 // Items
 item.oxonium.name=Oxonium Ingot
+item.allemanite_ingot.name=Allemanite Ingot
 
 //Food
 item.oxonium_carrot.name=Oxonium Carrot

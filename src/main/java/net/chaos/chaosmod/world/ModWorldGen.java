@@ -44,12 +44,12 @@ public class ModWorldGen implements IWorldGenerator {
 	
 	private void generateOverworld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
-		generateOre(overworldGen, ModBlocks.OXONIUM_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 16, 64, random.nextInt(7) + 4, 18);
+		generateOre(overworldGen, ModBlocks.OXONIUM_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 16, 64, random.nextInt(3) + 2, 10);
 	}
 
 	private void generateNether(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
-		generateOre(netherGen, ModBlocks.ALLEMANITE_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 100, random.nextInt(7) + 4, 50);
+		generateOre(netherGen, ModBlocks.ALLEMANITE_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 100, random.nextInt(2) + 2, 7);
 	}
 
 	private void generateOre(WorldGenerator generator, IBlockState ore, World world, Random random, int x, int z, int minY, int maxY, int size, int chances) {
