@@ -30,7 +30,6 @@ public class FurnaceCommand extends CommandBase {
 		ItemStack held = player.getHeldItemMainhand();
 		ItemStack result = null;
 		int quantity = held.getCount();
-		// if (held != ItemStack.EMPTY && held.getItem()) {
 		Smelt smelter = new Smelt(null);
 		if (held != ItemStack.EMPTY) {
 			result = smelter.apply(held, new Random(), null);
