@@ -4,12 +4,16 @@ import org.apache.logging.log4j.Logger;
 
 import net.chaos.chaosmod.blocks.AllemaniteOre;
 import net.chaos.chaosmod.blocks.BlockBase;
+import net.chaos.chaosmod.commands.CraftCommand;
 import net.chaos.chaosmod.commands.DimensionWarpCommand;
 import net.chaos.chaosmod.commands.FindBlockCommand;
+import net.chaos.chaosmod.commands.FurnaceCommand;
+import net.chaos.chaosmod.commands.GuideCommand;
 import net.chaos.chaosmod.commands.TopCommand;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.init.Blocks;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -20,6 +24,8 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import proxy.CommonProxy;
 import util.Reference;
+import util.handlers.BlockPlaceHandler;
+import util.handlers.CommandMessageHandler;
 import util.handlers.RegistryHandler;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
@@ -54,6 +60,9 @@ public class Main
         logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         proxy.init(event);
         RegistryHandler.otherRegistries();
+        RegistryHandler.onSmeltingRegister();
+        MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
+        MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());
     }
     
     // After the launching of the instance
@@ -68,5 +77,8 @@ public class Main
     	event.registerServerCommand(new DimensionWarpCommand());
     	event.registerServerCommand(new TopCommand());
     	event.registerServerCommand(new FindBlockCommand());
+    	event.registerServerCommand(new GuideCommand());
+        event.registerServerCommand(new CraftCommand());
+        event.registerServerCommand(new FurnaceCommand());
     }
 }

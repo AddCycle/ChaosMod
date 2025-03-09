@@ -5,8 +5,12 @@ import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
+import net.minecraftforge.event.world.BlockEvent.PlaceEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -49,5 +53,11 @@ public class RegistryHandler {
 	@EventHandler
 	public static void otherRegistries() {
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
+	}
+	
+	@EventHandler
+	public static void onSmeltingRegister() {
+		GameRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM, 4), 20);
+		GameRegistry.addSmelting(ModBlocks.ALLEMANITE_ORE, new ItemStack(ModItems.ALLEMANITE_INGOT), 100);
 	}
 }

@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.commands;
 
-import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -68,12 +67,6 @@ public class DimensionWarpCommand extends CommandBase {
             throw new CommandException("You are currently in the dimension: " + dimension_name + "(" + dimension_id + ")");
 		}
 		entity.changeDimension(dimension_id, new CommandTeleporter(pos));
-		// FIXME attempt to tp the player where he is not suffocating and while he is on the ground
-		/*int cnt_test = 100;
-		while (!entity.onGround || entity.getEntityWorld().getBlockState(entity.getPosition()).causesSuffocation() && cnt_test < 100) {
-			entity.setPosition(entity.getPosition().getX(), entity.getPosition().getY() + 1, entity.getPosition().getZ());
-			cnt_test++;
-		}*/
 	}
 
     private static class CommandTeleporter implements ITeleporter

@@ -13,6 +13,7 @@ item.oxonium_boots.name=Bottes en oxonium
 
 // Items
 item.oxonium.name=Lingot d'Oxonium
+item.allemanite_ingot.name=Lingot d'Allemanite
 
 //Food
 item.oxonium_carrot.name=Carotte en oxonium

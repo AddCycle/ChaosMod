@@ -6,12 +6,16 @@ import java.util.Random;
 
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 
 public class FindBlockCommand extends CommandBase {
 	public ArrayList<Block> block_list = new ArrayList<Block>(); // to recode to a cartographer tool way
@@ -50,10 +54,11 @@ public class FindBlockCommand extends CommandBase {
 		for(BlockPos pos : BlockPos.getAllInBox(pos1, pos2)) {
 			Block curr = player.getEntityWorld().getBlockState(pos).getBlock();
 				if (Block.isEqualTo(curr, wanted)) {
-					System.out.println("FOUND: " + wanted + " ! at: " + pos);
+					player.sendMessage(new TextComponentString("found: " + wanted.getLocalizedName() + " & " + wanted.getUnlocalizedName() + " at pos : " + pos));
 					cnt++;
 				}
 		}
 		System.out.println("FIND DONE, found: " + cnt);
+		player.sendMessage(new TextComponentString("DONE -> found: " + cnt + " blocks."));
 	}
 }
