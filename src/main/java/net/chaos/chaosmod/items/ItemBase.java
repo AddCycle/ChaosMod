@@ -21,17 +21,15 @@ public class ItemBase extends Item implements IHasModel {
 	public ItemBase(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(CreativeTabs.MATERIALS);
-		
 		ModItems.ITEMS.add(this);
 	}
 	
-	@Override
+	/*@Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		tooltip.add("\u00A7cMateriel : item basique");
 		tooltip.add("\u00a7eTest de couleur");
-		tooltip.add("\\e[1mCeci est une description en bold stp marche");
-	}
+		tooltip.add("\u00A7lCeci est une description en bold qui marche enfin");
+	}*/
 	
 	@Override
 	public void registerModels() {
