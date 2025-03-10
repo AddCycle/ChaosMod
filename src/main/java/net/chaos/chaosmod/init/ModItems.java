@@ -21,6 +21,7 @@ import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.util.EnumHelper;
@@ -55,5 +56,6 @@ public class ModItems {
 	
 	//Food
 	//public static final Item OXONIUM_CARROT = new FoodBase("oxonium_carrot", 3, 3.0f, false);
-	public static final Item OXONIUM_CARROT = new FoodEffectBase("oxonium_carrot", 3, 3.0f, false, new PotionEffect(MobEffects.RESISTANCE, 60*20, 1, false, true));
+	public static final Item OXONIUM_CARROT = 
+		new FoodEffectBase("oxonium_carrot", 3, 3.0f, false, new PotionEffect(MobEffects.RESISTANCE, 60*20, 1, false, true));
 }
