@@ -15,7 +15,6 @@ public class FoodBase extends ItemFood implements IHasModel {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setCreativeTab(CreativeTabs.FOOD);
-		setAlwaysEdible(); // meme plus faim
 		//setPotionEffect(PotionEffect.readCustomPotionEffectFromNBT(), saturation)
 		
 		ModItems.ITEMS.add(this);
