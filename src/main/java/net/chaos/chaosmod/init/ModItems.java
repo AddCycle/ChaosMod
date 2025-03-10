@@ -6,6 +6,7 @@ import java.util.List;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.items.armor.ArmorBase;
 import net.chaos.chaosmod.items.food.FoodEffectBase;
+import net.chaos.chaosmod.items.materials.AllemaniteIngot;
 import net.chaos.chaosmod.items.tools.ToolAxe;
 import net.chaos.chaosmod.items.tools.ToolHoe;
 import net.chaos.chaosmod.items.tools.ToolPickaxe;
@@ -39,7 +40,7 @@ public class ModItems {
 	
 	//Items
 	public static final Item OXONIUM = new ItemBase("oxonium");
-	public static final Item ALLEMANITE_INGOT = new ItemBase("allemanite_ingot");
+	public static final Item ALLEMANITE_INGOT = new AllemaniteIngot("allemanite_ingot");
 	
 	//Tools
 	public static final ItemSword OXONIUM_SWORD = new ToolSword("oxonium_sword", MATERIAL_OXONIUM);

@@ -1,7 +1,6 @@
 package net.chaos.chaosmod.commands;
 
 import net.minecraft.block.BlockWorkbench.InterfaceCraftingTable;
-import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -9,7 +8,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import util.craft.CraftingGuiUtil;
 
 public class CraftCommand extends CommandBase {
 
