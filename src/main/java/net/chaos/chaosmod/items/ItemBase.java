@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import util.IHasModel;
 
 // Basic item initialization as a basic item along with a name
+// If you want to add Color to text format your items for example, you can add: **MODT** code in strings
 public class ItemBase extends Item implements IHasModel {
 
 	public ItemBase(String name) {
@@ -27,8 +28,9 @@ public class ItemBase extends Item implements IHasModel {
 	
 	@Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add("\u00A7cMateriel : item basique");
 		tooltip.add("\u00a7eTest de couleur");
-		tooltip.add("Ceci est une description stp");
+		tooltip.add("\\e[1mCeci est une description en bold stp marche");
 	}
 	
 	@Override
