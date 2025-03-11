@@ -8,13 +8,14 @@ import net.chaos.chaosmod.items.ItemBase;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import util.guide.model.block.GuideBlock;
 
 public class AllemaniteIngot extends ItemBase {
 
 	public AllemaniteIngot(String name) {
 		super(name);
 	}
-
+	
 	@Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		tooltip.add("\u00A7cMythical material");
