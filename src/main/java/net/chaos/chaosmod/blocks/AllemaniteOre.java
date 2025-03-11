@@ -8,7 +8,9 @@ import javax.annotation.Nullable;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
 import net.minecraft.world.World;
 import util.guide.GenerateGuideContent;
 import util.guide.model.block.GuideBlock;
@@ -43,6 +45,10 @@ public class AllemaniteOre extends BlockBase {
 		tooltip.add(ColorEnum.YELLOW + "From the deepest of the Nether");
 		tooltip.add(StyleEnum.BOLD + "Can you do something out of it ?");
 		tooltip.add("The following description is from the json file : ");
-		tooltip.add(StyleEnum.ITALIC + "" + ColorEnum.GOLD + this.description);
+		// FIXME : I can't combine those two together and it's such a pain in the ...
+		// Still executing the file open NEEED RESOURC OPTIMIZATION NOW !
+		// MAybe it's forge that is dumb
+		tooltip.add(ColorEnum.GOLD + "" + StyleEnum.ITALIC + this.description);
+		System.out.println(ColorEnum.GOLD + "" + StyleEnum.ITALIC + this.description);
 	}
 }

@@ -10,6 +10,7 @@ import net.chaos.chaosmod.commands.FindBlockCommand;
 import net.chaos.chaosmod.commands.FurnaceCommand;
 import net.chaos.chaosmod.commands.GuideCommand;
 import net.chaos.chaosmod.commands.TopCommand;
+import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.init.Blocks;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import proxy.CommonProxy;
 import util.Reference;
@@ -63,6 +65,7 @@ public class Main
         RegistryHandler.onSmeltingRegister();
         MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
         MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
     }
     
     // After the launching of the instance
