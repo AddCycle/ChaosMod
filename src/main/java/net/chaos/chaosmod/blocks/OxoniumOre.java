@@ -9,8 +9,6 @@ public class OxoniumOre extends BlockBase {
 
 	public OxoniumOre(String name, Material material) {
 		super(name, material);
-		//setUnlocalizedName(name); // ce truc m'a fait enculé en gros ca prend le nom sans le modid:name (juste name)
-		//setRegistryName(name); // idem je veux plus les voir
 		setSoundType(SoundType.METAL);
 		setHardness(5.0f);
 		setResistance(15.0f);

@@ -57,7 +57,7 @@ public class RegistryHandler {
 	
 	@EventHandler
 	public static void onSmeltingRegister() {
-		GameRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM, 4), 20);
+		GameRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM), 20);
 		GameRegistry.addSmelting(ModBlocks.ALLEMANITE_ORE, new ItemStack(ModItems.ALLEMANITE_INGOT), 100);
 	}
 }

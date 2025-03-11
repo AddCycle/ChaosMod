@@ -1,7 +1,6 @@
 package util.handlers;
 
 import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
