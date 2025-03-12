@@ -25,3 +25,6 @@ tile.allemanite_ore.name=Allemanite Ore
 
 //Gui
 itemGroup.chaosmodtab=Chaos Items
+
+//Guide
+text.guide.title=ChaosMod Guide

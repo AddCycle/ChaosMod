@@ -25,3 +25,6 @@ tile.allemanite_ore.name=Minerais d'Allemanite
 
 //Gui
 itemGroup.chaosmodtab=Objets du Chaos
+
+//Guide
+text.guide.title=Guide du Chaos
