@@ -2,6 +2,7 @@ package net.chaos.chaosmod.gui;
 
 import java.awt.Color;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -15,8 +16,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.World;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import util.Reference;
 
@@ -30,6 +31,7 @@ public class GuideGui extends GuiScreen {
 
 	private int pageIndex;
 	private float currentScroll;
+	private TextComponentTranslation translator = new TextComponentTranslation("text.guide.title");
 
 	public GuideGui(int index)
 	{
@@ -107,14 +109,11 @@ public class GuideGui extends GuiScreen {
 			}
 		});
 
-		/*I18n.translateToLocal("ib.line2.p" + this.pageIndex);
-	    	I18n.translateToLocal("ib.line3.p" + this.pageIndex);
-	    	I18n.translateToLocal("ib.line4.p" + this.pageIndex);
-	    	I18n.translateToLocal("ib.line5.p" + this.pageIndex);
+	    	this.drawCenteredString(fontRenderer, translator.getFormattedText(), 88, 5, new Color(0, 0, 255).getRGB());
+	    	System.out.println("Title1 : " + translator.getUnformattedText());
+	    	System.out.println("Key : " + translator.getKey());
 
-	    	this.drawCenteredString(fontRenderer, I18n.translateToLocal("ib.page" + this.pageIndex + ".title"), 88, 3, new Color(255, 0, 0).getRGB());
-
-	    	for(int i = 1; i <= 5; ++i)
+	    	/*for(int i = 1; i <= 5; ++i)
 	    	{
 	    		this.drawCenteredString(fontRenderer, I18n.translateToLocal("ib.line" + i + ".p" + this.pageIndex), 88, 9 + i * 18, new Color(120, 120, 120).getRGB());
 	    	}*/
