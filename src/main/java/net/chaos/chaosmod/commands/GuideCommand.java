@@ -10,20 +10,26 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import proxy.ClientProxy;
 import util.Reference;
 import util.guide.GenerateGuideContent;
 import util.guide.model.block.GuideBlock;
 
-public class GuideCommand extends CommandBase {
+public class GuideCommand extends CommandBase implements ICommand {
 	public List<String> aliases = new ArrayList<String>();
 	public List<String> completion = new ArrayList<String>();
 

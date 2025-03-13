@@ -16,7 +16,7 @@ public enum ColorEnum {
 	RED("\u00A7c"),
 	LIGHT_PURPLE("\u00A7d"),
 	YELLOW("\u00A7e"),
-	WHITE("\u00A7f");
+	WHITE("\u00A7f"); // 16
 	
 	private String color;
 

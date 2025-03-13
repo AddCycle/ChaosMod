@@ -5,12 +5,22 @@ public class GuideBlock {
 	private String name;
 	private String description;
 	private String texture;
-	
+	private String[] screenshots;
+
+	// temp ctor
 	public GuideBlock(String type, String name, String description, String texture) {
 		this.type = type;
 		this.name = name;
 		this.description = description;
 		this.texture = texture;
+	}
+	
+	public GuideBlock(String type, String name, String description, String texture, String[] screenshots) {
+		this.type = type;
+		this.name = name;
+		this.description = description;
+		this.texture = texture;
+		this.screenshots = screenshots;
 	}
 
 	public String getType() {
@@ -45,4 +55,11 @@ public class GuideBlock {
 		this.texture = texture;
 	}
 	
+	public String[] getScreenshots() {
+		return this.screenshots;
+	}
+	
+	public void setScreenshots(String[] screenshots) {
+		this.screenshots = screenshots;
+	}
 }

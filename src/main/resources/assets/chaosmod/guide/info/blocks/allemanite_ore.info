@@ -2,5 +2,9 @@
 	"type": "block",
 	"name": "Allemanite Ore",
 	"description": "L'Allemanite est le second minerais de ChaosMod",
-	"texture": "tkt on trouvera (path)"
+	"texture": "tkt on trouvera (path)",
+	"screenshots": [
+		"image1.png",
+		"image2.png"
+	]
 }
