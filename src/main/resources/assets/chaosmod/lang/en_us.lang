@@ -22,6 +22,7 @@ item.oxonium_carrot.name=Oxonium Carrot
 tile.oxonium_block.name=Oxonium Block
 tile.oxonium_ore.name=Oxonium Ore
 tile.allemanite_ore.name=Allemanite Ore
+tile.oxonium_stairs.name=Oxonium Stairs
 
 //Gui
 itemGroup.chaosmodtab=Chaos Items

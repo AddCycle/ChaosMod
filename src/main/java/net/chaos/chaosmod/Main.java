@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -33,7 +34,6 @@ import util.handlers.RegistryHandler;
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
 public class Main
 {
-
 	// Helps launch the ChaosMod
 	@Instance
 	public static Main instance;
@@ -51,7 +51,7 @@ public class Main
     {
         logger = event.getModLog();
         proxy.preInit(event);
-        logger.info("Generating world ore >> {}", ModBlocks.ALLEMANITE_ORE.getRegistryName());
+        // logger.info("Generating world ore >> {}", ModBlocks.ALLEMANITE_ORE.getRegistryName());
     }
 
     // During the loading of the fuc** forge mod builder (with my respects)
@@ -70,7 +70,7 @@ public class Main
     
     // After the launching of the instance
     @EventHandler
-    public void postInit(FMLInitializationEvent event)
+    public void postInit(FMLPostInitializationEvent event)
     {
     	proxy.postInit(event);
     }
