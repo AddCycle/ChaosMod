@@ -23,6 +23,8 @@ tile.oxonium_block.name=Oxonium Block
 tile.oxonium_ore.name=Oxonium Ore
 tile.allemanite_ore.name=Allemanite Ore
 tile.oxonium_stairs.name=Oxonium Stairs
+tile.enderite_ore.name=Enderite Ore
+tile.enderite_block.name=Enderite Block
 
 //Gui
 itemGroup.chaosmodtab=Chaos Items

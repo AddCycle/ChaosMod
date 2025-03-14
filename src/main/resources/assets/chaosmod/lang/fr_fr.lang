@@ -23,6 +23,9 @@ tile.oxonium_block.name=Bloc d'Oxonium
 tile.oxonium_ore.name=Minerais d'Oxonium
 tile.allemanite_ore.name=Minerais d'Allemanite
 tile.oxonium_stairs.name=Escaliers en Oxonium
+tile.oxonium_stairs.name=Oxonium Stairs
+tile.enderite_ore.name=Minerais d'Enderite
+tile.enderite_block.name=Block d'Enderite
 
 //Gui
 itemGroup.chaosmodtab=Objets du Chaos

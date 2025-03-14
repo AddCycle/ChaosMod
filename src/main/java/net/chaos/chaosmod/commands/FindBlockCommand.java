@@ -16,6 +16,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import util.Reference;
 
 public class FindBlockCommand extends CommandBase {
 	public ArrayList<Block> block_list = new ArrayList<Block>(); // to recode to a cartographer tool way
@@ -39,17 +40,25 @@ public class FindBlockCommand extends CommandBase {
 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-		Random random = new Random();
 		int box = 50;
 		int cnt = 0;
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
-		Block block = player.getEntityWorld().getBlockState(new BlockPos(0, 0, 0)).getBlock();
 		BlockPos player_pos = player.getPosition();
 		BlockPos pos1 = new BlockPos(player_pos.getX() - box, player_pos.getY() - box, player_pos.getZ() - box);
 		BlockPos pos2 = new BlockPos(player_pos.getX() + box, player_pos.getY() + box, player_pos.getZ() + box);
-		Block wanted = ModBlocks.ALLEMANITE_ORE;
-		if (args.length >= 1) {
-			wanted = ModBlocks.OXONIUM_ORE;
+		Block wanted = null;
+		if (args.length == 1) {
+			switch (parseInt(args[0])) {
+			case 0:
+				wanted = ModBlocks.OXONIUM_ORE;
+				break;
+			case 1:
+				wanted = ModBlocks.ALLEMANITE_ORE;
+				break;
+			case 2:
+				wanted = ModBlocks.ENDERITE_ORE;
+				break;
+			}
 		}
 		for(BlockPos pos : BlockPos.getAllInBox(pos1, pos2)) {
 			Block curr = player.getEntityWorld().getBlockState(pos).getBlock();
@@ -58,7 +67,6 @@ public class FindBlockCommand extends CommandBase {
 					cnt++;
 				}
 		}
-		System.out.println("FIND DONE, found: " + cnt);
 		player.sendMessage(new TextComponentString("DONE -> found: " + cnt + " blocks."));
 	}
 }

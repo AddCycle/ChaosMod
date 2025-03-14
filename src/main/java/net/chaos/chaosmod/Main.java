@@ -12,6 +12,9 @@ import net.chaos.chaosmod.commands.GuideCommand;
 import net.chaos.chaosmod.commands.TopCommand;
 import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.network.ChaosModPacketHandler;
+import net.chaos.chaosmod.network.GuideCommandMessage;
+import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,7 +27,9 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import proxy.CommonProxy;
 import util.Reference;
 import util.handlers.BlockPlaceHandler;
@@ -42,6 +47,8 @@ public class Main
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
 
+	public static SimpleNetworkWrapper network;
+
 	// Basically, a logger is for broadcasting messages through the console to help you debug your mod implementation
     private static Logger logger;
 
@@ -51,17 +58,16 @@ public class Main
     {
         logger = event.getModLog();
         proxy.preInit(event);
+        ChaosModPacketHandler.registerMessage();
         // logger.info("Generating world ore >> {}", ModBlocks.ALLEMANITE_ORE.getRegistryName());
     }
 
-    // During the loading of the fuc** forge mod builder (with my respects)
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        // some example code
         logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         proxy.init(event);
-        RegistryHandler.otherRegistries();
+        GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         RegistryHandler.onSmeltingRegister();
         MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
         MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());
