@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -32,6 +33,8 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
+		// ClientCommandHandler.instance.registerCommand(new GuideCommand());
+		// ClientCommandHandler.instance.executeCommand(Minecraft.getMinecraft().player, "/guide");
 	}
 	
 	// Il fallait render cela juste chez le client, j'ai pense que juste prendre le worldClient le foutre dans le common proxy et juste l'appeler dans GuideCommand render marcherait

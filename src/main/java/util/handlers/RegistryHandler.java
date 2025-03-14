@@ -52,7 +52,6 @@ public class RegistryHandler {
 	
 	@EventHandler
 	public static void otherRegistries() {
-        GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
 	}
 	
 	@EventHandler
