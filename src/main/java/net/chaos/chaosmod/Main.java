@@ -65,7 +65,7 @@ public class Main
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        logger.info("ALLEMANITE ORE >> {}", ModBlocks.ALLEMANITE_ORE.getRegistryName());
         proxy.init(event);
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         RegistryHandler.onSmeltingRegister();
