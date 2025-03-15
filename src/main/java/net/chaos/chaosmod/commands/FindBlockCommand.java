@@ -2,21 +2,16 @@ package net.chaos.chaosmod.commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import util.Reference;
 
 public class FindBlockCommand extends CommandBase {
 	public ArrayList<Block> block_list = new ArrayList<Block>(); // to recode to a cartographer tool way
@@ -35,12 +30,13 @@ public class FindBlockCommand extends CommandBase {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/find or /scan <block_id> (for example, minecraft:sand)";
+		// return "/find or /scan <block_id> (for example, minecraft:sand)";
+		return "/find or /scan <block_id> 0, 1, 2";
 	}
 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-		int box = 50;
+		int box = 300;
 		int cnt = 0;
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
 		BlockPos player_pos = player.getPosition();
