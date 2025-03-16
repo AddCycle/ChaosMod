@@ -1,0 +1,8 @@
+{
+	"variants": {
+        "facing=north": { "model": "chaosmod:oxonium_furnace" },
+        "facing=south": { "model": "chaosmod:oxonium_furnace", "y": 180 },
+        "facing=west":  { "model": "chaosmod:oxonium_furnace", "y": 270 },
+        "facing=east":  { "model": "chaosmod:oxonium_furnace", "y": 90 }
+    }
+}

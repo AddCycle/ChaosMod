@@ -1,18 +1,23 @@
 package proxy;
 
 import net.chaos.chaosmod.commands.GuideCommand;
+import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import util.handlers.RegistryHandler;
 
 // Adds a simple mapping from Item + metadata to the model variant. (en gros il enregistre les objets dans la structure du loader pour afficher correctement les objets)
 public class ClientProxy extends CommonProxy {
@@ -27,16 +32,15 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		// TODO Auto-generated method stub
-		
+		super.init(event);
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new TileEntitySpecialRenderer<TileEntity>() {});
+		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new OxoniumFurnaceSpecialRenderer());
 	}
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		// ClientCommandHandler.instance.registerCommand(new GuideCommand());
-		// ClientCommandHandler.instance.executeCommand(Minecraft.getMinecraft().player, "/guide");
+		super.postInit(event);
+		RegistryHandler.renderItems();
 	}
-	
-	// Il fallait render cela juste chez le client, j'ai pense que juste prendre le worldClient le foutre dans le common proxy et juste l'appeler dans GuideCommand render marcherait
 	
 }

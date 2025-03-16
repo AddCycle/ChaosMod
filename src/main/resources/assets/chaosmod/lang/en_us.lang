@@ -26,6 +26,9 @@ tile.oxonium_stairs.name=Oxonium Stairs
 tile.enderite_ore.name=Enderite Ore
 tile.enderite_block.name=Enderite Block
 
+// TileEntities
+tile.oxonium_furnace.name=Oxonium Furnace
+
 //Gui
 itemGroup.chaosmodtab=Chaos Items
 

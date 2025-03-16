@@ -5,6 +5,7 @@ import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -15,6 +16,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import util.IHasModel;
 
 // Pour l'etape de build du mod
@@ -50,6 +53,21 @@ public class RegistryHandler {
 		}
 	}
 	
+	public static void fastRender(Item item) {
+		fastRender(item, 0);
+	}
+	
+	public static void fastRender(Item item, int meta) {
+		
+	}
+	
+	public static final Item OXONIUM_FURNACE = new ItemBlock(ModBlocks.OXONIUM_FURNACE).setRegistryName("oxonium_furnace");
+	
+	@SideOnly(Side.CLIENT)
+	public static void renderItems() {
+		fastRender(OXONIUM_FURNACE);
+	}
+
 	@EventHandler
 	public static void otherRegistries() {
 	}

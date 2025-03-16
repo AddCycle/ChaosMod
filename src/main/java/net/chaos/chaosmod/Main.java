@@ -15,8 +15,10 @@ import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.network.ChaosModPacketHandler;
 import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
+import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -79,6 +81,9 @@ public class Main
     public void postInit(FMLPostInitializationEvent event)
     {
     	proxy.postInit(event);
+    	// Je sais c'est deprecated, j'essaie d'utiliser ResourceLocation
+    	// GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, "chaosmod:oxonium_furnace");
+    	GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, new ResourceLocation(Reference.MODID, "oxonium_furnace"));
     }
     
     @EventHandler

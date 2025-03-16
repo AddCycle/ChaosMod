@@ -38,7 +38,7 @@ public class ModWorldGen implements IWorldGenerator {
 
     private void generateEnder(World world, Random random, int x, int z)
     {
-    	this.generateOre(ModBlocks.ENDERITE_ORE, Blocks.END_STONE, world, random, 3, 5, x, z, 10, 100);
+    	this.generateOre(ModBlocks.ENDERITE_ORE, Blocks.END_STONE, world, random, 3, 5, x, z, 40, 80);
     }
 
     private void generateOverworld(World world, Random random, int x, int z)
