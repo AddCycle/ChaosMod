@@ -14,6 +14,8 @@ import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.network.ChaosModPacketHandler;
 import net.chaos.chaosmod.network.GuideCommandMessage;
+import net.chaos.chaosmod.network.OxoniumFurnaceMessage;
+import net.chaos.chaosmod.network.OxoniumFurnaceMessage.OxoniumFurnaceMessageHandler;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.world.ModWorldGen;
@@ -36,6 +38,7 @@ import proxy.CommonProxy;
 import util.Reference;
 import util.handlers.BlockPlaceHandler;
 import util.handlers.CommandMessageHandler;
+import util.handlers.PlayerInHandler;
 import util.handlers.RegistryHandler;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
@@ -60,7 +63,10 @@ public class Main
     {
         logger = event.getModLog();
         proxy.preInit(event);
-        ChaosModPacketHandler.registerMessage();
+        // ChaosModPacketHandler.registerMessage();
+		Main.network = NetworkRegistry.INSTANCE.newSimpleChannel("chaosmod");
+		Main.network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 0, Side.CLIENT);
+		// Main.network.registerMessage(OxoniumFurnaceMessageHandler.class, OxoniumFurnaceMessage.class, 1, Side.CLIENT);
         // logger.info("Generating world ore >> {}", ModBlocks.ALLEMANITE_ORE.getRegistryName());
     }
 
@@ -73,6 +79,7 @@ public class Main
         RegistryHandler.onSmeltingRegister();
         MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
         MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());
+        MinecraftForge.EVENT_BUS.register(new PlayerInHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
     }
     

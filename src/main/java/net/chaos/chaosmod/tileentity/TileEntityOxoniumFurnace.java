@@ -1,7 +1,9 @@
 package net.chaos.chaosmod.tileentity;
 
 import net.chaos.chaosmod.blocks.BlockBase;
+import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.inventory.OxoniumFurnaceContainer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.BlockHorizontal;
@@ -65,7 +67,11 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
     
     @Override
     public ITextComponent getDisplayName() {
-    	return new TextComponentTranslation("tile.oxonium_furnace.name").setStyle(new Style().setColor(TextFormatting.DARK_AQUA).setBold(true));
+    	// de base je voulais faire en sorte que quand le four est en marche son nametag soit rouge puis vert quand ca ne l'est pas
+    	// or il fallait clic droit pour update le nom je sais pas comment l'update auto
+    	// return new TextComponentTranslation("tile.oxonium_furnace.name")
+    	 	// .setStyle(this.isBurning() ? new Style().setColor(TextFormatting.RED).setBold(true) : new Style().setColor(TextFormatting.GREEN).setBold(false));
+    	return new TextComponentTranslation("tile.oxonium_furnace.name").setStyle(new Style().setHoverEvent(null).setColor(TextFormatting.DARK_BLUE).setBold(true));
     }
 
     public int getSizeInventory()
@@ -137,9 +143,10 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
 
     public static void registerFixesFurnace(DataFixer fixer)
     {
-        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityFurnace.class, new String[] {"Items"}));
+        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityOxoniumFurnace.class, new String[] {"Items"}));
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
@@ -152,10 +159,12 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
 
         if (compound.hasKey("CustomName", 8))
         {
-            this.furnaceCustomName = compound.getString("CustomName");
+            // this.furnaceCustomName = compound.getString("CustomName");
+            this.furnaceCustomName = "";
         }
     }
 
+    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
@@ -166,7 +175,8 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
 
         if (this.hasCustomName())
         {
-            compound.setString("CustomName", this.furnaceCustomName);
+            // compound.setString("CustomName", this.furnaceCustomName);
+            compound.setString("CustomName", "");
         }
 
         return compound;
@@ -252,7 +262,7 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
             if (flag != this.isBurning())
             {
                 flag1 = true;
-                BlockFurnace.setState(this.isBurning(), this.world, this.pos);
+                OxoniumFurnace.setState(this.isBurning(), this.world, this.pos);
             }
         }
 
@@ -509,7 +519,7 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
     {
-        return new ContainerFurnace(playerInventory, this);
+        return new OxoniumFurnaceContainer(playerInventory, this);
     }
 
     public int getField(int id)

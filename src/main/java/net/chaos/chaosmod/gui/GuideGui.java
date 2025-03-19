@@ -30,6 +30,7 @@ import util.Reference;
 import util.text.format.colors.ColorEnum;
 import util.text.format.style.StyleEnum;
 
+@SideOnly(Side.CLIENT)
 public class GuideGui extends GuiScreen {
 
 	// protected int xSize = 178; NORMAL

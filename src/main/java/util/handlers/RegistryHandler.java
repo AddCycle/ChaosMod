@@ -23,6 +23,7 @@ import util.IHasModel;
 // Pour l'etape de build du mod
 @EventBusSubscriber
 public class RegistryHandler {
+	public static final Item OXONIUM_FURNACE = new ItemBlock(ModBlocks.OXONIUM_FURNACE);
 	
 	// S'occupe d'enregistrer tous les items definis dans ItemBase.java
 	@SubscribeEvent
@@ -61,9 +62,7 @@ public class RegistryHandler {
 		
 	}
 	
-	public static final Item OXONIUM_FURNACE = new ItemBlock(ModBlocks.OXONIUM_FURNACE).setRegistryName("oxonium_furnace");
 	
-	@SideOnly(Side.CLIENT)
 	public static void renderItems() {
 		fastRender(OXONIUM_FURNACE);
 	}

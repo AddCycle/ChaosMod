@@ -8,26 +8,22 @@ import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -42,24 +38,25 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import util.IHasModel;
 import util.Reference;
 
-public class OxoniumFurnace extends BlockContainer implements IHasModel {
+public class LitFurnace extends BlockContainer implements IHasModel {
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public static final PropertyBool LIT = PropertyBool.create("lit");
     private final boolean isBurning;
     private static boolean keepInventory;
 
-    public OxoniumFurnace(String name, boolean isBurning)
+    public LitFurnace(String name, boolean isBurning)
     {
         super(Material.IRON);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(LIT, isBurning));
         this.setUnlocalizedName(name);
         this.setRegistryName(name);
         this.setHarvestLevel("pickaxe", 1);
+        this.setLightLevel(0.8f);
         // this.setCreativeTab(ModTabs.GENERAL_TAB);
         this.isBurning = isBurning;
 
         ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new ItemBlockFurnaces(this).setRegistryName(this.getRegistryName()));
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
     
 	@Override
@@ -176,13 +173,8 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
 
         if (active)
         {
-            // worldIn.setBlockState(pos, Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-
-            // worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
-            // worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
             worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
             worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
-            
         }
         else
         {

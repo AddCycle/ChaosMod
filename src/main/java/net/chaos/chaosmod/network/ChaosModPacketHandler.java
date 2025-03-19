@@ -8,7 +8,5 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class ChaosModPacketHandler {
 	public static void registerMessage() {
-		Main.network = NetworkRegistry.INSTANCE.newSimpleChannel("chaosmod");
-		Main.network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 0, Side.CLIENT);
 	}
 }

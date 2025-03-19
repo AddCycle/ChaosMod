@@ -8,7 +8,7 @@ public class BlockPlaceHandler {
 
 	@SubscribeEvent
 	public void onPlaceEvent(EntityPlaceEvent event) {
-		event.getEntity().sendMessage(new TextComponentString("Salut les amis! tu as place un bloc de : " + event.getPlacedBlock().getBlock().getLocalizedName()));
+		event.getEntity().sendMessage(new TextComponentString("Placed block event : " + event.getPlacedBlock().getBlock().getLocalizedName()));
 	}
 	
 	/*@SubscribeEvent
