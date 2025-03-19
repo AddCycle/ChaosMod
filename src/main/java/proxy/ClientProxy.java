@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -33,8 +34,15 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new TileEntitySpecialRenderer<TileEntity>() {});
+		// OxoniumFurnace to suppress nametag
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new TileEntitySpecialRenderer<TileEntity>() {
+			@Override
+			protected void drawNameplate(TileEntity te, String str, double x, double y, double z, int maxDistance) {
+				return;
+			}
+		});
 		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new OxoniumFurnaceSpecialRenderer());
+		// MinecraftForge.EVENT_BUS.register(new PlayerRenderManager());
 	}
 
 	@Override
