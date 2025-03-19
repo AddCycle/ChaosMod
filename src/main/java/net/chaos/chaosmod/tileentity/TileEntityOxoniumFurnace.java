@@ -4,6 +4,7 @@ import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.inventory.OxoniumFurnaceContainer;
+import net.chaos.chaosmod.recipies.OxoniumFurnaceRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.BlockHorizontal;
@@ -146,7 +147,6 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
         fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityOxoniumFurnace.class, new String[] {"Items"}));
     }
 
-    @Override
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
@@ -159,12 +159,10 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
 
         if (compound.hasKey("CustomName", 8))
         {
-            // this.furnaceCustomName = compound.getString("CustomName");
-            this.furnaceCustomName = "";
+            this.furnaceCustomName = compound.getString("CustomName");
         }
     }
 
-    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
@@ -175,8 +173,7 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
 
         if (this.hasCustomName())
         {
-            // compound.setString("CustomName", this.furnaceCustomName);
-            compound.setString("CustomName", "");
+            compound.setString("CustomName", this.furnaceCustomName);
         }
 
         return compound;
@@ -274,7 +271,7 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
 
     public int getCookTime(ItemStack stack)
     {
-        return 200;
+        return 50;
     }
 
     private boolean canSmelt()
@@ -285,7 +282,7 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
         }
         else
         {
-            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
+            ItemStack itemstack = OxoniumFurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
 
             if (itemstack.isEmpty())
             {
@@ -320,7 +317,7 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
         if (this.canSmelt())
         {
             ItemStack itemstack = this.furnaceItemStacks.get(0);
-            ItemStack itemstack1 = FurnaceRecipes.instance().getSmeltingResult(itemstack);
+            ItemStack itemstack1 = OxoniumFurnaceRecipes.instance().getSmeltingResult(itemstack);
             ItemStack itemstack2 = this.furnaceItemStacks.get(2);
 
             if (itemstack2.isEmpty())

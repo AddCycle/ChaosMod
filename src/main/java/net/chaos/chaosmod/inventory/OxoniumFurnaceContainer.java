@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.inventory;
 
+import net.chaos.chaosmod.recipies.OxoniumFurnaceRecipes;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,7 +11,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.inventory.SlotFurnaceOutput;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,7 +27,7 @@ public class OxoniumFurnaceContainer extends Container {
         this.tileFurnace = furnaceInventory;
         this.addSlotToContainer(new Slot(furnaceInventory, 0, 56, 17));
         this.addSlotToContainer(new SlotFurnaceFuel(furnaceInventory, 1, 56, 53));
-        this.addSlotToContainer(new SlotFurnaceOutput(playerInventory.player, furnaceInventory, 2, 116, 35));
+        this.addSlotToContainer(new OxoniumFurnaceOutputSlot(playerInventory.player, furnaceInventory, 2, 116, 35));
 
         for (int i = 0; i < 3; ++i)
         {
@@ -116,7 +116,7 @@ public class OxoniumFurnaceContainer extends Container {
             }
             else if (index != 1 && index != 0)
             {
-                if (!FurnaceRecipes.instance().getSmeltingResult(itemstack1).isEmpty())
+                if (!OxoniumFurnaceRecipes.instance().getSmeltingResult(itemstack1).isEmpty())
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                     {

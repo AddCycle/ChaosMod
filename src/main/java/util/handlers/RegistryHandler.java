@@ -2,6 +2,7 @@ package util.handlers;
 
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.recipies.CustomSmeltingRegistry;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -73,7 +74,10 @@ public class RegistryHandler {
 	
 	@EventHandler
 	public static void onSmeltingRegister() {
-		GameRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM), 20);
-		GameRegistry.addSmelting(ModBlocks.ALLEMANITE_ORE, new ItemStack(ModItems.ALLEMANITE_INGOT), 100);
+		// To be able to smelt the modded items only in custom furnace oxonium or >higher
+		GameRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM), 0.2f);
+		CustomSmeltingRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM), 0.4f);
+		CustomSmeltingRegistry.addSmelting(ModBlocks.ALLEMANITE_ORE, new ItemStack(ModItems.ALLEMANITE_INGOT), 0.8f);
+		// GameRegistry.addSmelting(ModBlocks.ALLEMANITE_ORE, new ItemStack(ModItems.ALLEMANITE_INGOT), 100);
 	}
 }
