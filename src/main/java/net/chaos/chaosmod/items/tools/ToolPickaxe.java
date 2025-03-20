@@ -13,6 +13,7 @@ public class ToolPickaxe extends ItemPickaxe implements IHasModel {
 		super(material);
 		setUnlocalizedName(name);
 		setRegistryName(name);
+		setHarvestLevel("pickaxe", 3);
 		
 		ModItems.ITEMS.add(this);
 	}

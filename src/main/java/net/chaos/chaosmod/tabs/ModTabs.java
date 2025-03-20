@@ -10,5 +10,6 @@ public class ModTabs extends GeneralTab {
 
 	//Custom ChaosMod Tabs -- feel free to add more
 	public static final CreativeTabs GENERAL_TAB = new GeneralTab("chaosmodtab", "general_bg.png");
+	// public static final CreativeTabs FORGE = new GeneralTab("chaosmodtab", "general_bg.png");
 	
 }

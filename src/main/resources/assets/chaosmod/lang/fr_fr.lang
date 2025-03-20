@@ -14,9 +14,10 @@ item.oxonium_boots.name=Bottes en oxonium
 // Items
 item.oxonium.name=Lingot d'Oxonium
 item.allemanite_ingot.name=Lingot d'Allemanite
+item.enderite_shard.name=Fragment d'Enderite
 
 //Food
-item.oxonium_carrot.name=Carotte en oxonium
+item.oxonium_carrot.name=Carotte en Oxonium
 
 // Blocks
 tile.oxonium_block.name=Bloc d'Oxonium
@@ -24,10 +25,11 @@ tile.oxonium_ore.name=Minerais d'Oxonium
 tile.allemanite_ore.name=Minerais d'Allemanite
 tile.oxonium_stairs.name=Escaliers en Oxonium
 tile.oxonium_stairs.name=Oxonium Stairs
+tile.allemanite_block.name=Bloc d'Allemanite
 tile.enderite_ore.name=Minerais d'Enderite
 tile.enderite_block.name=Block d'Enderite
 
-// TileEntities
+// TileEntities (Machines for the moment)
 tile.oxonium_furnace.name=Four en Oxonium
 
 //Gui

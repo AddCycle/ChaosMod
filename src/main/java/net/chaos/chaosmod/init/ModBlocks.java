@@ -3,6 +3,7 @@ package net.chaos.chaosmod.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.chaos.chaosmod.blocks.AllemaniteBlock;
 import net.chaos.chaosmod.blocks.AllemaniteOre;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
 import net.chaos.chaosmod.blocks.EnderiteOre;
@@ -29,4 +30,5 @@ public class ModBlocks {
 	public static final Block ENDERITE_BLOCK = new EnderiteBlock("enderite_block", Material.IRON);
 	public static final Block OXONIUM_FURNACE = new OxoniumFurnace("oxonium_furnace", false);
 	public static final Block LIT_OXONIUM_FURNACE = new LitFurnace("lit_oxonium_furnace", true);
+	public static final Block ALLEMANITE_BLOCK = new AllemaniteBlock("allemanite_block", Material.IRON);
 }

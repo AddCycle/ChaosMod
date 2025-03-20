@@ -16,16 +16,4 @@ public class OxoniumOre extends BlockBase {
 		setCreativeTab(ModTabs.GENERAL_TAB);
 	}
 	
-	// Only if you want a custom drop
-	/*@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return ModItems.OXONIUM;
-	}*/
-	
-	/*@Override
-	public int quantityDropped(Random rand) {
-		int max = 4;
-		int min = 1;
-		return rand.nextInt(max) + min;
-	}*/
 }

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.chaos.chaosmod.blocks.AllemaniteOre;
 import net.chaos.chaosmod.blocks.BlockBase;
+import net.chaos.chaosmod.commands.CheatCommand;
 import net.chaos.chaosmod.commands.CraftCommand;
 import net.chaos.chaosmod.commands.DimensionWarpCommand;
 import net.chaos.chaosmod.commands.FindBlockCommand;
@@ -67,7 +68,6 @@ public class Main
 		Main.network = NetworkRegistry.INSTANCE.newSimpleChannel("chaosmod");
 		Main.network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 0, Side.CLIENT);
 		// Main.network.registerMessage(OxoniumFurnaceMessageHandler.class, OxoniumFurnaceMessage.class, 1, Side.CLIENT);
-        // logger.info("Generating world ore >> {}", ModBlocks.ALLEMANITE_ORE.getRegistryName());
     }
 
     @EventHandler
@@ -88,8 +88,6 @@ public class Main
     public void postInit(FMLPostInitializationEvent event)
     {
     	proxy.postInit(event);
-    	// Je sais c'est deprecated, j'essaie d'utiliser ResourceLocation
-    	// GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, "chaosmod:oxonium_furnace");
     	GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, new ResourceLocation(Reference.MODID, "oxonium_furnace"));
     }
     
@@ -101,5 +99,6 @@ public class Main
     	event.registerServerCommand(new GuideCommand());
         event.registerServerCommand(new CraftCommand());
         event.registerServerCommand(new FurnaceCommand());
+        event.registerServerCommand(new CheatCommand());
     }
 }

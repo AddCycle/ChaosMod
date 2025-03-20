@@ -10,9 +10,4 @@ public class BlockPlaceHandler {
 	public void onPlaceEvent(EntityPlaceEvent event) {
 		event.getEntity().sendMessage(new TextComponentString("Placed block event : " + event.getPlacedBlock().getBlock().getLocalizedName()));
 	}
-	
-	/*@SubscribeEvent
-	public void onJoin(EntityJoinWorldEvent event) {
-		event.getEntity().sendMessage(new TextComponentString("Bienvenue parmi nous!"));
-	}*/
 }

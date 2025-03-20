@@ -8,6 +8,9 @@ public class PlayerInHandler {
 
 	@SubscribeEvent
 	public void onJoin(EntityJoinWorldEvent event) {
-		event.getEntity().sendMessage(new TextComponentString("Bienvenue parmi nous!"));
+		if (event.getWorld().isRemote) {
+			event.getEntity().sendMessage(new TextComponentString("Bienvenue parmi nous!"));
+			event.getEntity().sendMessage(new TextComponentString("Voici un tutoriel pour bien débuter"));
+		}
 	}
 }

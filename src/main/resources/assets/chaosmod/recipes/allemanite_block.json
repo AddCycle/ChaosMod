@@ -2,23 +2,23 @@
 	"type": "minecraft:crafting_shaped",
 	
 	"pattern": [
-		"OOO",
-		"OOO",
-		"OOO"
+		"AAA",
+		"AAA",
+		"AAA"
 	],
 	
 	"key":
 	{
-		"O":
+		"A":
 		{
-			"item": "chaosmod:oxonium"
+			"item": "chaosmod:allemanite_ingot"
 		}
 
 	},
 	
 	"result":
 	{
-		"item": "chaosmod:oxonium_block",
+		"item": "chaosmod:allemanite_block",
 		"count": 1
 	}
 }

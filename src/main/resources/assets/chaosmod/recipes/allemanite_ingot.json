@@ -4,13 +4,13 @@
 	"ingredients":
 	[
 		{
-			"item": "chaosmod:oxonium_block"
+			"item": "chaosmod:allemanite_block"
 		}
 	],
 	
 	"result":
 	{
-		"item": "chaosmod:oxonium",
+		"item": "chaosmod:allemanite_ingot",
 		"count": 9
 	}
 }

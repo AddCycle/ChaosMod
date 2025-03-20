@@ -3,7 +3,7 @@
 	
 	"pattern": [
 		"OOO",
-		"OOO",
+		"OFO",
 		"OOO"
 	],
 	
@@ -12,13 +12,17 @@
 		"O":
 		{
 			"item": "chaosmod:oxonium"
-		}
+		},
 
+		"F":
+		{
+			"item": "minecraft:furnace"
+		}
 	},
 	
 	"result":
 	{
-		"item": "chaosmod:oxonium_block",
+		"item": "chaosmod:oxonium_furnace",
 		"count": 1
 	}
 }
