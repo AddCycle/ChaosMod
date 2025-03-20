@@ -9,6 +9,7 @@ import net.chaos.chaosmod.blocks.EnderiteBlock;
 import net.chaos.chaosmod.blocks.EnderiteOre;
 import net.chaos.chaosmod.blocks.LitFurnace;
 import net.chaos.chaosmod.blocks.OxoniumBlock;
+import net.chaos.chaosmod.blocks.OxoniumChest;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.blocks.OxoniumOre;
 import net.chaos.chaosmod.blocks.OxoniumStairs;
@@ -31,4 +32,5 @@ public class ModBlocks {
 	public static final Block OXONIUM_FURNACE = new OxoniumFurnace("oxonium_furnace", false);
 	public static final Block LIT_OXONIUM_FURNACE = new LitFurnace("lit_oxonium_furnace", true);
 	public static final Block ALLEMANITE_BLOCK = new AllemaniteBlock("allemanite_block", Material.IRON);
+	public static final Block OXONIUM_CHEST = new OxoniumChest("oxonium_chest", OxoniumChest.Type.BASIC); // or TRAP
 }

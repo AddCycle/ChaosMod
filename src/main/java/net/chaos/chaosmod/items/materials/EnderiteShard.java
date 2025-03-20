@@ -81,7 +81,6 @@ public class EnderiteShard extends ItemBase {
 		return EnumActionResult.SUCCESS;
 	}
 	
-
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {

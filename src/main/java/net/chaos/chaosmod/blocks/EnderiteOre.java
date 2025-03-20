@@ -25,7 +25,7 @@ public class EnderiteOre extends BlockBase {
 		setCreativeTab(ModTabs.GENERAL_TAB);
 		setHardness(5.0f);
 		setResistance(15.0f);
-		setHarvestLevel("pickaxe", 3);
+		setHarvestLevel("pickaxe", 4);
 		setLightLevel(17);
 	}
 

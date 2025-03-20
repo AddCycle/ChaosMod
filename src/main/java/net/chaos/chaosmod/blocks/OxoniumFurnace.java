@@ -54,7 +54,8 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(LIT, isBurning));
         this.setUnlocalizedName(name);
         this.setRegistryName(name);
-        this.setHarvestLevel("pickaxe", 1);
+        this.setHarvestLevel("pickaxe", 2);
+        this.setHardness(5.0f);
         // this.setCreativeTab(ModTabs.GENERAL_TAB);
         this.isBurning = isBurning;
 

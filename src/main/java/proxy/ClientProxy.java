@@ -1,6 +1,8 @@
 package proxy;
 
+import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
 import net.chaos.chaosmod.commands.GuideCommand;
+import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -41,7 +43,8 @@ public class ClientProxy extends CommonProxy {
 				return;
 			}
 		});
-		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new OxoniumFurnaceSpecialRenderer());
+
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumChest.class, new TileEntityOxoniumChestRenderer<TileEntity>());
 		// MinecraftForge.EVENT_BUS.register(new PlayerRenderManager());
 	}
 

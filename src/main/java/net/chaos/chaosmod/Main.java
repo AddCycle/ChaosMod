@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.chaos.chaosmod.blocks.AllemaniteOre;
 import net.chaos.chaosmod.blocks.BlockBase;
+import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
 import net.chaos.chaosmod.commands.CheatCommand;
 import net.chaos.chaosmod.commands.CraftCommand;
 import net.chaos.chaosmod.commands.DimensionWarpCommand;
@@ -18,6 +19,7 @@ import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.OxoniumFurnaceMessage;
 import net.chaos.chaosmod.network.OxoniumFurnaceMessage.OxoniumFurnaceMessageHandler;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
+import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.init.Blocks;
@@ -89,6 +91,8 @@ public class Main
     {
     	proxy.postInit(event);
     	GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, new ResourceLocation(Reference.MODID, "oxonium_furnace"));
+    	GameRegistry.registerTileEntity(TileEntityOxoniumChest.class, new ResourceLocation(Reference.MODID, "oxonium_chest"));
+		// GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, "chaosmod:oxonium_chest", new TileEntityOxoniumChestRenderer());
     }
     
     @EventHandler
