@@ -29,6 +29,8 @@ public class OxoniumChestContainer extends Container {
                 this.addSlotToContainer(new Slot(chestInventory, k + j * 9, 8 + k * 18, 18 + j * 18));
             }
         }
+        
+        // inventory container slot adder below (maybe expend the storage below)
 
         for (int l = 0; l < 3; ++l)
         {

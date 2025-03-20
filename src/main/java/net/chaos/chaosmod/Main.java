@@ -92,7 +92,6 @@ public class Main
     	proxy.postInit(event);
     	GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, new ResourceLocation(Reference.MODID, "oxonium_furnace"));
     	GameRegistry.registerTileEntity(TileEntityOxoniumChest.class, new ResourceLocation(Reference.MODID, "oxonium_chest"));
-		// GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, "chaosmod:oxonium_chest", new TileEntityOxoniumChestRenderer());
     }
     
     @EventHandler
