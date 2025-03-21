@@ -59,6 +59,10 @@ public class Main
 
 	// Basically, a logger is for broadcasting messages through the console to help you debug your mod implementation
     private static Logger logger;
+    
+    public static Logger getLogger() {
+    	return logger;
+    }
 
     // Before the initialization of the Mod (When the forge window is not opened yet)
     @EventHandler
