@@ -44,40 +44,13 @@ public class ClientProxy extends CommonProxy {
 		super.init(event);
 		// OxoniumFurnace to suppress nametag
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new TileEntitySpecialRenderer<TileEntity>() {
-			/*@Override
+
+			@Override
 			protected void drawNameplate(TileEntity te, String str, double x, double y, double z, int maxDistance) {
 				return;
-			}*/
-			
-			@Override
-			public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage,
-					float alpha) {
-				return;
-				// super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-				/*OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 1.0F, 1.0F);
-				GlStateManager.enableLighting();
-				GlStateManager.pushMatrix();
-				GlStateManager.rotate(te.getWorld().getTotalWorldTime() + partialTicks, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ());
-				GlStateManager.popMatrix();*/
 			}
-			
-			/*public void renderAtCentre(TileEntity te, float partialTicks, int destroyStage, float alpha) {
-
-
-
-
-				GlStateManager.translate(0, 3, 0);
-
-				GlStateManager.scale(3, 3, 3);
-
-				GlStateManager.enableBlend();
-
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
-
-				GlStateManager.disableBlend();
-				GlStateManager.popMatrix();
-			}*/
-				});
+				
+		});
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumChest.class, new TileEntityOxoniumChestRenderer<TileEntityOxoniumChest>());
 		// MinecraftForge.EVENT_BUS.register(new PlayerRenderManager());

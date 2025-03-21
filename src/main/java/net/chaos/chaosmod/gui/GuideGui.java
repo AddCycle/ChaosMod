@@ -18,12 +18,16 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.IInteractionObject;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
@@ -31,7 +35,7 @@ import util.text.format.colors.ColorEnum;
 import util.text.format.style.StyleEnum;
 
 @SideOnly(Side.CLIENT)
-public class GuideGui extends GuiScreen {
+public class GuideGui extends GuiScreen implements IInteractionObject {
 
 	// protected int xSize = 178; NORMAL
 	// protected int ySize = 78; NORMAL
@@ -221,5 +225,30 @@ public class GuideGui extends GuiScreen {
 	private int getSize()
 	{
 		return 9;
+	}
+
+	@Override
+	public String getName() {
+		return "chaosmod:guide_gui";
+	}
+
+	@Override
+	public boolean hasCustomName() {
+		return true;
+	}
+
+	@Override
+	public ITextComponent getDisplayName() {
+		return new TextComponentString("Guide Gui");
+	}
+
+	@Override
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+		return null;
+	}
+
+	@Override
+	public String getGuiID() {
+		return "chaosmod:guide_gui";
 	}
 }

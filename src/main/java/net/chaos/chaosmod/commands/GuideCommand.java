@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.gui.GuideGui;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.network.ChaosModPacketHandler;
 import net.chaos.chaosmod.network.GuideCommandMessage;
@@ -73,6 +74,7 @@ public class GuideCommand extends CommandBase implements ICommand {
 		// EntityPlayer player_client = FMLClientHandler.instance().getClientPlayerEntity();
 		// WorldClient world = Minecraft.getMinecraft().world;
 		// World world = FMLClientHandler.instance().getWorldClient();
+		// World world = player.getEntityWorld();
 		World world = player.world;
 		String item_id = null;
 		if (args.length == 1) {
@@ -103,6 +105,7 @@ public class GuideCommand extends CommandBase implements ICommand {
 		player.sendMessage(new TextComponentString("Texture : " + ore_guide.getTexture()));
 		if (!world.isRemote) {
 			// player_client.openGui(Main.instance, Reference.GUI_GUIDE_ID, world, 0, 0, 0);
+			// player.displayGui(new GuideGui(Reference.GUI_GUIDE_ID));
 			// player.openGui(Main.instance, Reference.GUI_GUIDE_ID, world, 0, 0, 0);
 			Main.network.sendTo(new GuideCommandMessage(), player);
 			player.sendMessage(new TextComponentString("good : not remote"));
