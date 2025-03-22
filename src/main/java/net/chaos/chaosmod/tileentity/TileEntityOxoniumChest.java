@@ -40,6 +40,7 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
     public int numPlayersUsing;
     private int ticksSinceSync;
     private OxoniumChest.Type cachedChestType;
+    public String customName;
 
     public TileEntityOxoniumChest()
     {
@@ -70,7 +71,7 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
 
     public String getName()
     {
-        return this.hasCustomName() ? this.customName : "container.chest";
+    	return "tile.oxonium_chest.name";
     }
 
     public static void registerFixesChest(DataFixer fixer)

@@ -9,6 +9,7 @@ import net.chaos.chaosmod.items.food.FoodEffectBase;
 import net.chaos.chaosmod.items.materials.AllemaniteIngot;
 import net.chaos.chaosmod.items.materials.EnderiteShard;
 import net.chaos.chaosmod.items.special.ChestUpgradeBase;
+import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.items.tools.ToolAxe;
 import net.chaos.chaosmod.items.tools.ToolHoe;
 import net.chaos.chaosmod.items.tools.ToolPickaxe;
@@ -18,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -29,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.DummyModContainer;
 import util.Reference;
 
 //initialize the blocks and declare them based on a vanilla block base type
@@ -66,4 +69,5 @@ public class ModItems {
 	
 	// Special
 	public static final Item OXONIUM_UPGRADE = new ChestUpgradeBase("oxonium_upgrade");
+	public static final Item ALLEMANITE_BACKPACK = new PlayerInventoryBaseItem("allemanite_backpack");
 }

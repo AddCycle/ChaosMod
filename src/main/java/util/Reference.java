@@ -10,4 +10,5 @@ public class Reference {
     public static final String COMMON_PROXY_CLASS = "proxy.CommonProxy";
     public static final int GUI_GUIDE_ID = 0;
     public static final int GUI_FURNACE_ID = 1;
+    public static final int GUI_BACKPACK_ID = 2;
 }
