@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -25,9 +26,12 @@ public class ChestUpgradeBase extends ItemBase {
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
 		IBlockState blockstate = worldIn.getBlockState(pos);
 		if (Block.isEqualTo(blockstate.getBlock(), Blocks.CHEST)) {
-			// worldIn.setBlockState(pos, ModBlocks.OXONIUM_CHEST.getStateForPlacement(worldIn, pos, facing.getOpposite(), hitX, hitY, hitZ, 0, player, hand)); not working I need opposite direction + nbt data
+			NBTTagCompound prev_chest_tag = new NBTTagCompound();
+			NBTTagCompound empty = new NBTTagCompound();
+			worldIn.getTileEntity(pos).writeToNBT(prev_chest_tag);
+			worldIn.getTileEntity(pos).readFromNBT(empty);
 			worldIn.setBlockState(pos, ModBlocks.OXONIUM_CHEST.getDefaultState().withProperty(BlockHorizontal.FACING, EnumFacing.getDirectionFromEntityLiving(pos, player)));
-			// worldIn.setBlockState(pos, );
+			worldIn.getTileEntity(pos).readFromNBT(prev_chest_tag);
 			player.getHeldItemMainhand().shrink(1);
 			return EnumActionResult.SUCCESS;
 		}
