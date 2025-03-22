@@ -1,5 +1,6 @@
 {
   "textures": {
-    "particle": "chaosmod:block/oxonium_block"
+    "particle": "chaosmod:block/oxonium_block",
+    "chest": "chaosmod:entity/chest/normal"
   }
 }

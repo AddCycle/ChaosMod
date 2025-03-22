@@ -1,8 +1,8 @@
 {
     "variants": {
         "facing=north": { "model": "chaosmod:oxonium_block" },
-                "facing=south": { "model": "chaosmod:oxonium_block" },
-                "facing=east": { "model": "chaosmod:oxonium_block" },
-                "facing=west": { "model": "chaosmod:oxonium_block" }
+        "facing=south": { "model": "chaosmod:oxonium_block" },
+		"facing=east": { "model": "chaosmod:oxonium_block" },
+		"facing=west": { "model": "chaosmod:oxonium_block" }
     }
 }

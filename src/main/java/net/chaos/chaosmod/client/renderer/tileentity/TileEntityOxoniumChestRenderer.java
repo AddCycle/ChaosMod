@@ -12,15 +12,16 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import util.Reference;
 
 public class TileEntityOxoniumChestRenderer<T extends TileEntity> extends TileEntitySpecialRenderer<TileEntityOxoniumChest> {
 
     private static final ResourceLocation TEXTURE_TRAPPED_DOUBLE = new ResourceLocation("textures/entity/chest/trapped_double.png");
     private static final ResourceLocation TEXTURE_CHRISTMAS_DOUBLE = new ResourceLocation("textures/entity/chest/christmas_double.png");
-    private static final ResourceLocation TEXTURE_NORMAL_DOUBLE = new ResourceLocation("textures/entity/chest/normal_double.png");
+    private static final ResourceLocation TEXTURE_NORMAL_DOUBLE = new ResourceLocation(Reference.MODID, "textures/entity/chest/normal_double.png");
     private static final ResourceLocation TEXTURE_TRAPPED = new ResourceLocation("textures/entity/chest/trapped.png");
     private static final ResourceLocation TEXTURE_CHRISTMAS = new ResourceLocation("textures/entity/chest/christmas.png");
-    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("textures/entity/chest/normal.png");
+    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation(Reference.MODID, "textures/entity/chest/normal.png");
     private final OxoniumChestModel simpleChest = new OxoniumChestModel();
     private final OxoniumChestModel largeChest = new OxoniumLargeChestModel();
     private boolean isChristmas;

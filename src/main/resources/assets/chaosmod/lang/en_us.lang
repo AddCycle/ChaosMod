@@ -30,6 +30,7 @@ tile.enderite_block.name=Enderite Block
 
 // TileEntities (machines for the moment)
 tile.oxonium_furnace.name=Oxonium Furnace
+tile.oxonium_chest.name=Oxonium Chest
 
 //Gui
 itemGroup.chaosmodtab=Chaos Items
