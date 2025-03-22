@@ -24,13 +24,6 @@ public class ItemBase extends Item implements IHasModel {
 		ModItems.ITEMS.add(this);
 	}
 	
-	/*@Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("\u00A7cMateriel : item basique");
-		tooltip.add("\u00a7eTest de couleur");
-		tooltip.add("\u00A7lCeci est une description en bold qui marche enfin");
-	}*/
-	
 	@Override
 	public void registerModels() {
 		Main.proxy.registerItemRenderer(this, 0, "inventory");
@@ -39,7 +32,7 @@ public class ItemBase extends Item implements IHasModel {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.GENERAL_TAB }; // You can add other tabs
+        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.GENERAL_TAB }; // You can add multiple tabs
     }
 
 }

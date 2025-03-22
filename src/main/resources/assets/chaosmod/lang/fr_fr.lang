@@ -19,6 +19,9 @@ item.enderite_shard.name=Fragment d'Enderite
 //Food
 item.oxonium_carrot.name=Carotte en Oxonium
 
+// Specials
+item.oxonium_upgrade.name=Oxonium Upgrade
+
 // Blocks
 tile.oxonium_block.name=Bloc d'Oxonium
 tile.oxonium_ore.name=Minerais d'Oxonium
