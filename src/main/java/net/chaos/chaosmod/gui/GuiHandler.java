@@ -20,7 +20,7 @@ public class GuiHandler implements IGuiHandler {
 		case 1:
 			return new OxoniumFurnaceContainer(player.inventory, (TileEntityOxoniumFurnace) te); // new ContainerNull(player.inventory, player);
 		// case 2:
-			// return new BackpackContainer(); // maybe bound to a player Inventory and itemhandler
+			// return new BackpackContainer(player.inventory, new InventoryBackpack(player.inventory, 54)); // maybe bound to a player Inventory and itemhandler
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -35,7 +35,7 @@ public class GuiHandler implements IGuiHandler {
 		case 1:
 			return new OxoniumFurnaceGui(player.inventory, (TileEntityOxoniumFurnace) te);
 		// case 2:
-			// return new BackpackGui(player.inventory, "jsp surement le container ?");
+			// return new BackpackGui(player.inventory, new InventoryBackpack(player.inventory, 54));
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}

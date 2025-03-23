@@ -19,6 +19,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityOcelot;
@@ -62,7 +63,7 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
         this.setUnlocalizedName(name);
         this.setRegistryName(name);
         this.chestType = chestTypeIn;
-        // this.setCreativeTab(chestTypeIn == BlockChest.Type.TRAP ? CreativeTabs.REDSTONE : CreativeTabs.DECORATIONS);
+        this.setCreativeTab(chestTypeIn == OxoniumChest.Type.TRAP ? CreativeTabs.REDSTONE : CreativeTabs.DECORATIONS);
         this.setCreativeTab(ModTabs.GENERAL_TAB);
 
         ModBlocks.BLOCKS.add(this);

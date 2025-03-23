@@ -8,7 +8,12 @@ public class Reference {
     public static final String ACCEPTED_VERSIONS = "[1.12.2]";
     public static final String CLIENT_PROXY_CLASS = "proxy.ClientProxy";
     public static final String COMMON_PROXY_CLASS = "proxy.CommonProxy";
+    
+    // GUI ids
     public static final int GUI_GUIDE_ID = 0;
     public static final int GUI_FURNACE_ID = 1;
     public static final int GUI_BACKPACK_ID = 2;
+    
+    // Entities ids
+    public static final int ENTITY_FORGE_GUARDIAN = 120;
 }

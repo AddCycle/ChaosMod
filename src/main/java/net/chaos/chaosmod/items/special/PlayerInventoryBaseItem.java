@@ -28,9 +28,7 @@ public class PlayerInventoryBaseItem extends ItemBase {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack held = playerIn.getHeldItemMainhand();
-		// playerIn.displayGUIChest(null);
-		playerIn.openGui(Main.instance, Reference.GUI_BACKPACK_ID, worldIn, 0, 0, 0);
-		playerIn.displayGUIChest(new BackpackContainer());
+		// playerIn.openGui(Main.instance, Reference.GUI_BACKPACK_ID, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, held);
 	}
 

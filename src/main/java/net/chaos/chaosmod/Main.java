@@ -14,6 +14,7 @@ import net.chaos.chaosmod.commands.GuideCommand;
 import net.chaos.chaosmod.commands.TopCommand;
 import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.network.ChaosModPacketHandler;
 import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.OxoniumFurnaceMessage;
@@ -43,6 +44,7 @@ import util.handlers.BlockPlaceHandler;
 import util.handlers.CommandMessageHandler;
 import util.handlers.PlayerInHandler;
 import util.handlers.RegistryHandler;
+import util.handlers.entity.RenderHandler;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
 public class Main
@@ -70,6 +72,8 @@ public class Main
     {
         logger = event.getModLog();
         proxy.preInit(event);
+        ModEntities.registerEntities();
+        RenderHandler.registerEntityRenders();
         // ChaosModPacketHandler.registerMessage();
 		Main.network = NetworkRegistry.INSTANCE.newSimpleChannel("chaosmod");
 		Main.network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 0, Side.CLIENT);
