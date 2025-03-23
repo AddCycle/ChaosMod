@@ -10,6 +10,29 @@ public class EntityForgeGuardian extends EntityIronGolem {
 	public EntityForgeGuardian(World worldIn) {
 		super(worldIn);
 		this.world = worldIn;
-		this.noClip = true;
+		this.noClip = false;
+		this.setEntityInvulnerable(true);
 	}
+
+	@Override
+    protected void initEntityAI()
+    {
+        // this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, true));
+        /*this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.9D, 32.0F));
+        this.tasks.addTask(3, new EntityAIMoveThroughVillage(this, 0.6D, true));
+        this.tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1.0D));
+        this.tasks.addTask(5, new EntityAILookAtVillager(this));
+        this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.6D));
+        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        this.tasks.addTask(8, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIDefendVillage(this));
+        this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>()
+        {
+            public boolean apply(@Nullable EntityLiving p_apply_1_)
+            {
+                return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_) && !(p_apply_1_ instanceof EntityCreeper);
+            }
+        }));*/
+    }
 }

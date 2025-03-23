@@ -3,6 +3,7 @@ package net.chaos.chaosmod.items.materials;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
@@ -16,12 +17,14 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -35,7 +38,6 @@ public class EnderiteShard extends ItemBase {
 
 	public EnderiteShard(String name) {
 		super(name);
-		this.setMaxDamage(1);
 	}
 
 	@Override
@@ -67,25 +69,59 @@ public class EnderiteShard extends ItemBase {
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
 		
 		TileEntity te = worldIn.getTileEntity(pos);
-		player.getHeldItemMainhand().damageItem(2, player);
+		float yaw = player.getPitchYaw().y;
+		float pitch = player.getPitchYaw().x;
 		EntityForgeGuardian gardien1 = new EntityForgeGuardian(worldIn);
-		// gardien1.setPositionAndUpdate(pos.north().getX(), pos.north().getY(), pos.north().getZ());
-		gardien1.setPositionAndRotation(pos.getX(), pos.getY() + 1, pos.getZ(), player.getPitchYaw().y, player.getPitchYaw().x);
-		System.out.println(gardien1.getPosition());
-		// gardien1.setPositionAndUpdate(pos.getX(), pos.getY() + 1, pos.getZ());
+		BlockPos left_g_pos = getPosFromFacingRight(facing, pos);
+		gardien1.setPosition(left_g_pos.east(2).getX() - 0.5f, left_g_pos.east(2).getY(), left_g_pos.east(2).getZ() - 0.5f);
+		// gardien1.setRotationYawHead(50.0f);
+		// gardien1.setPositionAndRotation(pos.getX(), pos.getY() + 1, pos.getZ(), yaw - 30, pitch - 50);
+		EntityForgeGuardian gardien2 = new EntityForgeGuardian(worldIn);
+		gardien2.setPosition(left_g_pos.getX() - 0.5f, left_g_pos.getY(), left_g_pos.getZ() - 0.5f);
+		// gardien1.setPositionAndRotation(pos.getX(), pos.getY() + 1, pos.getZ(), 300f, 300f);
+		gardien2.setRenderYawOffset(-90f);
+		gardien1.setRenderYawOffset(+90f);
 		if (te instanceof TileEntityOxoniumFurnace) {
 			if (is_correct_setup(pos, worldIn)) {
+				NBTTagCompound tag = new NBTTagCompound();
+				te.writeToNBT(tag);
+				te.readFromNBT(new NBTTagCompound());
 				worldIn.setBlockToAir(pos);
 				worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, player, hand));
+				TileEntity new_te = worldIn.getTileEntity(pos);
+				new_te.readFromNBT(tag);
+				player.getHeldItemMainhand().shrink(1);
 				if (worldIn.isRemote)
 					player.sendMessage(new TextComponentString("Are you sure you wanna do this ?").setStyle(new Style().setColor(TextFormatting.GOLD).setBold(true)));
 				if (!worldIn.isRemote) worldIn.spawnEntity(gardien1);
+				if (!worldIn.isRemote) worldIn.spawnEntity(gardien2);
 			} else {
 				if (worldIn.isRemote)
 					player.sendMessage(new TextComponentString("Hum I'm not sure about the setup...").setStyle(new Style().setColor(TextFormatting.RED).setItalic(true)));
 			}
 		}
 		return EnumActionResult.SUCCESS;
+	}
+	
+	// get the block next to it from the facing
+	private BlockPos getPosFromFacingRight(EnumFacing player_facing, @Nonnull BlockPos init) {
+		BlockPos res = init;
+		switch (player_facing.rotateYCCW()) {
+			case NORTH:
+				res.north();
+				break;
+			case SOUTH:
+				res.south();
+				break;
+			case EAST:
+				res.east();
+				break;
+			case WEST:
+				res.west();
+				break;
+			default: return null;
+		}
+		return res;
 	}
 	
 	@Override

@@ -37,6 +37,9 @@ tile.enderite_block.name=Block d'Enderite
 tile.oxonium_furnace.name=Four en Oxonium
 tile.oxonium_chest.name=Coffre en Oxonium
 
+// Entities
+entity.forge_guardian.name=Gardien de la Forge du Chaos
+
 //Gui
 itemGroup.chaosmodtab=Objets du Chaos
 
