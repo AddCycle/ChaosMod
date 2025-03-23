@@ -61,6 +61,8 @@ public class ToolSword extends ItemSword implements IHasModel {
 		manager.registerParticle(EnumParticleTypes.CRIT_MAGIC.getParticleID(), new CustomSwingParticle.Factory());
 		manager.spawnEffectParticle(EnumParticleTypes.CRIT_MAGIC.getParticleID(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 1, 1, 1, null);*/
 		player.getEntityWorld().spawnAlwaysVisibleParticle(100, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 1.0D, 1.0D, 1.0D, null);
+		entity.setDead();
+		entity.onUpdate();
 
 		// manager.emitParticleAtEntity(player, EnumParticleTypes.SWEEP_ATTACK);
 		// player.spawnSweepParticles();

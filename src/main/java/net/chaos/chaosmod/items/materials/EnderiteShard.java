@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.tabs.ModTabs;
@@ -67,12 +68,18 @@ public class EnderiteShard extends ItemBase {
 		
 		TileEntity te = worldIn.getTileEntity(pos);
 		player.getHeldItemMainhand().damageItem(2, player);
+		EntityForgeGuardian gardien1 = new EntityForgeGuardian(worldIn);
+		// gardien1.setPositionAndUpdate(pos.north().getX(), pos.north().getY(), pos.north().getZ());
+		gardien1.setPositionAndRotation(pos.getX(), pos.getY() + 1, pos.getZ(), player.getPitchYaw().y, player.getPitchYaw().x);
+		System.out.println(gardien1.getPosition());
+		// gardien1.setPositionAndUpdate(pos.getX(), pos.getY() + 1, pos.getZ());
 		if (te instanceof TileEntityOxoniumFurnace) {
 			if (is_correct_setup(pos, worldIn)) {
 				worldIn.setBlockToAir(pos);
 				worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, player, hand));
 				if (worldIn.isRemote)
 					player.sendMessage(new TextComponentString("Are you sure you wanna do this ?").setStyle(new Style().setColor(TextFormatting.GOLD).setBold(true)));
+				if (!worldIn.isRemote) worldIn.spawnEntity(gardien1);
 			} else {
 				if (worldIn.isRemote)
 					player.sendMessage(new TextComponentString("Hum I'm not sure about the setup...").setStyle(new Style().setColor(TextFormatting.RED).setItalic(true)));
