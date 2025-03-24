@@ -85,9 +85,16 @@ public class EnderiteShard extends ItemBase {
 		// Petit pb de rotation vers le sud :) laissons ca comme ca c'est la ref a l'epee du sud dont a parle JeanRobetPerez XD
 		gardien1.setRenderYawOffset(facing.getHorizontalAngle());
 
-		/*EntityForgeGuardian gardien2 = new EntityForgeGuardian(worldIn);
-		gardien2.setPosition(left_g_pos.getX(), left_g_pos.getY(), left_g_pos.getZ());
-		gardien2.setRenderYawOffset(-90f);*/
+		EntityForgeGuardian gardien2 = new EntityForgeGuardian(worldIn);
+		BlockPos right_d_pos = getPosFromFacingLeft(facing, pos);
+		if (facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN)) {
+			return EnumActionResult.FAIL;
+		}
+		gardien2.setPosition(right_d_pos.getX() + 0.5f, right_d_pos.getY(), right_d_pos.getZ() + 0.5f);
+		// Petit pb de rotation vers le sud :) laissons ca comme ca c'est la ref a l'epee du sud dont a parle JeanRobetPerez XD
+		// gardien2.setRenderYawOffset(facing.getHorizontalAngle());
+		gardien2.setRenderYawOffset(EnumFacing.getDirectionFromEntityLiving(player.getPosition(), player).getHorizontalAngle());
+
 		if (te instanceof TileEntityOxoniumFurnace) {
 			if (is_correct_setup(pos, worldIn)) {
 				NBTTagCompound tag = new NBTTagCompound();
@@ -101,7 +108,7 @@ public class EnderiteShard extends ItemBase {
 				if (worldIn.isRemote)
 					player.sendMessage(new TextComponentString("Are you sure you wanna do this ?").setStyle(new Style().setColor(TextFormatting.GOLD).setBold(true)));
 				if (!worldIn.isRemote) worldIn.spawnEntity(gardien1);
-				// if (!worldIn.isRemote) worldIn.spawnEntity(gardien2);
+				if (!worldIn.isRemote) worldIn.spawnEntity(gardien2);
 			} else {
 				if (worldIn.isRemote)
 					player.sendMessage(new TextComponentString("Hum I'm not sure about the setup...").setStyle(new Style().setColor(TextFormatting.RED).setItalic(true)));
@@ -125,6 +132,26 @@ public class EnderiteShard extends ItemBase {
 				break;
 			case WEST:
 				res = res.east().south();
+				break;
+			default: return res;
+		}
+		return res;
+	}
+
+	private BlockPos getPosFromFacingLeft(EnumFacing block_facing, @Nonnull BlockPos init) {
+		BlockPos res = init;
+		switch (block_facing) {
+			case NORTH:
+				res = res.south().east();
+				break;
+			case SOUTH:
+				res = res.north().west();
+				break;
+			case EAST:
+				res = res.west().south();
+				break;
+			case WEST:
+				res = res.east().north();
 				break;
 			default: return res;
 		}
