@@ -68,19 +68,26 @@ public class EnderiteShard extends ItemBase {
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
 		
+		System.out.println(facing + " -> direction");
 		TileEntity te = worldIn.getTileEntity(pos);
+
 		float yaw = player.getPitchYaw().y;
 		float pitch = player.getPitchYaw().x;
+		
+		BlockPos pos1 = player.getPosition();
+
 		EntityForgeGuardian gardien1 = new EntityForgeGuardian(worldIn);
 		BlockPos left_g_pos = getPosFromFacingRight(facing, pos);
-		gardien1.setPosition(left_g_pos.east(2).getX() - 0.5f, left_g_pos.east(2).getY(), left_g_pos.east(2).getZ() - 0.5f);
-		// gardien1.setRotationYawHead(50.0f);
-		// gardien1.setPositionAndRotation(pos.getX(), pos.getY() + 1, pos.getZ(), yaw - 30, pitch - 50);
-		EntityForgeGuardian gardien2 = new EntityForgeGuardian(worldIn);
-		gardien2.setPosition(left_g_pos.getX() - 0.5f, left_g_pos.getY(), left_g_pos.getZ() - 0.5f);
-		// gardien1.setPositionAndRotation(pos.getX(), pos.getY() + 1, pos.getZ(), 300f, 300f);
-		gardien2.setRenderYawOffset(-90f);
-		gardien1.setRenderYawOffset(+90f);
+		if (facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN)) {
+			return EnumActionResult.FAIL;
+		}
+		gardien1.setPosition(left_g_pos.getX() + 0.5f, left_g_pos.getY(), left_g_pos.getZ() + 0.5f);
+		// Petit pb de rotation vers le sud :) laissons ca comme ca c'est la ref a l'epee du sud dont a parle JeanRobetPerez XD
+		gardien1.setRenderYawOffset(facing.getHorizontalAngle());
+
+		/*EntityForgeGuardian gardien2 = new EntityForgeGuardian(worldIn);
+		gardien2.setPosition(left_g_pos.getX(), left_g_pos.getY(), left_g_pos.getZ());
+		gardien2.setRenderYawOffset(-90f);*/
 		if (te instanceof TileEntityOxoniumFurnace) {
 			if (is_correct_setup(pos, worldIn)) {
 				NBTTagCompound tag = new NBTTagCompound();
@@ -94,7 +101,7 @@ public class EnderiteShard extends ItemBase {
 				if (worldIn.isRemote)
 					player.sendMessage(new TextComponentString("Are you sure you wanna do this ?").setStyle(new Style().setColor(TextFormatting.GOLD).setBold(true)));
 				if (!worldIn.isRemote) worldIn.spawnEntity(gardien1);
-				if (!worldIn.isRemote) worldIn.spawnEntity(gardien2);
+				// if (!worldIn.isRemote) worldIn.spawnEntity(gardien2);
 			} else {
 				if (worldIn.isRemote)
 					player.sendMessage(new TextComponentString("Hum I'm not sure about the setup...").setStyle(new Style().setColor(TextFormatting.RED).setItalic(true)));
@@ -104,22 +111,22 @@ public class EnderiteShard extends ItemBase {
 	}
 	
 	// get the block next to it from the facing
-	private BlockPos getPosFromFacingRight(EnumFacing player_facing, @Nonnull BlockPos init) {
+	private BlockPos getPosFromFacingRight(EnumFacing block_facing, @Nonnull BlockPos init) {
 		BlockPos res = init;
-		switch (player_facing.rotateYCCW()) {
+		switch (block_facing) {
 			case NORTH:
-				res.north();
+				res = res.south().west();
 				break;
 			case SOUTH:
-				res.south();
+				res = res.north().east();
 				break;
 			case EAST:
-				res.east();
+				res = res.west().north();
 				break;
 			case WEST:
-				res.west();
+				res = res.east().south();
 				break;
-			default: return null;
+			default: return res;
 		}
 		return res;
 	}
