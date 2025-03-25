@@ -16,6 +16,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -103,6 +104,7 @@ public class EnderiteShard extends ItemBase {
 				worldIn.setBlockToAir(pos);
 				worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, player, hand));
 				TileEntity new_te = worldIn.getTileEntity(pos);
+				worldIn.setBlockState(pos.up(), Blocks.FIRE.getStateForPlacement(worldIn, pos.up(), facing, hitX, hitY, hitZ, 0, player, hand));
 				new_te.readFromNBT(tag);
 				player.getHeldItemMainhand().shrink(1);
 				if (worldIn.isRemote)

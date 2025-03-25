@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.entity;
 
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.EntityBodyHelper;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;

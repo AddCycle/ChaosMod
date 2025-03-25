@@ -5,6 +5,7 @@ import java.util.Random;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.items.materials.AllemaniteIngot;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
@@ -16,7 +17,9 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -24,6 +27,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemHangingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
@@ -291,5 +295,22 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityOxoniumFurnace();
+	}
+	
+	@Override
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+		super.onEntityCollidedWithBlock(worldIn, pos, state, entityIn);
+	}
+	
+	@Override
+	public void onLanded(World worldIn, Entity entityIn) {
+		EntityItem itementity;
+		if (entityIn instanceof EntityItem) {
+			itementity = (EntityItem) entityIn;
+			if (itementity.getItem().getItem().equals(ModItems.OXONIUM)) {
+				itementity.setItem(new ItemStack(ModItems.ALLEMANITE_INGOT,itementity.getItem().getCount()));
+			}
+		}
+		super.onLanded(worldIn, entityIn);
 	}
 }
