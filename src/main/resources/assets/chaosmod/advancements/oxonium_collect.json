@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "chaosmod:oxonium"
+    },
+    "title": {
+      "text": "Getting a real upgrade",
+      "color": "blue",
+      "bold": true,
+      "italic": false,
+      "hoverEvent": {
+        "action": "show_text"
+      }
+    },
+    "description": "You are engaged...",
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "smelt_oxonium_ore": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "chaosmod:oxonium"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": []
+}

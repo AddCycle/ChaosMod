@@ -15,5 +15,4 @@ public class OxoniumOre extends BlockBase {
 		setHarvestLevel("pickaxe", 2);
 		setCreativeTab(ModTabs.GENERAL_TAB);
 	}
-	
 }
