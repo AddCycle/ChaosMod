@@ -3,8 +3,10 @@ package net.chaos.chaosmod.entity.model;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelIronGolem;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 
 /**
  * ModelIronGolem - Either Mojang or a mod author
@@ -74,7 +76,12 @@ public class ModelForgeGuardian extends ModelBase {
     @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
     		float headPitch, float scaleFactor, Entity entityIn) {
-    	super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+    	this.right_arm.rotateAngleX -= 0.1f;
+    	this.left_arm.rotateAngleX -= 0.1f;
+    	/*System.out.println("TICKS AGE : " + (int) ageInTicks);
+    	System.out.println("RIGHT X : " + this.right_arm.rotateAngleX);
+    	System.out.println("LEFT X : " + this.left_arm.rotateAngleX);*/
+    	// super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
     }
     
     @Override

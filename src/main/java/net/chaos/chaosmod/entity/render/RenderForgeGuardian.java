@@ -5,6 +5,8 @@ import net.chaos.chaosmod.entity.model.ModelForgeGuardian;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.EntityBodyHelper;
+import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.util.ResourceLocation;
 import util.Reference;
 

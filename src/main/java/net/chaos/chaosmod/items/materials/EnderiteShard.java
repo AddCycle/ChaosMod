@@ -104,7 +104,7 @@ public class EnderiteShard extends ItemBase {
 				worldIn.setBlockToAir(pos);
 				worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, player, hand));
 				TileEntity new_te = worldIn.getTileEntity(pos);
-				worldIn.setBlockState(pos.up(), Blocks.FIRE.getStateForPlacement(worldIn, pos.up(), facing, hitX, hitY, hitZ, 0, player, hand));
+				worldIn.setBlockState(pos.up(), Blocks.BEACON.getStateForPlacement(worldIn, pos.up(), facing, hitX, hitY, hitZ, 0, player, hand));
 				new_te.readFromNBT(tag);
 				player.getHeldItemMainhand().shrink(1);
 				if (worldIn.isRemote)
