@@ -13,6 +13,7 @@ import net.minecraft.init.Blocks;
  * Created using Tabula 7.1.0
  */
 public class ModelForgeGuardian extends ModelBase {
+	private float to_turn;
     public ModelRenderer chest;
     public ModelRenderer belly;
     public ModelRenderer left_arm;
@@ -76,8 +77,8 @@ public class ModelForgeGuardian extends ModelBase {
     @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
     		float headPitch, float scaleFactor, Entity entityIn) {
-    	this.right_arm.rotateAngleX -= 0.1f;
-    	this.left_arm.rotateAngleX -= 0.1f;
+    	resetRotation();
+    	// rotateRightAnimation(45f);
     	/*System.out.println("TICKS AGE : " + (int) ageInTicks);
     	System.out.println("RIGHT X : " + this.right_arm.rotateAngleX);
     	System.out.println("LEFT X : " + this.left_arm.rotateAngleX);*/
@@ -88,5 +89,67 @@ public class ModelForgeGuardian extends ModelBase {
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount,
     		float partialTickTime) {
     	super.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTickTime);
+    }
+    
+    public void resetRotation() {
+    	this.head.rotateAngleX = 0f;
+    	this.head.rotateAngleY = 0f;
+    	this.head.rotateAngleZ = 0f;
+    	this.nose.rotateAngleX = 0f;
+    	this.nose.rotateAngleY = 0f;
+    	this.nose.rotateAngleZ = 0f;
+    	this.chest.rotateAngleX = 0f;
+    	this.chest.rotateAngleY = 0f;
+    	this.chest.rotateAngleZ = 0f;
+    	this.belly.rotateAngleX = 0f;
+    	this.belly.rotateAngleY = 0f;
+    	this.belly.rotateAngleZ = 0f;
+    	this.left_arm.rotateAngleX = 0f;
+    	this.left_arm.rotateAngleY = 0f;
+    	this.left_arm.rotateAngleZ = 0f;
+    	this.right_arm.rotateAngleX = 0f;
+    	this.right_arm.rotateAngleY = 0f;
+    	this.right_arm.rotateAngleZ = 0f;
+    	this.left_leg.rotateAngleX = 0f;
+    	this.left_leg.rotateAngleY = 0f;
+    	this.left_leg.rotateAngleZ = 0f;
+    	this.right_leg.rotateAngleX = 0f;
+    	this.right_leg.rotateAngleY = 0f;
+    	this.right_leg.rotateAngleZ = 0f;
+    }
+
+    public void rotateRightAnimation(float angle) {
+    	this.head.rotateAngleX = 0f;
+    	this.head.rotateAngleY -= angle;
+    	this.head.rotateAngleZ = 0f;
+    	this.nose.rotateAngleX = 0f;
+    	this.nose.rotateAngleY -= angle;
+    	this.nose.rotateAngleZ = 0f;
+    	this.chest.rotateAngleX = 0f;
+    	this.chest.rotateAngleY -= angle;
+    	this.chest.rotateAngleZ = 0f;
+    	this.belly.rotateAngleX = 0f;
+    	this.belly.rotateAngleY -= angle;
+    	this.belly.rotateAngleZ = 0f;
+    	this.left_arm.rotateAngleX = 0f;
+    	this.left_arm.rotateAngleY -= angle;
+    	this.left_arm.rotateAngleZ = 0f;
+    	this.right_arm.rotateAngleX = 0f;
+    	this.right_arm.rotateAngleY -= angle;
+    	this.right_arm.rotateAngleZ = 0f;
+    	this.left_leg.rotateAngleX = 0f;
+    	this.left_leg.rotateAngleY -= angle;
+    	this.left_leg.rotateAngleZ = 0f;
+    	this.right_leg.rotateAngleX = 0f;
+    	this.right_leg.rotateAngleY -= angle;
+    	this.right_leg.rotateAngleZ = 0f;
+    }
+    
+    public float getTurn() {
+    	return this.to_turn;
+    }
+
+    public void setTurn(float angle) {
+    	this.to_turn = angle;
     }
 }
