@@ -41,7 +41,7 @@ Objective : Having fun through a clear lore and don't feel redundant
             Allemanite Block
         ];
 
- - <b>Enderite (3):</b>
+- <b>Enderite (3):</b>
     Location : End, biome="Chaos Biome", inside of the Meteorites
     Rarity : Legendary (1 all the 10000 blocks radius)
     Purposes :
@@ -58,6 +58,7 @@ Objective : Having fun through a clear lore and don't feel redundant
         ];
 
 <h2>New items [3] :</h2>
+
 - <b>Brave boots :</b>
     - Description: "You are so brave that you need these boots in case of..."
     - Usage : "Escape the combats (like a brave)"
@@ -109,6 +110,7 @@ Objective : Having fun through a clear lore and don't feel redundant
     ];
 
 <h2>New blocks [2] :</h2>
+
 - <b>Oxonium Bricks:</b>
     - Description: "Decorative blocks with shining blue particles"
     - Usage: "You can make a house with it..."
@@ -132,6 +134,7 @@ Objective : Having fun through a clear lore and don't feel redundant
     - Properties: "Can be stolen by Pixou"
 
 <h2>New entities :</h2>
+
 - <b>Pixou:</b>
     - Description: "A little duck that steals your precious ressources"
     - Usage: "If you caught it, he will drop you something"
