@@ -1,8 +1,11 @@
-<p align="center"><h1>ChaosMod 1.12.2 - project specs</h1></p>
+<h1 align="center">ChaosMod 1.12.2 - project specs</h1>
+
 <hr>
+
 ## Things to implement :
 
-Objective : Having fun through a clear lore and don't feel redundant
+Goal : Having fun through a clear lore and don't feel redundant
+
 ## The lore :
     Four overpowerered civilizations were fighting leading to gigantic battles annihilating themselves. But for what purpose were they fighting ? The Chaos Master told them to fight for the Cube of Chaos because if another tribe finds it, they will destroy the world !
     So in order to preserve peace, they had to find it first leading to massive sacrifices thinking every tribe was doing the right thing.
@@ -13,33 +16,34 @@ Objective : Having fun through a clear lore and don't feel redundant
     Conclusion = "To much ambition of power leads to annihilation"
 
 <h2>New minerals [1] :</h2>
+
 - <b>Oxonium (1):</b>
     - Location : Overworld, biome="Giant Mountains", inside of the mountains
     - Rarity : Uncommon (a little more than iron), max-vein-size=4
-    - Purposes :
-        items -> [
-            Brave boots,
-            Oxonium Hallebarde,
-            Oxonium Necklace,
-        ];
-        blocks -> [
-            Oxonium Bricks,
-            Oxonium Block
-        ];
+    - Purposes : \
+        items -> [ \
+            Brave boots, \
+            Oxonium Hallebarde, \
+            Oxonium Necklace, \
+        ]; \
+        blocks -> [ \
+            Oxonium Bricks, \
+            Oxonium Block \
+        ]; \
 
 - <b>Allemanite (2) :</b>
     - Location : Nether, biome="Nether Cave", loot-chests="dungeon structures"
     - Rarity : Rare, max-vein-size=2
-    - Purposes :
-        items -> [
-            Allemanite Extinguisher,
-            Allemanite Backpack,
-            Allemanite Pickaxe,
-        ];
-        blocks -> [
-            Allemanite Bricks,
-            Allemanite Block
-        ];
+    - Purposes : \
+        items -> [ \
+            Allemanite Extinguisher, \
+            Allemanite Backpack, \
+            Allemanite Pickaxe, \
+        ]; \
+        blocks -> [ \
+            Allemanite Bricks, \
+            Allemanite Block \
+        ]; \
 
 - <b>Enderite (3):</b>
     Location : End, biome="Chaos Biome", inside of the Meteorites
