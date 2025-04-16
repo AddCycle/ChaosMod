@@ -13,7 +13,7 @@ Objective : Having fun through a clear lore and don't feel redundant
     Conclusion = "To much ambition of power leads to annihilation"
 
 <h2>New minerals [1] :</h2>
- - Oxonium (1):
+- <b>Oxonium (1):</b>
     - Location : Overworld, biome="Giant Mountains", inside of the mountains
     - Rarity : Uncommon (a little more than iron), max-vein-size=4
     - Purposes :
@@ -27,7 +27,7 @@ Objective : Having fun through a clear lore and don't feel redundant
             Oxonium Block
         ];
 
- - Allemanite (2) :
+- <b>Allemanite (2) :</b>
     - Location : Nether, biome="Nether Cave", loot-chests="dungeon structures"
     - Rarity : Rare, max-vein-size=2
     - Purposes :
@@ -41,7 +41,7 @@ Objective : Having fun through a clear lore and don't feel redundant
             Allemanite Block
         ];
 
- - Enderite (3):
+ - <b>Enderite (3):</b>
     Location : End, biome="Chaos Biome", inside of the Meteorites
     Rarity : Legendary (1 all the 10000 blocks radius)
     Purposes :
@@ -57,8 +57,8 @@ Objective : Having fun through a clear lore and don't feel redundant
             Enderite Forge
         ];
 
-New items [3] :
-- Brave boots :
+<h2>New items [3] :</h2>
+- <b>Brave boots :</b>
     - Description: "You are so brave that you need these boots in case of..."
     - Usage : "Escape the combats (like a brave)"
     - Craft : [
@@ -78,7 +78,7 @@ New items [3] :
         }
     ];
 
-- Oxonium Hallebarde:
+- <b>Oxonium Hallebarde:</b>
     - Description: "Yolo, you have nothing more to lose !",
     - Usage : "When right-click the ground, it does an AOE attack that stunts the ennemis in range"
     - Craft : [
@@ -95,7 +95,7 @@ New items [3] :
         "special-aoe": "knockback 1" -> "cooldown": "3"
     ];
 
-- Oxonium Necklace :
+- <b>Oxonium Necklace :</b>
     - Description: "Grants a little bit of life if you are in a trouble as a brave fighter"
     - Usage: "Can be equipped through the neck slot, grants regeneration 1"
     - Craft : [
@@ -108,8 +108,8 @@ New items [3] :
         "effects": [ "regeneration": "1" ]
     ];
 
-New blocks [2] :
-- Oxonium Bricks:
+<h2>New blocks [2] :</h2>
+- <b>Oxonium Bricks:</b>
     - Description: "Decorative blocks with shining blue particles"
     - Usage: "You can make a house with it..."
     - Craft : [
@@ -120,7 +120,7 @@ New blocks [2] :
     ];
     - Properties: "Resists to explosions"
 
-- Oxonium Block:
+- <b>Oxonium Block:</b>
     - Description: "So beautiful that it may be stolen"
     - Usage: "Pixou the duck can steal them if you are not careful enough"
     - Craft : [
@@ -131,8 +131,8 @@ New blocks [2] :
     ];
     - Properties: "Can be stolen by Pixou"
 
-New entities :
-- Pixou:
+<h2>New entities :</h2>
+- <b>Pixou:</b>
     - Description: "A little duck that steals your precious ressources"
     - Usage: "If you caught it, he will drop you something"
     - Properties: {
@@ -144,7 +144,7 @@ New entities :
         "caught": "drop 30 emeralds"
     }
 
-- Sage of Chaos (1 per dimension):
+- <b>Sage of Chaos (1 per dimension):</b>
     - Description: "Knows a lot"
     - Usage: "He will guide the player through his mission, with crafts, bosses pattern -> when right click-ed open a GUI which is a guide"
     - Properties: {
@@ -156,8 +156,8 @@ New entities :
         "animations": [ "idle sitting in the air (floating)" ]
     }
 
-New bosses:
-- Mountain Giant (overworld):
+<h2>New bosses:</h2>
+- <b>Mountain Giant (overworld):</b>
     - Description: "What a piece of cake !"
     - Usage: "It's easier to beat him with the Oxonium Hallebarde and the Brave boots"
     - Pattern: {
@@ -172,7 +172,7 @@ New bosses:
         "loots": { "brave\_trophy": "1", "giant\_heart": "1" }
     }
 
-- Revenge Blaze (nether):
+- <b>Revenge Blaze (nether):</b>
     - Description: "Watch out, you don't want to burn yourself !"
     - Usage: "It's easier to beat him with Allemanite items (extinguisher)"
     - Pattern: {
@@ -186,7 +186,7 @@ New bosses:
         "loots": { "firefighter\_trophy": "1", "blaze\_heart": "1" }
     }
 
-- Eye of Truth (End):
+- <b>Eye of Truth (End):</b>
     - Description: "He's watching you..."
     - Usage: "It's easier to beat him with Enderite combat items & armor"
     - Pattern: {
@@ -202,7 +202,7 @@ New bosses:
         "loots": { "eye\_eye\_eye\_trophy": "1", "chaos\_heart": "1" }
     }
 
-- Chaos Master (Thunder):
+- <b>Chaos Master (Thunder):</b>
     - Description: "So you think you can beat me huh !"
     - Usage: "Behaves like a thunder dragon"
     - Pattern: {
