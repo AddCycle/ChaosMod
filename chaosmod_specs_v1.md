@@ -157,6 +157,7 @@ Objective : Having fun through a clear lore and don't feel redundant
     }
 
 <h2>New bosses:</h2>
+
 - <b>Mountain Giant (overworld):</b>
     - Description: "What a piece of cake !"
     - Usage: "It's easier to beat him with the Oxonium Hallebarde and the Brave boots"
