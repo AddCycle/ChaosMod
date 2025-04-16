@@ -5,14 +5,14 @@
 Objective : Having fun through a clear lore and don't feel redundant
 ## The lore :
     Four overpowerered civilizations were fighting leading to gigantic battles annihilating themselves. But for what purpose were they fighting ? The Chaos Master told them to fight for the Cube of Chaos because if another tribe finds it, they will destroy the world !
-So in order to preserve peace, they had to find it first leading to massive sacrifices thinking every tribe was doing the right thing.
-All of that blood to stop the destruction of the world...
-There was something not right, and the heroes of every civilization knew it, they travelled the world instead of fighting and found 3 altars through dimensions.
-So they used these three altars to seal the Chaos Master inside the cube of chaos but seal will not least more than 1000 years. So you have to anticipate and kill the Chaos Master to stop the tyrant from destroying the world & make him pay for his crimes !
-The Goal = "Kill the guardians to awaken the Boss of the Chaos and kill him to save the honor of the past civilians"
-Conclusion = "To much ambition of power leads to annihilation"
+    So in order to preserve peace, they had to find it first leading to massive sacrifices thinking every tribe was doing the right thing.
+    All of that blood to stop the destruction of the world...
+    There was something not right, and the heroes of every civilization knew it, they travelled the world instead of fighting and found 3 altars through dimensions.
+    So they used these three altars to seal the Chaos Master inside the cube of chaos but seal will not least more than 1000 years. So you have to anticipate and kill the Chaos Master to stop the tyrant from destroying the world & make him pay for his crimes !
+    The Goal = "Kill the guardians to awaken the Boss of the Chaos and kill him to save the honor of the past civilians"
+    Conclusion = "To much ambition of power leads to annihilation"
 
-New minerals [1] :
+<h2>New minerals [1] :</h2>
  - Oxonium (1):
     - Location : Overworld, biome="Giant Mountains", inside of the mountains
     - Rarity : Uncommon (a little more than iron), max-vein-size=4
@@ -169,7 +169,7 @@ New bosses:
         "health": "100",
         "damage": { "rocks": "4", "menhirs": "8", "smash": "9" },
         "cooldown": { "rocks": "3", "menhirs": "4", "smash": "10" }
-        "loots": { "brave\_trophy": "1", "blaze\_heart": "1" }
+        "loots": { "brave\_trophy": "1", "giant\_heart": "1" }
     }
 
 - Revenge Blaze (nether):
@@ -180,8 +180,42 @@ New bosses:
         "Phase2": "Heats up to twice the temperature and throws blue flames (x3 burning time) + immune to arrows"
     }
     - Stats: {
-        "health": "100",
-        "damage": { "rocks": "4", "menhirs": "8", "smash": "9" },
-        "cooldown": { "rocks": "3", "menhirs": "4", "smash": "10" }
-        "loots": { "brave\_trophy": "1", "blaze\_heart": "1" }
+        "health": "70",
+        "damage": { "flames": "2", "blues": "4" },
+        "cooldown": { "all\_flames": "2" },
+        "loots": { "firefighter\_trophy": "1", "blaze\_heart": "1" }
+    }
+
+- Eye of Truth (End):
+    - Description: "He's watching you..."
+    - Usage: "It's easier to beat him with Enderite combat items & armor"
+    - Pattern: {
+        "Phase1": "Spawns ennemies like zombies with stuff",
+        "Phase2": "Spawns ennemies like skeletons with stuff",
+        "Phase3": "Spawns ennemies like endermans with stuff",
+        "Phase4": "Throws laser until you defeat him by shooting his eye"
+    }
+    - Stats: {
+        "health": "90",
+        "damage": { "laser": "3" },
+        "cooldown": { "laser": "5" },
+        "loots": { "eye\_eye\_eye\_trophy": "1", "chaos\_heart": "1" }
+    }
+
+- Chaos Master (Thunder):
+    - Description: "So you think you can beat me huh !"
+    - Usage: "Behaves like a thunder dragon"
+    - Pattern: {
+        "Phase1": "Basically he throws you fireballs",
+        "Phase2": "Now he throws you fireballs & fire",
+        "Phase3": "Throws thunder",
+        "Phase4": "Throws fire & thunder",
+        "Phase5": "Throws blue fire & thunder",
+        "Phase6": "Transforms into a dark-herobrine boss & comes for you by teleport and backstabbing"
+    }
+    - Stats: {
+        "health": "200",
+        "damage": { "all": "4" },
+        "cooldown": { "all": "5" },
+        "loots": { "talent\_trophy": "1", "solarite\_key": "1" }
     }
