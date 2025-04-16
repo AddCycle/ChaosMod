@@ -47,8 +47,36 @@ New minerals :
     Purposes :
         items -> [
             Enderite Tinkerer's Hammer
+            Enderite Thunder
         ];
         blocks -> [
             Enderite Bricks,
             Enderite Block
         ];
+        machines -> [
+            Enderite Forge
+        ];
+
+New items :
+    - Brave boots :
+        - Description: "You are so brave that you need these boots in case of..."
+        - Usage : "Escape the combats (like a brave)"
+        - Craft : [
+            "",
+            "f x",
+            "x x",
+        { f: "minecraft:feather", x: "chaosmod:oxonium\_ingots"}
+        ];
+        - Stats : [
+                "durability": "500",
+                "armor": "-10%",
+                "condition": "health < 20%" >> {
+                        "speed": "2",
+                        "jump\_boost": 3,
+                        "special": "not bothered by obstacles",
+                        "feather\_falling": "no damage" 
+                    }
+            ];
+
+    - Oxonium Hallebarde:
+        - Description: "Yolo, you have nothing more to lose !",
