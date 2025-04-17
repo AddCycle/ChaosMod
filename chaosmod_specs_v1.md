@@ -127,6 +127,60 @@ Goal : Having fun through a clear lore and don't feel redundant
         "cooldown": "0",
     ];
 
+- <b>Allemanite Backpack</b>
+    - Description: "Oh so you think your inventory isn't enough ?",
+    - Usage : "When right-clicked, opens a bound inventory"
+    - Craft : [
+            "aal",
+            "aal",
+            "aal",
+        { a: "chaosmod:allemanite\_ingot", l: "minecraft:leather" }
+    ];
+    - Stats : [
+        "durability": "none",
+        "slots": "chest number"
+    ];
+
+- <b>Allemanite Pickaxe</b>
+    - Description: "Dig through hell...",
+    - Usage : "Can dig 3x3 blocks when right-clicking blocks"
+    - Craft : [
+            "aaa",
+            " s ",
+            " s ",
+        { a: "chaosmod:allemanite\_ingot", s: "minecraft:stick" }
+    ];
+    - Stats : [
+        "durability": "1000",
+        "special": ""
+    ];
+
+- <b>Enderite Tinkerer's Hammer:</b>
+    - Description: "Are you an engineer now ?"
+    - Usage: "Used to build machinery : Right-click when the pattern is build to finish the assembly"
+    - Craft : [
+            "eee",
+            "ese",
+            " s ",
+        { s: "minecraft:stick", e: "chaosmod:enderite\_ingot" }
+    ];
+    - Stats : [
+        "effects": [ "heavy": "x2" ]
+    ];
+
+- <b>Enderite Thunder:</b>
+    - Description: "Throws a powerful thunder at your ennemis dealing damages"
+    - Usage: "Throwable thunder that flames your enemy with blue fire effect"
+    - Craft : [
+            "eee",
+            "ese",
+            " s ",
+        { s: "minecraft:stick", e: "chaosmod:enderite\_ingot" }
+    ];
+    - Stats : [
+        "effects": [ "heavy": "x2" ]
+    ];
+
 <h2>New blocks [2] :</h2>
 
 - <b>Oxonium Bricks:</b>
@@ -148,6 +202,61 @@ Goal : Having fun through a clear lore and don't feel redundant
             "xxx",
             "xxx",
         { x: "chaosmod:oxonium\_ingot" }
+    ];
+    - Properties: "Can be stolen by Pixou"
+
+- <b>Allemanite Bricks:</b>
+    - Description: "Decorative blocks with shining pink particles"
+    - Usage: "You can make a house with it..."
+    - Craft : [
+            "bbb",
+            "bab",
+            "bbb",
+        { b: "minecraft:bricks", a: "chaosmod:allemanite\_ingot" }
+    ];
+    - Properties: "Resists to explosions"
+
+- <b>Allemanite Block:</b>
+    - Description: "So beautiful that it may be stolen"
+    - Usage: "Pixou the duck can steal them if you are not careful enough"
+    - Craft : [
+            "aaa",
+            "aaa",
+            "aaa",
+        { a: "chaosmod:allemanite\_ingot" }
+    ];
+    - Properties: "Can be stolen by Pixou"
+
+- <b>Enderite Forge Interface Block</b>
+    - Description: "Used to forge Ancient Weapons...",
+    - Usage : "No real utility by itself"
+    - Craft : [
+        "eee",
+        "ewe",
+        "eee",
+        { "w": "minecraft:glass", "e": "chaosmod:enderite\_ingot" }
+];
+
+- <b>Enderite Bricks:</b>
+    - Description: "Decorative blocks with shining violet particles"
+    - Usage: "You can make a house with it..."
+    - Craft : [
+            "bbb",
+            "beb",
+            "bbb",
+            "count": "32",
+        { b: "minecraft:bricks", e: "chaosmod:enderite\_ingot" }
+    ];
+    - Properties: "Resists to explosions"
+
+- <b>Enderite Block:</b>
+    - Description: "So beautiful that it may be stolen"
+    - Usage: "Pixou the duck can steal them if you are not careful enough"
+    - Craft : [
+            "eee",
+            "eee",
+            "eee",
+        { e: "chaosmod:enderite\_ingot" }
     ];
     - Properties: "Can be stolen by Pixou"
 
@@ -201,7 +310,16 @@ Goal : Having fun through a clear lore and don't feel redundant
         "animations": [ "cry", "death", "attack" ]
     }
 
-<h2>New biomes [6] :</h2>
+<h2>New TileEntities [6] :</h2>
+
+<!-- FIXME -->
+- <b>Enderite Forge</b>
+    - Description: "Used to forge Ancient Weapons...",
+    - Usage : "Ancient weapons are to be added in order to fight the Chaos Master"
+    - Craft-pattern : "3x3 structure with allemanite blocks, 1 enderite inside and with a forge interface block in front"
+<!-- END OF FIXME -->
+
+<h2>New biomes [7] :</h2>
 
 - <b>Higher Mountains:</b>
     - Description: "Just a biome with cliffs and some water in bottom of them and snow on top of them with rocks and maoris totems"
@@ -221,7 +339,7 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Content: [ "dark", "some decoration blocks", "boss fight area" ]
     - Events: [ "draw a message on the screen like -> Welcome to the Chaos Fight" ]
 
-<h2>New dimension [7] :</h2>
+<h2>New dimension [8] :</h2>
 
 - <b>Chaos Land:</b>
     - Description: "It is basically just a flat world with the Chaos boss waiting for you while summoned"
