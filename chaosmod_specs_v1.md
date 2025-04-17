@@ -23,13 +23,13 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Purposes : \
         items -> [ \
             Brave boots, \
-            Oxonium Hallebarde, \
+            Oxonium Hallebard, \
             Oxonium Necklace, \
         ]; \
         blocks -> [ \
             Oxonium Bricks, \
             Oxonium Block \
-        ]; \
+        ];
 
 - <b>Allemanite (2) :</b>
     - Location : Nether, biome="Nether Cave", loot-chests="dungeon structures"
@@ -43,22 +43,22 @@ Goal : Having fun through a clear lore and don't feel redundant
         blocks -> [ \
             Allemanite Bricks, \
             Allemanite Block \
-        ]; \
+        ];
 
 - <b>Enderite (3):</b>
     Location : End, biome="Chaos Biome", inside of the Meteorites
     Rarity : Legendary (1 all the 10000 blocks radius)
-    Purposes :
-        items -> [
-            Enderite Tinkerer's Hammer
-            Enderite Thunder
-        ];
-        blocks -> [
-            Enderite Bricks,
-            Enderite Block
-        ];
-        machines -> [
-            Enderite Forge
+    Purposes : \
+        items -> [ \
+            Enderite Tinkerer's Hammer \
+            Enderite Thunder \
+        ]; \
+        blocks -> [ \
+            Enderite Bricks, \
+            Enderite Block \
+        ]; \
+        machines -> [ \
+            Enderite Forge \
         ];
 
 <h2>New items [3] :</h2>
@@ -83,7 +83,7 @@ Goal : Having fun through a clear lore and don't feel redundant
         }
     ];
 
-- <b>Oxonium Hallebarde:</b>
+- <b>Oxonium Hallebard:</b>
     - Description: "Yolo, you have nothing more to lose !",
     - Usage : "When right-click the ground, it does an AOE attack that stunts the ennemis in range"
     - Craft : [
@@ -113,6 +113,20 @@ Goal : Having fun through a clear lore and don't feel redundant
         "effects": [ "regeneration": "1" ]
     ];
 
+- <b>Allemanite Extinguisher:</b>
+    - Description: "OMG, this thing is my safety belt...",
+    - Usage : "When right-click the ground, it cool you down ?"
+    - Craft : [
+            "aai",
+            "aa ",
+            "aa ",
+        { a: "chaosmod:allemanite\_ingot", i: "minecraft:iron\_ingot" }
+    ];
+    - Stats : [
+        "durability": "10",
+        "cooldown": "0",
+    ];
+
 <h2>New blocks [2] :</h2>
 
 - <b>Oxonium Bricks:</b>
@@ -137,7 +151,7 @@ Goal : Having fun through a clear lore and don't feel redundant
     ];
     - Properties: "Can be stolen by Pixou"
 
-<h2>New entities :</h2>
+<h2>New entities [4] :</h2>
 
 - <b>Pixou:</b>
     - Description: "A little duck that steals your precious ressources"
@@ -163,11 +177,62 @@ Goal : Having fun through a clear lore and don't feel redundant
         "animations": [ "idle sitting in the air (floating)" ]
     }
 
-<h2>New bosses:</h2>
+- <b>Vikings</b>
+    - Description: "So basically, I was terrifying people"
+    - Usage: "This pnj will give you a quest, then when you complete it, your stats with certain items will change"
+    - Properties: {
+        "location": "Structure -> Raid ships",
+        "passive": true,
+        "health": "30",
+        "attack": "4",
+        "sound": "azeroth\_sound",
+        "animations": [ "attack", "death", "on\_kill\_player" ],
+    }
+
+- <b>Little Big giants</b>
+    - Description: "Next time you see me, I will be tall as the tree..."
+    - Usage: "This pnj will give you a quest, then when you complete it, your stats with certain items will change"
+    - Properties: {
+        "location": "Structure -> Giant Mountain caves hut",
+        "passive": true,
+        "health": "20",
+        "attack": "1",
+        "sound": "caveman\_sound",
+        "animations": [ "cry", "death", "attack" ]
+    }
+
+<h2>New biomes [6] :</h2>
+
+- <b>Higher Mountains:</b>
+    - Description: "Just a biome with cliffs and some water in bottom of them and snow on top of them with rocks and maoris totems"
+    - Usage: "Find a flat structure containing an altar in order to spawn the Mountain Giant"
+    - Content: [ "Winter trees", "caves", "boss fight area" ]
+    - Events: ["draw a message on the screen like -> Welcome to the Giant Mountains"]
+
+- <b>Nether Caves</b>
+    - Description: "No air surrounding it just in the netherrack, some caves dig into, containing mobs and some loots"
+    - Usage: "Inside the structures, you can find an altar to summon the Nether Revenger Blaze"
+    - Content: [ "light", "some decoration blocks", "boss fight area" ]
+    - Events: [ "draw a message on the screen like -> Welcome inside the Nether Caves" ]
+
+- <b>Chaos Biome</b>
+    - Description: "So when you kill the Ender Dragon, you and you team will be teleported to a platform watching the boss area platform will be rebuilt to a new Chaos Biome"
+    - Usage: "You can only find the eye looking towards you in the center summoned by the altar"
+    - Content: [ "dark", "some decoration blocks", "boss fight area" ]
+    - Events: [ "draw a message on the screen like -> Welcome to the Chaos Fight" ]
+
+<h2>New dimension [7] :</h2>
+
+- <b>Chaos Land:</b>
+    - Description: "It is basically just a flat world with the Chaos boss waiting for you while summoned"
+    - Properties: "Some dark trees, dark environnement, only some small lights"
+    - Events: [ "when killing the boss -> Congratulations ! You have killed the boss !" then "teleports you to the overworld" ]
+
+<h2>New bosses [5] :</h2>
 
 - <b>Mountain Giant (overworld):</b>
     - Description: "What a piece of cake !"
-    - Usage: "It's easier to beat him with the Oxonium Hallebarde and the Brave boots"
+    - Usage: "It's easier to beat him with the Oxonium Hallebard and the Brave boots"
     - Pattern: {
         "Phase1": "Throws rocks at players",
         "Phase2": "Throws menhirs at players which does x2 damage",
