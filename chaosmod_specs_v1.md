@@ -56,6 +56,7 @@ Goal : Having fun through a clear lore and don't feel redundant
         blocks -> [ \
             Enderite Bricks, \
             Enderite Block \
+            Enderite Forge Interface Block \
         ]; \
         machines -> [ \
             Enderite Forge \
@@ -333,13 +334,32 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Content: [ "light", "some decoration blocks", "boss fight area" ]
     - Events: [ "draw a message on the screen like -> Welcome inside the Nether Caves" ]
 
+- <b>Ender Garden</b>
+    - Description: "Ender biome garden with flowers, grass, lights"
+    - Usage: "Just a decoration biome"
+    - Content: [ "light", "some decoration blocks", "boss fight area" ]
+    - Events: [ "draw a message on the screen like -> Welcome to the Chaos Fight" ]
+
 - <b>Chaos Biome</b>
     - Description: "So when you kill the Ender Dragon, you and you team will be teleported to a platform watching the boss area platform will be rebuilt to a new Chaos Biome"
     - Usage: "You can only find the eye looking towards you in the center summoned by the altar"
     - Content: [ "dark", "some decoration blocks", "boss fight area" ]
     - Events: [ "draw a message on the screen like -> Welcome to the Chaos Fight" ]
 
-<h2>New dimension [8] :</h2>
+<h2>New Structures [8] :</h2>
+
+- <b>Cup of the World - Mountain Giant spawning area : </b>
+    - Properties : "A large flat area like a frozen colloseum that is quite big but not too much because we want a fight preventing the escape too far from the boss"
+    - Special : "An altar in the center to spawn the Giant boss"
+
+- <b>Nether Boss chamber : </b>
+    - Properties : "Just a chamber quite large to grants dodging capacity to the player inside the Nether caves that prevents the boss and the player from escaping"
+    - Special : "An altar in the center to spawn the Giant boss"
+
+- <b>End fortresses :</b>
+    - Properties : "Just a chamber fortress like the Nether one but with monster waves mechanics, when the player enters it, the chamber locks its door and then all the players have to die to unlock itself again for another attempt"
+
+<h2>New dimension [9] :</h2>
 
 - <b>Chaos Land:</b>
     - Description: "It is basically just a flat world with the Chaos boss waiting for you while summoned"
