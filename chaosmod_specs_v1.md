@@ -311,7 +311,7 @@ Goal : Having fun through a clear lore and don't feel redundant
         "animations": [ "cry", "death", "attack" ]
     }
 
-<h2>New TileEntities [6] :</h2>
+<h2>New Tileentities [6] :</h2>
 
 <!-- FIXME -->
 - <b>Enderite Forge</b>
@@ -319,6 +319,26 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Usage : "Ancient weapons are to be added in order to fight the Chaos Master"
     - Craft-pattern : "3x3 structure with allemanite blocks, 1 enderite inside and with a forge interface block in front"
 <!-- END OF FIXME -->
+
+- <b>Brave Trophy</b>
+    - Description : "You don't look that strong"
+    - Usage : "Just a decorative trophy from the boss, grants a special effect +10% health",
+    - Dropped by : "Mountain Giant
+
+- <b>Firefighter Trophy</b>
+    - Description : "What a pity accomplishment"
+    - Usage : "Just a decorative trophy from the boss, grants fire resistance",
+    - Dropped by : "Nether boss"
+
+- <b>Eye eye eye Trophy</b>
+    - Description : "I'm looking at you..."
+    - Usage : "Just a decorative trophy from the boss, grants a special effect +10% strengh",
+    - Dropped by : "Eye of Truth"
+
+- <b>Talent Trophy</b>
+    - Description : "So you though this was the outcome..."
+    - Usage : "Just a decorative trophy from the boss, grants a special effect you are immune to debuffs",
+    - Dropped by : "Chaos Master (Thunder)"
 
 <h2>New biomes [7] :</h2>
 
