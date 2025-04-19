@@ -615,3 +615,4 @@ Goal : Having fun through a clear lore and don't feel redundant
 
 - When I finish everything, I will work on the sound effects & other stuff improvement
     - Because it needs a version on release and another unofficial version for us to play with friends and copyrighted musics and sounds :(
+    - Ideas (ambient sounds) : [ "jjk gojo purple hollow", "minecraft popular music", "courtesy call", "fire force op 1", "fairy tail fiesta" ]
