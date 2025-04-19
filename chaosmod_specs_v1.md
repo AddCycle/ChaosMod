@@ -23,8 +23,10 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Purposes : \
         items -> [ \
             Brave boots, \
+            Brave helmet, \
             Oxonium Hallebard, \
             Oxonium Necklace, \
+            Oxonium Bow, \
         ]; \
         blocks -> [ \
             Oxonium Bricks, \
@@ -81,6 +83,37 @@ Goal : Having fun through a clear lore and don't feel redundant
             "jump\_boost": 3,
             "special": "not bothered by obstacles",
             "feather\_falling": "no damage" 
+        }
+    ];
+
+- <b>Oxonium Security helmet :</b>
+    - Description: "The sky is falling on us heads... (asterix)"
+    - Usage : "Takes -10% damage from falling rocks"
+    - Craft : [
+            "",
+            "xxx",
+            "x x",
+        { x: "chaosmod:oxonium\_ingot"}
+    ];
+    - Stats : [
+        "durability": "150",
+        "special": "-10% damage rocks"
+    ];
+
+- <b>Brave Bow :</b>
+    - Description: "You are so brave that you needed this..."
+    - Usage : "Shoots the boss (like a brave)"
+    - Craft : [
+            "fx ",
+            "f x",
+            "fx ",
+        { f: "minecraft:feather", x: "chaosmod:oxonium\_ingot"}
+    ];
+    - Stats : [
+        "durability": "400" (a bit more than the original bow),
+        "armor": "-25%",
+        "condition": "health < 40%" >> {
+            "special": "deals x2 damage",
         }
     ];
 
