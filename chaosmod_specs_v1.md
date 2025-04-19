@@ -182,6 +182,21 @@ Goal : Having fun through a clear lore and don't feel redundant
         "effects": [ "heavy": "x2" ]
     ];
 
+- <b>Giant heart</b>
+    - Description : "Doug doug"
+    - Usage : "In order to spawn the Nether blaze boss",
+    - Dropped by : "Mountain Giant"
+
+- <b>Blaze Heart</b>
+    - Description : "Doug doug"
+    - Usage : "To spawn the Eye of Truth boss",
+    - Dropped by : "Nether boss"
+
+- <b>Chaos Heart</b>
+    - Description : "Doug doug"
+    - Usage : "To spawn the Chaos Master",
+    - Dropped by : "Eye of Truth"
+
 <h2>New blocks [2] :</h2>
 
 - <b>Oxonium Bricks:</b>
@@ -339,6 +354,10 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Description : "So you though this was the outcome..."
     - Usage : "Just a decorative trophy from the boss, grants a special effect you are immune to debuffs",
     - Dropped by : "Chaos Master (Thunder)"
+
+- <b>Ender flowers :</b>
+    - Description : "3 decorative flowers : GOLD, GREEN, DARK\_VIOLET"
+    - Usage : "In order to decorate the Ender Garden biome",
 
 <h2>New biomes [7] :</h2>
 
