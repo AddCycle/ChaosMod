@@ -41,6 +41,7 @@ Goal : Having fun through a clear lore and don't feel redundant
             Allemanite Extinguisher, \
             Allemanite Backpack, \
             Allemanite Pickaxe, \
+            Allemanite Sword \
         ]; \
         blocks -> [ \
             Allemanite Bricks, \
@@ -189,6 +190,20 @@ Goal : Having fun through a clear lore and don't feel redundant
         "special": ""
     ];
 
+- <b>Allemanite Sword</b>
+    - Description: "Kills through hell...",
+    - Usage : "Burns the ennemies"
+    - Craft : [
+            " a ",
+            " a ",
+            " s ",
+        { a: "chaosmod:allemanite\_ingot", s: "minecraft:stick" }
+    ];
+    - Stats : [
+        "durability": "4000",
+        "special": "burns ennemies with red flames (visual effect only)"
+    ];
+
 - <b>Enderite Tinkerer's Hammer:</b>
     - Description: "Are you an engineer now ?"
     - Usage: "Used to build machinery : Right-click when the pattern is build to finish the assembly"
@@ -213,6 +228,38 @@ Goal : Having fun through a clear lore and don't feel redundant
     ];
     - Stats : [
         "effects": [ "heavy": "x2" ]
+    ];
+
+- <b>All-in-one Bow :</b>
+    - Description: "I waited so long to have it"
+    - Usage : "Grants speed + burns enemies with blue flames"
+    - Craft : [
+            "fx ",
+            "f e",
+            "fa ",
+        { f: "minecraft:feather", x: "chaosmod:oxonium\_ingot", a: "allemanite\_ingot", e: "enderite\_ingot"}
+    ];
+    - Stats : [
+        "durability": "unbreakable"
+        "condition": "after 10 arrows, a special one that deals x3 damage with a 50% chance" >> {
+            "special": "deals x3 damage",
+        }
+    ];
+
+- <b>All-in-one Sword :</b>
+    - Description: "I waited so long to have it"
+    - Usage : "Grants jump boost (II) + burns enemies with blue flames + knockback (II)"
+    - Craft : [
+            " xe",
+            " ea",
+            "s  ",
+        { s: "minecraft:stick", x: "chaosmod:oxonium\_ingot", a: "allemanite\_ingot", e: "enderite\_ingot"}
+    ];
+    - Stats : [
+        "durability": "unbreakable"
+        "condition": "after 10 hits, a special one that deals no damage 100% but with a knockback 5 with a 50% chance" >> {
+            "special": "kb 5",
+        }
     ];
 
 - <b>Giant heart</b>
