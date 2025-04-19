@@ -610,3 +610,8 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Description: "It is basically just a flat world with the Chaos boss waiting for you while summoned"
     - Properties: "Some dark trees, dark environnement, only some small lights"
     - Events: [ "when killing the boss -> Congratulations ! You have killed the boss !" then "teleports you to the overworld" ]
+
+<h2>Sound Effects [11] :</h2>
+
+- When I finish everything, I will work on the sound effects & other stuff improvement
+    - Because it needs a version on release and another unofficial version for us to play with friends and copyrighted musics and sounds :(
