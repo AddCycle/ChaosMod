@@ -529,6 +529,11 @@ Goal : Having fun through a clear lore and don't feel redundant
 
 <h2>New Tileentities [7] :</h2>
 
+- <b>Boss Altar</b>
+    - Description: "An ancient artifact to summon bosses"
+    - Usage : "Right-Click without item + overworld -> Mountain Giant | heart + dimension = hard"
+    - Craft-pattern : "None"
+
 <!-- FIXME -->
 - <b>Enderite Forge</b>
     - Description: "Used to forge Ancient Weapons...",
