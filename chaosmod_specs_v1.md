@@ -22,15 +22,15 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Rarity : Uncommon (a little more than iron), max-vein-size=4
     - Purposes : \
         items -> [ \
-            Brave boots, \
-            Brave helmet, \
-            Oxonium Hallebard, \
-            Oxonium Necklace, \
-            Oxonium Bow, \
+            \tBrave boots, \
+            \tBrave helmet, \
+            \tOxonium Hallebard, \
+            \tOxonium Necklace, \
+            \tOxonium Bow, \
         ]; \
         blocks -> [ \
-            Oxonium Bricks, \
-            Oxonium Block \
+            \tOxonium Bricks, \
+            \tOxonium Block \
         ];
 
 - <b>Allemanite (2) :</b>
@@ -53,17 +53,129 @@ Goal : Having fun through a clear lore and don't feel redundant
     Rarity : Legendary (1 all the 10000 blocks radius)
     Purposes : \
         items -> [ \
-            Enderite Tinkerer's Hammer \
-            Enderite Thunder \
+            \tEnderite Tinkerer's Hammer \
+            \tEnderite Thunder \
         ]; \
         blocks -> [ \
-            Enderite Bricks, \
-            Enderite Block \
-            Enderite Forge Interface Block \
+            \tEnderite Bricks, \
+            \tEnderite Block \
+            \tEnderite Forge Interface Block \
         ]; \
         machines -> [ \
             Enderite Forge \
         ];
+
+<h2>New blocks [2] :</h2>
+
+- <b>Oxonium Bricks:</b>
+    - Description: "Decorative blocks with shining blue particles"
+    - Usage: "You can make a house with it..."
+    - Craft : [
+            "bbb",
+            "bxb",
+            "bbb",
+        { b: "minecraft:bricks", x: "chaosmod:oxonium\_ingot" }
+    ];
+    - Properties: "Resists to explosions"
+
+- <b>Oxonium Block:</b>
+    - Description: "So beautiful that it may be stolen"
+    - Usage: "Pixou the duck can steal them if you are not careful enough"
+    - Craft : [
+            "xxx",
+            "xxx",
+            "xxx",
+        { x: "chaosmod:oxonium\_ingot" }
+    ];
+    - Properties: "Can be stolen by Pixou"
+
+- <b>Allemanite Bricks:</b>
+    - Description: "Decorative blocks with shining pink particles"
+    - Usage: "You can make a house with it..."
+    - Craft : [
+            "bbb",
+            "bab",
+            "bbb",
+        { b: "minecraft:bricks", a: "chaosmod:allemanite\_ingot" }
+    ];
+    - Properties: "Resists to explosions"
+
+- <b>Allemanite Block:</b>
+    - Description: "So beautiful that it may be stolen"
+    - Usage: "Pixou the duck can steal them if you are not careful enough"
+    - Craft : [
+            "aaa",
+            "aaa",
+            "aaa",
+        { a: "chaosmod:allemanite\_ingot" }
+    ];
+    - Properties: "Can be stolen by Pixou"
+
+- <b>Enderite Forge Interface Block</b>
+    - Description: "Used to forge Ancient Weapons...",
+    - Usage : "No real utility by itself"
+    - Craft : [
+        "eee",
+        "ewe",
+        "eee",
+        { "w": "minecraft:glass", "e": "chaosmod:enderite\_ingot" }
+];
+
+- <b>Enderite Bricks:</b>
+    - Description: "Decorative blocks with shining violet particles"
+    - Usage: "You can make a house with it..."
+    - Craft : [
+            "bbb",
+            "beb",
+            "bbb",
+            "count": "32",
+        { b: "minecraft:bricks", e: "chaosmod:enderite\_ingot" }
+    ];
+    - Properties: "Resists to explosions"
+
+- <b>Enderite Block:</b>
+    - Description: "So beautiful that it may be stolen"
+    - Usage: "Pixou the duck can steal them if you are not careful enough"
+    - Craft : [
+            "eee",
+            "eee",
+            "eee",
+        { e: "chaosmod:enderite\_ingot" }
+    ];
+    - Properties: "Can be stolen by Pixou"
+
+- <b>Rainbow grass :</b>
+    - Description: "Has a random light colored tint when put"
+    - Usage: "Random color (not dark) + resists to explosions (decorates the Ender Garden biome)"
+    - Craft : [
+            "bbb",
+            "bdb",
+            "bbb",
+        { d: "minecraft:dirt", b: "minecraft:bone\_meal" }
+    ];
+    - Properties: "Resists to explosions"
+
+- <b>Colored logs :</b>
+    - Description: "3 colors : red, blue, dark\_violet"
+    - Usage: "decorates the Ender garden biome"
+    - Craft : [
+            "bbb",
+            "blb",
+            "bbb",
+        { l: "minecraft:leaves", b: "minecraft:bone\_meal" }
+    ];
+    - Properties: "Resists to explosions"
+
+- <b>Colored leaves :</b>
+    - Description: "3 colors : red, blue, dark\_violet"
+    - Usage: "decorates the Ender garden biome"
+    - Craft : [
+            "bbb",
+            "blb",
+            "bbb",
+        { l: "minecraft:log", b: "minecraft:bone\_meal" }
+    ];
+    - Properties: "Resists to explosions"
 
 <h2>New items [3] :</h2>
 
@@ -277,119 +389,72 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Usage : "To spawn the Chaos Master",
     - Dropped by : "Eye of Truth"
 
-<h2>New blocks [2] :</h2>
+<h2>New bosses [4] :</h2>
 
-- <b>Oxonium Bricks:</b>
-    - Description: "Decorative blocks with shining blue particles"
-    - Usage: "You can make a house with it..."
-    - Craft : [
-            "bbb",
-            "bxb",
-            "bbb",
-        { b: "minecraft:bricks", x: "chaosmod:oxonium\_ingot" }
-    ];
-    - Properties: "Resists to explosions"
+- <b>Mountain Giant (overworld):</b>
+    - Description: "What a piece of cake !"
+    - Usage: "It's easier to beat him with the Oxonium Hallebard and the Brave boots"
+    - Pattern: {
+        "Phase1": "Throws rocks at players",
+        "Phase2": "Throws menhirs at players which does x2 damage",
+        "Phase3": "Adds to that smashing the floor which send the in range players flying"
+    }
+    - Stats: {
+        "health": "100",
+        "damage": { "rocks": "4", "menhirs": "8", "smash": "9" },
+        "cooldown": { "rocks": "3", "menhirs": "4", "smash": "10" }
+        "loots": { "brave\_trophy": "1", "giant\_heart": "1" }
+    }
 
-- <b>Oxonium Block:</b>
-    - Description: "So beautiful that it may be stolen"
-    - Usage: "Pixou the duck can steal them if you are not careful enough"
-    - Craft : [
-            "xxx",
-            "xxx",
-            "xxx",
-        { x: "chaosmod:oxonium\_ingot" }
-    ];
-    - Properties: "Can be stolen by Pixou"
+- <b>Revenge Blaze (nether):</b>
+    - Description: "Watch out, you don't want to burn yourself !"
+    - Usage: "It's easier to beat him with Allemanite items (extinguisher)"
+    - Pattern: {
+        "Phase1": "Throws flames at players like a normal blaze",
+        "Phase2": "Heats up to twice the temperature and throws blue flames (x3 burning time) + immune to arrows"
+    }
+    - Stats: {
+        "health": "70",
+        "damage": { "flames": "2", "blues": "4" },
+        "cooldown": { "all\_flames": "2" },
+        "loots": { "firefighter\_trophy": "1", "blaze\_heart": "1" }
+    }
 
-- <b>Allemanite Bricks:</b>
-    - Description: "Decorative blocks with shining pink particles"
-    - Usage: "You can make a house with it..."
-    - Craft : [
-            "bbb",
-            "bab",
-            "bbb",
-        { b: "minecraft:bricks", a: "chaosmod:allemanite\_ingot" }
-    ];
-    - Properties: "Resists to explosions"
+- <b>Eye of Truth (End):</b>
+    - Description: "He's watching you..."
+    - Usage: "It's easier to beat him with Enderite combat items & armor"
+    - Pattern: {
+        "Phase1": "Spawns ennemies like zombies with stuff",
+        "Phase2": "Spawns ennemies like skeletons with stuff",
+        "Phase3": "Spawns ennemies like endermans with stuff",
+        "Phase4": "Throws laser until you defeat him by shooting his eye"
+    }
+    - Stats: {
+        "health": "90",
+        "damage": { "laser": "3" },
+        "cooldown": { "laser": "5" },
+        "loots": { "eye\_eye\_eye\_trophy": "1", "chaos\_heart": "1" }
+    }
 
-- <b>Allemanite Block:</b>
-    - Description: "So beautiful that it may be stolen"
-    - Usage: "Pixou the duck can steal them if you are not careful enough"
-    - Craft : [
-            "aaa",
-            "aaa",
-            "aaa",
-        { a: "chaosmod:allemanite\_ingot" }
-    ];
-    - Properties: "Can be stolen by Pixou"
+- <b>Chaos Master (Thunder):</b>
+    - Description: "So you think you can beat me huh !"
+    - Usage: "Behaves like a thunder dragon"
+    - Pattern: {
+        "Phase1": "Basically he throws you fireballs",
+        "Phase2": "Now he throws you fireballs & fire",
+        "Phase3": "Throws thunder",
+        "Phase4": "Throws fire & thunder",
+        "Phase5": "Throws blue fire & thunder",
+        "Phase6": "Transforms into a dark-herobrine boss & comes for you by teleport and backstabbing"
+    }
+    - Stats: {
+        "health": "200",
+        "damage": { "all": "4" },
+        "cooldown": { "all": "5" },
+        "loots": { "talent\_trophy": "1", "solarite\_key": "1" }
+    }
 
-- <b>Enderite Forge Interface Block</b>
-    - Description: "Used to forge Ancient Weapons...",
-    - Usage : "No real utility by itself"
-    - Craft : [
-        "eee",
-        "ewe",
-        "eee",
-        { "w": "minecraft:glass", "e": "chaosmod:enderite\_ingot" }
-];
-
-- <b>Enderite Bricks:</b>
-    - Description: "Decorative blocks with shining violet particles"
-    - Usage: "You can make a house with it..."
-    - Craft : [
-            "bbb",
-            "beb",
-            "bbb",
-            "count": "32",
-        { b: "minecraft:bricks", e: "chaosmod:enderite\_ingot" }
-    ];
-    - Properties: "Resists to explosions"
-
-- <b>Enderite Block:</b>
-    - Description: "So beautiful that it may be stolen"
-    - Usage: "Pixou the duck can steal them if you are not careful enough"
-    - Craft : [
-            "eee",
-            "eee",
-            "eee",
-        { e: "chaosmod:enderite\_ingot" }
-    ];
-    - Properties: "Can be stolen by Pixou"
-
-- <b>Rainbow grass :</b>
-    - Description: "Has a random light colored tint when put"
-    - Usage: "Random color (not dark) + resists to explosions (decorates the Ender Garden biome)"
-    - Craft : [
-            "bbb",
-            "bdb",
-            "bbb",
-        { d: "minecraft:dirt", b: "minecraft:bone\_meal" }
-    ];
-    - Properties: "Resists to explosions"
-
-- <b>Colored logs :</b>
-    - Description: "3 colors : red, blue, dark\_violet"
-    - Usage: "decorates the Ender garden biome"
-    - Craft : [
-            "bbb",
-            "blb",
-            "bbb",
-        { l: "minecraft:leaves", b: "minecraft:bone\_meal" }
-    ];
-    - Properties: "Resists to explosions"
-
-- <b>Colored leaves :</b>
-    - Description: "3 colors : red, blue, dark\_violet"
-    - Usage: "decorates the Ender garden biome"
-    - Craft : [
-            "bbb",
-            "blb",
-            "bbb",
-        { l: "minecraft:log", b: "minecraft:bone\_meal" }
-    ];
-    - Properties: "Resists to explosions"
-
-<h2>New entities [4] :</h2>
+<h2>New entities [5] :</h2>
 
 - <b>Pixou:</b>
     - Description: "A little duck that steals your precious ressources"
@@ -517,68 +582,3 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Description: "It is basically just a flat world with the Chaos boss waiting for you while summoned"
     - Properties: "Some dark trees, dark environnement, only some small lights"
     - Events: [ "when killing the boss -> Congratulations ! You have killed the boss !" then "teleports you to the overworld" ]
-
-<h2>New bosses [5] :</h2>
-
-- <b>Mountain Giant (overworld):</b>
-    - Description: "What a piece of cake !"
-    - Usage: "It's easier to beat him with the Oxonium Hallebard and the Brave boots"
-    - Pattern: {
-        "Phase1": "Throws rocks at players",
-        "Phase2": "Throws menhirs at players which does x2 damage",
-        "Phase3": "Adds to that smashing the floor which send the in range players flying"
-    }
-    - Stats: {
-        "health": "100",
-        "damage": { "rocks": "4", "menhirs": "8", "smash": "9" },
-        "cooldown": { "rocks": "3", "menhirs": "4", "smash": "10" }
-        "loots": { "brave\_trophy": "1", "giant\_heart": "1" }
-    }
-
-- <b>Revenge Blaze (nether):</b>
-    - Description: "Watch out, you don't want to burn yourself !"
-    - Usage: "It's easier to beat him with Allemanite items (extinguisher)"
-    - Pattern: {
-        "Phase1": "Throws flames at players like a normal blaze",
-        "Phase2": "Heats up to twice the temperature and throws blue flames (x3 burning time) + immune to arrows"
-    }
-    - Stats: {
-        "health": "70",
-        "damage": { "flames": "2", "blues": "4" },
-        "cooldown": { "all\_flames": "2" },
-        "loots": { "firefighter\_trophy": "1", "blaze\_heart": "1" }
-    }
-
-- <b>Eye of Truth (End):</b>
-    - Description: "He's watching you..."
-    - Usage: "It's easier to beat him with Enderite combat items & armor"
-    - Pattern: {
-        "Phase1": "Spawns ennemies like zombies with stuff",
-        "Phase2": "Spawns ennemies like skeletons with stuff",
-        "Phase3": "Spawns ennemies like endermans with stuff",
-        "Phase4": "Throws laser until you defeat him by shooting his eye"
-    }
-    - Stats: {
-        "health": "90",
-        "damage": { "laser": "3" },
-        "cooldown": { "laser": "5" },
-        "loots": { "eye\_eye\_eye\_trophy": "1", "chaos\_heart": "1" }
-    }
-
-- <b>Chaos Master (Thunder):</b>
-    - Description: "So you think you can beat me huh !"
-    - Usage: "Behaves like a thunder dragon"
-    - Pattern: {
-        "Phase1": "Basically he throws you fireballs",
-        "Phase2": "Now he throws you fireballs & fire",
-        "Phase3": "Throws thunder",
-        "Phase4": "Throws fire & thunder",
-        "Phase5": "Throws blue fire & thunder",
-        "Phase6": "Transforms into a dark-herobrine boss & comes for you by teleport and backstabbing"
-    }
-    - Stats: {
-        "health": "200",
-        "damage": { "all": "4" },
-        "cooldown": { "all": "5" },
-        "loots": { "talent\_trophy": "1", "solarite\_key": "1" }
-    }
