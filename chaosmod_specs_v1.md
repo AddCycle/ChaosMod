@@ -454,7 +454,30 @@ Goal : Having fun through a clear lore and don't feel redundant
         "loots": { "talent\_trophy": "1", "solarite\_key": "1" }
     }
 
-<h2>New entities [5] :</h2>
+<h2>New GUIs [5] :</h2>
+
+- <b>Chaos Sage interface :</b>
+    - Usage: "An interface in order to display the recipies/lore/bosses/tips..."
+    - Properties : {
+        "height": "100%",
+        "weight": "100%",
+        "background": "dark-transparent"
+    }
+
+- <b>Vikings quest interface :</b>
+    - Usage: "An interface in to describe the quest & dispose the items"
+    - Properties : {
+        "height": "100%",
+        "weight": "100%",
+        "background": "dark-transparent"
+    }
+
+- <b>Enderite Forge :</b>
+    - Description: "A basic crafting table I think"
+    - Usage: "A classic interface with 1 output to then craft All-in-one items"
+    - Properties : {}
+
+<h2>New entities [6] :</h2>
 
 - <b>Pixou:</b>
     - Description: "A little duck that steals your precious ressources"
@@ -504,7 +527,7 @@ Goal : Having fun through a clear lore and don't feel redundant
         "animations": [ "cry", "death", "attack" ]
     }
 
-<h2>New Tileentities [6] :</h2>
+<h2>New Tileentities [7] :</h2>
 
 <!-- FIXME -->
 - <b>Enderite Forge</b>
@@ -537,7 +560,7 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Description : "3 decorative flowers : GOLD, GREEN, DARK\_VIOLET"
     - Usage : "In order to decorate the Ender Garden biome",
 
-<h2>New biomes [7] :</h2>
+<h2>New biomes [8] :</h2>
 
 - <b>Higher Mountains:</b>
     - Description: "Just a biome with cliffs and some water in bottom of them and snow on top of them with rocks and maoris totems"
@@ -563,7 +586,7 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Content: [ "dark", "some decoration blocks", "boss fight area" ]
     - Events: [ "draw a message on the screen like -> Welcome to the Chaos Fight" ]
 
-<h2>New Structures [8] :</h2>
+<h2>New Structures [9] :</h2>
 
 - <b>Cup of the World - Mountain Giant spawning area : </b>
     - Properties : "A large flat area like a frozen colloseum that is quite big but not too much because we want a fight preventing the escape too far from the boss"
@@ -576,7 +599,7 @@ Goal : Having fun through a clear lore and don't feel redundant
 - <b>End fortresses :</b>
     - Properties : "Just a chamber fortress like the Nether one but with monster waves mechanics, when the player enters it, the chamber locks its door and then all the players have to die to unlock itself again for another attempt"
 
-<h2>New dimension [9] :</h2>
+<h2>New dimension [10] :</h2>
 
 - <b>Chaos Land:</b>
     - Description: "It is basically just a flat world with the Chaos boss waiting for you while summoned"
