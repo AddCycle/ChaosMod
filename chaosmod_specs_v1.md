@@ -22,15 +22,15 @@ Goal : Having fun through a clear lore and don't feel redundant
     - Rarity : Uncommon (a little more than iron), max-vein-size=4
     - Purposes : \
         items -> [ \
-            emsp Brave boots, \
-            emsp Brave helmet, \
-            emsp Oxonium Hallebard, \
-            emsp Oxonium Necklace, \
-            emsp Oxonium Bow, \
+            &emsp;Brave boots, \
+            &emsp;Brave helmet, \
+            &emsp;Oxonium Hallebard, \
+            &emsp;Oxonium Necklace, \
+            &emsp;Oxonium Bow, \
         ]; \
         blocks -> [ \
-            emsp Oxonium Bricks, \
-            emsp Oxonium Block \
+            &emsp;Oxonium Bricks, \
+            &emsp;Oxonium Block \
         ];
 
 - <b>Allemanite (2) :</b>
