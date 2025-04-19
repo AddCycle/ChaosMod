@@ -356,6 +356,39 @@ Goal : Having fun through a clear lore and don't feel redundant
     ];
     - Properties: "Can be stolen by Pixou"
 
+- <b>Rainbow grass :</b>
+    - Description: "Has a random light colored tint when put"
+    - Usage: "Random color (not dark) + resists to explosions (decorates the Ender Garden biome)"
+    - Craft : [
+            "bbb",
+            "bdb",
+            "bbb",
+        { d: "minecraft:dirt", b: "minecraft:bone\_meal" }
+    ];
+    - Properties: "Resists to explosions"
+
+- <b>Colored logs :</b>
+    - Description: "3 colors : red, blue, dark\_violet"
+    - Usage: "decorates the Ender garden biome"
+    - Craft : [
+            "bbb",
+            "blb",
+            "bbb",
+        { l: "minecraft:leaves", b: "minecraft:bone\_meal" }
+    ];
+    - Properties: "Resists to explosions"
+
+- <b>Colored leaves :</b>
+    - Description: "3 colors : red, blue, dark\_violet"
+    - Usage: "decorates the Ender garden biome"
+    - Craft : [
+            "bbb",
+            "blb",
+            "bbb",
+        { l: "minecraft:log", b: "minecraft:bone\_meal" }
+    ];
+    - Properties: "Resists to explosions"
+
 <h2>New entities [4] :</h2>
 
 - <b>Pixou:</b>
