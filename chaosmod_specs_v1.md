@@ -616,3 +616,6 @@ Goal : Having fun through a clear lore and don't feel redundant
 - When I finish everything, I will work on the sound effects & other stuff improvement
     - Because it needs a version on release and another unofficial version for us to play with friends and copyrighted musics and sounds :(
     - Ideas (ambient sounds) : [ "jjk gojo purple hollow", "minecraft popular music", "courtesy call", "fire force op 1", "fairy tail fiesta" ]
+
+**Amazing idea, so if JeanRobertPerez is upgrading his mod in newer versions, I will add when you draw a weapon, it plays the sound from Ted 2 FILM scene when TED fires with the gun ! \
+Very funny scene if you want my opinion !!**
