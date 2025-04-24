@@ -32,10 +32,14 @@ tile.oxonium_stairs.name=Oxonium Stairs
 tile.allemanite_block.name=Bloc d'Allemanite
 tile.enderite_ore.name=Minerais d'Enderite
 tile.enderite_block.name=Block d'Enderite
+tile.oxonium_bricks.name=Brique en Oxonium
+tile.allemanite_bricks.name=Brique en Allemanite
+tile.enderite_bricks.name=Brique en Enderite
 
 // TileEntities (Machines for the moment)
 tile.oxonium_furnace.name=Four en Oxonium
 tile.oxonium_chest.name=Coffre en Oxonium
+tile.boss_altar.name=Autel des Boss
 
 // Entities
 entity.forge_guardian.name=Gardien de la Forge du Chaos
