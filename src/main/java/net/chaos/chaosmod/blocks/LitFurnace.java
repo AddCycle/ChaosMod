@@ -38,7 +38,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import util.IHasModel;
 import util.Reference;
 
-public class LitFurnace extends BlockContainer implements IHasModel {
+// on implementera plus tard le IHasModel apres avoir regle le JEI FIXME
+public class LitFurnace extends BlockContainer {
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public static final PropertyBool LIT = PropertyBool.create("lit");
     private final boolean isBurning;
@@ -59,10 +60,11 @@ public class LitFurnace extends BlockContainer implements IHasModel {
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
     
-	@Override
+    // FIXME
+	/*@Override
 	public void registerModels() {
 		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-	}
+	}*/
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {

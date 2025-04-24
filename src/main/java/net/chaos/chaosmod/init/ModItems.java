@@ -15,6 +15,8 @@ import net.chaos.chaosmod.items.tools.ToolHoe;
 import net.chaos.chaosmod.items.tools.ToolPickaxe;
 import net.chaos.chaosmod.items.tools.ToolSpade;
 import net.chaos.chaosmod.items.tools.ToolSword;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -39,8 +41,10 @@ public class ModItems {
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	
 	//Materials
+	public static final Material BLOCK_MATERIAL_OXONIUM = new Material(MapColor.BLUE);
 	public static final ToolMaterial MATERIAL_OXONIUM = EnumHelper.addToolMaterial("material_oxonium", 3, 250, 6.0F, 2.0F, 14);
 	public static final ToolMaterial MATERIAL_ALLEMANITE = EnumHelper.addToolMaterial("material_allemanite", 5, 600, 10.0f, 3.0f, 30);
+	public static final ToolMaterial MATERIAL_ENDERITE = EnumHelper.addToolMaterial("material_enderite", 7, 2000, 12.0f, 4.0f, 30);
 	public static final ArmorMaterial ARMOR_MATERIAL_OXONIUM = EnumHelper.addArmorMaterial("armor_material_oxonium", Reference.MODID + ":oxonium", 14,
 			new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f);
 	

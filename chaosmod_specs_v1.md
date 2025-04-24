@@ -615,4 +615,4 @@ Goal : Having fun through a clear lore and don't feel redundant
 
 - When I finish everything, I will work on the sound effects & other stuff improvement
     - Because it needs a version on release and another unofficial version for us to play with friends and copyrighted musics and sounds :(
-    - Ideas (ambient sounds) : [ "jjk gojo purple hollow", "minecraft popular music", "courtesy call", "fire force op 1", "fairy tail fiesta" ]
+    - Ideas (ambient sounds) : [ "jjk gojo purple hollow", "minecraft popular music", "courtesy call", "fire force op 1", "fairy tail fiesta", "the promized neverland op", "naruto shippuden op1", "hxh", "tokyo revengers", "parazyte", "death note op1", "mha op1", "seven deadly sins op1", "jojo op2", "black clover op3", "demon slayer op2", "sao op1", "jjk op3", "centuries (for the Mountain Giant boss)", "jjk specialz op", "chainsawman op 1 (banger innatendu !!!)" ]

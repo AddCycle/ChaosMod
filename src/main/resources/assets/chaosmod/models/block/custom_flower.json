@@ -1,0 +1,6 @@
+{
+  "parent": "chaosmod:block/cross",
+  "textures": {
+  	"cross": "chaosmod:blocks/custom_flower"
+  }
+}

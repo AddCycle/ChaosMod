@@ -31,9 +31,12 @@ public class OxoniumFurnaceGui extends GuiContainer {
 
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
+    	int initial = 4210752;
+    	int color1 = 40703;
+    	int color2 = 16751616;
         String s = this.tileFurnace.getDisplayName().getUnformattedText();
-        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-        this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, color1);
+        this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, color2);
     }
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)

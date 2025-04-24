@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.tabs;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.text.TextComponentString;
 
 public class ModTabs extends GeneralTab {
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 import net.chaos.chaosmod.blocks.AllemaniteBlock;
 import net.chaos.chaosmod.blocks.AllemaniteOre;
+import net.chaos.chaosmod.blocks.BlockBase;
+import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
 import net.chaos.chaosmod.blocks.EnderiteOre;
 import net.chaos.chaosmod.blocks.LitFurnace;
@@ -13,11 +15,16 @@ import net.chaos.chaosmod.blocks.OxoniumChest;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.blocks.OxoniumOre;
 import net.chaos.chaosmod.blocks.OxoniumStairs;
+import net.chaos.chaosmod.blocks.decoration.BlockBrightGrass;
+import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
+import net.chaos.chaosmod.blocks.decoration.MineralBricks;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.text.TextFormatting;
 
 // initialize the blocks and declare them based on a vanilla block base type
 public class ModBlocks {
@@ -33,4 +40,10 @@ public class ModBlocks {
 	public static final Block LIT_OXONIUM_FURNACE = new LitFurnace("lit_oxonium_furnace", true);
 	public static final Block ALLEMANITE_BLOCK = new AllemaniteBlock("allemanite_block", Material.IRON);
 	public static final Block OXONIUM_CHEST = new OxoniumChest("oxonium_chest", OxoniumChest.Type.BASIC); // or TRAP
+	public static final Block BOSS_ALTAR = new BossAltar("boss_altar", Material.ROCK);
+	public static final Block OXONIUM_BRICKS = new MineralBricks("oxonium_bricks", Material.ROCK, TextFormatting.DARK_BLUE, "You want to build ?");
+	public static final Block ALLEMANITE_BRICKS = new MineralBricks("allemanite_bricks", Material.ROCK, TextFormatting.RED, "Well go on...");
+	public static final Block ENDERITE_BRICKS = new MineralBricks("enderite_bricks", Material.ROCK, TextFormatting.DARK_PURPLE, "You will need this to relax after what you have been through");
+	public static final Block CUSTOM_FLOWER = new BlockCustomFlower();
+	public static final Block CUSTOM_GRASS = new BlockBrightGrass();
 }

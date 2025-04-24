@@ -4,6 +4,7 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.particles.CustomSwingParticle;
 import net.chaos.chaosmod.client.particles.CustomSwingParticle.Factory;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.particle.ParticleSwordSlash;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleEmitter;
@@ -41,26 +42,35 @@ public class ToolSword extends ItemSword implements IHasModel {
 	@Override
 	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
 		entityLiving.setGlowing(true);
-		entityLiving.getEntityWorld().spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, entityLiving.posX, entityLiving.posY, entityLiving.posZ, 1.0D, 1.0D, 1.0D, null);
-		// RenderGlobal renderpart = new RenderGlobal(Minecraft.getMinecraft());
-		/*ParticleManager manager = new ParticleManager(entityLiving.getEntityWorld(), Minecraft.getMinecraft().getTextureManager());
-		manager.spawnEffectParticle(EnumParticleTypes.EXPLOSION_LARGE.getParticleID(), entityLiving.getPosition().getX(), entityLiving.getPosition().getY(), entityLiving.getPosition().getZ(), 0.0D, 0.0D, 0.0D);
-		entityLiving.getEntityWorld().spawnParticle(EnumParticleTypes.SWEEP_ATTACK, true, entityLiving.getPitchYaw().x, entityLiving.getPitchYaw().y, entityLiving.getPosition().getZ(), 0.0D, 1.0D, 0.0D, null);*/
-		//return super.onEntitySwing(entityLiving, stack);
+		World world = entityLiving.getEntityWorld();
+		double x = entityLiving.getPosition().getX() + entityLiving.getLookVec().x;
+		double y = entityLiving.getPosition().getY() + entityLiving.getLookVec().y;
+		double z = entityLiving.getPosition().getZ() + entityLiving.getLookVec().z;
+		/*Minecraft.getMinecraft().effectRenderer.addEffect(
+			    new ParticleSwordSlash(world, x, y, z, 0.1f, 0.4f, 1.0f)
+		);*/
+		/*for (int i = 0; i < 20; i++) {
+	        double offsetX = (world.rand.nextDouble() - 0.5) * 0.5;
+	        double offsetY = (world.rand.nextDouble() - 0.5) * 0.5;
+	        double offsetZ = (world.rand.nextDouble() - 0.5) * 0.5;
+
+	        world.spawnParticle(EnumParticleTypes.,
+	            x + offsetX, y + offsetY, z + offsetZ,
+	            0.001, 0.0, 1.0); // light blue
+	    }
+
+	    world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE,
+	        x, y, z,
+	        0.0, 0.0, 0.0);*/
+		// entityLiving.getEntityWorld().spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, x, y, z, 0.00001, 0.00001, 1.0);
+
+		System.out.println(String.format("Looking at x : %f, y : %f, z : %f", x, y, z));
 		return false;
 	}
 	
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-		/*CustomSwingParticle.Factory factory = new Factory();
-		factory.createParticle(EnumParticleTypes.EXPLOSION_LARGE.getParticleID(), player.getEntityWorld(), entity.getPosition().getX(), entity.getPosition().getY(), entity.getPosition().getZ(), 0.0D, 0.0D, 0.0D, null);
-		ParticleManager manager = new ParticleManager(player.getEntityWorld(), Minecraft.getMinecraft().getTextureManager());
-		manager.registerParticle(100, factory);*/
-		// player.getEntityWorld().spawnParticle(EnumParticleTypes.SWEEP_ATTACK, true, player.getPositionEyes(Minecraft.getMinecraft().getRenderPartialTicks()).x + 1, player.getPositionEyes(Minecraft.getMinecraft().getRenderPartialTicks()).y + 2, player.getPositionEyes(Minecraft.getMinecraft().getRenderPartialTicks()).z, 0.0D, 1.0D, 0.0D, null);
-		/*ParticleManager manager = new ParticleManager(player.getEntityWorld(), Minecraft.getMinecraft().getTextureManager());
-		manager.registerParticle(EnumParticleTypes.CRIT_MAGIC.getParticleID(), new CustomSwingParticle.Factory());
-		manager.spawnEffectParticle(EnumParticleTypes.CRIT_MAGIC.getParticleID(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 1, 1, 1, null);*/
-		player.getEntityWorld().spawnAlwaysVisibleParticle(100, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 1.0D, 1.0D, 1.0D, null);
+		// player.getEntityWorld().spawnParticle(EnumParticleTypes.SWEEP_ATTACK, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 0.0, 0.0, 1.0);
 		entity.setDead();
 		entity.onUpdate();
 

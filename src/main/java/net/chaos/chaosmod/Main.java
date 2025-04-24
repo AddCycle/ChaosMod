@@ -20,9 +20,12 @@ import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.OxoniumFurnaceMessage;
 import net.chaos.chaosmod.network.OxoniumFurnaceMessage.OxoniumFurnaceMessageHandler;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
+import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.world.ModWorldGen;
+import net.chaos.chaosmod.world.gen.WorldGenCustomDungeon;
+import net.chaos.chaosmod.world.gen.nether.WorldGenCaveDungeon;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -73,7 +76,7 @@ public class Main
         logger = event.getModLog();
         proxy.preInit(event);
         ModEntities.registerEntities();
-        RenderHandler.registerEntityRenders();
+        // RenderHandler.registerEntityRenders();
         // ChaosModPacketHandler.registerMessage();
 		Main.network = NetworkRegistry.INSTANCE.newSimpleChannel("chaosmod");
 		Main.network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 0, Side.CLIENT);
@@ -86,7 +89,9 @@ public class Main
         logger.info("ALLEMANITE ORE >> {}", ModBlocks.ALLEMANITE_ORE.getRegistryName());
         proxy.init(event);
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
-        RegistryHandler.onSmeltingRegister();
+        GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 10);
+        GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 20);
+        // RegistryHandler.onSmeltingRegister();
         MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
         MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerInHandler());
@@ -100,6 +105,7 @@ public class Main
     	proxy.postInit(event);
     	GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, new ResourceLocation(Reference.MODID, "oxonium_furnace"));
     	GameRegistry.registerTileEntity(TileEntityOxoniumChest.class, new ResourceLocation(Reference.MODID, "oxonium_chest"));
+    	GameRegistry.registerTileEntity(TileEntityBossAltar.class, new ResourceLocation(Reference.MODID, "boss_altar"));
     }
     
     @EventHandler

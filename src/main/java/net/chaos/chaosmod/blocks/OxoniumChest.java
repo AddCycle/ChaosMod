@@ -3,7 +3,6 @@ package net.chaos.chaosmod.blocks;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.client.gui.inventory.OxoniumChestGui;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
@@ -40,6 +39,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.World;
@@ -190,7 +190,7 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
 
             if (tileentity instanceof TileEntityOxoniumChest)
             {
-                ((TileEntityOxoniumChest)tileentity).setCustomName(stack.getDisplayName());
+                ((TileEntityOxoniumChest)tileentity).setCustomName(TextFormatting.AQUA + stack.getDisplayName());
             }
         }
     }

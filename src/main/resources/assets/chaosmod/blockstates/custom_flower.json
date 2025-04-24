@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "type=dandelion": { "model": "chaosmod:block/custom_flower" },
+    "type=poppy": { "model": "chaosmod:block/custom_flower" },
+    "type=blue_orchid": { "model": "chaosmod:block/custom_flower" },
+    "type=allium": { "model": "chaosmod:block/custom_flower" }
+    // Add other types you support
+  }
+}

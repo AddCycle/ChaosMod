@@ -25,6 +25,9 @@ import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import util.handlers.OxoniumDoubleChestItemHandler;
 
 public class TileEntityOxoniumChest extends TileEntityLockableLoot implements ITickable {
@@ -71,7 +74,7 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
 
     public String getName()
     {
-    	return "tile.oxonium_chest.name";
+    	return new TextComponentTranslation("tile.oxonium_chest.name").setStyle(new Style().setColor(TextFormatting.DARK_BLUE).setBold(true)).getFormattedText();
     }
 
     public static void registerFixesChest(DataFixer fixer)
