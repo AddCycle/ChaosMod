@@ -14,6 +14,8 @@ import net.minecraft.client.gui.GuiScreen;
 public class GuiFinalCredits extends GuiScreen {
 	private final List<Map.Entry<String, Integer>> creditsLines = new ArrayList<>();
     private int scroll;
+    private int tickCounter = 0;
+    private final int scrollDelay = 3;
 
     public GuiFinalCredits() {
         int blank = 0xFFFFFF;
@@ -52,8 +54,11 @@ public class GuiFinalCredits extends GuiScreen {
             drawCenteredString(this.fontRenderer, line, centerX, baseY + i * 20, color);
         }
 
-        scroll += 1;
-
+        tickCounter++;
+        if (tickCounter >= scrollDelay) {
+            scroll++;
+            tickCounter = 0;
+        }
         // Close screen when last line scrolls past top
         if (baseY + creditsLines.size() * 20 < 0) {
             this.mc.displayGuiScreen(null);
