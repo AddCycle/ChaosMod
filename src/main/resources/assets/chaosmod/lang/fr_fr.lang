@@ -49,3 +49,6 @@ itemGroup.chaosmodtab=Objets du Chaos
 
 //Guide
 text.guide.title=Guide du Chaos
+
+//Jei plugin
+chaosmod.jei.crafting_category=ChaosMod Crafts

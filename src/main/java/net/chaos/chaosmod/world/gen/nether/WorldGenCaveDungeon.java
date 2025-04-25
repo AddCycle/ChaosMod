@@ -70,7 +70,7 @@ public class WorldGenCaveDungeon extends WorldGenerator implements IWorldGenerat
         }
 
         float airRatio = airCount / (float) total;
-        return airRatio > 0.2f && airRatio < 0.6f; // Between 20%–60% air = “cave-like”
+        return airRatio > 0.2f && airRatio < 0.6f; // Between 20%–60% cave-like
     }
 
 	@Override
