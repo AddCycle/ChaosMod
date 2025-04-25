@@ -64,7 +64,10 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
         this.isBurning = isBurning;
 
         ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new ItemBlockFurnaces(this).setRegistryName(this.getRegistryName()));
+        if (!this.getRegistryName().getResourcePath().equals("lit_oxonium_furnace")) {
+			System.out.println("FURNACE BEEN REGISTERED ===== " + this.getRegistryName().getResourcePath());
+        	ModItems.ITEMS.add(new ItemBlockFurnaces(this).setRegistryName(this.getRegistryName()));
+        }
     }
     
 	@Override
