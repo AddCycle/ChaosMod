@@ -8,6 +8,7 @@ import net.chaos.chaosmod.items.armor.ArmorBase;
 import net.chaos.chaosmod.items.food.FoodEffectBase;
 import net.chaos.chaosmod.items.materials.AllemaniteIngot;
 import net.chaos.chaosmod.items.materials.EnderiteShard;
+import net.chaos.chaosmod.items.special.AllemaniteExtinguisher;
 import net.chaos.chaosmod.items.special.ChestUpgradeBase;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.items.tools.ToolAxe;
@@ -72,6 +73,7 @@ public class ModItems {
 		new FoodEffectBase("oxonium_carrot", 3, 3.0f, false, new PotionEffect(MobEffects.RESISTANCE, 60*20, 1, false, true));
 	
 	// Special
-	public static final Item OXONIUM_UPGRADE = new ChestUpgradeBase("oxonium_upgrade");
+	public static final Item OXONIUM_UPGRADE = new ChestUpgradeBase("oxonium_upgrade"); // chest upgrade
+	public static final Item ALLEMANITE_EXTINGUISHER = new AllemaniteExtinguisher("allemanite_extinguisher");
 	public static final Item ALLEMANITE_BACKPACK = new PlayerInventoryBaseItem("allemanite_backpack");
 }
