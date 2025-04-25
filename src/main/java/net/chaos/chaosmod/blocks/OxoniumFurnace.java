@@ -183,11 +183,12 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
         {
             // worldIn.setBlockState(pos, Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
 
+            worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
             // worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
             // worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
-            worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
-            worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
-            
+            //worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
+            //worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
         }
         else
         {
