@@ -1,4 +1,4 @@
-<h1><center>ChaosMod<center></h1>
+<h1 align="center">ChaosMod</h1>
 
 <center><img src="src/main/resources/logo.png" width="32" height="32" /></center>
 
