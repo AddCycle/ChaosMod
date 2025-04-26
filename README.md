@@ -1,6 +1,6 @@
-# ChaosMod
+<h1><center>ChaosMod<center></h1>
 
-<img src="src/main/resources/logo.png" width="32" height="32" />
+<center><img src="src/main/resources/logo.png" width="32" height="32" /></center>
 
 ## Summary :
 A 1.12.2 Minecraft Mod (ver 1.0.0 dev) adding custom minerals, blocks, items, machines and the main plot of the mod is the lore of the `Ancient Forgotten City Of Shadows/Chaos`.
