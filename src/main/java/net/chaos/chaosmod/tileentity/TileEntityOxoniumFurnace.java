@@ -269,7 +269,7 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
         }
     }
 
-    public int getCookTime(ItemStack stack)
+    public static int getCookTime(ItemStack stack)
     {
         return 50;
     }

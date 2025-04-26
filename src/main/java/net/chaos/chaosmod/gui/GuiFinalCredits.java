@@ -15,7 +15,7 @@ public class GuiFinalCredits extends GuiScreen {
 	private final List<Map.Entry<String, Integer>> creditsLines = new ArrayList<>();
     private int scroll;
     private int tickCounter = 0;
-    private final int scrollDelay = 3;
+    private final int scrollDelay = 1;
 
     public GuiFinalCredits() {
         int blank = 0xFFFFFF;
@@ -34,7 +34,7 @@ public class GuiFinalCredits extends GuiScreen {
         creditsLines.add(new AbstractMap.SimpleEntry<>("- DjoDjo", orange));
         creditsLines.add(new AbstractMap.SimpleEntry<>("- People who suffered before me with FG3 and JEI initMissingTextures", blank));
         creditsLines.add(new AbstractMap.SimpleEntry<>("", blank));
-        creditsLines.add(new AbstractMap.SimpleEntry<>("And you, player — thanks a lot", blank));
+        creditsLines.add(new AbstractMap.SimpleEntry<>("And you player, thanks a lot", blank));
         creditsLines.add(new AbstractMap.SimpleEntry<>("", blank));
         creditsLines.add(new AbstractMap.SimpleEntry<>("Check out my GitHub: AddCycle", blank));
         creditsLines.add(new AbstractMap.SimpleEntry<>("Rate it with a Star if you enjoyed it !", green));
