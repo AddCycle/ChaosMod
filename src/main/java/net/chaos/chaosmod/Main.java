@@ -76,7 +76,6 @@ public class Main
         logger = event.getModLog();
         proxy.preInit(event);
         ModEntities.registerEntities();
-        RenderHandler.registerEntityRenders();
         // ChaosModPacketHandler.registerMessage();
 		Main.network = NetworkRegistry.INSTANCE.newSimpleChannel("chaosmod");
 		Main.network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 0, Side.CLIENT);
