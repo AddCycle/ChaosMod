@@ -68,52 +68,46 @@ public class EnderiteShard extends ItemBase {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
-		
-		System.out.println(facing + " -> direction");
 		TileEntity te = worldIn.getTileEntity(pos);
 
-		float yaw = player.getPitchYaw().y;
-		float pitch = player.getPitchYaw().x;
-		
-		BlockPos pos1 = player.getPosition();
+		if (!worldIn.isRemote) {
+			EntityForgeGuardian gardien1 = new EntityForgeGuardian(worldIn);
+			BlockPos left_g_pos = getPosFromFacingRight(facing, pos);
+			if (facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN)) {
+				return EnumActionResult.FAIL;
+			}
+			gardien1.setPosition(left_g_pos.getX() + 0.5f, left_g_pos.getY(), left_g_pos.getZ() + 0.5f);
+			// Petit pb de rotation vers le sud :) laissons ca comme ca c'est la ref a l'epee du sud dont a parle JeanRobetPerez XD
+			gardien1.setRenderYawOffset(facing.getHorizontalAngle());
 
-		EntityForgeGuardian gardien1 = new EntityForgeGuardian(worldIn);
-		BlockPos left_g_pos = getPosFromFacingRight(facing, pos);
-		if (facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN)) {
-			return EnumActionResult.FAIL;
-		}
-		gardien1.setPosition(left_g_pos.getX() + 0.5f, left_g_pos.getY(), left_g_pos.getZ() + 0.5f);
-		// Petit pb de rotation vers le sud :) laissons ca comme ca c'est la ref a l'epee du sud dont a parle JeanRobetPerez XD
-		gardien1.setRenderYawOffset(facing.getHorizontalAngle());
+			EntityForgeGuardian gardien2 = new EntityForgeGuardian(worldIn);
+			BlockPos right_d_pos = getPosFromFacingLeft(facing, pos);
+			if (facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN)) {
+				return EnumActionResult.FAIL;
+			}
+			gardien2.setPosition(right_d_pos.getX() + 0.5f, right_d_pos.getY(), right_d_pos.getZ() + 0.5f);
+			// Petit pb de rotation vers le sud :) laissons ca comme ca c'est la ref a l'epee du sud dont a parle JeanRobetPerez XD
+			// gardien2.setRenderYawOffset(facing.getHorizontalAngle());
+			gardien2.setRenderYawOffset(EnumFacing.getDirectionFromEntityLiving(player.getPosition(), player).getHorizontalAngle());
 
-		EntityForgeGuardian gardien2 = new EntityForgeGuardian(worldIn);
-		BlockPos right_d_pos = getPosFromFacingLeft(facing, pos);
-		if (facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN)) {
-			return EnumActionResult.FAIL;
-		}
-		gardien2.setPosition(right_d_pos.getX() + 0.5f, right_d_pos.getY(), right_d_pos.getZ() + 0.5f);
-		// Petit pb de rotation vers le sud :) laissons ca comme ca c'est la ref a l'epee du sud dont a parle JeanRobetPerez XD
-		// gardien2.setRenderYawOffset(facing.getHorizontalAngle());
-		gardien2.setRenderYawOffset(EnumFacing.getDirectionFromEntityLiving(player.getPosition(), player).getHorizontalAngle());
-
-		if (te instanceof TileEntityOxoniumFurnace) {
-			if (is_correct_setup(pos, worldIn)) {
-				NBTTagCompound tag = new NBTTagCompound();
-				te.writeToNBT(tag);
-				te.readFromNBT(new NBTTagCompound());
-				worldIn.setBlockToAir(pos);
-				worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, player, hand));
-				TileEntity new_te = worldIn.getTileEntity(pos);
-				worldIn.setBlockState(pos.up(), Blocks.BEACON.getStateForPlacement(worldIn, pos.up(), facing, hitX, hitY, hitZ, 0, player, hand));
-				new_te.readFromNBT(tag);
-				player.getHeldItemMainhand().shrink(1);
-				if (worldIn.isRemote)
-					player.sendMessage(new TextComponentString("Are you sure you wanna do this ?").setStyle(new Style().setColor(TextFormatting.GOLD).setBold(true)));
-				if (!worldIn.isRemote) worldIn.spawnEntity(gardien1);
-				if (!worldIn.isRemote) worldIn.spawnEntity(gardien2);
-			} else {
-				if (worldIn.isRemote)
-					player.sendMessage(new TextComponentString("Hum I'm not sure about the setup...").setStyle(new Style().setColor(TextFormatting.RED).setItalic(true)));
+			if (te instanceof TileEntityOxoniumFurnace) {
+				if (is_correct_setup(pos, worldIn)) {
+					NBTTagCompound tag = new NBTTagCompound();
+					te.writeToNBT(tag);
+					te.readFromNBT(new NBTTagCompound());
+					worldIn.setBlockToAir(pos);
+					worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, player, hand));
+					TileEntity new_te = worldIn.getTileEntity(pos);
+					worldIn.setBlockState(pos.up(), Blocks.BEACON.getStateForPlacement(worldIn, pos.up(), facing, hitX, hitY, hitZ, 0, player, hand));
+					new_te.readFromNBT(tag);
+					player.getHeldItemMainhand().shrink(1);
+					if (worldIn.isRemote) player.sendMessage(new TextComponentString("Are you sure you wanna do this ?").setStyle(new Style().setColor(TextFormatting.GOLD).setBold(true)));
+					if (!worldIn.isRemote) worldIn.spawnEntity(gardien1);
+					if (!worldIn.isRemote) worldIn.spawnEntity(gardien2);
+				} else {
+					if (worldIn.isRemote)
+						player.sendMessage(new TextComponentString("Hum I'm not sure about the setup...").setStyle(new Style().setColor(TextFormatting.RED).setItalic(true)));
+				}
 			}
 		}
 		return EnumActionResult.SUCCESS;
