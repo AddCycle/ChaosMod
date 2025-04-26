@@ -10,8 +10,6 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.client.Minecraft;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import util.Reference;
@@ -44,7 +42,7 @@ public class OxoniumFurnaceCategory implements IRecipeCategory<OxoniumFurnaceWra
 
         int cookTime = TileEntityOxoniumFurnace.getCookTime(null);
         arrow = guiHelper.createAnimatedDrawable(arrowStatic, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
-        flame = guiHelper.createAnimatedDrawable(flameStatic, cookTime, IDrawableAnimated.StartDirection.BOTTOM, false);
+        flame = guiHelper.createAnimatedDrawable(flameStatic, cookTime, IDrawableAnimated.StartDirection.TOP, true);
     }
 
     @Override
@@ -70,7 +68,7 @@ public class OxoniumFurnaceCategory implements IRecipeCategory<OxoniumFurnaceWra
     @Override
     public void drawExtras(Minecraft minecraft) {
         arrow.draw(minecraft, 50, 18); // Adjust X/Y to fit nicely
-        flame.draw(minecraft, 28, 21);
+        flame.draw(minecraft, 27, 20);
     }
 
     @Override

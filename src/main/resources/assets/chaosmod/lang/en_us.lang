@@ -22,6 +22,7 @@ item.oxonium_carrot.name=Oxonium Carrot
 // Specials
 item.oxonium_upgrade.name=Oxonium Upgrade
 item.allemanite_backpack.name=Allemanite Backpack
+item.allemanite_extinguisher.name=Allemanite Extinguisher
 
 // Blocks
 tile.oxonium_block.name=Oxonium Block
@@ -50,4 +51,4 @@ itemGroup.chaosmodtab=Chaos Items
 text.guide.title=ChaosMod Guide
 
 //Jei plugin
-chaosmod.jei.crafting_category=ChaosMod Crafting
+chaosmod.jei.crafting_category=Chaos Crafting

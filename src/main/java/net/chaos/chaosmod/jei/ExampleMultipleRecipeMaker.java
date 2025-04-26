@@ -16,6 +16,7 @@ public class ExampleMultipleRecipeMaker {
         inputs.add(new ItemStack(Items.IRON_INGOT));
         inputs.add(new ItemStack(ModItems.ALLEMANITE_INGOT));
         inputs.add(new ItemStack(ModItems.ALLEMANITE_INGOT));
+        inputs.add(null);
         inputs.add(new ItemStack(ModItems.ALLEMANITE_INGOT));
         inputs.add(new ItemStack(ModItems.ALLEMANITE_INGOT));
         recipes.add(new ExampleMultipleRecipeWrapper(inputs, new ItemStack(ModItems.ALLEMANITE_EXTINGUISHER)));

@@ -22,6 +22,7 @@ item.oxonium_carrot.name=Carotte en Oxonium
 // Specials
 item.oxonium_upgrade.name=Amélioration en Oxonium
 item.allemanite_backpack.name=Sac en Allemanite
+item.allemanite_extinguisher.name=Extincteur en Allemanite
 
 // Blocks
 tile.oxonium_block.name=Bloc d'Oxonium
