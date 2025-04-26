@@ -11,6 +11,8 @@ import net.chaos.chaosmod.commands.DimensionWarpCommand;
 import net.chaos.chaosmod.commands.FindBlockCommand;
 import net.chaos.chaosmod.commands.FurnaceCommand;
 import net.chaos.chaosmod.commands.GuideCommand;
+import net.chaos.chaosmod.commands.HomeCommand;
+import net.chaos.chaosmod.commands.SetHomeCommand;
 import net.chaos.chaosmod.commands.TopCommand;
 import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBlocks;
@@ -116,5 +118,7 @@ public class Main
         event.registerServerCommand(new CraftCommand());
         event.registerServerCommand(new FurnaceCommand());
         event.registerServerCommand(new CheatCommand());
+        event.registerServerCommand(new SetHomeCommand());
+        event.registerServerCommand(new HomeCommand());
     }
 }

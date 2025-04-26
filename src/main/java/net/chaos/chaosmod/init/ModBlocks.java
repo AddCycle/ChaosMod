@@ -36,7 +36,7 @@ public class ModBlocks {
 	public static final Block ENDERITE_ORE = new EnderiteOre("enderite_ore", Material.ROCK);
 	public static final Block ENDERITE_BLOCK = new EnderiteBlock("enderite_block", Material.IRON);
 	public static final Block OXONIUM_FURNACE = new OxoniumFurnace("oxonium_furnace", false);
-	public static final Block LIT_OXONIUM_FURNACE = new OxoniumFurnace("lit_oxonium_furnace", true).setLightLevel(12);
+	public static final Block LIT_OXONIUM_FURNACE = new OxoniumFurnace("lit_oxonium_furnace", true).setLightLevel(1.0f);
 	public static final Block ALLEMANITE_BLOCK = new AllemaniteBlock("allemanite_block", Material.IRON);
 	public static final Block OXONIUM_CHEST = new OxoniumChest("oxonium_chest", OxoniumChest.Type.BASIC); // or TRAP
 	public static final Block BOSS_ALTAR = new BossAltar("boss_altar", Material.ROCK);

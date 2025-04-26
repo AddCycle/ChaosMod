@@ -56,6 +56,9 @@ public class BossAltar extends BlockBase implements ITileEntityProvider {
 		TileEntity te = worldIn.getTileEntity(pos);
 		if (te instanceof TileEntityBossAltar) {
 			TileEntityBossAltar te_2 = ((TileEntityBossAltar) te);
+			if (te_2.isAnimating) {
+				return false;
+			}
 			if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.OXONIUM))) {
 				te_2.r = 0.001f; te_2.g = 0.0f; te_2.b = 1.0f;
 			} else if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.ALLEMANITE_INGOT))) {
@@ -68,14 +71,14 @@ public class BossAltar extends BlockBase implements ITileEntityProvider {
 			if (!playerIn.capabilities.isCreativeMode) {
 				playerIn.getHeldItemMainhand().shrink(1);
 			}
-			te_2.triggerAnimation(20 * 6);
+			if (!worldIn.isRemote) te_2.triggerAnimation(20 * 6);
 		}
 		return true;
 	}
 	
 	@Override
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-		if (worldIn.isRemote) player.sendMessage(new TextComponentString("Vous n'auriez pas du faire cela !"));
+		if (!worldIn.isRemote) player.sendMessage(new TextComponentString("Vous n'auriez pas du faire cela !"));
 		if (!worldIn.isRemote) {
 			player.attackEntityFrom(new DamageSource("killed_by_game") {
 				@Override
@@ -85,7 +88,7 @@ public class BossAltar extends BlockBase implements ITileEntityProvider {
 			}, Float.MAX_VALUE);
 		}
 		for (EntityPlayer pl : worldIn.playerEntities) {
-			if (worldIn.isRemote)
+			if (!worldIn.isRemote)
 			pl.sendMessage(new TextComponentString("Encore un C** comme le Djo...")
 				.setStyle(new Style()
 				.setColor(TextFormatting.LIGHT_PURPLE)
@@ -99,6 +102,11 @@ public class BossAltar extends BlockBase implements ITileEntityProvider {
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityBossAltar();
+	}
+	
+	@Override
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
 	}
 
 }

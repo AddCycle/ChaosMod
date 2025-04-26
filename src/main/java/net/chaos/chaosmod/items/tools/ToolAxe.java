@@ -4,7 +4,14 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemAxe;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import util.IHasModel;
 
 public class ToolAxe extends ItemAxe implements IHasModel {
@@ -15,6 +22,16 @@ public class ToolAxe extends ItemAxe implements IHasModel {
 		setRegistryName(name);
 		
 		ModItems.ITEMS.add(this);
+	}
+	
+	@Override
+	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
+			EnumFacing facing, float hitX, float hitY, float hitZ) {
+		EntityBlaze blaze = new EntityBlaze(worldIn);
+		blaze.setPosition(pos.getX() + 0.5f, pos.up().getY(), pos.getZ() + 0.5);
+		if (!worldIn.isRemote) worldIn.spawnEntity(blaze);
+		
+		return EnumActionResult.PASS;
 	}
 	
 	@Override
