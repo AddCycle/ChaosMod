@@ -1,15 +1,11 @@
 package net.chaos.chaosmod.tabs;
 
+import java.util.Comparator;
+
 import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.swing.TextComponent;
+import net.minecraft.util.NonNullList;
 
 public class GeneralTab extends CreativeTabs {
 
@@ -24,8 +20,20 @@ public class GeneralTab extends CreativeTabs {
 	}
 	
 	@Override
+	public void displayAllRelevantItems(NonNullList<ItemStack> list) {
+		super.displayAllRelevantItems(list);
+		
+		list.sort(Comparator.comparing(ItemStack::getDisplayName));
+	}
+	
+	@Override
 	public int getLabelColor() {
 		return 16747264;
+	}
+	
+	@Override
+	public boolean hasSearchBar() {
+		return true;
 	}
 
 }
