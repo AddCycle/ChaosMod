@@ -39,7 +39,6 @@ public class RegistryHandler {
 	@SubscribeEvent
 	public static void onBlockRegister(RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
-		// event.getRegistry().registerAll(ModBlocks.FLOWERS.toArray(new BlockFlower[0]));
 	}
 	
 	// En gros cette partie sert a grouper plusieurs items/blocks dans une meme interface qui est simplement un groupe d'objets
@@ -56,12 +55,6 @@ public class RegistryHandler {
 				((IHasModel)block).registerModels();
 			}
 		}
-		
-		/*for (BlockFlower flower : ModBlocks.FLOWERS) {
-			if (flower instanceof IHasModel) {
-				((IHasModel)flower).registerModels();
-			}
-		}*/
 			
 	}
 	

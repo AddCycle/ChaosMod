@@ -18,7 +18,7 @@ item.oxoinum_leggings.name=Jambières en oxonium
 item.oxonium_boots.name=Bottes en oxonium
 
 // Items
-item.oxonium.name=Lingot d'Oxonium
+item.oxonium_ingot.name=Lingot d'Oxonium
 item.allemanite_ingot.name=Lingot d'Allemanite
 item.enderite_shard.name=Fragment d'Enderite
 

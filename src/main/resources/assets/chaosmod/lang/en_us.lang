@@ -18,7 +18,7 @@ item.oxonium_leggings.name=Oxonium Leggings
 item.oxonium_boots.name=Oxonium Boots
 
 // Items
-item.oxonium.name=Oxonium Ingot
+item.oxonium_ingot.name=Oxonium Ingot
 item.allemanite_ingot.name=Allemanite Ingot
 item.enderite_shard.name=Enderite Shard
 
