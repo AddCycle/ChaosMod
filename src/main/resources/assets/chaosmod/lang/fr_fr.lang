@@ -44,6 +44,7 @@ tile.boss_altar.name=Autel des Boss
 
 // Entities
 entity.forge_guardian.name=Gardien de la Forge du Chaos
+entity.revenge_blaze_boss.name=Blaze Vengeur
 
 //Gui
 itemGroup.chaosmodtab=Objets du Chaos

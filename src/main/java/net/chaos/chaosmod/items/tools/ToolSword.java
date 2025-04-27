@@ -40,35 +40,6 @@ public class ToolSword extends ItemSword implements IHasModel {
 	}
 	
 	@Override
-	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-		entityLiving.setGlowing(true);
-		World world = entityLiving.getEntityWorld();
-		double x = entityLiving.getPosition().getX() + entityLiving.getLookVec().x;
-		double y = entityLiving.getPosition().getY() + entityLiving.getLookVec().y;
-		double z = entityLiving.getPosition().getZ() + entityLiving.getLookVec().z;
-		/*Minecraft.getMinecraft().effectRenderer.addEffect(
-			    new ParticleSwordSlash(world, x, y, z, 0.1f, 0.4f, 1.0f)
-		);*/
-		/*for (int i = 0; i < 20; i++) {
-	        double offsetX = (world.rand.nextDouble() - 0.5) * 0.5;
-	        double offsetY = (world.rand.nextDouble() - 0.5) * 0.5;
-	        double offsetZ = (world.rand.nextDouble() - 0.5) * 0.5;
-
-	        world.spawnParticle(EnumParticleTypes.,
-	            x + offsetX, y + offsetY, z + offsetZ,
-	            0.001, 0.0, 1.0); // light blue
-	    }
-
-	    world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE,
-	        x, y, z,
-	        0.0, 0.0, 0.0);*/
-		// entityLiving.getEntityWorld().spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, x, y, z, 0.00001, 0.00001, 1.0);
-
-		System.out.println(String.format("Looking at x : %f, y : %f, z : %f", x, y, z));
-		return false;
-	}
-	
-	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
 		// player.getEntityWorld().spawnParticle(EnumParticleTypes.SWEEP_ATTACK, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 0.0, 0.0, 1.0);
 		entity.setDead();
@@ -85,7 +56,6 @@ public class ToolSword extends ItemSword implements IHasModel {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		playerIn.setGlowing(false);
 		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}
 	

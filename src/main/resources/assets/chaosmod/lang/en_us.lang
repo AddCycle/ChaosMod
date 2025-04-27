@@ -43,6 +43,7 @@ tile.boss_altar.name=Boss Altar
 
 // Entities
 entity.forge_guardian.name=Forge Guardian of Chaos
+entity.revenge_blaze_boss.name=Revenge Blaze
 
 //Gui
 itemGroup.chaosmodtab=Chaos Items

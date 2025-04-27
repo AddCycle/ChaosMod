@@ -23,17 +23,7 @@ public class ToolAxe extends ItemAxe implements IHasModel {
 		
 		ModItems.ITEMS.add(this);
 	}
-	
-	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
-			EnumFacing facing, float hitX, float hitY, float hitZ) {
-		EntityBlaze blaze = new EntityBlaze(worldIn);
-		blaze.setPosition(pos.getX() + 0.5f, pos.up().getY(), pos.getZ() + 0.5);
-		if (!worldIn.isRemote) worldIn.spawnEntity(blaze);
-		
-		return EnumActionResult.PASS;
-	}
-	
+
 	@Override
 	public void registerModels() {
 		Main.proxy.registerItemRenderer(this, 0, "inventory");

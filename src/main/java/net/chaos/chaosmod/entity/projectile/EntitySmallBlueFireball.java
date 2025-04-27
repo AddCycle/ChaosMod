@@ -16,10 +16,19 @@ public class EntitySmallBlueFireball extends EntitySmallFireball {
 
 	public EntitySmallBlueFireball(World worldIn) {
 		super(worldIn);
+        this.setSize(0.3125F, 0.3125F); // same size as EntitySmallFireball
 	}
 	
     public EntitySmallBlueFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
         super(worldIn, shooter, accelX, accelY, accelZ);
+        this.setSize(0.3125F, 0.3125F); // same size as EntitySmallFireball
+
+        this.setLocationAndAngles(shooter.posX, shooter.posY + (double)(shooter.getEyeHeight() / 2.0F), shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
+
+        // DO NOT normalize, just use small values directly
+        this.motionX = accelX * 0.005;
+        this.motionY = accelY * 0.005;
+        this.motionZ = accelZ * 0.005;
     }
 
     @Override
@@ -32,7 +41,7 @@ public class EntitySmallBlueFireball extends EntitySmallFireball {
                 		// FIXME adding later random death messages
                 		return new TextComponentTranslation("damagesource.bluefire.message_" + "1").setStyle(new Style().setBold(true).setColor(TextFormatting.AQUA));
                 	}
-                }, 6.0F);
+                }, 12.0F); // twice damage
                 if(!result.entityHit.isImmuneToFire()) result.entityHit.setFire(5); // FIXME now random burning time not too long
             }
 
@@ -48,9 +57,9 @@ public class EntitySmallBlueFireball extends EntitySmallFireball {
             // Blue fire particles
             for (int i = 0; i < 2; i++) {
                 world.spawnParticle(EnumParticleTypes.END_ROD, 
-                    posX + (rand.nextDouble() - 0.5) * 0.5, 
-                    posY + (rand.nextDouble() - 0.5) * 0.5, 
-                    posZ + (rand.nextDouble() - 0.5) * 0.5, 
+                    posX + (rand.nextDouble() - 0.5) * 0.5,
+                    posY + (rand.nextDouble() - 0.5) * 0.5,
+                    posZ + (rand.nextDouble() - 0.5) * 0.5,
                     0, 0, 0);
             }
         }

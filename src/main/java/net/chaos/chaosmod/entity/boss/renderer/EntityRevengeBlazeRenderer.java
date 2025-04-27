@@ -30,7 +30,7 @@ public class EntityRevengeBlazeRenderer extends RenderLiving<EntityRevengeBlazeB
 	 * private final ModelBase normalModel = new ModelBossNormal();
 	 * private final ModelBase transformedModel = new ModelBossTransformed();
 	 */
-
+	
 	public EntityRevengeBlazeRenderer(RenderManager rendermanagerIn) {
 		super(rendermanagerIn, new ModelBlaze(), 0.5f);
 		// this.addLayer(new LayerBlueFire<EntityRevengeBlazeBoss>(this));

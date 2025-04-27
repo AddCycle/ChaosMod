@@ -8,14 +8,18 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderFireball;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
 import util.Reference;
 
 public class EntitySmallBlueFireballRenderer extends Render<EntitySmallBlueFireball> {
+
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/projectile/blue_fireball.png");
 	private static final ResourceLocation BLUE_FIRE_LAYER0 = new ResourceLocation(Reference.MODID, "textures/entity/boss/blue_fire_layer_0.png");
 	private static final ResourceLocation BLUE_FIRE_LAYER1 = new ResourceLocation(Reference.MODID, "textures/entity/boss/blue_fire_layer_1.png");
@@ -32,32 +36,47 @@ public class EntitySmallBlueFireballRenderer extends Render<EntitySmallBlueFireb
 	@Override
 	public void doRender(EntitySmallBlueFireball entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		GlStateManager.pushMatrix();
-        GlStateManager.translate((float) x, (float) y, (float) z);
-        this.bindTexture(TEXTURE);
-        
-        GlStateManager.enableRescaleNormal();
-        GlStateManager.scale(0.5F, 0.5F, 0.5F); // Size of the fireball
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuffer();
-        
-        float f = 1.0F;
-        float f1 = 0.0F;
-        float f2 = 1.0F;
-        
-        GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-        
-        bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(-0.5, -0.5, 0.0).tex(0.0, 1.0).endVertex();
-        bufferbuilder.pos(0.5, -0.5, 0.0).tex(1.0, 1.0).endVertex();
-        bufferbuilder.pos(0.5, 0.5, 0.0).tex(1.0, 0.0).endVertex();
-        bufferbuilder.pos(-0.5, 0.5, 0.0).tex(0.0, 0.0).endVertex();
-        tessellator.draw();
-        
-        GlStateManager.disableRescaleNormal();
-        GlStateManager.popMatrix();
-        
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+	    this.bindEntityTexture(entity); // Your custom blue fireball texture
+	    GlStateManager.translate((float)x, (float)y, (float)z);
+	    GlStateManager.enableRescaleNormal();
+	    GlStateManager.scale(0.5F, 0.5F, 0.5F); // Half size so it's not too huge
+
+	    // Billboard facing player
+	    GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+	    GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+
+	    if (this.renderOutlines)
+	    {
+	        GlStateManager.enableColorMaterial();
+	        GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+	    }
+
+	    Tessellator tessellator = Tessellator.getInstance();
+	    BufferBuilder bufferbuilder = tessellator.getBuffer();
+
+	    // Instead of getting particle icon, just use full texture (0.0 - 1.0 UVs)
+	    float minU = 0.0F;
+	    float maxU = 1.0F;
+	    float minV = 0.0F;
+	    float maxV = 1.0F;
+
+	    bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
+	    bufferbuilder.pos(-0.5D, -0.5D, 0.0D).tex(minU, maxV).normal(0.0F, 1.0F, 0.0F).endVertex();
+	    bufferbuilder.pos(0.5D, -0.5D, 0.0D).tex(maxU, maxV).normal(0.0F, 1.0F, 0.0F).endVertex();
+	    bufferbuilder.pos(0.5D, 0.5D, 0.0D).tex(maxU, minV).normal(0.0F, 1.0F, 0.0F).endVertex();
+	    bufferbuilder.pos(-0.5D, 0.5D, 0.0D).tex(minU, minV).normal(0.0F, 1.0F, 0.0F).endVertex();
+	    tessellator.draw();
+
+	    if (this.renderOutlines)
+	    {
+	        GlStateManager.disableOutlineMode();
+	        GlStateManager.disableColorMaterial();
+	    }
+
+	    GlStateManager.disableRescaleNormal();
+	    GlStateManager.popMatrix();
+	    
+	    super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 	
 	@Override

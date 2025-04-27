@@ -163,7 +163,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "1.0.1"
 group = "net.chaos.chaosmod"
-archivesBaseName = "chaosmod"
+archivesBaseName = "ChaosMod"
 
 sourceCompatibility = targetCompatibility = "1.8" // Java 8 for MC 1.12.2
 

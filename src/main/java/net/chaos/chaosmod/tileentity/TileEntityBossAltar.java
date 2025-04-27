@@ -77,7 +77,6 @@ public class TileEntityBossAltar extends TileEntity implements ITickable {
 			boss.setPosition(pos.getX() + 0.5, pos.up().getY(), pos.getZ() + 0.5);
 			world.spawnEntity(boss);
 		}
-		System.out.println("Boss spawned");
 	}
 	
 	private void spawnParticles(float R, float G, float B) {
