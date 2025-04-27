@@ -438,11 +438,15 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                 double d1 = this.rand.nextGaussian() * 0.02D;
                 this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d2, d0, d1);
             }
-        } else {
-        	float progress = getMaxHealth() - this.deathTime;
-        	this.bossInfo.setColor(BossInfo.Color.WHITE);
-        	this.bossInfo.setPercent(progress);
-        	this.bossInfo.setName(new TextComponentString("Dying")); // FIXME add localization please
+        }
+        else
+        {
+        	float progress = Math.max(1.0F - (float)this.deathTime / 200.0F, 0.0F);
+            progress *= this.getHealth() / this.getMaxHealth(); // simulate original health proportion
+
+            this.bossInfo.setColor(BossInfo.Color.WHITE);
+            this.bossInfo.setPercent(progress);
+            this.bossInfo.setName(new TextComponentString("Dying")); // FIXME: add localization
         }
     }
 }

@@ -45,7 +45,8 @@ public class BossBarRendering {
 	    int fullHeight = 40;
 	    int barHeight = 20; // Height of one section
 	    int x = (width - barWidth) / 2;
-	    int y = 20; // distance from top
+	    int y = 20;
+	    int padding_up = 17;// distance from top
 
 	    // Draw background (top 0-20 pixels of the texture)
 	    // gui.drawTexturedModalRect(x, y, 0, 0, barWidth, barHeight);
@@ -60,7 +61,9 @@ public class BossBarRendering {
 
 	    // Draw boss name above
 	    String bossName = bossInfo.getName().getFormattedText();
-	    mc.fontRenderer.drawStringWithShadow(bossName, (width / 2) - (mc.fontRenderer.getStringWidth(bossName) / 2), y - 10, 0xFFFFFF);
+	    int red = 0xFF0000;
+	    int blue = 0x0000FF;
+	    mc.fontRenderer.drawStringWithShadow(bossName, (width / 2) - (mc.fontRenderer.getStringWidth(bossName) / 2), padding_up - 10, (bossInfo.getPercent()) >= 0.5f ? red : blue);
 	}
 
 
