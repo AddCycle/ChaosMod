@@ -16,4 +16,5 @@ public class Reference {
     
     // Entities ids
     public static final int ENTITY_FORGE_GUARDIAN = 120;
+	public static final int REVENGE_BLAZE_BOSS = 121;
 }

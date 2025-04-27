@@ -1,6 +1,8 @@
 package util.handlers.entity;
 
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
+import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
+import net.chaos.chaosmod.entity.boss.renderer.EntityRevengeBlazeRenderer;
 import net.chaos.chaosmod.entity.render.RenderForgeGuardian;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -19,6 +21,13 @@ public class RenderHandler {
 				return new RenderForgeGuardian(manager);
 			}
 
+		});
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRevengeBlazeBoss.class, new IRenderFactory<EntityRevengeBlazeBoss>() {
+			@Override
+			public Render<? super EntityRevengeBlazeBoss> createRenderFor(RenderManager manager) {
+				return new EntityRevengeBlazeRenderer(manager);
+			}
 		});
 	}
 

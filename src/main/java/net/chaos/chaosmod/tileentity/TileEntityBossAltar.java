@@ -3,6 +3,7 @@ package net.chaos.chaosmod.tileentity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -64,17 +65,16 @@ public class TileEntityBossAltar extends TileEntity implements ITickable {
 	}
 	
 	public void animationFinished() {
-		spawnBoss();
+		spawnBlazeBoss();
 	}
 	
-	public void spawnBoss() {
+	public void spawnBlazeBoss() {
 		World world = this.world;
 		BlockPos pos = this.getPos();
 
 		if (!world.isRemote) {
-			EntityBlaze boss = new EntityBlaze(world);
+			EntityRevengeBlazeBoss boss = new EntityRevengeBlazeBoss(world);
 			boss.setPosition(pos.getX() + 0.5, pos.up().getY(), pos.getZ() + 0.5);
-			boss.forceSpawn = true;
 			world.spawnEntity(boss);
 		}
 		System.out.println("Boss spawned");
