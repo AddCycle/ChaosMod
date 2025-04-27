@@ -304,16 +304,4 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 		super.onEntityCollidedWithBlock(worldIn, pos, state, entityIn);
 	}
-	
-	@Override
-	public void onLanded(World worldIn, Entity entityIn) {
-		EntityItem itementity;
-		if (entityIn instanceof EntityItem) {
-			itementity = (EntityItem) entityIn;
-			if (itementity.getItem().getItem().equals(ModItems.OXONIUM)) {
-				itementity.setItem(new ItemStack(ModItems.ALLEMANITE_INGOT,itementity.getItem().getCount()));
-			}
-		}
-		super.onLanded(worldIn, entityIn);
-	}
 }

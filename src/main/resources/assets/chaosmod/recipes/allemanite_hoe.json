@@ -2,16 +2,16 @@
 	"type": "minecraft:crafting_shaped",
 	
 	"pattern": [
-		"O",
-		"O",
-		"S"
+		"AA",
+		" S",
+		" S"
 	],
 	
 	"key":
 	{
-		"O":
+		"A":
 		{
-			"item": "chaosmod:oxonium_ingot"
+			"item": "chaosmod:allemanite_ingot"
 		},
 
 		"S":
@@ -22,7 +22,7 @@
 	
 	"result":
 	{
-		"item": "chaosmod:oxonium_sword",
+		"item": "chaosmod:allemanite_hoe",
 		"count": 1
 	}
 }

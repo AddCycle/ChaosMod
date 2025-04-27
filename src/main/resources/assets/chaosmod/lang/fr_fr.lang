@@ -1,9 +1,15 @@
 //Tools
-item.oxonium_sword.name=Epée en oxonium
-item.oxonium_hoe.name=Houe en oxonium
-item.oxonium_pickaxe.name=Pioche en oxonium
-item.oxonium_axe.name=Hache en oxonium
-item.oxonium_shovel.name=Pelle en oxonium
+item.oxonium_sword.name=Epée en Oxonium
+item.oxonium_hoe.name=Houe en Oxonium
+item.oxonium_pickaxe.name=Pioche en Oxonium
+item.oxonium_axe.name=Hache en Oxonium
+item.oxonium_shovel.name=Pelle en Oxonium
+
+item.allemanite_sword.name=Epée en Allemanite
+item.allemanite_hoe.name=Houe en Allemanite
+item.allemanite_pickaxe.name=Pioche en Allemanite
+item.allemanite_axe.name=Hache en Allemanite
+item.allemanite_shovel.name=Pelle en Allemanite
 
 //Armor
 item.oxonium_helmet.name=Casque en oxonium

@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 public class OxoniumFurnaceMaker {
 	public static List<OxoniumFurnaceWrapper> getRecipes() {
         return Arrays.asList(
-            new OxoniumFurnaceWrapper(new ItemStack(ModBlocks.OXONIUM_ORE), new ItemStack(ModItems.OXONIUM)),
+            new OxoniumFurnaceWrapper(new ItemStack(ModBlocks.OXONIUM_ORE), new ItemStack(ModItems.OXONIUM_INGOT)),
             new OxoniumFurnaceWrapper(new ItemStack(ModBlocks.ALLEMANITE_ORE), new ItemStack(ModItems.ALLEMANITE_INGOT))
         );
     }

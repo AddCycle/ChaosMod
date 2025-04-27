@@ -21,7 +21,7 @@ public class GeneralTab extends CreativeTabs {
 
 	@Override
 	public ItemStack getTabIconItem() {
-		return new ItemStack(ModItems.OXONIUM);
+		return new ItemStack(ModBlocks.OXONIUM_ORE);
 	}
 	
 	@Override
@@ -84,7 +84,7 @@ public class GeneralTab extends CreativeTabs {
 	
 	@Override
 	public boolean hasSearchBar() {
-		return true;
+		return false;
 	}
 
 }

@@ -40,21 +40,6 @@ public class ToolSword extends ItemSword implements IHasModel {
 	}
 	
 	@Override
-	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-		// player.getEntityWorld().spawnParticle(EnumParticleTypes.SWEEP_ATTACK, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 0.0, 0.0, 1.0);
-		entity.setDead();
-		entity.onUpdate();
-
-		// manager.emitParticleAtEntity(player, EnumParticleTypes.SWEEP_ATTACK);
-		// player.spawnSweepParticles();
-		System.out.println(String.format("Looking at : %f %f %f",player.getPositionEyes(Minecraft.getMinecraft().getRenderPartialTicks()).x, player.getPositionEyes(Minecraft.getMinecraft().getRenderPartialTicks()).y, player.getPositionEyes(Minecraft.getMinecraft().getRenderPartialTicks()).z));
-		System.out.println("TATANE");
-
-		return false;
-		// return super.onLeftClickEntity(stack, player, entity);
-	}
-	
-	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}

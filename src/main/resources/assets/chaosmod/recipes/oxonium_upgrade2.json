@@ -11,7 +11,7 @@
 	{
 		"O":
 		{
-			"item": "chaosmod:oxonium"
+			"item": "chaosmod:oxonium_ingot"
 		},
 
 		"C":
@@ -22,7 +22,7 @@
 	
 	"result":
 	{
-		"item": "chaosmod:oxonium_upgrade",
+		"item": "chaosmod:oxonium_chest",
 		"count": 1
 	}
 }

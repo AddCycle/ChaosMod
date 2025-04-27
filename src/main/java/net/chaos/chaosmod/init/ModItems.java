@@ -50,7 +50,7 @@ public class ModItems {
 			new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f);
 	
 	//Items
-	public static final Item OXONIUM = new ItemBase("oxonium");
+	public static final Item OXONIUM_INGOT = new ItemBase("oxonium_ingot");
 	public static final Item ALLEMANITE_INGOT = new AllemaniteIngot("allemanite_ingot");
 	public static final Item ENDERITE_SHARD = new EnderiteShard("enderite_shard");
 	
@@ -60,6 +60,18 @@ public class ModItems {
 	public static final ItemAxe OXONIUM_AXE = new ToolAxe("oxonium_axe", MATERIAL_OXONIUM);
 	public static final ItemSpade OXONIUM_SHOVEL = new ToolSpade("oxonium_shovel", MATERIAL_OXONIUM);
 	public static final ItemHoe OXONIUM_HOE = new ToolHoe("oxonium_hoe", MATERIAL_OXONIUM);
+
+	public static final ItemSword ALLEMANITE_SWORD = new ToolSword("allemanite_sword", MATERIAL_ALLEMANITE);
+	public static final ItemPickaxe ALLEMANITE_PICKAXE = new ToolPickaxe("allemanite_pickaxe", MATERIAL_ALLEMANITE);
+	public static final ItemAxe ALLEMANITE_AXE = new ToolAxe("allemanite_axe", MATERIAL_ALLEMANITE);
+	public static final ItemSpade ALLEMANITE_SHOVEL = new ToolSpade("allemanite_shovel", MATERIAL_ALLEMANITE);
+	public static final ItemHoe ALLEMANITE_HOE = new ToolHoe("allemanite_hoe", MATERIAL_ALLEMANITE);
+
+	public static final ItemSword ENDERITE_SWORD = new ToolSword("enderite_sword", MATERIAL_ENDERITE);
+	public static final ItemPickaxe ENDERITE_PICKAXE = new ToolPickaxe("enderite_pickaxe", MATERIAL_ENDERITE);
+	public static final ItemAxe ENDERITE_AXE = new ToolAxe("enderite_axe", MATERIAL_ENDERITE);
+	public static final ItemSpade ENDERITE_SHOVEL = new ToolSpade("enderite_shovel", MATERIAL_ENDERITE);
+	public static final ItemHoe ENDERITE_HOE = new ToolHoe("enderite_hoe", MATERIAL_ENDERITE);
 	
 	//Armor
 	public static final Item OXONIUM_HELMET = new ArmorBase("oxonium_helmet", ARMOR_MATERIAL_OXONIUM, 1, EntityEquipmentSlot.HEAD);

@@ -5,6 +5,12 @@ item.oxonium_pickaxe.name=Oxonium Pickaxe
 item.oxonium_axe.name=Oxonium Axe
 item.oxonium_shovel.name=Oxonium Shovel
 
+item.allemanite_sword.name=Allemanite Sword
+item.allemanite_hoe.name=Allemanite Hoe
+item.allemanite_pickaxe.name=Allemanite Pickaxe
+item.allemanite_axe.name=Allemanite Axe
+item.allemanite_shovel.name=Allemanite Shovel
+
 //Armor
 item.oxonium_helmet.name=Oxonium Helmet
 item.oxonium_chestplate.name=Oxonium Chestplate

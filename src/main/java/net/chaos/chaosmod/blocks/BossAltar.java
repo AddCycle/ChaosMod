@@ -59,7 +59,7 @@ public class BossAltar extends BlockBase implements ITileEntityProvider {
 			if (te_2.isAnimating) {
 				return false;
 			}
-			if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.OXONIUM))) {
+			if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.OXONIUM_INGOT))) {
 				te_2.r = 0.001f; te_2.g = 0.0f; te_2.b = 1.0f;
 			} else if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.ALLEMANITE_INGOT))) {
 				te_2.r = 0.0f; te_2.g = 0.0f; te_2.b = 1.0f;
