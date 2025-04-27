@@ -3,6 +3,8 @@ package util.handlers.entity;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
 import net.chaos.chaosmod.entity.boss.renderer.EntityRevengeBlazeRenderer;
+import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
+import net.chaos.chaosmod.entity.projectile.render.EntitySmallBlueFireballRenderer;
 import net.chaos.chaosmod.entity.render.RenderForgeGuardian;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -28,6 +30,15 @@ public class RenderHandler {
 			public Render<? super EntityRevengeBlazeBoss> createRenderFor(RenderManager manager) {
 				return new EntityRevengeBlazeRenderer(manager);
 			}
+		});
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntitySmallBlueFireball.class, new IRenderFactory<EntitySmallBlueFireball>() {
+
+			@Override
+			public Render<? super EntitySmallBlueFireball> createRenderFor(RenderManager manager) {
+				return new EntitySmallBlueFireballRenderer(manager);
+			}
+			
 		});
 	}
 

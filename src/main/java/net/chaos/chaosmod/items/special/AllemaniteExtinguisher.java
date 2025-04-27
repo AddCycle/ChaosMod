@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.tabs.ModTabs;
+import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,6 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
@@ -36,10 +38,18 @@ public class AllemaniteExtinguisher extends ItemBase {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!worldIn.isRemote && player.isBurning()) {
-			player.extinguish();
-			player.getHeldItem(hand).damageItem(1, player);
-			worldIn.setBlockToAir(pos.up());
+		if (player.isBurning()) {
+			if (!worldIn.isRemote) {
+				player.extinguish();
+				player.getHeldItem(hand).damageItem(1, player);
+				Block block = worldIn.getBlockState(pos.up()).getBlock();
+				if (block.isFireSource(worldIn, pos, facing)) worldIn.setBlockToAir(pos.up());
+			} else {
+				double R = 0xFFFFFF;
+				double G = 0xFFFFFF;
+				double B = 0xFFFFFF;
+				worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, true, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, R, G, B);
+			}
 		}
 
 		return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);

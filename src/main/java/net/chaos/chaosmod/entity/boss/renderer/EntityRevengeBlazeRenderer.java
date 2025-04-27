@@ -55,7 +55,7 @@ public class EntityRevengeBlazeRenderer extends RenderLiving<EntityRevengeBlazeB
     @Override
     public void doRenderShadowAndFire(Entity entityIn, double x, double y, double z, float yaw, float partialTicks) {
     	// super.doRenderShadowAndFire(entityIn, x, y, z, yaw, partialTicks);
-    	renderEntityOnFireCustom(entityIn, x, y, z, partialTicks);
+    	if (entityIn.isBurning()) renderEntityOnFireCustom(entityIn, x, y, z, partialTicks);
     }
     
     private void renderEntityOnFireCustom(Entity entity, double x, double y, double z, float partialTicks)
