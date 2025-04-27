@@ -415,7 +415,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
     protected void onDeathUpdate() {
         ++this.deathTime;
 
-        if (this.deathTime >= 60)
+        if (this.deathTime >= 200)
         {
             if (!this.world.isRemote && (this.isPlayer() || this.recentlyHit > 0 && this.canDropLoot() && this.world.getGameRules().getBoolean("doMobLoot")))
             {
@@ -439,9 +439,9 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                 this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d2, d0, d1);
             }
         } else {
-        	float progress = (getMaxHealth() / 60) - this.deathTime;
+        	float progress = getMaxHealth() - (this.deathTime * (getMaxHealth() / 200));
         	this.bossInfo.setColor(BossInfo.Color.WHITE);
-        	this.bossInfo.setPercent(progress / (getMaxHealth() / 60));
+        	this.bossInfo.setPercent(progress / (getMaxHealth() / 200));
         	this.bossInfo.setName(new TextComponentString("Dying")); // FIXME add localization please
         }
     }

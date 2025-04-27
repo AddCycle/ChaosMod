@@ -82,7 +82,7 @@ public class ModItems {
 	//Food
 	//public static final Item OXONIUM_CARROT = new FoodBase("oxonium_carrot", 3, 3.0f, false);
 	public static final Item OXONIUM_CARROT = 
-		new FoodEffectBase("oxonium_carrot", 3, 3.0f, false, new PotionEffect(MobEffects.RESISTANCE, 60*20, 1, false, true));
+		new FoodEffectBase("oxonium_carrot", 5, 3.0f, false, new PotionEffect(MobEffects.RESISTANCE, 60*20, 1, false, true));
 	
 	// Special
 	public static final Item OXONIUM_UPGRADE = new ChestUpgradeBase("oxonium_upgrade"); // chest upgrade
