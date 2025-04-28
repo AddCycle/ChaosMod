@@ -9,6 +9,7 @@ import net.chaos.chaosmod.commands.CheatCommand;
 import net.chaos.chaosmod.commands.CraftCommand;
 import net.chaos.chaosmod.commands.DimensionWarpCommand;
 import net.chaos.chaosmod.commands.FindBlockCommand;
+import net.chaos.chaosmod.commands.FireCommand;
 import net.chaos.chaosmod.commands.FurnaceCommand;
 import net.chaos.chaosmod.commands.GuideCommand;
 import net.chaos.chaosmod.commands.HomeCommand;
@@ -120,5 +121,6 @@ public class Main
         event.registerServerCommand(new CheatCommand());
         event.registerServerCommand(new SetHomeCommand());
         event.registerServerCommand(new HomeCommand());
+        event.registerServerCommand(new FireCommand());
     }
 }

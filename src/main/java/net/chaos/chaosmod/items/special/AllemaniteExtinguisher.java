@@ -48,7 +48,7 @@ public class AllemaniteExtinguisher extends ItemBase {
 				double R = 0xFFFFFF;
 				double G = 0xFFFFFF;
 				double B = 0xFFFFFF;
-				worldIn.spawnParticle(EnumParticleTypes.REDSTONE, true, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, R, G, B);
+				worldIn.spawnParticle(EnumParticleTypes.REDSTONE, true, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, R, G, B);
 			}
 		}
 

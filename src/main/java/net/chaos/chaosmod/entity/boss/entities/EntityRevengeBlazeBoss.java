@@ -69,8 +69,6 @@ public class EntityRevengeBlazeBoss extends EntityMob {
         this.bossInfo.setName(this.getDisplayName());
 	}
 	
-	
-	
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		updateDifficultyBuffs();

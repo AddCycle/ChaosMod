@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.BossInfo;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -13,7 +14,8 @@ import util.Reference;
 
 @EventBusSubscriber(Side.CLIENT)
 public class BossBarRendering {
-	public static final ResourceLocation PHASE_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/revenge_blaze_bar.png");
+	public static final ResourceLocation PHASE_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/revenge_blaze_bar_1.png");
+	public static final ResourceLocation PHASE_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/revenge_blaze_bar_2.png");
 
 	@SubscribeEvent
 	public void onRenderBossBar(RenderGameOverlayEvent.BossInfo event) {
@@ -25,7 +27,7 @@ public class BossBarRendering {
 
 	    // If you only want to replace YOUR boss bar:
 
-	    if (!bossInfo.getName().getUnformattedText().contains("Revenge Blaze")) {
+	    if (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.revenge_blaze_boss.name").getUnformattedText())) {
 	        return;
 	    }
 
@@ -36,7 +38,7 @@ public class BossBarRendering {
 	    ScaledResolution scaledRes = new ScaledResolution(mc);
 	    int width = scaledRes.getScaledWidth();
 	    
-	    mc.getTextureManager().bindTexture(PHASE_1);
+	    mc.getTextureManager().bindTexture((bossInfo.getPercent()) >= 0.5f ? PHASE_1 : PHASE_2);
 
 	    /*
 	     * Change this barWidth, fullHeight in order to match the texture

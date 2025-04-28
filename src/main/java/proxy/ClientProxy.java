@@ -30,7 +30,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
         RenderHandler.registerEntityRenders();
-        MinecraftForge.EVENT_BUS.register(new BossBarRendering());
+        // MinecraftForge.EVENT_BUS.register(new BossBarRendering());
 	}
 
 	@Override
