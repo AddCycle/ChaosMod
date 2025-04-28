@@ -11,19 +11,19 @@ import util.Reference;
 public class ForgeInterfaceGui extends GuiContainer {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/container/forge_interface.png");
     private final InventoryPlayer playerInventory;
-    private final IInventory forgeInterfaceInv;
+    private final IInventory tileEntity;
 
 	public ForgeInterfaceGui(InventoryPlayer playerInv, IInventory tileEntity) {
 		super(new ForgeInterfaceContainer(playerInv, tileEntity));
 		this.playerInventory = playerInv;
-		this.forgeInterfaceInv = tileEntity;
+		this.tileEntity = tileEntity;
 		this.xSize = 176;
         this.ySize = 166;
 	}
 
 	@Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.fontRenderer.drawString(this.forgeInterfaceInv.getDisplayName().getUnformattedText(), 8, 6, 4210752);
+        this.fontRenderer.drawString(this.tileEntity.getDisplayName().getUnformattedText(), 8, 6, 4210752);
         this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
@@ -33,4 +33,12 @@ public class ForgeInterfaceGui extends GuiContainer {
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
+    private int getFabricationProcess(int pixels)
+    {
+        int i = this.tileEntity.getField(0);
+        int j = this.tileEntity.getField(1);
+        int k = this.tileEntity.getField(2);
+        return j != 0 && i != 0 ? i * pixels / j : 0;
+    }
+    
 }

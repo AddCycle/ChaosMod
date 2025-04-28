@@ -78,19 +78,19 @@ public class Main
     public void preInit(FMLPreInitializationEvent event)
     {
         logger = event.getModLog();
+    	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
         proxy.preInit(event);
         ModEntities.registerEntities();
         // ChaosModPacketHandler.registerMessage();
 		Main.network = NetworkRegistry.INSTANCE.newSimpleChannel("chaosmod");
 		Main.network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 0, Side.CLIENT);
-        RegistryHandler.onSmeltingRegister();
 		// Main.network.registerMessage(OxoniumFurnaceMessageHandler.class, OxoniumFurnaceMessage.class, 1, Side.CLIENT);
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        logger.info("ALLEMANITE ORE >> {}", ModBlocks.ALLEMANITE_ORE.getRegistryName());
+    	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
         proxy.init(event);
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 10);
@@ -99,12 +99,14 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerInHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+        RegistryHandler.onSmeltingRegister();
     }
     
     // After the launching of the instance
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
+    	logger.info("CHAOSMOD POST-INIT PHASE {}", event.getModState());
     	proxy.postInit(event);
     	GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, new ResourceLocation(Reference.MODID, "oxonium_furnace"));
     	GameRegistry.registerTileEntity(TileEntityOxoniumChest.class, new ResourceLocation(Reference.MODID, "oxonium_chest"));

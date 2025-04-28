@@ -75,7 +75,6 @@ public class RegistryHandler {
 	public static void otherRegistries() {
 	}
 	
-	// @EventHandler
 	public static void onSmeltingRegister() {
 		// To be able to smelt the modded items only in custom furnace oxonium or >higher
 		GameRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM_INGOT), 0.2f);

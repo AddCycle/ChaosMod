@@ -33,7 +33,7 @@ public class EntityRevengeBlazeRenderer extends RenderLiving<EntityRevengeBlazeB
 	
 	public EntityRevengeBlazeRenderer(RenderManager rendermanagerIn) {
 		super(rendermanagerIn, new ModelBlaze(), 0.5f);
-		// this.addLayer(new LayerBlueFire<EntityRevengeBlazeBoss>(this));
+		this.addLayer(new LayerDeathBoss<EntityRevengeBlazeBoss>(this, 0, 0, 200));
 	}
 
 	@Override

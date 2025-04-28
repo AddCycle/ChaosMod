@@ -75,4 +75,5 @@ public class OxoniumFurnaceGui extends GuiContainer {
 
         return this.tileFurnace.getField(0) * pixels / i;
     }
+ 
 }
