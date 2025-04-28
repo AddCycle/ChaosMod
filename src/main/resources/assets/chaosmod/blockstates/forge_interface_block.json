@@ -1,0 +1,5 @@
+{
+	"variants": {
+		"normal": { "model": "chaosmod:forge_interface_block" }
+	}
+}

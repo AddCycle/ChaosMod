@@ -46,6 +46,7 @@ tile.enderite_bricks.name=Enderite Bricks
 tile.oxonium_furnace.name=Oxonium Furnace
 tile.oxonium_chest.name=Oxonium Chest
 tile.boss_altar.name=Boss Altar
+tile.forge_interface_block.name=Forge Interface Block
 
 // Entities
 entity.forge_guardian.name=Forge Guardian of Chaos
@@ -53,6 +54,7 @@ entity.revenge_blaze_boss.name=Revenge Blaze
 
 //Gui
 itemGroup.chaosmodtab=Chaos Items
+gui.forge_interface_block.title=Chaos Forge
 
 //Guide
 text.guide.title=ChaosMod Guide

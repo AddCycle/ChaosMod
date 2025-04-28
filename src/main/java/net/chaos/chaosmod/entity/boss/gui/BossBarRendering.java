@@ -25,8 +25,6 @@ public class BossBarRendering {
 
 	    BossInfo bossInfo = event.getBossInfo();
 
-	    // If you only want to replace YOUR boss bar:
-
 	    if (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.revenge_blaze_boss.name").getUnformattedText())) {
 	        return;
 	    }

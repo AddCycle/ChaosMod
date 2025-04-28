@@ -9,6 +9,7 @@ import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
 import net.chaos.chaosmod.blocks.EnderiteOre;
+import net.chaos.chaosmod.blocks.ForgeInterfaceBlock;
 import net.chaos.chaosmod.blocks.OxoniumBlock;
 import net.chaos.chaosmod.blocks.OxoniumChest;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
@@ -45,4 +46,5 @@ public class ModBlocks {
 	public static final Block ENDERITE_BRICKS = new MineralBricks("enderite_bricks", Material.ROCK, TextFormatting.DARK_PURPLE, "You will need this to relax after what you have been through");
 	public static final Block CUSTOM_FLOWER = new BlockCustomFlower();
 	public static final Block CUSTOM_GRASS = new BlockBrightGrass();
+	public static final Block FORGE_INTERFACE_BLOCK = new ForgeInterfaceBlock("forge_interface_block", Material.IRON);
 }

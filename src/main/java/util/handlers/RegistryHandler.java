@@ -75,11 +75,11 @@ public class RegistryHandler {
 	public static void otherRegistries() {
 	}
 	
-	/*@EventHandler
+	// @EventHandler
 	public static void onSmeltingRegister() {
 		// To be able to smelt the modded items only in custom furnace oxonium or >higher
-		GameRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM), 0.2f);
-		CustomSmeltingRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM), 0.4f);
-		CustomSmeltingRegistry.addSmelting(ModBlocks.ALLEMANITE_ORE, new ItemStack(ModItems.ALLEMANITE_INGOT), 0.8f);
-	}*/
+		GameRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM_INGOT), 0.2f);
+		// CustomSmeltingRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM), 0.4f);
+		// CustomSmeltingRegistry.addSmelting(ModBlocks.ALLEMANITE_ORE, new ItemStack(ModItems.ALLEMANITE_INGOT), 0.8f);
+	}
 }

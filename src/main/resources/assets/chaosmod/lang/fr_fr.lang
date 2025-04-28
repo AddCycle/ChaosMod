@@ -47,6 +47,7 @@ tile.enderite_bricks.name=Brique en Enderite
 tile.oxonium_furnace.name=Four en Oxonium
 tile.oxonium_chest.name=Coffre en Oxonium
 tile.boss_altar.name=Autel des Boss
+tile.forge_interface_block.name=Interface de la Forge
 
 // Entities
 entity.forge_guardian.name=Gardien de la Forge du Chaos
@@ -54,6 +55,7 @@ entity.revenge_blaze_boss.name=Blaze Vengeur
 
 //Gui
 itemGroup.chaosmodtab=Objets du Chaos
+gui.forge_interface_block.title=Forge du Chaos
 
 //Guide
 text.guide.title=Guide du Chaos
