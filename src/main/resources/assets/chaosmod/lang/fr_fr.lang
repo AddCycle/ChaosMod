@@ -11,6 +11,12 @@ item.allemanite_pickaxe.name=Pioche en Allemanite
 item.allemanite_axe.name=Hache en Allemanite
 item.allemanite_shovel.name=Pelle en Allemanite
 
+item.enderite_sword.name=Epée en Enderite
+item.enderite_hoe.name=Houe en Enderite
+item.enderite_pickaxe.name=Pioche en Enderite
+item.enderite_axe.name=Hache en Enderite
+item.enderite_shovel.name=Pelle en Enderite
+
 //Armor
 item.oxonium_helmet.name=Casque en oxonium
 item.oxonium_chestplate.name=Plastron en oxonium

@@ -11,6 +11,12 @@ item.allemanite_pickaxe.name=Allemanite Pickaxe
 item.allemanite_axe.name=Allemanite Axe
 item.allemanite_shovel.name=Allemanite Shovel
 
+item.enderite_sword.name=Enderite Sword
+item.enderite_hoe.name=Enderite Hoe
+item.enderite_pickaxe.name=Enderite Pickaxe
+item.enderite_axe.name=Enderite Axe
+item.enderite_shovel.name=Enderite Shovel
+
 //Armor
 item.oxonium_helmet.name=Oxonium Helmet
 item.oxonium_chestplate.name=Oxonium Chestplate
@@ -20,7 +26,7 @@ item.oxonium_boots.name=Oxonium Boots
 // Items
 item.oxonium_ingot.name=Oxonium Ingot
 item.allemanite_ingot.name=Allemanite Ingot
-item.enderite_shard.name=Enderite Shard
+item.enderite_ingot.name=Enderite Ingot
 
 //Food
 item.oxonium_carrot.name=Oxonium Carrot

@@ -36,18 +36,6 @@ public class EnderiteOre extends BlockBase {
 	}
 	
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return ModItems.ENDERITE_SHARD;
-	}
-	
-	@Override
-	public int quantityDropped(Random random) {
-		int min = 1;
-		int max = 2;
-		return random.nextInt(max) + min;
-	}
-	
-	@Override
 	public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
 		return 1;
 	}

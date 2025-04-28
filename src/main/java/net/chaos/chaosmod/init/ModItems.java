@@ -52,7 +52,7 @@ public class ModItems {
 	//Items
 	public static final Item OXONIUM_INGOT = new ItemBase("oxonium_ingot");
 	public static final Item ALLEMANITE_INGOT = new AllemaniteIngot("allemanite_ingot");
-	public static final Item ENDERITE_SHARD = new EnderiteShard("enderite_shard");
+	public static final Item ENDERITE_INGOT = new EnderiteShard("enderite_ingot");
 	
 	//Tools
 	public static final ItemSword OXONIUM_SWORD = new ToolSword("oxonium_sword", MATERIAL_OXONIUM);

@@ -426,6 +426,8 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                     double d2 = entitylivingbase.getEntityBoundingBox().minY + (double)(entitylivingbase.height / 2.0F) - (this.blaze.posY + (double)(this.blaze.height / 2.0F));
                     double d3 = entitylivingbase.posZ - this.blaze.posZ;
 
+                    int power = 1; // be aware, power is x3 fireballs
+                    int peace_factor = 41; // must be superior to 40
                     if (this.attackTime <= 0)
                     {
                         ++this.attackStep;
@@ -433,7 +435,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                         if (this.attackStep == 1)
                         {
                         	if (this.blaze.isTransformed()) {
-                        		this.attackTime = 20;
+                        		this.attackTime = 20 * (((peace_factor - 40) == 0) ? 1 : (peace_factor - 40));
                         		this.blaze.setOnFire(true);
                         	} else {
                         		this.attackTime = 60;
@@ -447,7 +449,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                         else
                         {
                         	if (this.blaze.isTransformed()) {
-                        		this.attackTime = 60;
+                        		this.attackTime = 60 * peace_factor;
                         	} else {
                         		this.attackTime = 100;
                         	}
@@ -460,19 +462,22 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                             float f = MathHelper.sqrt(MathHelper.sqrt(d0)) * 0.5F;
                             this.blaze.world.playEvent((EntityPlayer)null, 1018, new BlockPos((int)this.blaze.posX, (int)this.blaze.posY, (int)this.blaze.posZ), 0);
 
-                            int power = 1; // be aware, power is x3 fireballs
                             switch (this.blaze.world.getDifficulty()) {
                             case PEACEFUL:
                             	power = 0;
+                            	peace_factor = 400;
                             	break;
                             case EASY:
                             	power = 1;
+                            	peace_factor = 60;
                             	break;
                             case NORMAL:
                             	power = 3;
+                            	peace_factor = 51;
                             	break;
                             case HARD:
                             	power = 20; // insane !! do not play HARD for fun
+                            	peace_factor = 41;
                             	break;
 							default:
 								break;
