@@ -6,6 +6,7 @@ import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -39,6 +40,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
@@ -64,6 +67,45 @@ public class EntityRevengeBlazeBoss extends EntityMob {
         this.experienceValue = 10;
         this.bossInfo = new BossInfoServer(this.getDisplayName(), BossInfo.Color.RED, BossInfo.Overlay.PROGRESS);
         this.bossInfo.setName(this.getDisplayName());
+	}
+	
+	
+	
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		updateDifficultyBuffs();
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
+	
+	private void updateDifficultyBuffs() {
+	    EnumDifficulty difficulty = this.world.getDifficulty();
+	    double health = 1024.0D;
+	    double attack_damage = 8.0D;
+	    double move_speed = 0.25000000417232513D;
+
+	    switch (difficulty) {
+	        case PEACEFUL:
+	        	// shouldn't happen because peaceful not spawning mobs but in case...
+	        	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health / 8);
+	            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack_damage * 0.6);
+	            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(move_speed * 0.7);
+	            break;
+	        case EASY:
+	        	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health / 4);
+	            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack_damage * 0.8);
+	            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(move_speed * 0.8);
+	            break;
+	        case NORMAL:
+	        	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health * 0.75);
+	            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack_damage * 0.9);
+	            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(move_speed * 0.9);
+	            break;
+	        case HARD:
+	        	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health);
+	            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack_damage);
+	            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(move_speed);
+	            break;
+	    }
 	}
 	
 	@Override
@@ -409,8 +451,23 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                             float f = MathHelper.sqrt(MathHelper.sqrt(d0)) * 0.5F;
                             this.blaze.world.playEvent((EntityPlayer)null, 1018, new BlockPos((int)this.blaze.posX, (int)this.blaze.posY, (int)this.blaze.posZ), 0);
 
-                            int base = 1; // default
-                            int power = 100; // be aware, power is x3 fireballs
+                            int power = 1; // be aware, power is x3 fireballs
+                            switch (this.blaze.world.getDifficulty()) {
+                            case PEACEFUL:
+                            	power = 0;
+                            	break;
+                            case EASY:
+                            	power = 1;
+                            	break;
+                            case NORMAL:
+                            	power = 3;
+                            	break;
+                            case HARD:
+                            	power = 20; // insane !! do not play HARD for fun
+                            	break;
+							default:
+								break;
+                            }
                             for (int i = 0; i < power; ++i)
                             {
                             	// default speed
