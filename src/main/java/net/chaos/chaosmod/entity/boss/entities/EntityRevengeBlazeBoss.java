@@ -3,6 +3,7 @@ package net.chaos.chaosmod.entity.boss.entities;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -16,10 +17,13 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntitySmallFireball;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -61,6 +65,11 @@ public class EntityRevengeBlazeBoss extends EntityMob {
         this.bossInfo = new BossInfoServer(this.getDisplayName(), BossInfo.Color.RED, BossInfo.Overlay.PROGRESS);
         this.bossInfo.setName(this.getDisplayName());
 	}
+	
+	@Override
+	public boolean isImmuneToExplosions() {
+		return true;
+	}
 
     public static void registerFixesBlaze(DataFixer fixer)
     {
@@ -78,20 +87,20 @@ public class EntityRevengeBlazeBoss extends EntityMob {
 	protected void initEntityAI() {
         this.tasks.addTask(4, new EntityRevengeBlazeBoss.AIFireballAttack(this));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D, 0.0F));
+        this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D, 1.0F));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-		// super.initEntityAI();
 	}
+	EntityEnderman enderman;
 	
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1024.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.90000000417232513D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25000000417232513D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(48.0D);
 	}
 
@@ -114,6 +123,50 @@ public class EntityRevengeBlazeBoss extends EntityMob {
     public int getBrightnessForRender()
     {
         return 15728880;
+    }
+    
+    /*
+     * This part is about avoiding projectiles if phase 2
+     */
+    
+    private boolean teleportTo(double x, double y, double z) {
+        net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
+        if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) return false;
+        boolean flag = this.attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+
+        if (flag)
+        {
+            this.world.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
+            this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+        }
+
+        return flag;
+    }
+    EntityBlaze blaze;
+    
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+    	if (this.isEntityInvulnerable(source)) return false;
+    	Entity immediate = source.getImmediateSource();
+    	if (immediate != null && (immediate instanceof EntityArrow || immediate instanceof EntitySnowball)) {
+    		int flag = rand.nextInt(2) == 0 ? 1 : -1;
+    		if (this.isTransformed()) {
+    			BlockPos pos = new BlockPos(this.posX + (rand.nextInt(2) + 2) * flag, this.posY, this.posZ + (rand.nextInt(2) + 2) * flag);
+    			int height = world.getHeight(pos).getY();
+    			if (teleportTo(pos.getX(), pos.getY(), pos.getZ())) {
+    				return false;
+    			} else {
+    				teleportTo(pos.getX(), height, pos.getZ()); // escapes from boss chamber
+    				return false;
+    			}
+    		}
+    	}
+    	return super.attackEntityFrom(source, amount);
+    }
+    
+    @Override
+    public void fall(float distance, float damageMultiplier) {
+    	return; // do nothing
     }
     
     @Override
@@ -356,7 +409,9 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                             float f = MathHelper.sqrt(MathHelper.sqrt(d0)) * 0.5F;
                             this.blaze.world.playEvent((EntityPlayer)null, 1018, new BlockPos((int)this.blaze.posX, (int)this.blaze.posY, (int)this.blaze.posZ), 0);
 
-                            for (int i = 0; i < 1; ++i)
+                            int base = 1; // default
+                            int power = 100; // be aware, power is x3 fireballs
+                            for (int i = 0; i < power; ++i)
                             {
                             	// default speed
                             	if (this.blaze.isTransformed()) {
@@ -441,11 +496,9 @@ public class EntityRevengeBlazeBoss extends EntityMob {
         }
         else
         {
-        	float progress = Math.max(1.0F - (float)this.deathTime / 200.0F, 0.0F);
-            progress *= this.getHealth() / this.getMaxHealth(); // simulate original health proportion
-
+        	float progress = 200 - this.deathTime;
             this.bossInfo.setColor(BossInfo.Color.WHITE);
-            this.bossInfo.setPercent(progress);
+            this.bossInfo.setPercent(progress / 200);
             this.bossInfo.setName(new TextComponentString("Dying")); // FIXME: add localization
         }
     }
