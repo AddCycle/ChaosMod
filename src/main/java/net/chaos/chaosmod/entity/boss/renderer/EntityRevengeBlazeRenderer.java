@@ -15,7 +15,11 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import util.Reference;
 
 public class EntityRevengeBlazeRenderer extends RenderLiving<EntityRevengeBlazeBoss> {
@@ -50,6 +54,11 @@ public class EntityRevengeBlazeRenderer extends RenderLiving<EntityRevengeBlazeB
             this.mainModel = normalModel;
         }*/
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
+    }
+    
+    @Override
+    protected float handleRotationFloat(EntityRevengeBlazeBoss livingBase, float partialTicks) {
+    	return super.handleRotationFloat(livingBase, partialTicks);
     }
     
     @Override
@@ -170,5 +179,13 @@ public class EntityRevengeBlazeRenderer extends RenderLiving<EntityRevengeBlazeB
     			GlStateManager.enableLighting();
     		}
     	}
+    }
+    
+    // This should kill the death time rotation
+    @Override
+    protected void applyRotations(EntityRevengeBlazeBoss entityLiving, float p_77043_2_, float rotationYaw,
+    		float partialTicks) {
+        GlStateManager.rotate(180.0F - rotationYaw, 0.0F, 1.0F, 0.0F);
+    	// super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);
     }
 }

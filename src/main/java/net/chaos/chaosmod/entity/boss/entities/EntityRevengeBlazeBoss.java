@@ -1,8 +1,11 @@
 package net.chaos.chaosmod.entity.boss.entities;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
+import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,6 +19,7 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -26,6 +30,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -38,6 +43,7 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.DifficultyInstance;
@@ -270,6 +276,11 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                 // this.world.spawnParticle(EnumParticleTypes., this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
             }
         }
+
+        if (this.deathTime <= 0) { 
+            // Normal behavior: set bar according to health
+            this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+        }
 	    
 	    super.onLivingUpdate();
     }
@@ -312,7 +323,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
     @Nullable
     protected ResourceLocation getLootTable()
     {
-        return LootTableList.ENTITIES_BLAZE;
+    	return null;
     }
 
     public boolean isCharged()
@@ -518,12 +529,17 @@ public class EntityRevengeBlazeBoss extends EntityMob {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+        // this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
     }
     
     @Override
     protected void onDeathUpdate() {
         ++this.deathTime;
+
+        if (!world.isRemote) {
+        	this.motionY = 0.02D; // Constant upward motion
+        	this.posY += this.motionY;
+        }
 
         if (this.deathTime >= 200)
         {
@@ -541,6 +557,20 @@ public class EntityRevengeBlazeBoss extends EntityMob {
 
             this.setDead();
 
+            List<EntityPlayer> nearby_players = null;
+            if (!world.isRemote) {
+            	int radius = 20; // FIXME: boss chamber radius
+            	 nearby_players = world.getEntitiesWithinAABB(EntityPlayer.class, this.getEntityBoundingBox().grow(radius));
+            }
+            int count = nearby_players.size();
+
+            System.out.println("PLAYERS NEARBY : " + count);
+            if (!world.isRemote) {
+            	for (EntityPlayerMP pl : world.getMinecraftServer().getPlayerList().getPlayers()) {
+            		pl.sendMessage(new TextComponentTranslation("entity.revenge_blaze_boss.death_message"));
+            	}
+            }
+
             for (int k = 0; k < 20; ++k)
             {
                 double d2 = this.rand.nextGaussian() * 0.02D;
@@ -548,13 +578,17 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                 double d1 = this.rand.nextGaussian() * 0.02D;
                 this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d2, d0, d1);
             }
+            
+            if (!world.isRemote) {
+            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.ENDERITE_AXE, count))); // FIXME drop the blazeHeart + trophy
+            }
         }
         else
         {
-        	float progress = 200 - this.deathTime;
-            this.bossInfo.setColor(BossInfo.Color.WHITE);
-            this.bossInfo.setPercent(progress / 200);
-            this.bossInfo.setName(new TextComponentString("Dying")); // FIXME: add localization
+        	float progress = 1.0F - (float) this.deathTime / 200.0F;
+            this.bossInfo.setPercent(Math.max(progress, 0.0F));
+            this.bossInfo.setColor(BossInfo.Color.GREEN);
+            this.bossInfo.setName(new TextComponentString("Dying...")); // FIXME : add localization
         }
     }
 }
