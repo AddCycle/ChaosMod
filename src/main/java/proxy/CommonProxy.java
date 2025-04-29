@@ -23,4 +23,9 @@ public class CommonProxy {
 	public void postInit(FMLPostInitializationEvent event) {
 		
 	}
+
+	public void registerVariantRenderer(Item item, int meta, String filename, String variant) {
+		// TODO Auto-generated method stub
+		
+	}
 }

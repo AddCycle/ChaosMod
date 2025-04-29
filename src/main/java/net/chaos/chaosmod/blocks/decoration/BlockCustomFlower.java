@@ -1,101 +1,69 @@
 package net.chaos.chaosmod.blocks.decoration;
 
-import javax.annotation.Nullable;
-
-import com.google.common.base.Predicate;
-
 import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.blocks.ItemBlockBase;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.block.properties.IProperty;
+import net.chaos.chaosmod.tabs.ModTabs;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import util.IHasModel;
 
-public class BlockCustomFlower extends BlockFlower implements IHasModel {
+public class BlockCustomFlower extends BlockBush implements IHasModel {
+	public static final PropertyEnum<FlowerType> type = PropertyEnum.create("variant", FlowerType.class);
 
-    protected PropertyEnum<BlockCustomFlower.EnumFlowerType> type;
-
-    public BlockCustomFlower()
+    public BlockCustomFlower(String name)
     {
-    	setRegistryName("custom_flower");
-    	setUnlocalizedName("custom_flower");
-        this.setDefaultState(this.blockState.getBaseState().withProperty(this.getTypeProperty(), this.getBlockType() == BlockCustomFlower.EnumFlowerColor.RED ? BlockCustomFlower.EnumFlowerType.POPPY : BlockCustomFlower.EnumFlowerType.DANDELION));
+    	super();
+    	setRegistryName(name);
+    	setUnlocalizedName(name);
+    	setSoundType(SoundType.PLANT);
+    	setCreativeTab(ModTabs.GENERAL_TAB);
+    	setDefaultState(this.blockState.getBaseState().withProperty(type, FlowerType.SNOW_FLOWER));
         
         ModBlocks.BLOCKS.add(this);
-		ModItems.ITEMS.add(new ItemBlockBase(this).setRegistryName(this.getRegistryName()));
+		ModItems.ITEMS.add(new ItemBlockFlower(this).setRegistryName(this.getRegistryName()));
     }
-
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return super.getBoundingBox(state, source, pos).offset(state.getOffset(source, pos));
+    
+    @Override
+    protected boolean canSustainBush(IBlockState state) {
+    	return state.getBlock() == Blocks.END_STONE || super.canSustainBush(state);
     }
-
-    public int damageDropped(IBlockState state)
-    {
-        return ((BlockCustomFlower.EnumFlowerType)state.getValue(this.getTypeProperty())).getMeta();
+    
+    @Override
+    public int getMetaFromState(IBlockState state) {
+    	return state.getValue(type).getMeta();
     }
-
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
-    {
-        for (BlockCustomFlower.EnumFlowerType blockflower$enumflowertype : BlockCustomFlower.EnumFlowerType.getTypes(this.getBlockType()))
-        {
-            items.add(new ItemStack(this, 1, blockflower$enumflowertype.getMeta()));
-        }
+    
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+    	return getDefaultState().withProperty(type, FlowerType.byMetadata(meta));
     }
-
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(this.getTypeProperty(), BlockCustomFlower.EnumFlowerType.getType(this.getBlockType(), meta));
+    
+    @Override
+    protected BlockStateContainer createBlockState() {
+    	return new BlockStateContainer(this, type);
     }
-
-    public IProperty<BlockCustomFlower.EnumFlowerType> getTypeProperty()
-    {
-        if (this.type == null)
-        {
-            this.type = PropertyEnum.<BlockCustomFlower.EnumFlowerType>create("type", BlockCustomFlower.EnumFlowerType.class, new Predicate<BlockCustomFlower.EnumFlowerType>()
-            {
-                public boolean apply(@Nullable BlockCustomFlower.EnumFlowerType p_apply_1_)
-                {
-                    return p_apply_1_.getBlockType() == BlockCustomFlower.this.getBlockType();
-                }
-            });
-        }
-
-        return this.type;
-    }
-
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((BlockCustomFlower.EnumFlowerType)state.getValue(this.getTypeProperty())).getMeta();
-    }
-
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {this.getTypeProperty()});
+    
+    @Override
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+    	for (FlowerType type : FlowerType.values()) {
+    		items.add(new ItemStack(this, 1, type.getMeta()));
+    	}
     }
 
 	@Override
 	public void registerModels() {
-		for (int i = 0; i < EnumFlowerType.values().length; i++) {
-		    Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), i, "type=" + EnumFlowerType.values()[i].getName());
+		for (FlowerType type : FlowerType.values()) {
+			Main.proxy.registerVariantRenderer(Item.getItemFromBlock(this), type.getMeta(), type.getName(), "inventory");
 		}
-	}
-
-	@Override
-	public EnumFlowerColor getBlockType() {
-		return EnumFlowerColor.YELLOW;
 	}
 
 }

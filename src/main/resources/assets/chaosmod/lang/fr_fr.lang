@@ -45,9 +45,16 @@ tile.oxonium_stairs.name=Oxonium Stairs
 tile.allemanite_block.name=Bloc d'Allemanite
 tile.enderite_ore.name=Minerais d'Enderite
 tile.enderite_block.name=Block d'Enderite
+
+// Decoration
 tile.oxonium_bricks.name=Brique en Oxonium
 tile.allemanite_bricks.name=Brique en Allemanite
 tile.enderite_bricks.name=Brique en Enderite
+tile.custom_flower.snow_flower.name=Fleur de Neige
+tile.custom_flower.blazing_flower.name=Fleur de Feu
+tile.custom_flower.ender_flower.name=Fleur de l'End
+tile.custom_flower.thunder_flower=Fleur de Foudre
+tile.grass_block.name=Block d'herbe customisé
 
 // TileEntities (Machines for the moment)
 tile.oxonium_furnace.name=Four en Oxonium

@@ -7,7 +7,8 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.ItemBlockBase;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
-import net.minecraft.block.BlockGrass;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -16,15 +17,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import util.IHasModel;
 
-public class BlockBrightGrass extends BlockGrass implements IHasModel {
+public class BlockBrightGrass extends Block implements IHasModel {
+
 	public BlockBrightGrass() {
+		super(Material.GROUND);
         setRegistryName("bright_grass");
         setUnlocalizedName("bright_grass");
 
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlockBase(this).setRegistryName(this.getRegistryName()));
     }
-
 
 	@Override
 	public void registerModels() {
@@ -34,7 +36,6 @@ public class BlockBrightGrass extends BlockGrass implements IHasModel {
     @Override
     public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         super.randomTick(worldIn, pos, state, rand);
-        
         // Assign random bright color here
         int color = getRandomBrightColor();
         BlockColors blockColors = Minecraft.getMinecraft().getBlockColors();

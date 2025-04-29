@@ -1,9 +1,8 @@
 {
   "variants": {
-    "type=dandelion": { "model": "chaosmod:block/custom_flower" },
-    "type=poppy": { "model": "chaosmod:block/custom_flower" },
-    "type=blue_orchid": { "model": "chaosmod:block/custom_flower" },
-    "type=allium": { "model": "chaosmod:block/custom_flower" }
-    // Add other types you support
+    "variant=snow_flower": { "model": "chaosmod:snow_flower" },
+    "variant=blazing_flower": { "model": "chaosmod:blazing_flower" },
+    "variant=ender_flower": { "model": "chaosmod:ender_flower" },
+    "variant=thunder_flower": { "model": "chaosmod:thunder_flower" }
   }
 }

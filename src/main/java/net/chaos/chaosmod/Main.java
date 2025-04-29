@@ -2,9 +2,6 @@ package net.chaos.chaosmod;
 
 import org.apache.logging.log4j.Logger;
 
-import net.chaos.chaosmod.blocks.AllemaniteOre;
-import net.chaos.chaosmod.blocks.BlockBase;
-import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
 import net.chaos.chaosmod.commands.CheatCommand;
 import net.chaos.chaosmod.commands.CraftCommand;
 import net.chaos.chaosmod.commands.DimensionWarpCommand;
@@ -16,12 +13,8 @@ import net.chaos.chaosmod.commands.HomeCommand;
 import net.chaos.chaosmod.commands.SetHomeCommand;
 import net.chaos.chaosmod.commands.TopCommand;
 import net.chaos.chaosmod.gui.GuiHandler;
-import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModEntities;
-import net.chaos.chaosmod.network.ChaosModPacketHandler;
 import net.chaos.chaosmod.network.GuideCommandMessage;
-import net.chaos.chaosmod.network.OxoniumFurnaceMessage;
-import net.chaos.chaosmod.network.OxoniumFurnaceMessage.OxoniumFurnaceMessageHandler;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
@@ -30,7 +23,6 @@ import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.chaos.chaosmod.world.gen.WorldGenCustomDungeon;
 import net.chaos.chaosmod.world.gen.nether.WorldGenCaveDungeon;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -51,7 +43,6 @@ import util.handlers.BlockPlaceHandler;
 import util.handlers.CommandMessageHandler;
 import util.handlers.PlayerInHandler;
 import util.handlers.RegistryHandler;
-import util.handlers.entity.RenderHandler;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
 public class Main

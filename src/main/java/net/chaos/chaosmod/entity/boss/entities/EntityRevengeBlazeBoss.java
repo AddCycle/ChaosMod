@@ -560,21 +560,22 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                 }
             }
 
-            this.setDead();
 
             List<EntityPlayer> nearby_players = null;
+            int count = 0;
             if (!world.isRemote) {
-            	int radius = 20; // FIXME: boss chamber radius
+            	int radius = 50; // FIXME: boss chamber radius
             	 nearby_players = world.getEntitiesWithinAABB(EntityPlayer.class, this.getEntityBoundingBox().grow(radius));
+            	 count = nearby_players.size();
             }
-            int count = nearby_players.size();
 
-            System.out.println("PLAYERS NEARBY : " + count);
             if (!world.isRemote) {
             	for (EntityPlayerMP pl : world.getMinecraftServer().getPlayerList().getPlayers()) {
             		pl.sendMessage(new TextComponentTranslation("entity.revenge_blaze_boss.death_message"));
             	}
             }
+
+            this.setDead();
 
             for (int k = 0; k < 20; ++k)
             {
@@ -585,7 +586,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
             }
             
             if (!world.isRemote) {
-            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.ENDERITE_AXE, count))); // FIXME drop the blazeHeart + trophy
+            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.ENDERITE_AXE, count == 0 ? 1 : count))); // FIXME drop the blazeHeart + trophy
             }
         }
         else

@@ -10,13 +10,14 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import util.Reference;
 import util.handlers.RegistryHandler;
 import util.handlers.entity.RenderHandler;
 
@@ -28,9 +29,13 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
+	public void registerVariantRenderer(Item item, int meta, String name, String variant) {
+	    ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(new ResourceLocation(Reference.MODID, name), variant));
+	}
+
+	@Override
 	public void preInit(FMLPreInitializationEvent event) {
         RenderHandler.registerEntityRenders();
-        // MinecraftForge.EVENT_BUS.register(new BossBarRendering());
 	}
 
 	@Override
