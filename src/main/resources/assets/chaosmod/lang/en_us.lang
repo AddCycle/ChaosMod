@@ -52,7 +52,7 @@ tile.enderite_bricks.name=Enderite Bricks
 tile.custom_flower.snow_flower.name=Snow Flower
 tile.custom_flower.blazing_flower.name=Blazing Flower
 tile.custom_flower.ender_flower.name=Ender Flower
-tile.custom_flower.thunder_flower=Thuder Flower
+tile.custom_flower.thunder_flower.name=Thuder Flower
 tile.grass_block.name=Custom Grass Block
 
 // TileEntities (machines for the moment)

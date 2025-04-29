@@ -53,7 +53,7 @@ tile.enderite_bricks.name=Brique en Enderite
 tile.custom_flower.snow_flower.name=Fleur de Neige
 tile.custom_flower.blazing_flower.name=Fleur de Feu
 tile.custom_flower.ender_flower.name=Fleur de l'End
-tile.custom_flower.thunder_flower=Fleur de Foudre
+tile.custom_flower.thunder_flower.name=Fleur de Foudre
 tile.grass_block.name=Block d'herbe customisé
 
 // TileEntities (Machines for the moment)

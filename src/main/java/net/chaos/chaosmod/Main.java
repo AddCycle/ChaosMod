@@ -84,8 +84,8 @@ public class Main
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
         proxy.init(event);
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
-        GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 10);
-        GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 20);
+        GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 1);
+        GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 2);
         MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
         MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerInHandler());

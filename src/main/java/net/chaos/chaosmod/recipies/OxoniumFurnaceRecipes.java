@@ -104,8 +104,8 @@ public class OxoniumFurnaceRecipes {
         this.addSmeltingRecipe(new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, EnumDyeColor.GREEN.getMetadata()), new ItemStack(Blocks.GREEN_GLAZED_TERRACOTTA), 0.1F);
         this.addSmeltingRecipe(new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, EnumDyeColor.RED.getMetadata()), new ItemStack(Blocks.RED_GLAZED_TERRACOTTA), 0.1F);
         this.addSmeltingRecipe(new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, EnumDyeColor.BLACK.getMetadata()), new ItemStack(Blocks.BLACK_GLAZED_TERRACOTTA), 0.1F);
-        this.addSmeltingRecipeForBlock(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM_INGOT), 0.4f);
-        this.addSmeltingRecipeForBlock(ModBlocks.ALLEMANITE_ORE, new ItemStack(ModItems.ALLEMANITE_INGOT), 0.8f); // l'exp ne marche pas pour celui-la
+        // this.addSmeltingRecipeForBlock(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM_INGOT), 0.4f);
+        // this.addSmeltingRecipeForBlock(ModBlocks.ALLEMANITE_ORE, new ItemStack(ModItems.ALLEMANITE_INGOT), 0.8f); // l'exp ne marche pas pour celui-la
         // Je pense que c'est parce que je ne le mets pas dans le GameRegistry, or je vais voir comment creer mon propre registry je pense ou alors comment manuellement donner l'exp a mon joueur
     }
 

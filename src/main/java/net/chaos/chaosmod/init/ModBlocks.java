@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.chaos.chaosmod.blocks.AllemaniteBlock;
 import net.chaos.chaosmod.blocks.AllemaniteOre;
-import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
 import net.chaos.chaosmod.blocks.EnderiteOre;
@@ -19,11 +18,7 @@ import net.chaos.chaosmod.blocks.decoration.BlockBrightGrass;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.MineralBricks;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.text.TextFormatting;
 
 // initialize the blocks and declare them based on a vanilla block base type

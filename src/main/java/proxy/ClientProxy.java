@@ -6,6 +6,7 @@ import net.chaos.chaosmod.entity.boss.gui.BossBarRendering;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
@@ -53,6 +54,12 @@ public class ClientProxy extends CommonProxy {
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumChest.class, new TileEntityOxoniumChestRenderer<TileEntityOxoniumChest>());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBossAltar.class, new TileEntityBossAltarRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBossAltar.class, new TileEntitySpecialRenderer<TileEntity>() {
+			@Override
+			protected void drawNameplate(TileEntity te, String str, double x, double y, double z, int maxDistance) {
+				return;
+			}
+		});
 		// MinecraftForge.EVENT_BUS.register(new PlayerRenderManager());
 		MinecraftForge.EVENT_BUS.register(new BossBarRendering());
 	}
