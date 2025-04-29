@@ -4,7 +4,7 @@ import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.inventory.OxoniumFurnaceContainer;
-import net.chaos.chaosmod.recipies.OxoniumFurnaceRecipes;
+import net.chaos.chaosmod.recipes.OxoniumFurnaceRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.BlockHorizontal;

@@ -2,7 +2,7 @@ package util.handlers;
 
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
-import net.chaos.chaosmod.recipies.CustomSmeltingRegistry;
+import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;

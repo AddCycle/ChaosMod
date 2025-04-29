@@ -1,6 +1,6 @@
 package net.chaos.chaosmod.inventory;
 
-import net.chaos.chaosmod.recipies.OxoniumFurnaceRecipes;
+import net.chaos.chaosmod.recipes.OxoniumFurnaceRecipes;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

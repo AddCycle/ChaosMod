@@ -22,7 +22,6 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -49,7 +48,6 @@ import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -139,7 +137,6 @@ public class EntityRevengeBlazeBoss extends EntityMob {
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
-	EntityEnderman enderman;
 	
 	@Override
 	protected void applyEntityAttributes() {
@@ -427,7 +424,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                     double d3 = entitylivingbase.posZ - this.blaze.posZ;
 
                     int power = 1; // be aware, power is x3 fireballs
-                    int peace_factor = 41; // must be superior to 40
+                    // int peace_factor = 41; // must be superior to 40 FIXME failed attempt
                     if (this.attackTime <= 0)
                     {
                         ++this.attackStep;
@@ -435,7 +432,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                         if (this.attackStep == 1)
                         {
                         	if (this.blaze.isTransformed()) {
-                        		this.attackTime = 20 * (((peace_factor - 40) == 0) ? 1 : (peace_factor - 40));
+                        		this.attackTime = 20;
                         		this.blaze.setOnFire(true);
                         	} else {
                         		this.attackTime = 60;
@@ -449,7 +446,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                         else
                         {
                         	if (this.blaze.isTransformed()) {
-                        		this.attackTime = 60 * peace_factor;
+                        		this.attackTime = 60;
                         	} else {
                         		this.attackTime = 100;
                         	}
@@ -465,19 +462,19 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                             switch (this.blaze.world.getDifficulty()) {
                             case PEACEFUL:
                             	power = 0;
-                            	peace_factor = 400;
+                            	// peace_factor = 400;
                             	break;
                             case EASY:
                             	power = 1;
-                            	peace_factor = 60;
+                            	// peace_factor = 60;
                             	break;
                             case NORMAL:
                             	power = 3;
-                            	peace_factor = 51;
+                            	// peace_factor = 51;
                             	break;
                             case HARD:
                             	power = 20; // insane !! do not play HARD for fun
-                            	peace_factor = 41;
+                            	// peace_factor = 41;
                             	break;
 							default:
 								break;

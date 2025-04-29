@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.recipies;
+package net.chaos.chaosmod.recipes;
 
 import javax.annotation.Nonnull;
 
