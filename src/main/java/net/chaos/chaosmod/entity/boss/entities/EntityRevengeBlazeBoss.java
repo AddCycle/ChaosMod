@@ -28,6 +28,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.entity.projectile.EntitySnowball;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -185,13 +186,12 @@ public class EntityRevengeBlazeBoss extends EntityMob {
 
         return flag;
     }
-    EntityBlaze blaze;
     
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
     	if (this.isEntityInvulnerable(source)) return false;
     	Entity immediate = source.getImmediateSource();
-    	if (immediate != null && (immediate instanceof EntityArrow || immediate instanceof EntitySnowball)) {
+    	if (immediate != null && (immediate instanceof EntityArrow || immediate instanceof EntitySnowball || immediate instanceof EntityThrowable)) {
     		int flag = rand.nextInt(2) == 0 ? 1 : -1;
     		if (this.isTransformed()) {
     			BlockPos pos = new BlockPos(this.posX + (rand.nextInt(2) + 2) * flag, this.posY, this.posZ + (rand.nextInt(2) + 2) * flag);

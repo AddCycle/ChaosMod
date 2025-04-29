@@ -37,8 +37,7 @@ public class OxoniumBow extends ItemBow implements IHasModel {
 
 	@Override
 	public EntityArrow customizeArrow(EntityArrow arrow) {
-		double base = 2.0D;
-		if (low) arrow.setDamage(base * 2); else arrow.setDamage(base);
+		if (low) arrow.setDamage(arrow.getDamage() * 2);
 		return super.customizeArrow(arrow);
 	}
 	

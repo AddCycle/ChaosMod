@@ -4,6 +4,7 @@ import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBossAltarRenderer
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
 import net.chaos.chaosmod.entity.boss.gui.BossBarRendering;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
+import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -54,7 +55,7 @@ public class ClientProxy extends CommonProxy {
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumChest.class, new TileEntityOxoniumChestRenderer<TileEntityOxoniumChest>());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBossAltar.class, new TileEntityBossAltarRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBossAltar.class, new TileEntitySpecialRenderer<TileEntity>() {
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityForge.class, new TileEntitySpecialRenderer<TileEntity>() {
 			@Override
 			protected void drawNameplate(TileEntity te, String str, double x, double y, double z, int maxDistance) {
 				return;

@@ -1,25 +1,16 @@
 package net.chaos.chaosmod.entity.boss.renderer;
 
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
-import net.chaos.chaosmod.entity.boss.model.RevengeBlazeModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBlaze;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderBlaze;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
 import util.Reference;
 
 public class EntityRevengeBlazeRenderer extends RenderLiving<EntityRevengeBlazeBoss> {

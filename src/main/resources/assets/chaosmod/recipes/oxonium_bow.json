@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "item": "chaosmod:oxonium"
+      "item": "chaosmod:oxonium_ingot"
     },
     "X": {
-      "item": "minecraft:string"
+      "item": "minecraft:feather"
     }
   },
   "result": {
