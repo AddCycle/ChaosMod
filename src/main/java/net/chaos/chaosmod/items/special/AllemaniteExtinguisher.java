@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -38,23 +39,30 @@ public class AllemaniteExtinguisher extends ItemBase {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (player.isBurning()) {
-			if (!worldIn.isRemote) {
-				player.extinguish();
-				player.getHeldItem(hand).damageItem(1, player);
-				Block block = worldIn.getBlockState(pos.up()).getBlock();
-				if (block.isFireSource(worldIn, pos, facing)) worldIn.setBlockToAir(pos.up());
-				return EnumActionResult.SUCCESS;
-			} else {
+		BlockPos playerFeet = new BlockPos(player.posX, player.posY - 0.1, player.posZ);
+	    ItemStack heldItem = player.getHeldItem(hand);
+
+	    if (player.isBurning() && pos.equals(playerFeet)) {
+	        if (!worldIn.isRemote) {
+	            player.extinguish();
+	            heldItem.damageItem(1, player);
+
+	            BlockPos above = pos.up();
+	            if (worldIn.getBlockState(above).getBlock().isFireSource(worldIn, above, facing)) {
+	                worldIn.setBlockToAir(above);
+	            }
+
+	            return EnumActionResult.SUCCESS;
+	        } else {
 				double R = 0xFFFFFF;
 				double G = 0xFFFFFF;
 				double B = 0xFFFFFF;
 				worldIn.spawnParticle(EnumParticleTypes.REDSTONE, true, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, R, G, B);
-				return EnumActionResult.SUCCESS;
-			}
-		}
+	            return EnumActionResult.SUCCESS;
+	        }
+	    }
 
-		return EnumActionResult.FAIL;
+	    return EnumActionResult.FAIL;
 	}
 
 	@Override
