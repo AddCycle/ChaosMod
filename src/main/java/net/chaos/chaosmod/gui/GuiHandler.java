@@ -1,16 +1,21 @@
 package net.chaos.chaosmod.gui;
 
+import net.chaos.chaosmod.client.gui.inventory.BackpackGui;
 import net.chaos.chaosmod.client.gui.inventory.ForgeInterfaceGui;
 import net.chaos.chaosmod.client.gui.inventory.OxoniumFurnaceGui;
+import net.chaos.chaosmod.inventory.BackpackContainer;
 import net.chaos.chaosmod.inventory.ForgeInterfaceContainer;
 import net.chaos.chaosmod.inventory.OxoniumFurnaceContainer;
+import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import util.Reference;
 
 public class GuiHandler implements IGuiHandler {
 
@@ -22,10 +27,16 @@ public class GuiHandler implements IGuiHandler {
 			return null; // new ContainerNull(player.inventory, player);
 		case 1:
 			return new OxoniumFurnaceContainer(player.inventory, (TileEntityOxoniumFurnace) te); // new ContainerNull(player.inventory, player);
-		case 2: return null;
-			// return new BackpackContainer(player.inventory, new InventoryBackpack(player.inventory, 54)); // maybe bound to a player Inventory and itemhandler
+		case 2: 
+			return null;
 		case 3:
 			return new ForgeInterfaceContainer(player.inventory, (TileEntityForge) te);
+		case 4:
+			ItemStack held = player.getHeldItemMainhand();
+		    if (held.getItem() instanceof PlayerInventoryBaseItem) {
+		        return new BackpackContainer(player.inventory, held);
+		    }
+		    return null;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -43,6 +54,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiFinalCredits();
 		case 3:
 			return new ForgeInterfaceGui(player.inventory, (TileEntityForge) te);
+		case 4:
+			return new BackpackGui(new BackpackContainer(player.inventory, player.getHeldItemMainhand()));
 			
 			// return new BackpackGui(player.inventory, new InventoryBackpack(player.inventory, 54));
 		default:

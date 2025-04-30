@@ -23,6 +23,7 @@ import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.chaos.chaosmod.world.events.FightEvents;
 import net.chaos.chaosmod.world.gen.WorldGenCustomDungeon;
+import net.chaos.chaosmod.world.gen.builder.CustomDungeonBuilder;
 import net.chaos.chaosmod.world.gen.nether.WorldGenCaveDungeon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -72,6 +73,7 @@ public class Main
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
         proxy.preInit(event);
+        GameRegistry.registerWorldGenerator(new CustomDungeonBuilder(), 0);
         ModEntities.registerEntities();
         // ChaosModPacketHandler.registerMessage();
 		Main.network = NetworkRegistry.INSTANCE.newSimpleChannel("chaosmod");
@@ -84,9 +86,9 @@ public class Main
     {
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
         proxy.init(event);
-        GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
-        GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 1);
-        GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 2);
+        // GameRegistry.registerWorldGenerator(new ModWorldGen(), 1);
+        // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
+        // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
         MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
         MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerInHandler());

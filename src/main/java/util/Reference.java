@@ -12,8 +12,9 @@ public class Reference {
     // GUI ids
     public static final int GUI_GUIDE_ID = 0;
     public static final int GUI_FURNACE_ID = 1;
-    public static final int GUI_BACKPACK_ID = 2;
+    public static final int GUI_CREDITS_ID = 2;
     public static final int GUI_FORGE_ID = 3;
+    public static final int GUI_BACKPACK_ID = 4;
     
     // Entities ids
     public static final int ENTITY_FORGE_GUARDIAN = 120;

@@ -20,6 +20,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import util.IHasModel;
+import util.Reference;
 
 public class ToolHoe extends ItemHoe implements IHasModel {
 
@@ -43,7 +44,7 @@ public class ToolHoe extends ItemHoe implements IHasModel {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		playerIn.openGui(Main.instance, 2, worldIn, 0, 0, 0);
+		playerIn.openGui(Main.instance, Reference.GUI_CREDITS_ID, worldIn, 0, 0, 0);
 		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}
 	

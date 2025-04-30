@@ -13,6 +13,7 @@ import net.chaos.chaosmod.items.special.ChestUpgradeBase;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.items.tools.AllemanitePickaxe;
+import net.chaos.chaosmod.items.tools.OxoniumHalleberd;
 import net.chaos.chaosmod.items.tools.ToolAxe;
 import net.chaos.chaosmod.items.tools.ToolHoe;
 import net.chaos.chaosmod.items.tools.ToolPickaxe;
@@ -60,6 +61,7 @@ public class ModItems {
 	public static final ItemSpade OXONIUM_SHOVEL = new ToolSpade("oxonium_shovel", MATERIAL_OXONIUM);
 	public static final ItemHoe OXONIUM_HOE = new ToolHoe("oxonium_hoe", MATERIAL_OXONIUM);
 	public static final ItemBow OXONIUM_BOW = new OxoniumBow("oxonium_bow", MATERIAL_OXONIUM);
+	public static final ItemSword OXONIUM_HALLEBERD = new OxoniumHalleberd("oxonium_halleberd", MATERIAL_OXONIUM);
 
 	public static final ItemSword ALLEMANITE_SWORD = new ToolSword("allemanite_sword", MATERIAL_ALLEMANITE);
 	public static final ItemPickaxe ALLEMANITE_PICKAXE = new AllemanitePickaxe("allemanite_pickaxe", MATERIAL_ALLEMANITE);

@@ -31,7 +31,7 @@ public class AllemaniteExtinguisher extends ItemBase {
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TextComponentString("This thing is my safety belt...")
+		tooltip.add(new TextComponentString("This thing is my safety belt...") // TODO : add localization
 				.setStyle(new Style().setColor(TextFormatting.RED)).getFormattedText());
 	}
 	
@@ -44,15 +44,17 @@ public class AllemaniteExtinguisher extends ItemBase {
 				player.getHeldItem(hand).damageItem(1, player);
 				Block block = worldIn.getBlockState(pos.up()).getBlock();
 				if (block.isFireSource(worldIn, pos, facing)) worldIn.setBlockToAir(pos.up());
+				return EnumActionResult.SUCCESS;
 			} else {
 				double R = 0xFFFFFF;
 				double G = 0xFFFFFF;
 				double B = 0xFFFFFF;
 				worldIn.spawnParticle(EnumParticleTypes.REDSTONE, true, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, R, G, B);
+				return EnumActionResult.SUCCESS;
 			}
 		}
 
-		return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+		return EnumActionResult.FAIL;
 	}
 
 	@Override

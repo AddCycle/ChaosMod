@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.items.special;
 
 import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.client.backpack.inv.BackpackContainer;
+import net.chaos.chaosmod.client.gui.inventory.OxoniumFurnaceGui;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.creativetab.CreativeTabs;
@@ -27,9 +27,10 @@ public class PlayerInventoryBaseItem extends ItemBase {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		ItemStack held = playerIn.getHeldItemMainhand();
-		// playerIn.openGui(Main.instance, Reference.GUI_BACKPACK_ID, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, held);
+		if (!worldIn.isRemote) {
+			playerIn.openGui(Main.instance, Reference.GUI_BACKPACK_ID, worldIn, 0, 0, 0);
+		}
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 	}
 
 }
