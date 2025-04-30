@@ -3,11 +3,11 @@ package net.chaos.chaosmod.tileentity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.chaos.chaosmod.blocks.BossAltar;
+import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
-import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
@@ -73,9 +73,21 @@ public class TileEntityBossAltar extends TileEntity implements ITickable {
 		BlockPos pos = this.getPos();
 
 		if (!world.isRemote) {
-			EntityRevengeBlazeBoss boss = new EntityRevengeBlazeBoss(world);
-			boss.setPosition(pos.getX() + 0.5, pos.up().getY(), pos.getZ() + 0.5);
-			world.spawnEntity(boss);
+			if (BossAltar.bossType == 0 && world.provider.getDimension() == 0) {
+				// overworld
+				EntityMountainGiantBoss boss = new EntityMountainGiantBoss(world);
+				boss.setPosition(pos.getX() + 0.5, pos.up().getY(), pos.getZ() + 0.5);
+				world.spawnEntity(boss);
+			} else if (BossAltar.bossType == -1 && world.provider.getDimension() == -1) {
+				// nether
+				EntityRevengeBlazeBoss boss = new EntityRevengeBlazeBoss(world);
+				boss.setPosition(pos.getX() + 0.5, pos.up().getY(), pos.getZ() + 0.5);
+				world.spawnEntity(boss);
+			} else if (BossAltar.bossType == 1 && world.provider.getDimension() == 1) {
+				// end
+			} else {
+				// chaos master dim
+			}
 		}
 	}
 	

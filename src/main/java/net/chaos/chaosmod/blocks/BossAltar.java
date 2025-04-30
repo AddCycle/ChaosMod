@@ -23,6 +23,14 @@ import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
 
 public class BossAltar extends BlockBase implements ITileEntityProvider {
+	/*
+	 * From 0 -> 3 :
+	 * 0 = Mountain Giant
+	 * -1 = Blaze
+	 * 1 = Eye of truth
+	 * 2 = Chaos Master **actually I want him to spawn with another manner so for now ## DISABLED ##
+	 */
+	public static int bossType = 0;
 
 	public BossAltar(String name, Material material) {
 		super(name, material);
@@ -55,15 +63,18 @@ public class BossAltar extends BlockBase implements ITileEntityProvider {
 			}
 			if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.OXONIUM_INGOT))) {
 				te_2.r = 0.001f; te_2.g = 0.0f; te_2.b = 1.0f;
+				bossType = 0;
 			} else if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.ALLEMANITE_INGOT))) {
+				bossType = -1;
 				te_2.r = 0.0f; te_2.g = 0.0f; te_2.b = 1.0f;
 			} else if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.ENDERITE_INGOT))) {
+				bossType = 1;
 				te_2.r = 0.5f; te_2.g = 0.0f; te_2.b = 0.5f;
 			} else {
 				return false;
 			}
 			if (!playerIn.capabilities.isCreativeMode) {
-				playerIn.getHeldItemMainhand().shrink(1);
+				if (!worldIn.isRemote) playerIn.getHeldItemMainhand().shrink(1);
 			}
 			if (!worldIn.isRemote) te_2.triggerAnimation(20 * 6);
 		}

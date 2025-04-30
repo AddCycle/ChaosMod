@@ -22,6 +22,7 @@ import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.chaos.chaosmod.world.events.FightEvents;
+import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.gen.WorldGenCustomDungeon;
 import net.chaos.chaosmod.world.gen.builder.CustomDungeonBuilder;
 import net.chaos.chaosmod.world.gen.nether.WorldGenCaveDungeon;
@@ -103,6 +104,7 @@ public class Main
     	logger.info("CHAOSMOD POST-INIT PHASE {}", event.getModState());
     	proxy.postInit(event);
         MinecraftForge.EVENT_BUS.register(new FightEvents());
+        MinecraftForge.EVENT_BUS.register(new PlayerLifeEvents());
     	GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, new ResourceLocation(Reference.MODID, "oxonium_furnace"));
     	GameRegistry.registerTileEntity(TileEntityOxoniumChest.class, new ResourceLocation(Reference.MODID, "oxonium_chest"));
     	GameRegistry.registerTileEntity(TileEntityBossAltar.class, new ResourceLocation(Reference.MODID, "boss_altar"));

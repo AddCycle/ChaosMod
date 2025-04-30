@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.items.armor.ArmorBase;
+import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.food.FoodEffectBase;
 import net.chaos.chaosmod.items.materials.AllemaniteIngot;
 import net.chaos.chaosmod.items.materials.EnderiteShard;
@@ -80,7 +81,7 @@ public class ModItems {
 	public static final Item OXONIUM_HELMET = new ArmorBase("oxonium_helmet", ARMOR_MATERIAL_OXONIUM, 1, EntityEquipmentSlot.HEAD);
 	public static final Item OXONIUM_CHESTPLATE = new ArmorBase("oxonium_chestplate", ARMOR_MATERIAL_OXONIUM, 1, EntityEquipmentSlot.CHEST);
 	public static final Item OXONIUM_LEGGINGS = new ArmorBase("oxonium_leggings", ARMOR_MATERIAL_OXONIUM, 2, EntityEquipmentSlot.LEGS);
-	public static final Item OXONIUM_BOOTS = new ArmorBase("oxonium_boots", ARMOR_MATERIAL_OXONIUM, 1, EntityEquipmentSlot.FEET);
+	public static final Item OXONIUM_BOOTS = new OxoniumBoots("oxonium_boots", ARMOR_MATERIAL_OXONIUM, 1, EntityEquipmentSlot.FEET);
 	
 	//Food
 	//public static final Item OXONIUM_CARROT = new FoodBase("oxonium_carrot", 3, 3.0f, false);
