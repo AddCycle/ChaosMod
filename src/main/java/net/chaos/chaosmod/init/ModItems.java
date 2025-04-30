@@ -11,8 +11,10 @@ import net.chaos.chaosmod.items.materials.AllemaniteIngot;
 import net.chaos.chaosmod.items.materials.EnderiteShard;
 import net.chaos.chaosmod.items.special.AllemaniteExtinguisher;
 import net.chaos.chaosmod.items.special.ChestUpgradeBase;
+import net.chaos.chaosmod.items.special.CustomFireball;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
+import net.chaos.chaosmod.items.special.TesterWand;
 import net.chaos.chaosmod.items.tools.AllemanitePickaxe;
 import net.chaos.chaosmod.items.tools.AllemaniteSword;
 import net.chaos.chaosmod.items.tools.OxoniumHalleberd;
@@ -84,12 +86,13 @@ public class ModItems {
 	public static final Item OXONIUM_BOOTS = new OxoniumBoots("oxonium_boots", ARMOR_MATERIAL_OXONIUM, 1, EntityEquipmentSlot.FEET);
 	
 	//Food
-	//public static final Item OXONIUM_CARROT = new FoodBase("oxonium_carrot", 3, 3.0f, false);
 	public static final Item OXONIUM_CARROT = 
-		new FoodEffectBase("oxonium_carrot", 5, 3.0f, false, new PotionEffect(MobEffects.RESISTANCE, 60*20, 1, false, true));
+		new FoodEffectBase("oxonium_carrot", 5, 3.0f, false, new PotionEffect(MobEffects.SPEED, 60*20, 0, false, true));
 	
 	// Special
 	public static final Item OXONIUM_UPGRADE = new ChestUpgradeBase("oxonium_upgrade"); // chest upgrade
 	public static final Item ALLEMANITE_EXTINGUISHER = new AllemaniteExtinguisher("allemanite_extinguisher");
 	public static final Item ALLEMANITE_BACKPACK = new PlayerInventoryBaseItem("allemanite_backpack");
+	public static final Item TESTER_WAND = new TesterWand("tester_wand");
+	public static final Item CUSTOM_FIREBALL = new CustomFireball("custom_fireball");
 }
