@@ -9,6 +9,7 @@ import net.chaos.chaosmod.commands.FindBlockCommand;
 import net.chaos.chaosmod.commands.FireCommand;
 import net.chaos.chaosmod.commands.FurnaceCommand;
 import net.chaos.chaosmod.commands.GuideCommand;
+import net.chaos.chaosmod.commands.HealCommand;
 import net.chaos.chaosmod.commands.HomeCommand;
 import net.chaos.chaosmod.commands.SetHomeCommand;
 import net.chaos.chaosmod.commands.TopCommand;
@@ -23,9 +24,7 @@ import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.chaos.chaosmod.world.events.FightEvents;
 import net.chaos.chaosmod.world.events.PlayerLifeEvents;
-import net.chaos.chaosmod.world.gen.WorldGenCustomDungeon;
 import net.chaos.chaosmod.world.gen.builder.CustomDungeonBuilder;
-import net.chaos.chaosmod.world.gen.nether.WorldGenCaveDungeon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -74,7 +73,8 @@ public class Main
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
         proxy.preInit(event);
-        GameRegistry.registerWorldGenerator(new CustomDungeonBuilder(), 0);
+        GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
+        GameRegistry.registerWorldGenerator(new CustomDungeonBuilder(), 1);
         ModEntities.registerEntities();
         // ChaosModPacketHandler.registerMessage();
 		Main.network = NetworkRegistry.INSTANCE.newSimpleChannel("chaosmod");
@@ -87,7 +87,6 @@ public class Main
     {
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
         proxy.init(event);
-        // GameRegistry.registerWorldGenerator(new ModWorldGen(), 1);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
         // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
         MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
@@ -123,5 +122,6 @@ public class Main
         event.registerServerCommand(new SetHomeCommand());
         event.registerServerCommand(new HomeCommand());
         event.registerServerCommand(new FireCommand());
+        event.registerServerCommand(new HealCommand());
     }
 }

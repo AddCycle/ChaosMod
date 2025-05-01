@@ -43,7 +43,7 @@ public class ModWorldGen implements IWorldGenerator {
 
     private void generateOverworld(World world, Random random, int x, int z)
     {
-            if(random.nextInt(4) == 0)
+            if(random.nextInt(4) < 3)
             {
             	this.generateOre(ModBlocks.OXONIUM_ORE, Blocks.STONE, world, random, 5, 5, x, z, 3, 30);
             }

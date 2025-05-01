@@ -590,7 +590,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
         {
         	float progress = 1.0F - (float) this.deathTime / 200.0F;
             this.bossInfo.setPercent(Math.max(progress, 0.0F));
-            this.bossInfo.setColor(BossInfo.Color.GREEN);
+            this.bossInfo.setColor(BossInfo.Color.YELLOW);
             this.bossInfo.setName(new TextComponentString("Dying...")); // FIXME : add localization
         }
     }

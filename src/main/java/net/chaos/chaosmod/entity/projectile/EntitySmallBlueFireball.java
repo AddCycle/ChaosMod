@@ -1,14 +1,17 @@
 package net.chaos.chaosmod.entity.projectile;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import util.Reference;
 
@@ -23,12 +26,12 @@ public class EntitySmallBlueFireball extends EntitySmallFireball {
         super(worldIn, shooter, accelX, accelY, accelZ);
         this.setSize(0.3125F, 0.3125F); // same size as EntitySmallFireball
 
-        this.setLocationAndAngles(shooter.posX, shooter.posY + (double)(shooter.getEyeHeight() / 2.0F), shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
+        // this.setLocationAndAngles(shooter.posX, shooter.posY + (double)(shooter.getEyeHeight() / 2.0F), shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
 
         // DO NOT normalize, just use small values directly
-        this.motionX = accelX * 0.005;
-        this.motionY = accelY * 0.005;
-        this.motionZ = accelZ * 0.005;
+        // this.motionX = accelX * 0.005;
+        // this.motionY = accelY * 0.005;
+        // this.motionZ = accelZ * 0.005;
     }
 
     @Override
@@ -67,6 +70,12 @@ public class EntitySmallBlueFireball extends EntitySmallFireball {
     
     @Override
     public boolean canRenderOnFire() {
+    	return true;
+    }
+    
+    @Override
+    public boolean canExplosionDestroyBlock(Explosion explosionIn, World worldIn, BlockPos pos,
+    		IBlockState blockStateIn, float p_174816_5_) {
     	return true;
     }
 
