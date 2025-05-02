@@ -44,6 +44,6 @@ public class ModBlocks {
 	public static final Block FORGE_INTERFACE_BLOCK = new ForgeInterfaceBlock("forge_interface_block", Material.IRON);
 	public static final Block CUSTOM_FLOWER = new BlockCustomFlower("custom_flower");
 	public static final Block SNOWY_LOG = new CustomLog("snowy_log");
-	public static final Block SNOWY_LEAVES = new CustomLeaves("custom_leaves");
+	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
 	public static final Block CUSTOM_GRASS = new BlockBrightGrass();
 }
