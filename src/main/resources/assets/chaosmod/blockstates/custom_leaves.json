@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "check_decay=true,decayable=true,variant=snowy":  { "model": "chaosmod:snowy_leaves" },
+    "check_decay=true,decayable=false,variant=snowy":  { "model": "chaosmod:snowy_leaves" },
+    "check_decay=false,decayable=true,variant=snowy":  { "model": "chaosmod:snowy_leaves" },
+    "check_decay=false,decayable=false,variant=snowy":  { "model": "chaosmod:snowy_leaves" },
+
+    "variant=maple,decayable=true,check_decay=true":  { "model": "chaosmod:maple_leaves" },
+    "variant=maple,decayable=true,check_decay=false": { "model": "chaosmod:maple_leaves" },
+    "variant=maple,decayable=false,check_decay=true": { "model": "chaosmod:maple_leaves" },
+    "variant=maple,decayable=false,check_decay=false":{ "model": "chaosmod:maple_leaves" },
+
+    "variant=cherry,decayable=true,check_decay=true":  { "model": "chaosmod:cherry_leaves" },
+    "variant=cherry,decayable=true,check_decay=false": { "model": "chaosmod:cherry_leaves" },
+    "variant=cherry,decayable=false,check_decay=true": { "model": "chaosmod:cherry_leaves" },
+    "variant=cherry,decayable=false,check_decay=false":{ "model": "chaosmod:cherry_leaves" },
+
+    "variant=ebony,decayable=true,check_decay=true":  { "model": "chaosmod:ebony_leaves" },
+    "variant=ebony,decayable=true,check_decay=false": { "model": "chaosmod:ebony_leaves" },
+    "variant=ebony,decayable=false,check_decay=true": { "model": "chaosmod:ebony_leaves" },
+    "variant=ebony,decayable=false,check_decay=false":{ "model": "chaosmod:ebony_leaves" }
+  }
+}

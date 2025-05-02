@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_column",
+	"textures": {
+		"end": "chaosmod:blocks/snowy_log_top",
+		"side": "chaosmod:blocks/snowy_log"
+	}
+}

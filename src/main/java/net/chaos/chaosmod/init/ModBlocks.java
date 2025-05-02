@@ -6,6 +6,7 @@ import java.util.List;
 import net.chaos.chaosmod.blocks.AllemaniteBlock;
 import net.chaos.chaosmod.blocks.AllemaniteOre;
 import net.chaos.chaosmod.blocks.BossAltar;
+import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
 import net.chaos.chaosmod.blocks.EnderiteOre;
 import net.chaos.chaosmod.blocks.ForgeInterfaceBlock;
@@ -16,6 +17,7 @@ import net.chaos.chaosmod.blocks.OxoniumOre;
 import net.chaos.chaosmod.blocks.OxoniumStairs;
 import net.chaos.chaosmod.blocks.decoration.BlockBrightGrass;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
+import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
 import net.chaos.chaosmod.blocks.decoration.MineralBricks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -41,5 +43,7 @@ public class ModBlocks {
 	public static final Block ENDERITE_BRICKS = new MineralBricks("enderite_bricks", Material.ROCK, TextFormatting.DARK_PURPLE, "You will need this to relax after what you have been through");
 	public static final Block FORGE_INTERFACE_BLOCK = new ForgeInterfaceBlock("forge_interface_block", Material.IRON);
 	public static final Block CUSTOM_FLOWER = new BlockCustomFlower("custom_flower");
+	public static final Block SNOWY_LOG = new CustomLog("snowy_log");
+	public static final Block SNOWY_LEAVES = new CustomLeaves("custom_leaves");
 	public static final Block CUSTOM_GRASS = new BlockBrightGrass();
 }

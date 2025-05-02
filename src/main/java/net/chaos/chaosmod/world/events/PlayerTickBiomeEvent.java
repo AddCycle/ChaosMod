@@ -40,10 +40,9 @@ public class PlayerTickBiomeEvent {
 	    		player.sendMessage(new TextComponentString("Now entering: " + currentBiome.getBiomeName()));
 	    		String message = TextFormatting.RESET + "Now entering: " + TextFormatting.RED + "" + TextFormatting.BOLD + currentBiome.getBiomeName();
 	    		if (player instanceof EntityPlayerMP) {
-	    			System.out.println("player = " + player);
 	    			Main.network.sendTo(new MessageDisplayText(message), (EntityPlayerMP) player);
 	    		} else if (player instanceof EntityPlayerSP) {
-	    			// Singleplayer client side — directly display
+	    			// Singleplayer client
 	    			ClientMessageHandler.displayMessage(message);
 	    		}
 	    	// }

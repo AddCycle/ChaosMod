@@ -19,7 +19,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import util.Reference;
-import util.broadcast.ClientMessageHandler;
 import util.handlers.RegistryHandler;
 import util.handlers.entity.RenderHandler;
 

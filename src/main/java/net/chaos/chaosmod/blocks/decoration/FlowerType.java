@@ -11,7 +11,6 @@ public enum FlowerType implements IStringSerializable {
 	private static final FlowerType[] META_LOOKUP = new FlowerType[values().length];
 	private final int meta;
 	private final String name;
-
 	
 	private FlowerType(int meta, String name) {
 		this.meta = meta;
