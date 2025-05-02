@@ -37,8 +37,8 @@ public class PlayerTickBiomeEvent {
 	    Biome lastBiome = lastBiomes.get(playerId);
 	    if (lastBiome != currentBiome) {
 	    	// if (customBiomeNames.contains(currentBiome.getBiomeName())) {
-	    		player.sendMessage(new TextComponentString("Now entering: " + currentBiome.getBiomeName()));
-	    		String message = TextFormatting.RESET + "Now entering: " + TextFormatting.RED + "" + TextFormatting.BOLD + currentBiome.getBiomeName();
+	    		player.sendMessage(new TextComponentString("Now entering: " + currentBiome.getRegistryName()));
+	    		String message = TextFormatting.RESET + "Now entering: " + TextFormatting.RED + "" + TextFormatting.BOLD + currentBiome.getRegistryName().toString();
 	    		if (player instanceof EntityPlayerMP) {
 	    			Main.network.sendTo(new MessageDisplayText(message), (EntityPlayerMP) player);
 	    		} else if (player instanceof EntityPlayerSP) {

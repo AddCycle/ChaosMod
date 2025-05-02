@@ -38,6 +38,7 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.datafix.fixes.SpawnEggNames;
 import net.minecraftforge.common.util.EnumHelper;
 import util.Reference;
 
