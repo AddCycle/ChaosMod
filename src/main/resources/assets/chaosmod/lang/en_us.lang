@@ -5,6 +5,7 @@ item.oxonium_pickaxe.name=Oxonium Pickaxe
 item.oxonium_axe.name=Oxonium Axe
 item.oxonium_shovel.name=Oxonium Shovel
 item.oxonium_bow.name=Brave Bow
+item.oxonium_halleberd.name=Oxonium Halleberd
 
 item.allemanite_sword.name=Allemanite Sword
 item.allemanite_hoe.name=Allemanite Hoe
@@ -53,7 +54,12 @@ tile.enderite_bricks.name=Enderite Bricks
 tile.custom_flower.snow_flower.name=Snow Flower
 tile.custom_flower.blazing_flower.name=Blazing Flower
 tile.custom_flower.ender_flower.name=Ender Flower
-tile.custom_flower.thunder_flower.name=Thuder Flower
+tile.custom_flower.thunder_flower.name=Thunder Flower
+tile.snowy_log.name=Snowy Log
+tile.custom_leaves.snowy.name=Snowy Leaves
+tile.custom_leaves.maple.name=Maple Leaves
+tile.custom_leaves.ender.name=Ender Leaves
+tile.custom_leaves.olive.name=Olive Leaves
 tile.grass_block.name=Custom Grass Block
 
 // TileEntities (machines for the moment)

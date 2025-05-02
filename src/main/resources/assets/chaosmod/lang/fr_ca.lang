@@ -4,6 +4,8 @@ item.oxonium_hoe.name=Houe en Oxonium
 item.oxonium_pickaxe.name=Pioche en Oxonium
 item.oxonium_axe.name=Hache en Oxonium
 item.oxonium_shovel.name=Pelle en Oxonium
+item.oxonium_bow.name=Arc du Brave
+item.oxonium_halleberd.name=Hallebarde en Oxonium
 
 item.allemanite_sword.name=Epée en Allemanite
 item.allemanite_hoe.name=Houe en Allemanite
@@ -11,11 +13,17 @@ item.allemanite_pickaxe.name=Pioche en Allemanite
 item.allemanite_axe.name=Hache en Allemanite
 item.allemanite_shovel.name=Pelle en Allemanite
 
+item.enderite_sword.name=Epée en Enderite
+item.enderite_hoe.name=Houe en Enderite
+item.enderite_pickaxe.name=Pioche en Enderite
+item.enderite_axe.name=Hache en Enderite
+item.enderite_shovel.name=Pelle en Enderite
+
 //Armor
-item.oxonium_helmet.name=Casque en oxonium
+item.oxonium_helmet.name=Casque de securité en oxonium
 item.oxonium_chestplate.name=Plastron en oxonium
 item.oxoinum_leggings.name=Jambières en oxonium
-item.oxonium_boots.name=Bottes en oxonium
+item.oxonium_boots.name=Bottes du brave
 
 // Items
 item.oxonium_ingot.name=Lingot d'Oxonium
@@ -39,14 +47,27 @@ tile.oxonium_stairs.name=Oxonium Stairs
 tile.allemanite_block.name=Bloc d'Allemanite
 tile.enderite_ore.name=Minerais d'Enderite
 tile.enderite_block.name=Block d'Enderite
+
+// Decoration
 tile.oxonium_bricks.name=Brique en Oxonium
 tile.allemanite_bricks.name=Brique en Allemanite
 tile.enderite_bricks.name=Brique en Enderite
+tile.custom_flower.snow_flower.name=Fleur de Neige
+tile.custom_flower.blazing_flower.name=Fleur de Feu
+tile.custom_flower.ender_flower.name=Fleur de l'End
+tile.custom_flower.thunder_flower.name=Fleur de Foudre
+tile.grass_block.name=Block d'herbe customisé
+tile.snowy_log.name=Snowy Log
+tile.custom_leaves.snowy.name=Feuillage de Neige
+tile.custom_leaves.maple.name=Feuillage d'Erable
+tile.custom_leaves.ender.name=Feuillage de l'End
+tile.custom_leaves.olive.name=Feuillage d'Olivier
 
 // TileEntities (Machines for the moment)
 tile.oxonium_furnace.name=Four en Oxonium
 tile.oxonium_chest.name=Coffre en Oxonium
 tile.boss_altar.name=Autel des Boss
+tile.forge_interface_block.name=Interface de la Forge
 
 // Entities
 entity.forge_guardian.name=Gardien de la Forge du Chaos
@@ -54,6 +75,7 @@ entity.revenge_blaze_boss.name=Blaze Vengeur
 
 //Gui
 itemGroup.chaosmodtab=Objets du Chaos
+gui.forge_interface_block.title=Forge du Chaos
 
 //Guide
 text.guide.title=Guide du Chaos

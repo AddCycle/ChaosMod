@@ -108,8 +108,8 @@ public class CustomLeaves extends BlockLeaves implements IHasModel {
     public enum CustomLeafVariant implements IStringSerializable {
         SNOWY(0, "snowy"),
         MAPLE(1, "maple"),
-        CHERRY(2, "cherry"),
-        EBONY(3, "ebony");
+        ENDER(2, "ender"),
+        OLIVE(3, "olive");
 
     	private static final CustomLeafVariant[] META_LOOKUP = new CustomLeafVariant[values().length];
         private final int meta;

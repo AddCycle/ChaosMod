@@ -5,6 +5,7 @@ item.oxonium_pickaxe.name=Pioche en Oxonium
 item.oxonium_axe.name=Hache en Oxonium
 item.oxonium_shovel.name=Pelle en Oxonium
 item.oxonium_bow.name=Arc du Brave
+item.oxonium_halleberd.name=Hallebarde en Oxonium
 
 item.allemanite_sword.name=Epée en Allemanite
 item.allemanite_hoe.name=Houe en Allemanite
@@ -56,6 +57,11 @@ tile.custom_flower.blazing_flower.name=Fleur de Feu
 tile.custom_flower.ender_flower.name=Fleur de l'End
 tile.custom_flower.thunder_flower.name=Fleur de Foudre
 tile.grass_block.name=Block d'herbe customisé
+tile.snowy_log.name=Snowy Log
+tile.custom_leaves.snowy.name=Feuillage de Neige
+tile.custom_leaves.maple.name=Feuillage d'Erable
+tile.custom_leaves.ender.name=Feuillage de l'End
+tile.custom_leaves.olive.name=Feuillage d'Olivier
 
 // TileEntities (Machines for the moment)
 tile.oxonium_furnace.name=Four en Oxonium

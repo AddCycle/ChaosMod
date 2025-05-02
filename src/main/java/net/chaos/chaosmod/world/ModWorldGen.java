@@ -90,16 +90,15 @@ public class ModWorldGen implements IWorldGenerator {
     	// Set block state with the random variant
     	IBlockState flowerState = ModBlocks.CUSTOM_FLOWER.getDefaultState().withProperty(BlockCustomFlower.type, FlowerType.byMetadata(meta));
         BlockPos pos = new BlockPos(x + rand.nextInt(16), 0, z + rand.nextInt(16));
-        BlockPos topPos = world.getHeight(pos); // Get highest non-air block
+        BlockPos topPos = world.getHeight(pos);
 
-        for (int i = 0; i < 4; i++) { // number of tries
+        for (int i = 0; i < 4; i++) { // number of tries for adding like variety as the loot-tables and everything... (thanks to the racist JeanRobertPerez)
             int offsetX = x + rand.nextInt(16);
             int offsetZ = z + rand.nextInt(16);
             int offsetY = topPos.getY();
-            // int offsetY = rand.nextInt(topPos.getY());
 
             BlockPos flowerPos = new BlockPos(offsetX, offsetY, offsetZ);
-            /* Biome specific gen */
+            /* Biome specific generation */
              Biome biome = world.getBiome(flowerPos);
 			 /* if (biome instanceof BiomePlains && world.isAirBlock(flowerPos) && ModBlocks.MY_FLOWER.canPlaceBlockAt(world, flowerPos))
              */
