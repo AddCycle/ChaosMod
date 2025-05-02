@@ -40,6 +40,6 @@ public class ModBlocks {
 	public static final Block ALLEMANITE_BRICKS = new MineralBricks("allemanite_bricks", Material.ROCK, TextFormatting.RED, "Well go on...");
 	public static final Block ENDERITE_BRICKS = new MineralBricks("enderite_bricks", Material.ROCK, TextFormatting.DARK_PURPLE, "You will need this to relax after what you have been through");
 	public static final Block FORGE_INTERFACE_BLOCK = new ForgeInterfaceBlock("forge_interface_block", Material.IRON);
-	public static final Block SNOW_FLOWER = new BlockCustomFlower("custom_flower");
+	public static final Block CUSTOM_FLOWER = new BlockCustomFlower("custom_flower");
 	public static final Block CUSTOM_GRASS = new BlockBrightGrass();
 }

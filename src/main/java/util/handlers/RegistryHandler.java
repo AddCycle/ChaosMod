@@ -1,27 +1,20 @@
 package util.handlers;
 
+import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
-import net.chaos.chaosmod.world.ModWorldGen;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
-import net.minecraftforge.event.world.BlockEvent.PlaceEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import util.IHasModel;
 
 // Pour l'etape de build du mod
@@ -57,6 +50,11 @@ public class RegistryHandler {
 		}
 			
 	}
+	
+	@SubscribeEvent
+    public static void onBiomeRegister(RegistryEvent.Register<Biome> event) {
+        ModBiomes.registerBiomes(event);
+    }
 	
 	public static void fastRender(Item item) {
 		fastRender(item, 0);

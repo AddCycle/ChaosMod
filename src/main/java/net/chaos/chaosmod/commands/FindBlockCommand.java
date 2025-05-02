@@ -37,7 +37,7 @@ public class FindBlockCommand extends CommandBase {
 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-		int box = 50;
+		int box = 30;
 		int cnt = 0;
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
 		BlockPos player_pos = player.getPosition();
