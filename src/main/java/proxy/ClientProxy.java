@@ -43,7 +43,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-		MinecraftForge.EVENT_BUS.register(ClientMessageHandler.class);
+		// MinecraftForge.EVENT_BUS.register(ClientMessageHandler.class);
 		// OxoniumFurnace to suppress nametag
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new TileEntitySpecialRenderer<TileEntity>() {
 

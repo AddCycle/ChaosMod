@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.biomes;
 
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
+import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
@@ -15,16 +16,13 @@ public class CustomBiome extends Biome {
             .setRainDisabled());
 
         this.decorator.flowersPerChunk = 5;
-        this.topBlock = Blocks.SNOW_LAYER.getDefaultState();
-        this.fillerBlock = Blocks.SNOW.getDefaultState();
+        this.topBlock = Blocks.SNOW.getDefaultState();
+        this.fillerBlock = Blocks.DIRT.getDefaultState();
         this.spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
 
-        // this.spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 100, 2, 4));
-        // this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 80, 4, 8));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityMountainGiantBoss.class, 100, 1, 1));
-
-        // Add entities, decorations, etc if you like
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityMountainGiantBoss.class, 75, 1, 1));
+        this.addFlower(ModBlocks.CUSTOM_FLOWER.getDefaultState(), getWaterColor());
     }
 
 }

@@ -34,7 +34,7 @@ public class BlockCustomFlower extends BlockBush implements IHasModel {
     
     @Override
     protected boolean canSustainBush(IBlockState state) {
-    	return state.getBlock() == Blocks.END_STONE || state.getBlock() == Blocks.SNOW
+    	return state.getBlock() == Blocks.END_STONE || state.getBlock() == Blocks.NETHERRACK || state.getBlock() == Blocks.SNOW
     		|| super.canSustainBush(state);
     }
     
