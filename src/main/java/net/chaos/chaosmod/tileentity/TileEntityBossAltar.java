@@ -65,10 +65,10 @@ public class TileEntityBossAltar extends TileEntity implements ITickable {
 	}
 	
 	public void animationFinished() {
-		spawnBlazeBoss();
+		spawnBoss();
 	}
 	
-	public void spawnBlazeBoss() {
+	public void spawnBoss() {
 		World world = this.world;
 		BlockPos pos = this.getPos();
 
@@ -84,10 +84,11 @@ public class TileEntityBossAltar extends TileEntity implements ITickable {
 				boss.setPosition(pos.getX() + 0.5, pos.up().getY(), pos.getZ() + 0.5);
 				world.spawnEntity(boss);
 			} else if (BossAltar.bossType == 1 && world.provider.getDimension() == 1) {
-				// end
+				// end : eye of truth
 			} else {
 				// chaos master dim
 			}
+			world.setBlockToAir(pos);
 		}
 	}
 	

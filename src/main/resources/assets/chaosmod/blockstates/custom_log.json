@@ -1,8 +1,23 @@
 {
 	"variants": {
-		"variant=snowy_log,axis=y": { "model": "chaosmod:snowy_log" },
-		"variant=snowy_log,axis=z": { "model": "chaosmod:snowy_log", "x": 90 },
-		"variant=snowy_log,axis=x": { "model": "chaosmod:snowy_log", "x": 90, "y": 90 },
-		"variant=snowy_log,axis=none": { "model": "chaosmod:snowy_log_bark" }
+		"axis=y,variant=snowy_log": { "model": "chaosmod:snowy_log" },
+		"axis=z,variant=snowy_log": { "model": "chaosmod:snowy_log", "x": 90 },
+		"axis=x,variant=snowy_log": { "model": "chaosmod:snowy_log", "x": 90, "y": 90 },
+		"axis=none,variant=snowy_log": { "model": "chaosmod:snowy_log_bark" },
+
+		"axis=y,variant=maple_log": { "model": "chaosmod:maple_log" },
+		"axis=z,variant=maple_log": { "model": "chaosmod:maple_log", "x": 90 },
+		"axis=x,variant=maple_log": { "model": "chaosmod:maple_log", "x": 90, "y": 90 },
+		"axis=none,variant=maple_log": { "model": "chaosmod:maple_log_bark" },
+
+		"axis=y,variant=olive_log": { "model": "chaosmod:olive_log" },
+		"axis=z,variant=olive_log": { "model": "chaosmod:olive_log", "x": 90 },
+		"axis=x,variant=olive_log": { "model": "chaosmod:olive_log", "x": 90, "y": 90 },
+		"axis=none,variant=olive_log": { "model": "chaosmod:olive_log_bark" },
+
+		"axis=y,variant=ender_log": { "model": "chaosmod:ender_log" },
+		"axis=z,variant=ender_log": { "model": "chaosmod:ender_log", "x": 90 },
+		"axis=x,variant=ender_log": { "model": "chaosmod:ender_log", "x": 90, "y": 90 },
+		"axis=none,variant=ender_log": { "model": "chaosmod:ender_log_bark" }
 	}
 }

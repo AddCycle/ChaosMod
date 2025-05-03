@@ -9,8 +9,11 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import util.IHasModel;
 
 public class CustomLog extends BlockLog implements IHasModel {
@@ -32,6 +35,13 @@ public class CustomLog extends BlockLog implements IHasModel {
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, new IProperty[] {VARIANT, LOG_AXIS});
 	}
+
+	@Override
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
+        for (CustomLogVariant type : CustomLogVariant.values()) {
+            list.add(new ItemStack(Item.getItemFromBlock(this), 1, type.getMeta()));
+        }
+    }
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
@@ -63,9 +73,9 @@ public class CustomLog extends BlockLog implements IHasModel {
 	
 	public enum CustomLogVariant implements IStringSerializable {
         SNOWY(0, "snowy_log"),
-        MAPLE(1, "maple"),
-        ENDER(2, "ender"),
-        OLIVE(3, "olive");
+        MAPLE(1, "maple_log"),
+        ENDER(2, "ender_log"),
+        OLIVE(3, "olive_log");
 
     	private static final CustomLogVariant[] META_LOOKUP = new CustomLogVariant[values().length];
         private final int meta;

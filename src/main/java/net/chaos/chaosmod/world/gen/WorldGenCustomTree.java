@@ -38,12 +38,13 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
 
         if (!canGenerate) return false;
 
-        if (rand.nextInt(10) == 4) world.setBlockState(position.south(), altar, 2); // boss altar next to it 1/10 chance
 
         // Set logs
         for (int y = 0; y < height; y++) {
             world.setBlockState(position.up(y), log, 2);
         }
+
+        if (rand.nextInt(100) == 0) world.setBlockState(position.up(height + 1), altar, 2); // boss altar on top of it 1/100 chance
 
         // Set leaves
         for (int y = height - 2; y <= height; y++) {

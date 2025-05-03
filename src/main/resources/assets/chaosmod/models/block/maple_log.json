@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_column",
+	"textures": {
+		"end": "chaosmod:blocks/maple_log_top",
+		"side": "chaosmod:blocks/maple_log"
+	}
+}
