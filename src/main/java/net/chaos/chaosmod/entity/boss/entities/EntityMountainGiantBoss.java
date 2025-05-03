@@ -17,7 +17,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfo.Color;
@@ -38,7 +37,7 @@ public class EntityMountainGiantBoss extends EntityMob {
 	@Override
 	protected void applyEntityAttributes() {
 	    super.applyEntityAttributes();
-	    this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1024.0D);
+	    this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(64.0D);
 	    this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
 	    this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
 	}
@@ -49,7 +48,7 @@ public class EntityMountainGiantBoss extends EntityMob {
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		// this.tasks.addTask(1, new EntityAIEscapeWater(this, 1.2D));
 	    this.tasks.addTask(1, new EntityAIWander(this, 1.0D));
-	    this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+	    this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 25.0F));
 	    this.tasks.addTask(3, new EntityAILookIdle(this));
 	    this.tasks.addTask(4, new EntityAIAttackMelee(this, 0.3, false));
         this.targetTasks.addTask(5, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
@@ -115,7 +114,7 @@ public class EntityMountainGiantBoss extends EntityMob {
 
             if (!world.isRemote) {
             	for (EntityPlayerMP pl : world.getMinecraftServer().getPlayerList().getPlayers()) {
-            		pl.sendMessage(new TextComponentTranslation("entity.revenge_blaze_boss.death_message"));
+            		pl.sendMessage(new TextComponentTranslation("entity.mountain_giant_boss.death_message"));
             	}
             }
 

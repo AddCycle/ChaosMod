@@ -23,7 +23,7 @@ import util.broadcast.MessageDisplayText;
 @EventBusSubscriber
 public class PlayerTickBiomeEvent {
 	private static final Map<UUID, Biome> lastBiomes = new HashMap<>();
-	private static final List<String> customBiomeNames = Arrays.asList("Giant Mountains");
+	// private static final List<String> customBiomeNames = Arrays.asList("Giant Mountains");
 
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {

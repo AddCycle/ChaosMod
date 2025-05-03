@@ -4,13 +4,20 @@ import java.util.UUID;
 
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.items.special.OxoniumBow;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -41,10 +48,48 @@ public class FightEvents {
 		}
 	}
 	
+	// To disable the cooldown like the pre-1.9 mc ver
+	@SubscribeEvent
+	public void onSwing(PlayerTickEvent event) {
+		if (event.phase == TickEvent.Phase.END && !event.player.world.isRemote) {
+	        event.player.resetCooldown(); // Disables the cooldown — resets it every tick
+	    }
+	}
+	
+	// To apply all the modifiers
+	@SubscribeEvent
+	public void onAttack(AttackEntityEvent event) {
+	    EntityPlayer player = event.getEntityPlayer();
+
+	    // Only modify for main-hand melee attacks
+	    if (player != null && !player.world.isRemote && event.getTarget() instanceof EntityLivingBase) {
+	        ItemStack stack = player.getHeldItemMainhand();
+	        if (stack.getItem() instanceof ItemSword || stack.getItem() instanceof ItemAxe) {
+	            EntityLivingBase target = (EntityLivingBase) event.getTarget();
+
+	            // Cancel default attack behavior
+	            event.setCanceled(true);
+
+	            // Manually apply full attack damage
+	            float damage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+
+	            // Optionally apply enchantments
+	            damage += EnchantmentHelper.getModifierForCreature(stack, target.getCreatureAttribute());
+
+	            // Deal full damage
+	            target.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
+
+	            // Play attack animation
+	            player.resetCooldown();
+	            player.swingArm(EnumHand.MAIN_HAND);
+	        }
+	    }
+	}
+	
 	@SubscribeEvent
 	public void onPlayerTick(PlayerTickEvent event) {
 		EntityPlayer player = event.player;
-	    if (player.world.isRemote || event.phase != TickEvent.Phase.END) return;
+	    if (player.world.isRemote || event.phase == TickEvent.Phase.END) return;
 
 	    ItemStack boots = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
 	    if (!boots.isEmpty() && boots.getItem() == ModItems.OXONIUM_BOOTS) {

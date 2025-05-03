@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"variant=snowy_log,axis=y": { "model": "chaosmod:snowy_log" },
+		"variant=snowy_log,axis=z": { "model": "chaosmod:snowy_log", "x": 90 },
+		"variant=snowy_log,axis=x": { "model": "chaosmod:snowy_log", "x": 90, "y": 90 },
+		"variant=snowy_log,axis=none": { "model": "chaosmod:snowy_log_bark" }
+	}
+}

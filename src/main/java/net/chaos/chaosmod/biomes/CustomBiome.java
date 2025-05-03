@@ -17,7 +17,8 @@ public class CustomBiome extends Biome {
 	        ModBlocks.SNOWY_LOG.getDefaultState(),
 	        ModBlocks.CUSTOM_LEAVES.getDefaultState()
 	            .withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE)
-	            .withProperty(BlockLeaves.DECAYABLE, Boolean.TRUE)
+	            .withProperty(BlockLeaves.DECAYABLE, Boolean.TRUE),
+	        ModBlocks.BOSS_ALTAR.getDefaultState()
 	    );
 	
 	public CustomBiome() {
@@ -29,7 +30,7 @@ public class CustomBiome extends Biome {
             .setWaterColor(65535)
             .setRainDisabled());
 
-        this.decorator.treesPerChunk = 5;
+        this.decorator.treesPerChunk = 3;
         this.decorator.flowersPerChunk = 8;
         this.topBlock = Blocks.SNOW.getDefaultState();
         this.fillerBlock = Blocks.DIRT.getDefaultState();

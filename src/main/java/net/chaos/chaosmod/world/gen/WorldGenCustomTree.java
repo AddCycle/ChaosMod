@@ -11,11 +11,13 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 public class WorldGenCustomTree extends WorldGenAbstractTree {
     private final IBlockState log;
     private final IBlockState leaves;
+    private final IBlockState altar;
 
-    public WorldGenCustomTree(IBlockState log, IBlockState leaves) {
+    public WorldGenCustomTree(IBlockState log, IBlockState leaves, IBlockState altar) {
         super(false);
         this.log = log;
         this.leaves = leaves;
+		this.altar = altar;
     }
 
     @Override
@@ -35,6 +37,8 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
         }
 
         if (!canGenerate) return false;
+
+        if (rand.nextInt(10) == 4) world.setBlockState(position.south(), altar, 2); // boss altar next to it 1/10 chance
 
         // Set logs
         for (int y = 0; y < height; y++) {

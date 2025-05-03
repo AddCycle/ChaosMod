@@ -63,7 +63,7 @@ public class Main
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
 
-	public static final SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel("chaosmod");;
+	public static final SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MODID);;
 
 	// Basically, a logger is for broadcasting messages through the console to help you debug your mod implementation
     private static Logger logger;
