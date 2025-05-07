@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -26,6 +27,9 @@ import net.minecraft.world.World;
 
 public class EntityMountainGiantBoss extends EntityMob {
     public final BossInfoServer bossInfo;
+    private boolean attacking = false;
+    private int attackTimer = 0;
+
 
 	public EntityMountainGiantBoss(World worldIn) {
 		super(worldIn);
@@ -54,6 +58,15 @@ public class EntityMountainGiantBoss extends EntityMob {
         this.targetTasks.addTask(5, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
 		// super.initEntityAI();
 	}
+
+    public void startAttack() {
+        this.attacking = true;
+        this.attackTimer = 20; // lasts for 1 second
+    }
+
+    public boolean isAttacking() {
+        return attacking;
+    }
 	
 	@Override
 	protected void updateAITasks() {
@@ -65,7 +78,19 @@ public class EntityMountainGiantBoss extends EntityMob {
 		if (this.deathTime <= 0) { 
 			this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
         }
+		
 		super.onLivingUpdate();
+
+		if (this.ticksExisted % 20 == 0) {
+			startAttack();
+		}
+		
+		if (attacking) {
+	        attackTimer--;
+	        if (attackTimer <= 0) {
+	            attacking = false;
+	        }
+	    }
 	}
 	
 	@Override

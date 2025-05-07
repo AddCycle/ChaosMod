@@ -4,6 +4,8 @@ import java.util.Random;
 
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -42,6 +44,13 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
         // Set logs
         for (int y = 0; y < height; y++) {
             world.setBlockState(position.up(y), log, 2);
+        }
+        
+        // Set lights
+        if (rand.nextInt(4) == 2) {
+        	EnumFacing facing_light = EnumFacing.HORIZONTALS[rand.nextInt(4)];
+        	BlockPos light_pos = position.up(height - 3).offset(facing_light);
+        	world.setBlockState(light_pos, ModBlocks.LANTERN.getStateForPlacement(world, light_pos, facing_light, light_pos.getX(), light_pos.getY(), light_pos.getZ(), 0, null, EnumHand.MAIN_HAND));
         }
 
         if (rand.nextInt(100) == 0) world.setBlockState(position.up(height + 1), altar, 2); // boss altar on top of it 1/100 chance

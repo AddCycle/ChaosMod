@@ -106,7 +106,7 @@ public class Main
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.GIANT_MOUNTAIN, 50));
         BiomeDictionary.addTypes(ModBiomes.GIANT_MOUNTAIN, BiomeDictionary.Type.MOUNTAIN);
     }
-    
+
     // After the launching of the instance
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)

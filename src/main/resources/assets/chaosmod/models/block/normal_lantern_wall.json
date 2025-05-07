@@ -1,0 +1,6 @@
+{
+    "parent": "block/torch_wall",
+    "textures": {
+        "torch": "chaosmod:blocks/lantern_on"
+    }
+}

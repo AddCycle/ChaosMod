@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "facing=up": { "model": "chaosmod:normal_lantern" },
+        "facing=east": { "model": "chaosmod:normal_lantern_wall" },
+        "facing=south": { "model": "chaosmod:normal_lantern_wall", "y": 90 },
+        "facing=west": { "model": "chaosmod:normal_lantern_wall", "y": 180 },
+        "facing=north": { "model": "chaosmod:normal_lantern_wall", "y": 270 }
+    }
+}

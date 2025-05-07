@@ -3,6 +3,7 @@
 // Paste this class into your mod and generate all required imports
 package net.chaos.chaosmod.entity.boss.model;
 
+import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
@@ -33,7 +34,7 @@ public class MountainGiantModel extends ModelBase {
 		textureHeight = 128;
 
 		left_arm = new ModelRenderer(this);
-		left_arm.setRotationPoint(-13.0F, -14.0F, 0.0F);
+		left_arm.setRotationPoint(-13.0F, -13.0F, 0.0F);
 		
 
 		shoulder = new ModelRenderer(this);
@@ -44,11 +45,10 @@ public class MountainGiantModel extends ModelBase {
 		fist = new ModelRenderer(this);
 		fist.setRotationPoint(0.0F, 11.0F, 0.0F);
 		left_arm.addChild(fist);
-		fist.cubeList.add(new ModelBox(fist, 40, 35, -3.0F, -1.0F, -3.0F, 6, 15, 6, 0.0F, false));
+		fist.cubeList.add(new ModelBox(fist, 40, 35, -3.0F, -2.0F, -3.0F, 6, 15, 6, 0.0F, false));
 
 		right_arm = new ModelRenderer(this);
-		right_arm.setRotationPoint(13.0F, -14.0F, 0.0F);
-		
+		right_arm.setRotationPoint(13.0F, -13.0F, 0.0F);
 
 		shoulder2 = new ModelRenderer(this);
 		shoulder2.setRotationPoint(0.0F, 1.0F, 0.0F);
@@ -58,10 +58,10 @@ public class MountainGiantModel extends ModelBase {
 		fist2 = new ModelRenderer(this);
 		fist2.setRotationPoint(0.0F, 11.7213F, -0.9444F);
 		right_arm.addChild(fist2);
-		fist2.cubeList.add(new ModelBox(fist2, 52, 0, -3.0F, -1.7213F, -2.0556F, 6, 15, 6, 0.0F, false));
+		fist2.cubeList.add(new ModelBox(fist2, 52, 0, -3.0F, -2.7213F, -2.0556F, 6, 15, 6, 0.0F, false));
 
 		legs = new ModelRenderer(this);
-		legs.setRotationPoint(0.0F, 9.0F, 0.0F);
+		legs.setRotationPoint(0.0F, 10.0F, 0.0F);
 		
 
 		leg1 = new ModelRenderer(this);
@@ -72,7 +72,7 @@ public class MountainGiantModel extends ModelBase {
 		bottom = new ModelRenderer(this);
 		bottom.setRotationPoint(-1.0F, 9.0F, 0.0F);
 		leg1.addChild(bottom);
-		bottom.cubeList.add(new ModelBox(bottom, 48, 56, -2.0F, 0.0F, -2.0F, 4, 8, 4, 0.0F, false));
+		bottom.cubeList.add(new ModelBox(bottom, 48, 56, -2.0F, -1.0F, -2.0F, 4, 8, 4, 0.0F, false));
 
 		top = new ModelRenderer(this);
 		top.setRotationPoint(-1.0F, 1.0F, 0.0F);
@@ -92,10 +92,10 @@ public class MountainGiantModel extends ModelBase {
 		bottom2 = new ModelRenderer(this);
 		bottom2.setRotationPoint(0.0F, 7.0F, 0.0F);
 		leg2.addChild(bottom2);
-		bottom2.cubeList.add(new ModelBox(bottom2, 44, 21, -2.0F, 0.0F, -2.0F, 4, 8, 4, 0.0F, false));
+		bottom2.cubeList.add(new ModelBox(bottom2, 44, 21, -2.0F, -1.0F, -2.0F, 4, 8, 4, 0.0F, false));
 
 		body = new ModelRenderer(this);
-		body.setRotationPoint(0.0F, 8.0F, 0.0F);
+		body.setRotationPoint(0.0F, 9.0F, 0.0F);
 		
 
 		abs = new ModelRenderer(this);
@@ -109,7 +109,7 @@ public class MountainGiantModel extends ModelBase {
 		chest.cubeList.add(new ModelBox(chest, 0, 0, -10.0F, -23.0F, -3.0F, 20, 13, 6, 0.0F, false));
 
 		head = new ModelRenderer(this);
-		head.setRotationPoint(0.0F, -20.0F, 0.0F);
+		head.setRotationPoint(0.0F, -19.0F, 0.0F);
 		head.cubeList.add(new ModelBox(head, 0, 35, -5.0F, -5.0F, -5.0F, 10, 10, 10, 0.0F, false));
 	}
 
@@ -138,14 +138,41 @@ public class MountainGiantModel extends ModelBase {
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
 			float headPitch, float scaleFactor, Entity entityIn) {
-		// resetAngles();
-		this.leg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-		this.head.rotateAngleY = netHeadYaw * 0.017453292F; // Convert degrees to radians
-		this.head.rotateAngleX = headPitch * 0.017453292F;
-		this.body.rotateAngleZ = 0.05F * MathHelper.sin(ageInTicks * 0.1F);
-		this.left_arm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.right_arm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+		
+		// Head rotation
+	    this.head.rotateAngleY = netHeadYaw * 0.017453292F;
+	    this.head.rotateAngleX = headPitch * 0.017453292F;
+
+	    // Legs: thigh + foot work together
+	    this.top.rotateAngleX = MathHelper.cos(limbSwing * 1.0F) * 1.2F * limbSwingAmount;
+	    this.bottom.rotateAngleX = -this.top.rotateAngleX * 0.5F; // bend foot opposite
+
+	    this.top2.rotateAngleX = MathHelper.cos(limbSwing * 1.0F + (float)Math.PI) * 1.2F * limbSwingAmount;
+	    this.bottom2.rotateAngleX = -this.top2.rotateAngleX * 0.5F;
+	    
+	    if (entityIn instanceof EntityMountainGiantBoss) {
+	        EntityMountainGiantBoss boss = (EntityMountainGiantBoss) entityIn;
+
+	        if (boss.isAttacking()) {
+	            // Add a simple swing animation using sine wave
+	            float swingSpeed = 0.5F;
+	            float swingAmount = 1.0F;
+
+	            right_arm.rotateAngleX = -MathHelper.sin(ageInTicks * swingSpeed) * swingAmount;
+	            left_arm.rotateAngleX = -MathHelper.sin(ageInTicks * swingSpeed) * swingAmount;
+	        } else {
+	            // Idle position (reset rotation)
+	            right_arm.rotateAngleX = 0F;
+	            left_arm.rotateAngleX = 0F;
+	        }
+	    }
+
+	    /*// Arms: shoulder + fist
+	    this.shoulder.rotateAngleX = MathHelper.cos(limbSwing * 1.0F + (float)Math.PI) * 1.2F * limbSwingAmount;
+	    this.fist.rotateAngleX = this.shoulder.rotateAngleX * 0.4F;
+
+	    this.shoulder2.rotateAngleX = MathHelper.cos(limbSwing * 1.0F) * 1.2F * limbSwingAmount;
+	    this.fist2.rotateAngleX = this.shoulder2.rotateAngleX * 0.4F;*/
 	}
 }

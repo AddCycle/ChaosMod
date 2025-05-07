@@ -17,6 +17,7 @@ import net.chaos.chaosmod.blocks.OxoniumOre;
 import net.chaos.chaosmod.blocks.OxoniumStairs;
 import net.chaos.chaosmod.blocks.decoration.BlockBrightGrass;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
+import net.chaos.chaosmod.blocks.decoration.BlockLantern;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
 import net.chaos.chaosmod.blocks.decoration.MineralBricks;
 import net.minecraft.block.Block;
@@ -46,4 +47,5 @@ public class ModBlocks {
 	public static final Block SNOWY_LOG = new CustomLog("custom_log");
 	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
 	public static final Block CUSTOM_GRASS = new BlockBrightGrass();
+	public static final Block LANTERN = new BlockLantern("lantern");
 }

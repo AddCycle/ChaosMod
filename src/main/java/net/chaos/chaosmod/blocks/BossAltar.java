@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.blocks;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
 import net.minecraft.block.ITileEntityProvider;
@@ -21,6 +22,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
+import util.Reference;
 
 public class BossAltar extends BlockBase implements ITileEntityProvider {
 	/*
@@ -85,7 +87,7 @@ public class BossAltar extends BlockBase implements ITileEntityProvider {
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
 		if (!worldIn.isRemote) player.sendMessage(new TextComponentString("Vous n'auriez pas du faire cela !"));
 		if (!worldIn.isRemote) {
-			player.attackEntityFrom(new DamageSource("killed_by_game") {
+			player.attackEntityFrom(new DamageSource(Reference.MODID + ":killed_by_game") {
 				@Override
 				public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
 					return new TextComponentString(entityLivingBaseIn.getName() + " est tombé ko en voulant faire le mongol... XD");
