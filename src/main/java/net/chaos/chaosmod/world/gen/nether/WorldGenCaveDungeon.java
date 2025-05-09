@@ -2,7 +2,6 @@ package net.chaos.chaosmod.world.gen.nether;
 
 import java.util.Random;
 
-import net.chaos.chaosmod.Main;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;

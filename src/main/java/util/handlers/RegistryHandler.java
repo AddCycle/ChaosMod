@@ -4,20 +4,16 @@ import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
-import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import util.IHasModel;
 
@@ -57,7 +53,8 @@ public class RegistryHandler {
 	
 	@SubscribeEvent
     public static void onBiomeRegister(RegistryEvent.Register<Biome> event) {
-        ModBiomes.registerBiomes(event);
+        ModBiomes.registerBiomes();
+        event.getRegistry().registerAll(ModBiomes.BIOMES.toArray(new Biome[0]));
     }
 	
 	public static void fastRender(Item item) {

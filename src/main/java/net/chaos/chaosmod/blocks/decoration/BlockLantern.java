@@ -54,11 +54,13 @@ public class BlockLantern extends BlockTorch implements IHasModel {
             EnumFacing enumfacing1 = enumfacing.getOpposite();
             // worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + 0.27D * (double)enumfacing1.getFrontOffsetX(), d1 + 0.22D, d2 + 0.27D * (double)enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0 + 0.27D * (double)enumfacing1.getFrontOffsetX(), d1 + 0.22D, d2 + 0.27D * (double)enumfacing1.getFrontOffsetZ(), r, g, b);
+            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0 - 0.27D * (double)enumfacing1.getFrontOffsetX(), d1 - 0.22D, d2 - 0.27D * (double)enumfacing1.getFrontOffsetZ(), r, g, b);
         }
         else
         {
             // worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, r, g, b);
+            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, -d0, d1, -d2, r, g, b);
         }
     }
 

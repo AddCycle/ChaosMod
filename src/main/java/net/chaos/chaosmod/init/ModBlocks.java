@@ -44,7 +44,7 @@ public class ModBlocks {
 	public static final Block ENDERITE_BRICKS = new MineralBricks("enderite_bricks", Material.ROCK, TextFormatting.DARK_PURPLE, "You will need this to relax after what you have been through");
 	public static final Block FORGE_INTERFACE_BLOCK = new ForgeInterfaceBlock("forge_interface_block", Material.IRON);
 	public static final Block CUSTOM_FLOWER = new BlockCustomFlower("custom_flower");
-	public static final Block SNOWY_LOG = new CustomLog("custom_log");
+	public static final Block CUSTOM_LOG = new CustomLog("custom_log");
 	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
 	public static final Block CUSTOM_GRASS = new BlockBrightGrass();
 	public static final Block LANTERN = new BlockLantern("lantern");

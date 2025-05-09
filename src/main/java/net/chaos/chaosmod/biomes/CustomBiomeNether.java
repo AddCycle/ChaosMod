@@ -2,53 +2,54 @@ package net.chaos.chaosmod.biomes;
 
 import java.util.Random;
 
-import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
+import net.chaos.chaosmod.blocks.CustomLog;
+import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
+import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
+import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.world.gen.WorldGenCustomTree;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.monster.EntityPolarBear;
-import net.minecraft.entity.monster.EntitySnowman;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-public class CustomBiome extends Biome {
+public class CustomBiomeNether extends Biome {
 	public static final WorldGenCustomTree TREE_GEN = new WorldGenCustomTree(
-	        ModBlocks.SNOWY_LOG.getDefaultState(),
-	        ModBlocks.CUSTOM_LEAVES.getDefaultState()
+	        ((CustomLog) ModBlocks.CUSTOM_LOG).getStateFromMeta(1),
+	        ((CustomLeaves) ModBlocks.CUSTOM_LEAVES).getStateFromMeta(1)
 	            .withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE)
 	            .withProperty(BlockLeaves.DECAYABLE, Boolean.TRUE),
 	        ModBlocks.BOSS_ALTAR.getDefaultState()
 	    );
 	
-	public CustomBiome() {
-        super(new Biome.BiomeProperties("Giant Mountains")
+	public CustomBiomeNether() {
+        super(new Biome.BiomeProperties("Nether Caves")
             .setBaseHeight(Biome.getBiome(162).getBaseHeight())
             .setHeightVariation(0.1F)
-            .setTemperature(0.4F)
-            .setSnowEnabled()
+            .setTemperature(1.0F)
             .setWaterColor(65535)
             .setRainDisabled());
 
-        this.decorator.treesPerChunk = 3;
+        this.decorator.treesPerChunk = 0;
+        this.flowers.clear();
         this.decorator.flowersPerChunk = 8;
-        this.topBlock = Blocks.SNOW.getDefaultState();
-        this.fillerBlock = Blocks.DIRT.getDefaultState();
+        this.topBlock = Blocks.GRASS.getDefaultState();
+        this.fillerBlock = Blocks.NETHERRACK.getDefaultState();
         this.spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
         this.decorator.generateFalls = false;
         this.decorator.extraTreeChance = 0.1F;
 
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 2, 5, 10));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 2, 5, 10));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityPolarBear.class, 4, 8, 20));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntitySnowman.class, 1, 3, 20));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityPigZombie.class, 4, 8, 10));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityBlaze.class, 1, 3, 30));
         // this.spawnableCreatureList.add(new SpawnListEntry(EntityMountainGiantBoss.class, 75, 1, 1));
-        this.addFlower(ModBlocks.CUSTOM_FLOWER.getDefaultState(), 5);
+        this.addFlower(((BlockCustomFlower) ModBlocks.CUSTOM_FLOWER).getStateFromMeta(1), 10);
+        
+        ModBiomes.BIOMES.add(this);
     }
 	
 	@Override
@@ -71,5 +72,13 @@ public class CustomBiome extends Biome {
 	        }
 	        TREE_GEN.generate(worldIn, rand, genPos);
 	    }
+	}
+	
+	@Override
+	public int getGrassColorAtPos(BlockPos pos) {
+		// return 0x7ca4f7;
+		// return 0x1a60f0;
+		return 0xff0000;
+		// return ColorizerGrass.getGrassColor(0.0F, 0.5F);
 	}
 }

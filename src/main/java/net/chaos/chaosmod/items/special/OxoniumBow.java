@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.items.special;
 
+import javax.annotation.Nullable;
+
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
@@ -11,14 +13,18 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import util.IHasModel;
 
 public class OxoniumBow extends ItemBow implements IHasModel {
@@ -29,6 +35,26 @@ public class OxoniumBow extends ItemBow implements IHasModel {
 		this.setMaxDamage(600);
 		this.setRegistryName(name);
 		this.setUnlocalizedName(name);
+		
+		/* STARTING TO OVERRIDE THE DRAWING ANIMATION FASTER++ */
+		this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
+	        @SideOnly(Side.CLIENT)
+	        public float apply(ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
+	            if (entity == null) return 0.0F;
+	            if (entity.getActiveItemStack() != stack) return 0.0F;
+
+	            // Vanilla is 20.0F, but we want faster animation (e.g., full draw at 5 ticks)
+	            return Math.min(1.0F, (stack.getMaxItemUseDuration() - entity.getItemInUseCount()) / 5.0F);
+	        }
+	    });
+
+	    this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter() {
+	        @SideOnly(Side.CLIENT)
+	        public float apply(ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
+	            return (entity != null && entity.isHandActive() && entity.getActiveItemStack() == stack) ? 1.0F : 0.0F;
+	        }
+	    });
+		/* END TO OVERRIDE THE DRAWING ANIMATION FASTER++ */
 		
 		ModItems.ITEMS.add(this);
 	}
@@ -44,7 +70,7 @@ public class OxoniumBow extends ItemBow implements IHasModel {
 	}
 	
 	public static float getFastArrowVelocity(int charge) {
-	    float velocity = (float)charge / 10.0F; // faster draw
+	    float velocity = (float)charge / 5.0F; // faster draw x4
 	    velocity = (velocity * velocity + velocity * 2.0F) / 3.0F;
 	    return velocity > 1.0F ? 1.0F : velocity;
 	}

@@ -16,12 +16,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber
 public class FightEvents {
@@ -121,6 +124,29 @@ public class FightEvents {
 	        if (attackAttribute.getModifier(ATTACK_BOOST_UUID) != null) {
 	            attackAttribute.removeModifier(ATTACK_BOOST_UUID);
 	        }
+	    }
+	}
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onFOVUpdate(FOVUpdateEvent event) {
+	    EntityPlayer player = event.getEntity();
+
+	    if (player.getActiveItemStack().getItem() instanceof OxoniumBow) {
+	        ItemStack stack = player.getActiveItemStack();
+
+	        int maxDuration = stack.getMaxItemUseDuration();
+	        int useCount = player.getItemInUseCount();
+	        int ticksUsed = maxDuration - useCount;
+
+	        // Vanilla uses 20.0F — you use 5.0F for full draw
+	        float drawSpeed = 5.0F;
+
+	        float draw = (float) ticksUsed / drawSpeed;
+	        draw = Math.min(draw, 1.0F);
+
+	        // Same formula as vanilla, just scaled faster
+	        event.setNewfov(event.getNewfov() * (1.0F - draw * 0.15F));
 	    }
 	}
 }
