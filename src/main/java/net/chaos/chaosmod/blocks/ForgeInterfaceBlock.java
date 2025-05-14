@@ -81,6 +81,9 @@ public class ForgeInterfaceBlock extends BlockContainer implements ITileEntityPr
 				};
 	}
 	
+	/*
+	 * This function is for checking the setup of the ChaosForge 3x3 structure
+	 */
 	private boolean checkSetup(EntityPlayer player, BlockPos pos, World worldIn, EnumFacing facing) {
 		BlockPos center = pos.offset(facing.getOpposite());
 		BlockPos center2 = pos.offset(facing.getOpposite(), 2);

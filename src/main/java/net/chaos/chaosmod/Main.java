@@ -15,6 +15,7 @@ import net.chaos.chaosmod.commands.SetHomeCommand;
 import net.chaos.chaosmod.commands.TopCommand;
 import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBiomes;
+import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
@@ -92,6 +93,8 @@ public class Main
     public void init(FMLInitializationEvent event)
     {
         proxy.init(event);
+        ModCapabilities.register(); // for necklace and other things
+        // CapabilityManager.INSTANCE.register(IAccessory.class, new AccessoryStorage(), AccessoryImpl::new); // for the necklace and other accessories
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
     	network.registerMessage(MessageDisplayTextHandler.class, MessageDisplayText.class, 0, Side.CLIENT);
 		network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 1, Side.CLIENT);

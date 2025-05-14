@@ -70,7 +70,8 @@ public class OxoniumBow extends ItemBow implements IHasModel {
 	}
 	
 	public static float getFastArrowVelocity(int charge) {
-	    float velocity = (float)charge / 5.0F; // faster draw x4
+	    float velocity = (float)charge / 2.5F; // faster draw x8
+	    // float velocity = (float)charge / 5.0F; // faster draw x4
 	    velocity = (velocity * velocity + velocity * 2.0F) / 3.0F;
 	    return velocity > 1.0F ? 1.0F : velocity;
 	}

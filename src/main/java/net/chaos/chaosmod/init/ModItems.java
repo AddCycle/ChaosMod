@@ -9,6 +9,7 @@ import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.food.FoodEffectBase;
 import net.chaos.chaosmod.items.materials.AllemaniteIngot;
 import net.chaos.chaosmod.items.materials.EnderiteShard;
+import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.AllemaniteExtinguisher;
 import net.chaos.chaosmod.items.special.ChestUpgradeBase;
 import net.chaos.chaosmod.items.special.CustomFireball;
@@ -101,6 +102,7 @@ public class ModItems {
 	public static final Item CUSTOM_FIREBALL = new CustomFireball("custom_fireball");
 	public static final Item TINKERERS_HAMMER = new TinkerersHammer("tinkerers_hammer");
 	public static final Item ENDERITE_THUNDER = new EnderiteThunder("enderite_thunder");
+	public static final Item OXONIUM_NECKLACE = new OxoniumNecklace("oxonium_necklace");
 	
 	// Boss special loots
 	public static final Item GIANT_HEART = new ItemHeart("giant_heart");

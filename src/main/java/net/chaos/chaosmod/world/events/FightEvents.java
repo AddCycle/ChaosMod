@@ -49,6 +49,11 @@ public class FightEvents {
 			event.setAmount(increasedDamage);
 			System.out.println("EVENT BOW : increasing damage taken by 25 %");
 		}
+
+	    /*ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+	    if (!helmet.isEmpty() && helmet.getItem() == ModItems.OXONIUM_HELMET) {
+	    	if (event.getSource() == DamageSource.ROCK)
+	    }*/
 	}
 	
 	// To disable the cooldown like the pre-1.9 mc ver

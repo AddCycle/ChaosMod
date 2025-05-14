@@ -38,7 +38,7 @@ public class CustomBiomeNether extends Biome {
         this.flowers.clear();
         this.decorator.flowersPerChunk = 8;
         this.topBlock = Blocks.GRASS.getDefaultState();
-        this.fillerBlock = Blocks.NETHERRACK.getDefaultState();
+        this.fillerBlock = Blocks.STONE.getDefaultState();
         this.spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
         this.decorator.generateFalls = false;
