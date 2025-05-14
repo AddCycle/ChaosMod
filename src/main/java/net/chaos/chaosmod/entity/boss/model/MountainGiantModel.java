@@ -145,11 +145,11 @@ public class MountainGiantModel extends ModelBase {
 	    this.head.rotateAngleX = headPitch * 0.017453292F;
 
 	    // Legs: thigh + foot work together
-	    this.top.rotateAngleX = MathHelper.cos(limbSwing * 1.0F) * 1.2F * limbSwingAmount;
-	    this.bottom.rotateAngleX = -this.top.rotateAngleX * 0.5F; // bend foot opposite
+	    // this.top.rotateAngleX = MathHelper.cos(limbSwing * 1.0F) * 1.2F * limbSwingAmount;
+	    // this.bottom.rotateAngleX = -this.top.rotateAngleX * 0.5F; // bend foot opposite
 
-	    this.top2.rotateAngleX = MathHelper.cos(limbSwing * 1.0F + (float)Math.PI) * 1.2F * limbSwingAmount;
-	    this.bottom2.rotateAngleX = -this.top2.rotateAngleX * 0.5F;
+	    // this.top2.rotateAngleX = MathHelper.cos(limbSwing * 1.0F + (float)Math.PI) * 1.2F * limbSwingAmount;
+	    // this.bottom2.rotateAngleX = -this.top2.rotateAngleX * 0.5F;
 	    
 	    if (entityIn instanceof EntityMountainGiantBoss) {
 	        EntityMountainGiantBoss boss = (EntityMountainGiantBoss) entityIn;
@@ -163,8 +163,8 @@ public class MountainGiantModel extends ModelBase {
 	            left_arm.rotateAngleX = -MathHelper.sin(ageInTicks * swingSpeed) * swingAmount;
 	        } else {
 	            // Idle position (reset rotation)
-	            right_arm.rotateAngleX = 0F;
-	            left_arm.rotateAngleX = 0F;
+	            // right_arm.rotateAngleX = 0F;
+	            // left_arm.rotateAngleX = 0F;
 	        }
 	    }
 

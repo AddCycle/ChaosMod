@@ -2,13 +2,17 @@ package net.chaos.chaosmod.blocks.decoration;
 
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.ItemBlockBase;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.tileentity.TileEntityLantern;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -62,6 +66,17 @@ public class BlockLantern extends BlockTorch implements IHasModel {
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, r, g, b);
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, -d0, d1, -d2, r, g, b);
         }
+    }
+	
+	@Override
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        return new TileEntityLantern();
     }
 
 }

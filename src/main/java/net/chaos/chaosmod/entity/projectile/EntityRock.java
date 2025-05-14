@@ -41,7 +41,7 @@ public class EntityRock extends EntityThrowable {
     // Optional: override speed if needed
     @Override
     public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
-        super.shoot(x, y, z, velocity, inaccuracy);
+        super.shoot(x, y, z, velocity / 2, inaccuracy);
     }
 
 }
