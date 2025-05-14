@@ -148,7 +148,7 @@ publishing {
 
 buildscript {
     repositories {
-        jcenter()
+        // jcenter()
         maven {
             name = "Forge"
             url = "https://files.minecraftforge.net/maven"

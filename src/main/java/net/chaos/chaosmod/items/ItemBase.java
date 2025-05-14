@@ -1,17 +1,10 @@
 package net.chaos.chaosmod.items;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import util.IHasModel;
 
 // Basic item initialization as a basic item along with a name

@@ -15,6 +15,7 @@ import net.chaos.chaosmod.items.special.CustomFireball;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.items.special.TesterWand;
+import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.items.tools.AllemanitePickaxe;
 import net.chaos.chaosmod.items.tools.AllemaniteSword;
 import net.chaos.chaosmod.items.tools.OxoniumHalleberd;
@@ -47,6 +48,7 @@ public class ModItems {
 	
 	//Materials
 	public static final Material BLOCK_MATERIAL_OXONIUM = new Material(MapColor.BLUE);
+	public static final Material BLOCK_MATERIAL_ENDERITE = new Material(MapColor.PURPLE);
 	public static final ToolMaterial MATERIAL_OXONIUM = EnumHelper.addToolMaterial("material_oxonium", 3, 250, 6.0F, 2.0F, 14);
 	public static final ToolMaterial MATERIAL_ALLEMANITE = EnumHelper.addToolMaterial("material_allemanite", 5, 600, 10.0f, 3.0f, 30);
 	public static final ToolMaterial MATERIAL_ENDERITE = EnumHelper.addToolMaterial("material_enderite", 7, 2000, 12.0f, 5.0f, 40);
@@ -95,4 +97,5 @@ public class ModItems {
 	public static final Item ALLEMANITE_BACKPACK = new PlayerInventoryBaseItem("allemanite_backpack");
 	public static final Item TESTER_WAND = new TesterWand("tester_wand");
 	public static final Item CUSTOM_FIREBALL = new CustomFireball("custom_fireball");
+	public static final Item TINKERERS_HAMMER = new TinkerersHammer("tinkerers_hammer");
 }

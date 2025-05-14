@@ -42,7 +42,13 @@ public class GuiHandler implements IGuiHandler {
 		    }
 		    return null;
 		case 5:
-			return EntityContains(player, world, x);
+			return new Container() {
+				@Override
+				public boolean canInteractWith(EntityPlayer playerIn) {
+					return true;
+				}
+			};
+			// return EntityContains(player, world, x);
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}

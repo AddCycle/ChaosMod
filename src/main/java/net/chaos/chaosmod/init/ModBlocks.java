@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.chaos.chaosmod.blocks.AllemaniteBlock;
 import net.chaos.chaosmod.blocks.AllemaniteOre;
+import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
@@ -43,6 +44,7 @@ public class ModBlocks {
 	public static final Block ALLEMANITE_BRICKS = new MineralBricks("allemanite_bricks", Material.ROCK, TextFormatting.RED, "Well go on...");
 	public static final Block ENDERITE_BRICKS = new MineralBricks("enderite_bricks", Material.ROCK, TextFormatting.DARK_PURPLE, "You will need this to relax after what you have been through");
 	public static final Block FORGE_INTERFACE_BLOCK = new ForgeInterfaceBlock("forge_interface_block", Material.IRON);
+	public static final Block FORGE_WALLS = new BlockBase("enderite_forge_walls", ModItems.BLOCK_MATERIAL_ENDERITE);
 	public static final Block CUSTOM_FLOWER = new BlockCustomFlower("custom_flower");
 	public static final Block CUSTOM_LOG = new CustomLog("custom_log");
 	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");

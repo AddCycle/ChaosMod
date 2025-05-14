@@ -1,5 +1,19 @@
 {
-	"variants": {
-		"normal": { "model": "chaosmod:forge_interface_block" }
-	}
+  "variants": {
+    "facing=east": {
+      "model": "chaosmod:forge_interface_block" // default
+    },
+    "facing=north": {
+      "model": "chaosmod:forge_interface_block",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "chaosmod:forge_interface_block",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "chaosmod:forge_interface_block",
+      "y": 180
+    }
+  }
 }
