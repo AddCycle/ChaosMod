@@ -6,7 +6,9 @@ import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
 import net.chaos.chaosmod.entity.boss.renderer.EntityMountainGiantBossRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityRevengeBlazeRenderer;
+import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
+import net.chaos.chaosmod.entity.projectile.render.EntityRockRenderer;
 import net.chaos.chaosmod.entity.projectile.render.EntitySmallBlueFireballRenderer;
 import net.chaos.chaosmod.entity.render.RenderChaosSage;
 import net.chaos.chaosmod.entity.render.RenderForgeGuardian;
@@ -41,6 +43,15 @@ public class RenderHandler {
 			@Override
 			public Render<? super EntitySmallBlueFireball> createRenderFor(RenderManager manager) {
 				return new EntitySmallBlueFireballRenderer(manager);
+			}
+			
+		});
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityRock.class, new IRenderFactory<EntityRock>() {
+
+			@Override
+			public Render<? super EntityRock> createRenderFor(RenderManager manager) {
+				return new EntityRockRenderer(manager);
 			}
 			
 		});

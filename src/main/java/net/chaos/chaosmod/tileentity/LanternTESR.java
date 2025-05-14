@@ -34,7 +34,7 @@ public class LanternTESR extends TileEntitySpecialRenderer<TileEntityLantern>{
 	    Tessellator tess = Tessellator.getInstance();
 	    BufferBuilder buffer = tess.getBuffer();
 
-	    double size = 0.3;
+	    double size = 0.5;
 
 	    buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 	    buffer.pos(-size, -size, 0).tex(0, 0).endVertex();

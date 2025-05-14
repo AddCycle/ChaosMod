@@ -35,13 +35,13 @@ public class EntityRock extends EntityThrowable {
 
     @Override
     protected float getGravityVelocity() {
-        return 0.08F; // Default is 0.03F for snowballs; use higher for faster fall
+        return 0.03F; // Default is 0.03F for snowballs; use higher for faster fall
     }
 
     // Optional: override speed if needed
     @Override
     public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
-        super.shoot(x, y, z, velocity / 2, inaccuracy);
+        super.shoot(x, y, z, velocity / 2, inaccuracy); // velocity / 2
     }
 
 }

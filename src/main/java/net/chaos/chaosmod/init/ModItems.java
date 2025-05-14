@@ -12,6 +12,7 @@ import net.chaos.chaosmod.items.materials.EnderiteShard;
 import net.chaos.chaosmod.items.special.AllemaniteExtinguisher;
 import net.chaos.chaosmod.items.special.ChestUpgradeBase;
 import net.chaos.chaosmod.items.special.CustomFireball;
+import net.chaos.chaosmod.items.special.EnderiteThunder;
 import net.chaos.chaosmod.items.special.ItemHeart;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
@@ -99,6 +100,7 @@ public class ModItems {
 	public static final Item TESTER_WAND = new TesterWand("tester_wand");
 	public static final Item CUSTOM_FIREBALL = new CustomFireball("custom_fireball");
 	public static final Item TINKERERS_HAMMER = new TinkerersHammer("tinkerers_hammer");
+	public static final Item ENDERITE_THUNDER = new EnderiteThunder("enderite_thunder");
 	
 	// Boss special loots
 	public static final Item GIANT_HEART = new ItemHeart("giant_heart");
