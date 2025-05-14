@@ -45,7 +45,7 @@ public class CustomBiomeNether extends Biome {
         this.decorator.extraTreeChance = 0.1F;
 
         this.spawnableCreatureList.add(new SpawnListEntry(EntityPigZombie.class, 4, 8, 10));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityBlaze.class, 1, 3, 30));
+        // this.spawnableCreatureList.add(new SpawnListEntry(EntityBlaze.class, 1, 3, 30));
         // this.spawnableCreatureList.add(new SpawnListEntry(EntityMountainGiantBoss.class, 75, 1, 1));
         this.addFlower(((BlockCustomFlower) ModBlocks.CUSTOM_FLOWER).getStateFromMeta(1), 10);
         
@@ -56,7 +56,7 @@ public class CustomBiomeNether extends Biome {
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
 	    super.decorate(worldIn, rand, pos);
 
-	    int trees = this.decorator.treesPerChunk;
+	    int trees = 5;
 	    for (int i = 0; i < trees; i++) {
 	        BlockPos genPos = pos.add(rand.nextInt(16) + 8, 0, rand.nextInt(16) + 8);
 	        genPos = worldIn.getHeight(genPos);
