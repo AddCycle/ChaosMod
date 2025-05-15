@@ -3,6 +3,7 @@ package net.chaos.chaosmod.world.events;
 import java.util.UUID;
 
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.items.AbstractCustomBow;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,6 +12,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -137,7 +139,8 @@ public class FightEvents {
 	public void onFOVUpdate(FOVUpdateEvent event) {
 	    EntityPlayer player = event.getEntity();
 
-	    if (player.getActiveItemStack().getItem() instanceof OxoniumBow) {
+	    Item item = player.getActiveItemStack().getItem();
+	    if (item instanceof AbstractCustomBow) {
 	        ItemStack stack = player.getActiveItemStack();
 
 	        int maxDuration = stack.getMaxItemUseDuration();
@@ -145,7 +148,22 @@ public class FightEvents {
 	        int ticksUsed = maxDuration - useCount;
 
 	        // Vanilla uses 20.0F — you use 5.0F for full draw
-	        float drawSpeed = 5.0F;
+	        float drawSpeed = ((AbstractCustomBow) item).drawTime;
+
+	        float draw = (float) ticksUsed / drawSpeed;
+	        draw = Math.min(draw, 1.0F);
+
+	        // Same formula as vanilla, just scaled faster
+	        event.setNewfov(event.getNewfov() * (1.0F - draw * 0.15F));
+	    } else if (item instanceof OxoniumBow) {
+	        ItemStack stack = player.getActiveItemStack();
+
+	        int maxDuration = stack.getMaxItemUseDuration();
+	        int useCount = player.getItemInUseCount();
+	        int ticksUsed = maxDuration - useCount;
+
+	        // Vanilla uses 20.0F — you use 5.0F for full draw
+	        float drawSpeed = 5.0f;
 
 	        float draw = (float) ticksUsed / drawSpeed;
 	        draw = Math.min(draw, 1.0F);

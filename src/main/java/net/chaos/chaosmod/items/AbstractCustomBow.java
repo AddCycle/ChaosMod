@@ -1,4 +1,6 @@
-package net.chaos.chaosmod.items.special;
+package net.chaos.chaosmod.items;
+
+import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -18,22 +20,23 @@ import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.IHasModel;
 
-public class OxoniumBow extends ItemBow implements IHasModel {
-	private boolean low;
+public abstract class AbstractCustomBow extends ItemBow implements IHasModel {
+	// private boolean low;
+	public float drawTime = 20.0f; // default is 20.0F
+	public float damageMultiplier = 1.0f;
+	public int streak;
 	
-	public OxoniumBow(String name, ToolMaterial material) {
+	public AbstractCustomBow(String name, ToolMaterial material) {
 		this.setMaxStackSize(1);
-		this.setMaxDamage(600);
 		this.setRegistryName(name);
 		this.setUnlocalizedName(name);
 		
@@ -46,7 +49,7 @@ public class OxoniumBow extends ItemBow implements IHasModel {
 
 	            // Vanilla is 20.0F, but we want faster animation (e.g., full draw at 5 ticks)
 	            // return Math.min(1.0F, (stack.getMaxItemUseDuration() - entity.getItemInUseCount()) / 5.0F);
-	            return Math.min(1.0F, (stack.getMaxItemUseDuration() - entity.getItemInUseCount()) / 2.5F);
+	            return Math.min(1.0F, (stack.getMaxItemUseDuration() - entity.getItemInUseCount()) / drawTime);
 	        }
 	    });
 
@@ -62,23 +65,18 @@ public class OxoniumBow extends ItemBow implements IHasModel {
 	}
 	
 	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-        return MathHelper.hsvToRGB(Math.max(0.0F, (float) (1.0F - getDurabilityForDisplay(stack))) / 2.0F, 1.0F, 1.0F);
+	public void registerModels() {
+		Main.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		if (playerIn.getHealth() / playerIn.getMaxHealth() <= 0.5) {
-			low = true;
-		} else {
-			low = false;
-		}
-		return super.onItemRightClick(worldIn, playerIn, handIn);
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+        return MathHelper.hsvToRGB(Math.max(0.0F, (float) (1.0F - getDurabilityForDisplay(stack))) / 3.0F, 1.0F, 1.0F);
 	}
-	
-	public static float getFastArrowVelocity(int charge) {
-	    float velocity = (float)charge / 2.5F; // faster draw x8
-	    // float velocity = (float)charge / 5.0F; // faster draw x4
+
+	public float getFastArrowVelocity(int charge) {
+	    // float velocity = (float)charge / 2.5F; // faster draw x8
+	    float velocity = (float)(charge / this.drawTime); // faster draw x4
 	    velocity = (velocity * velocity + velocity * 2.0F) / 3.0F;
 	    return velocity > 1.0F ? 1.0F : velocity;
 	}
@@ -147,6 +145,7 @@ public class OxoniumBow extends ItemBow implements IHasModel {
                         }
 
                         worldIn.spawnEntity(entityarrow);
+                        entityplayer.sendMessage(new TextComponentString("Streak : " + streak));
                     }
 
                     worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
@@ -169,7 +168,15 @@ public class OxoniumBow extends ItemBow implements IHasModel {
 
 	@Override
 	public EntityArrow customizeArrow(EntityArrow arrow) {
-		if (low) arrow.setDamage(arrow.getDamage() * 2);
+		Random rand = new Random();
+		float multiplier = damageMultiplier;
+		if (streak == 10) {
+			if (rand.nextInt(2) == 1) multiplier *= 3;
+			streak = 0;
+		} else {
+			streak++;
+		}
+		arrow.setDamage(arrow.getDamage() * multiplier);
 		return super.customizeArrow(arrow);
 	}
 	
@@ -177,10 +184,4 @@ public class OxoniumBow extends ItemBow implements IHasModel {
 	public CreativeTabs[] getCreativeTabs() {
 		return new CreativeTabs[] { ModTabs.GENERAL_TAB, CreativeTabs.COMBAT };
 	}
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
-	}
-
 }

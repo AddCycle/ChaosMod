@@ -60,7 +60,7 @@ public class PlayerLifeEvents {
 	    ItemStack accessory = cap.getAccessoryItem();
 	    if (!accessory.isEmpty() && accessory.getItem() instanceof OxoniumNecklace) {
 	        if (!player.isPotionActive(MobEffects.SPEED)) {
-	            player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 20, 0, false, false));
+	        	player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 20 * 3, 0, false, false));
 	        }
 	    }
 		
