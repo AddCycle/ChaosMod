@@ -33,6 +33,11 @@ public class EntityChaosSage extends EntityLiving {
 	}
 	
 	@Override
+	protected boolean canDespawn() {
+		return false;
+	}
+	
+	@Override
 	protected void entityInit() {
 		super.entityInit();
 	}

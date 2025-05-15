@@ -15,6 +15,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -91,25 +92,21 @@ public class ForgeInterfaceBlock extends BlockContainer implements ITileEntityPr
 		BlockPos[] positions2 = calculate_positions_center(center, facing);
 		BlockPos[] positions3 = calculate_positions_center(center2, facing);
 		for (BlockPos p : positions) {
-			System.out.println("facing : " + facing);
+			// System.out.println("facing : " + facing);
 			BlockPos curr_pos = p;
 			Block to_check = worldIn.getBlockState(curr_pos).getBlock();
 			if (to_check != ModBlocks.ENDERITE_BRICKS) return false;
-			System.out.println("position is good : " + p + " | BLOCK : " + to_check);
+			// System.out.println("position is good : " + p + " | BLOCK : " + to_check);
 		}
 		for (BlockPos p : positions2) {
-			System.out.println("facing : " + facing);
 			BlockPos curr_pos = p;
 			Block to_check = worldIn.getBlockState(curr_pos).getBlock();
 			if (to_check != ModBlocks.ENDERITE_BRICKS) return false;
-			System.out.println("position is good : " + p + " | BLOCK : " + to_check);
 		}
 		for (BlockPos p : positions3) {
-			System.out.println("facing : " + facing);
 			BlockPos curr_pos = p;
 			Block to_check = worldIn.getBlockState(curr_pos).getBlock();
 			if (to_check != ModBlocks.ENDERITE_BRICKS) return false;
-			System.out.println("position is good : " + p + " | BLOCK : " + to_check);
 		}
 		return true;
 	}
@@ -205,6 +202,22 @@ public class ForgeInterfaceBlock extends BlockContainer implements ITileEntityPr
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
         return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+    }
+    
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    	TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof TileEntityForge) {
+            TileEntityForge forge = (TileEntityForge) tileentity;
+            for (int i = 0; i < forge.getSizeInventory(); ++i) {
+                ItemStack stack = forge.getStackInSlot(i);
+                if (!stack.isEmpty()) {
+                    InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stack);
+                }
+            }
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
+    	super.breakBlock(worldIn, pos, state);
     }
 	
 }

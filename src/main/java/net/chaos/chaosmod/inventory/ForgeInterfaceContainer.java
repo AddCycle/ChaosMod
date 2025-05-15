@@ -3,9 +3,12 @@ package net.chaos.chaosmod.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ForgeInterfaceContainer extends Container {
 	private final IInventory tileEntity;
@@ -63,6 +66,27 @@ public class ForgeInterfaceContainer extends Container {
             }
     	}
     	return itemstack;
+    }
+    
+    @Override
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
+        listener.sendAllWindowProperties(this, tileEntity);
+    }
+
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+        for (IContainerListener listener : listeners) {
+            listener.sendWindowProperty(this, 0, tileEntity.getField(0));
+            listener.sendWindowProperty(this, 1, tileEntity.getField(1));
+        }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int id, int data) {
+        tileEntity.setField(id, data);
     }
 
 }
