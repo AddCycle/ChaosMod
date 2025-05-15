@@ -19,6 +19,7 @@ import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
+import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityLantern;
@@ -81,6 +82,7 @@ public class Main
         proxy.preInit(event);
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
+        ModCapabilities.register(); // for necklace and other things
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         // GameRegistry.registerWorldGenerator(new ModGenSurface(), 0);
         // GameRegistry.registerWorldGenerator(new CustomDungeonBuilder(), 2);
@@ -93,11 +95,11 @@ public class Main
     public void init(FMLInitializationEvent event)
     {
         proxy.init(event);
-        ModCapabilities.register(); // for necklace and other things
         // CapabilityManager.INSTANCE.register(IAccessory.class, new AccessoryStorage(), AccessoryImpl::new); // for the necklace and other accessories
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
     	network.registerMessage(MessageDisplayTextHandler.class, MessageDisplayText.class, 0, Side.CLIENT);
 		network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 1, Side.CLIENT);
+		network.registerMessage(PacketOpenAccessoryGui.Handler.class, PacketOpenAccessoryGui.class, 2, Side.SERVER);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
         // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());

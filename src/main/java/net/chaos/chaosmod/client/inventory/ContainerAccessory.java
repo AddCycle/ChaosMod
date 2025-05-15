@@ -12,7 +12,7 @@ public class ContainerAccessory extends ContainerPlayer {
         this.accessory = new AccessoryInventory(player);
 
         // Add custom slot to the container (screen X=80, Y=8 for example)
-        this.addSlotToContainer(new SlotAccessory(player, accessory, 0, 80, 8));
+        this.addSlotToContainer(new SlotAccessory(player, accessory, 0, -12, 8));
     }
 
     @Override

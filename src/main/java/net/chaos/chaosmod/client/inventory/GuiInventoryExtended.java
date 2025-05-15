@@ -21,6 +21,6 @@ public class GuiInventoryExtended extends GuiInventory {
 
         // Optional: Draw custom icon behind your slot
         this.mc.getTextureManager().bindTexture(new ResourceLocation("chaosmod:textures/gui/slot_icon.png"));
-        this.drawTexturedModalRect(this.guiLeft + 80, this.guiTop + 8, 0, 0, 18, 18);
+        this.drawTexturedModalRect(this.guiLeft - 12, this.guiTop + 8, 0, 0, 16, 16);
     }
 }

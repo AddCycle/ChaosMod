@@ -1,26 +1,29 @@
 package net.chaos.chaosmod.world.events;
 
+import org.lwjgl.input.Keyboard;
+
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.AccessoryImpl;
-import net.chaos.chaosmod.client.inventory.GuiInventoryExtended;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
+import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -54,32 +57,48 @@ public class PlayerLifeEvents {
 	        LightEntityManager.removeLightEntity();
 	    }*/
 	}
-	
-	@SubscribeEvent
+
 	@SideOnly(Side.CLIENT)
-	public void onGuiOpen(GuiOpenEvent event) {
-	    if (event.getGui() instanceof GuiInventory && !(event.getGui() instanceof GuiInventoryExtended)) {
-	        EntityPlayer player = Minecraft.getMinecraft().player;
-	        event.setGui(new GuiInventoryExtended(player));
+	@SubscribeEvent
+	public void onKeyInput(InputEvent.KeyInputEvent event) {
+	    Minecraft mc = Minecraft.getMinecraft();
+
+	    if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
+	        if (Keyboard.getEventKey() == mc.gameSettings.keyBindInventory.getKeyCode()) {
+	            Main.network.sendToServer(new PacketOpenAccessoryGui());
+	        }
 	    }
 	}
+	
 	
 	@SubscribeEvent
 	public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 	    if (event.getObject() instanceof EntityPlayer) {
-	        event.addCapability(new ResourceLocation("chaosmod", "accessory"), new ICapabilityProvider() {
-	            final AccessoryImpl instance = new AccessoryImpl();
+	    	event.addCapability(new ResourceLocation("chaosmod", "accessory"), new ICapabilitySerializable<NBTTagCompound>() {
+	    	    final AccessoryImpl instance = new AccessoryImpl();
 
-	            @Override
-	            public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-	                return capability == ModCapabilities.ACCESSORY;
-	            }
+	    	    @Override
+	    	    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+	    	        return capability == ModCapabilities.ACCESSORY;
+	    	    }
 
-	            @Override
-	            public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-	                return capability == ModCapabilities.ACCESSORY ? ModCapabilities.ACCESSORY.cast(instance) : null;
-	            }
-	        });
+	    	    @Override
+	    	    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+	    	        return capability == ModCapabilities.ACCESSORY ? ModCapabilities.ACCESSORY.cast(instance) : null;
+	    	    }
+
+	    	    @Override
+	    	    public NBTTagCompound serializeNBT() {
+	    	    	System.out.println("Serializing accessory capability");
+	    	        return instance.serializeNBT(); // very important!
+	    	    }
+
+	    	    @Override
+	    	    public void deserializeNBT(NBTTagCompound nbt) {
+	    	    	System.out.println("Deserializing accessory capability");
+	    	        instance.deserializeNBT(nbt);
+	    	    }
+	    	});
 	    }
 	}
 

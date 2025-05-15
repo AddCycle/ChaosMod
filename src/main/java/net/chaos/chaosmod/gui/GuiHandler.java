@@ -3,6 +3,8 @@ package net.chaos.chaosmod.gui;
 import net.chaos.chaosmod.client.gui.inventory.BackpackGui;
 import net.chaos.chaosmod.client.gui.inventory.ForgeInterfaceGui;
 import net.chaos.chaosmod.client.gui.inventory.OxoniumFurnaceGui;
+import net.chaos.chaosmod.client.inventory.ContainerAccessory;
+import net.chaos.chaosmod.client.inventory.GuiInventoryExtended;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.inventory.BackpackContainer;
 import net.chaos.chaosmod.inventory.ContainerChaosSage;
@@ -19,7 +21,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import util.Reference;
 
 public class GuiHandler implements IGuiHandler {
 
@@ -48,6 +49,8 @@ public class GuiHandler implements IGuiHandler {
 					return true;
 				}
 			};
+		case 6:
+			return new ContainerAccessory(player.inventory, world.isRemote, player);
 			// return EntityContains(player, world, x);
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
@@ -73,6 +76,8 @@ public class GuiHandler implements IGuiHandler {
 		case 5:
 			System.out.println("Server GuiHandler received ID: " + ID + " x: " + x);
 			return new GuiFinalCredits(); // TODO : to change with guiChaosSage/docs
+		case 6:
+			return new GuiInventoryExtended(player);
 			
 			// return new BackpackGui(player.inventory, new InventoryBackpack(player.inventory, 54));
 		default:
