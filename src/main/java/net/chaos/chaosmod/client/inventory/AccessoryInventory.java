@@ -1,7 +1,9 @@
 package net.chaos.chaosmod.client.inventory;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
+import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -84,6 +86,9 @@ public class AccessoryInventory implements IInventory {
 			IAccessory cap = getCap();
 			if (cap != null) {
 				cap.setAccessoryItem(stack);
+				if (!player.world.isRemote) {  // only sync when changed on server side
+			        syncAccessoryToClients(player, stack);
+			    }
 			}
 		}
 	}
@@ -127,6 +132,13 @@ public class AccessoryInventory implements IInventory {
 		if (cap != null) {
 			cap.setAccessoryItem(ItemStack.EMPTY);
 		}
+	}
+	
+	public void syncAccessoryToClients(EntityPlayer player, ItemStack necklaceStack) {
+	    if (!player.world.isRemote) {
+	    	Main.getLogger().info("Syncing accessory to clients for player " + player.getName() + " with stack: " + necklaceStack);
+	        Main.network.sendToAll(new PacketAccessorySync(player, necklaceStack));
+	    }
 	}
 
 }

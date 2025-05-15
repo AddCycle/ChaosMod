@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import net.chaos.chaosmod.commands.CheatCommand;
 import net.chaos.chaosmod.commands.CraftCommand;
 import net.chaos.chaosmod.commands.DimensionWarpCommand;
+import net.chaos.chaosmod.commands.FeedCommand;
 import net.chaos.chaosmod.commands.FindBlockCommand;
 import net.chaos.chaosmod.commands.FireCommand;
 import net.chaos.chaosmod.commands.FurnaceCommand;
@@ -19,6 +20,7 @@ import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
+import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
@@ -100,6 +102,7 @@ public class Main
     	network.registerMessage(MessageDisplayTextHandler.class, MessageDisplayText.class, 0, Side.CLIENT);
 		network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 1, Side.CLIENT);
 		network.registerMessage(PacketOpenAccessoryGui.Handler.class, PacketOpenAccessoryGui.class, 2, Side.SERVER);
+		network.registerMessage(PacketAccessorySync.Handler.class, PacketAccessorySync.class, 3, Side.CLIENT);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
         // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());
@@ -142,5 +145,6 @@ public class Main
         event.registerServerCommand(new HomeCommand());
         event.registerServerCommand(new FireCommand());
         event.registerServerCommand(new HealCommand());
+        event.registerServerCommand(new FeedCommand());
     }
 }

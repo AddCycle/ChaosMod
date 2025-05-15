@@ -25,9 +25,11 @@ public class PacketOpenAccessoryGui implements IMessage {
         @Override
         public IMessage onMessage(PacketOpenAccessoryGui message, MessageContext ctx) {
             EntityPlayerMP player = ctx.getServerHandler().player;
-            player.getServerWorld().addScheduledTask(() -> {
-                player.openGui(Main.instance, 6, player.world, 0, 0, 0); // GUI ID = 6
-            });
+            if (!player.isCreative()) {
+            	player.getServerWorld().addScheduledTask(() -> {
+            		player.openGui(Main.instance, 6, player.world, 0, 0, 0); // GUI ID = 6
+            	});
+            }
             return null;
         }
     }

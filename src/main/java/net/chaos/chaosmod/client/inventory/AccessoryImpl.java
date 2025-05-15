@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.client.inventory;
 
+import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -13,6 +15,7 @@ public class AccessoryImpl implements IAccessory {
 
     @Override
     public void setAccessoryItem(ItemStack stack) {
+    	// Main.network.sendToAll(new PacketAccessorySync(player, stack));
         this.accessory = stack;
     }
 

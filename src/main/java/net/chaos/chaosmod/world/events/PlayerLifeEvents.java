@@ -4,8 +4,10 @@ import org.lwjgl.input.Keyboard;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.AccessoryImpl;
+import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
+import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.minecraft.client.Minecraft;
@@ -44,8 +46,18 @@ public class PlayerLifeEvents {
 		}
 		
 		if (!held.isEmpty() && held.getItem() instanceof TinkerersHammer) {
-			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 1, false, true));
+			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 1, false, false));
 		}
+		
+		IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
+	    if (cap == null) return;
+
+	    ItemStack accessory = cap.getAccessoryItem();
+	    if (!accessory.isEmpty() && accessory.getItem() instanceof OxoniumNecklace) {
+	        if (!player.isPotionActive(MobEffects.SPEED)) {
+	            player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 20, 0, false, false));
+	        }
+	    }
 		
 	    /*ItemStack held = player.getHeldItemMainhand();
 
@@ -62,6 +74,8 @@ public class PlayerLifeEvents {
 	@SubscribeEvent
 	public void onKeyInput(InputEvent.KeyInputEvent event) {
 	    Minecraft mc = Minecraft.getMinecraft();
+	    EntityPlayer player = mc.player;
+	    // if (!player.isCreative()) return;
 
 	    if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
 	        if (Keyboard.getEventKey() == mc.gameSettings.keyBindInventory.getKeyCode()) {
