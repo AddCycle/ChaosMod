@@ -6,7 +6,10 @@ import net.chaos.chaosmod.items.AbstractCraftingItem;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 public class TinkerersHammer extends AbstractCraftingItem {
@@ -14,6 +17,12 @@ public class TinkerersHammer extends AbstractCraftingItem {
 	public TinkerersHammer(String name) {
 		super(name);
 		this.setMaxDamage(8);
+	}
+	
+	@Override
+	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+		worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+		super.onCreated(stack, worldIn, playerIn);
 	}
 	
 	@Override

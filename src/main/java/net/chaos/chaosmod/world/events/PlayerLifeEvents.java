@@ -7,6 +7,7 @@ import net.chaos.chaosmod.client.inventory.AccessoryImpl;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
@@ -16,13 +17,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -30,6 +34,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -79,7 +84,7 @@ public class PlayerLifeEvents {
 	@SubscribeEvent
 	public void onKeyInput(InputEvent.KeyInputEvent event) {
 	    Minecraft mc = Minecraft.getMinecraft();
-	    EntityPlayer player = mc.player;
+	    // EntityPlayer player = mc.player;
 	    // if (!player.isCreative()) return;
 
 	    if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
@@ -138,5 +143,20 @@ public class PlayerLifeEvents {
             }
         }
     }
+	
+	@SubscribeEvent
+	public static void onCrafting(ItemCraftedEvent event) {
+		for (int i = 0; i < 9; i++) {
+			if (event.craftMatrix.getStackInSlot(i).getItem() == ModItems.TINKERERS_HAMMER) {
+				ItemStack item = event.craftMatrix.getStackInSlot(i);
+				if (item.getItemDamage() < item.getMaxDamage() - 1) {
+					event.player.playSound(SoundEvents.BLOCK_ANVIL_USE, 1.0f, 1.0f);
+					if (!event.player.world.isRemote) event.player.sendMessage(new TextComponentString("Recipe contains hammer, playing sound... based on damage : " + (item.getItemDamage() + 1) + "/" + item.getMaxDamage()));
+				} else {
+					event.player.playSound(SoundEvents.BLOCK_ANVIL_LAND, 1.0f, 1.0f);
+				}
+			}
+		}
+	}
 
 }

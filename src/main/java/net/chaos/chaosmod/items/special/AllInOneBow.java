@@ -6,7 +6,6 @@ import net.chaos.chaosmod.items.AbstractCustomBow;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class AllInOneBow extends AbstractCustomBow {

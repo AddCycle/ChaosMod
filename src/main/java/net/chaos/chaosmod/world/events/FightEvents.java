@@ -11,11 +11,13 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.client.event.FOVUpdateEvent;
@@ -102,6 +104,10 @@ public class FightEvents {
 	    if (player.world.isRemote || event.phase == TickEvent.Phase.END) return;
 
 	    ItemStack boots = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
+	    ItemStack held = player.getHeldItemMainhand();
+	    if (!held.isEmpty() && held.getItem() == ModItems.ALL_IN_ONE_BOW) {
+	    	player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 20));
+	    }
 	    if (!boots.isEmpty() && boots.getItem() == ModItems.OXONIUM_BOOTS) {
 	        IAttributeInstance speedAttribute = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 	        AttributeModifier speedModifier = new AttributeModifier(
