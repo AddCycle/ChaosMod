@@ -20,8 +20,8 @@ public class ModEntities {
 		registerEntity("small_blue_fireball", EntitySmallBlueFireball.class, Reference.SMALL_BLUE_FIREBALL, 50, 31, 3093247);
 		registerEntity("mountain_giant_boss", EntityMountainGiantBoss.class, Reference.MOUNTAIN_GIANT_BOSS, 50, 31, 3093247);
 		registerEntity("rock", EntityRock.class, Reference.ENTITY_ROCK, 50, 31, 3093247);
-		// TODO : retablish before for debugging
-		// registerEntity("chaos_sage", EntityChaosSage.class, Reference.CHAOS_SAGE, 50, 31, 3093247);
+		// TODO : retablish before for debugging making the debug process crash TO FIXME
+		registerEntity("chaos_sage", EntityChaosSage.class, Reference.CHAOS_SAGE, 50, 31, 3093247);
 	}
 	
 	private static void registerEntity(String name, Class<? extends Entity> entity, int id, int range, int color1, int color2) {

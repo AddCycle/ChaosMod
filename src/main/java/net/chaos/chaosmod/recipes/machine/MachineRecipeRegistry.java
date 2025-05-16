@@ -31,6 +31,6 @@ public class MachineRecipeRegistry {
             new ItemStack(ModItems.ENDERITE_INGOT, 4),
             new ItemStack(ModItems.ALL_IN_ONE_BOW)
         ));
-        // Add more recipes here
+        // Add more recipes here && don't forget to update the JEI recipes
     }
 }

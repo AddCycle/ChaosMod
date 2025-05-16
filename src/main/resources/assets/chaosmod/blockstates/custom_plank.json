@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "variant=snowy_plank": { "model": "chaosmod:snowy_plank" },
+        "variant=maple_plank": { "model": "chaosmod:maple_plank" },
+        "variant=ender_plank": { "model": "chaosmod:ender_plank" },
+        "variant=olive_plank": { "model": "chaosmod:olive_plank" }
+    }
+}

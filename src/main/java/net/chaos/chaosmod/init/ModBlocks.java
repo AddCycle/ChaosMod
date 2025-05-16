@@ -8,6 +8,7 @@ import net.chaos.chaosmod.blocks.AllemaniteOre;
 import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.CustomLog;
+import net.chaos.chaosmod.blocks.CustomPlanks;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
 import net.chaos.chaosmod.blocks.EnderiteOre;
 import net.chaos.chaosmod.blocks.ForgeInterfaceBlock;
@@ -48,6 +49,7 @@ public class ModBlocks {
 	public static final Block CUSTOM_FLOWER = new BlockCustomFlower("custom_flower");
 	public static final Block CUSTOM_LOG = new CustomLog("custom_log");
 	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
+	public static final Block CUSTOM_PLANK = new CustomPlanks("custom_plank", Material.WOOD);
 	public static final Block CUSTOM_GRASS = new BlockBrightGrass();
 	public static final Block LANTERN = new BlockLantern("lantern");
 }

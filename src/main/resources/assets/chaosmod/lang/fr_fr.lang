@@ -6,6 +6,7 @@ item.oxonium_axe.name=Hache en Oxonium
 item.oxonium_shovel.name=Pelle en Oxonium
 item.oxonium_bow.name=Arc du Brave
 item.oxonium_halleberd.name=Hallebarde en Oxonium
+item.tinkerers_hammer.name=Marteau du Forgeron
 
 item.allemanite_sword.name=Epée en Allemanite
 item.allemanite_hoe.name=Houe en Allemanite
@@ -18,6 +19,8 @@ item.enderite_hoe.name=Houe en Enderite
 item.enderite_pickaxe.name=Pioche en Enderite
 item.enderite_axe.name=Hache en Enderite
 item.enderite_shovel.name=Pelle en Enderite
+
+item.all_in_one_bow.name=Arc tout-en-un
 
 //Armor
 item.oxonium_helmet.name=Casque de securité en oxonium
@@ -37,6 +40,12 @@ item.oxonium_carrot.name=Carotte en Oxonium
 item.oxonium_upgrade.name=Amélioration en Oxonium
 item.allemanite_backpack.name=Sac en Allemanite
 item.allemanite_extinguisher.name=Extincteur en Allemanite
+item.oxonium_necklace.name=Pendentif en Oxonium
+item.enderite_thunder.name=Eclair d'Enderite
+
+item.giant_heart.name=Coeur du Géant
+item.blazing_heart.name=Coeur du Blaze
+item.chaos_heart.name=Coeur du Chaos
 
 // Blocks
 tile.oxonium_block.name=Bloc d'Oxonium
@@ -61,10 +70,15 @@ tile.custom_log.snowy_log.name=Bois glacé
 tile.custom_log.maple_log.name=Bois d'érable
 tile.custom_log.ender_log.name=Bois de l'End
 tile.custom_log.olive_log.name=Bois d'Olivier
+tile.custom_plank.snowy_plank.name=Planche glacée
+tile.custom_plank.maple_plank.name=Planche d'érable
+tile.custom_plank.ender_plank.name=Planche de l'End
+tile.custom_plank.olive_plank.name=Planche d'Olivier
 tile.custom_leaves.snowy.name=Feuillage de Neige
 tile.custom_leaves.maple.name=Feuillage d'Erable
 tile.custom_leaves.ender.name=Feuillage de l'End
 tile.custom_leaves.olive.name=Feuillage d'Olivier
+tile.lantern.name=Lanterne Rose
 
 // TileEntities (Machines for the moment)
 tile.oxonium_furnace.name=Four en Oxonium

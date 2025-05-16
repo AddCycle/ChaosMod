@@ -113,13 +113,11 @@ public class PlayerLifeEvents {
 
 	    	    @Override
 	    	    public NBTTagCompound serializeNBT() {
-	    	    	System.out.println("Serializing accessory capability");
 	    	        return instance.serializeNBT(); // very important!
 	    	    }
 
 	    	    @Override
 	    	    public void deserializeNBT(NBTTagCompound nbt) {
-	    	    	System.out.println("Deserializing accessory capability");
 	    	        instance.deserializeNBT(nbt);
 	    	    }
 	    	});

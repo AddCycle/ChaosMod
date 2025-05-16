@@ -6,6 +6,7 @@ item.oxonium_axe.name=Oxonium Axe
 item.oxonium_shovel.name=Oxonium Shovel
 item.oxonium_bow.name=Brave Bow
 item.oxonium_halleberd.name=Oxonium Halleberd
+item.tinkerers_hammer.name=Tinkerer's Hammer
 
 item.allemanite_sword.name=Allemanite Sword
 item.allemanite_hoe.name=Allemanite Hoe
@@ -18,6 +19,8 @@ item.enderite_hoe.name=Enderite Hoe
 item.enderite_pickaxe.name=Enderite Pickaxe
 item.enderite_axe.name=Enderite Axe
 item.enderite_shovel.name=Enderite Shovel
+
+item.all_in_one_bow.name=All In One Bow
 
 //Armor
 item.oxonium_helmet.name=Oxonium Security Helmet
@@ -37,6 +40,12 @@ item.oxonium_carrot.name=Oxonium Carrot
 item.oxonium_upgrade.name=Oxonium Upgrade
 item.allemanite_backpack.name=Allemanite Backpack
 item.allemanite_extinguisher.name=Allemanite Extinguisher
+item.oxonium_necklace.name=Oxonium Necklace
+item.enderite_thunder.name=Enderite Thunder
+
+item.giant_heart.name=Giant Heart
+item.blazing_heart.name=Blazing Heart
+item.chaos_heart.name=Chaos Heart
 
 // Blocks
 tile.oxonium_block.name=Oxonium Block
@@ -59,11 +68,16 @@ tile.custom_log.snowy_log.name=Snowy Log
 tile.custom_log.maple_log.name=Maple Log
 tile.custom_log.ender_log.name=Ender Log
 tile.custom_log.olive_log.name=Olive Log
+tile.custom_plank.snowy_plank.name=Snowy Planks
+tile.custom_plank.maple_plank.name=Maple Planks
+tile.custom_plank.ender_plank.name=Ender Planks
+tile.custom_plank.olive_plank.name=Olive Planks
 tile.custom_leaves.snowy.name=Snowy Leaves
 tile.custom_leaves.maple.name=Maple Leaves
 tile.custom_leaves.ender.name=Ender Leaves
 tile.custom_leaves.olive.name=Olive Leaves
 tile.grass_block.name=Custom Grass Block
+tile.lantern.name=Pink Lantern
 
 // TileEntities (machines for the moment)
 tile.oxonium_furnace.name=Oxonium Furnace
