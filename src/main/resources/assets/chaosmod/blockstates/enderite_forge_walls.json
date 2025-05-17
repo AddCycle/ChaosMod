@@ -50,10 +50,16 @@
     "down=false,east=false,north=true,south=true,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 90 },
     
     // down edges
-    // "down=false,east=false,north=true,south=true,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 90 }, // conflict with another recipe just under the interface block !
-    "down=false,east=true,north=true,south=false,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 180 }, // done
-    "down=false,east=true,north=true,south=true,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge", "y": 270 }, // done
-    "down=false,east=true,north=false,south=true,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 0 } // done
+    // "down=false,east=false,north=true,south=true,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_edge_down", "y": 90 }, // conflict with another recipe just under the interface block !
+    "down=false,east=true,north=true,south=false,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge_down", "y": 0 }, // done
+    "down=false,east=true,north=true,south=true,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge_down", "y": 90 }, // done
+    "down=false,east=true,north=false,south=true,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge_down", "y": 180 }, // done
+
+ 	// middle edges
+    // "down=true,east=true,north=false,south=true,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 0 }, // conflict
+    "down=true,east=false,north=false,south=false,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 270 },
+    "down=true,east=true,north=true,south=false,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge", "y": 180 },
+    "down=true,east=true,north=false,south=true,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge", "y": 90 }
 
     // "east=false,north=true,south=true,west=false": { "model": "chaosmod:enderite_forge_walls_ns" },
     // "east=true,north=true,south=true,west=true": { "model": "chaosmod:enderite_forge_walls_all" }
