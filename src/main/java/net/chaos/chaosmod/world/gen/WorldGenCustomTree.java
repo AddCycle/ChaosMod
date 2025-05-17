@@ -34,7 +34,7 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
                 canGenerate = false;
                 break;
             } else {
-            	System.out.println("CANT GENERATE HERE : " + position + " Blockstate : " + world.getBlockState(position).getBlock());
+            	// System.out.println("CANT GENERATE HERE : " + position + " Blockstate : " + world.getBlockState(position).getBlock());
             }
         }
 

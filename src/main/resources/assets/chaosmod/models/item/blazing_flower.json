@@ -1,3 +1,6 @@
 {
-  "parent": "chaosmod:block/blazing_flower"
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "chaosmod:blocks/blazing_flower"
+    }
 }

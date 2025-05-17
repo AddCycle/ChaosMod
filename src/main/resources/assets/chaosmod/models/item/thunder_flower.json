@@ -1,3 +1,6 @@
 {
-  "parent": "chaosmod:block/thunder_flower"
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "chaosmod:blocks/thunder_flower"
+    }
 }

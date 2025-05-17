@@ -2,6 +2,8 @@ package net.chaos.chaosmod.biomes;
 
 import java.util.Random;
 
+import net.chaos.chaosmod.blocks.CustomLog;
+import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.world.gen.WorldGenCustomTree;
@@ -16,17 +18,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-public class CustomBiomeOverworld extends Biome {
+public class CustomBiomeChaosLand extends Biome {
 	public static final WorldGenCustomTree TREE_GEN = new WorldGenCustomTree(
-	        ModBlocks.CUSTOM_LOG.getDefaultState(),
-	        ModBlocks.CUSTOM_LEAVES.getDefaultState()
+	        ((CustomLog) ModBlocks.CUSTOM_LOG).getStateFromMeta(3),
+	        ((CustomLeaves) ModBlocks.CUSTOM_LEAVES).getStateFromMeta(3)
 	            .withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE)
 	            .withProperty(BlockLeaves.DECAYABLE, Boolean.TRUE),
 	        ModBlocks.BOSS_ALTAR.getDefaultState()
 	    );
 	
-	public CustomBiomeOverworld() {
-        super(new Biome.BiomeProperties("Giant Mountains")
+	public CustomBiomeChaosLand() {
+        super(new Biome.BiomeProperties("Chaos Land")
             .setBaseHeight(Biome.getBiome(162).getBaseHeight())
             .setHeightVariation(0.1F)
             .setTemperature(0.4F)
@@ -80,7 +82,9 @@ public class CustomBiomeOverworld extends Biome {
 	public int getGrassColorAtPos(BlockPos pos) {
 		// return 0x7ca4f7;
 		// return 0x1a60f0;
-		return 0x07bdf5;
+		// return 0x07bdf5;
+		return 0x54d65c; // green
 		// return ColorizerGrass.getGrassColor(0.0F, 0.5F);
 	}
+
 }

@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "east=false,north=false,south=false,west=false": { "model": "chaosmod:connected_block_center" },
+    "east=false,north=true,south=false,west=false": { "model": "chaosmod:connected_block_north" },
+    "east=false,north=true,south=true,west=false": { "model": "chaosmod:connected_block_ns" },
+    "east=true,north=true,south=true,west=true": { "model": "chaosmod:connected_block_all" }
+    // Add more combinations if desired
+  }
+}

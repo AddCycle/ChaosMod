@@ -1,3 +1,6 @@
 {
-  "parent": "chaosmod:block/ender_flower"
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "chaosmod:blocks/ender_flower"
+    }
 }

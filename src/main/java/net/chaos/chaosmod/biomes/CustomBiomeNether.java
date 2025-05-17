@@ -42,7 +42,7 @@ public class CustomBiomeNether extends Biome {
         this.spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
         this.decorator.generateFalls = false;
-        this.decorator.extraTreeChance = 0.1F;
+        this.decorator.extraTreeChance = 0.0F;
 
         this.spawnableCreatureList.add(new SpawnListEntry(EntityPigZombie.class, 4, 8, 10));
         // this.spawnableCreatureList.add(new SpawnListEntry(EntityBlaze.class, 1, 3, 30));
@@ -78,7 +78,7 @@ public class CustomBiomeNether extends Biome {
 	public int getGrassColorAtPos(BlockPos pos) {
 		// return 0x7ca4f7;
 		// return 0x1a60f0;
-		return 0xff0000;
+		return 0x5f08a6;
 		// return ColorizerGrass.getGrassColor(0.0F, 0.5F);
 	}
 }
