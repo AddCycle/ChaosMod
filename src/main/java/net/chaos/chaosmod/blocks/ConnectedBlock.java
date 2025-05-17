@@ -18,6 +18,8 @@ public class ConnectedBlock extends Block implements IHasModel {
     public static final PropertyBool SOUTH = PropertyBool.create("south");
     public static final PropertyBool EAST  = PropertyBool.create("east");
     public static final PropertyBool WEST  = PropertyBool.create("west");
+    public static final PropertyBool UP  = PropertyBool.create("up");
+    public static final PropertyBool DOWN  = PropertyBool.create("down");
 
     public ConnectedBlock(String name, Material material) {
     	super(material);
@@ -27,7 +29,9 @@ public class ConnectedBlock extends Block implements IHasModel {
             .withProperty(NORTH, false)
             .withProperty(SOUTH, false)
             .withProperty(EAST, false)
-            .withProperty(WEST, false));
+            .withProperty(WEST, false)
+            .withProperty(UP, false)
+            .withProperty(DOWN, false));
         
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlockBase(this).setRegistryName(this.getRegistryName()));
@@ -40,12 +44,14 @@ public class ConnectedBlock extends Block implements IHasModel {
             .withProperty(NORTH, worldIn.getBlockState(pos.north()).getBlock() == block)
             .withProperty(SOUTH, worldIn.getBlockState(pos.south()).getBlock() == block)
             .withProperty(EAST,  worldIn.getBlockState(pos.east()).getBlock() == block)
-            .withProperty(WEST,  worldIn.getBlockState(pos.west()).getBlock() == block);
+            .withProperty(WEST,  worldIn.getBlockState(pos.west()).getBlock() == block)
+            .withProperty(UP,  worldIn.getBlockState(pos.up()).getBlock() == block)
+            .withProperty(DOWN,  worldIn.getBlockState(pos.down()).getBlock() == block);
     }
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, NORTH, SOUTH, EAST, WEST);
+        return new BlockStateContainer(this, NORTH, SOUTH, EAST, WEST, UP, DOWN);
     }
 
     @Override

@@ -78,7 +78,7 @@ public class CustomBiomeNether extends Biome {
 	public int getGrassColorAtPos(BlockPos pos) {
 		// return 0x7ca4f7;
 		// return 0x1a60f0;
-		return 0x5f08a6;
+		return 0xff0000;
 		// return ColorizerGrass.getGrassColor(0.0F, 0.5F);
 	}
 }
