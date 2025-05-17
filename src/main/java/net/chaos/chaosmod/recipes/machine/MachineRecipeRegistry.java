@@ -26,10 +26,17 @@ public class MachineRecipeRegistry {
         ));
 
         RECIPES.add(new ForgeRecipe(
+            new ItemStack(ModItems.OXONIUM_INGOT, 2),
+            new ItemStack(ModItems.ALLEMANITE_INGOT, 2),
+            new ItemStack(ModItems.ENDERITE_INGOT, 5),
+            new ItemStack(ModItems.ALL_IN_ONE_BOW)
+        ));
+
+        RECIPES.add(new ForgeRecipe(
             new ItemStack(ModItems.OXONIUM_INGOT, 3),
             new ItemStack(ModItems.ALLEMANITE_INGOT, 3),
-            new ItemStack(ModItems.ENDERITE_INGOT, 4),
-            new ItemStack(ModItems.ALL_IN_ONE_BOW)
+            new ItemStack(ModItems.ENDERITE_INGOT, 7),
+            new ItemStack(ModItems.ALL_IN_ONE_SWORD)
         ));
         // Add more recipes here && don't forget to update the JEI recipes
     }

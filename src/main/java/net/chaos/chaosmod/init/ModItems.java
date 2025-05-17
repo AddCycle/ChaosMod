@@ -107,7 +107,6 @@ public class ModItems {
 	public static final Item OXONIUM_NECKLACE = new OxoniumNecklace("oxonium_necklace");
 	public static final Item ALL_IN_ONE_BOW = new AllInOneBow("all_in_one_bow", MATERIAL_ENDERITE); // TODO: add a blend material
 	public static final Item ALL_IN_ONE_SWORD = new AllInOneSword("all_in_one_sword", MATERIAL_ENDERITE);
-	// public static final Item ALL_IN_ONE_SWORD = new AllInOneSword("all_in_one_sword", MATERIAL_ALLEMANITE);
 	
 	// Boss special loots
 	public static final Item GIANT_HEART = new ItemHeart("giant_heart");

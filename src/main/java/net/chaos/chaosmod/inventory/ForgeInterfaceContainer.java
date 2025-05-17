@@ -6,6 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnaceOutput;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -20,7 +21,7 @@ public class ForgeInterfaceContainer extends Container {
         for (int i = 0; i < 3; ++i) {
         	this.addSlotToContainer(new Slot(tileEntity, i, 15 + i * 18, 34));
         }
-        this.addSlotToContainer(new Slot(tileEntity, 3, 116, 35));
+        this.addSlotToContainer(new SlotFurnaceOutput(playerInventory.player, tileEntity, 3, 116, 35));
 
         // Player inventory
         for (int row = 0; row < 3; ++row) {

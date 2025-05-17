@@ -14,7 +14,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import util.Reference;
-import util.guide.model.block.GuideBlock;
 
 public class AllemaniteIngot extends ItemBase {
 
@@ -29,7 +28,7 @@ public class AllemaniteIngot extends ItemBase {
 		tooltip.add("\u00A7lCan you do something out of it ?");
 	}
 
-	@Override
+	/*@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
@@ -40,5 +39,5 @@ public class AllemaniteIngot extends ItemBase {
 		}
 
 		return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
-	}
+	}*/
 }
