@@ -1,0 +1,6 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "chaosmod:items/all_in_one_sword"
+	}
+}

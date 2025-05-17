@@ -13,6 +13,7 @@ public class ToolSword extends ItemSword implements IHasModel {
 		super(material);
 		setUnlocalizedName(name);
 		setRegistryName(name);
+		this.setMaxStackSize(1);
 		
 		ModItems.ITEMS.add(this);
 	}

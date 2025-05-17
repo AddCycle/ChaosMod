@@ -20,6 +20,7 @@ import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.items.special.TesterWand;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
+import net.chaos.chaosmod.items.tools.AllInOneSword;
 import net.chaos.chaosmod.items.tools.AllemanitePickaxe;
 import net.chaos.chaosmod.items.tools.AllemaniteSword;
 import net.chaos.chaosmod.items.tools.OxoniumHalleberd;
@@ -104,7 +105,8 @@ public class ModItems {
 	public static final Item TINKERERS_HAMMER = new TinkerersHammer("tinkerers_hammer");
 	public static final Item ENDERITE_THUNDER = new EnderiteThunder("enderite_thunder");
 	public static final Item OXONIUM_NECKLACE = new OxoniumNecklace("oxonium_necklace");
-	public static final Item ALL_IN_ONE_BOW = new AllInOneBow("all_in_one_bow", MATERIAL_ALLEMANITE);
+	public static final Item ALL_IN_ONE_BOW = new AllInOneBow("all_in_one_bow", MATERIAL_ENDERITE); // TODO: add a blend material
+	public static final Item ALL_IN_ONE_SWORD = new AllInOneSword("all_in_one_sword", MATERIAL_ENDERITE);
 	// public static final Item ALL_IN_ONE_SWORD = new AllInOneSword("all_in_one_sword", MATERIAL_ALLEMANITE);
 	
 	// Boss special loots
