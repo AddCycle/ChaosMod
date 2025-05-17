@@ -92,21 +92,19 @@ public class ForgeInterfaceBlock extends BlockContainer implements ITileEntityPr
 		BlockPos[] positions2 = calculate_positions_center(center, facing);
 		BlockPos[] positions3 = calculate_positions_center(center2, facing);
 		for (BlockPos p : positions) {
-			// System.out.println("facing : " + facing);
 			BlockPos curr_pos = p;
 			Block to_check = worldIn.getBlockState(curr_pos).getBlock();
-			if (to_check != ModBlocks.ENDERITE_BRICKS) return false;
-			// System.out.println("position is good : " + p + " | BLOCK : " + to_check);
+			if (to_check != ModBlocks.FORGE_WALLS) return false;
 		}
 		for (BlockPos p : positions2) {
 			BlockPos curr_pos = p;
 			Block to_check = worldIn.getBlockState(curr_pos).getBlock();
-			if (to_check != ModBlocks.ENDERITE_BRICKS) return false;
+			if (to_check != ModBlocks.FORGE_WALLS) return false;
 		}
 		for (BlockPos p : positions3) {
 			BlockPos curr_pos = p;
 			Block to_check = worldIn.getBlockState(curr_pos).getBlock();
-			if (to_check != ModBlocks.ENDERITE_BRICKS) return false;
+			if (to_check != ModBlocks.FORGE_WALLS) return false;
 		}
 		return true;
 	}

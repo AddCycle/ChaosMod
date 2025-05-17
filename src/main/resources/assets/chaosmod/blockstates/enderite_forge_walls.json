@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "east=false,north=false,south=false,west=false": { "model": "chaosmod:enderite_forge_walls_center" },
+    "east=false,north=true,south=false,west=false": { "model": "chaosmod:enderite_forge_walls_north" },
+    "east=false,north=false,south=true,west=false": { "model": "chaosmod:enderite_forge_walls_south" },
+    "east=true,north=false,south=false,west=false": { "model": "chaosmod:enderite_forge_walls_east" },
+    "east=false,north=false,south=false,west=true": { "model": "chaosmod:enderite_forge_walls_west" }
+    // "east=false,north=true,south=true,west=false": { "model": "chaosmod:enderite_forge_walls_ns" },
+    // "east=true,north=true,south=true,west=true": { "model": "chaosmod:enderite_forge_walls_all" }
+    // Add more combinations if desired
+  }
+}
