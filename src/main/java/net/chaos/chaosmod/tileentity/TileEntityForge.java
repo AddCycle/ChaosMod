@@ -5,6 +5,7 @@ import net.chaos.chaosmod.recipes.machine.ForgeRecipe;
 import net.chaos.chaosmod.recipes.machine.MachineRecipeRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
@@ -14,6 +15,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -24,6 +26,7 @@ public class TileEntityForge extends TileEntityLockableLoot implements ITickable
 	private NonNullList<ItemStack> content = NonNullList.withSize(4, ItemStack.EMPTY);
 	private int fabricationTime;
 	private int totalFabricationTime = 100;
+	private int type_of_craft = 2;
 
 	@Override
 	public int getSizeInventory() {
@@ -125,14 +128,11 @@ public class TileEntityForge extends TileEntityLockableLoot implements ITickable
     
     @Override
     public void update() {
-    	if (!world.isRemote) {
-    	    // System.out.println("canSmelt: " + canSmelt());
-    	    // System.out.println("input3: " + content.get(3)); // or whichever slot is input
-    	}
     	if (canSmelt()) {
     	    fabricationTime++;
     	    if (fabricationTime >= getItemFabricationTime()) {
     	        fabricationTime = 0;
+    	        world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f, true);
     	        fabricItem();
     	        markDirty();
     	    }
@@ -160,6 +160,10 @@ public class TileEntityForge extends TileEntityLockableLoot implements ITickable
 
 	    for (ForgeRecipe recipe : MachineRecipeRegistry.RECIPES) {
 	        if (recipe.matches(input1, input2, input3)) {
+	        	/*if (type_of_craft == 1) {
+	        		type_of_craft = 2;
+	        		continue; // goes to the other craft
+	        	}*/
 	            if (output.isEmpty()) {
 	                content.set(3, recipe.output.copy());
 	            } else {
@@ -186,28 +190,15 @@ public class TileEntityForge extends TileEntityLockableLoot implements ITickable
 	        boolean match3 = input3.isEmpty() || ItemStack.areItemsEqual(content.get(2), input3)
 	                          && content.get(2).getCount() >= input3.getCount();
 
+	        /*if (type_of_craft == 1 && !active) {
+	        	active = true;
+	        	continue; // goes to the other craft
+	        }*/
 	        if (match1 && match2 && match3) {
 	            return true;
 	        }
 	    }
 	    return false;
-		/*ItemStack input1 = content.get(0);
-	    ItemStack input2 = content.get(1);
-	    ItemStack input3 = content.get(2);
-	    ItemStack output = content.get(3);
-	    System.out.println("Checking recipe for: " + input1.getCount());
-	    System.out.println("Checking recipe for: " + input2.getCount());
-	    System.out.println("Checking recipe for: " + input3.getCount());
-
-	    for (ForgeRecipe recipe : MachineRecipeRegistry.RECIPES) {
-	        if (recipe.matches(input1, input2, input3)) {
-	            if (output.isEmpty()) return true;
-	            if (!ItemStack.areItemsEqual(output, recipe.output)) return false;
-	            return output.getCount() + recipe.output.getCount() <= output.getMaxStackSize();
-	        }
-	    }
-
-	    return false;*/
 	}
 	
 	@Override
@@ -265,6 +256,29 @@ public class TileEntityForge extends TileEntityLockableLoot implements ITickable
 	@Override
 	public int getFieldCount() {
 	    return 2;  // number of fields to sync
+	}
+
+	/*
+	 * TODO : logic to implement because some recipes may collide
+	 */
+	public void startCraft(int craftType) {
+		switch (craftType) {
+			case 0:
+				System.out.println("Packet recieved with 0");
+				type_of_craft = 0;
+				System.out.println("TYPE of craft = " + type_of_craft);
+				break;
+			case 1:
+				System.out.println("Packet received with 1");
+				type_of_craft = 1;
+				System.out.println("TYPE of craft = " + type_of_craft);
+				break;
+			case 2:
+				System.out.println("Packet received with 2");
+				type_of_craft = 2;
+				System.out.println("TYPE of craft = " + type_of_craft);
+				break;
+		}
 	}
 
 }

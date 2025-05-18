@@ -5,12 +5,13 @@ import java.util.Random;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.FlowerType;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.world.structures.MapGenMyStructure;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -20,6 +21,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class ModWorldGen implements IWorldGenerator {
+	private final MapGenMyStructure myStructure = new MapGenMyStructure();
 	/*
 	 * Overworld = 0
 	 * End = 1
@@ -33,7 +35,7 @@ public class ModWorldGen implements IWorldGenerator {
 			generateNether(world, random, chunkX * 16, chunkZ * 16);
 			break;
 		case 0:
-			generateOverworld(world, random, chunkX * 16, chunkZ * 16);
+			generateOverworld(world, random, chunkX * 16, chunkZ * 16, chunkX, chunkZ);
 			break;
 		case 1:
 			generateEnder(world, random, chunkX * 16, chunkZ * 16);
@@ -47,7 +49,7 @@ public class ModWorldGen implements IWorldGenerator {
         generateFlowers(world, random, x, z, 2);
     }
 
-    private void generateOverworld(World world, Random random, int x, int z)
+    private void generateOverworld(World world, Random random, int x, int z, int chunkX, int chunkZ)
     {
             if(random.nextInt(4) < 2)
             {
@@ -59,6 +61,11 @@ public class ModWorldGen implements IWorldGenerator {
             }
             
             generateFlowers(world, random, x, z, 0);
+            if (world.getWorldInfo().isMapFeaturesEnabled()) {
+            	// structure gen like stronghold or something
+            }
+            myStructure.generateStructure(world, random, new ChunkPos(chunkX, chunkZ));
+            System.out.println("generating at : " + chunkX * 16 + " " + chunkZ * 16);
 
     }
 
@@ -120,7 +127,7 @@ public class ModWorldGen implements IWorldGenerator {
         }
     }
 
-    private void generateRandomFlowers(World world, Random rand, int x, int z) {
+    /*private void generateRandomFlowers(World world, Random rand, int x, int z) {
     	FlowerType randomVariant = FlowerType.values()[rand.nextInt(FlowerType.values().length)];
 
     	// Set block state with the random variant
@@ -138,12 +145,12 @@ public class ModWorldGen implements IWorldGenerator {
             /* Biome specific gen
              * Biome biome = world.getBiome(flowerPos);
 			 * if (biome instanceof BiomePlains && world.isAirBlock(flowerPos) && ModBlocks.MY_FLOWER.canPlaceBlockAt(world, flowerPos))
-             */
+             *
             if (world.isAirBlock(flowerPos) && ModBlocks.CUSTOM_FLOWER.canPlaceBlockAt(world, flowerPos)) {
             	System.out.println("GENERATING PLANT AT : " + flowerPos + " | state : " + flowerState);
                 world.setBlockState(flowerPos, flowerState, 2);
             }
         }
-    }
+    }*/
 
 }

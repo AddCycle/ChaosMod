@@ -53,7 +53,7 @@ public class CustomBiomeChaosLand extends Biome {
         // this.spawnableCreatureList.add(new SpawnListEntry(EntityMountainGiantBoss.class, 75, 1, 1));
         this.addFlower(ModBlocks.CUSTOM_FLOWER.getDefaultState(), 5);
         
-        ModBiomes.BIOMES.add(this);
+        // ModBiomes.BIOMES.add(this);
     }
 	
 	@Override

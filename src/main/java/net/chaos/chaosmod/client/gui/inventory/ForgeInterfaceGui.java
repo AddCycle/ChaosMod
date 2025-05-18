@@ -2,8 +2,10 @@ package net.chaos.chaosmod.client.gui.inventory;
 
 import java.io.IOException;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.inventory.ForgeInterfaceContainer;
+import net.chaos.chaosmod.network.PacketForgeCraft;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -13,6 +15,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import util.Reference;
 
 public class ForgeInterfaceGui extends GuiContainer {
@@ -112,16 +115,24 @@ public class ForgeInterfaceGui extends GuiContainer {
         this.addButton(new GuiButton(2, 272, 50 + offset * 2, buttonSize, buttonSize, ""));
     }
     
+    private void sendForgeCraftPacket(int type) {
+        BlockPos pos = ((TileEntityForge) this.tileEntity).getPos();
+        Main.network.sendToServer(new PacketForgeCraft(type, pos));
+    }
+    
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
     	switch (button.id) {
         case 0:
         	// send the crafting for bow
+        	sendForgeCraftPacket(0);
             break;
         case 1:
+        	sendForgeCraftPacket(1);
         	// trigger the crafting for sword
             break;
         case 2:
+        	sendForgeCraftPacket(2);
             // Do nothing for now TODO:all_in_one_pickaxe
             break;
         default: break;

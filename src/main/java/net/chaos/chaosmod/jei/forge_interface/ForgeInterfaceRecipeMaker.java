@@ -20,7 +20,7 @@ public class ForgeInterfaceRecipeMaker {
             		Arrays.asList(new ItemStack(ModItems.OXONIUM_INGOT, 2), new ItemStack(ModItems.ALLEMANITE_INGOT, 2), new ItemStack(ModItems.ENDERITE_INGOT, 5)), new ItemStack(ModItems.ALL_IN_ONE_BOW)
             	),
             new ForgeInterfaceRecipeWrapper(
-            		Arrays.asList(new ItemStack(ModItems.OXONIUM_INGOT, 3), new ItemStack(ModItems.ALLEMANITE_INGOT, 3), new ItemStack(ModItems.ENDERITE_INGOT, 7)), new ItemStack(ModItems.ALL_IN_ONE_SWORD)
+            		Arrays.asList(new ItemStack(ModItems.ALLEMANITE_INGOT, 3), new ItemStack(ModItems.OXONIUM_INGOT, 3), new ItemStack(ModItems.ENDERITE_INGOT, 7)), new ItemStack(ModItems.ALL_IN_ONE_SWORD)
             	)
             );
     }

@@ -14,16 +14,20 @@ import net.chaos.chaosmod.commands.FurnaceCommand;
 import net.chaos.chaosmod.commands.GuideCommand;
 import net.chaos.chaosmod.commands.HealCommand;
 import net.chaos.chaosmod.commands.HomeCommand;
+import net.chaos.chaosmod.commands.LocalizeCommand;
 import net.chaos.chaosmod.commands.SetHomeCommand;
 import net.chaos.chaosmod.commands.TopCommand;
+import net.chaos.chaosmod.commands.generation.LoadStructCommand;
 import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModEntities;
+import net.chaos.chaosmod.init.ModStructures;
 import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
 import net.chaos.chaosmod.network.PacketAccessorySync;
+import net.chaos.chaosmod.network.PacketForgeCraft;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.chaos.chaosmod.recipes.machine.MachineRecipeRegistry;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
@@ -35,11 +39,14 @@ import net.chaos.chaosmod.world.ModWorldGen;
 import net.chaos.chaosmod.world.events.FightEvents;
 import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
+import net.chaos.chaosmod.world.gen.nether.CustomHellProvider;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -109,6 +116,7 @@ public class Main
 		network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 1, Side.CLIENT);
 		network.registerMessage(PacketOpenAccessoryGui.Handler.class, PacketOpenAccessoryGui.class, 2, Side.SERVER);
 		network.registerMessage(PacketAccessorySync.Handler.class, PacketAccessorySync.class, 3, Side.CLIENT);
+		network.registerMessage(PacketForgeCraft.Handler.class, PacketForgeCraft.class, 4, Side.SERVER);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
         // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());
@@ -118,12 +126,18 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new PlayerInHandler());
         RegistryHandler.onSmeltingRegister();
         MachineRecipeRegistry.init();
+        BiomeDictionary.addTypes(ModBiomes.GIANT_MOUNTAIN, BiomeDictionary.Type.MOUNTAIN);
+        BiomeDictionary.addTypes(ModBiomes.CUSTOM_HELL, BiomeDictionary.Type.NETHER);
         BiomeManager.removeBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(Biomes.PLAINS, 10));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.GIANT_MOUNTAIN, 50));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.NETHER_CAVES, 50));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.ENDER_GARDEN, 50));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CHAOS_LAND_BIOME, 50));
-        BiomeDictionary.addTypes(ModBiomes.GIANT_MOUNTAIN, BiomeDictionary.Type.MOUNTAIN);
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CUSTOM_HELL, 50));
+        DimensionManager.unregisterDimension(-1);
+        DimensionManager.registerDimension(-1, DimensionType.register(
+            "custom_hell", "_hell", -1, CustomHellProvider.class, false
+        ));
         // TODO : refactor that other part (it's forge tags to match any recipe using planks)
         for (CustomLog.CustomLogVariant variant : CustomLog.CustomLogVariant.values()) {
             OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.CUSTOM_LOG, 1, variant.getMeta()));
@@ -131,6 +145,7 @@ public class Main
         for (CustomPlanks.CustomPlankVariant variant : CustomPlanks.CustomPlankVariant.values()) {
             OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.CUSTOM_PLANK, 1, variant.getMeta()));
         }
+        ModStructures.registerStructures();
     }
 
     // After the launching of the instance
@@ -162,5 +177,7 @@ public class Main
         event.registerServerCommand(new FireCommand());
         event.registerServerCommand(new HealCommand());
         event.registerServerCommand(new FeedCommand());
+        event.registerServerCommand(new LocalizeCommand());
+        event.registerServerCommand(new LoadStructCommand());
     }
 }

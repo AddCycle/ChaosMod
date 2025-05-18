@@ -14,7 +14,7 @@ public class AllInOneBow extends AbstractCustomBow {
 		super(name, material);
 		this.setMaxDamage(-1);
 		this.drawTime = 5.0f;
-		this.damageMultiplier = 5.0f;
+		this.damageMultiplier = 3.0f;
 	}
 	
 	@Override
