@@ -9,10 +9,12 @@ import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.world.gen.WorldGenCustomTree;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityPolarBear;
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -46,14 +48,13 @@ public class CustomBiomeChaosLand extends Biome {
         this.decorator.generateFalls = false;
         this.decorator.extraTreeChance = 0.0F;
 
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 2, 5, 10));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 2, 5, 10));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityPolarBear.class, 4, 8, 20));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntitySnowman.class, 1, 3, 20));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 4, 8, 30));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 5, 7, 20));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 4, 8, 10));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityCreeper.class, 2, 5, 5));
         // this.spawnableCreatureList.add(new SpawnListEntry(EntityMountainGiantBoss.class, 75, 1, 1));
-        this.addFlower(ModBlocks.CUSTOM_FLOWER.getDefaultState(), 5);
+        this.addFlower(ModBlocks.CUSTOM_FLOWER.getDefaultState(), 10);
         
-        // ModBiomes.BIOMES.add(this);
     }
 	
 	@Override
@@ -80,9 +81,6 @@ public class CustomBiomeChaosLand extends Biome {
 	
 	@Override
 	public int getGrassColorAtPos(BlockPos pos) {
-		// return 0x7ca4f7;
-		// return 0x1a60f0;
-		// return 0x07bdf5;
 		return 0x54d65c; // green
 		// return ColorizerGrass.getGrassColor(0.0F, 0.5F);
 	}

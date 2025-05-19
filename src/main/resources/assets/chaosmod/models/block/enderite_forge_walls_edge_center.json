@@ -1,8 +1,8 @@
 {
   "parent": "block/block",
   "textures": {
-    "texture": "chaosmod:blocks/enderite_forge_walls_ushape",
-    "texture2": "chaosmod:blocks/enderite_forge_walls_default"
+    "texture": "chaosmod:blocks/enderite_forge_walls_center",
+    "texture2": "chaosmod:blocks/enderite_forge_walls_edge"
   },
   "elements": [
     {
@@ -11,28 +11,28 @@
       "faces": {
         "north": {
           "uv": [0, 0, 16, 16],
-          "texture": "#texture2",
+          "texture": "#texture",
           "rotation": 0
         },
         "east": {
           "uv": [0, 0, 16, 16],
           "texture": "#texture",
-          "rotation": 270
+          "rotation": 0
         },
         "south": {
           "uv": [0, 0, 16, 16],
           "texture": "#texture2",
-          "rotation": 0
+          "rotation": 270
         },
         "west": {
           "uv": [0, 0, 16, 16],
-          "texture": "#texture",
+          "texture": "#texture2",
           "rotation": 90
         },
         "up": {
           "uv": [0, 0, 16, 16],
           "texture": "#texture",
-          "rotation": 180
+          "rotation": 0
         },
         "down": {
           "uv": [0, 0, 16, 16],

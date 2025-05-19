@@ -117,6 +117,7 @@ public class Main
 		network.registerMessage(PacketOpenAccessoryGui.Handler.class, PacketOpenAccessoryGui.class, 2, Side.SERVER);
 		network.registerMessage(PacketAccessorySync.Handler.class, PacketAccessorySync.class, 3, Side.CLIENT);
 		network.registerMessage(PacketForgeCraft.Handler.class, PacketForgeCraft.class, 4, Side.SERVER);
+		// network.registerMessage(PacketSyncItemNBT.Handler.class, PacketSyncItemNBT.class, 5, Side.CLIENT);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
         // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());

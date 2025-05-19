@@ -15,7 +15,7 @@ public class CustomHellProvider extends WorldProviderHell {
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
-        this.biomeProvider = new BiomeProviderSingle(ModBiomes.CUSTOM_HELL);
+        // this.biomeProvider = new BiomeProviderSingle(ModBiomes.NETHER_CAVES);
         this.doesWaterVaporize = false;
         this.nether = true;
 		// super.init();
@@ -23,7 +23,7 @@ public class CustomHellProvider extends WorldProviderHell {
 
 	@Override
     public BiomeProvider getBiomeProvider() {
-        return new BiomeProviderSingle(ModBiomes.CUSTOM_HELL); // for full replacement
+        return new BiomeProviderSingle(ModBiomes.NETHER_CAVES); // for full replacement
         // OR use your own BiomeProvider that returns multiple biomes based on x/z
     }
 	

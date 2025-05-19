@@ -1,8 +1,8 @@
 {
   "variants": {
-    "down=false,east=false,north=false,south=false,up=false,west=false": { "model": "chaosmod:enderite_forge_walls_center" },
+    "down=false,east=false,north=false,south=false,up=false,west=false": { "model": "chaosmod:enderite_forge_walls_default" },
     "down=false,east=false,north=true,south=false,up=false,west=false": { "model": "chaosmod:enderite_forge_walls_north" },
-    "down=false,east=false,north=false,south=true,up=false,west=false": { "model": "chaosmod:enderite_forge_walls_south" },
+    "down=false,east=false,north=false,south=true,up=false,west=false": { "model": "chaosmod:enderite_forge_walls_north", "y": 180 }, // south = north + 180
     "down=false,east=true,north=false,south=false,up=false,west=false": { "model": "chaosmod:enderite_forge_walls_east" },
     "down=false,east=false,north=false,south=false,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_west" },
     "down=false,east=true,north=true,south=true,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_center" }, // up center
@@ -46,20 +46,21 @@
  	// top edges
     "down=true,east=true,north=false,south=true,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 0 }, // done
     "down=true,east=true,north=true,south=true,up=false,west=false": { "model": "chaosmod:enderite_forge_walls_edge", "y": 270 },
+    "down=true,east=false,north=true,south=true,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 90 },
     "down=true,east=true,north=true,south=false,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 180 },
-    "down=false,east=false,north=true,south=true,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 90 },
     
     // down edges
-    // "down=false,east=false,north=true,south=true,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_edge_down", "y": 90 }, // conflict with another recipe just under the interface block !
+    "down=false,east=false,north=true,south=true,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge_down", "y": 270 }, // conflict with another recipe just under the interface block !
     "down=false,east=true,north=true,south=false,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge_down", "y": 0 }, // done
     "down=false,east=true,north=true,south=true,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge_down", "y": 90 }, // done
     "down=false,east=true,north=false,south=true,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge_down", "y": 180 }, // done
 
  	// middle edges
-    // "down=true,east=true,north=false,south=true,up=false,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 0 }, // conflict
-    "down=true,east=false,north=false,south=false,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge", "y": 270 },
-    "down=true,east=true,north=true,south=false,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge", "y": 180 },
-    "down=true,east=true,north=false,south=true,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge", "y": 90 }
+    "down=true,east=false,north=false,south=true,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 180 }, // conflict
+    "down=true,east=false,north=true,south=false,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 270 }, // conflict
+    "down=true,east=false,north=false,south=false,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 270 },
+    "down=true,east=true,north=true,south=false,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 0 },
+    "down=true,east=true,north=false,south=true,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 90 }
 
     // "east=false,north=true,south=true,west=false": { "model": "chaosmod:enderite_forge_walls_ns" },
     // "east=true,north=true,south=true,west=true": { "model": "chaosmod:enderite_forge_walls_all" }

@@ -1,0 +1,7 @@
+{
+  "multipart": [
+    { "when": { "north": true }, "apply": { "model": "chaosmod:block/your_block_north" } },
+    { "when": { "south": true }, "apply": { "model": "chaosmod:block/your_block_south" } },
+    { "apply": { "model": "chaosmod:block/your_block_core" } }
+  ]
+}
