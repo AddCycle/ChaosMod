@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 
 public class SlotAccessory extends Slot {
 	private EntityPlayer player;
+	public boolean visible = true;
 
 	public SlotAccessory(EntityPlayer player, IInventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
@@ -43,18 +44,11 @@ public class SlotAccessory extends Slot {
             }
         }
         this.onSlotChanged();
-
-        // ############### OLD ###############
-        /*IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
-        if (cap != null) {
-            cap.setAccessoryItem(stack);
-        }
-        this.onSlotChanged();*/
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+    	return this.visible ? true : false;
     }
 
     @Override

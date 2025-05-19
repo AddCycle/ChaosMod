@@ -17,7 +17,7 @@ public class AccessoryInventory implements IInventory {
 		this.player = player;
 	}
 
-	private IAccessory getCap() {
+	public IAccessory getCap() {
 		return player.getCapability(ModCapabilities.ACCESSORY, null);
 	}
 
@@ -139,6 +139,10 @@ public class AccessoryInventory implements IInventory {
 	    	Main.getLogger().info("Syncing accessory to clients for player " + player.getName() + " with stack: " + necklaceStack);
 	        Main.network.sendToAll(new PacketAccessorySync(player, necklaceStack));
 	    }
+	}
+
+	public static AccessoryInventory fromPlayer(EntityPlayer player) {
+	    return new AccessoryInventory(player);
 	}
 
 }
