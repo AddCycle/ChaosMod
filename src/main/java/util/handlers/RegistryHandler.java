@@ -19,7 +19,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import util.IHasModel;
 
@@ -81,7 +80,7 @@ public class RegistryHandler {
 		System.out.println("Registering custom recipes");
 	    IForgeRegistry<IRecipe> registry = event.getRegistry();
 
-	    int maxDamage = ModItems.TINKERERS_HAMMER.getMaxDamage();
+	    int maxDamage = (new ItemStack(ModItems.TINKERERS_HAMMER)).getMaxDamage();
 
 	    for (int dmg = 0; dmg < maxDamage; dmg++) {
 	        NonNullList<Ingredient> inputs = NonNullList.create();

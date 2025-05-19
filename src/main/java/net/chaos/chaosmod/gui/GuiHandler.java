@@ -2,9 +2,9 @@ package net.chaos.chaosmod.gui;
 
 import net.chaos.chaosmod.client.gui.inventory.BackpackGui;
 import net.chaos.chaosmod.client.gui.inventory.ForgeInterfaceGui;
+import net.chaos.chaosmod.client.gui.inventory.GuiInventoryExtended;
 import net.chaos.chaosmod.client.gui.inventory.OxoniumFurnaceGui;
 import net.chaos.chaosmod.client.inventory.ContainerAccessory;
-import net.chaos.chaosmod.client.inventory.GuiInventoryExtended;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.inventory.BackpackContainer;
 import net.chaos.chaosmod.inventory.ContainerChaosSage;
