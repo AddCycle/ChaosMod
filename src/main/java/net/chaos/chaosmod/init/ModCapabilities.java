@@ -25,11 +25,6 @@ public class ModCapabilities {
     	        instance.deserializeNBT((NBTTagCompound) nbt);
     	    }
     	}, AccessoryImpl::new);
-        /*CapabilityManager.INSTANCE.register(
-            IAccessory.class,
-            new AccessoryStorage(),
-            AccessoryImpl::new
-        );*/
     }
 
 }

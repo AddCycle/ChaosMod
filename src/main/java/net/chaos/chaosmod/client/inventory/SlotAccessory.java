@@ -2,7 +2,7 @@ package net.chaos.chaosmod.client.inventory;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModCapabilities;
-import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
+import net.chaos.chaosmod.items.necklace.ItemNecklace;
 import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -21,7 +21,7 @@ public class SlotAccessory extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        return stack.getItem() instanceof OxoniumNecklace;
+        return stack.getItem() instanceof ItemNecklace;
     }
     
     @Override

@@ -36,14 +36,16 @@ public class ContainerAccessory extends ContainerPlayer {
         Slot slot = this.inventorySlots.get(index);
         Container playerContainer = playerIn.inventoryContainer;
         Slot playerSlot = null;
-        playerSlot = playerContainer.getSlot(1);
-        if (slot != null && slot.getHasStack()) {
-        	if (playerSlot != null && !playerSlot.getHasStack()) {
-        		itemstack = slot.getStack().copy();
-        		playerSlot.putStack(itemstack);
-        		slot.putStack(ItemStack.EMPTY);
-        		playerSlot.onSlotChanged();
-        		slot.onSlotChanged();
+        if (!playerIn.getEntityWorld().isRemote) {
+        	playerSlot = playerContainer.getSlot(1);
+        	if (slot != null && slot.getHasStack()) {
+        		if (playerSlot != null && !playerSlot.getHasStack()) {
+        			itemstack = slot.getStack().copy();
+        			playerSlot.putStack(itemstack);
+        			slot.putStack(ItemStack.EMPTY);
+        			playerSlot.onSlotChanged();
+        			slot.onSlotChanged();
+        		}
         	}
         }
         return itemstack;
