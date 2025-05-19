@@ -1,6 +1,5 @@
 package util.handlers;
 
-import net.chaos.chaosmod.biomes.CustomBiomeHell;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
@@ -9,16 +8,20 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.IForgeRegistry;
 import util.IHasModel;
-import util.Reference;
 
 // Pour l'etape de build du mod
 @EventBusSubscriber
@@ -73,8 +76,29 @@ public class RegistryHandler {
 		fastRender(OXONIUM_FURNACE);
 	}
 
-	@EventHandler
-	public static void otherRegistries() {
+	@SubscribeEvent
+    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+		System.out.println("Registering custom recipes");
+	    IForgeRegistry<IRecipe> registry = event.getRegistry();
+
+	    int maxDamage = ModItems.TINKERERS_HAMMER.getMaxDamage();
+
+	    for (int dmg = 0; dmg < maxDamage; dmg++) {
+	        NonNullList<Ingredient> inputs = NonNullList.create();
+	        inputs.add(Ingredient.fromStacks(new ItemStack(ModItems.ENDERITE_INGOT)));
+	        inputs.add(Ingredient.fromStacks(new ItemStack(ModItems.TINKERERS_HAMMER, 1, dmg)));
+
+	        ShapelessRecipes recipe = new ShapelessRecipes(
+	            "chaosmod",
+	            new ItemStack(ModBlocks.FORGE_WALLS, 4),
+	            inputs
+	        );
+
+	        // Unique registry name per damage value
+	        ResourceLocation recipeID = new ResourceLocation("chaosmod", "forge_wall_recipe_" + dmg);
+	        recipe.setRegistryName(recipeID);
+	        registry.register(recipe);
+	    }
 	}
 	
 	public static void onSmeltingRegister() {

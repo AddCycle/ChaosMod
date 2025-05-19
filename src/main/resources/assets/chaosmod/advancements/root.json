@@ -19,14 +19,13 @@
     "hidden": false
   },
   "criteria": {
-    "smelt_oxonium_ore": {
+    "got_wheat": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "chaosmod:oxonium_ingot"
-            ]
+              "item": "chaosmod:custom_log",
+              "data": 2
           }
         ]
       }

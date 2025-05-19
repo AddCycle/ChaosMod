@@ -34,4 +34,14 @@ public class TinkerersHammer extends AbstractCraftingItem {
 	public CreativeTabs[] getCreativeTabs() {
 		return new CreativeTabs[] { ModTabs.GENERAL_TAB, CreativeTabs.TOOLS };
 	}
+	
+	@Override
+	public boolean isDamageable() {
+		return true;
+	}
+	
+	@Override
+	public boolean hasContainerItem(ItemStack stack) {
+		return true;
+	}
 }

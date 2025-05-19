@@ -23,6 +23,7 @@ import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModEntities;
+import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModStructures;
 import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
@@ -99,6 +100,8 @@ public class Main
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
         ModCapabilities.register(); // for necklace and other things
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
+        OreDictionary.registerOre("ingotEnderite", new ItemStack(ModItems.ENDERITE_INGOT));
+	    OreDictionary.registerOre("toolTinkerHammer", new ItemStack(ModItems.TINKERERS_HAMMER, 1, OreDictionary.WILDCARD_VALUE));
         // GameRegistry.registerWorldGenerator(new ModGenSurface(), 0);
         // GameRegistry.registerWorldGenerator(new CustomDungeonBuilder(), 2);
         ModEntities.registerEntities();
@@ -140,6 +143,7 @@ public class Main
             "custom_hell", "_hell", -1, CustomHellProvider.class, false
         ));
         // TODO : refactor that other part (it's forge tags to match any recipe using planks)
+        // OreDictionary.registerOre("toolTinkerHammer", new ItemStack(ModItems.TINKERERS_HAMMER, 1, OreDictionary.WILDCARD_VALUE));
         for (CustomLog.CustomLogVariant variant : CustomLog.CustomLogVariant.values()) {
             OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.CUSTOM_LOG, 1, variant.getMeta()));
         }

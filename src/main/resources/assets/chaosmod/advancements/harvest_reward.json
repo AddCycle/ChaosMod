@@ -1,0 +1,32 @@
+{
+  "parent": "chaosmod:root",
+  "display": {
+    "icon": {
+      "item": "chaosmod:oxonium_ore"
+    },
+    "title": {
+      "text": "Gathering Oxonium"
+    },
+    "description": {
+      "text": "Mine Oxonium and be awarded with the Oxonium Necklace !"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "got_wheat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "chaosmod:oxonium_ore"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [ "chaosmod:oxonium_necklace" ]
+  }
+}
