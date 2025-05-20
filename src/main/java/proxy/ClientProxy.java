@@ -1,20 +1,19 @@
 package proxy;
 
-import java.util.Map;
-
 import net.chaos.chaosmod.client.inventory.render.LayerNecklace;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBossAltarRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
 import net.chaos.chaosmod.entity.boss.gui.BossBarRendering;
 import net.chaos.chaosmod.tileentity.LanternTESR;
+import net.chaos.chaosmod.tileentity.TESRCookieJar;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
+import net.chaos.chaosmod.tileentity.TileEntityCookieJar;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityLantern;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -69,6 +68,7 @@ public class ClientProxy extends CommonProxy {
 			}
 		});
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLantern.class, new LanternTESR());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookieJar.class, new TESRCookieJar());
 		// MinecraftForge.EVENT_BUS.register(new PlayerRenderManager());
 		MinecraftForge.EVENT_BUS.register(new BossBarRendering());
 		// ################################# NECKLACE RENDERING #############################################

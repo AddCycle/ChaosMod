@@ -79,6 +79,7 @@ tile.custom_leaves.maple.name=Feuillage d'Erable
 tile.custom_leaves.ender.name=Feuillage de l'End
 tile.custom_leaves.olive.name=Feuillage d'Olivier
 tile.lantern.name=Lanterne Rose
+tile.cookie_jar.name=Jarre à Cookies
 
 // TileEntities (Machines for the moment)
 tile.oxonium_furnace.name=Four en Oxonium

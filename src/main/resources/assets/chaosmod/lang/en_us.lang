@@ -55,6 +55,7 @@ tile.oxonium_stairs.name=Oxonium Stairs
 tile.allemanite_block.name=Allemanite Block
 tile.enderite_ore.name=Enderite Ore
 tile.enderite_block.name=Enderite Block
+tile.connected_block.name=Connected Block
 
 // Decoration
 tile.oxonium_bricks.name=Oxonium Bricks
@@ -78,6 +79,7 @@ tile.custom_leaves.ender.name=Ender Leaves
 tile.custom_leaves.olive.name=Olive Leaves
 tile.grass_block.name=Custom Grass Block
 tile.lantern.name=Pink Lantern
+tile.cookie_jar.name=Cookie Jar
 
 // TileEntities (machines for the moment)
 tile.oxonium_furnace.name=Oxonium Furnace

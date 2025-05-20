@@ -32,6 +32,7 @@ import net.chaos.chaosmod.network.PacketForgeCraft;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.chaos.chaosmod.recipes.machine.MachineRecipeRegistry;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
+import net.chaos.chaosmod.tileentity.TileEntityCookieJar;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityLantern;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
@@ -166,6 +167,7 @@ public class Main
     	GameRegistry.registerTileEntity(TileEntityBossAltar.class, new ResourceLocation(Reference.MODID, "boss_altar"));
     	GameRegistry.registerTileEntity(TileEntityForge.class, new ResourceLocation(Reference.MODID, "forge_interface"));
     	GameRegistry.registerTileEntity(TileEntityLantern.class, new ResourceLocation(Reference.MODID, "lantern"));
+    	GameRegistry.registerTileEntity(TileEntityCookieJar.class, new ResourceLocation(Reference.MODID, "cookie_jar"));
     }
     
     @EventHandler
