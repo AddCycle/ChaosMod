@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.inventory;
 
+import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -16,7 +17,12 @@ public class BackpackContainer extends Container {
         // Backpack inventory (3 rows of 9)
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {
-                this.addSlotToContainer(new SlotItemHandler(inventory, col + row * 9, 8 + col * 18, 18 + row * 18));
+                this.addSlotToContainer(new SlotItemHandler(inventory, col + row * 9, 8 + col * 18, 18 + row * 18) {
+                	@Override
+                	public boolean isItemValid(ItemStack stack) {
+                		return !(stack.getItem() instanceof PlayerInventoryBaseItem);
+                	};
+                } );
             }
         }
 

@@ -32,7 +32,7 @@ public class ContainerAccessory extends ContainerPlayer {
     
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-    	ItemStack itemstack = ItemStack.EMPTY;
+    	/*ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
         Container playerContainer = playerIn.inventoryContainer;
         Slot playerSlot = null;
@@ -48,7 +48,8 @@ public class ContainerAccessory extends ContainerPlayer {
         		}
         	}
         }
-        return itemstack;
+        return itemstack;*/
+    	return super.transferStackInSlot(playerIn, index);
 
         /*if (slot != null && slot.getHasStack()) {
             ItemStack stackInSlot = slot.getStack();

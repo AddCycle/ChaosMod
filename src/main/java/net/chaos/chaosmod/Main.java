@@ -39,6 +39,7 @@ import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.chaos.chaosmod.world.events.FightEvents;
+import net.chaos.chaosmod.world.events.PlayerAchivementsEvents;
 import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
 import net.chaos.chaosmod.world.gen.nether.CustomHellProvider;
@@ -132,17 +133,17 @@ public class Main
         RegistryHandler.onSmeltingRegister();
         MachineRecipeRegistry.init();
         BiomeDictionary.addTypes(ModBiomes.GIANT_MOUNTAIN, BiomeDictionary.Type.MOUNTAIN);
-        BiomeDictionary.addTypes(ModBiomes.CUSTOM_HELL, BiomeDictionary.Type.NETHER);
+        // BiomeDictionary.addTypes(ModBiomes.CUSTOM_HELL, BiomeDictionary.Type.NETHER);
         BiomeManager.removeBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(Biomes.PLAINS, 10));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.GIANT_MOUNTAIN, 50));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.NETHER_CAVES, 50));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.ENDER_GARDEN, 50));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CHAOS_LAND_BIOME, 50));
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CUSTOM_HELL, 50));
-        DimensionManager.unregisterDimension(-1);
+        // BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CUSTOM_HELL, 50));
+        /*DimensionManager.unregisterDimension(-1);
         DimensionManager.registerDimension(-1, DimensionType.register(
             "custom_hell", "_hell", -1, CustomHellProvider.class, false
-        ));
+        ));*/
         // TODO : refactor that other part (it's forge tags to match any recipe using planks)
         // OreDictionary.registerOre("toolTinkerHammer", new ItemStack(ModItems.TINKERERS_HAMMER, 1, OreDictionary.WILDCARD_VALUE));
         for (CustomLog.CustomLogVariant variant : CustomLog.CustomLogVariant.values()) {
@@ -151,7 +152,7 @@ public class Main
         for (CustomPlanks.CustomPlankVariant variant : CustomPlanks.CustomPlankVariant.values()) {
             OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.CUSTOM_PLANK, 1, variant.getMeta()));
         }
-        ModStructures.registerStructures();
+        // ModStructures.registerStructures();
     }
 
     // After the launching of the instance
@@ -162,6 +163,7 @@ public class Main
     	logger.info("CHAOSMOD POST-INIT PHASE {}", event.getModState());
         MinecraftForge.EVENT_BUS.register(new FightEvents());
         MinecraftForge.EVENT_BUS.register(new PlayerLifeEvents());
+        MinecraftForge.EVENT_BUS.register(new PlayerAchivementsEvents());
     	GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, new ResourceLocation(Reference.MODID, "oxonium_furnace"));
     	GameRegistry.registerTileEntity(TileEntityOxoniumChest.class, new ResourceLocation(Reference.MODID, "oxonium_chest"));
     	GameRegistry.registerTileEntity(TileEntityBossAltar.class, new ResourceLocation(Reference.MODID, "boss_altar"));

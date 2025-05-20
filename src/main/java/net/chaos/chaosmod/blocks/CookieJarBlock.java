@@ -15,12 +15,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -78,6 +80,7 @@ public class CookieJarBlock extends BlockBase implements ITileEntityProvider {
                 worldIn.setBlockState(pos, state.withProperty(COOKIE_COUNT, metadata + 1), 2);
                 heldItem.shrink(1);
                 worldIn.updateComparatorOutputLevel(pos, this);
+                worldIn.playSound(playerIn, hitX, hitY, hitZ, SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 return true;
             }
         }

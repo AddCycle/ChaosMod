@@ -9,6 +9,7 @@ import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
+import net.chaos.chaosmod.items.necklace.ItemNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
@@ -64,7 +65,7 @@ public class PlayerLifeEvents {
 
 	    ItemStack accessory = cap.getAccessoryItem();
 	    if (!accessory.isEmpty() && accessory.getItem() instanceof OxoniumNecklace) {
-	        if (!player.isPotionActive(MobEffects.SPEED)) {
+	        if (!player.isPotionActive(MobEffects.REGENERATION)) {
 	        	player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 20 * 3, 0, false, false));
 	        }
 	    }

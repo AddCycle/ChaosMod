@@ -7,7 +7,9 @@ import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.model.ModelZombie;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.math.MathHelper;
 
 public class MountainGiantModel extends ModelBase {
@@ -143,6 +145,14 @@ public class MountainGiantModel extends ModelBase {
 		// Head rotation
 	    this.head.rotateAngleY = netHeadYaw * 0.017453292F;
 	    this.head.rotateAngleX = headPitch * 0.017453292F;
+
+        float f = 1.0F;
+        this.leg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f;
+        this.leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount / f;
+        this.leg2.rotateAngleY = 0.0F;
+        this.leg1.rotateAngleY = 0.0F;
+        this.leg2.rotateAngleZ = 0.0F;
+        this.leg1.rotateAngleZ = 0.0F;
 
 	    // Legs: thigh + foot work together
 	    // this.top.rotateAngleX = MathHelper.cos(limbSwing * 1.0F) * 1.2F * limbSwingAmount;

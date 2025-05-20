@@ -1,0 +1,1 @@
+give @s chaosmod:oxonium_ingot
