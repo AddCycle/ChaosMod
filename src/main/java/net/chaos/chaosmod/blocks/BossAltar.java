@@ -1,13 +1,16 @@
 package net.chaos.chaosmod.blocks;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
@@ -22,9 +25,10 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
+import util.IHasModel;
 import util.Reference;
 
-public class BossAltar extends BlockBase implements ITileEntityProvider {
+public class BossAltar extends Block implements ITileEntityProvider, IHasModel {
 	/*
 	 * From 0 -> 3 :
 	 * 0 = Mountain Giant
@@ -35,8 +39,13 @@ public class BossAltar extends BlockBase implements ITileEntityProvider {
 	public static int bossType = 0;
 
 	public BossAltar(String name, Material material) {
-		super(name, material);
+		super(material);
+		this.setUnlocalizedName(name);
+		this.setRegistryName(name);
 		this.setLightLevel(12.0f);
+
+        ModBlocks.BLOCKS.add(this);
+        ModItems.ITEMS.add(new ItemBlockFurnaces(this).setRegistryName(this.getRegistryName()));
 	}
 	
 	@Override
@@ -114,6 +123,11 @@ public class BossAltar extends BlockBase implements ITileEntityProvider {
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;
+	}
+
+	@Override
+	public void registerModels() {
+		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
 	}
 
 }

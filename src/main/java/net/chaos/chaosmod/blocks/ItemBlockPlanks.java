@@ -1,12 +1,9 @@
 package net.chaos.chaosmod.blocks;
-
-import net.chaos.chaosmod.blocks.CustomLog.CustomLogVariant;
 import net.chaos.chaosmod.blocks.CustomPlanks.CustomPlankVariant;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockPlanks extends ItemBlock {
+public class ItemBlockPlanks extends ItemBlockBase {
 	public ItemBlockPlanks(Block block) {
 		super(block);
 		this.setHasSubtypes(true);

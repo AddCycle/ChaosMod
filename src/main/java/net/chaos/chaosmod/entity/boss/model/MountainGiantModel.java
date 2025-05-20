@@ -164,17 +164,22 @@ public class MountainGiantModel extends ModelBase {
 	    if (entityIn instanceof EntityMountainGiantBoss) {
 	        EntityMountainGiantBoss boss = (EntityMountainGiantBoss) entityIn;
 
-	        if (boss.isAttacking()) {
-	            // Add a simple swing animation using sine wave
-	            float swingSpeed = 0.5F;
-	            float swingAmount = 1.0F;
+	        	if (entityIn instanceof EntityMountainGiantBoss && ((EntityMountainGiantBoss) entityIn).isSwingingArms()) {
+	        	    // this.rightArm.rotateAngleX = -MathHelper.cos(ageInTicks * 0.6662F) * 1.4F * limbSwingAmount;
+	        	    // this.leftArm.rotateAngleX = MathHelper.cos(ageInTicks * 0.6662F) * 1.4F * limbSwingAmount;
+	        		float swingSpeed = 0.5F;
+	        		float swingAmount = 1.0F;
 
-	            right_arm.rotateAngleX = -MathHelper.sin(ageInTicks * swingSpeed) * swingAmount;
-	            left_arm.rotateAngleX = -MathHelper.sin(ageInTicks * swingSpeed) * swingAmount;
+	        		// right_arm.rotateAngleX = -MathHelper.sin(ageInTicks * swingSpeed) * swingAmount;
+	        		right_arm.rotateAngleX = MathHelper.sin((float)Math.PI * ageInTicks);
+	        		left_arm.rotateAngleX = -MathHelper.sin((float)Math.PI * ageInTicks);
+	        		// left_arm.rotateAngleX = -MathHelper.sin(ageInTicks * swingSpeed) * swingAmount;
+	        	} else {
+	        		right_arm.rotateAngleX = 0F;
+	        		left_arm.rotateAngleX = 0F;
+	        	}
 	        } else {
 	            // Idle position (reset rotation)
-	            // right_arm.rotateAngleX = 0F;
-	            // left_arm.rotateAngleX = 0F;
 	        }
 	    }
 
@@ -184,5 +189,4 @@ public class MountainGiantModel extends ModelBase {
 
 	    this.shoulder2.rotateAngleX = MathHelper.cos(limbSwing * 1.0F) * 1.2F * limbSwingAmount;
 	    this.fist2.rotateAngleX = this.shoulder2.rotateAngleX * 0.4F;*/
-	}
 }

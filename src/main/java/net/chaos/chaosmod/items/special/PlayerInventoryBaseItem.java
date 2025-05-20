@@ -1,7 +1,6 @@
 package net.chaos.chaosmod.items.special;
 
 import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.client.gui.inventory.OxoniumFurnaceGui;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,7 +21,7 @@ public class PlayerInventoryBaseItem extends ItemBase {
 	
 	@Override
 	public CreativeTabs[] getCreativeTabs() {
-		return new CreativeTabs[] { ModTabs.GENERAL_TAB, CreativeTabs.TOOLS };
+		return new CreativeTabs[] { ModTabs.ITEMS, CreativeTabs.TOOLS };
 	}
 	
 	@Override

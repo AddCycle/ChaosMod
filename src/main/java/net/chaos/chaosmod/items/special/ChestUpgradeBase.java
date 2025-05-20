@@ -41,7 +41,7 @@ public class ChestUpgradeBase extends ItemBase {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.GENERAL_TAB };
+        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.ITEMS };
     }
 
 }

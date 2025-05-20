@@ -32,7 +32,7 @@ public class TinkerersHammer extends AbstractCraftingItem {
 
 	@Override
 	public CreativeTabs[] getCreativeTabs() {
-		return new CreativeTabs[] { ModTabs.GENERAL_TAB, CreativeTabs.TOOLS };
+		return new CreativeTabs[] { ModTabs.ITEMS, CreativeTabs.TOOLS };
 	}
 	
 	@Override

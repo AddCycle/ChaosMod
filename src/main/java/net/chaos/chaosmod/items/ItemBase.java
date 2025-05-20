@@ -25,7 +25,7 @@ public class ItemBase extends Item implements IHasModel {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.GENERAL_TAB }; // You can add multiple tabs
+        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.ITEMS }; // You can add multiple tabs
     }
 
 }

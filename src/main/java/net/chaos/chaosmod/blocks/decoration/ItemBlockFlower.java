@@ -1,10 +1,10 @@
 package net.chaos.chaosmod.blocks.decoration;
 
+import net.chaos.chaosmod.blocks.ItemBlockBase;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockFlower extends ItemBlock {
+public class ItemBlockFlower extends ItemBlockBase {
 
 	public ItemBlockFlower(Block block) {
         super(block);

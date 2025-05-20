@@ -175,7 +175,7 @@ public class OxoniumBow extends ItemBow implements IHasModel {
 	
 	@Override
 	public CreativeTabs[] getCreativeTabs() {
-		return new CreativeTabs[] { ModTabs.GENERAL_TAB, CreativeTabs.COMBAT };
+		return new CreativeTabs[] { ModTabs.ITEMS, CreativeTabs.COMBAT };
 	}
 
 	@Override

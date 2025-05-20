@@ -2,7 +2,11 @@ package net.chaos.chaosmod.entity.boss.entities;
 
 import java.util.List;
 
+import net.chaos.chaosmod.entity.ai.EntityAICustomRangedAttack;
+import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.init.ModItems;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -19,12 +23,16 @@ import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfo.Color;
@@ -34,12 +42,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityMountainGiantBoss extends EntityMob {
+public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackMob {
     public final BossInfoServer bossInfo;
-    private boolean attacking = false;
+    public boolean attacking = false;
     private int attackTimer = 0;
     private static final AxisAlignedBB ENTITY_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 20.0D, 20.0D, 20.0D);
-
+    private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(EntityMountainGiantBoss.class, DataSerializers.BOOLEAN);
 
 	public EntityMountainGiantBoss(World worldIn) {
 		super(worldIn);
@@ -57,6 +65,12 @@ public class EntityMountainGiantBoss extends EntityMob {
 	    this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
 	}
 	
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		this.dataManager.register(SWINGING_ARMS, false);
+	}
+	
 	/*@Override
 	protected void initEntityAI() {
 		// this.tasks.addTask(1, new CustomAITest(this, 1.0f));
@@ -70,9 +84,11 @@ public class EntityMountainGiantBoss extends EntityMob {
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPlayer.class, EntityZombie.class}));
 	}*/
 	
+	@Override
     protected void initEntityAI()
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(1, new EntityAICustomRangedAttack(this, 1.25D, 20 * 2, 20.0F));
         this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
@@ -90,10 +106,23 @@ public class EntityMountainGiantBoss extends EntityMob {
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
     }
 
+    public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
+    {
+        EntityRock rock = new EntityRock(this.world, this);
+        double d0 = target.posY + (double)target.getEyeHeight() - 1.100000023841858D;
+        double d1 = target.posX - this.posX;
+        double d2 = d0 - rock.posY;
+        double d3 = target.posZ - this.posZ;
+        float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
+        rock.shoot(d1, d2 + (double)f, d3, 1.6F, 12.0F);
+        this.playSound(SoundEvents.ENTITY_SNOWMAN_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+        this.world.spawnEntity(rock);
+    }
 
     public void startAttack() {
         this.attacking = true;
         this.attackTimer = 20; // lasts for 1 second
+        this.setSwingingArms(true); // <--- THIS is crucial
     }
 
     public boolean isAttacking() {
@@ -112,18 +141,14 @@ public class EntityMountainGiantBoss extends EntityMob {
         }
 		
 		super.onLivingUpdate();
-
-		if (this.ticksExisted == 0) {
-			startAttack();
-			this.jump();
-		}
 		
 		if (attacking) {
-	        attackTimer--;
-	        if (attackTimer <= 0) {
-	            attacking = false;
-	        }
-	    }
+		    attackTimer--;
+		    if (attackTimer <= 0) {
+		        attacking = false;
+		        setSwingingArms(false);
+		    }
+		}
 	}
 	
 	@Override
@@ -223,5 +248,14 @@ public class EntityMountainGiantBoss extends EntityMob {
     @SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox() {
 		return getEntityBoundingBox();
+	}
+	
+	@Override
+	public void setSwingingArms(boolean swingingArms) {
+	    this.dataManager.set(SWINGING_ARMS, swingingArms);
+	}
+
+	public boolean isSwingingArms() {
+	    return this.dataManager.get(SWINGING_ARMS);
 	}
 }

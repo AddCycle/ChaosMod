@@ -2,10 +2,9 @@ package net.chaos.chaosmod.blocks;
 
 import net.chaos.chaosmod.blocks.CustomLog.CustomLogVariant;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockLog extends ItemBlock {
+public class ItemBlockLog extends ItemBlockBase {
 
 	public ItemBlockLog(Block block) {
 		super(block);

@@ -14,6 +14,6 @@ public class ItemBlockBase extends ItemBlock {
 	
 	@Override
 	public CreativeTabs[] getCreativeTabs() {
-		return new CreativeTabs[] { ModTabs.GENERAL_TAB, ModTabs.BUILDING_BLOCKS }; // just add yours here
+		return new CreativeTabs[] { ModTabs.BUILDING_BLOCKS }; // just add yours here
 	}
 }

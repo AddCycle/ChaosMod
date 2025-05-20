@@ -157,7 +157,7 @@ public class EnderiteShard extends ItemBase {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.GENERAL_TAB }; // You can add other tabs
+        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.ITEMS }; // You can add other tabs
     }
 
 }

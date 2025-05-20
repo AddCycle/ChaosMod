@@ -18,8 +18,7 @@ public class OxoniumStairs extends BlockStairs implements IHasModel {
 		setRegistryName(name);
 
 		ModBlocks.BLOCKS.add(this);
-		ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
-		this.setCreativeTab(ModTabs.GENERAL_TAB);
+		ModItems.ITEMS.add(new ItemBlockBase(this).setRegistryName(this.getRegistryName()));
 	}
 
 	@Override

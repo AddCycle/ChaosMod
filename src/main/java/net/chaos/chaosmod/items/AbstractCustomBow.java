@@ -182,6 +182,6 @@ public abstract class AbstractCustomBow extends ItemBow implements IHasModel {
 	
 	@Override
 	public CreativeTabs[] getCreativeTabs() {
-		return new CreativeTabs[] { ModTabs.GENERAL_TAB, CreativeTabs.COMBAT };
+		return new CreativeTabs[] { ModTabs.ITEMS, CreativeTabs.COMBAT };
 	}
 }

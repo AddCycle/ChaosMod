@@ -2,10 +2,9 @@ package net.chaos.chaosmod.blocks;
 
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves.CustomLeafVariant;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockLeaves extends ItemBlock {
+public class ItemBlockLeaves extends ItemBlockBase {
 
 	public ItemBlockLeaves(Block block) {
 		super(block);

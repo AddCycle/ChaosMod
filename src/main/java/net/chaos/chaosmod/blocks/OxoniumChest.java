@@ -340,7 +340,7 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        int i = 0;
+        /*int i = 0;
         BlockPos blockpos = pos.west();
         BlockPos blockpos1 = pos.east();
         BlockPos blockpos2 = pos.north();
@@ -386,7 +386,8 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
             ++i;
         }
 
-        return i <= 1;
+        return i <= 1;*/
+    	return true;
     }
 
     private boolean isDoubleChest(World worldIn, BlockPos pos)

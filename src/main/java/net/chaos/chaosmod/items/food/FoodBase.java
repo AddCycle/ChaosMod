@@ -27,6 +27,6 @@ public class FoodBase extends ItemFood implements IHasModel {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.FOOD, ModTabs.GENERAL_TAB }; // You can add other tabs
+        return new CreativeTabs[]{ CreativeTabs.FOOD, ModTabs.ITEMS }; // You can add other tabs
     }
 }

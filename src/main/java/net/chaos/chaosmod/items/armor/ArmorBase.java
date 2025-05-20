@@ -22,7 +22,7 @@ public class ArmorBase extends ItemArmor implements IHasModel {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.COMBAT, ModTabs.GENERAL_TAB }; // You can add other tabs
+        return new CreativeTabs[]{ CreativeTabs.COMBAT, ModTabs.ITEMS }; // You can add other tabs
     }
 
 	@Override

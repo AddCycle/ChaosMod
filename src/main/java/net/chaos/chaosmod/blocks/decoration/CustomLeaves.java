@@ -39,7 +39,6 @@ public class CustomLeaves extends BlockLeaves implements IHasModel {
 	            .withProperty(DECAYABLE, true)
 	            .withProperty(CHECK_DECAY, false));
 		setSoundType(SoundType.PLANT);
-		setCreativeTab(ModTabs.GENERAL_TAB);
 		
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlockLeaves(this).setRegistryName(this.getRegistryName()));

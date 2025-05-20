@@ -46,6 +46,7 @@ public class OxoniumFurnaceRecipes {
         this.addSmeltingRecipeForBlock(Blocks.CACTUS, new ItemStack(Items.DYE, 1, EnumDyeColor.GREEN.getDyeDamage()), 0.2F);
         this.addSmeltingRecipeForBlock(Blocks.LOG, new ItemStack(Items.COAL, 1, 1), 0.15F);
         this.addSmeltingRecipeForBlock(Blocks.LOG2, new ItemStack(Items.COAL, 1, 1), 0.15F);
+        this.addSmeltingRecipeForBlock(ModBlocks.CUSTOM_LOG, new ItemStack(Items.COAL, 1, 1), 0.15F);
         this.addSmeltingRecipeForBlock(Blocks.EMERALD_ORE, new ItemStack(Items.EMERALD), 1.0F);
         this.addSmelting(Items.POTATO, new ItemStack(Items.BAKED_POTATO), 0.35F);
         this.addSmeltingRecipeForBlock(Blocks.NETHERRACK, new ItemStack(Items.NETHERBRICK), 0.1F);

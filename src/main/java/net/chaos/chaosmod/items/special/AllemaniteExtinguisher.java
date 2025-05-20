@@ -68,6 +68,6 @@ public class AllemaniteExtinguisher extends ItemBase {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.MISC, ModTabs.GENERAL_TAB };
+        return new CreativeTabs[]{ CreativeTabs.MISC, ModTabs.ITEMS };
     }
 }
