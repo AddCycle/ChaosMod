@@ -5,6 +5,8 @@ import java.util.Collection;
 
 import net.chaos.chaosmod.client.inventory.ContainerAccessory;
 import net.chaos.chaosmod.client.inventory.SlotAccessory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
@@ -20,7 +22,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiInventoryExtended extends GuiInventory {
 	public static final ResourceLocation INV_TEXTURE = new ResourceLocation("chaosmod:textures/gui/slot_icon2.png");
-	private boolean showAccessorySlot = true;
+	public static final ResourceLocation BUTTON_TEXTURE_ = new ResourceLocation("chaosmod:textures/gui/container/button_icons.png");
+	private boolean showAccessorySlot = false;
     private GuiButton toggleButton;
 	private Slot hoveredSlot;
 
@@ -33,7 +36,46 @@ public class GuiInventoryExtended extends GuiInventory {
 	@Override
     public void initGui() {
         super.initGui();
-        this.buttonList.add(toggleButton = new GuiButton(99, this.guiLeft + 30, this.guiTop + 5, 20, 20, ""));
+        this.buttonList.add(toggleButton = new GuiButton(99, this.guiLeft + 59, this.guiTop + 8, 15, 12, "") {
+        	@Override
+        	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+
+        		if (this.visible)
+        		{
+        			FontRenderer fontrenderer = mc.fontRenderer;
+        			mc.getTextureManager().bindTexture(BUTTON_TEXTURE_);
+        			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        			this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+        			int i = this.getHoverState(this.hovered);
+        			GlStateManager.enableBlend();
+        			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        			this.drawTexturedModalRect(this.x, this.y, 182, 24, this.width, this.height);
+        			if (this.hovered) {
+        				this.drawTexturedModalRect(this.x, this.y, 166, 24, this.width, this.height);
+        			}
+        			this.mouseDragged(mc, mouseX, mouseY);
+        			int j = 14737632;
+
+        			if (packedFGColour != 0)
+        			{
+        				j = packedFGColour;
+        			}
+        			else
+        				if (!this.enabled)
+        				{
+        					j = 10526880;
+        				}
+        				else if (this.hovered)
+        				{
+        					j = 16777120;
+        				}
+
+        			this.drawCenteredString(fontrenderer, this.displayString, this.x + this.width / 2, this.y + (this.height - 8) / 2, j);
+        		}
+        		// super.drawButton(mc, mouseX, mouseY, partialTicks);
+        	}
+        });
     }
 	
 	private void resetGuiLeft()

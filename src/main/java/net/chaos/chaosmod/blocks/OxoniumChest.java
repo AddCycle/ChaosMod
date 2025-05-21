@@ -59,12 +59,14 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
     public OxoniumChest(String name, OxoniumChest.Type chestTypeIn)
     {
         super(Material.IRON);
+        setHardness(2.5F);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         this.setUnlocalizedName(name);
         this.setRegistryName(name);
         this.chestType = chestTypeIn;
         this.setCreativeTab(chestTypeIn == OxoniumChest.Type.TRAP ? CreativeTabs.REDSTONE : CreativeTabs.DECORATIONS);
         this.setCreativeTab(ModTabs.GENERAL_TAB);
+        this.setResistance(15.0f);
 
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlockFurnaces(this).setRegistryName(this.getRegistryName()));

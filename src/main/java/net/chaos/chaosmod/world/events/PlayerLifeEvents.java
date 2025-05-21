@@ -9,19 +9,17 @@ import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
-import net.chaos.chaosmod.items.necklace.ItemNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntitySnowman;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
@@ -41,6 +39,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensio
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import util.Reference;
 
 @EventBusSubscriber
 public class PlayerLifeEvents {
@@ -129,19 +128,28 @@ public class PlayerLifeEvents {
 	@SubscribeEvent
 	// TODO : to avoid it repeatedly spawning -> player.getEntityData().setBoolean("chaos_has_spawned", true);
     public static void onPlayerChangeDimension(PlayerChangedDimensionEvent event) {
-        EntityPlayerMP player = (EntityPlayerMP) event.player;
+		EntityPlayerMP player = (EntityPlayerMP) event.player;
 
-        if (event.toDim == -1) {
-            World world = player.world;
+	    if (event.toDim == -1) {
+	        NBTTagCompound data = player.getEntityData();
+	        if (!data.getBoolean("chaos_has_spawned")) {
+	            data.setBoolean("chaos_has_spawned", true);
 
-            if (!world.isRemote) {
-                BlockPos pos = player.getPosition().add(2, 0, 2);
-                EntityChaosSage entity = new EntityChaosSage(world);
-                entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
+	            World world = player.world;
 
-                world.spawnEntity(entity);
-            }
-        }
+	            if (!world.isRemote) {
+	                BlockPos pos = player.getPosition().add(2, 0, 2);
+	                Entity entity = EntityList.createEntityByIDFromName(
+	                    new ResourceLocation(Reference.MODID, "chaos_sage"), world
+	                );
+
+	                if (entity instanceof EntityChaosSage) {
+	                    entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
+	                    world.spawnEntity(entity);
+	                }
+	            }
+	        }
+	    }
     }
 	
 	@SubscribeEvent
