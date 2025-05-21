@@ -42,6 +42,8 @@ item.allemanite_backpack.name=Allemanite Backpack
 item.allemanite_extinguisher.name=Allemanite Extinguisher
 item.oxonium_necklace.name=Oxonium Necklace
 item.enderite_thunder.name=Enderite Thunder
+item.debug_wand.name=Debug Wand
+item.custom_fireball.name=Custom Fireball
 
 item.giant_heart.name=Giant Heart
 item.blazing_heart.name=Blazing Heart
@@ -98,6 +100,7 @@ entity.revenge_blaze_boss.name=Revenge Blaze
 //Gui
 itemGroup.chaosmodtab=Chaos Items
 gui.forge_interface_block.title=Chaos Forge
+effect.viking_friend=Viking Friend
 
 //Guide
 text.guide.title=ChaosMod Guide

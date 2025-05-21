@@ -42,6 +42,8 @@ item.allemanite_backpack.name=Sac en Allemanite
 item.allemanite_extinguisher.name=Extincteur en Allemanite
 item.oxonium_necklace.name=Pendentif en Oxonium
 item.enderite_thunder.name=Eclair d'Enderite
+item.debug_wand.name=Baguette du Debug
+item.custom_fireball.name=Boule de Feu Custom
 
 item.giant_heart.name=Coeur du Géant
 item.blazing_heart.name=Coeur du Blaze
@@ -98,6 +100,7 @@ entity.revenge_blaze_boss.name=Blaze Vengeur
 //Gui
 itemGroup.chaosmodtab=Objets du Chaos
 gui.forge_interface_block.title=Forge du Chaos
+effect.viking_friend=Compagnon Viking
 
 //Guide
 text.guide.title=Guide du Chaos

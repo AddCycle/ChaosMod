@@ -10,9 +10,11 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class BackpackContainer extends Container {
 	public final BackpackInventory inventory;
+	private final int numRows;
 
     public BackpackContainer(InventoryPlayer playerInv, ItemStack stack) {
         this.inventory = new BackpackInventory(stack);
+        this.numRows = this.inventory.getSizeInventory() / 9;
 
         // Backpack inventory (3 rows of 9)
         for (int row = 0; row < 3; ++row) {
@@ -52,9 +54,37 @@ public class BackpackContainer extends Container {
 	
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-		// TODO Auto-generated method stub
-		// return super.transferStackInSlot(playerIn, index);
-		return ItemStack.EMPTY; // prevents from crashing TODO + FIXME
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (index < this.numRows * 9)
+            {
+                if (!this.mergeItemStack(itemstack1, this.numRows * 9, this.inventorySlots.size(), true))
+                {
+                    return ItemStack.EMPTY;
+                }
+            }
+            else if (!this.mergeItemStack(itemstack1, 0, this.numRows * 9, false))
+            {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty())
+            {
+                slot.putStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
 	}
 
 }

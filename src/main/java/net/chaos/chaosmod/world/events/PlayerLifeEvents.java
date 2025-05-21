@@ -126,7 +126,7 @@ public class PlayerLifeEvents {
 	}
 	
 	@SubscribeEvent
-	// TODO : to avoid it repeatedly spawning -> player.getEntityData().setBoolean("chaos_has_spawned", true);
+	// FIXME =?> verify this method
     public static void onPlayerChangeDimension(PlayerChangedDimensionEvent event) {
 		EntityPlayerMP player = (EntityPlayerMP) event.player;
 

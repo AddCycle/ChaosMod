@@ -32,4 +32,8 @@ public class BackpackInventory extends ItemStackHandler {
         stack.setTagCompound(tag);
     }
 
+	public int getSizeInventory() {
+		return 27;
+	}
+
 }

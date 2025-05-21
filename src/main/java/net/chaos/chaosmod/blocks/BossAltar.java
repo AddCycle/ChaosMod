@@ -75,10 +75,10 @@ public class BossAltar extends Block implements ITileEntityProvider, IHasModel {
 			if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.OXONIUM_INGOT))) {
 				te_2.r = 0.001f; te_2.g = 0.0f; te_2.b = 1.0f;
 				bossType = 0;
-			} else if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.ALLEMANITE_INGOT))) {
+			} else if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.GIANT_HEART))) {
 				bossType = -1;
-				te_2.r = 0.0f; te_2.g = 0.0f; te_2.b = 1.0f;
-			} else if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.ENDERITE_INGOT))) {
+				te_2.r = 1.0f; te_2.g = 0.0f; te_2.b = 0.0f;
+			} else if (hand.equals(EnumHand.MAIN_HAND) && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(ModItems.BLAZING_HEART))) {
 				bossType = 1;
 				te_2.r = 0.5f; te_2.g = 0.0f; te_2.b = 0.5f;
 			} else {

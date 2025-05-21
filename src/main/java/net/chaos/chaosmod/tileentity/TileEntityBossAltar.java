@@ -99,11 +99,11 @@ public class TileEntityBossAltar extends TileEntity implements ITickable {
 	    double y = pos.getY() + 1.0;
 	    double z = pos.getZ() + 0.5;
 
-	    for (int i = 0; i < 3; i++) {
+	    for (int i = 0; i < 30; i++) {
 	    	world.spawnParticle(EnumParticleTypes.REDSTONE,
-	    			x + (world.rand.nextGaussian() * 0.1),
-	    			y + (world.rand.nextGaussian() * 0.1),
-	    			z + (world.rand.nextGaussian() * 0.1),
+	    			x + (world.rand.nextGaussian() * 0.5),
+	    			y + (world.rand.nextGaussian() * 0.5),
+	    			z + (world.rand.nextGaussian() * 0.5),
 	    			R, G, B);
 	    }
 	}

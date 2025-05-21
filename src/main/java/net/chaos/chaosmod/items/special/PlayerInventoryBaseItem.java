@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import util.Reference;
 
@@ -22,6 +24,11 @@ public class PlayerInventoryBaseItem extends ItemBase {
 	@Override
 	public CreativeTabs[] getCreativeTabs() {
 		return new CreativeTabs[] { ModTabs.ITEMS, CreativeTabs.TOOLS };
+	}
+	
+	@Override
+	public boolean doesSneakBypassUse(ItemStack stack, IBlockAccess world, BlockPos pos, EntityPlayer player) {
+	    return true;
 	}
 	
 	@Override
