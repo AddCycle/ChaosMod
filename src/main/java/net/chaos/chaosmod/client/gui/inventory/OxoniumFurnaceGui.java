@@ -32,11 +32,14 @@ public class OxoniumFurnaceGui extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
     	int initial = 4210752;
-    	int color1 = 40703;
-    	int color2 = 16751616;
+    	// int color1 = 40703; // light blue
+    	int color1 = 0x0000ff;
+    	// int color2 = 16751616; // orange
+    	// int color2 = 0x0000ff;
+    	int color2 = initial;
         String s = this.tileFurnace.getDisplayName().getUnformattedText();
-        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, color1);
-        this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, color2);
+        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, color1); // furnace label
+        this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, color2); // inventory label
     }
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
@@ -45,16 +48,16 @@ public class OxoniumFurnaceGui extends GuiContainer {
         this.mc.getTextureManager().bindTexture(FURNACE_GUI_TEXTURES);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize); // rendering the main bg
 
         if (TileEntityOxoniumFurnace.isBurning(this.tileFurnace))
         {
             int k = this.getBurnLeftScaled(13);
-            this.drawTexturedModalRect(i + 56, j + 36 + 12 - k, 176, 12 - k, 14, k + 1);
+            this.drawTexturedModalRect(i + 56, j + 36 + 12 - k, 176, 12 - k, 14, k + 2); // fire
         }
 
         int l = this.getCookProgressScaled(24);
-        this.drawTexturedModalRect(i + 79, j + 34, 176, 14, l + 1, 16);
+        this.drawTexturedModalRect(i + 79, j + 34, 176, 14, l + 1, 16); // arrow
     }
 
     private int getCookProgressScaled(int pixels)

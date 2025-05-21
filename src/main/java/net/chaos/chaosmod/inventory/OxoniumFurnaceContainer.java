@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.inventory;
 
+import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.recipes.OxoniumFurnaceRecipes;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,6 +9,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnaceFuel;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,7 +25,13 @@ public class OxoniumFurnaceContainer extends Container {
     {
         this.tileFurnace = furnaceInventory;
         this.addSlotToContainer(new Slot(furnaceInventory, 0, 56, 17));
-        this.addSlotToContainer(new SlotFurnaceFuel(furnaceInventory, 1, 56, 53));
+        this.addSlotToContainer(new SlotFurnaceFuel(furnaceInventory, 1, 56, 53) {
+        	@Override
+        	public boolean isItemValid(ItemStack stack)
+        	{
+        		return TileEntityOxoniumFurnace.isItemFuel(stack) || isBucket(stack) || (stack.getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_SAPLINGS));
+        	}
+        });
         this.addSlotToContainer(new OxoniumFurnaceOutputSlot(playerInventory.player, furnaceInventory, 2, 116, 35));
 
         for (int i = 0; i < 3; ++i)

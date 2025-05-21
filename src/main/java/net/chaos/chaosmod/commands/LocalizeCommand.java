@@ -20,8 +20,7 @@ public class LocalizeCommand extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-        BlockPos from = sender.getPosition();
-        World world = sender.getEntityWorld();
+    	// DO something when structures are implemented TODO
     }
 
     @Override

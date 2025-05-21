@@ -2,6 +2,7 @@ package net.chaos.chaosmod.commands.generation;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
@@ -45,10 +46,11 @@ public class LoadStructCommand extends CommandBase {
 
 		PlacementSettings settings = new PlacementSettings()
 				.setMirror(Mirror.NONE)
-				.setRotation(Rotation.NONE)
+				// .setRotation(Rotation.NONE)
+				.setRotation(Rotation.CLOCKWISE_90)
 				.setIgnoreEntities(false)
 				.setChunk(null)
-				.setReplacedBlock(null)
+				.setReplacedBlock(Blocks.LAPIS_BLOCK)
 				.setIgnoreStructureBlock(false);
 
 		template.addBlocksToWorld(world, pos, settings);

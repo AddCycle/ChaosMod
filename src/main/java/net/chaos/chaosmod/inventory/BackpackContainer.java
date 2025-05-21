@@ -53,7 +53,8 @@ public class BackpackContainer extends Container {
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 		// TODO Auto-generated method stub
-		return super.transferStackInSlot(playerIn, index);
+		// return super.transferStackInSlot(playerIn, index);
+		return ItemStack.EMPTY; // prevents from crashing TODO + FIXME
 	}
 
 }

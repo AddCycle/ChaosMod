@@ -344,6 +344,10 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
         {
             return 0;
         }
+        
+        if (stack.getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_SAPLINGS)) {
+        	return 100;
+        }
         else
         {
             int burnTime = net.minecraftforge.event.ForgeEventFactory.getItemBurnTime(stack);
@@ -430,7 +434,7 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
             }
             else
             {
-                return 300;
+            	if (burnTime == 0) return burnTime; else return 300;
             }
         }
     }
