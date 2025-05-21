@@ -6,8 +6,10 @@ import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
 import net.chaos.chaosmod.entity.boss.renderer.EntityMountainGiantBossRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityRevengeBlazeRenderer;
+import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
+import net.chaos.chaosmod.entity.projectile.render.EntityMenhirRenderer;
 import net.chaos.chaosmod.entity.projectile.render.EntityRockRenderer;
 import net.chaos.chaosmod.entity.projectile.render.EntitySmallBlueFireballRenderer;
 import net.chaos.chaosmod.entity.render.RenderChaosSage;
@@ -52,6 +54,15 @@ public class RenderHandler {
 			@Override
 			public Render<? super EntityRock> createRenderFor(RenderManager manager) {
 				return new EntityRockRenderer(manager);
+			}
+			
+		});
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityMenhir.class, new IRenderFactory<EntityMenhir>() {
+
+			@Override
+			public Render<? super EntityMenhir> createRenderFor(RenderManager manager) {
+				return new EntityMenhirRenderer(manager);
 			}
 			
 		});

@@ -9,6 +9,7 @@ import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.ConnectedBlock;
 import net.chaos.chaosmod.blocks.CookieJarBlock;
+import net.chaos.chaosmod.blocks.CustomBlockSapling;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomPlanks;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
@@ -51,8 +52,9 @@ public class ModBlocks {
 	public static final Block FORGE_WALLS = new EnderiteForgeWalls("enderite_forge_walls", ModItems.BLOCK_MATERIAL_ENDERITE);
 	public static final Block CUSTOM_FLOWER = new BlockCustomFlower("custom_flower");
 	public static final Block CUSTOM_LOG = new CustomLog("custom_log");
-	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
 	public static final Block CUSTOM_PLANK = new CustomPlanks("custom_plank", Material.WOOD);
+	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
+	public static final Block CUSTOM_SAPLINGS = new CustomBlockSapling("custom_sapling", Material.PLANTS);
 	public static final Block CUSTOM_GRASS = new BlockBrightGrass();
 	public static final Block LANTERN = new BlockLantern("lantern");
 	public static final Block CONNECTED_BLOCK = new ConnectedBlock("connected_block", Material.IRON);

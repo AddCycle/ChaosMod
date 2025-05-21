@@ -21,6 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -80,7 +81,8 @@ public class ClientProxy extends CommonProxy {
 		Minecraft.getMinecraft().getRenderManager().getSkinMap().values().forEach(renderer -> {
 		    renderer.addLayer(new LayerNecklace(renderer));
 		});
-		// ################################# END NECKLACE RENDERING #############################################
+		// RenderingRegistry.registerEntityRenderingHandler(EntityStillItem.class, manager -> new RenderItemStill(manager, Minecraft.getMinecraft().getRenderItem()));
+		// ################################# END NECKLACE RENDERING ############################################
 	}
 
 	@Override

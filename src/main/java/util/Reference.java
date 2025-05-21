@@ -23,5 +23,6 @@ public class Reference {
 	public static final int SMALL_BLUE_FIREBALL = 122;
 	public static final int MOUNTAIN_GIANT_BOSS = 123;
 	public static final int ENTITY_ROCK = 124;
-	public static final int CHAOS_SAGE = 250;
+	public static final int CHAOS_SAGE = 125;
+	public static final int ENTITY_MENHIR = 126;
 }

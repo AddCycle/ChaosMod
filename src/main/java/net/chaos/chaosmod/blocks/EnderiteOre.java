@@ -22,7 +22,6 @@ public class EnderiteOre extends BlockBase {
 
 	public EnderiteOre(String name, Material material) {
 		super(name, material);
-		setCreativeTab(ModTabs.GENERAL_TAB);
 		setHardness(5.0f);
 		setResistance(15.0f);
 		setHarvestLevel("pickaxe", 4);

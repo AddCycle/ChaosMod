@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "stage=0,type=snowy_plank": { "model": "chaosmod:snowy_sapling" },
+    "stage=0,type=maple_plank": { "model": "chaosmod:maple_sapling" },
+    "stage=0,type=ender_plank": { "model": "chaosmod:ender_sapling" },
+    "stage=0,type=olive_plank": { "model": "chaosmod:olive_sapling" },
+    "stage=1,type=snowy_plank": { "model": "chaosmod:snowy_sapling" },
+    "stage=1,type=maple_plank": { "model": "chaosmod:maple_sapling" },
+    "stage=1,type=ender_plank": { "model": "chaosmod:ender_sapling" },
+    "stage=1,type=olive_plank": { "model": "chaosmod:olive_sapling" }
+  }
+}

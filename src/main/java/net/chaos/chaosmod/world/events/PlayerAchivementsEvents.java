@@ -18,10 +18,11 @@ public class PlayerAchivementsEvents {
 		EntityPlayer player = event.getEntityPlayer();
 		World world = player.getEntityWorld();
 		int count = 2;
+		System.out.println(event.getAdvancement().getId().toString());
 		
-		if (event.getAdvancement().getId().toString() == "chaosmod:harvest_reward" && !world.isRemote) {
+		if (event.getAdvancement().getId().toString().equals("chaosmod:harvest_reward") && !world.isRemote) {
 			if (player.inventory.addItemStackToInventory(new ItemStack(ModItems.OXONIUM_INGOT, count))) {
-				
+				System.out.println("Gifted with 2 oxonium_ingot");
 			} else {
 				EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.OXONIUM_INGOT, count));
 				if (!world.isRemote && world.spawnEntity(entity)) {

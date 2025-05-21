@@ -52,6 +52,8 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
 	public EntityMountainGiantBoss(World worldIn) {
 		super(worldIn);
 		this.isImmuneToFire = true;
+		this.noClip = false;
+		this.setNoGravity(false);
 		bossInfo = new BossInfoServer(getDisplayName(), Color.BLUE, Overlay.PROGRESS);
 		this.bossInfo.setName(this.getDisplayName());
 		this.setSize(1.5f, 3);
@@ -70,19 +72,6 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
 		super.entityInit();
 		this.dataManager.register(SWINGING_ARMS, false);
 	}
-	
-	/*@Override
-	protected void initEntityAI() {
-		// this.tasks.addTask(1, new CustomAITest(this, 1.0f));
-		this.tasks.addTask(0, new EntityAISwimming(this));
-		// this.tasks.addTask(1, new EntityAIEscapeWater(this, 1.2D));
-	    this.tasks.addTask(1, new EntityAIWander(this, 1.0D));
-	    this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 25.0F));
-	    this.tasks.addTask(3, new EntityAILookIdle(this));
-	    this.tasks.addTask(4, new EntityAIAttackMelee(this, 0.3, false));
-        this.targetTasks.addTask(5, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPlayer.class, EntityZombie.class}));
-	}*/
 	
 	@Override
     protected void initEntityAI()
@@ -170,6 +159,11 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
         if (!world.isRemote) {
         	this.motionY = 0.02D; // Constant upward motion
         	this.posY += this.motionY;
+        }
+        
+        if (this.deathTime == 1) {
+        	this.noClip = true;
+        	this.setNoGravity(true);
         }
 
         if (this.deathTime >= 200)

@@ -25,7 +25,6 @@ public class CustomPlanks extends Block implements IHasModel {
 		super(material);
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(ModTabs.GENERAL_TAB);
 		this.setDefaultState(
 			this.blockState.getBaseState().withProperty(VARIANT, CustomPlankVariant.SNOWY));
 										  

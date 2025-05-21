@@ -2,7 +2,7 @@ package net.chaos.chaosmod.entity.projectile.render;
 
 import org.lwjgl.opengl.GL11;
 
-import net.chaos.chaosmod.entity.projectile.EntityRock;
+import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -12,20 +12,20 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import util.Reference;
 
-public class EntityRockRenderer extends Render<EntityRock> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/projectile/rock.png");
+public class EntityMenhirRenderer extends Render<EntityMenhir>{
+	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/projectile/menhir.png");
 
-	public EntityRockRenderer(RenderManager renderManager) {
+	public EntityMenhirRenderer(RenderManager renderManager) {
 		super(renderManager);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(EntityRock entity) {
+	protected ResourceLocation getEntityTexture(EntityMenhir entity) {
 		return TEXTURE;
 	}
 	
 	@Override
-	public void doRender(EntityRock entity, double x, double y, double z, float entityYaw, float partialTicks) {
+	public void doRender(EntityMenhir entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		GlStateManager.pushMatrix();
 	    this.bindEntityTexture(entity); // Your custom blue fireball texture
 	    GlStateManager.translate((float)x, (float)y, (float)z);
@@ -69,4 +69,5 @@ public class EntityRockRenderer extends Render<EntityRock> {
 	    
 	    super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
+
 }

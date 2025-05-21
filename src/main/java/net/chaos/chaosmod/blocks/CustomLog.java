@@ -1,9 +1,12 @@
 package net.chaos.chaosmod.blocks;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
-import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -14,6 +17,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import util.IHasModel;
 
 public class CustomLog extends BlockLog implements IHasModel {
@@ -22,7 +27,6 @@ public class CustomLog extends BlockLog implements IHasModel {
 	public CustomLog(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(ModTabs.GENERAL_TAB);
 		this.setDefaultState(
 			this.blockState.getBaseState().withProperty(VARIANT, CustomLogVariant.SNOWY).withProperty(LOG_AXIS, EnumAxis.Y));
 										  
@@ -69,6 +73,26 @@ public class CustomLog extends BlockLog implements IHasModel {
 		for (CustomLogVariant type : CustomLogVariant.values()) {
 			Main.proxy.registerVariantRenderer(Item.getItemFromBlock(this), type.getMeta(), type.getName(), "inventory");
 		}
+	}
+	
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return super.getItemDropped(state, rand, fortune);
+	}
+	
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state,
+			int fortune) {
+		// TODO Auto-generated method stub
+		super.getDrops(drops, world, pos, state, fortune);
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		List<ItemStack> drops = new ArrayList<>();
+	    int meta = this.getMetaFromState(state) - 4;
+	    drops.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));
+	    return drops;
 	}
 	
 	public enum CustomLogVariant implements IStringSerializable {

@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.entity.ai;
 
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
+import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
@@ -79,14 +80,27 @@ public class EntityAICustomRangedAttack extends EntityAIBase {
                 ((IRangedAttackMob) this.entity).setSwingingArms(true);
 
                 // Fire the projectile
-                EntityRock rock = new EntityRock(this.entity.world, this.entity);
-                double dx = target.posX - this.entity.posX;
-                double dy = target.getEntityBoundingBox().minY + (double)(target.height / 2.0F) - rock.posY;
-                double dz = target.posZ - this.entity.posZ;
-                float f = MathHelper.sqrt(dx * dx + dz * dz) * 0.2F;
+                if (this.entity.getHealth() >= (this.entity.getMaxHealth() / 2)) {
+                	EntityRock rock = new EntityRock(this.entity.world, this.entity);
+                	double dx = target.posX - this.entity.posX;
+                	double dy = target.getEntityBoundingBox().minY + (double)(target.height / 2.0F) - rock.posY;
+                	double dz = target.posZ - this.entity.posZ;
+                	float f = MathHelper.sqrt(dx * dx + dz * dz) * 0.2F;
 
-                rock.shoot(dx, dy + f, dz, 1.6F, 8.0F);
-                this.entity.world.spawnEntity(rock);
+                	rock.shoot(dx, dy + f, dz, 1.6F, 8.0F);
+                	this.entity.world.spawnEntity(rock);
+                } else if (this.entity.getHealth() >= (this.entity.getMaxHealth() / 9) && this.entity.getHealth() < (this.entity.getMaxHealth() / 2)) {
+                	EntityMenhir menhir = new EntityMenhir(this.entity.world, this.entity);
+                	double dx = target.posX - this.entity.posX;
+                	double dy = target.getEntityBoundingBox().minY + (double)(target.height / 2.0F) - menhir.posY;
+                	double dz = target.posZ - this.entity.posZ;
+                	float f = MathHelper.sqrt(dx * dx + dz * dz) * 0.2F;
+
+                	menhir.shoot(dx, dy + f, dz, 1.6F, 8.0F);
+                	this.entity.world.spawnEntity(menhir);
+                } else {
+                	
+                }
             }
         }
     }

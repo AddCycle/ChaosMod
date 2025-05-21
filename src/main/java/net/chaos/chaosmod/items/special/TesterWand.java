@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.items.special;
 
+import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.chaos.chaosmod.items.ItemBase;
@@ -51,11 +52,9 @@ public class TesterWand extends ItemBase {
 					worldIn.spawnEntity(fireball);
 					break;
 				case 2:
-					if (!worldIn.isRemote) {
-			            BlockPos pos = playerIn.getPosition().add(0, 0, 0);
-			            System.out.println("Generating ?");
-			            // DungeonGenerator.generate(worldIn, pos);
-			        }
+					EntityMenhir menhir = new EntityMenhir(worldIn, playerIn);
+					menhir.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.0F, 1.0F);
+					worldIn.spawnEntity(menhir);
 					break;
 				default:
 					break;
