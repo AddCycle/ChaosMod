@@ -55,7 +55,7 @@ public class ModBlocks {
 	public static final Block CUSTOM_PLANK = new CustomPlanks("custom_plank", Material.WOOD);
 	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
 	public static final Block CUSTOM_SAPLINGS = new CustomBlockSapling("custom_sapling", Material.PLANTS);
-	public static final Block CUSTOM_GRASS = new BlockBrightGrass();
+	// public static final Block CUSTOM_GRASS = new BlockBrightGrass();
 	public static final Block LANTERN = new BlockLantern("lantern");
 	public static final Block CONNECTED_BLOCK = new ConnectedBlock("connected_block", Material.IRON);
 	public static final Block COOKIE_JAR = new CookieJarBlock("cookie_jar");

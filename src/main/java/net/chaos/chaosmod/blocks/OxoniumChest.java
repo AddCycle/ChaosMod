@@ -98,7 +98,7 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        if (source.getBlockState(pos.north()).getBlock() == this)
+        /*if (source.getBlockState(pos.north()).getBlock() == this)
         {
             return NORTH_CHEST_AABB;
         }
@@ -113,22 +113,23 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
         else
         {
             return source.getBlockState(pos.east()).getBlock() == this ? EAST_CHEST_AABB : NOT_CONNECTED_AABB;
-        }
+        }*/
+    	return NOT_CONNECTED_AABB;
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        this.checkForSurroundingChests(worldIn, pos, state);
+        // this.checkForSurroundingChests(worldIn, pos, state);
 
         for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
         {
             BlockPos blockpos = pos.offset(enumfacing);
             IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-            if (iblockstate.getBlock() == this)
+            /*if (iblockstate.getBlock() == this)
             {
                 this.checkForSurroundingChests(worldIn, blockpos, iblockstate);
-            }
+            }*/
         }
     }
 
@@ -141,20 +142,17 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
     {
         EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor((double)(placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3).getOpposite();
         state = state.withProperty(FACING, enumfacing);
-        BlockPos blockpos = pos.north();
+        /*BlockPos blockpos = pos.north();
         BlockPos blockpos1 = pos.south();
         BlockPos blockpos2 = pos.west();
         BlockPos blockpos3 = pos.east();
         boolean flag = this == worldIn.getBlockState(blockpos).getBlock();
         boolean flag1 = this == worldIn.getBlockState(blockpos1).getBlock();
         boolean flag2 = this == worldIn.getBlockState(blockpos2).getBlock();
-        boolean flag3 = this == worldIn.getBlockState(blockpos3).getBlock();
+        boolean flag3 = this == worldIn.getBlockState(blockpos3).getBlock();*/
 
-        if (!flag && !flag1 && !flag2 && !flag3)
-        {
-            worldIn.setBlockState(pos, state, 3);
-        }
-        else if (enumfacing.getAxis() != EnumFacing.Axis.X || !flag && !flag1)
+        worldIn.setBlockState(pos, state, 3);
+        /*if (enumfacing.getAxis() != EnumFacing.Axis.X || !flag && !flag1)
         {
             if (enumfacing.getAxis() == EnumFacing.Axis.Z && (flag2 || flag3))
             {
@@ -182,7 +180,7 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
             }
 
             worldIn.setBlockState(pos, state, 3);
-        }
+        }*/
 
         if (stack.hasDisplayName())
         {
@@ -197,7 +195,7 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
 
     public IBlockState checkForSurroundingChests(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (worldIn.isRemote)
+        /*if (worldIn.isRemote)
         {
             return state;
         }
@@ -283,12 +281,13 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
             state = state.withProperty(FACING, enumfacing);
             worldIn.setBlockState(pos, state, 3);
             return state;
-        }
+        }*/
+    	return state;
     }
 
     public IBlockState correctFacing(World worldIn, BlockPos pos, IBlockState state)
     {
-        EnumFacing enumfacing = null;
+        /*EnumFacing enumfacing = null;
 
         for (EnumFacing enumfacing1 : EnumFacing.Plane.HORIZONTAL)
         {
@@ -335,7 +334,8 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
             }
 
             return state.withProperty(FACING, enumfacing2);
-        }
+        }*/
+    	return state;
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
@@ -392,7 +392,7 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
 
     private boolean isDoubleChest(World worldIn, BlockPos pos)
     {
-        if (worldIn.getBlockState(pos).getBlock() != this)
+        /*if (worldIn.getBlockState(pos).getBlock() != this)
         {
             return false;
         }
@@ -407,7 +407,8 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
             }
 
             return false;
-        }
+        }*/
+    	return false;
     }
 
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
@@ -446,7 +447,6 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
 
             if (ilockablecontainer != null)
             {
-                // playerIn.displayGUIChest(ilockablecontainer);
             	playerIn.displayGUIChest(ilockablecontainer);
 
                 if (this.chestType == OxoniumChest.Type.BASIC)
@@ -493,7 +493,7 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
                     BlockPos blockpos = pos.offset(enumfacing);
                     Block block = worldIn.getBlockState(blockpos).getBlock();
 
-                    if (block == this)
+                    /*if (block == this)
                     {
                         if (!allowBlocking && this.isBlocked(worldIn, blockpos)) // Forge: fix MC-99321
                         {
@@ -513,7 +513,7 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
                                 ilockablecontainer = new InventoryLargeChest("container.chestDouble", (TileEntityOxoniumChest)tileentity1, ilockablecontainer);
                             }
                         }
-                    }
+                    }*/
                 }
 
                 return ilockablecontainer;

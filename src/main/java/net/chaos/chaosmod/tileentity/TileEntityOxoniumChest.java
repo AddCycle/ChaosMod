@@ -174,7 +174,7 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
 
     public void checkForAdjacentChests()
     {
-        if (!this.adjacentChestChecked)
+        /*if (!this.adjacentChestChecked)
         {
             if (this.world == null || !this.world.isAreaLoaded(this.pos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbors
             this.adjacentChestChecked = true;
@@ -182,7 +182,7 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
             this.adjacentChestXPos = this.getAdjacentChest(EnumFacing.EAST);
             this.adjacentChestZNeg = this.getAdjacentChest(EnumFacing.NORTH);
             this.adjacentChestZPos = this.getAdjacentChest(EnumFacing.SOUTH);
-        }
+        }*/
     }
 
     @Nullable

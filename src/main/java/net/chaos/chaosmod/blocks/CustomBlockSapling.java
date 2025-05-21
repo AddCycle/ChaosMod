@@ -24,6 +24,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -48,12 +49,14 @@ public class CustomBlockSapling extends BlockBush implements IHasModel, IGrowabl
         // this.setCreativeTab(CreativeTabs.DECORATIONS);
 		
 		ModBlocks.BLOCKS.add(this);
-		ModItems.ITEMS.add(new ItemBlockLeaves(this).setRegistryName(this.getRegistryName()));
+		ModItems.ITEMS.add(new ItemBlockSapling(this).setRegistryName(this.getRegistryName()));
 	}
 
 	@Override
 	public void registerModels() {
-		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+		for (CustomSaplingVariant type : CustomSaplingVariant.values()) {
+			Main.proxy.registerVariantRenderer(Item.getItemFromBlock(this), type.getMeta(), type.getName(), "inventory");
+		}
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -320,6 +323,30 @@ public class CustomBlockSapling extends BlockBush implements IHasModel, IGrowabl
         treeMap.put(CustomPlanks.CustomPlankVariant.MAPLE, new WorldGenCustomTree(((CustomLog) ModBlocks.CUSTOM_LOG).getStateFromMeta(1), ((CustomLeaves) ModBlocks.CUSTOM_LEAVES).getStateFromMeta(1), Blocks.AIR.getDefaultState()));
         treeMap.put(CustomPlanks.CustomPlankVariant.ENDER, new WorldGenCustomTree(((CustomLog) ModBlocks.CUSTOM_LOG).getStateFromMeta(2), ((CustomLeaves) ModBlocks.CUSTOM_LEAVES).getStateFromMeta(2), Blocks.AIR.getDefaultState()));
         treeMap.put(CustomPlanks.CustomPlankVariant.OLIVE, new WorldGenCustomTree(((CustomLog) ModBlocks.CUSTOM_LOG).getStateFromMeta(3), ((CustomLeaves) ModBlocks.CUSTOM_LEAVES).getStateFromMeta(3), Blocks.AIR.getDefaultState()));
+    }
+    
+    public enum CustomSaplingVariant implements IStringSerializable {
+        SNOWY(0, "snowy_sapling"),
+        MAPLE(1, "maple_sapling"),
+        ENDER(2, "ender_sapling"),
+        OLIVE(3, "olive_sapling");
+
+        private final String name;
+        private final int meta;
+
+        CustomSaplingVariant(int meta, String name) {
+            this.name = name;
+            this.meta = meta;
+        }
+
+		@Override
+		public String getName() {
+			return this.name;
+		}
+		
+		public int getMeta() {
+			return this.meta;
+		}
     }
 
 }
