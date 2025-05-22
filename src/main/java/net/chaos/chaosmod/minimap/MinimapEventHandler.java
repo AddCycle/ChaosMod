@@ -33,7 +33,36 @@ public class MinimapEventHandler {
     }
 	
 	private static void drawMap(ScaledResolution resolution) {
-        // Cache player position locally
+		Minecraft mc = Minecraft.getMinecraft();
+	    int mapSize = 100;
+	    int pixelSize = 5;
+
+	    Renderer.MapData mapData = Renderer.getMapBlockColorsAndHeights(mc.player.getPosition(), mapSize);
+	    int[][] colors = mapData.colors;
+	    int[][] heights = mapData.heights;
+
+	    for (int i = 0; i < mapSize; i++) {
+	        for (int j = 0; j < mapSize; j++) {
+	            int height = heights[i][j];
+	            int baseColor = colors[i][j];
+
+	            // Compare with north-west neighbor
+	            int neighborI = Math.max(0, i - 1);
+	            int neighborJ = Math.max(0, j - 1);
+	            int neighborHeight = heights[neighborI][neighborJ];
+
+	            int diff = height - neighborHeight;
+	            float brightness = 1.0f + (diff * 0.1f); // adjust multiplier to tune effect
+	            brightness = Math.max(0.5f, Math.min(1.5f, brightness)); // clamp
+
+	            int shadedColor = Renderer.applyBrightness(baseColor, brightness);
+
+	            // Flip vertically for north-facing up
+	            int flippedJ = mapSize - j - 1;
+	            Renderer.drawPixel(resolution, pixelSize, i, flippedJ, shadedColor);
+	        }
+	    }
+        /*// Cache player position locally
         final BlockPos playerPos = mc.player.getPosition();
 
         // Get colors once (potentially heavy)
@@ -51,7 +80,7 @@ public class MinimapEventHandler {
                 Renderer.drawPixel(resolution, pixelSize, flippedX, flippedY, cachedColors[x][y]);
                 // Renderer.drawPixel(resolution, pixelSize, x, y, rowColors[y]);
             }
-        }
+        }*/
         
         Renderer.drawTransparentMap(resolution, pixelSize);
         drawArrow(resolution, MAP_SIZE, pixelSize);

@@ -205,6 +205,45 @@ public class Renderer {
         tessellator.draw();
     }
     
+    public static class MapData {
+        public final int[][] colors;
+        public final int[][] heights;
+
+        public MapData(int[][] colors, int[][] heights) {
+            this.colors = colors;
+            this.heights = heights;
+        }
+    }
+
+    public static MapData getMapBlockColorsAndHeights(BlockPos playerPos, int mapSize) {
+        Minecraft mc = Minecraft.getMinecraft();
+        int[][] heights = new int[mapSize][mapSize];
+        int[][] colors = new int[mapSize][mapSize];
+
+        for (int dx = -mapSize / 2; dx < mapSize / 2; dx++) {
+            for (int dz = -mapSize / 2; dz < mapSize / 2; dz++) {
+                int x = dx + mapSize / 2;
+                int z = dz + mapSize / 2;
+                int worldX = playerPos.getX() + dx;
+                int worldZ = playerPos.getZ() + dz;
+                int worldY = mc.world.getHeight(worldX, worldZ);
+                BlockPos pos = new BlockPos(worldX, worldY - 1, worldZ);
+
+                heights[x][z] = worldY;
+                colors[x][z] = mc.world.getBlockState(pos).getMaterial().getMaterialMapColor().colorValue;
+            }
+        }
+        return new MapData(colors, heights);
+    }
+    
+    public static int applyBrightness(int color, float brightness) {
+        Color c = new Color(color);
+        int r = Math.min(255, Math.max(0, (int)(c.getRed() * brightness)));
+        int g = Math.min(255, Math.max(0, (int)(c.getGreen() * brightness)));
+        int b = Math.min(255, Math.max(0, (int)(c.getBlue() * brightness)));
+        return new Color(r, g, b).getRGB();
+    }
+    
     public static void drawPlayerArrow(ScaledResolution resolution, int centerX, int centerY, float angleDegrees, int color) {
     	GlStateManager.pushMatrix();
         GlStateManager.disableTexture2D(); // Prevent texture bleed
