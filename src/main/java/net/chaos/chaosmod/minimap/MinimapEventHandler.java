@@ -42,7 +42,21 @@ public class MinimapEventHandler {
     }
 	
 	private static void draw(ScaledResolution resolution) {
-        Renderer.drawTransparentSprite(resolution);
+        /*Renderer.drawTransparentBackground(resolution);
+        Renderer.drawTransparentMap(resolution);
+        Renderer.drawMinimap(40, 40, 36);*/
+		int[][] cachedColors = Renderer.getMapBlockColors(mc.player.getPosition(), 10);
+		for (int i = 0; i < 10; i++) {
+		    for (int j = 0; j < 10; j++) {
+		        Renderer.drawPixel(resolution, 30, i, j, cachedColors[i][j]);
+		    }
+		}
+		// TODO: remove previous
+		/*for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				Renderer.drawPixel(resolution, 30, i, j);
+			}
+		}*/
         // Renderer.drawModel(resolution);
     }
 
