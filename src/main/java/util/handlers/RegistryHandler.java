@@ -3,6 +3,8 @@ package util.handlers;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.init.ModPotionTypes;
+import net.chaos.chaosmod.init.ModPotions;
 import net.chaos.chaosmod.potion.PotionVikingFriend;
 import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
 import net.minecraft.block.Block;
@@ -13,6 +15,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -61,8 +64,14 @@ public class RegistryHandler {
 	@SubscribeEvent
 	public static void onPotionRegister(RegistryEvent.Register<Potion> event) {
 		System.out.println("R - POTION");
-		event.getRegistry().register(new PotionVikingFriend(false, 0x0000ff));
+		event.getRegistry().register(ModPotions.POTION_VIKING);
 	}
+	
+	@SubscribeEvent
+    public static void registerPotionTypes(RegistryEvent.Register<PotionType> event) {
+		System.out.println("R - POTIONTYPE");
+        event.getRegistry().register(ModPotionTypes.VIKING_FRIEND_TYPE);
+    }
 	
 	@SubscribeEvent
     public static void onBiomeRegister(RegistryEvent.Register<Biome> event) {

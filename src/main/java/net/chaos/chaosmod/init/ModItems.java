@@ -112,4 +112,7 @@ public class ModItems {
 	public static final Item GIANT_HEART = new ItemHeart("giant_heart");
 	public static final Item BLAZING_HEART = new ItemHeart("blazing_heart");
 	public static final Item CHAOS_HEART = new ItemHeart("chaos_heart");
+	
+	// Potions
+	// public static final Item VIKING_FRIEND_POTION = new VikingFriendPotion("viking_friend");
 }
