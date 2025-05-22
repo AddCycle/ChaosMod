@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
 
+import net.chaos.chaosmod.config.ModConfig;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -46,6 +47,8 @@ public class Renderer {
     }
  
     public static void drawTransparentBackground(ScaledResolution resolution) {
+    	GlStateManager.pushMatrix();
+    	GlStateManager.disableTexture2D();
         Minecraft.getMinecraft().getTextureManager().bindTexture(transparentBackground);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
@@ -58,20 +61,25 @@ public class Renderer {
         buffer.pos(w, h,0).tex(1f, 1f).color(1f, 1f, 1f, 1f).endVertex();
         buffer.pos(w,0,0).tex(1f, 0).color(1f, 1f, 1f, 1f).endVertex();
         tessellator.draw();
+        GlStateManager.enableTexture2D();
+        GlStateManager.popMatrix();
     }
 
     public static void drawTransparentMap(ScaledResolution resolution, int pixelSize) {
+    	GlStateManager.pushMatrix();
+    	int sizeOverlayConfig = ModConfig.minimapSize;
         Minecraft.getMinecraft().getTextureManager().bindTexture(transparentMap);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-        float w = (WIDTH * (pixelSize - 3)) / ((float)resolution.getScaleFactor());
-        float h = (HEIGHT * (pixelSize - 3)) / ((float)resolution.getScaleFactor());
+        float w = (WIDTH * (pixelSize - 3)) / ((float)resolution.getScaleFactor()) - 1 + sizeOverlayConfig;
+        float h = (HEIGHT * (pixelSize - 3)) / ((float)resolution.getScaleFactor()) - 1 + sizeOverlayConfig;
         buffer.pos(0,0,0).tex(0, 0).color(1f, 1f, 1f, 1f).endVertex();
         buffer.pos(0,h,0).tex(0, 1f).color(1f, 1f, 1f, 1f).endVertex();
         buffer.pos(w, h,0).tex(1f, 1f).color(1f, 1f, 1f, 1f).endVertex();
         buffer.pos(w,0,0).tex(1f, 0).color(1f, 1f, 1f, 1f).endVertex();
         tessellator.draw();
+        GlStateManager.popMatrix();
     }
  
     public static void drawModel(ScaledResolution resolution) {
@@ -188,6 +196,11 @@ public class Renderer {
         int g = (color >> 8) & 0xFF;
         int b = color & 0xFF;
 
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.disableTexture2D(); // Only if you're drawing raw colors (no textures)
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
@@ -203,6 +216,9 @@ public class Renderer {
         buffer.pos(x + pixel, y, 0).color(r, g, b, 255).endVertex();
 
         tessellator.draw();
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.popMatrix();
     }
     
     public static class MapData {
@@ -264,10 +280,10 @@ public class Renderer {
         BufferBuilder buffer = tessellator.getBuffer();
         buffer.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION_COLOR);
 
-        float size = 4.5f;
-        buffer.pos(0, -size, 0).color(r, g, b, 255).endVertex();   // Tip
-        buffer.pos(-size * 0.6f, size * 0.6f, 0).color(r, g, b, 255).endVertex(); // Left
-        buffer.pos(size * 0.6f, size * 0.6f, 0).color(r, g, b, 255).endVertex();  // Right
+        float size = 3f;
+        buffer.pos(0, size * 1.7f, 0).color(r, g, b, 255).endVertex();   // Tip
+        buffer.pos(size, -size, 0).color(r, g, b, 255).endVertex(); // Left
+        buffer.pos(-size, -size, 0).color(r, g, b, 255).endVertex();  // Right
 
         tessellator.draw();
 

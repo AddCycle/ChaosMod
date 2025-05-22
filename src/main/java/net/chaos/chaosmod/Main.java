@@ -18,6 +18,7 @@ import net.chaos.chaosmod.commands.LocalizeCommand;
 import net.chaos.chaosmod.commands.SetHomeCommand;
 import net.chaos.chaosmod.commands.TopCommand;
 import net.chaos.chaosmod.commands.generation.LoadStructCommand;
+import net.chaos.chaosmod.config.ModConfig;
 import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
@@ -68,7 +69,7 @@ import util.handlers.CommandMessageHandler;
 import util.handlers.PlayerInHandler;
 import util.handlers.RegistryHandler;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = "net.chaos.chaosmod.config.ModGuiFactory")
 public class Main
 {
 	// Helps launch the ChaosMod
@@ -95,6 +96,7 @@ public class Main
         proxy.preInit(event);
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
+    	ModConfig.init(event.getSuggestedConfigurationFile());
         ModCapabilities.register(); // for necklace and other things
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         // OreDictionary.registerOre("ingotEnderite", new ItemStack(ModItems.ENDERITE_INGOT));

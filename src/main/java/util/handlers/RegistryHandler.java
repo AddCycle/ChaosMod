@@ -5,9 +5,9 @@ import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotionTypes;
 import net.chaos.chaosmod.init.ModPotions;
-import net.chaos.chaosmod.potion.PotionVikingFriend;
 import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -21,9 +21,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import util.IHasModel;
 
@@ -112,6 +115,22 @@ public class RegistryHandler {
 	        ResourceLocation recipeID = new ResourceLocation("chaosmod", "forge_wall_recipe_" + dmg);
 	        recipe.setRegistryName(recipeID);
 	        registry.register(recipe);
+	    }
+	    
+	    if (Loader.isModLoaded("mathsmod")) {
+	        // Item JeanRobertPerezItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("mathsmod", "mathsmod:rainbow_layer"));
+	        Item JeanRobertPerezItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("mathsmod", "kurayum_ingot"));
+	        if (JeanRobertPerezItem != null) {
+	        	ShapedOreRecipe recipe = new ShapedOreRecipe(
+	                    new ResourceLocation("chaosmod", "collab_recipe1"), // registry name
+	                    new ItemStack(ModItems.CHAOS_HEART), // result
+	                    " I ", "ICI", " I ",
+	                    'I', JeanRobertPerezItem,
+	                    'C', new ItemStack(Items.DIAMOND)
+	                );
+	                recipe.setRegistryName(new ResourceLocation("chaosmod", "collab_recipe1"));
+	                ForgeRegistries.RECIPES.register(recipe);
+	        }
 	    }
 	}
 	

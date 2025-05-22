@@ -1,29 +1,31 @@
 package net.chaos.chaosmod.minimap;
 
+import net.chaos.chaosmod.config.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public class MinimapEventHandler {
 	private static final int MAP_SIZE = 102;
     private static final int PIXEL_SIZE = 5;
-    private static final Minecraft mc = Minecraft.getMinecraft();
 	/*
 	 * TODO : Note for me later : Don't use RenderGameOverlayEvent alone use one phase : Pre, Post, Chat, BossInfo => too laggy
 	 */
 
 	@SubscribeEvent
-    public static void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
+    public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR) {
             return;
         }
+		
+		if (!ModConfig.isMinimapEnabled) return;
+
 
         // Defensive: avoid rendering if player not present or game not in focus
         if (mc.player == null || mc.isGamePaused()) {
@@ -52,48 +54,32 @@ public class MinimapEventHandler {
 	            int neighborHeight = heights[neighborI][neighborJ];
 
 	            int diff = height - neighborHeight;
-	            float brightness = 1.0f + (diff * 0.1f); // adjust multiplier to tune effect
+	            float brightness = 1.0f + (diff * 0.08f); // adjust multiplier to tune effect
 	            brightness = Math.max(0.5f, Math.min(1.5f, brightness)); // clamp
 
 	            int shadedColor = Renderer.applyBrightness(baseColor, brightness);
 
 	            // Flip vertically for north-facing up
-	            int flippedJ = mapSize - j - 1;
-	            Renderer.drawPixel(resolution, pixelSize, i, flippedJ, shadedColor);
+	            // int flippedJ = mapSize - j - 1;
+	            Renderer.drawPixel(resolution, pixelSize, i, j, shadedColor);
 	        }
 	    }
-        /*// Cache player position locally
-        final BlockPos playerPos = mc.player.getPosition();
-
-        // Get colors once (potentially heavy)
-        int[][] cachedColors = Renderer.getMapBlockColors(playerPos, MAP_SIZE);
-
-        // Precompute some constants to avoid repeated calculation in loop
-        int pixelSize = PIXEL_SIZE;
-
-        // Draw pixels in row-major order for better cache locality
-        for (int x = 0; x < MAP_SIZE; x++) {
-            int[] rowColors = cachedColors[x];
-            for (int y = 0; y < MAP_SIZE; y++) {
-            	int flippedY = MAP_SIZE - y - 1;
-            	int flippedX = MAP_SIZE - x - 1;
-                Renderer.drawPixel(resolution, pixelSize, flippedX, flippedY, cachedColors[x][y]);
-                // Renderer.drawPixel(resolution, pixelSize, x, y, rowColors[y]);
-            }
-        }*/
-        
+		if (!ModConfig.displayOverlay) return;
         Renderer.drawTransparentMap(resolution, pixelSize);
+		if (!ModConfig.displayArrow) return;
         drawArrow(resolution, MAP_SIZE, pixelSize);
         
     }
 
 	private static void drawArrow(ScaledResolution resolution, int mapSize, int pixelSize) {
+		Minecraft mc = Minecraft.getMinecraft();
 		float playerYaw = mc.player.rotationYaw;
         /*int centerX = mapSize * pixelSize / 2;
         int centerY = mapSize * pixelSize / 2;*/
         int centerX = (int)(resolution.getScaledWidth() / 2);
         int centerY = (int)(resolution.getScaledWidth() / 2);
         float angle = mc.player.rotationYaw;
+        GlStateManager.pushMatrix();
         GlStateManager.disableDepth();
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
@@ -104,6 +90,7 @@ public class MinimapEventHandler {
         GlStateManager.enableDepth();
         GlStateManager.enableAlpha();
         GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
 	}
 
 }
