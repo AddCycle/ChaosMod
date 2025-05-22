@@ -45,10 +45,12 @@ public class MinimapEventHandler {
         /*Renderer.drawTransparentBackground(resolution);
         Renderer.drawTransparentMap(resolution);
         Renderer.drawMinimap(40, 40, 36);*/
-		int[][] cachedColors = Renderer.getMapBlockColors(mc.player.getPosition(), 10);
-		for (int i = 0; i < 10; i++) {
-		    for (int j = 0; j < 10; j++) {
-		        Renderer.drawPixel(resolution, 30, i, j, cachedColors[i][j]);
+		int mapSize = 30;
+		int pixelSize = 15;
+		int[][] cachedColors = Renderer.getMapBlockColors(mc.player.getPosition(), mapSize);
+		for (int i = 0; i < mapSize; i++) {
+		    for (int j = 0; j < mapSize; j++) {
+		        Renderer.drawPixel(resolution, pixelSize, i, j, cachedColors[i][j]);
 		    }
 		}
 		// TODO: remove previous
