@@ -63,13 +63,11 @@ public class RegistryHandler {
 	
 	@SubscribeEvent
 	public static void onPotionRegister(RegistryEvent.Register<Potion> event) {
-		System.out.println("R - POTION");
-		event.getRegistry().register(ModPotions.POTION_VIKING);
+		event.getRegistry().register(ModPotions.POTION_VIKING); // registerAll() later
 	}
 	
 	@SubscribeEvent
     public static void registerPotionTypes(RegistryEvent.Register<PotionType> event) {
-		System.out.println("R - POTIONTYPE");
         event.getRegistry().register(ModPotionTypes.VIKING_FRIEND_TYPE);
     }
 	
