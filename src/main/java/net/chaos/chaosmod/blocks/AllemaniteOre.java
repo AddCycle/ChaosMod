@@ -26,18 +26,18 @@ public class AllemaniteOre extends BlockBase {
 		setResistance(15.0f);
 		setHarvestLevel("pickaxe", 3);
 		setLightLevel(17);
-		try {
+		/*try {
 			this.description = getBlockData().getDescription();
 			this.screenshots = getBlockData().getScreenshots();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
-	public GuideBlock getBlockData() throws IOException {
+	/*public GuideBlock getBlockData() throws IOException {
 		GenerateGuideContent util = new GenerateGuideContent();
 		return util.getGuideBlock(util.getFileContent("allemanite_ore"));
-	}
+	}*/
 
 	@Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {

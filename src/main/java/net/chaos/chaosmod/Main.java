@@ -23,8 +23,6 @@ import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModEntities;
-import net.chaos.chaosmod.init.ModItems;
-import net.chaos.chaosmod.minimap.MinimapEventHandler;
 import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
 import net.chaos.chaosmod.network.PacketAccessorySync;
@@ -127,7 +125,6 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
         MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerInHandler());
-        MinecraftForge.EVENT_BUS.register(new MinimapEventHandler());
         RegistryHandler.onSmeltingRegister();
         MachineRecipeRegistry.init();
         BiomeDictionary.addTypes(ModBiomes.GIANT_MOUNTAIN, BiomeDictionary.Type.MOUNTAIN);

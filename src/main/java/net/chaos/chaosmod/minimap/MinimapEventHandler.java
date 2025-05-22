@@ -6,11 +6,11 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 // FIXME : test this on server might crash due to access to Minecraft directly
 @EventBusSubscriber(Side.CLIENT)
 public class MinimapEventHandler {
-	private static final Minecraft mc = Minecraft.getMinecraft();
 	/*
 	 * TODO : Note for me later : Don't use RenderGameOverlayEvent alone use one phase : Pre, Post, Chat, BossInfo => too laggy
 	 */
@@ -42,11 +42,12 @@ public class MinimapEventHandler {
     }
 	
 	private static void draw(ScaledResolution resolution) {
+		Minecraft mc = Minecraft.getMinecraft();
         /*Renderer.drawTransparentBackground(resolution);
         Renderer.drawTransparentMap(resolution);
         Renderer.drawMinimap(40, 40, 36);*/
-		int mapSize = 30;
-		int pixelSize = 15;
+		int mapSize = 100;
+		int pixelSize = 5;
 		int[][] cachedColors = Renderer.getMapBlockColors(mc.player.getPosition(), mapSize);
 		for (int i = 0; i < mapSize; i++) {
 		    for (int j = 0; j < mapSize; j++) {

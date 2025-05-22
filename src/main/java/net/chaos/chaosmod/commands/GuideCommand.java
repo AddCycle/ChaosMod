@@ -1,39 +1,18 @@
 package net.chaos.chaosmod.commands;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.gui.GuideGui;
 import net.chaos.chaosmod.init.ModItems;
-import net.chaos.chaosmod.network.ChaosModPacketHandler;
-import net.chaos.chaosmod.network.GuideCommandMessage;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.inventory.GuiCrafting;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import proxy.ClientProxy;
-import util.Reference;
-import util.guide.GenerateGuideContent;
-import util.guide.model.block.GuideBlock;
 
 public class GuideCommand extends CommandBase implements ICommand {
 	public List<String> aliases = new ArrayList<String>();
@@ -70,7 +49,7 @@ public class GuideCommand extends CommandBase implements ICommand {
 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
+		/*EntityPlayerMP player = getCommandSenderAsPlayer(sender);
 		// EntityPlayer player_client = FMLClientHandler.instance().getClientPlayerEntity();
 		// WorldClient world = Minecraft.getMinecraft().world;
 		// World world = FMLClientHandler.instance().getWorldClient();
@@ -111,6 +90,6 @@ public class GuideCommand extends CommandBase implements ICommand {
 			player.sendMessage(new TextComponentString("good : not remote"));
 			is_open = true;
 		}
-		player.sendMessage(new TextComponentString("gui opened"));
+		player.sendMessage(new TextComponentString("gui opened"));*/
 	}
 }

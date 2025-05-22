@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -110,9 +111,9 @@ public class ModWorldGen implements IWorldGenerator {
 			 /* if (biome instanceof BiomePlains && world.isAirBlock(flowerPos) && ModBlocks.MY_FLOWER.canPlaceBlockAt(world, flowerPos))
              */
              if (meta == 0) {
-            	 if (biome.getBiomeName().equals("Giant Mountains")) {
+            	 ResourceLocation biomeId = Biome.REGISTRY.getNameForObject(biome);
+            	 if (biomeId != null && biomeId.toString().equals("chaosmod:giant_mountains")) {
             		 if (world.isAirBlock(flowerPos) && ModBlocks.CUSTOM_FLOWER.canPlaceBlockAt(world, flowerPos)) {
-            			 System.out.println("GENERATING PLANT AT CUSTOM BIOME : " + flowerPos + " | state : " + flowerState);
             			 world.setBlockState(flowerPos, flowerState, 2);
             		 }
             	 } else {
@@ -121,36 +122,9 @@ public class ModWorldGen implements IWorldGenerator {
              }
             	 
              if (world.isAirBlock(flowerPos) && ModBlocks.CUSTOM_FLOWER.canPlaceBlockAt(world, flowerPos)) {
-            	 System.out.println("GENERATING PLANT AT : " + flowerPos + " | state : " + flowerState);
             	 world.setBlockState(flowerPos, flowerState, 2);
              }
         }
     }
-
-    /*private void generateRandomFlowers(World world, Random rand, int x, int z) {
-    	FlowerType randomVariant = FlowerType.values()[rand.nextInt(FlowerType.values().length)];
-
-    	// Set block state with the random variant
-    	IBlockState flowerState = ModBlocks.CUSTOM_FLOWER.getDefaultState().withProperty(BlockCustomFlower.type, randomVariant);
-        BlockPos pos = new BlockPos(x + rand.nextInt(16), 0, z + rand.nextInt(16));
-        BlockPos topPos = world.getHeight(pos); // Get highest non-air block
-
-        for (int i = 0; i < 4; i++) { // number of tries
-            int offsetX = x + rand.nextInt(16);
-            int offsetZ = z + rand.nextInt(16);
-            int offsetY = topPos.getY();
-            // int offsetY = rand.nextInt(topPos.getY());
-
-            BlockPos flowerPos = new BlockPos(offsetX, offsetY, offsetZ);
-            /* Biome specific gen
-             * Biome biome = world.getBiome(flowerPos);
-			 * if (biome instanceof BiomePlains && world.isAirBlock(flowerPos) && ModBlocks.MY_FLOWER.canPlaceBlockAt(world, flowerPos))
-             *
-            if (world.isAirBlock(flowerPos) && ModBlocks.CUSTOM_FLOWER.canPlaceBlockAt(world, flowerPos)) {
-            	System.out.println("GENERATING PLANT AT : " + flowerPos + " | state : " + flowerState);
-                world.setBlockState(flowerPos, flowerState, 2);
-            }
-        }
-    }*/
 
 }
