@@ -27,6 +27,7 @@ import net.chaos.chaosmod.blocks.decoration.BlockLantern;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
 import net.chaos.chaosmod.blocks.decoration.MineralBricks;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.text.TextFormatting;
 
@@ -45,9 +46,9 @@ public class ModBlocks {
 	public static final Block ALLEMANITE_BLOCK = new AllemaniteBlock("allemanite_block", Material.IRON);
 	public static final Block OXONIUM_CHEST = new OxoniumChest("oxonium_chest", OxoniumChest.Type.BASIC); // or TRAP
 	public static final Block BOSS_ALTAR = new BossAltar("boss_altar", Material.ROCK);
-	public static final Block OXONIUM_BRICKS = new MineralBricks("oxonium_bricks", Material.ROCK, TextFormatting.DARK_BLUE, "You want to build ?");
-	public static final Block ALLEMANITE_BRICKS = new MineralBricks("allemanite_bricks", Material.ROCK, TextFormatting.RED, "Well go on...");
-	public static final Block ENDERITE_BRICKS = new MineralBricks("enderite_bricks", Material.ROCK, TextFormatting.DARK_PURPLE, "You will need this to relax after what you have been through");
+	public static final Block OXONIUM_BRICKS = new MineralBricks("oxonium_bricks", new Material(MapColor.BLUE), TextFormatting.DARK_BLUE, "You want to build ?");
+	public static final Block ALLEMANITE_BRICKS = new MineralBricks("allemanite_bricks", new Material(MapColor.PINK), TextFormatting.RED, "Well go on...");
+	public static final Block ENDERITE_BRICKS = new MineralBricks("enderite_bricks", new Material(MapColor.PURPLE), TextFormatting.DARK_PURPLE, "You will need this to relax after what you have been through");
 	public static final Block FORGE_INTERFACE_BLOCK = new ForgeInterfaceBlock("forge_interface_block", Material.IRON);
 	public static final Block FORGE_WALLS = new EnderiteForgeWalls("enderite_forge_walls", ModItems.BLOCK_MATERIAL_ENDERITE);
 	public static final Block CUSTOM_FLOWER = new BlockCustomFlower("custom_flower");
