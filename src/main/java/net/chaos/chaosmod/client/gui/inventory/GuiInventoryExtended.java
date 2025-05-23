@@ -5,15 +5,17 @@ import java.util.Collection;
 
 import net.chaos.chaosmod.client.inventory.ContainerAccessory;
 import net.chaos.chaosmod.client.inventory.SlotAccessory;
+import net.chaos.chaosmod.init.ModSounds;
+import net.chaos.chaosmod.sound.ClientSoundHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -26,6 +28,11 @@ public class GuiInventoryExtended extends GuiInventory {
 	private boolean showAccessorySlot = false;
     private GuiButton toggleButton;
 	private Slot hoveredSlot;
+
+	// ############# Music management ################
+	// private ISound currentMusic = null;
+	// private boolean isMusicPlaying = false;
+	// Handled see : sound.ClientSoundHandler.java
 
 	public GuiInventoryExtended(EntityPlayer player) {
         super(player);
@@ -74,8 +81,10 @@ public class GuiInventoryExtended extends GuiInventory {
         			this.drawCenteredString(fontrenderer, this.displayString, this.x + this.width / 2, this.y + (this.height - 8) / 2, j);
         		}
         		// super.drawButton(mc, mouseX, mouseY, partialTicks);
+
         	}
         });
+        this.addButton(new GuiButton(100, this.guiLeft + 140, this.guiTop + 5, 30, 20, "P")); // TODO : texture the button
     }
 	
 	private void resetGuiLeft()
@@ -163,12 +172,15 @@ public class GuiInventoryExtended extends GuiInventory {
     protected void actionPerformed(GuiButton button) throws IOException {
     	if (button.id == 99) {
             showAccessorySlot = !showAccessorySlot;
+        } else if (button.id == 100) {
+        	System.out.println("PLAYING MUSIC from gui");
+        	ClientSoundHandler.toggleMusic(ModSounds.PUTIN_WIDE_WALK); // FIXME : do it client-side only
         } else {
             super.actionPerformed(button);
         }
     }
 
-    private void drawCustomActivePotionEffects() {
+    /*private void drawCustomActivePotionEffects() {
         // You can copy and customize the logic from the original drawActivePotionEffects()
         // Here is a simplified example that draws potion icons and duration:
 
@@ -210,6 +222,6 @@ public class GuiInventoryExtended extends GuiInventory {
 
             y += 32;  // Move down for next effect
         }
-    }
+    }*/
 
 }

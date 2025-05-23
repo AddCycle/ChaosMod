@@ -5,11 +5,10 @@ import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotionTypes;
 import net.chaos.chaosmod.init.ModPotions;
+import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -18,6 +17,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -29,11 +29,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import util.IHasModel;
+import util.Reference;
 
 // Pour l'etape de build du mod
 @EventBusSubscriber
 public class RegistryHandler {
-	public static final Item OXONIUM_FURNACE = new ItemBlock(ModBlocks.OXONIUM_FURNACE);
 	
 	// S'occupe d'enregistrer tous les items definis dans ItemBase.java
 	@SubscribeEvent
@@ -80,18 +80,13 @@ public class RegistryHandler {
         event.getRegistry().registerAll(ModBiomes.BIOMES.toArray(new Biome[0]));
     }
 	
-	public static void fastRender(Item item) {
+	/*public static void fastRender(Item item) {
 		fastRender(item, 0);
 	}
 	
 	public static void fastRender(Item item, int meta) {
 		
-	}
-	
-	
-	public static void renderItems() {
-		fastRender(OXONIUM_FURNACE);
-	}
+	}*/
 
 	@SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
@@ -118,7 +113,6 @@ public class RegistryHandler {
 	    }
 	    
 	    if (Loader.isModLoaded("mathsmod")) {
-	        // Item JeanRobertPerezItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("mathsmod", "mathsmod:rainbow_layer"));
 	        Item JeanRobertPerezItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("mathsmod", "kurayum_ingot"));
 	        if (JeanRobertPerezItem != null) {
 	        	ShapedOreRecipe recipe = new ShapedOreRecipe(
@@ -126,13 +120,21 @@ public class RegistryHandler {
 	                    new ItemStack(ModItems.CHAOS_HEART), // result
 	                    " I ", "ICI", " I ",
 	                    'I', JeanRobertPerezItem,
-	                    'C', new ItemStack(Items.DIAMOND)
+	                    'C', new ItemStack(ModItems.ENDERITE_INGOT, 3)
 	                );
 	                recipe.setRegistryName(new ResourceLocation("chaosmod", "collab_recipe1"));
 	                ForgeRegistries.RECIPES.register(recipe);
 	        }
 	    }
 	}
+	
+	/*@SubscribeEvent
+	public void onSoundRegister(RegistryEvent.Register<SoundEvent> event) {
+		event.getRegistry().registerAll(
+				ModSounds.HIGHEST_OP,
+				ModSounds.PUTIN_WIDE_WALK
+			);
+	}*/
 	
 	public static void onSmeltingRegister() {
 		// To be able to smelt the modded items only in custom furnace oxonium or >higher

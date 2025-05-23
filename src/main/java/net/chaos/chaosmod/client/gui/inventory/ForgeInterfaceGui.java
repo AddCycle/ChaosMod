@@ -34,12 +34,22 @@ public class ForgeInterfaceGui extends GuiContainer {
 		this.xSize = 176;
         this.ySize = 166;
 	}
+	
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    {
+        this.drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+    }
 
 	@Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		Minecraft mc = Minecraft.getMinecraft();
-        this.fontRenderer.drawString(this.tileEntity.getDisplayName().getUnformattedText(), 8, 6, 4210752);
-        this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+		int initial = 4210752; // color text gui
+		int color1 = 0x0f0f01;
+        this.fontRenderer.drawString(this.tileEntity.getDisplayName().getUnformattedText(), 8, 6, color1);
+        this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, color1);
         // int offset = 22;
         int buttonSize = 20;
         int renderItemX = this.guiLeft + 24;
@@ -136,9 +146,14 @@ public class ForgeInterfaceGui extends GuiContainer {
             // Do nothing for now TODO:all_in_one_pickaxe
             break;
         default: break;
-    }
+    	}
     }
     
+    @Override
+    protected void renderHoveredToolTip(int p_191948_1_, int p_191948_2_) {
+    	// TODO Auto-generated method stub
+    	super.renderHoveredToolTip(p_191948_1_, p_191948_2_);
+    }
     
     
 }

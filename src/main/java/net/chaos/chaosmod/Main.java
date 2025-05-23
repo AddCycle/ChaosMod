@@ -24,6 +24,7 @@ import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModEntities;
+import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.network.GuideCommandMessage;
 import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
 import net.chaos.chaosmod.network.PacketAccessorySync;
@@ -97,6 +98,7 @@ public class Main
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
     	ModConfig.init(event.getSuggestedConfigurationFile());
+        ModSounds.registerSounds();
         ModCapabilities.register(); // for necklace and other things
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         // OreDictionary.registerOre("ingotEnderite", new ItemStack(ModItems.ENDERITE_INGOT));

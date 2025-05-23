@@ -1,0 +1,21 @@
+{
+  "wide_walk": {
+    "category": "ambient",
+    "subtitle": "chaosmod.music.putin_wide_walk",
+    "sounds": [
+      {
+        "name": "chaosmod:wide_walk",
+        "stream": true
+      }
+    ]
+  },
+  "highest": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "chaosmod:highest",
+        "stream": true
+      }
+    ]
+  }
+}
