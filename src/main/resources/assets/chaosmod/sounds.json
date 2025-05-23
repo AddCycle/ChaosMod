@@ -17,5 +17,23 @@
         "stream": true
       }
     ]
+  },
+  "chainsawman": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "chaosmod:chainsawman",
+        "stream": true
+      }
+    ]
+  },
+  "fire_force": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "chaosmod:fire_force",
+        "stream": true
+      }
+    ]
   }
 }

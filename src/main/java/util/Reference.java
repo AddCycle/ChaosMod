@@ -25,4 +25,5 @@ public class Reference {
 	public static final int ENTITY_ROCK = 124;
 	public static final int CHAOS_SAGE = 125;
 	public static final int ENTITY_MENHIR = 126;
+	public static final int ENTITY_EYE_BOSS = 127;
 }

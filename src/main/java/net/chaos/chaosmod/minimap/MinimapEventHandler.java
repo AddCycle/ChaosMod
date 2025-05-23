@@ -54,7 +54,7 @@ public class MinimapEventHandler {
 	            int neighborHeight = heights[neighborI][neighborJ];
 
 	            int diff = height - neighborHeight;
-	            float brightness = 1.0f + (diff * 0.08f); // adjust multiplier to tune effect
+	            float brightness = 1.0f + (diff * 0.15f); // adjust multiplier to tune effect
 	            brightness = Math.max(0.5f, Math.min(1.5f, brightness)); // clamp
 
 	            int shadedColor = Renderer.applyBrightness(baseColor, brightness);

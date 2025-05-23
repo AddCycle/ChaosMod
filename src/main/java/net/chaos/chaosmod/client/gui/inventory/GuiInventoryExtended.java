@@ -85,6 +85,9 @@ public class GuiInventoryExtended extends GuiInventory {
         	}
         });
         this.addButton(new GuiButton(100, this.guiLeft + 140, this.guiTop + 5, 30, 20, "P")); // TODO : texture the button
+        this.addButton(new GuiButton(101, this.guiLeft + 140, this.guiTop + 5 + 20 * 2, 30, 20, "C")); // TODO : texture the button
+        this.addButton(new GuiButton(102, this.guiLeft + 140, this.guiTop + 5 + 20 * 3, 30, 20, "F")); // TODO : texture the button
+        this.addButton(new GuiButton(103, this.guiLeft + 140, this.guiTop + 5 + 20 * 4, 30, 20, "H")); // TODO : texture the button
     }
 	
 	private void resetGuiLeft()
@@ -173,8 +176,17 @@ public class GuiInventoryExtended extends GuiInventory {
     	if (button.id == 99) {
             showAccessorySlot = !showAccessorySlot;
         } else if (button.id == 100) {
-        	System.out.println("PLAYING MUSIC from gui");
+        	System.out.println("PLAYING putin MUSIC");
         	ClientSoundHandler.toggleMusic(ModSounds.PUTIN_WIDE_WALK); // FIXME : do it client-side only
+        } else if (button.id == 101) {
+        	System.out.println("PLAYING chainsawman op");
+        	ClientSoundHandler.toggleMusic(ModSounds.CHAINSAWMAN_OP); // FIXME : do it client-side only
+        } else if (button.id == 102) {
+        	System.out.println("PLAYING fire force");
+        	ClientSoundHandler.toggleMusic(ModSounds.FIRE_FORCE_OP); // FIXME : do it client-side only
+        } else if (button.id == 103) {
+        	System.out.println("PLAYING highest op");
+        	ClientSoundHandler.toggleMusic(ModSounds.HIGHEST_OP); // FIXME : do it client-side only
         } else {
             super.actionPerformed(button);
         }

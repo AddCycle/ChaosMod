@@ -3,6 +3,7 @@ package net.chaos.chaosmod.init;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
+import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
@@ -23,8 +24,7 @@ public class ModEntities {
 		registerEntity("rock", EntityRock.class, Reference.ENTITY_ROCK, 50, 31, 3093247);
 		registerEntity("chaos_sage", EntityChaosSage.class, Reference.CHAOS_SAGE, 50, 31, 3093247);
 		registerEntity("menhir", EntityMenhir.class, Reference.ENTITY_MENHIR, 50, 31, 3093247);
-		// registerEntity("item_still", EntityStillItem.class, Reference.ITEM_STILL, 50, 31, 3093247);
-		// TODO : retablish before for debugging making the debug process crash TO FIXME
+		registerEntity("eye_of_truth_boss", EntityViking.class, Reference.ENTITY_EYE_BOSS, 50, 31, 3093247);
 	}
 	
 	private static void registerEntity(String name, Class<? extends Entity> entity, int id, int range, int color1, int color2) {
