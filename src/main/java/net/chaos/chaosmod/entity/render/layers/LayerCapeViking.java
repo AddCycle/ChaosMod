@@ -1,20 +1,19 @@
 package net.chaos.chaosmod.entity.render.layers;
 
-import org.lwjgl.opengl.GL11;
-
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.model.ModelViking;
 import net.chaos.chaosmod.entity.render.EntityVikingRenderer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import util.Reference;
 
 public class LayerCapeViking implements LayerRenderer<EntityViking> {
     private final EntityVikingRenderer renderViking;
+	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/viking_cape.png");
+	private static final ResourceLocation TEXTURE_ANGER = new ResourceLocation(Reference.MODID, "textures/entity/viking_angry_cape.png");
 
     public LayerCapeViking(EntityVikingRenderer renderViking) {
         this.renderViking = renderViking;
@@ -25,15 +24,15 @@ public class LayerCapeViking implements LayerRenderer<EntityViking> {
                               float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         if (!entity.isInvisible()) {
         	/*
-        	 * Vanilla one :
+        	 * Vanilla one :*/
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                this.playerRenderer.bindTexture(entitylivingbaseIn.getLocationCape());
+                this.renderViking.bindTexture(entity.angry ? TEXTURE_ANGER : TEXTURE);
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(0.0F, 0.0F, 0.125F);
-                double d0 = entitylivingbaseIn.prevChasingPosX + (entitylivingbaseIn.chasingPosX - entitylivingbaseIn.prevChasingPosX) * (double)partialTicks - (entitylivingbaseIn.prevPosX + (entitylivingbaseIn.posX - entitylivingbaseIn.prevPosX) * (double)partialTicks);
-                double d1 = entitylivingbaseIn.prevChasingPosY + (entitylivingbaseIn.chasingPosY - entitylivingbaseIn.prevChasingPosY) * (double)partialTicks - (entitylivingbaseIn.prevPosY + (entitylivingbaseIn.posY - entitylivingbaseIn.prevPosY) * (double)partialTicks);
-                double d2 = entitylivingbaseIn.prevChasingPosZ + (entitylivingbaseIn.chasingPosZ - entitylivingbaseIn.prevChasingPosZ) * (double)partialTicks - (entitylivingbaseIn.prevPosZ + (entitylivingbaseIn.posZ - entitylivingbaseIn.prevPosZ) * (double)partialTicks);
-                float f = entitylivingbaseIn.prevRenderYawOffset + (entitylivingbaseIn.renderYawOffset - entitylivingbaseIn.prevRenderYawOffset) * partialTicks;
+                double d0 = entity.prevChasingPosX + (entity.chasingPosX - entity.prevChasingPosX) * (double)partialTicks - (entity.prevPosX + (entity.posX - entity.prevPosX) * (double)partialTicks);
+                double d1 = entity.prevChasingPosY + (entity.chasingPosY - entity.prevChasingPosY) * (double)partialTicks - (entity.prevPosY + (entity.posY - entity.prevPosY) * (double)partialTicks);
+                double d2 = entity.prevChasingPosZ + (entity.chasingPosZ - entity.prevChasingPosZ) * (double)partialTicks - (entity.prevPosZ + (entity.posZ - entity.prevPosZ) * (double)partialTicks);
+                float f = entity.prevRenderYawOffset + (entity.renderYawOffset - entity.prevRenderYawOffset) * partialTicks;
                 double d3 = (double)MathHelper.sin(f * 0.017453292F);
                 double d4 = (double)(-MathHelper.cos(f * 0.017453292F));
                 float f1 = (float)d1 * 10.0F;
@@ -46,10 +45,10 @@ public class LayerCapeViking implements LayerRenderer<EntityViking> {
                     f2 = 0.0F;
                 }
 
-                float f4 = entitylivingbaseIn.prevCameraYaw + (entitylivingbaseIn.cameraYaw - entitylivingbaseIn.prevCameraYaw) * partialTicks;
-                f1 = f1 + MathHelper.sin((entitylivingbaseIn.prevDistanceWalkedModified + (entitylivingbaseIn.distanceWalkedModified - entitylivingbaseIn.prevDistanceWalkedModified) * partialTicks) * 6.0F) * 32.0F * f4;
+                float f4 = entity.prevCameraYaw + (entity.cameraYaw - entity.prevCameraYaw) * partialTicks;
+                f1 = f1 + MathHelper.sin((entity.prevDistanceWalkedModified + (entity.distanceWalkedModified - entity.prevDistanceWalkedModified) * partialTicks) * 6.0F) * 32.0F * f4;
 
-                if (entitylivingbaseIn.isSneaking())
+                if (entity.isSneaking())
                 {
                     f1 += 25.0F;
                 }
@@ -58,10 +57,9 @@ public class LayerCapeViking implements LayerRenderer<EntityViking> {
                 GlStateManager.rotate(f3 / 2.0F, 0.0F, 0.0F, 1.0F);
                 GlStateManager.rotate(-f3 / 2.0F, 0.0F, 1.0F, 0.0F);
                 GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-                this.playerRenderer.getMainModel().renderCape(0.0625F);
+                ((ModelViking) this.renderViking.getMainModel()).renderCape(0.0625F);
                 GlStateManager.popMatrix();
-        	 */
-            GlStateManager.pushMatrix();
+            /*GlStateManager.pushMatrix();
 
             // Position the cape on the back
             ((ModelViking) this.renderViking.getMainModel()).bipedCape.postRender(0.0625F);
@@ -81,7 +79,7 @@ public class LayerCapeViking implements LayerRenderer<EntityViking> {
             buffer.pos(-w, h, 0).tex(0, 1).endVertex();
 
             tessellator.draw();
-            GlStateManager.popMatrix();
+            GlStateManager.popMatrix();*/
         }
     }
 

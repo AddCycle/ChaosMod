@@ -1,5 +1,8 @@
 package net.chaos.chaosmod.blocks.decoration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
@@ -10,10 +13,15 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import util.IHasModel;
 
 public class BlockCustomFlower extends BlockBush implements IHasModel {
@@ -59,6 +67,20 @@ public class BlockCustomFlower extends BlockBush implements IHasModel {
     		items.add(new ItemStack(this, 1, type.getMeta()));
     	}
     }
+
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		List<ItemStack> drops = new ArrayList<>();
+	    int meta = this.getMetaFromState(state);
+	    drops.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));
+	    return drops;
+	}
+    
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
+			EntityPlayer player) {
+		return new ItemStack(Item.getItemFromBlock(this), 1, this.getMetaFromState(state));
+	}
 
 	@Override
 	public void registerModels() {

@@ -24,7 +24,7 @@ public class ModEntities {
 		registerEntity("rock", EntityRock.class, Reference.ENTITY_ROCK, 50, 31, 3093247);
 		registerEntity("chaos_sage", EntityChaosSage.class, Reference.CHAOS_SAGE, 50, 31, 3093247);
 		registerEntity("menhir", EntityMenhir.class, Reference.ENTITY_MENHIR, 50, 31, 3093247);
-		registerEntity("eye_of_truth_boss", EntityViking.class, Reference.ENTITY_EYE_BOSS, 50, 31, 3093247);
+		registerEntity("viking", EntityViking.class, Reference.ENTITY_EYE_BOSS, 50, 31, 3093247);
 	}
 	
 	private static void registerEntity(String name, Class<? extends Entity> entity, int id, int range, int color1, int color2) {

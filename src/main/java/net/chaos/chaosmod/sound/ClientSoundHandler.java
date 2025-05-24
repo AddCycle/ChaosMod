@@ -22,6 +22,7 @@ public class ClientSoundHandler {
 
     public static void stopMusic() {
         if (isPlaying && currentMusic != null) {
+        	Minecraft.getMinecraft().getSoundHandler().stopSounds();
             Minecraft.getMinecraft().getSoundHandler().stopSound(currentMusic);
             currentMusic = null;
             isPlaying = false;

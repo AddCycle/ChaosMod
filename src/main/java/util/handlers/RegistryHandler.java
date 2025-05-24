@@ -1,5 +1,6 @@
 package util.handlers;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
@@ -7,6 +8,8 @@ import net.chaos.chaosmod.init.ModPotionTypes;
 import net.chaos.chaosmod.init.ModPotions;
 import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
+import net.chaos.chaosmod.villagers.CustomFarmerProfession;
+import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,6 +29,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import util.IHasModel;
@@ -80,13 +84,6 @@ public class RegistryHandler {
         event.getRegistry().registerAll(ModBiomes.BIOMES.toArray(new Biome[0]));
     }
 	
-	/*public static void fastRender(Item item) {
-		fastRender(item, 0);
-	}
-	
-	public static void fastRender(Item item, int meta) {
-		
-	}*/
 
 	@SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
@@ -128,13 +125,11 @@ public class RegistryHandler {
 	    }
 	}
 	
-	/*@SubscribeEvent
-	public void onSoundRegister(RegistryEvent.Register<SoundEvent> event) {
-		event.getRegistry().registerAll(
-				ModSounds.HIGHEST_OP,
-				ModSounds.PUTIN_WIDE_WALK
-			);
-	}*/
+	@SubscribeEvent
+	public void onVillagerProfessionRegister(RegistryEvent.Register<VillagerProfession> event) {
+		Main.getLogger().info("REGISTERING VILLAGERS PROFESSIONS : ", event.getResult().name());
+		event.getRegistry().registerAll(CustomProfessions.CUSTOM_FARMER);
+	}
 	
 	public static void onSmeltingRegister() {
 		// To be able to smelt the modded items only in custom furnace oxonium or >higher

@@ -37,11 +37,13 @@ import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityLantern;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
+import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.chaos.chaosmod.world.events.FightEvents;
 import net.chaos.chaosmod.world.events.PlayerAchivementsEvents;
 import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
+import net.chaos.chaosmod.world.events.VillagerTradeHandler;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -116,6 +118,7 @@ public class Main
         proxy.init(event);
         // CapabilityManager.INSTANCE.register(IAccessory.class, new AccessoryStorage(), AccessoryImpl::new); // for the necklace and other accessories
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
+        CustomProfessions.registerCustomProfessions();
     	network.registerMessage(MessageDisplayTextHandler.class, MessageDisplayText.class, 0, Side.CLIENT);
 		network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 1, Side.CLIENT);
 		network.registerMessage(PacketOpenAccessoryGui.Handler.class, PacketOpenAccessoryGui.class, 2, Side.SERVER);
@@ -160,6 +163,7 @@ public class Main
     {
     	proxy.postInit(event);
     	logger.info("CHAOSMOD POST-INIT PHASE {}", event.getModState());
+    	// VillagerTradeHandler.onRegisterTrades();
         MinecraftForge.EVENT_BUS.register(new FightEvents());
         MinecraftForge.EVENT_BUS.register(new PlayerLifeEvents());
         MinecraftForge.EVENT_BUS.register(new PlayerAchivementsEvents());

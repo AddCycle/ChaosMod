@@ -7,7 +7,6 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.ItemBlockLeaves;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
-import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.SoundType;
@@ -16,13 +15,16 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import util.IHasModel;
 
 public class CustomLeaves extends BlockLeaves implements IHasModel {
@@ -93,6 +95,12 @@ public class CustomLeaves extends BlockLeaves implements IHasModel {
             list.add(new ItemStack(Item.getItemFromBlock(this), 1, type.getMeta()));
         }
     }
+
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
+			EntityPlayer player) {
+		return new ItemStack(Item.getItemFromBlock(this), 1, this.getMetaFromState(state));
+	}
 
     @Override
     protected BlockStateContainer createBlockState() {

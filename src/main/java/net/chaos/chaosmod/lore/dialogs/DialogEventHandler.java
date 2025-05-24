@@ -24,7 +24,7 @@ public class DialogEventHandler {
 	    if (!(event.getEntity() instanceof EntityViking)) return;
 
 	    EntityViking entity = (EntityViking) event.getEntity();
-	    String dialog = entity.getDialogText(); // Custom method on your entity
+	    String dialog = entity.getDialogText();
 
 	    if (dialog == null || dialog.isEmpty()) return;
 
