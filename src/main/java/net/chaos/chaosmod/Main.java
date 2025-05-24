@@ -18,6 +18,7 @@ import net.chaos.chaosmod.commands.LocalizeCommand;
 import net.chaos.chaosmod.commands.SetHomeCommand;
 import net.chaos.chaosmod.commands.TopCommand;
 import net.chaos.chaosmod.commands.generation.LoadStructCommand;
+import net.chaos.chaosmod.config.ConfigEventHandler;
 import net.chaos.chaosmod.config.ModConfig;
 import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBiomes;
@@ -99,6 +100,7 @@ public class Main
         proxy.preInit(event);
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
+    	ConfigEventHandler.JVM_load();
     	ModConfig.init(event.getSuggestedConfigurationFile());
         ModSounds.registerSounds();
         ModCapabilities.register(); // for necklace and other things

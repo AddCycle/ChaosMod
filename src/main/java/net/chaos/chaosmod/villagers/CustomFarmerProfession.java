@@ -23,13 +23,11 @@ public class CustomFarmerProfession extends VillagerProfession {
     {
 		super("chaosmod:custom_profession", "chaosmod:textures/entity/villager/viking_blacksmith.png", "chaosmod:textures/entity/zombie_villager/viking_zombie.png");
 		this.initCareer();
-		System.out.println("Profession init");
-		// new VillagerCareer(this, "custom_profession").addTrade(1, new CustomFarmerProfession.TradesLevel1());
     }
 	
 	public void initCareer() {
         CAREER = new VillagerCareer(this, "custom_career")
-            .addTrade(1, new TradesLevel1());
+            .addTrade(1, new TradesLevel1()); // 0 in game if you try to spawn it with /summon
     }
 
 	public static class TradesLevel1 implements ITradeList
@@ -39,14 +37,11 @@ public class CustomFarmerProfession extends VillagerProfession {
 		{
 			if(merchant instanceof Entity)// ((Entity) merchant).dimension == MathsDims.Sirojus.getId())
 			{
-				for(int i = 0; i < 4; ++i)
-				{
-					for (int j = 0; j < 4; ++j) {
-						recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, 6 + random.nextInt(8)), new ItemStack(ModBlocks.CUSTOM_FLOWER, 16, j)));
-					}
-					for (int j = 0; j < 4; ++j) {
-						recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, 6 + random.nextInt(8)), new ItemStack(ModBlocks.CUSTOM_LOG, 16, j)));
-					}
+				for (int j = 0; j < 4; ++j) {
+					recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, 6 + random.nextInt(8)), new ItemStack(ModBlocks.CUSTOM_FLOWER, 16, j)));
+				}
+				for (int j = 0; j < 4; ++j) {
+					recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, 6 + random.nextInt(8)), new ItemStack(ModBlocks.CUSTOM_LOG, 16, j)));
 				}
 
 				recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, 4 + random.nextInt(3)), new ItemStack(ModItems.OXONIUM_BOOTS)));

@@ -64,7 +64,8 @@
     "a=false,down=true,east=false,north=true,south=false,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 270 }, // conflict
     "a=false,down=true,east=false,north=false,south=false,up=true,west=true": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 270 },
     "a=false,down=true,east=true,north=true,south=false,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 0 },
-    "a=false,down=true,east=true,north=false,south=true,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 90 }
+    "a=false,down=true,east=true,north=false,south=true,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 90 },
+    "a=true,down=true,east=false,north=false,south=true,up=true,west=false": { "model": "chaosmod:enderite_forge_walls_edge_center", "y": 90 }
 
     // "east=false,north=true,south=true,west=false": { "model": "chaosmod:enderite_forge_walls_ns" },
     // "east=true,north=true,south=true,west=true": { "model": "chaosmod:enderite_forge_walls_all" }

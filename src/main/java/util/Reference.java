@@ -16,6 +16,7 @@ public class Reference {
     public static final int GUI_FORGE_ID = 3;
     public static final int GUI_BACKPACK_ID = 4;
     public static final int GUI_DOCS_ID = 5;
+    public static final int GUI_VIKING_ID = 5;
     
     // Entities ids
     public static final int ENTITY_FORGE_GUARDIAN = 120;
@@ -25,5 +26,5 @@ public class Reference {
 	public static final int ENTITY_ROCK = 124;
 	public static final int CHAOS_SAGE = 125;
 	public static final int ENTITY_MENHIR = 126;
-	public static final int ENTITY_EYE_BOSS = 127;
+	public static final int ENTITY_VIKING = 127;
 }

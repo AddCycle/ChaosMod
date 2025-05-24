@@ -4,6 +4,8 @@ import net.chaos.chaosmod.config.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -11,8 +13,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MinimapEventHandler {
-	private static final int MAP_SIZE = 102;
-    private static final int PIXEL_SIZE = 5;
 	/*
 	 * TODO : Note for me later : Don't use RenderGameOverlayEvent alone use one phase : Pre, Post, Chat, BossInfo => too laggy
 	 */
@@ -34,10 +34,11 @@ public class MinimapEventHandler {
         drawMap(event.getResolution());
     }
 	
+	// v1 perfectly working if issue : this will work
 	private static void drawMap(ScaledResolution resolution) {
 		Minecraft mc = Minecraft.getMinecraft();
-	    int mapSize = 100;
-	    int pixelSize = 5;
+	    int mapSize = ModConfig.minimapSize;
+	    int pixelSize = ModConfig.pixelSize;
 
 	    Renderer.MapData mapData = Renderer.getMapBlockColorsAndHeights(mc.player.getPosition(), mapSize);
 	    int[][] colors = mapData.colors;
@@ -64,27 +65,74 @@ public class MinimapEventHandler {
 	            Renderer.drawPixel(resolution, pixelSize, i, j, shadedColor);
 	        }
 	    }
-		if (!ModConfig.displayOverlay) return;
-        Renderer.drawTransparentMap(resolution, pixelSize);
-		if (!ModConfig.displayArrow) return;
-        drawArrow(resolution, MAP_SIZE, pixelSize);
+		if (ModConfig.displayOverlay) Renderer.drawTransparentMap(resolution, pixelSize);
+		if (ModConfig.displayArrow) drawArrow(resolution, mapSize, pixelSize);
         
     }
+	
+	// v2 tentative echouee je pense
+	/*private static void drawMap(ScaledResolution resolution) {
+	    Minecraft mc = Minecraft.getMinecraft();
+	    World world = mc.world;
+	    EntityPlayer player = mc.player;
+
+	    int mapSize = ModConfig.minimapSize;
+	    int pixelSize = ModConfig.pixelSize;
+
+	    // Center the minimap on screen
+	    int minimapCenterX = resolution.getScaledWidth() / 2 - (mapSize * pixelSize) / 2;
+	    int minimapCenterY = resolution.getScaledHeight() / 2 - (mapSize * pixelSize) / 2;
+
+	    int radiusChunks = mapSize / 16 / 2; // how many chunks radius to render around player
+
+	    int playerChunkX = player.chunkCoordX;
+	    int playerChunkZ = player.chunkCoordZ;
+
+	    for (int dx = -radiusChunks; dx <= radiusChunks; dx++) {
+	        for (int dz = -radiusChunks; dz <= radiusChunks; dz++) {
+	            int chunkX = playerChunkX + dx;
+	            int chunkZ = playerChunkZ + dz;
+
+	            int[][] colors = ChunkColorCache.getChunkColors(world, chunkX, chunkZ);
+
+	            for (int cx = 0; cx < 16; cx++) {
+	                for (int cz = 0; cz < 16; cz++) {
+	                    int color = colors[cx][cz];
+
+	                    // flip vertically inside chunk by reversing cz on screen Y coordinate only
+	                    int screenX = minimapCenterX + ((dx + radiusChunks) * 16 + cx) * pixelSize;
+	                    int screenY = minimapCenterY + ((dz + radiusChunks) * 16 + (15 - cz)) * pixelSize;
+
+	                    Renderer.drawPixel(resolution, pixelSize, screenX / pixelSize, screenY / pixelSize, color);
+	                }
+	            }
+	        }
+	    }
+
+	    if (ModConfig.displayOverlay)
+	        Renderer.drawTransparentMap(resolution, pixelSize);
+
+	    if (ModConfig.displayArrow)
+	        drawArrow(resolution, mapSize, pixelSize);
+	}*/
 
 	private static void drawArrow(ScaledResolution resolution, int mapSize, int pixelSize) {
 		Minecraft mc = Minecraft.getMinecraft();
 		float playerYaw = mc.player.rotationYaw;
-        /*int centerX = mapSize * pixelSize / 2;
-        int centerY = mapSize * pixelSize / 2;*/
-        int centerX = (int)(resolution.getScaledWidth() / 2);
-        int centerY = (int)(resolution.getScaledWidth() / 2);
+		float scale = resolution.getScaleFactor();
+
+	    // Calculate center in scaled coordinates (divide by scale)
+	    int centerX = (int)((mapSize * pixelSize) / 2f / scale);
+	    int centerY = (int)((mapSize * pixelSize) / 2f / scale);
+        // int centerX = (int)(resolution.getScaledWidth() / 2);
+        // int centerY = (int)(resolution.getScaledWidth() / 2);
         float angle = mc.player.rotationYaw;
         GlStateManager.pushMatrix();
         GlStateManager.disableDepth();
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
 
-        Renderer.drawPlayerArrow(resolution, centerX - 170, centerY - 170, playerYaw, 0xFFFFFF); // white arrow
+        Renderer.drawPlayerArrow(resolution, centerX, centerY, playerYaw, 0xFFFFFF); // white arrow
 
         // Restore GL state
         GlStateManager.enableDepth();
