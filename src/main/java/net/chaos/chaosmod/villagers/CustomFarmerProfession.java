@@ -37,45 +37,20 @@ public class CustomFarmerProfession extends VillagerProfession {
 		@Override
 		public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
 		{
-			System.out.println("called");
 			if(merchant instanceof Entity)// ((Entity) merchant).dimension == MathsDims.Sirojus.getId())
 			{
-				for(int i = 0; i <= 12; ++i)
+				for(int i = 0; i < 4; ++i)
 				{
-					Enchantment enchantment = Enchantment.REGISTRY.getRandomObject(random);
-					ItemStack stack = new ItemStack(Items.ENCHANTED_BOOK);
-					ItemEnchantedBook.addEnchantment(stack, new EnchantmentData(enchantment, enchantment.getMaxLevel()));
-					recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, 6 + random.nextInt(8)), stack));
-					System.out.println("recipe added");
+					for (int j = 0; j < 4; ++j) {
+						recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, 6 + random.nextInt(8)), new ItemStack(ModBlocks.CUSTOM_FLOWER, 16, j)));
+					}
+					for (int j = 0; j < 4; ++j) {
+						recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, 6 + random.nextInt(8)), new ItemStack(ModBlocks.CUSTOM_LOG, 16, j)));
+					}
 				}
 
 				recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, 4 + random.nextInt(3)), new ItemStack(ModItems.OXONIUM_BOOTS)));
 				recipeList.add(new MerchantRecipe(new ItemStack(ModBlocks.CUSTOM_FLOWER, 15 + random.nextInt(6)), new ItemStack(ModBlocks.BOSS_ALTAR)));
-				System.out.println("2 more added recipes");
-
-
-				/*Item it = Items.APPLE;
-
-                            for(Item item : Item.REGISTRY)
-                            {
-                                    List<Item> list = Lists.newArrayList();
-                                    if(item instanceof IGoldenAnimatedGun || item instanceof IGoldenWeapon)
-                                    {
-                                    	list.add(item);
-                                    }
-
-                                    if(!list.isEmpty() && list.size() > 0)
-                                    {
-                                            it = list.get(random.nextInt(list.size()));
-                                    }
-                            }
-
-                            recipeList.add(new MerchantRecipe(new ItemStack(RegisterItems.POLARITE_INGOT, 6), new ItemStack(it)));
-                    }
-                    else
-                    {
-                            recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, 2), new ItemStack(Blocks.ICE)));
-                    }*/
 
 			}
 		}
