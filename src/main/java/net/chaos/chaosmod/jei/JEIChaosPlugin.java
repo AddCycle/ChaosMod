@@ -5,6 +5,8 @@ import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.jei.exploration.ExplorationCategory;
+import net.chaos.chaosmod.jei.exploration.ExplorationMaker;
 import net.chaos.chaosmod.jei.forge_interface.ForgeInterfaceCategory;
 import net.chaos.chaosmod.jei.forge_interface.ForgeInterfaceRecipeMaker;
 import net.chaos.chaosmod.jei.oxonium_furnace.OxoniumFurnaceCategory;
@@ -22,6 +24,8 @@ public class JEIChaosPlugin implements IModPlugin {
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.OXONIUM_FURNACE), OxoniumFurnaceCategory.UID);
         registry.addRecipes(ForgeInterfaceRecipeMaker.getRecipes(), ForgeInterfaceCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.FORGE_INTERFACE_BLOCK), ForgeInterfaceCategory.UID);
+        registry.addRecipes(ExplorationMaker.getRecipes(), ExplorationCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.BOSS_ALTAR), ExplorationCategory.UID);
     }
 	
 	@Override
@@ -29,5 +33,6 @@ public class JEIChaosPlugin implements IModPlugin {
         registry.addRecipeCategories(new ExampleMultipleRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new OxoniumFurnaceCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new ForgeInterfaceCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new ExplorationCategory(registry.getJeiHelpers().getGuiHelper()));
 	}
 }
