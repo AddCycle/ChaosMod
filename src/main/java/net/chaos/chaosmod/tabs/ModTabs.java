@@ -26,6 +26,10 @@ public class ModTabs extends GeneralTab {
 		public void displayAllRelevantItems(NonNullList<ItemStack> items) {
 		    items.add(PotionUtils.addPotionToItemStack(
 		        new ItemStack(Items.POTIONITEM), ModPotionTypes.VIKING_FRIEND_TYPE));
+		    items.add(PotionUtils.addPotionToItemStack(
+		        new ItemStack(Items.SPLASH_POTION), ModPotionTypes.VIKING_FRIEND_TYPE));
+		    items.add(PotionUtils.addPotionToItemStack(
+		        new ItemStack(Items.LINGERING_POTION), ModPotionTypes.VIKING_FRIEND_TYPE));
 		}
 	};
 	

@@ -24,6 +24,7 @@ import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.init.ModDimensions;
 import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.network.GuideCommandMessage;
@@ -44,10 +45,16 @@ import net.chaos.chaosmod.world.events.FightEvents;
 import net.chaos.chaosmod.world.events.PlayerAchivementsEvents;
 import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
-import net.chaos.chaosmod.world.events.VillagerTradeHandler;
+import net.chaos.chaosmod.world.gen.VillageWorldGen;
+import net.chaos.chaosmod.world.structures.DimensionGenerator;
+import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
+import net.chaos.chaosmod.world.structures.StructureCustomVillage;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.village.Village;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -61,9 +68,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.ForgeRegistry;
 import proxy.CommonProxy;
 import util.Reference;
 import util.broadcast.MessageDisplayText;
@@ -78,7 +87,13 @@ public class Main
 {
 	// Helps launch the ChaosMod
 	@Instance
-	public static Main instance;
+	public static Main instance = Init(); // Maybe move that into the pre-init phase
+	
+	static Main Init() {
+		MapGenStructureIO.registerStructure(MapGenCustomVillage.Start.class, "Custom Village");
+		StructureCustomVillage.registerVillagePieces();
+		return instance;
+	}
 	
 	// This is for server and client handling
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
@@ -104,6 +119,13 @@ public class Main
     	ModConfig.init(event.getSuggestedConfigurationFile());
         ModSounds.registerSounds();
         ModCapabilities.register(); // for necklace and other things
+        // MapGenStructureIO.registerStructureComponent(StructureVillagePieces.Start.class, "MyVillageStart");
+        // MapGenStructureIO.registerStructureComponent(StructureVillagePieces.House1.class, "MyStructureVillageHouse1");
+        // StructureCustomVillage.registerVillagePieces();
+
+        // Add structure to biomes in init:
+        
+        // registerStructure("MyEntireVillage", new Village());
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         // OreDictionary.registerOre("ingotEnderite", new ItemStack(ModItems.ENDERITE_INGOT));
 	    // OreDictionary.registerOre("toolTinkerHammer", new ItemStack(ModItems.TINKERERS_HAMMER, 1, OreDictionary.WILDCARD_VALUE));
@@ -143,6 +165,7 @@ public class Main
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.NETHER_CAVES, 50));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.ENDER_GARDEN, 50));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CHAOS_LAND_BIOME, 50));
+        ModDimensions.init();
         // BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CUSTOM_HELL, 50));
         /*DimensionManager.unregisterDimension(-1);
         DimensionManager.registerDimension(-1, DimensionType.register(
