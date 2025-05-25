@@ -9,6 +9,7 @@ import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.food.FoodEffectBase;
 import net.chaos.chaosmod.items.materials.AllemaniteIngot;
 import net.chaos.chaosmod.items.materials.EnderiteShard;
+import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.AllInOneBow;
 import net.chaos.chaosmod.items.special.AllemaniteExtinguisher;
@@ -105,6 +106,8 @@ public class ModItems {
 	public static final Item TINKERERS_HAMMER = new TinkerersHammer("tinkerers_hammer");
 	public static final Item ENDERITE_THUNDER = new EnderiteThunder("enderite_thunder");
 	public static final Item OXONIUM_NECKLACE = new OxoniumNecklace("oxonium_necklace");
+	public static final Item ALLEMANITE_NECKLACE = new AllemaniteNecklace("allemanite_necklace");
+	// public static final Item ENDERITE_NECKLACE = new OxoniumNecklace("enderite_necklace"); // prevents wither maybe...
 	public static final Item ALL_IN_ONE_BOW = new AllInOneBow("all_in_one_bow", MATERIAL_ENDERITE); // TODO: add a blend material
 	public static final Item ALL_IN_ONE_SWORD = new AllInOneSword("all_in_one_sword", MATERIAL_ENDERITE);
 	

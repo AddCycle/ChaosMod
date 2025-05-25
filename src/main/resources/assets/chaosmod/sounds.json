@@ -35,5 +35,50 @@
         "stream": true
       }
     ]
+  },
+  "zankyou_sankya": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "chaosmod:zankyou_sankya",
+        "stream": true
+      }
+    ]
+  },
+  "black_rover": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "chaosmod:black_rover",
+        "stream": true
+      }
+    ]
+  },
+  "black_catcher": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "chaosmod:black_catcher",
+        "stream": true
+      }
+    ]
+  },
+  "grandeur": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "chaosmod:grandeur",
+        "stream": true
+      }
+    ]
+  },
+  "hollow_purple": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "chaosmod:hollow_purple",
+        "stream": true
+      }
+    ]
   }
 }

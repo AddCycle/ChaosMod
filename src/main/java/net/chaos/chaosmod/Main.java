@@ -127,6 +127,7 @@ public class Main
         
         // registerStructure("MyEntireVillage", new Village());
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
+        // GameRegistry.registerWorldGenerator(new VillageWorldGen(), 0);
         // OreDictionary.registerOre("ingotEnderite", new ItemStack(ModItems.ENDERITE_INGOT));
 	    // OreDictionary.registerOre("toolTinkerHammer", new ItemStack(ModItems.TINKERERS_HAMMER, 1, OreDictionary.WILDCARD_VALUE));
         // GameRegistry.registerWorldGenerator(new ModGenSurface(), 0);

@@ -23,7 +23,7 @@ public class EntityFakeLight extends Entity {
 
     @Override
     public boolean isInRangeToRenderDist(double distance) {
-        return false; // Prevent rendering
+        return true; // Prevent rendering
     }
 
     @Override

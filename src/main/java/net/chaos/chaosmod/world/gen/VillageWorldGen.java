@@ -16,7 +16,8 @@ public class VillageWorldGen implements IWorldGenerator {
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world,
                          IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-        if (!world.isRemote && world.provider.getDimension() == 2) { // Overworld only
+    	// TODO : Remove if not used
+        if (!world.isRemote && world.provider.getDimension() == 0) { // Overworld only
             customVillage.generateStructure(world, random, new ChunkPos(chunkX, chunkZ));
         }
     }

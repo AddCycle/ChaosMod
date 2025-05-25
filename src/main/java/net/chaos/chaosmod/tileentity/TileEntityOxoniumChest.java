@@ -19,6 +19,7 @@ import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
@@ -418,5 +419,15 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
     protected NonNullList<ItemStack> getItems()
     {
         return this.chestContents;
+    }
+    
+    @Override
+    public void setLootTable(ResourceLocation p_189404_1_, long p_189404_2_) {
+    	super.setLootTable(p_189404_1_, p_189404_2_);
+    }
+    
+    @Override
+    public ResourceLocation getLootTable() {
+    	return super.getLootTable();
     }
 }

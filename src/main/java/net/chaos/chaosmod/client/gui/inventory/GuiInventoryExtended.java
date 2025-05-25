@@ -88,6 +88,11 @@ public class GuiInventoryExtended extends GuiInventory {
         this.addButton(new GuiButton(101, this.guiLeft + 140, this.guiTop + 5 + 20 * 2, 30, 20, "C")); // TODO : texture the button
         this.addButton(new GuiButton(102, this.guiLeft + 140, this.guiTop + 5 + 20 * 3, 30, 20, "F")); // TODO : texture the button
         this.addButton(new GuiButton(103, this.guiLeft + 140, this.guiTop + 5 + 20 * 4, 30, 20, "H")); // TODO : texture the button
+        this.addButton(new GuiButton(104, this.guiLeft + 140, this.guiTop + 5 + 20 * 6, 30, 20, "Z")); // TODO : texture the button
+        this.addButton(new GuiButton(105, this.guiLeft + 140, this.guiTop + 5 + 20 * 7, 30, 20, "BR")); // TODO : texture the button
+        this.addButton(new GuiButton(106, this.guiLeft + 140, this.guiTop + 5 + 20 * 8, 30, 20, "BC")); // TODO : texture the button
+        this.addButton(new GuiButton(107, this.guiLeft + 140, this.guiTop + 5 + 20 * 9, 30, 20, "G")); // TODO : texture the button
+        this.addButton(new GuiButton(108, this.guiLeft + 140, this.guiTop + 5 + 20 * 10, 30, 20, "HP")); // TODO : texture the button
     }
 	
 	private void resetGuiLeft()
@@ -172,6 +177,7 @@ public class GuiInventoryExtended extends GuiInventory {
     }
     
     @Override
+    // TODO : add a switch statement or something else based on a registry
     protected void actionPerformed(GuiButton button) throws IOException {
     	if (button.id == 99) {
             showAccessorySlot = !showAccessorySlot;
@@ -187,6 +193,21 @@ public class GuiInventoryExtended extends GuiInventory {
         } else if (button.id == 103) {
         	System.out.println("PLAYING highest op");
         	ClientSoundHandler.toggleMusic(ModSounds.HIGHEST_OP); // FIXME : do it client-side only
+        } else if (button.id == 104) {
+        	System.out.println("Zankyou Sankya op");
+        	ClientSoundHandler.toggleMusic(ModSounds.ZANKYOU_SANKYA); // FIXME : do it client-side only
+        } else if (button.id == 105) {
+        	System.out.println("Black rover op");
+        	ClientSoundHandler.toggleMusic(ModSounds.BLACK_ROVER); // FIXME : do it client-side only
+        } else if (button.id == 106) {
+        	System.out.println("Black catcher op");
+        	ClientSoundHandler.toggleMusic(ModSounds.BLACK_CATCHER); // FIXME : do it client-side only
+        } else if (button.id == 107) {
+        	System.out.println("Grandeur op");
+        	ClientSoundHandler.toggleMusic(ModSounds.GRANDEUR); // FIXME : do it client-side only
+        } else if (button.id == 108) {
+        	System.out.println("Hollow purple op");
+        	ClientSoundHandler.toggleMusic(ModSounds.HOLLOW_PURPLE); // FIXME : do it client-side only
         } else {
             super.actionPerformed(button);
         }

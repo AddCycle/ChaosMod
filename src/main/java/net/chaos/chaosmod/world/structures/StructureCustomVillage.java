@@ -8,7 +8,10 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 
+import net.chaos.chaosmod.blocks.OxoniumChest;
+import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockDoor;
@@ -18,6 +21,7 @@ import net.minecraft.block.BlockNewLog;
 import net.minecraft.block.BlockOldLog;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSandStone;
+import net.minecraft.block.BlockStainedGlassPane;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.material.Material;
@@ -29,7 +33,10 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -378,7 +385,7 @@ public class StructureCustomVillage {
 
                 this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 1, 0, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 2, 0, structureBoundingBoxIn);
-                this.createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.NORTH);
+                this.createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.NORTH); // TODO : make a custom one block
 
                 if (this.getBlockStateFromPos(worldIn, 2, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR)
                 {
@@ -856,13 +863,18 @@ public class StructureCustomVillage {
                     this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 9 - 1, 0);
                 }
 
-                IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
-                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
-                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-                IBlockState iblockstate5 = this.getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-                IBlockState iblockstate6 = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
+                Block facade = ModBlocks.OXONIUM_BRICKS;
+                Block stairs = ModBlocks.CUSTOM_STAIRS;
+                Block planks = ModBlocks.CUSTOM_PLANK; // snowy ones by default
+                Block stairs_ = Blocks.STONE_BRICK_STAIRS; // cobble ones
+                IBlockState vitrage = Blocks.STAINED_GLASS_PANE.getDefaultState().withProperty(BlockStainedGlassPane.COLOR, EnumDyeColor.PINK);
+                IBlockState iblockstate = this.getBiomeSpecificBlockState(facade.getDefaultState());
+                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
+                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
+                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(planks.getDefaultState());
+                IBlockState iblockstate5 = this.getBiomeSpecificBlockState(stairs_.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+                IBlockState iblockstate6 = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState()); // TODO : this part to iron so make iron fences, slabs & stairs
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 7, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 8, 0, 5, iblockstate, iblockstate, false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 5, 0, 8, 5, 5, iblockstate, iblockstate, false);
@@ -890,24 +902,25 @@ public class StructureCustomVillage {
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 2, 5, 7, 4, 5, iblockstate4, iblockstate4, false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 8, 2, 1, 8, 4, 4, iblockstate4, iblockstate4, false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 2, 0, 7, 4, 0, iblockstate4, iblockstate4, false);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 4, 2, 0, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 5, 2, 0, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 6, 2, 0, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 4, 3, 0, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 5, 3, 0, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 6, 3, 0, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 0, 2, 2, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 0, 2, 3, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 0, 3, 2, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 0, 3, 3, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 8, 2, 2, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 8, 2, 3, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 8, 3, 2, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 8, 3, 3, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 2, 2, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 3, 2, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 5, 2, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 6, 2, 5, structureBoundingBoxIn);
+                // Idk how to get the glass pane color ?
+                this.setBlockState(worldIn, vitrage, 4, 2, 0, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 5, 2, 0, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 6, 2, 0, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 4, 3, 0, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 5, 3, 0, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 6, 3, 0, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 0, 2, 2, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 0, 2, 3, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 0, 3, 2, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 0, 3, 3, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 8, 2, 2, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 8, 2, 3, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 8, 3, 2, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 8, 3, 3, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 2, 2, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 3, 2, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 5, 2, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, vitrage, 6, 2, 5, structureBoundingBoxIn);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 4, 1, 7, 4, 1, iblockstate4, iblockstate4, false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 4, 4, 7, 4, 4, iblockstate4, iblockstate4, false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 3, 4, 7, 3, 4, Blocks.BOOKSHELF.getDefaultState(), Blocks.BOOKSHELF.getDefaultState(), false);
@@ -921,7 +934,7 @@ public class StructureCustomVillage {
                 this.setBlockState(worldIn, Blocks.WOODEN_PRESSURE_PLATE.getDefaultState(), 6, 2, 3, structureBoundingBoxIn);
                 this.setBlockState(worldIn, iblockstate6, 4, 1, 3, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.WOODEN_PRESSURE_PLATE.getDefaultState(), 4, 2, 3, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.CRAFTING_TABLE.getDefaultState(), 7, 1, 1, structureBoundingBoxIn);
+                this.setBlockState(worldIn, ModBlocks.OXONIUM_FURNACE.getDefaultState().withProperty(OxoniumFurnace.FACING, EnumFacing.NORTH.rotateY()), 7, 1, 1, structureBoundingBoxIn); // TODO : verify if you want actually furnace here instead of crafting table )(
                 this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 1, 0, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 2, 0, structureBoundingBoxIn);
                 this.createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 1, 1, 0, EnumFacing.NORTH);
@@ -982,6 +995,7 @@ public class StructureCustomVillage {
             protected void writeStructureToNBT(NBTTagCompound tagCompound)
             {
                 super.writeStructureToNBT(tagCompound);
+                System.out.println("Tag written");
                 tagCompound.setBoolean("Chest", this.hasMadeChest);
             }
 
@@ -991,6 +1005,7 @@ public class StructureCustomVillage {
             protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_)
             {
                 super.readStructureFromNBT(tagCompound, p_143011_2_);
+                System.out.println("Tag read");
                 this.hasMadeChest = tagCompound.getBoolean("Chest");
             }
 
@@ -1012,6 +1027,7 @@ public class StructureCustomVillage {
                     this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 6 - 1, 0);
                 }
 
+                Block furnace = ModBlocks.OXONIUM_FURNACE;
                 IBlockState iblockstate = Blocks.COBBLESTONE.getDefaultState();
                 IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
                 IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
@@ -1042,8 +1058,8 @@ public class StructureCustomVillage {
                 this.setBlockState(worldIn, Blocks.IRON_BARS.getDefaultState(), 9, 2, 4, structureBoundingBoxIn);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 7, 2, 4, 8, 2, 5, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.setBlockState(worldIn, iblockstate, 6, 1, 3, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.FURNACE.getDefaultState(), 6, 2, 3, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.FURNACE.getDefaultState(), 6, 3, 3, structureBoundingBoxIn);
+                this.setBlockState(worldIn, furnace.getDefaultState(), 6, 2, 3, structureBoundingBoxIn);
+                this.setBlockState(worldIn, furnace.getDefaultState(), 6, 3, 3, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.DOUBLE_STONE_SLAB.getDefaultState(), 8, 1, 1, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 0, 2, 2, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 0, 2, 4, structureBoundingBoxIn);
@@ -1057,8 +1073,9 @@ public class StructureCustomVillage {
 
                 if (!this.hasMadeChest && structureBoundingBoxIn.isVecInside(new BlockPos(this.getXWithOffset(5, 5), this.getYWithOffset(1), this.getZWithOffset(5, 5))))
                 {
+                	System.out.println("Placing chest");
                     this.hasMadeChest = true;
-                    this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+                    // this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
                 }
 
                 for (int i = 6; i <= 8; ++i)
@@ -1084,12 +1101,45 @@ public class StructureCustomVillage {
                 }
 
                 this.spawnVillagers(worldIn, structureBoundingBoxIn, 7, 1, 1, 1);
+                this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
                 return true;
             }
 
             protected int chooseProfession(int villagersSpawnedIn, int currentVillagerProfession)
             {
                 return 3;
+            }
+
+            protected boolean generateChest(World worldIn, StructureBoundingBox structurebb, Random randomIn, int x, int y, int z, ResourceLocation loot)
+            {
+            	System.out.println("World class: " + worldIn.getClass());
+                BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+                return this.generateChest(worldIn, structurebb, randomIn, blockpos, loot, (IBlockState)null);
+            }
+
+            protected boolean generateChest(World p_191080_1_, StructureBoundingBox p_191080_2_, Random p_191080_3_, BlockPos p_191080_4_, ResourceLocation p_191080_5_, @Nullable IBlockState p_191080_6_)
+            {
+                if (p_191080_2_.isVecInside(p_191080_4_) && p_191080_1_.getBlockState(p_191080_4_).getBlock() != ModBlocks.OXONIUM_CHEST)
+                {
+                    if (p_191080_6_ == null)
+                    {
+                        p_191080_6_ = ((OxoniumChest) ModBlocks.OXONIUM_CHEST).correctFacing(p_191080_1_, p_191080_4_, ModBlocks.OXONIUM_CHEST.getDefaultState());
+                    }
+
+                    if (!p_191080_1_.isRemote) p_191080_1_.setBlockState(p_191080_4_, p_191080_6_, 2);
+                    TileEntity tileentity = p_191080_1_.getTileEntity(p_191080_4_);
+
+                    if (tileentity instanceof TileEntityOxoniumChest)
+                    {
+                        ((TileEntityOxoniumChest)tileentity).setLootTable(p_191080_5_, p_191080_3_.nextLong());
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -1910,6 +1960,7 @@ public class StructureCustomVillage {
                         }
                         else
                         {
+                        	// FIXME : make villagers custom professions only spawn
                             EntityVillager entityvillager = new EntityVillager(worldIn);
                             entityvillager.setLocationAndAngles((double)j + 0.5D, (double)k, (double)l + 0.5D, 0.0F, 0.0F);
                             net.minecraftforge.fml.common.registry.VillagerRegistry.setRandomProfession(entityvillager, worldIn.rand);

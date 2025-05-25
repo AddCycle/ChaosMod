@@ -1,6 +1,7 @@
-package net.chaos.chaosmod.blocks;
+package net.chaos.chaosmod.blocks.decoration;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.blocks.ItemBlockBase;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;

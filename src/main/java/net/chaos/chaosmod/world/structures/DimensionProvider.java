@@ -22,5 +22,7 @@ public class DimensionProvider extends WorldProvider {
 	public int getRespawnDimension(EntityPlayerMP player) {
 		return 2;
 	}
+	
+	
 
 }

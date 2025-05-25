@@ -72,10 +72,8 @@ public class ModWorldGen implements IWorldGenerator {
 
 	private void generateNether(World world, Random random, int x, int z)
     {
-            this.generateOre(ModBlocks.ALLEMANITE_ORE, Blocks.NETHERRACK, world, random, 4, 2, x, z, 3, 126);
-            generateFlowers(world, random, x, z, 1);
-            /*MapGenCustomVillage villageGen = new MapGenCustomVillage();
-            villageGen.generateStructure(world, random, new ChunkPos(x, z));*/
+		this.generateOre(ModBlocks.ALLEMANITE_ORE, Blocks.NETHERRACK, world, random, 4, 2, x, z, 3, 126);
+		generateFlowers(world, random, x, z, 1);
     }
 
     public void generateOre(Block ore, Block block, World world, Random random, int maxVeinSize, int chancesToSpawn, int x, int z, int minY, int maxY)

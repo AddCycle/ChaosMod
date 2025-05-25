@@ -2,6 +2,7 @@ package net.chaos.chaosmod.client.inventory;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.items.necklace.ItemNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.minecraft.entity.player.EntityPlayer;
@@ -114,7 +115,7 @@ public class AccessoryInventory implements IInventory {
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		return index == 0 && stack.getItem() instanceof OxoniumNecklace;
+		return index == 0 && stack.getItem() instanceof ItemNecklace;
 	}
 
 	@Override

@@ -289,7 +289,7 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
 
     public IBlockState correctFacing(World worldIn, BlockPos pos, IBlockState state)
     {
-        /*EnumFacing enumfacing = null;
+        EnumFacing enumfacing = null;
 
         for (EnumFacing enumfacing1 : EnumFacing.Plane.HORIZONTAL)
         {
@@ -336,9 +336,9 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
             }
 
             return state.withProperty(FACING, enumfacing2);
-        }*/
-    	return state;
+        }
     }
+
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {

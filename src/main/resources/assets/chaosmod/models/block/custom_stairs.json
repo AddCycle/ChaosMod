@@ -1,0 +1,8 @@
+{
+    "parent": "block/stairs",
+    "textures": {
+        "bottom": "chaosmod:blocks/snowy_plank",
+        "top": "chaosmod:blocks/snowy_plank",
+        "side": "chaosmod:blocks/snowy_plank"
+    }
+}

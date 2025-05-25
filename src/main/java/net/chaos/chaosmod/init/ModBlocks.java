@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.chaos.chaosmod.blocks.AllemaniteBlock;
 import net.chaos.chaosmod.blocks.AllemaniteOre;
-import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.ConnectedBlock;
 import net.chaos.chaosmod.blocks.CookieJarBlock;
@@ -20,12 +19,12 @@ import net.chaos.chaosmod.blocks.OxoniumBlock;
 import net.chaos.chaosmod.blocks.OxoniumChest;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.blocks.OxoniumOre;
-import net.chaos.chaosmod.blocks.OxoniumStairs;
-import net.chaos.chaosmod.blocks.decoration.BlockBrightGrass;
+import net.chaos.chaosmod.blocks.abstracted.AbstractStairs;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.BlockLantern;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
 import net.chaos.chaosmod.blocks.decoration.MineralBricks;
+import net.chaos.chaosmod.blocks.decoration.OxoniumStairs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -54,6 +53,7 @@ public class ModBlocks {
 	public static final Block CUSTOM_FLOWER = new BlockCustomFlower("custom_flower");
 	public static final Block CUSTOM_LOG = new CustomLog("custom_log");
 	public static final Block CUSTOM_PLANK = new CustomPlanks("custom_plank", Material.WOOD);
+	public static final Block CUSTOM_STAIRS = new AbstractStairs("custom_stairs", CUSTOM_PLANK.getDefaultState()); // .withProperty(CustomPlanks.VARIANT, CustomPlankVariant.SNOWY) TODO : for later
 	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
 	public static final Block CUSTOM_SAPLINGS = new CustomBlockSapling("custom_sapling", Material.PLANTS);
 	// public static final Block CUSTOM_GRASS = new BlockBrightGrass();
