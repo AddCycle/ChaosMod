@@ -10,17 +10,17 @@ public class ModKeybinds {
 	public static KeyBinding pauseMusicKey;
 	public static KeyBinding stopMusicKey;
 
-    public static void init() {
-    	// TODO : fix that : one key to play/pause and one to stop and one to go to previous/next (with shift combine)
-    	String category = "key.categories.sounds";
-    	helper(playMusicKey, Keyboard.KEY_K, "key.sound_handler.play", category); // play
-    	helper(stopMusicKey, Keyboard.KEY_P, "key.sound_handler.stop", category); // play
-    	helper(pauseMusicKey, Keyboard.KEY_J, "key.sound_handler.pause", category); // play
-    }
-    
-    public static void helper(KeyBinding bind, int key, String name, String category) {
-        bind = new KeyBinding(name, key, category);
-        ClientRegistry.registerKeyBinding(bind);
+	public static void init() {
+        String category = "key.categories.sounds";
+
+        playMusicKey = new KeyBinding("key.sound_handler.play", Keyboard.KEY_K, category);
+        pauseMusicKey = new KeyBinding("key.sound_handler.pause", Keyboard.KEY_J, category);
+        stopMusicKey = new KeyBinding("key.sound_handler.stop", Keyboard.KEY_P, category);
+
+        ClientRegistry.registerKeyBinding(playMusicKey);
+        ClientRegistry.registerKeyBinding(pauseMusicKey);
+        ClientRegistry.registerKeyBinding(stopMusicKey);
     }
 
 }
+    	// TODO : fix that : one key to play/pause and one to stop and one to go to previous/next (with shift combine)

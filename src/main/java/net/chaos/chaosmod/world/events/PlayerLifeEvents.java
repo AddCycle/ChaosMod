@@ -105,7 +105,8 @@ public class PlayerLifeEvents {
 	        } else if (ModKeybinds.playMusicKey.isPressed()) {
 	        	ClientSoundHandler.playMusic(ModSounds.HOLLOW_PURPLE);
 	        } else if (ModKeybinds.pauseMusicKey.isPressed()) {
-	        	ClientSoundHandler.pauseMusic();
+	        	if (ClientSoundHandler.isMusicPlaying() && !ClientSoundHandler.isMusicPaused()) ClientSoundHandler.pauseMusic();
+	        	else ClientSoundHandler.resumeMusic();
 	        } else if (ModKeybinds.stopMusicKey.isPressed()) {
 	        	ClientSoundHandler.stopMusic();
 	        }
