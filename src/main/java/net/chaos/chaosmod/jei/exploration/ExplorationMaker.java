@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 public class ExplorationMaker {
 	public static List<ExplorationWrapper> getRecipes() {
         return Arrays.asList(
-            new ExplorationWrapper(new ItemStack(ModBlocks.OXONIUM_ORE), new ItemStack(ModItems.OXONIUM_INGOT))
+            new ExplorationWrapper(ItemStack.EMPTY, new ItemStack(ModItems.OXONIUM_INGOT))
         );
     }
 
