@@ -84,15 +84,17 @@ public class GuiInventoryExtended extends GuiInventory {
 
         	}
         });
-        this.addButton(new GuiButton(100, this.guiLeft + 140, this.guiTop + 5, 30, 20, "P")); // TODO : texture the button
-        this.addButton(new GuiButton(101, this.guiLeft + 140, this.guiTop + 5 + 20 * 2, 30, 20, "C")); // TODO : texture the button
-        this.addButton(new GuiButton(102, this.guiLeft + 140, this.guiTop + 5 + 20 * 3, 30, 20, "F")); // TODO : texture the button
-        this.addButton(new GuiButton(103, this.guiLeft + 140, this.guiTop + 5 + 20 * 4, 30, 20, "H")); // TODO : texture the button
+        int o = 20; // offset
+        int margin = 30;
+        this.addButton(new GuiButton(100, this.guiLeft + 50, this.guiTop - o, 30, 20, ">")); // TODO : texture the button
+        this.addButton(new GuiButton(101, this.guiLeft + 50 + 30, this.guiTop - o, 30, 20, "P")); // TODO : texture the button
+        this.addButton(new GuiButton(102, this.guiLeft + 50 + 60, this.guiTop - o, 30, 20, "S")); // TODO : texture the button
+        /*this.addButton(new GuiButton(103, this.guiLeft + 140, this.guiTop + 5 + 20 * 4, 30, 20, "H")); // TODO : texture the button
         this.addButton(new GuiButton(104, this.guiLeft + 140, this.guiTop + 5 + 20 * 6, 30, 20, "Z")); // TODO : texture the button
         this.addButton(new GuiButton(105, this.guiLeft + 140, this.guiTop + 5 + 20 * 7, 30, 20, "BR")); // TODO : texture the button
         this.addButton(new GuiButton(106, this.guiLeft + 140, this.guiTop + 5 + 20 * 8, 30, 20, "BC")); // TODO : texture the button
         this.addButton(new GuiButton(107, this.guiLeft + 140, this.guiTop + 5 + 20 * 9, 30, 20, "G")); // TODO : texture the button
-        this.addButton(new GuiButton(108, this.guiLeft + 140, this.guiTop + 5 + 20 * 10, 30, 20, "HP")); // TODO : texture the button
+        this.addButton(new GuiButton(108, this.guiLeft + 140, this.guiTop + 5 + 20 * 10, 30, 20, "HP")); // TODO : texture the button*/
     }
 	
 	private void resetGuiLeft()
@@ -181,80 +183,25 @@ public class GuiInventoryExtended extends GuiInventory {
     protected void actionPerformed(GuiButton button) throws IOException {
     	if (button.id == 99) {
             showAccessorySlot = !showAccessorySlot;
-        } else if (button.id == 100) {
-        	System.out.println("PLAYING putin MUSIC");
-        	ClientSoundHandler.toggleMusic(ModSounds.PUTIN_WIDE_WALK); // FIXME : do it client-side only
-        } else if (button.id == 101) {
-        	System.out.println("PLAYING chainsawman op");
-        	ClientSoundHandler.toggleMusic(ModSounds.CHAINSAWMAN_OP); // FIXME : do it client-side only
-        } else if (button.id == 102) {
-        	System.out.println("PLAYING fire force");
-        	ClientSoundHandler.toggleMusic(ModSounds.FIRE_FORCE_OP); // FIXME : do it client-side only
-        } else if (button.id == 103) {
-        	System.out.println("PLAYING highest op");
-        	ClientSoundHandler.toggleMusic(ModSounds.HIGHEST_OP); // FIXME : do it client-side only
-        } else if (button.id == 104) {
-        	System.out.println("Zankyou Sankya op");
-        	ClientSoundHandler.toggleMusic(ModSounds.ZANKYOU_SANKYA); // FIXME : do it client-side only
-        } else if (button.id == 105) {
-        	System.out.println("Black rover op");
-        	ClientSoundHandler.toggleMusic(ModSounds.BLACK_ROVER); // FIXME : do it client-side only
-        } else if (button.id == 106) {
-        	System.out.println("Black catcher op");
-        	ClientSoundHandler.toggleMusic(ModSounds.BLACK_CATCHER); // FIXME : do it client-side only
-        } else if (button.id == 107) {
-        	System.out.println("Grandeur op");
-        	ClientSoundHandler.toggleMusic(ModSounds.GRANDEUR); // FIXME : do it client-side only
-        } else if (button.id == 108) {
-        	System.out.println("Hollow purple op");
-        	ClientSoundHandler.toggleMusic(ModSounds.HOLLOW_PURPLE); // FIXME : do it client-side only
+        } else if (button.id == 100) { // play
+        	ClientSoundHandler.toggleMusic(ModSounds.FIRE_FORCE_OP);
+        } else if (button.id == 101) { // pause/resume
+        	System.out.println("Music paused/resumed");
+        	if (!ClientSoundHandler.isMusicPaused() && ClientSoundHandler.isMusicPlaying()) ClientSoundHandler.pauseMusic();
+        	else if (ClientSoundHandler.isMusicPaused() && !ClientSoundHandler.isMusicPlaying()) ClientSoundHandler.resumeMusic();
+        } else if (button.id == 102) { // stop
+        	System.out.println("Music stopped");
+        	ClientSoundHandler.stopMusic();
         } else {
             super.actionPerformed(button);
         }
     }
-
-    /*private void drawCustomActivePotionEffects() {
-        // You can copy and customize the logic from the original drawActivePotionEffects()
-        // Here is a simplified example that draws potion icons and duration:
-
-        // Get player's active potion effects
-        Collection<PotionEffect> effects = this.mc.player.getActivePotionEffects();
-
-        if (effects.isEmpty()) {
-            return;
-        }
-
-        int x = this.guiLeft - 120;  // Draw left of the inventory GUI
-        int y = this.guiTop + 32;
-
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-
-        for (PotionEffect effect : effects) {
-            Potion potion = effect.getPotion();
-
-            // Draw the potion icon background
-            this.mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
-            this.drawTexturedModalRect(x, y, 0, 166, 140, 32);
-
-            // Draw potion icon if available
-            if (potion.hasStatusIcon()) {
-                int iconIndex = potion.getStatusIconIndex();
-                this.drawTexturedModalRect(x + 6, y + 7, 18 + (iconIndex % 8) * 18, 198 + (iconIndex / 8) * 18, 18, 18);
-            }
-
-            // Draw potion name
-            String potionName = I18n.format(potion.getName());
-            if (effect.getAmplifier() > 0) {
-                potionName = potionName + " " + I18n.format("enchantment.level." + (effect.getAmplifier() + 1));
-            }
-            this.fontRenderer.drawStringWithShadow(potionName, x + 10 + 18, y + 6, 0xFFFFFF);
-
-            // Draw potion duration
-            String duration = Potion.getPotionDurationString(effect, 1.0F);
-            this.fontRenderer.drawStringWithShadow(duration, x + 10 + 18, y + 6 + 10, 0x7F7F7F);
-
-            y += 32;  // Move down for next effect
-        }
-    }*/
+    
+    @Override
+    public void onGuiClosed() {
+    	super.onGuiClosed();
+    	// if (ClientSoundHandler.isMusicPaused())
+    	// ClientSoundHandler.forcePause();
+    }
 
 }

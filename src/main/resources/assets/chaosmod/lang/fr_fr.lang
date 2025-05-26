@@ -98,7 +98,7 @@ tile.forge_interface_block.name=Interface de la Forge
 // Entities
 entity.forge_guardian.name=Gardien de la Forge du Chaos
 entity.revenge_blaze_boss.name=Blaze Vengeur
-entity.giant_mountain_boss.name=Le Géant des Montagnes
+entity.mountain_giant_boss.name=Le Géant des Montagnes
 
 //Gui
 itemGroup.chaosmodtab=Blocks de construction
@@ -111,6 +111,7 @@ gui.forge_interface_block.title=Forge du Chaos
 potion.effect.viking_friend=Potion des Companions
 splash_potion.effect.viking_friend=Splash Potion des Companions
 lingering_potion.effect.viking_friend=Potion flèchée des Companions
+tipped_arrow.effect.viking_friend=Flèche des Companions Vikings
 effect.viking_friend=Compagnon Viking
 
 //Guide

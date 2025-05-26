@@ -1,18 +1,17 @@
 package net.chaos.chaosmod.items.special;
 
+import net.chaos.chaosmod.cutscene.CutsceneManager;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.items.ItemBase;
-import net.chaos.chaosmod.world.gen.procedural.DungeonGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -59,8 +58,9 @@ public class TesterWand extends ItemBase {
 					worldIn.spawnEntity(menhir);
 					break;
 				case 3:
-					playerIn.sendMessage(new TextComponentString("playing sound : highest"));
-					if (!worldIn.isRemote) worldIn.playSound(null, playerIn.getPosition(), ModSounds.HIGHEST_OP, SoundCategory.RECORDS, 1.0f, 1.0f);
+					playerIn.sendMessage(new TextComponentString("STARTING cutscene : "));
+					CutsceneManager.startCutscene();
+					// if (!worldIn.isRemote) worldIn.playSound(null, playerIn.getPosition(), ModSounds.HIGHEST_OP, SoundCategory.RECORDS, 1.0f, 1.0f);
 					break;
 				case 4:
 					playerIn.sendMessage(new TextComponentString("playing sound : putin walk wide"));

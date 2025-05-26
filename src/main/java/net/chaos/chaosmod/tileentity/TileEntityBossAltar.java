@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.chaos.chaosmod.blocks.BossAltar;
+import net.chaos.chaosmod.cutscene.CutsceneManager;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
 import net.minecraft.nbt.NBTTagCompound;

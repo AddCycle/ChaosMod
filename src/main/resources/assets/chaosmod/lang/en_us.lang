@@ -98,7 +98,7 @@ tile.forge_interface_block.name=Forge Interface Block
 // Entities
 entity.forge_guardian.name=Forge Guardian of Chaos
 entity.revenge_blaze_boss.name=Revenge Blaze
-entity.giant_mountain_boss.name=Mountain Giant
+entity.mountain_giant_boss.name=Mountain Giant
 
 //Gui
 itemGroup.chaosmodtab=Building blocks
@@ -106,12 +106,13 @@ itemGroup.chaosmodtab2=Chaos Items
 itemGroup.chaosmodtab3=Functional Blocks
 itemGroup.chaosmodtab4=Potions
 gui.forge_interface_block.title=Chaos Forge
-effect.viking_friend=Viking Friend
+// effect.viking_friend=Viking Friend
 
 // Potions
 potion.effect.viking_friend=Potion of Vikings
 splash_potion.effect.viking_friend=Splash Potion of Vikings
 lingering_potion.effect.viking_friend=Lingering Potion of Vikings
+tipped_arrow.effect.viking_friend=Arrow of Vikings
 effect.viking_friend=Viking Friend
 
 //Guide

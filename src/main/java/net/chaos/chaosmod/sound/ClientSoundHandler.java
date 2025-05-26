@@ -11,11 +11,34 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ClientSoundHandler {
 	private static ISound currentMusic;
     private static boolean isPlaying = false;
+    private static boolean isPaused = false;
 
     public static void playMusic(SoundEvent soundEvent) {
         if (!isPlaying) {
             currentMusic = PositionedSoundRecord.getMusicRecord(soundEvent);
             Minecraft.getMinecraft().getSoundHandler().playSound(currentMusic);
+            isPlaying = true;
+        }
+    }
+    
+    public static void forcePause() {
+    	Minecraft.getMinecraft().getSoundHandler().pauseSounds();
+    	isPaused = true;
+    	isPlaying = false;
+    }
+
+    public static void pauseMusic() {
+        if (!isPaused && currentMusic != null) {
+            Minecraft.getMinecraft().getSoundHandler().pauseSounds();
+            isPaused = true;
+            isPlaying = false;
+        }
+    }
+
+    public static void resumeMusic() {
+        if (isPaused && currentMusic != null) {
+            Minecraft.getMinecraft().getSoundHandler().resumeSounds();
+            isPaused = false;
             isPlaying = true;
         }
     }
@@ -33,8 +56,13 @@ public class ClientSoundHandler {
         return isPlaying;
     }
 
+    public static boolean isMusicPaused() {
+        return isPaused;
+    }
+
     public static void toggleMusic(SoundEvent soundEvent) {
-        if (isPlaying) stopMusic();
-        else playMusic(soundEvent);
+        if (isPlaying && !isPaused) stopMusic();
+        else if (!isPlaying && !isPaused) playMusic(soundEvent);
+        else ;
     }
 }

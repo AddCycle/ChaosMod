@@ -8,11 +8,14 @@ import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.init.ModKeybinds;
+import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
+import net.chaos.chaosmod.sound.ClientSoundHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -29,6 +32,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -98,7 +102,27 @@ public class PlayerLifeEvents {
 	    if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
 	        if (Keyboard.getEventKey() == mc.gameSettings.keyBindInventory.getKeyCode()) {
 	            Main.network.sendToServer(new PacketOpenAccessoryGui());
+	        } else if (ModKeybinds.playMusicKey.isPressed()) {
+	        	ClientSoundHandler.playMusic(ModSounds.HOLLOW_PURPLE);
+	        } else if (ModKeybinds.pauseMusicKey.isPressed()) {
+	        	ClientSoundHandler.pauseMusic();
+	        } else if (ModKeybinds.stopMusicKey.isPressed()) {
+	        	ClientSoundHandler.stopMusic();
 	        }
+
+	    }
+	}
+	
+	// TENTATIVE INFRUCTUEUSE
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onGuiOpen(GuiOpenEvent event) {
+	    // GUI is closing
+	    if (event.getGui() == null && ClientSoundHandler.isMusicPaused()) {
+	        Minecraft.getMinecraft().addScheduledTask(() -> {
+	        	System.out.println("Pause force the sounds");
+	            // ClientSoundHandler.forcePause(); // forcibly re-pause music
+	        });
 	    }
 	}
 	

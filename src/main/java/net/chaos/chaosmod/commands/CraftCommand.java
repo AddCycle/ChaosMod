@@ -28,7 +28,7 @@ public class CraftCommand extends CommandBase {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
 		World world = player.getEntityWorld();
-		world.setBlockState(player.getPosition(), Blocks.CRAFTING_TABLE.getDefaultState());
+		// world.setBlockState(player.getPosition(), Blocks.CRAFTING_TABLE.getDefaultState()); FIXED
 		player.displayGui(new BlockWorkbench.InterfaceCraftingTable(world, player.getPosition()) {
 			@Override
 			public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
