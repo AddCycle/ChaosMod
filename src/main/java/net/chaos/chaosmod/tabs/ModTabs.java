@@ -8,6 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
 
@@ -24,13 +25,17 @@ public class ModTabs extends GeneralTab {
 	public static final CreativeTabs POTIONS = new GeneralTab("chaosmodtab4", "general_bg.png", Items.POTIONITEM, null, false) {
 		@Override
 		public void displayAllRelevantItems(NonNullList<ItemStack> items) {
-		    items.add(PotionUtils.addPotionToItemStack(
-		        new ItemStack(Items.POTIONITEM), ModPotionTypes.VIKING_FRIEND_TYPE));
-		    items.add(PotionUtils.addPotionToItemStack(
-		        new ItemStack(Items.SPLASH_POTION), ModPotionTypes.VIKING_FRIEND_TYPE));
-		    items.add(PotionUtils.addPotionToItemStack(
-		        new ItemStack(Items.LINGERING_POTION), ModPotionTypes.VIKING_FRIEND_TYPE));
+			potionHelper(items, ModPotionTypes.VIKING_FRIEND_TYPE);
 		}
 	};
+	
+	public static void potionHelper(NonNullList<ItemStack> items, PotionType potionType) {
+		items.add(PotionUtils.addPotionToItemStack(
+				new ItemStack(Items.POTIONITEM), potionType));
+		items.add(PotionUtils.addPotionToItemStack(
+				new ItemStack(Items.SPLASH_POTION), potionType));
+		items.add(PotionUtils.addPotionToItemStack(
+				new ItemStack(Items.LINGERING_POTION), potionType));
+	}
 	
 }

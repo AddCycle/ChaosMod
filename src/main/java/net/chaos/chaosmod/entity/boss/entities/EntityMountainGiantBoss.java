@@ -77,12 +77,12 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
     protected void initEntityAI()
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAICustomRangedAttack(this, 1.25D, 20 * 2, 20.0F));
+        this.tasks.addTask(1, new EntityAICustomRangedAttack(this, 1.0D, 20 * 2, 20.0F));
         this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
+        // this.tasks.addTask(8, new EntityAILookIdle(this));
         this.applyEntityAI();
     }
 
@@ -90,6 +90,7 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
     {
         this.tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0D, false));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPigZombie.class}));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPlayer.class}));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));

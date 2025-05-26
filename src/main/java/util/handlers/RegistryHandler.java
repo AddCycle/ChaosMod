@@ -8,7 +8,6 @@ import net.chaos.chaosmod.init.ModPotionTypes;
 import net.chaos.chaosmod.init.ModPotions;
 import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
-import net.chaos.chaosmod.villagers.CustomFarmerProfession;
 import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

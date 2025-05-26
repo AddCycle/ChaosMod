@@ -41,6 +41,7 @@ item.oxonium_upgrade.name=Amélioration en Oxonium
 item.allemanite_backpack.name=Sac en Allemanite
 item.allemanite_extinguisher.name=Extincteur en Allemanite
 item.oxonium_necklace.name=Pendentif en Oxonium
+item.allemanite_necklace.name=Pendentif en Allemanite
 item.enderite_thunder.name=Eclair d'Enderite
 item.debug_wand.name=Baguette du Debug
 item.custom_fireball.name=Boule de Feu Custom
@@ -97,10 +98,19 @@ tile.forge_interface_block.name=Interface de la Forge
 // Entities
 entity.forge_guardian.name=Gardien de la Forge du Chaos
 entity.revenge_blaze_boss.name=Blaze Vengeur
+entity.giant_mountain_boss.name=Le Géant des Montagnes
 
 //Gui
-itemGroup.chaosmodtab=Objets du Chaos
+itemGroup.chaosmodtab=Blocks de construction
+itemGroup.chaosmodtab2=Items du Chaos
+itemGroup.chaosmodtab3=Blocks fonctionnels
+itemGroup.chaosmodtab4=Potions
 gui.forge_interface_block.title=Forge du Chaos
+
+// Potions
+potion.effect.viking_friend=Potion des Companions
+splash_potion.effect.viking_friend=Splash Potion des Companions
+lingering_potion.effect.viking_friend=Potion flèchée des Companions
 effect.viking_friend=Compagnon Viking
 
 //Guide
