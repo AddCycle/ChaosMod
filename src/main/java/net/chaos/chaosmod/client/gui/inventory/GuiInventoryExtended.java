@@ -86,7 +86,7 @@ public class GuiInventoryExtended extends GuiInventory {
         });
         int o = 20; // offset
         int margin = 30;
-        this.addButton(new GuiButton(100, this.guiLeft + 50, this.guiTop - o, 30, 20, ">")); // TODO : texture the button
+        this.addButton(new GuiButton(100, this.guiLeft + 50, this.guiTop - o, 30, 20, "|>")); // TODO : texture the button
         this.addButton(new GuiButton(101, this.guiLeft + 50 + 30, this.guiTop - o, 30, 20, "P")); // TODO : texture the button
         this.addButton(new GuiButton(102, this.guiLeft + 50 + 60, this.guiTop - o, 30, 20, "S")); // TODO : texture the button
         /*this.addButton(new GuiButton(103, this.guiLeft + 140, this.guiTop + 5 + 20 * 4, 30, 20, "H")); // TODO : texture the button

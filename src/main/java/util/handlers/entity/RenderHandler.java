@@ -2,6 +2,7 @@ package util.handlers.entity;
 
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
+import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
@@ -13,6 +14,7 @@ import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.chaos.chaosmod.entity.projectile.render.EntityMenhirRenderer;
 import net.chaos.chaosmod.entity.projectile.render.EntityRockRenderer;
 import net.chaos.chaosmod.entity.projectile.render.EntitySmallBlueFireballRenderer;
+import net.chaos.chaosmod.entity.render.EntityPicsouRenderer;
 import net.chaos.chaosmod.entity.render.EntityVikingRenderer;
 import net.chaos.chaosmod.entity.render.RenderChaosSage;
 import net.chaos.chaosmod.entity.render.RenderForgeGuardian;
@@ -92,6 +94,15 @@ public class RenderHandler {
 			@Override
 			public Render<? super EntityViking> createRenderFor(RenderManager manager) {
 				return new EntityVikingRenderer(manager);
+			}
+			
+		});
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityPicsou.class, new IRenderFactory<EntityPicsou>() {
+
+			@Override
+			public Render<? super EntityPicsou> createRenderFor(RenderManager manager) {
+				return new EntityPicsouRenderer(manager);
 			}
 			
 		});

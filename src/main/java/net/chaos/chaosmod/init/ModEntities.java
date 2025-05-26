@@ -3,6 +3,7 @@ package net.chaos.chaosmod.init;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
+import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
@@ -25,6 +26,7 @@ public class ModEntities {
 		registerEntity("chaos_sage", EntityChaosSage.class, Reference.CHAOS_SAGE, 50, 31, 3093247);
 		registerEntity("menhir", EntityMenhir.class, Reference.ENTITY_MENHIR, 50, 31, 3093247);
 		registerEntity("viking", EntityViking.class, Reference.ENTITY_VIKING, 50, 31, 3093247);
+		registerEntity("picsou", EntityPicsou.class, Reference.ENTITY_PICSOU, 50, 31, 3093247);
 	}
 	
 	private static void registerEntity(String name, Class<? extends Entity> entity, int id, int range, int color1, int color2) {
