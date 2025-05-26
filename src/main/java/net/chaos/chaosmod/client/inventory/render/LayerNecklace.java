@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import net.chaos.chaosmod.client.inventory.ClientAccessoryData;
 import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class LayerNecklace implements LayerRenderer<AbstractClientPlayer> {
 	// private static final ResourceLocation NECKLACE_TEXTURE = new ResourceLocation("chaosmod", "textures/entity/player/oxonium_necklace.png");
 	private static final ResourceLocation NECKLACE_TEXTURE = new ResourceLocation("chaosmod", "textures/entity/player/oxonium_necklace.png");
+	private static final ResourceLocation ALLEMANITE_TEXTURE = new ResourceLocation("chaosmod", "textures/entity/player/allemanite_necklace.png");
     private final RenderPlayer renderPlayer;
     
     public LayerNecklace(RenderPlayer renderPlayer) {
@@ -41,7 +43,8 @@ public class LayerNecklace implements LayerRenderer<AbstractClientPlayer> {
             return;
         }*/
 
-    	Minecraft.getMinecraft().getTextureManager().bindTexture(NECKLACE_TEXTURE);
+        if (necklaceStack.getItem() instanceof OxoniumNecklace) Minecraft.getMinecraft().getTextureManager().bindTexture(NECKLACE_TEXTURE);
+        if (necklaceStack.getItem() instanceof AllemaniteNecklace) Minecraft.getMinecraft().getTextureManager().bindTexture(ALLEMANITE_TEXTURE);
 
     	GlStateManager.pushMatrix();
 

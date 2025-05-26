@@ -20,7 +20,7 @@ public class ExplorationCategory implements IRecipeCategory<ExplorationWrapper>{
     public ExplorationCategory(IGuiHelper guiHelper) {
         // 150x100 as an example size; adjust as needed
         // this.background = guiHelper.createBlankDrawable(150, 100);
-        this.background = guiHelper.createDrawable(new ResourceLocation(Reference.MODID, "textures/exploration/jei/test_bg.png"), 0, 0, 256, 256);
+        this.background = guiHelper.createDrawable(new ResourceLocation(Reference.MODID, "textures/exploration/jei/test_bg.png"), 0, 0, 170, 130);
     }
 
 	@Override
@@ -30,7 +30,7 @@ public class ExplorationCategory implements IRecipeCategory<ExplorationWrapper>{
 
 	@Override
 	public String getTitle() {
-		return "Exploration";
+		return "Exploration"; // TODO: add localization
 	}
 
 	@Override
