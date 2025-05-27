@@ -37,34 +37,6 @@ public class Renderer {
     private static final int WIDTH = 256;
     private static final int HEIGHT = 256;
     
-    private final Map<ChunkKey, int[][]> minimapCache = new HashMap<>();
-    
-    private void computeChunkColors(World world, int chunkX, int chunkZ) {
-        int[][] colors = new int[16][16];
-
-        BlockColors blockColors = Minecraft.getMinecraft().getBlockColors();
-
-        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
-
-        for (int dx = 0; dx < 16; dx++) {
-            for (int dz = 0; dz < 16; dz++) {
-                int x = (chunkX << 4) + dx;
-                int z = (chunkZ << 4) + dz;
-                int y = world.getHeight(x, z); // Top visible block (surface)
-
-                pos.setPos(x, y, z);
-                IBlockState state = world.getBlockState(pos.down());
-
-                int color = blockColors.colorMultiplier(state, world, pos, 0);
-                if (color == -1) color = state.getMapColor(world, pos).colorValue;
-
-                colors[dx][dz] = color;
-            }
-        }
-
-        minimapCache.put(new ChunkKey(chunkX, chunkZ), colors);
-    }
- 
     public static void drawOpaqueSprite(ScaledResolution resolution) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(opaqueLogo);
         Tessellator tessellator = Tessellator.getInstance();

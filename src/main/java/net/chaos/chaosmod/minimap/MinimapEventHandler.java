@@ -1,11 +1,14 @@
 package net.chaos.chaosmod.minimap;
 
+import java.util.List;
+
 import net.chaos.chaosmod.config.ModConfig;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -67,6 +70,7 @@ public class MinimapEventHandler {
 	    }
 		if (ModConfig.displayOverlay) Renderer.drawTransparentMap(resolution, pixelSize);
 		if (ModConfig.displayArrow) drawArrow(resolution, mapSize, pixelSize);
+		drawPlayersArrows(resolution);
         
     }
 	
@@ -115,6 +119,19 @@ public class MinimapEventHandler {
 	    if (ModConfig.displayArrow)
 	        drawArrow(resolution, mapSize, pixelSize);
 	}*/
+	
+	private static void drawPlayersArrows(ScaledResolution resolution) {
+		Minecraft mc = Minecraft.getMinecraft();
+		List<EntityPlayer> players = mc.world.playerEntities;
+		EntityPlayerSP localPlayer = mc.player;
+		for (EntityPlayer player : mc.world.playerEntities) {
+		    if (player == localPlayer) continue; // Skip self
+		    double distanceSq = player.getDistanceSq(localPlayer);
+		    if (distanceSq > 256 * 256) continue; // Skip distant players (example: 256 block range)
+		    drawArrowAt(resolution, player.getPosition(), player);
+		    
+		}
+	}
 
 	private static void drawArrow(ScaledResolution resolution, int mapSize, int pixelSize) {
 		Minecraft mc = Minecraft.getMinecraft();
@@ -141,4 +158,28 @@ public class MinimapEventHandler {
         GlStateManager.popMatrix();
 	}
 
+	private static void drawArrowAt(ScaledResolution resolution, BlockPos pos, EntityPlayer player) {
+		Minecraft mc = Minecraft.getMinecraft();
+		float playerYaw = player.rotationYaw;
+		float scale = resolution.getScaleFactor();
+
+	    // Calculate center in scaled coordinates (divide by scale)
+	    int centerX = (int)((pos.getX()) / scale);
+	    int centerY = (int)((pos.getY()) / scale);
+        // int centerX = (int)(resolution.getScaledWidth() / 2);
+        // int centerY = (int)(resolution.getScaledWidth() / 2);
+        float angle = player.rotationYaw;
+        GlStateManager.pushMatrix();
+        GlStateManager.disableDepth();
+        GlStateManager.enableBlend();
+        GlStateManager.disableAlpha();
+
+        Renderer.drawPlayerArrow(resolution, centerX, centerY, playerYaw, 0xff0000); // red arrow
+
+        // Restore GL state
+        GlStateManager.enableDepth();
+        GlStateManager.enableAlpha();
+        GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
+	}
 }

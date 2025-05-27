@@ -20,6 +20,7 @@ import net.chaos.chaosmod.commands.TopCommand;
 import net.chaos.chaosmod.commands.generation.LoadStructCommand;
 import net.chaos.chaosmod.config.ConfigEventHandler;
 import net.chaos.chaosmod.config.ModConfig;
+import net.chaos.chaosmod.cutscene.CutsceneEvents;
 import net.chaos.chaosmod.gui.GuiHandler;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
@@ -42,7 +43,6 @@ import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.chaos.chaosmod.world.ModWorldGen;
-import net.chaos.chaosmod.world.events.CutsceneEvents;
 import net.chaos.chaosmod.world.events.FightEvents;
 import net.chaos.chaosmod.world.events.PlayerAchivementsEvents;
 import net.chaos.chaosmod.world.events.PlayerLifeEvents;
@@ -114,7 +114,6 @@ public class Main
     	ConfigEventHandler.JVM_load();
     	ModConfig.init(event.getSuggestedConfigurationFile());
         ModSounds.registerSounds();
-        ModKeybinds.init();
         ModCapabilities.register(); // for necklace and other things
         // MapGenStructureIO.registerStructureComponent(StructureVillagePieces.Start.class, "MyVillageStart");
         // MapGenStructureIO.registerStructureComponent(StructureVillagePieces.House1.class, "MyStructureVillageHouse1");
@@ -150,7 +149,6 @@ public class Main
         // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
         // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());
-        MinecraftForge.EVENT_BUS.register(new CutsceneEvents());
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
         MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
         MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());

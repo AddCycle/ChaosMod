@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -12,19 +16,30 @@ public class CutsceneManager {
     private static int ticks;
     private static boolean playing;
     private static final List<Runnable> actions = new ArrayList<>();
+    private static EntityCamera camera = null;
 
     public static void startCutscene() {
-        ticks = 0;
+    	ticks = 0;
         playing = true;
         actions.clear();
+        Minecraft mc = Minecraft.getMinecraft();
+        WorldClient world = mc.world;
+        EntityPlayer player = mc.player;
+
+        EntityCamera cam = new EntityCamera(world);
+        cam.setPositionAndRotation(player.posX, player.posY + 2, player.posZ - 5, 0, 0);
+        world.spawnEntity(cam);
+        Minecraft.getMinecraft().setRenderViewEntity(cam);
+
+        camera = cam; // store it in a static field for access in tick/update
 
         queue(() -> {
-            // Example action: freeze player
-            Minecraft.getMinecraft().setIngameNotInFocus();
+            Minecraft.getMinecraft().setIngameNotInFocus(); // optional
         }, 0);
 
         queue(() -> {
-            // Play sound, show particles
+        	BlockPos bossSpawn = new BlockPos(100, 64, 200);
+            lookAt(camera, bossSpawn.getX() + 0.5, bossSpawn.getY() + 0.5, bossSpawn.getZ() + 0.5);
         }, 40);
 
         queue(() -> {
@@ -32,10 +47,28 @@ public class CutsceneManager {
         }, 100);
 
         queue(() -> {
-            // Unfreeze player
             Minecraft.getMinecraft().setIngameFocus();
+            Minecraft.getMinecraft().setRenderViewEntity(mc.player);
+            camera.setDead();
+            camera = null;
             playing = false;
         }, 140);
+    }
+    
+    public static void lookAt(Entity entity, double targetX, double targetY, double targetZ) {
+        double dx = targetX - entity.posX;
+        double dy = targetY - (entity.posY + entity.getEyeHeight());
+        double dz = targetZ - entity.posZ;
+
+        double distXZ = Math.sqrt(dx * dx + dz * dz);
+
+        float yaw = (float)(Math.toDegrees(Math.atan2(dz, dx)) - 90);
+        float pitch = (float)-Math.toDegrees(Math.atan2(dy, distXZ));
+
+        entity.rotationYaw = yaw;
+        // entity.rotationYawHead = yaw;
+        // entity.renderYawOffset = yaw;
+        entity.rotationPitch = pitch;
     }
 
     public static void queue(Runnable action, int delay) {

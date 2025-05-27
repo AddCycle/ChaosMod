@@ -1,7 +1,7 @@
-package net.chaos.chaosmod.world.events;
+package net.chaos.chaosmod.cutscene;
 
-import net.chaos.chaosmod.cutscene.CutsceneManager;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -20,6 +20,13 @@ public class CutsceneEvents {
 	@SubscribeEvent
 	public void onRenderOverlay(RenderGameOverlayEvent.Pre event) {
 		// System.out.println("TRIGGER EVENT : render overlay");
+	    if (CutsceneManager.isPlaying()) {
+	        event.setCanceled(true);
+	    }
+	}
+	
+	@SubscribeEvent
+	public void onRenderHand(RenderHandEvent event) {
 	    if (CutsceneManager.isPlaying()) {
 	        event.setCanceled(true);
 	    }

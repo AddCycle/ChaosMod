@@ -3,7 +3,9 @@ package proxy;
 import net.chaos.chaosmod.client.inventory.render.LayerNecklace;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBossAltarRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
+import net.chaos.chaosmod.cutscene.CutsceneEvents;
 import net.chaos.chaosmod.entity.boss.gui.BossBarRendering;
+import net.chaos.chaosmod.init.ModKeybinds;
 import net.chaos.chaosmod.lore.dialogs.DialogEventHandler;
 import net.chaos.chaosmod.minimap.MinimapEventHandler;
 import net.chaos.chaosmod.tileentity.LanternTESR;
@@ -27,7 +29,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import util.Reference;
-import util.handlers.RegistryHandler;
 import util.handlers.entity.RenderHandler;
 
 // Adds a simple mapping from Item + metadata to the model variant. (en gros il enregistre les objets dans la structure du loader pour afficher correctement les objets)
@@ -45,6 +46,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
         RenderHandler.registerEntityRenders();
+        ModKeybinds.init();
 	}
 
 	@Override
@@ -52,6 +54,7 @@ public class ClientProxy extends CommonProxy {
 		super.init(event);
         MinecraftForge.EVENT_BUS.register(new MinimapEventHandler());
         MinecraftForge.EVENT_BUS.register(new DialogEventHandler());
+        MinecraftForge.EVENT_BUS.register(new CutsceneEvents());
 		// MinecraftForge.EVENT_BUS.register(ClientMessageHandler.class);
 		// OxoniumFurnace to suppress nametag
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new TileEntitySpecialRenderer<TileEntity>() {
