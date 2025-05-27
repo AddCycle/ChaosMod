@@ -4,6 +4,7 @@ import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
+import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
 import net.chaos.chaosmod.entity.boss.renderer.EntityMountainGiantBossRenderer;
@@ -16,6 +17,7 @@ import net.chaos.chaosmod.entity.projectile.render.EntityRockRenderer;
 import net.chaos.chaosmod.entity.projectile.render.EntitySmallBlueFireballRenderer;
 import net.chaos.chaosmod.entity.render.EntityPicsouRenderer;
 import net.chaos.chaosmod.entity.render.EntityVikingRenderer;
+import net.chaos.chaosmod.entity.render.LittleGiantRenderer;
 import net.chaos.chaosmod.entity.render.RenderChaosSage;
 import net.chaos.chaosmod.entity.render.RenderForgeGuardian;
 import net.minecraft.client.renderer.entity.Render;
@@ -103,6 +105,15 @@ public class RenderHandler {
 			@Override
 			public Render<? super EntityPicsou> createRenderFor(RenderManager manager) {
 				return new EntityPicsouRenderer(manager);
+			}
+			
+		});
+
+		RenderingRegistry.registerEntityRenderingHandler(LittleGiantEntity.class, new IRenderFactory<LittleGiantEntity>() {
+
+			@Override
+			public Render<? super LittleGiantEntity> createRenderFor(RenderManager manager) {
+				return new LittleGiantRenderer(manager);
 			}
 			
 		});
