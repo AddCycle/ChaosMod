@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.blocks;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.cutscene.CutsceneManager;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
@@ -87,6 +88,7 @@ public class BossAltar extends Block implements ITileEntityProvider, IHasModel {
 			if (!playerIn.capabilities.isCreativeMode) {
 				if (!worldIn.isRemote) playerIn.getHeldItemMainhand().shrink(1);
 			}
+			if (worldIn.isRemote) CutsceneManager.startCutscene(pos.north(10).up(2));
 			if (!worldIn.isRemote) te_2.triggerAnimation(20 * 6);
 		}
 		return true;

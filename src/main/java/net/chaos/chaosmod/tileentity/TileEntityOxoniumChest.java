@@ -55,6 +55,7 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
         this.cachedChestType = typeIn;
     }
 
+    @Override
     public int getSizeInventory()
     {
         return 27;
@@ -412,7 +413,7 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
     {
-        this.fillWithLoot(playerIn);
+        // this.fillWithLoot(playerIn); FIXME : maybe this was the issue ?
         return new OxoniumChestContainer(playerInventory, this, playerIn);
     }
 

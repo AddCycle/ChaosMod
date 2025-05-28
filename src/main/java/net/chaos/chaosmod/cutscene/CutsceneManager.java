@@ -18,7 +18,7 @@ public class CutsceneManager {
     private static final List<Runnable> actions = new ArrayList<>();
     private static EntityCamera camera = null;
 
-    public static void startCutscene() {
+    public static void startCutscene(BlockPos pos) {
     	ticks = 0;
         playing = true;
         actions.clear();
@@ -27,20 +27,20 @@ public class CutsceneManager {
         EntityPlayer player = mc.player;
 
         EntityCamera cam = new EntityCamera(world);
-        cam.setPositionAndRotation(player.posX, player.posY + 2, player.posZ - 5, 0, 0);
+        // cam.setPositionAndRotation(player.posX, player.posY, player.posZ, 0, 0);
+        cam.setPositionAndRotation(pos.getX(), pos.getY(), pos.getZ(), 0, 0);
         world.spawnEntity(cam);
-        Minecraft.getMinecraft().setRenderViewEntity(cam);
 
         camera = cam; // store it in a static field for access in tick/update
 
         queue(() -> {
-            Minecraft.getMinecraft().setIngameNotInFocus(); // optional
         }, 0);
 
         queue(() -> {
-        	BlockPos bossSpawn = new BlockPos(100, 64, 200);
-            lookAt(camera, bossSpawn.getX() + 0.5, bossSpawn.getY() + 0.5, bossSpawn.getZ() + 0.5);
-        }, 40);
+        	Minecraft.getMinecraft().setRenderViewEntity(cam);
+            Minecraft.getMinecraft().setIngameNotInFocus(); // optional
+            // lookAt(camera, bossSpawn.getX() + 0.5, bossSpawn.getY() + 0.5, bossSpawn.getZ() + 0.5);
+        }, 30);
 
         queue(() -> {
             // Spawn boss

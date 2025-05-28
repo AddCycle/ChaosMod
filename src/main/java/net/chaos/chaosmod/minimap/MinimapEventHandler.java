@@ -70,66 +70,19 @@ public class MinimapEventHandler {
 	    }
 		if (ModConfig.displayOverlay) Renderer.drawTransparentMap(resolution, pixelSize);
 		if (ModConfig.displayArrow) drawArrow(resolution, mapSize, pixelSize);
-		drawPlayersArrows(resolution);
+		drawPlayersArrows(resolution, mapSize, pixelSize);
         
     }
 	
-	// v2 tentative echouee je pense
-	/*private static void drawMap(ScaledResolution resolution) {
-	    Minecraft mc = Minecraft.getMinecraft();
-	    World world = mc.world;
-	    EntityPlayer player = mc.player;
-
-	    int mapSize = ModConfig.minimapSize;
-	    int pixelSize = ModConfig.pixelSize;
-
-	    // Center the minimap on screen
-	    int minimapCenterX = resolution.getScaledWidth() / 2 - (mapSize * pixelSize) / 2;
-	    int minimapCenterY = resolution.getScaledHeight() / 2 - (mapSize * pixelSize) / 2;
-
-	    int radiusChunks = mapSize / 16 / 2; // how many chunks radius to render around player
-
-	    int playerChunkX = player.chunkCoordX;
-	    int playerChunkZ = player.chunkCoordZ;
-
-	    for (int dx = -radiusChunks; dx <= radiusChunks; dx++) {
-	        for (int dz = -radiusChunks; dz <= radiusChunks; dz++) {
-	            int chunkX = playerChunkX + dx;
-	            int chunkZ = playerChunkZ + dz;
-
-	            int[][] colors = ChunkColorCache.getChunkColors(world, chunkX, chunkZ);
-
-	            for (int cx = 0; cx < 16; cx++) {
-	                for (int cz = 0; cz < 16; cz++) {
-	                    int color = colors[cx][cz];
-
-	                    // flip vertically inside chunk by reversing cz on screen Y coordinate only
-	                    int screenX = minimapCenterX + ((dx + radiusChunks) * 16 + cx) * pixelSize;
-	                    int screenY = minimapCenterY + ((dz + radiusChunks) * 16 + (15 - cz)) * pixelSize;
-
-	                    Renderer.drawPixel(resolution, pixelSize, screenX / pixelSize, screenY / pixelSize, color);
-	                }
-	            }
-	        }
-	    }
-
-	    if (ModConfig.displayOverlay)
-	        Renderer.drawTransparentMap(resolution, pixelSize);
-
-	    if (ModConfig.displayArrow)
-	        drawArrow(resolution, mapSize, pixelSize);
-	}*/
-	
-	private static void drawPlayersArrows(ScaledResolution resolution) {
+	private static void drawPlayersArrows(ScaledResolution resolution, int mapSize, int pixelSize) {
 		Minecraft mc = Minecraft.getMinecraft();
 		List<EntityPlayer> players = mc.world.playerEntities;
 		EntityPlayerSP localPlayer = mc.player;
-		for (EntityPlayer player : mc.world.playerEntities) {
+		for (EntityPlayer player : players) {
 		    if (player == localPlayer) continue; // Skip self
 		    double distanceSq = player.getDistanceSq(localPlayer);
 		    if (distanceSq > 256 * 256) continue; // Skip distant players (example: 256 block range)
-		    drawArrowAt(resolution, player.getPosition(), player);
-		    
+		    drawArrowAt(resolution, mapSize, pixelSize, distanceSq, player);
 		}
 	}
 
@@ -158,23 +111,27 @@ public class MinimapEventHandler {
         GlStateManager.popMatrix();
 	}
 
-	private static void drawArrowAt(ScaledResolution resolution, BlockPos pos, EntityPlayer player) {
+	private static void drawArrowAt(ScaledResolution resolution, int mapSize, int pixelSize, double distanceSq, EntityPlayer player) {
 		Minecraft mc = Minecraft.getMinecraft();
 		float playerYaw = player.rotationYaw;
 		float scale = resolution.getScaleFactor();
+		// System.out.println("distance between players : " + distanceSq);
 
 	    // Calculate center in scaled coordinates (divide by scale)
-	    int centerX = (int)((pos.getX()) / scale);
-	    int centerY = (int)((pos.getY()) / scale);
+	    int centerX = (int)((mapSize * pixelSize) / 2f / scale);
+	    int centerY = (int)((mapSize * pixelSize) / 2f / scale);
         // int centerX = (int)(resolution.getScaledWidth() / 2);
         // int centerY = (int)(resolution.getScaledWidth() / 2);
-        float angle = player.rotationYaw;
+        float angle = mc.player.rotationYaw;
         GlStateManager.pushMatrix();
         GlStateManager.disableDepth();
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
 
-        Renderer.drawPlayerArrow(resolution, centerX, centerY, playerYaw, 0xff0000); // red arrow
+        /*
+         * FIXME : Use dot product to project on the horizontal axis to see the actual distance between the players (note that the distance is squared for now)
+         */
+        Renderer.drawPlayerArrow(resolution, centerX + ((int) (distanceSq / 2f / scale)), centerY - ((int) (distanceSq / 2f / scale)), playerYaw, 0xFF0000); // red arrow
 
         // Restore GL state
         GlStateManager.enableDepth();

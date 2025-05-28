@@ -59,7 +59,7 @@ public class TesterWand extends ItemBase {
 					break;
 				case 3:
 					playerIn.sendMessage(new TextComponentString("STARTING cutscene : "));
-					CutsceneManager.startCutscene();
+					CutsceneManager.startCutscene(playerIn.getPosition());
 					// if (!worldIn.isRemote) worldIn.playSound(null, playerIn.getPosition(), ModSounds.HIGHEST_OP, SoundCategory.RECORDS, 1.0f, 1.0f);
 					break;
 				case 4:

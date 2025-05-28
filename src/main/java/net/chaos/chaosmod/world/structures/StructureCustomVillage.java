@@ -31,6 +31,7 @@ import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -1074,7 +1075,9 @@ public class StructureCustomVillage {
                 if (!this.hasMadeChest && structureBoundingBoxIn.isVecInside(new BlockPos(this.getXWithOffset(5, 5), this.getYWithOffset(1), this.getZWithOffset(5, 5))))
                 {
                 	System.out.println("Placing chest");
+                    if (!worldIn.isRemote) this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
                     this.hasMadeChest = true;
+                    System.out.println("Has Made ? = " + this.hasMadeChest);
                     // this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
                 }
 
@@ -1095,13 +1098,14 @@ public class StructureCustomVillage {
                 {
                     for (int j = 0; j < 10; ++j)
                     {
-                        this.clearCurrentPositionBlocksUpwards(worldIn, j, 6, k, structureBoundingBoxIn);
-                        this.replaceAirAndLiquidDownwards(worldIn, iblockstate, j, -1, k, structureBoundingBoxIn);
+                        // this.clearCurrentPositionBlocksUpwards(worldIn, j, 6, k, structureBoundingBoxIn);
+                        // this.replaceAirAndLiquidDownwards(worldIn, iblockstate, j, -1, k, structureBoundingBoxIn);
+                        // System.out.println("Clearing blocks : " + new BlockPos(j, 6, k));
+                        // System.out.println("Clearing blocks : " + new BlockPos(j, -1, k));
                     }
                 }
 
                 this.spawnVillagers(worldIn, structureBoundingBoxIn, 7, 1, 1, 1);
-                this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
                 return true;
             }
 
@@ -1121,17 +1125,28 @@ public class StructureCustomVillage {
             {
                 if (p_191080_2_.isVecInside(p_191080_4_) && p_191080_1_.getBlockState(p_191080_4_).getBlock() != ModBlocks.OXONIUM_CHEST)
                 {
+                	System.out.println("blockpos chest : " + p_191080_4_);
+                	TileEntity tileentity1 = p_191080_1_.getTileEntity(p_191080_4_);
+
+                    if (tileentity1 != null && tileentity1 instanceof IInventory)
+                    {
+                        // ((IInventory)tileentity1).clear();
+                        System.out.println("If previous tile entity gets cleared away !");
+                    }
                     if (p_191080_6_ == null)
                     {
                         p_191080_6_ = ((OxoniumChest) ModBlocks.OXONIUM_CHEST).correctFacing(p_191080_1_, p_191080_4_, ModBlocks.OXONIUM_CHEST.getDefaultState());
+                        System.out.println("blockstate : " + p_191080_6_);
                     }
 
                     if (!p_191080_1_.isRemote) p_191080_1_.setBlockState(p_191080_4_, p_191080_6_, 2);
+                    System.out.println("Block placed so its state is : " + p_191080_1_.getBlockState(p_191080_4_));
                     TileEntity tileentity = p_191080_1_.getTileEntity(p_191080_4_);
 
                     if (tileentity instanceof TileEntityOxoniumChest)
                     {
                         ((TileEntityOxoniumChest)tileentity).setLootTable(p_191080_5_, p_191080_3_.nextLong());
+                        System.out.println("Tile Entity is set with loot");
                     }
 
                     return true;
