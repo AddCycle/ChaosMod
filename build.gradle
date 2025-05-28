@@ -161,7 +161,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.0.4"
+version = "1.0.7"
 group = "net.chaos.chaosmod"
 archivesBaseName = "ChaosMod"
 
