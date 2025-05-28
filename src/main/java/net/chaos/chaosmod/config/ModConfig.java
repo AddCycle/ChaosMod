@@ -8,6 +8,7 @@ public class ModConfig {
 	public static boolean isMinimapEnabled = false;
 	public static boolean displayOverlay = false;
 	public static boolean displayArrow = false;
+	public static boolean displayCoords = false;
 	public static int minimapSize = 1;
 	public static int pixelSize = 1;
 
@@ -23,10 +24,11 @@ public class ModConfig {
 	public static void loadConfig() {
 		
 		isMinimapEnabled = config.getBoolean("Enable Minimap", Configuration.CATEGORY_CLIENT, false, "Enable or disable the minimap.");
-		minimapSize = config.getInt("Minimap Size", Configuration.CATEGORY_CLIENT, 1, 1, 1000, "Change the minimap squared size");
-		pixelSize = config.getInt("Pixel Size", Configuration.CATEGORY_CLIENT, 1, 1, 1000, "Change the minimap reach");
+		minimapSize = config.getInt("Minimap Size", Configuration.CATEGORY_CLIENT, 100, 1, 500, "Change the minimap squared size");
+		pixelSize = config.getInt("Pixel Size", Configuration.CATEGORY_CLIENT, 4, 1, 20, "Change the minimap reach");
 		displayOverlay = config.getBoolean("Enable Outline", Configuration.CATEGORY_CLIENT, false, "Enable or disable the minimap outline (style).");
 		displayArrow = config.getBoolean("Enable Player Arrow", Configuration.CATEGORY_CLIENT, false, "Enable or disable player arrow pos");
+		displayCoords = config.getBoolean("Enable Coordinates", Configuration.CATEGORY_CLIENT, false, "Print or hide coordinates");
 
 		if (config.hasChanged()) {
 			config.save();

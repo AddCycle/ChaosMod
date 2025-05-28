@@ -1,8 +1,6 @@
 package net.chaos.chaosmod.minimap;
 
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.lwjgl.opengl.GL11;
 
@@ -12,15 +10,16 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -330,8 +329,24 @@ public class Renderer {
         return new Color(r, g, b).getRGB();
     }
     
-    public static void drawPlayerArrow(ScaledResolution resolution, int centerX, int centerY, float angleDegrees, int color) {
+    public static void drawPlayerArrow(ScaledResolution resolution, int centerX, int centerY, float angleDegrees, int color, int mapSize) {
     	GlStateManager.pushMatrix();
+    	Minecraft mc = Minecraft.getMinecraft();
+    	EntityPlayerSP localPlayer = mc.player;
+    	int posX = MathHelper.floor(localPlayer.posX);
+    	int posY = MathHelper.floor(localPlayer.posY);
+    	int posZ = MathHelper.floor(localPlayer.posZ);
+
+    	String coords = String.format("XYZ: %d / %d / %d", posX, posY, posZ);
+
+    	// Example: bottom-left of minimap
+    	int mapLeft = 0; // or wherever your minimap starts
+    	int mapTop = 0;
+    	// int textX = centerX + coords.length() / mapSize;
+    	int textX = 2;
+    	int textY = centerY + mapSize / 4; // Just below minimap
+
+    	if (ModConfig.displayCoords) mc.fontRenderer.drawStringWithShadow(coords, textX, textY, 0xFFFFFF);
         GlStateManager.disableTexture2D(); // Prevent texture bleed
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha(); // Disable alpha to prevent fading
