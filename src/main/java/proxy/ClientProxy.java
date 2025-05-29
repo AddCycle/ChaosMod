@@ -1,6 +1,7 @@
 package proxy;
 
 import net.chaos.chaosmod.client.inventory.render.LayerNecklace;
+import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBeamRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBossAltarRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
 import net.chaos.chaosmod.cutscene.CutsceneEvents;
@@ -10,6 +11,7 @@ import net.chaos.chaosmod.lore.dialogs.DialogEventHandler;
 import net.chaos.chaosmod.minimap.MinimapEventHandler;
 import net.chaos.chaosmod.tileentity.LanternTESR;
 import net.chaos.chaosmod.tileentity.TESRCookieJar;
+import net.chaos.chaosmod.tileentity.TileEntityBeam;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
 import net.chaos.chaosmod.tileentity.TileEntityCookieJar;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
@@ -76,6 +78,7 @@ public class ClientProxy extends CommonProxy {
 		});
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLantern.class, new LanternTESR());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookieJar.class, new TESRCookieJar());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBeam.class, new TileEntityBeamRenderer());
 		// MinecraftForge.EVENT_BUS.register(new PlayerRenderManager());
 		MinecraftForge.EVENT_BUS.register(new BossBarRendering());
 		// ################################# NECKLACE RENDERING #############################################

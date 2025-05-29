@@ -1,5 +1,9 @@
 package net.chaos.chaosmod.sound;
 
+import java.util.Arrays;
+import java.util.List;
+
+import net.chaos.chaosmod.init.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -9,6 +13,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ClientSoundHandler {
+	public static int index = 0; // from 0 to sounds.size() - 1
+	private static List<SoundEvent> sounds = Arrays.asList(
+			ModSounds.FIRE_FORCE_OP,
+			ModSounds.BLACK_CATCHER,
+			ModSounds.BLACK_ROVER,
+			ModSounds.CHAINSAWMAN_OP,
+			ModSounds.GRANDEUR,
+			ModSounds.ZANKYOU_SANKYA,
+			ModSounds.HOLLOW_PURPLE
+		);
 	private static ISound currentMusic;
     private static boolean isPlaying = false;
     private static boolean isPaused = false;
@@ -64,5 +78,11 @@ public class ClientSoundHandler {
         if (isPlaying && !isPaused) stopMusic();
         else if (!isPlaying && !isPaused) playMusic(soundEvent);
         else ;
+    }
+    
+    public static void launchPlaylist() {
+    	if (index > sounds.size()) index = 0;
+    	playMusic(sounds.get(index));
+    	index++;
     }
 }

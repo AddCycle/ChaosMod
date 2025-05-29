@@ -184,7 +184,8 @@ public class GuiInventoryExtended extends GuiInventory {
     	if (button.id == 99) {
             showAccessorySlot = !showAccessorySlot;
         } else if (button.id == 100) { // play
-        	ClientSoundHandler.toggleMusic(ModSounds.FIRE_FORCE_OP);
+        	ClientSoundHandler.launchPlaylist();
+        	// ClientSoundHandler.toggleMusic(ModSounds.FIRE_FORCE_OP);
         } else if (button.id == 101) { // pause/resume
         	System.out.println("Music paused/resumed");
         	if (!ClientSoundHandler.isMusicPaused() && ClientSoundHandler.isMusicPlaying()) ClientSoundHandler.pauseMusic();
