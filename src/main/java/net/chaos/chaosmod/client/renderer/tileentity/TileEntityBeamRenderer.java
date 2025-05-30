@@ -6,10 +6,12 @@ import net.chaos.chaosmod.tileentity.TileEntityBeam;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.tileentity.TileEntityBeaconRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class TileEntityBeamRenderer extends TileEntitySpecialRenderer<TileEntityBeam> {
+	TileEntityBeaconRenderer t;
 	
 	@Override
 	protected void drawNameplate(TileEntityBeam te, String str, double x, double y, double z, int maxDistance) {

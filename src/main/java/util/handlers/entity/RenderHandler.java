@@ -5,8 +5,10 @@ import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
+import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
+import net.chaos.chaosmod.entity.boss.renderer.EntityEyeCrystalRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityMountainGiantBossRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityRevengeBlazeRenderer;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
@@ -114,6 +116,15 @@ public class RenderHandler {
 			@Override
 			public Render<? super LittleGiantEntity> createRenderFor(RenderManager manager) {
 				return new LittleGiantRenderer(manager);
+			}
+			
+		});
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityEyeCrystal.class, new IRenderFactory<EntityEyeCrystal>() {
+
+			@Override
+			public Render<? super EntityEyeCrystal> createRenderFor(RenderManager manager) {
+				return new EntityEyeCrystalRenderer(manager);
 			}
 			
 		});

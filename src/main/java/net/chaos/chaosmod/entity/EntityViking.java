@@ -2,7 +2,11 @@ package net.chaos.chaosmod.entity;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModEffects;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.init.ModPotions;
+import net.chaos.chaosmod.potion.PotionEffectVikingFriends;
+import net.chaos.chaosmod.potion.PotionVikingFriend;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
@@ -70,6 +74,7 @@ public class EntityViking extends EntityMob {
 		if (!this.world.isRemote)
 		{
 			player.openGui(Main.instance, Reference.GUI_DOCS_ID, this.world, this.getEntityId(), 0, 0);
+			player.addPotionEffect(new PotionEffectVikingFriends(ModPotions.POTION_VIKING));
 		}
 		return true;
 	}

@@ -9,4 +9,9 @@ public class TileEntityBeam extends TileEntity {
     public boolean shouldRenderInPass(int pass) {
     	return true;
     }
+    
+    @Override
+    public double getMaxRenderDistanceSquared() {
+    	return 65536.0D;
+    }
 }

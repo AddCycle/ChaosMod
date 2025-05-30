@@ -2,7 +2,9 @@ package net.chaos.chaosmod.world.events;
 
 import java.util.UUID;
 
+import net.chaos.chaosmod.init.ModEffects;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.init.ModPotions;
 import net.chaos.chaosmod.items.AbstractCustomBow;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -23,6 +25,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -40,6 +43,11 @@ public class PlayerFightEvents {
 		if (!(event.getEntityLiving() instanceof EntityPlayer)) return;
 		
 		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if (player.getActivePotionEffects() != null) {
+			if (player.getActivePotionMap().containsKey(ModPotions.POTION_VIKING)) {
+				event.setCanceled(true);
+			}
+		}
 		boolean hasCustomBow = false;
 		for (ItemStack stack : player.inventory.mainInventory) {
 			if (stack.getItem() instanceof OxoniumBow) {

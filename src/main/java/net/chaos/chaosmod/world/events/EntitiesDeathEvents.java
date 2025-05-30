@@ -2,10 +2,12 @@ package net.chaos.chaosmod.world.events;
 
 import java.util.Random;
 
+import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
@@ -29,7 +31,7 @@ public class EntitiesDeathEvents {
 
         EntityDragon dragon = (EntityDragon) event.getEntity();
         
-        BlockPos pos = new BlockPos(20, world.getHeight(20, 20), 20);
+        BlockPos pos = new BlockPos(3, world.getHeight(3, 3), 3);
         world.setBlockState(pos, ModBlocks.OXONIUM_CHEST.getDefaultState(), 2);
         TileEntity tile = world.getTileEntity(pos);
         
@@ -37,10 +39,20 @@ public class EntitiesDeathEvents {
         	Random rand = new Random();
         	// LootTable table = new LootTable(new LootPool[] {}); just add chaos heart to the loots
         	// ((TileEntityOxoniumChest) tile).setLootTable(LootTableList.CHESTS_END_CITY_TREASURE, rand.nextLong());
-        	((TileEntityOxoniumChest) tile).setInventorySlotContents(0, new ItemStack(ModItems.CHAOS_HEART));
+        	((TileEntityOxoniumChest) tile).setInventorySlotContents(12, new ItemStack(Blocks.DRAGON_EGG));
+        	((TileEntityOxoniumChest) tile).setInventorySlotContents(13, new ItemStack(ModItems.CHAOS_HEART));
+        	((TileEntityOxoniumChest) tile).setInventorySlotContents(14, new ItemStack(Blocks.DRAGON_EGG));
         	world.setBlockState(pos.down(3), ModBlocks.BEAM_BLOCK.getDefaultState(), 2);
         	// TileEntityBeacon
         }
+        
+        EntityEyeCrystal crystal_of_truth = new EntityEyeCrystal(world, 0.5, world.getHeight(0, 0), 0.5);
+        if (crystal_of_truth != null) {
+        	world.spawnEntity(crystal_of_truth);
+        	System.out.println("SPAWNED !");
+        }
+        
+        crystal_of_truth.setBeamTarget(pos);
 
         /*ItemStack loot = new ItemStack(ModItems.CHAOS_HEART);
         EntityItem drop = new EntityItem(world, 20, world.getHeight(20, 20), 20, loot);
