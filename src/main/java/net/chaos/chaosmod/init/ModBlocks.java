@@ -20,7 +20,10 @@ import net.chaos.chaosmod.blocks.OxoniumBlock;
 import net.chaos.chaosmod.blocks.OxoniumChest;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.blocks.OxoniumOre;
+import net.chaos.chaosmod.blocks.abstracted.AbstractDoor;
 import net.chaos.chaosmod.blocks.abstracted.AbstractFences;
+import net.chaos.chaosmod.blocks.abstracted.AbstractLadder;
+import net.chaos.chaosmod.blocks.abstracted.AbstractPressurePlate;
 import net.chaos.chaosmod.blocks.abstracted.AbstractStairs;
 import net.chaos.chaosmod.blocks.crops.OxoniumCarrotBlock;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
@@ -59,6 +62,9 @@ public class ModBlocks {
 	public static final Block CUSTOM_PLANK = new CustomPlanks("custom_plank", Material.WOOD);
 	public static final Block CUSTOM_STAIRS = new AbstractStairs("custom_stairs", CUSTOM_PLANK.getDefaultState()); // .withProperty(CustomPlanks.VARIANT, CustomPlankVariant.SNOWY) TODO : for later
 	public static final Block CUSTOM_FENCES = new AbstractFences("custom_fences", Material.WOOD, MapColor.LIGHT_BLUE);
+	public static final Block CUSTOM_DOOR = new AbstractDoor("custom_door", Material.WOOD);
+	public static final Block CUSTOM_LADDER = new AbstractLadder("custom_ladder", Material.WOOD); // .withProperty(CustomPlanks.VARIANT, CustomPlankVariant.SNOWY) TODO : for later
+	public static final Block CUSTOM_PRESSURE_PLATE = new AbstractPressurePlate("custom_pressure_plate", Material.WOOD); // .withProperty(CustomPlanks.VARIANT, CustomPlankVariant.SNOWY) TODO : for later
 	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
 	public static final Block CUSTOM_SAPLINGS = new CustomBlockSapling("custom_sapling", Material.PLANTS);
 	public static final Block LANTERN = new BlockLantern("lantern");

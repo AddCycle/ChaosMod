@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "chaosmod:custom_ladder" },
+        "facing=east":  { "model": "chaosmod:custom_ladder", "y": 90 },
+        "facing=south": { "model": "chaosmod:custom_ladder", "y": 180 },
+        "facing=west":  { "model": "chaosmod:custom_ladder", "y": 270 }
+    }
+}

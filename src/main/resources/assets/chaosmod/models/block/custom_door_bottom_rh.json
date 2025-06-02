@@ -1,0 +1,7 @@
+{
+    "parent": "block/door_bottom_rh",
+    "textures": {
+        "bottom": "chaosmod:blocks/door_custom_lower",
+        "top": "chaosmod:blocks/door_custom_upper"
+    }
+}

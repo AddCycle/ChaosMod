@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "powered=false": { "model": "chaosmod:custom_pressure_plate_up" },
+        "powered=true": { "model": "chaosmod:custom_pressure_plate_down" },
+        "normal": { "model": "chaosmod:custom_pressure_plate_up" }
+    }
+}
