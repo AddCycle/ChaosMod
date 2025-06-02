@@ -2,14 +2,14 @@ package net.chaos.chaosmod.entity;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
-import net.chaos.chaosmod.init.ModEffects;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotions;
 import net.chaos.chaosmod.potion.PotionEffectVikingFriends;
-import net.chaos.chaosmod.potion.PotionVikingFriend;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.ai.EntityAILookAtTradePlayer;
+import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -52,6 +52,7 @@ public class EntityViking extends EntityMob {
 	@Override
 	protected void initEntityAI() {
 		super.initEntityAI();
+        this.tasks.addTask(0, new EntityAISwimming(this));
 	}
 
 	@Override

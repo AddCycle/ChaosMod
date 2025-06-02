@@ -1,16 +1,20 @@
 package net.chaos.chaosmod.client.renderer.tileentity;
 
-import org.lwjgl.opengl.GL11;
+import java.util.List;
 
 import net.chaos.chaosmod.tileentity.TileEntityBeam;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.tileentity.TileEntityBeaconRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.tileentity.TileEntityBeacon;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import util.Reference;
 
 public class TileEntityBeamRenderer extends TileEntitySpecialRenderer<TileEntityBeam> {
+	/*TileEntityBeacon b;
 	TileEntityBeaconRenderer t;
 	
 	@Override
@@ -80,9 +84,8 @@ public class TileEntityBeamRenderer extends TileEntitySpecialRenderer<TileEntity
     @Override
     public boolean isGlobalRenderer(TileEntityBeam te) {
     	return true;
-    }
-	
-	/*public static final ResourceLocation TEXTURE_BEACON_BEAM = new ResourceLocation("minecraft:textures/entity/beacon_beam.png");
+    }*/
+	public static final ResourceLocation TEXTURE_BEACON_BEAM = new ResourceLocation(Reference.MODID, "textures/entity/beacon_beam.png");
 
     public void render(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
@@ -205,5 +208,6 @@ public class TileEntityBeamRenderer extends TileEntitySpecialRenderer<TileEntity
     public boolean isGlobalRenderer(TileEntityBeacon te)
     {
         return true;
-    }*/
+    }
+	
 }

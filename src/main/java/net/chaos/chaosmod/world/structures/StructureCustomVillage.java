@@ -64,6 +64,8 @@ public class StructureCustomVillage {
 	public static final Block pressure_plate = ModBlocks.CUSTOM_PRESSURE_PLATE;
 	public static final Block door = ModBlocks.CUSTOM_DOOR;
 	public static final Block cobble = ModBlocks.OXONIUM_BRICKS;
+	public static boolean first = false;
+	public static boolean twice = false;
 
 	public static void registerVillagePieces()
     {
@@ -332,7 +334,7 @@ public class StructureCustomVillage {
 
                 Block facade = ModBlocks.OXONIUM_BRICKS;
                 // Block stairs = ModBlocks.OXONIUM_STAIRS; // for now because maybe need to change the orientation
-                Block stairs = Blocks.OAK_STAIRS;
+                Block stairs = ModBlocks.CUSTOM_STAIRS;
                 Block vitrage = Blocks.STAINED_GLASS_PANE; // white for the moment
                 IBlockState iblockstate = facade.getDefaultState();
                 IBlockState iblockstate1 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
@@ -1042,7 +1044,7 @@ public class StructureCustomVillage {
                 IBlockState iblockstate1 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
                 IBlockState iblockstate2 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
                 IBlockState iblockstate3 = this.getBiomeSpecificBlockState(planks.getDefaultState());
-                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(Blocks.STONE_BRICK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
                 IBlockState iblockstate5 = this.getBiomeSpecificBlockState(log.getDefaultState());
                 IBlockState iblockstate6 = this.getBiomeSpecificBlockState(fences.getDefaultState());
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 1, 0, 9, 4, 6, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
@@ -1109,8 +1111,11 @@ public class StructureCustomVillage {
                         // System.out.println("Clearing blocks : " + new BlockPos(j, -1, k));
                     }
                 }
-
-                if (!worldIn.isRemote) this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+                
+                // temp fix due to the fact that this func is called twice (TODO see if this fix LootTable gen plz ya Allah)
+                if (first == true) twice = true;
+                first = true;
+                if (!worldIn.isRemote && first && twice) this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
                 System.out.println("CALLED");
                 this.spawnVillagers(worldIn, structureBoundingBoxIn, 7, 1, 1, 1);
                 return true;
@@ -1399,7 +1404,7 @@ public class StructureCustomVillage {
 
                 IBlockState iblockstate = this.getBiomeSpecificBlockState(cobble.getDefaultState());
                 IBlockState iblockstate1 = this.getBiomeSpecificBlockState(planks.getDefaultState());
-                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.STONE_BRICK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
                 IBlockState iblockstate3 = this.getBiomeSpecificBlockState(log.getDefaultState());
                 IBlockState iblockstate4 = this.getBiomeSpecificBlockState(fences.getDefaultState());
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 0, 4, iblockstate, iblockstate, false);
