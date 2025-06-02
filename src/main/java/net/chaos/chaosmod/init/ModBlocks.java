@@ -22,6 +22,7 @@ import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.blocks.OxoniumOre;
 import net.chaos.chaosmod.blocks.abstracted.AbstractFences;
 import net.chaos.chaosmod.blocks.abstracted.AbstractStairs;
+import net.chaos.chaosmod.blocks.crops.OxoniumCarrotBlock;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.BlockLantern;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
@@ -36,6 +37,7 @@ import net.minecraft.util.text.TextFormatting;
 public class ModBlocks {
 	public static final List<Block> BLOCKS = new ArrayList<Block>();
 	
+	public static final Block OXONIUM_CARROT_BLOCK = new OxoniumCarrotBlock("oxonium_carrots");
 	public static final Block OXONIUM_BLOCK = new OxoniumBlock("oxonium_block", Material.IRON);
 	public static final Block OXONIUM_ORE = new OxoniumOre("oxonium_ore", Material.ROCK);
 	public static final Block OXONIUM_STAIRS = new OxoniumStairs("oxonium_stairs", OXONIUM_BLOCK.getDefaultState());
@@ -59,7 +61,6 @@ public class ModBlocks {
 	public static final Block CUSTOM_FENCES = new AbstractFences("custom_fences", Material.WOOD, MapColor.LIGHT_BLUE);
 	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
 	public static final Block CUSTOM_SAPLINGS = new CustomBlockSapling("custom_sapling", Material.PLANTS);
-	// public static final Block CUSTOM_GRASS = new BlockBrightGrass();
 	public static final Block LANTERN = new BlockLantern("lantern");
 	public static final Block CONNECTED_BLOCK = new ConnectedBlock("connected_block", Material.IRON);
 	public static final Block COOKIE_JAR = new CookieJarBlock("cookie_jar");

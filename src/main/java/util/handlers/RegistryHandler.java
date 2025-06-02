@@ -37,31 +37,39 @@ import util.Reference;
 // Pour l'etape de build du mod
 @EventBusSubscriber
 public class RegistryHandler {
-	
+	// S'occupe d'enregistrer tous les blocks definis dans BlockBase.java
+	// Blocks before items corrects issue of : oxonium_carrots requires blocks at init
+	static {
+        // Ensures all items are initialized after blocks are created
+        ModItems.initItems();
+    }
+
+	@SubscribeEvent
+	public static void onBlockRegister(RegistryEvent.Register<Block> event) {
+		System.out.println("register blocks");
+		event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
+	}
+
 	// S'occupe d'enregistrer tous les items definis dans ItemBase.java
 	@SubscribeEvent
 	public static void onItemRegister(RegistryEvent.Register<Item> event) {
+		System.out.println("register items");
 		event.getRegistry().registerAll(ModItems.ITEMS.toArray(new Item[0]));
 	}
 
-	// S'occupe d'enregistrer tous les blocks definis dans BlockBase.java
-	@SubscribeEvent
-	public static void onBlockRegister(RegistryEvent.Register<Block> event) {
-		event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
-	}
 	
 	// En gros cette partie sert a grouper plusieurs items/blocks dans une meme interface qui est simplement un groupe d'objets
 	@SubscribeEvent
 	public static void onModelRegister(ModelRegistryEvent event) {
-		for (Item item : ModItems.ITEMS) {
-			if (item instanceof IHasModel) {
-				((IHasModel)item).registerModels();
-			}
-		}
-
 		for (Block block : ModBlocks.BLOCKS) {
 			if (block instanceof IHasModel) {
 				((IHasModel)block).registerModels();
+			}
+		}
+
+		for (Item item : ModItems.ITEMS) {
+			if (item instanceof IHasModel) {
+				((IHasModel)item).registerModels();
 			}
 		}
 			

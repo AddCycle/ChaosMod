@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "age=0": { "model": "chaosmod:oxonium_carrots_stage0" },
+        "age=1": { "model": "chaosmod:oxonium_carrots_stage0" },
+        "age=2": { "model": "chaosmod:oxonium_carrots_stage1" },
+        "age=3": { "model": "chaosmod:oxonium_carrots_stage1" },
+        "age=4": { "model": "chaosmod:oxonium_carrots_stage2" },
+        "age=5": { "model": "chaosmod:oxonium_carrots_stage2" },
+        "age=6": { "model": "chaosmod:oxonium_carrots_stage2" },
+        "age=7": { "model": "chaosmod:oxonium_carrots_stage3" }
+    }
+}

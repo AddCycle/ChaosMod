@@ -32,6 +32,7 @@ import net.chaos.chaosmod.items.tools.ToolSpade;
 import net.chaos.chaosmod.items.tools.ToolSword;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -93,10 +94,6 @@ public class ModItems {
 	public static final Item OXONIUM_LEGGINGS = new ArmorBase("oxonium_leggings", ARMOR_MATERIAL_OXONIUM, 2, EntityEquipmentSlot.LEGS);
 	public static final Item OXONIUM_BOOTS = new OxoniumBoots("oxonium_boots", ARMOR_MATERIAL_OXONIUM, 1, EntityEquipmentSlot.FEET);
 	
-	//Food
-	public static final Item OXONIUM_CARROT = 
-		new FoodEffectBase("oxonium_carrot", 5, 3.0f, false, new PotionEffect(MobEffects.SPEED, 60*20, 0, false, true));
-	
 	// Special
 	public static final Item OXONIUM_UPGRADE = new ChestUpgradeBase("oxonium_upgrade"); // chest upgrade
 	public static final Item ALLEMANITE_EXTINGUISHER = new AllemaniteExtinguisher("allemanite_extinguisher");
@@ -115,6 +112,14 @@ public class ModItems {
 	public static final Item GIANT_HEART = new ItemHeart("giant_heart");
 	public static final Item BLAZING_HEART = new ItemHeart("blazing_heart");
 	public static final Item CHAOS_HEART = new ItemHeart("chaos_heart");
+	
+	//Food
+	public static Item OXONIUM_CARROT; 
+	
+	public static void initItems() {
+		OXONIUM_CARROT = 
+			new FoodEffectBase("oxonium_carrot", 5, 3.0f, ModBlocks.OXONIUM_CARROT_BLOCK, Blocks.FARMLAND, new PotionEffect(MobEffects.SPEED, 60*20, 0, false, true));
+	}
 	
 	// Potions
 	// public static final Item VIKING_FRIEND_POTION = new VikingFriendPotion("viking_friend");
