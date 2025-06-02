@@ -15,6 +15,7 @@ import util.Reference;
 
 public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
 
+    public static final ResourceLocation ENDERCRYSTAL_BEAM_TEXTURES = new ResourceLocation(Reference.MODID, "textures/entity/eyecrystal/eyecrystal_beam.png");
 	private static final ResourceLocation ENDER_CRYSTAL_TEXTURES = new ResourceLocation(Reference.MODID, "textures/entity/eyecrystal/eyecrystal.png");
     private final ModelBase modelEnderCrystal = new EntityEyeCrystalModel(0.0F, true);
     private final ModelBase modelEnderCrystalNoBase = new EntityEyeCrystalModel(0.0F, false);
@@ -62,7 +63,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
 
         if (blockpos != null)
         {
-            this.bindTexture(RenderDragon.ENDERCRYSTAL_BEAM_TEXTURES);
+            this.bindTexture(ENDERCRYSTAL_BEAM_TEXTURES);
             float f2 = (float)blockpos.getX() + 0.5F;
             float f3 = (float)blockpos.getY() + 0.5F;
             float f4 = (float)blockpos.getZ() + 0.5F;

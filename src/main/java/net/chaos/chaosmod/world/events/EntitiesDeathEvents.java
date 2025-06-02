@@ -6,14 +6,15 @@ import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
+import net.minecraft.block.Block;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityBeacon;
-import net.minecraft.tileentity.TileEntityBeacon.BeamSegment;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenEndGateway;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -21,7 +22,7 @@ public class EntitiesDeathEvents {
 
 	@SubscribeEvent
 	/*
-	 * This event is intended
+	 * This event is related to the dragon death
 	 */
 	public void onEntityDeath(LivingDeathEvent event) {
 		if (!(event.getEntity() instanceof EntityDragon)) return;
@@ -48,15 +49,38 @@ public class EntitiesDeathEvents {
         
         EntityEyeCrystal crystal_of_truth = new EntityEyeCrystal(world, 0.5, world.getHeight(0, 0), 0.5);
         if (crystal_of_truth != null) {
-        	world.spawnEntity(crystal_of_truth);
+        	if (!world.isRemote) world.spawnEntity(crystal_of_truth);
         	System.out.println("SPAWNED !");
         }
+
         
         crystal_of_truth.setBeamTarget(pos);
-
-        /*ItemStack loot = new ItemStack(ModItems.CHAOS_HEART);
-        EntityItem drop = new EntityItem(world, 20, world.getHeight(20, 20), 20, loot);
-        world.spawnEntity(drop);*/
+        world.setBlockState(pos.up(2), Blocks.END_GATEWAY.getDefaultState(), 2);
+        BlockPos target = new BlockPos(400, 80, 400); // Change as needed
+        this.generatePlatform(world, ModBlocks.ENDERITE_BRICKS, target, 100);
+        this.generatePylon(world, ModBlocks.ALLEMANITE_BRICKS, target, 15, 100, 15);
 	}
+	
+	private void generatePlatform(World world, Block block, BlockPos center, int width) {
+		for (int i = 0; i < width; ++i) {
+			for (int j = 0; j < width; ++j) {
+				world.setBlockState(center.add(i, 0, j), block.getDefaultState(), 2);
+			}
+		}
+	}
+	
+	private void generatePylon(World world, Block block, BlockPos center, int towerWidth, int width, int height) {
+		for (int i = 0; i <= height; i++) {
+			for (int j = 0; j < towerWidth; j++) {
+				world.setBlockState(new MutableBlockPos(455 + i, 81 + i, 460 + j), block.getDefaultState(), 2);
+			}
+		}
+	}
+
+	private void generateGateway(BlockPos pos, World world)
+    {
+        world.playEvent(3000, pos, 0);
+        (new WorldGenEndGateway()).generate(world, new Random(), pos);
+    }
 	
 }

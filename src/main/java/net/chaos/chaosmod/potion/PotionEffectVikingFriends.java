@@ -8,5 +8,15 @@ public class PotionEffectVikingFriends extends PotionEffect {
 	public PotionEffectVikingFriends(Potion potionIn) {
 		super(potionIn);
 	}
+	
+	public PotionEffectVikingFriends(Potion potionIn, int durationIn)
+    {
+        super(potionIn, durationIn, 0);
+    }
+
+    public PotionEffectVikingFriends(Potion potionIn, int durationIn, int amplifierIn)
+    {
+        super(potionIn, durationIn, amplifierIn, false, true);
+    }
 
 }

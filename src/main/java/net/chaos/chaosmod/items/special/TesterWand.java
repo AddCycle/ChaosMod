@@ -6,9 +6,11 @@ import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.items.ItemBase;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -25,6 +27,12 @@ public class TesterWand extends ItemBase {
 		this.setMaxStackSize(1);
 		projectile = 0;
 		max = 4;
+	}
+	
+	@Override
+	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+		entity.attackEntityFrom(new DamageSource("killing_wand.debug.jemenfous"), 600);
+		return super.onLeftClickEntity(stack, player, entity);
 	}
 
 	@Override

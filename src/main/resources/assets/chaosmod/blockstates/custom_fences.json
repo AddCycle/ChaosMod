@@ -1,0 +1,17 @@
+{
+    "multipart": [
+        {   "apply": { "model": "chaosmod:custom_fences_post" }},
+        {   "when": { "north": "true" },
+            "apply": { "model": "chaosmod:custom_fences_side", "uvlock": true }
+        },
+        {   "when": { "east": "true" },
+            "apply": { "model": "chaosmod:custom_fences_side", "y": 90, "uvlock": true }
+        },
+        {   "when": { "south": "true" },
+            "apply": { "model": "chaosmod:custom_fences_side", "y": 180, "uvlock": true }
+        },
+        {   "when": { "west": "true" },
+            "apply": { "model": "chaosmod:custom_fences_side", "y": 270, "uvlock": true }
+        }
+    ]
+}

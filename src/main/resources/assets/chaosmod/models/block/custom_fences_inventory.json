@@ -1,0 +1,6 @@
+{
+    "parent": "block/fence_inventory",
+    "textures": {
+        "texture": "chaosmod:blocks/snowy_plank"
+    }
+}

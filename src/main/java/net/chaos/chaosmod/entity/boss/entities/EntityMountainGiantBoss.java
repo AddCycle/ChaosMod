@@ -77,7 +77,7 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
     protected void initEntityAI()
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAICustomRangedAttack(this, 1.0D, 20 * 2, 20.0F));
+        this.tasks.addTask(1, new EntityAICustomRangedAttack(this, 1.0D, 20 * 2, 40.0F));
         this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));

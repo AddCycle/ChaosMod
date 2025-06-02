@@ -14,12 +14,13 @@ public class AllInOneBow extends AbstractCustomBow {
 		super(name, material);
 		this.setMaxDamage(-1);
 		this.drawTime = 5.0f;
-		this.damageMultiplier = 3.0f;
+		// this.damageMultiplier = 3.0f;
+		this.damageMultiplier = 100.0f; // FIXME : too much
 	}
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("I waited so long to have it !"); // TODO : add translation
+		tooltip.add("item.all_in_one_bow.tooltip"); // TODO : add translation
 	}
 	
 	@Override

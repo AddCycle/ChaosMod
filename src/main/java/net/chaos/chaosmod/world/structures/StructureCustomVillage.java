@@ -8,9 +8,12 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 
+import net.chaos.chaosmod.blocks.CustomPlanks;
+import net.chaos.chaosmod.blocks.CustomPlanks.CustomPlankVariant;
 import net.chaos.chaosmod.blocks.OxoniumChest;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
@@ -33,9 +36,9 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -53,6 +56,10 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraft.world.storage.loot.LootTableList;
 
 public class StructureCustomVillage {
+	public static final Block planks = ModBlocks.CUSTOM_PLANK;
+	public static final Block log = ModBlocks.CUSTOM_LOG;
+	public static final Block stairs = ModBlocks.CUSTOM_STAIRS;
+	public static final Block fences = ModBlocks.CUSTOM_FENCES;
 
 	public static void registerVillagePieces()
     {
@@ -528,7 +535,7 @@ public class StructureCustomVillage {
                     this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 4 - 1, 0);
                 }
 
-                IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
+                IBlockState iblockstate = this.getBiomeSpecificBlockState(log.getDefaultState());
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 1, 0, 12, 4, 8, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 1, 2, 0, 7, Blocks.FARMLAND.getDefaultState(), Blocks.FARMLAND.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 4, 0, 1, 5, 0, 7, Blocks.FARMLAND.getDefaultState(), Blocks.FARMLAND.getDefaultState(), false);
@@ -656,7 +663,7 @@ public class StructureCustomVillage {
                     this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 4 - 1, 0);
                 }
 
-                IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
+                IBlockState iblockstate = this.getBiomeSpecificBlockState(log.getDefaultState());
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 1, 0, 6, 4, 8, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 1, 2, 0, 7, Blocks.FARMLAND.getDefaultState(), Blocks.FARMLAND.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 4, 0, 1, 5, 0, 7, Blocks.FARMLAND.getDefaultState(), Blocks.FARMLAND.getDefaultState(), false);
@@ -729,12 +736,12 @@ public class StructureCustomVillage {
                 }
 
                 IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
-                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
-                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-                IBlockState iblockstate5 = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
-                IBlockState iblockstate6 = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
+                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
+                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
+                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(planks.getDefaultState());
+                IBlockState iblockstate5 = this.getBiomeSpecificBlockState(log.getDefaultState());
+                IBlockState iblockstate6 = this.getBiomeSpecificBlockState(fences.getDefaultState());
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 7, 4, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 2, 1, 6, 8, 4, 10, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 2, 0, 6, 8, 0, 10, Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), false);
@@ -875,7 +882,7 @@ public class StructureCustomVillage {
                 IBlockState iblockstate3 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
                 IBlockState iblockstate4 = this.getBiomeSpecificBlockState(planks.getDefaultState());
                 IBlockState iblockstate5 = this.getBiomeSpecificBlockState(stairs_.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-                IBlockState iblockstate6 = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState()); // TODO : this part to iron so make iron fences, slabs & stairs
+                IBlockState iblockstate6 = this.getBiomeSpecificBlockState(fences.getDefaultState()); // TODO : this part to iron so make iron fences, slabs & stairs
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 7, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 8, 0, 5, iblockstate, iblockstate, false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 5, 0, 8, 5, 5, iblockstate, iblockstate, false);
@@ -996,7 +1003,6 @@ public class StructureCustomVillage {
             protected void writeStructureToNBT(NBTTagCompound tagCompound)
             {
                 super.writeStructureToNBT(tagCompound);
-                System.out.println("Tag written");
                 tagCompound.setBoolean("Chest", this.hasMadeChest);
             }
 
@@ -1006,7 +1012,6 @@ public class StructureCustomVillage {
             protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_)
             {
                 super.readStructureFromNBT(tagCompound, p_143011_2_);
-                System.out.println("Tag read");
                 this.hasMadeChest = tagCompound.getBoolean("Chest");
             }
 
@@ -1030,12 +1035,12 @@ public class StructureCustomVillage {
 
                 Block furnace = ModBlocks.OXONIUM_FURNACE;
                 IBlockState iblockstate = Blocks.COBBLESTONE.getDefaultState();
-                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
-                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
+                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
+                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(planks.getDefaultState());
                 IBlockState iblockstate4 = this.getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-                IBlockState iblockstate5 = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
-                IBlockState iblockstate6 = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
+                IBlockState iblockstate5 = this.getBiomeSpecificBlockState(log.getDefaultState());
+                IBlockState iblockstate6 = this.getBiomeSpecificBlockState(fences.getDefaultState());
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 1, 0, 9, 4, 6, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 9, 0, 6, iblockstate, iblockstate, false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 4, 0, 9, 4, 6, iblockstate, iblockstate, false);
@@ -1074,11 +1079,7 @@ public class StructureCustomVillage {
 
                 if (!this.hasMadeChest && structureBoundingBoxIn.isVecInside(new BlockPos(this.getXWithOffset(5, 5), this.getYWithOffset(1), this.getZWithOffset(5, 5))))
                 {
-                	System.out.println("Placing chest");
-                    if (!worldIn.isRemote) this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
                     this.hasMadeChest = true;
-                    System.out.println("Has Made ? = " + this.hasMadeChest);
-                    // this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
                 }
 
                 for (int i = 6; i <= 8; ++i)
@@ -1105,6 +1106,8 @@ public class StructureCustomVillage {
                     }
                 }
 
+                if (!worldIn.isRemote) this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+                System.out.println("CALLED");
                 this.spawnVillagers(worldIn, structureBoundingBoxIn, 7, 1, 1, 1);
                 return true;
             }
@@ -1116,7 +1119,6 @@ public class StructureCustomVillage {
 
             protected boolean generateChest(World worldIn, StructureBoundingBox structurebb, Random randomIn, int x, int y, int z, ResourceLocation loot)
             {
-            	System.out.println("World class: " + worldIn.getClass());
                 BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
                 return this.generateChest(worldIn, structurebb, randomIn, blockpos, loot, (IBlockState)null);
             }
@@ -1125,7 +1127,6 @@ public class StructureCustomVillage {
             {
                 if (p_191080_2_.isVecInside(p_191080_4_) && p_191080_1_.getBlockState(p_191080_4_).getBlock() != ModBlocks.OXONIUM_CHEST)
                 {
-                	System.out.println("blockpos chest : " + p_191080_4_);
                 	TileEntity tileentity1 = p_191080_1_.getTileEntity(p_191080_4_);
 
                     if (tileentity1 != null && tileentity1 instanceof IInventory)
@@ -1142,10 +1143,13 @@ public class StructureCustomVillage {
                     if (!p_191080_1_.isRemote) p_191080_1_.setBlockState(p_191080_4_, p_191080_6_, 2);
                     System.out.println("Block placed so its state is : " + p_191080_1_.getBlockState(p_191080_4_));
                     TileEntity tileentity = p_191080_1_.getTileEntity(p_191080_4_);
+                    Random rand = new Random();
 
                     if (tileentity instanceof TileEntityOxoniumChest)
                     {
-                        ((TileEntityOxoniumChest)tileentity).setLootTable(p_191080_5_, p_191080_3_.nextLong());
+                    	// LootTable table = LootTable.EMPTY_LOOT_TABLE;
+                        ((TileEntityOxoniumChest)tileentity).setInventorySlotContents(rand.nextInt(27), new ItemStack(ModItems.OXONIUM_NECKLACE));
+                        ((TileEntityOxoniumChest)tileentity).setInventorySlotContents(rand.nextInt(27), new ItemStack(ModItems.OXONIUM_UPGRADE, 2));
                         System.out.println("Tile Entity is set with loot");
                     }
 
@@ -1196,12 +1200,12 @@ public class StructureCustomVillage {
                 }
 
                 IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
-                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
-                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
-                IBlockState iblockstate5 = this.getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-                IBlockState iblockstate6 = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
+                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
+                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
+                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
+                IBlockState iblockstate5 = this.getBiomeSpecificBlockState(planks.getDefaultState());
+                IBlockState iblockstate6 = this.getBiomeSpecificBlockState(log.getDefaultState());
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 7, 4, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 2, 1, 6, 8, 4, 10, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 2, 0, 5, 8, 0, 10, iblockstate5, iblockstate5, false);
@@ -1390,10 +1394,10 @@ public class StructureCustomVillage {
                 }
 
                 IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
+                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(planks.getDefaultState());
                 IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
-                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
+                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(log.getDefaultState());
+                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(fences.getDefaultState());
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 0, 4, iblockstate, iblockstate, false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 4, 0, 4, 4, 4, iblockstate3, iblockstate3, false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 4, 1, 3, 4, 3, iblockstate1, iblockstate1, false);
@@ -1606,7 +1610,7 @@ public class StructureCustomVillage {
             public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn)
             {
                 IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.GRASS_PATH.getDefaultState());
-                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
+                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(planks.getDefaultState());
                 IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.GRAVEL.getDefaultState());
                 IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
 
@@ -1779,16 +1783,20 @@ public class StructureCustomVillage {
                     this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 4 - 1, 0);
                 }
 
-                IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
+                IBlockState iblockstate = this.getBiomeSpecificBlockState(fences.getDefaultState());
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 2, 3, 1, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.setBlockState(worldIn, iblockstate, 1, 0, 0, structureBoundingBoxIn);
                 this.setBlockState(worldIn, iblockstate, 1, 1, 0, structureBoundingBoxIn);
                 this.setBlockState(worldIn, iblockstate, 1, 2, 0, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.WOOL.getStateFromMeta(EnumDyeColor.WHITE.getDyeDamage()), 1, 3, 0, structureBoundingBoxIn);
-                this.placeTorch(worldIn, EnumFacing.EAST, 2, 3, 0, structureBoundingBoxIn);
+                this.setBlockState(worldIn, Blocks.WOOL.getStateFromMeta(EnumDyeColor.WHITE.getMetadata()), 1, 3, 0, structureBoundingBoxIn);
+                /*this.placeTorch(worldIn, EnumFacing.EAST, 2, 3, 0, structureBoundingBoxIn);
                 this.placeTorch(worldIn, EnumFacing.NORTH, 1, 3, 1, structureBoundingBoxIn);
                 this.placeTorch(worldIn, EnumFacing.WEST, 0, 3, 0, structureBoundingBoxIn);
-                this.placeTorch(worldIn, EnumFacing.SOUTH, 1, 3, -1, structureBoundingBoxIn);
+                this.placeTorch(worldIn, EnumFacing.SOUTH, 1, 3, -1, structureBoundingBoxIn);*/
+                this.placeLantern(worldIn, EnumFacing.EAST, 2, 3, 0, structureBoundingBoxIn);
+                this.placeLantern(worldIn, EnumFacing.NORTH, 1, 3, 1, structureBoundingBoxIn);
+                this.placeLantern(worldIn, EnumFacing.WEST, 0, 3, 0, structureBoundingBoxIn);
+                this.placeLantern(worldIn, EnumFacing.SOUTH, 1, 3, -1, structureBoundingBoxIn);
                 return true;
             }
         }
@@ -2014,7 +2022,7 @@ public class StructureCustomVillage {
                         return Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.DEFAULT.getMetadata());
                     }
 
-                    if (blockstateIn.getBlock() == Blocks.PLANKS)
+                    if (blockstateIn.getBlock() == planks)
                     {
                         return Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata());
                     }
@@ -2041,9 +2049,9 @@ public class StructureCustomVillage {
                         return Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE).withProperty(BlockLog.LOG_AXIS, blockstateIn.getValue(BlockLog.LOG_AXIS));
                     }
 
-                    if (blockstateIn.getBlock() == Blocks.PLANKS)
+                    if (blockstateIn.getBlock() == planks)
                     {
-                        return Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.SPRUCE);
+                        return planks.getDefaultState().withProperty(CustomPlanks.VARIANT, CustomPlankVariant.OLIVE);
                     }
 
                     if (blockstateIn.getBlock() == Blocks.OAK_STAIRS)
@@ -2063,9 +2071,9 @@ public class StructureCustomVillage {
                         return Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(BlockLog.LOG_AXIS, blockstateIn.getValue(BlockLog.LOG_AXIS));
                     }
 
-                    if (blockstateIn.getBlock() == Blocks.PLANKS)
+                    if (blockstateIn.getBlock() == planks)
                     {
-                        return Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.ACACIA);
+                        return planks.getDefaultState().withProperty(CustomPlanks.VARIANT, CustomPlankVariant.MAPLE);
                     }
 
                     if (blockstateIn.getBlock() == Blocks.OAK_STAIRS)
@@ -2194,8 +2202,10 @@ public class StructureCustomVillage {
                     this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 3, 0);
                 }
 
-                IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
+                IBlockState cobble = ModBlocks.OXONIUM_BRICKS.getDefaultState();
+                IBlockState fence = ModBlocks.CUSTOM_FENCES.getDefaultState();
+                IBlockState iblockstate = this.getBiomeSpecificBlockState(cobble);
+                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(fence);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 1, 4, 12, 4, iblockstate, Blocks.FLOWING_WATER.getDefaultState(), false);
                 this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 12, 2, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 3, 12, 2, structureBoundingBoxIn);
@@ -2289,11 +2299,16 @@ public class StructureCustomVillage {
                     this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 6 - 1, 0);
                 }
 
-                IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
-                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
+                IBlockState cobble = Blocks.STONEBRICK.getDefaultState();
+                IBlockState planks = ModBlocks.CUSTOM_PLANK.getDefaultState();
+                IBlockState stairs = Blocks.STONE_BRICK_STAIRS.getDefaultState();
+                IBlockState log = ModBlocks.CUSTOM_LOG.getDefaultState();
+                IBlockState fence = ModBlocks.CUSTOM_FENCES.getDefaultState();
+                IBlockState iblockstate = this.getBiomeSpecificBlockState(cobble);
+                IBlockState iblockstate1 = this.getBiomeSpecificBlockState(planks);
+                IBlockState iblockstate2 = this.getBiomeSpecificBlockState(stairs.withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+                IBlockState iblockstate3 = this.getBiomeSpecificBlockState(log);
+                IBlockState iblockstate4 = this.getBiomeSpecificBlockState(fence);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 3, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 3, 0, 4, iblockstate, iblockstate, false);
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 1, 2, 0, 3, Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), false);

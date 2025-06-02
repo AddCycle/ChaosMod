@@ -74,7 +74,7 @@ public class EntityViking extends EntityMob {
 		if (!this.world.isRemote)
 		{
 			player.openGui(Main.instance, Reference.GUI_DOCS_ID, this.world, this.getEntityId(), 0, 0);
-			player.addPotionEffect(new PotionEffectVikingFriends(ModPotions.POTION_VIKING));
+			player.addPotionEffect(new PotionEffectVikingFriends(ModPotions.POTION_VIKING, 20 * 300));
 		}
 		return true;
 	}
