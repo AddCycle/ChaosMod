@@ -2,6 +2,7 @@ package net.chaos.chaosmod.entity.boss.entities;
 
 import java.util.List;
 
+import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.ai.EntityAICustomRangedAttack;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.init.ModItems;
@@ -113,6 +114,11 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
         this.attacking = true;
         this.attackTimer = 20; // lasts for 1 second
         this.setSwingingArms(true); // <--- THIS is crucial
+        if (this.getMaxHealth() / 2 <= this.getHealth()) {
+        	LittleGiantEntity little = new LittleGiantEntity(world);
+        	little.setPosition(this.posX + 0.5, this.posY, this.posZ + 0.5);
+        	if (!world.isRemote) world.spawnEntity(little); // TODO : make the minions attack only melee
+        }
     }
 
     public boolean isAttacking() {

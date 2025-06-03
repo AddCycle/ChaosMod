@@ -60,7 +60,7 @@ public class EntitiesDeathEvents {
         this.generatePlatform(world, ModBlocks.ENDERITE_BRICKS, target, 100);
         this.generatePylon(world, ModBlocks.ALLEMANITE_BRICKS, target, 3, 20);
         
-        EntityEyeCrystal boss = new EntityEyeCrystal(world, 456, 102, 461);
+        EntityEyeCrystal boss = new EntityEyeCrystal(world, 456.5, 103, 461.5);
         world.spawnEntity(boss);
 	}
 	
