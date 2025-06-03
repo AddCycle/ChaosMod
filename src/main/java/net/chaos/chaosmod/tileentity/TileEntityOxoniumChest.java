@@ -45,6 +45,7 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
     private int ticksSinceSync;
     private OxoniumChest.Type cachedChestType;
     public String customName;
+    public ResourceLocation lootTableToApply = null;
 
     public TileEntityOxoniumChest()
     {
@@ -103,6 +104,7 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
+        System.out.println("Writing loot table to NBT: " + this.lootTable);
 
         if (!this.checkLootAndWrite(compound))
         {
@@ -220,8 +222,14 @@ public class TileEntityOxoniumChest extends TileEntityLockableLoot implements IT
         }
     }
 
+    @Override
     public void update()
     {
+    	if (!this.world.isRemote && lootTableToApply != null) {
+    		this.setLootTable(lootTableToApply, this.world.rand.nextLong());
+    		lootTableToApply = null;
+    		System.out.println("Loot table set (delayed) at " + this.getPos());
+    	}
         this.checkForAdjacentChests();
         int i = this.pos.getX();
         int j = this.pos.getY();

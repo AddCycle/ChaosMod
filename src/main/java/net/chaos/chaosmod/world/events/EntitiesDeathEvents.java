@@ -58,7 +58,10 @@ public class EntitiesDeathEvents {
         world.setBlockState(pos.up(2), Blocks.END_GATEWAY.getDefaultState(), 2);
         BlockPos target = new BlockPos(400, 80, 400); // Change as needed
         this.generatePlatform(world, ModBlocks.ENDERITE_BRICKS, target, 100);
-        this.generatePylon(world, ModBlocks.ALLEMANITE_BRICKS, target, 15, 100, 15);
+        this.generatePylon(world, ModBlocks.ALLEMANITE_BRICKS, target, 3, 20);
+        
+        EntityEyeCrystal boss = new EntityEyeCrystal(world, 456, 102, 461);
+        world.spawnEntity(boss);
 	}
 	
 	private void generatePlatform(World world, Block block, BlockPos center, int width) {
@@ -69,10 +72,13 @@ public class EntitiesDeathEvents {
 		}
 	}
 	
-	private void generatePylon(World world, Block block, BlockPos center, int towerWidth, int width, int height) {
+	private void generatePylon(World world, Block block, BlockPos center, int width, int height) {
+		Random rand = new Random();
 		for (int i = 0; i <= height; i++) {
-			for (int j = 0; j < towerWidth; j++) {
-				world.setBlockState(new MutableBlockPos(455 + i, 81 + i, 460 + j), block.getDefaultState(), 2);
+			for (int j = 0; j < width; j++) {
+				for (int k = 0; k < width; k++) {
+					world.setBlockState(new MutableBlockPos(455 + j, 81 + i, 460 + k), block.getDefaultState());
+				}
 			}
 		}
 	}

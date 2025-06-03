@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.chaos.chaosmod.entity.ai.EntityAIEscapeWater;
+import net.chaos.chaosmod.entity.ai.EntityAIFlyOutOfWater;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.entity.Entity;
@@ -34,7 +36,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -64,6 +68,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
 
 	public EntityRevengeBlazeBoss(World worldIn) {
 		super(worldIn);
+		this.setPathPriority(PathNodeType.WALKABLE, 2.0f);
         this.setPathPriority(PathNodeType.WATER, -1.0F);
         this.setPathPriority(PathNodeType.LAVA, 8.0F);
         this.setPathPriority(PathNodeType.DANGER_FIRE, 0.0F);
@@ -130,6 +135,8 @@ public class EntityRevengeBlazeBoss extends EntityMob {
 	
 	@Override
 	protected void initEntityAI() {
+        // this.tasks.addTask(0, new EntityAIEscapeWater(this, 15));
+        this.tasks.addTask(0, new EntityAIFlyOutOfWater(this, 15));
         this.tasks.addTask(4, new EntityRevengeBlazeBoss.AIFireballAttack(this));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D, 1.0F));
@@ -287,7 +294,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
     {
         if (this.isWet())
         {
-            this.attackEntityFrom(DamageSource.DROWN, 1.0F);
+            this.attackEntityFrom(DamageSource.DROWN, 4.F);
         }
 
         --this.heightOffsetUpdateTime;

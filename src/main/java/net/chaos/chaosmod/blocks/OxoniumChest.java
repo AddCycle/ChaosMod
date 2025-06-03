@@ -86,6 +86,16 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
     {
         return false;
     }
+    
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
+    	return true;
+    }
+    
+    @Override
+    public boolean hasTileEntity() {
+    	return true;
+    }
 
     @SideOnly(Side.CLIENT)
     public boolean hasCustomBreakingProgress(IBlockState state)

@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.entity.ai;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.BlockPos;
@@ -12,20 +13,35 @@ public class EntityAIEscapeWater extends EntityAIBase {
     public EntityAIEscapeWater(EntityCreature entity, double speed) {
         this.entity = entity;
         this.speed = speed;
-        this.setMutexBits(1); // movement
+        this.setMutexBits(1); // Movement
     }
 
     @Override
     public boolean shouldExecute() {
         if (!entity.isInWater()) return false;
 
-        targetPos = findNearbyDryLand(entity.getPosition());
-        return targetPos != null;
+        // Try to find a nearby non-water position
+        int r = 10; // range
+        BlockPos entityPos = new BlockPos(entity);
+        for (int dx = -r; dx <= r; dx++) {
+            for (int dy = -2; dy <= 2; dy++) {
+                for (int dz = -r; dz <= r; dz++) {
+                    BlockPos checkPos = entityPos.add(dx, dy, dz);
+                    IBlockState state = entity.world.getBlockState(checkPos);
+                    if (!state.getMaterial().isLiquid() && entity.world.isAirBlock(checkPos.up())) {
+                        targetPos = checkPos;
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     @Override
     public boolean shouldContinueExecuting() {
-        return !entity.getNavigator().noPath();
+        return entity.isInWater() && !entity.getNavigator().noPath();
     }
 
     @Override
@@ -33,20 +49,5 @@ public class EntityAIEscapeWater extends EntityAIBase {
         if (targetPos != null) {
             entity.getNavigator().tryMoveToXYZ(targetPos.getX(), targetPos.getY(), targetPos.getZ(), speed);
         }
-    }
-
-    private BlockPos findNearbyDryLand(BlockPos origin) {
-        for (int dx = -5; dx <= 5; dx++) {
-            for (int dz = -5; dz <= 5; dz++) {
-                BlockPos pos = origin.add(dx, 0, dz);
-                BlockPos up = pos.up();
-                if (!entity.world.isAirBlock(pos) &&
-                    entity.world.isAirBlock(up) &&
-                    !entity.world.getBlockState(up).getMaterial().isLiquid()) {
-                    return up;
-                }
-            }
-        }
-        return null;
     }
 }

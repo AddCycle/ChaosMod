@@ -13,7 +13,6 @@ import net.chaos.chaosmod.blocks.CustomPlanks.CustomPlankVariant;
 import net.chaos.chaosmod.blocks.OxoniumChest;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.init.ModBlocks;
-import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
@@ -36,7 +35,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -1083,10 +1081,6 @@ public class StructureCustomVillage {
                 this.setBlockState(worldIn, iblockstate1, 2, 1, 5, structureBoundingBoxIn);
                 this.setBlockState(worldIn, iblockstate2, 1, 1, 4, structureBoundingBoxIn);
 
-                if (!this.hasMadeChest && structureBoundingBoxIn.isVecInside(new BlockPos(this.getXWithOffset(5, 5), this.getYWithOffset(1), this.getZWithOffset(5, 5))))
-                {
-                    this.hasMadeChest = true;
-                }
 
                 for (int i = 6; i <= 8; ++i)
                 {
@@ -1105,18 +1099,43 @@ public class StructureCustomVillage {
                 {
                     for (int j = 0; j < 10; ++j)
                     {
-                        // this.clearCurrentPositionBlocksUpwards(worldIn, j, 6, k, structureBoundingBoxIn);
-                        // this.replaceAirAndLiquidDownwards(worldIn, iblockstate, j, -1, k, structureBoundingBoxIn);
-                        // System.out.println("Clearing blocks : " + new BlockPos(j, 6, k));
-                        // System.out.println("Clearing blocks : " + new BlockPos(j, -1, k));
+                        this.clearCurrentPositionBlocksUpwards(worldIn, j, 6, k, structureBoundingBoxIn);
+                        this.replaceAirAndLiquidDownwards(worldIn, iblockstate, j, -1, k, structureBoundingBoxIn);
                     }
                 }
                 
                 // temp fix due to the fact that this func is called twice (TODO see if this fix LootTable gen plz ya Allah)
-                if (first == true) twice = true;
-                first = true;
-                if (!worldIn.isRemote && first && twice) this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+                // if (first == true) twice = true;
+                // first = true;
+                // if (!worldIn.isRemote && first && twice) this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+                
+                if (!this.hasMadeChest && structureBoundingBoxIn.isVecInside(new BlockPos(this.getXWithOffset(5, 5), this.getYWithOffset(1), this.getZWithOffset(5, 5))))
+                {
+                    this.hasMadeChest = true;
+                    BlockPos chestPos = new BlockPos(this.getXWithOffset(5, 5), this.getYWithOffset(1), this.getZWithOffset(5, 5));
+                    System.out.println("Before placing chest, block is: " + worldIn.getBlockState(chestPos));
+                    if (!worldIn.isRemote) this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+                    System.out.println("After placing chest, block is: " + worldIn.getBlockState(chestPos));
+                    System.out.println("generated chest once and that's it");
+                }
                 System.out.println("CALLED");
+                /*if (!pendingChests.isEmpty() && !worldIn.isRemote) {
+                    MinecraftForge.EVENT_BUS.register(new Object() {
+                        @SubscribeEvent
+                        public void onWorldTick(TickEvent.WorldTickEvent event) {
+                            if (event.world == worldIn && event.phase == TickEvent.Phase.END) {
+                                for (ChestInfo info : pendingChests) {
+                                    TileEntity te = worldIn.getTileEntity(info.pos);
+                                    if (te instanceof TileEntityOxoniumChest) {
+                                        ((TileEntityOxoniumChest) te).setLootTable(info.loot, worldIn.rand.nextLong());
+                                        System.out.println("Delayed loot set at: " + info.pos);
+                                    }
+                                }
+                                MinecraftForge.EVENT_BUS.unregister(this); // run only once
+                            }
+                        }
+                    });
+                }*/
                 this.spawnVillagers(worldIn, structureBoundingBoxIn, 7, 1, 1, 1);
                 return true;
             }
@@ -1140,7 +1159,6 @@ public class StructureCustomVillage {
 
                     if (tileentity1 != null && tileentity1 instanceof IInventory)
                     {
-                        // ((IInventory)tileentity1).clear();
                         System.out.println("If previous tile entity gets cleared away !");
                     }
                     if (p_191080_6_ == null)
@@ -1149,7 +1167,18 @@ public class StructureCustomVillage {
                         System.out.println("blockstate : " + p_191080_6_);
                     }
 
-                    if (!p_191080_1_.isRemote) p_191080_1_.setBlockState(p_191080_4_, p_191080_6_, 2);
+                    if (!p_191080_1_.isRemote) {
+                        p_191080_1_.setBlockState(p_191080_4_, p_191080_6_, 2);
+
+                        // Schedule a block update for the next tick
+                        p_191080_1_.scheduleBlockUpdate(p_191080_4_, ModBlocks.OXONIUM_CHEST, 1, 0);
+
+                        // Save the loot table in the TileEntity's NBT for now (optional fallback)
+                        TileEntity tileentity = p_191080_1_.getTileEntity(p_191080_4_);
+                        if (tileentity instanceof TileEntityOxoniumChest) {
+                            ((TileEntityOxoniumChest) tileentity).lootTableToApply = p_191080_5_; // Custom field we add next
+                        }
+                    }
                     System.out.println("Block placed so its state is : " + p_191080_1_.getBlockState(p_191080_4_));
                     TileEntity tileentity = p_191080_1_.getTileEntity(p_191080_4_);
                     Random rand = new Random();
@@ -1157,8 +1186,9 @@ public class StructureCustomVillage {
                     if (tileentity instanceof TileEntityOxoniumChest)
                     {
                     	// LootTable table = LootTable.EMPTY_LOOT_TABLE;
-                        ((TileEntityOxoniumChest)tileentity).setInventorySlotContents(rand.nextInt(27), new ItemStack(ModItems.OXONIUM_NECKLACE));
-                        ((TileEntityOxoniumChest)tileentity).setInventorySlotContents(rand.nextInt(27), new ItemStack(ModItems.OXONIUM_UPGRADE, 2));
+                        // ((TileEntityOxoniumChest)tileentity).setInventorySlotContents(rand.nextInt(27), new ItemStack(ModItems.OXONIUM_NECKLACE));
+                        // ((TileEntityOxoniumChest)tileentity).setInventorySlotContents(rand.nextInt(27), new ItemStack(ModItems.OXONIUM_UPGRADE, 2));
+                    	((TileEntityOxoniumChest)tileentity).setLootTable(p_191080_5_, p_191080_3_.nextLong());
                         System.out.println("Tile Entity is set with loot");
                     }
 
@@ -1169,6 +1199,24 @@ public class StructureCustomVillage {
                     return false;
                 }
             }
+            /*private final List<ChestInfo> pendingChests = new ArrayList<>();
+
+            protected boolean generateChest(World worldIn, StructureBoundingBox box, Random rand, BlockPos pos, ResourceLocation loot, @Nullable IBlockState state)
+            {
+                if (!box.isVecInside(pos)) return false;
+
+                if (worldIn.getBlockState(pos).getBlock() != ModBlocks.OXONIUM_CHEST)
+                {
+                    if (state == null)
+                        state = ModBlocks.OXONIUM_CHEST.getDefaultState(); // or with facing correction
+
+                    worldIn.setBlockState(pos, state, 2);
+
+                    pendingChests.add(new ChestInfo(pos, loot));
+                    return true;
+                }
+                return false;
+            }*/
         }
 
     public static class House3 extends StructureCustomVillage.Village
