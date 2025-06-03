@@ -47,14 +47,12 @@ public class EntitiesDeathEvents {
         	// TileEntityBeacon
         }
         
-        EntityEyeCrystal crystal_of_truth = new EntityEyeCrystal(world, 0.5, world.getHeight(0, 0), 0.5);
+        /*EntityEyeCrystal crystal_of_truth = new EntityEyeCrystal(world, 0.5, world.getHeight(0, 0), 0.5);
         if (crystal_of_truth != null) {
         	if (!world.isRemote) world.spawnEntity(crystal_of_truth);
         	System.out.println("SPAWNED !");
-        }
+        }*/
 
-        
-        crystal_of_truth.setBeamTarget(pos);
         world.setBlockState(pos.up(2), Blocks.END_GATEWAY.getDefaultState(), 2);
         BlockPos target = new BlockPos(400, 80, 400); // Change as needed
         this.generatePlatform(world, ModBlocks.ENDERITE_BRICKS, target, 100);
