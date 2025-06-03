@@ -99,6 +99,11 @@ tile.forge_interface_block.name=Forge Interface Block
 entity.forge_guardian.name=Forge Guardian of Chaos
 entity.revenge_blaze_boss.name=Revenge Blaze
 entity.mountain_giant_boss.name=Mountain Giant
+entity.chaos_sage.name=Chaos Sage
+entity.viking.name=Viking
+entity.picsou.name=Picsou
+entity.little_big_giants.name=Little Big Giant
+entity.eye_of_truth.name=Eye Of Truth
 
 //Gui
 itemGroup.chaosmodtab=Building blocks

@@ -98,7 +98,12 @@ tile.forge_interface_block.name=Interface de la Forge
 // Entities
 entity.forge_guardian.name=Gardien de la Forge du Chaos
 entity.revenge_blaze_boss.name=Blaze Vengeur
-entity.mountain_giant_boss.name=Le Géant des Montagnes
+entity.mountain_giant_boss.name=Géant des Montagnes
+entity.chaos_sage.name=Sage du Chaos
+entity.viking.name=Viking
+entity.picsou.name=Picsou
+entity.little_big_giants.name=Petit géant
+entity.eye_of_truth.name=Oeil de Vérité
 
 //Gui
 itemGroup.chaosmodtab=Blocks de construction
