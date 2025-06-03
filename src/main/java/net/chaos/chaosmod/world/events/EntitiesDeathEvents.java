@@ -56,8 +56,14 @@ public class EntitiesDeathEvents {
         world.setBlockState(pos.up(2), Blocks.END_GATEWAY.getDefaultState(), 2);
         BlockPos target = new BlockPos(400, 80, 400); // Change as needed
         this.generatePlatform(world, ModBlocks.ENDERITE_BRICKS, target, 100);
-        this.generatePylon(world, ModBlocks.ALLEMANITE_BRICKS, target, 3, 20);
+        BlockPos center_pylon = new BlockPos(455, 81, 460);
+        this.generatePylon(world, ModBlocks.ALLEMANITE_BRICKS, center_pylon, 3, 15);
         
+        this.generatePylon(world, Blocks.OBSIDIAN, center_pylon.north(10), 3, 20);
+        this.generatePylon(world, Blocks.OBSIDIAN, center_pylon.south(10), 3, 20);
+        this.generatePylon(world, Blocks.OBSIDIAN, center_pylon.east(10), 3, 20);
+        this.generatePylon(world, Blocks.OBSIDIAN, center_pylon.west(10), 3, 20);
+
         EntityEyeCrystal boss = new EntityEyeCrystal(world, 456.5, 103, 461.5);
         world.spawnEntity(boss);
 	}
@@ -75,7 +81,7 @@ public class EntitiesDeathEvents {
 		for (int i = 0; i <= height; i++) {
 			for (int j = 0; j < width; j++) {
 				for (int k = 0; k < width; k++) {
-					world.setBlockState(new MutableBlockPos(455 + j, 81 + i, 460 + k), block.getDefaultState());
+					world.setBlockState(new MutableBlockPos(center.getX() + j, center.getY() + i, center.getZ() + k), block.getDefaultState());
 				}
 			}
 		}
