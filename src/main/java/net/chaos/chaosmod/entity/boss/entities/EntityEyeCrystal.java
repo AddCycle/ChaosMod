@@ -35,6 +35,11 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	}
 	
 	@Override
+	public boolean isImmuneToExplosions() {
+		return true;
+	}
+	
+	@Override
 	public boolean shouldShowBottom() {
 		return false;
 	}
