@@ -14,8 +14,11 @@ import util.Reference;
 
 @EventBusSubscriber(Side.CLIENT)
 public class BossBarRendering {
-	public static final ResourceLocation PHASE_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/revenge_blaze_bar_1.png");
-	public static final ResourceLocation PHASE_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/revenge_blaze_bar_2.png");
+	public static int flag = 0;
+	public static final ResourceLocation BLAZE_PHASE_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/revenge_blaze_bar_1.png");
+	public static final ResourceLocation BLAZE_PHASE_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/revenge_blaze_bar_2.png");
+	public static final ResourceLocation GIANT_PHASE_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/mountain_giant_bar_1.png");
+	public static final ResourceLocation GIANT_PHASE_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/mountain_giant_bar_2.png");
 
 	@SubscribeEvent
 	public void onRenderBossBar(RenderGameOverlayEvent.BossInfo event) {
@@ -25,8 +28,8 @@ public class BossBarRendering {
 
 	    BossInfo bossInfo = event.getBossInfo();
 
-	    if (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.revenge_blaze_boss.name").getUnformattedText())) {
-	        return;
+	    if (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.revenge_blaze_boss.name").getUnformattedText()) && (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.mountain_giant_boss.name").getUnformattedText()))) {
+	    	return;
 	    }
 
 	    // Cancel vanilla rendering
@@ -36,7 +39,13 @@ public class BossBarRendering {
 	    ScaledResolution scaledRes = new ScaledResolution(mc);
 	    int width = scaledRes.getScaledWidth();
 	    
-	    mc.getTextureManager().bindTexture((bossInfo.getPercent()) >= 0.5f ? PHASE_1 : PHASE_2);
+	    if (bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.revenge_blaze_boss.name").getUnformattedText())) {
+	        mc.getTextureManager().bindTexture((bossInfo.getPercent()) >= 0.5f ? BLAZE_PHASE_1 : BLAZE_PHASE_2);
+	    } else if (bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.mountain_giant_boss.name").getUnformattedText())) {
+	    	mc.getTextureManager().bindTexture((bossInfo.getPercent()) >= 0.5f ? GIANT_PHASE_1 : GIANT_PHASE_2);
+	    } else {
+	    	return;
+	    }
 
 	    /*
 	     * Change this barWidth, fullHeight in order to match the texture

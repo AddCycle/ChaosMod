@@ -135,11 +135,11 @@ public class EntityRevengeBlazeBoss extends EntityMob {
 	
 	@Override
 	protected void initEntityAI() {
-        // this.tasks.addTask(0, new EntityAIEscapeWater(this, 15));
-        this.tasks.addTask(0, new EntityAIFlyOutOfWater(this, 15));
+        this.tasks.addTask(0, new EntityAIEscapeWater(this, 10));
+        this.tasks.addTask(0, new EntityAIWanderAvoidWater(this, 1.0D, 1.0F));
+        // this.tasks.addTask(0, new EntityAIFlyOutOfWater(this, 15));
         this.tasks.addTask(4, new EntityRevengeBlazeBoss.AIFireballAttack(this));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D, 1.0F));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));

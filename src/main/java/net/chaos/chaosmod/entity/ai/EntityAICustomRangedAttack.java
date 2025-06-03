@@ -87,7 +87,7 @@ public class EntityAICustomRangedAttack extends EntityAIBase {
                 	double dz = target.posZ - this.entity.posZ;
                 	float f = MathHelper.sqrt(dx * dx + dz * dz) * 0.2F;
 
-                	rock.shoot(dx, dy + f, dz, 1.6F, 8.0F);
+                	rock.shoot(dx, dy + f, dz, 1.8F, 1.0F); // TODO : check accurracy
                 	this.entity.world.spawnEntity(rock);
                 } else if (this.entity.getHealth() >= (this.entity.getMaxHealth() / 9) && this.entity.getHealth() < (this.entity.getMaxHealth() / 2)) {
                 	EntityMenhir menhir = new EntityMenhir(this.entity.world, this.entity);
@@ -96,7 +96,7 @@ public class EntityAICustomRangedAttack extends EntityAIBase {
                 	double dz = target.posZ - this.entity.posZ;
                 	float f = MathHelper.sqrt(dx * dx + dz * dz) * 0.2F;
 
-                	menhir.shoot(dx, dy + f, dz, 1.6F, 8.0F);
+                	menhir.shoot(dx, dy + f, dz, 1.8F, 1.0F); // TODO : check accurracy
                 	this.entity.world.spawnEntity(menhir);
                 } else {
                 	

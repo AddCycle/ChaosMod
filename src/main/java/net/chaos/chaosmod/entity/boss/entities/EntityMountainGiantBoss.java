@@ -62,7 +62,7 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
 	@Override
 	protected void applyEntityAttributes() {
 	    super.applyEntityAttributes();
-	    this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(64.0D);
+	    this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(world.getDifficulty().getDifficultyId() == 1 ? 400.0D : 700.0D); // easy, normal | hard | >
 	    this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
 	    this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
 	}
@@ -77,8 +77,8 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
     protected void initEntityAI()
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAICustomRangedAttack(this, 1.0D, 20 * 2, 40.0F));
-        this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
+        this.tasks.addTask(1, new EntityAICustomRangedAttack(this, 1.0D, 20 * 2, 15.0F));
+        this.tasks.addTask(1, new EntityAIAttackMelee(this, 0.75D, false));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
