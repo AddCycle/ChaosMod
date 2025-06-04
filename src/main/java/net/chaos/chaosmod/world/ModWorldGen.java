@@ -1,16 +1,20 @@
 package net.chaos.chaosmod.world;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.FlowerType;
 import net.chaos.chaosmod.init.ModBlocks;
-import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -19,10 +23,14 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraft.world.gen.structure.MapGenVillage;
+import net.minecraft.world.gen.structure.template.PlacementSettings;
+import net.minecraft.world.gen.structure.template.Template;
+import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import util.Reference;
 
 public class ModWorldGen implements IWorldGenerator {
+	private static final Set<ChunkPos> alreadyGenerated = new HashSet<>();
 	// private final MapGenMyStructure myStructure = new MapGenMyStructure();
 	/*
 	 * Overworld = 0
@@ -63,12 +71,52 @@ public class ModWorldGen implements IWorldGenerator {
             }
             
             generateFlowers(world, random, x, z, 0);
-            //if (world.getWorldInfo().isMapFeaturesEnabled()) {
-            	// structure gen like stronghold or something
-            // }
-            // myStructure.generateStructure(world, random, new ChunkPos(chunkX, chunkZ));
 
+            if (world.getWorldInfo().isMapFeaturesEnabled()) {
+                // Only generate once per ~1024 chunks (change this to control rarity)
+                if (random.nextInt(50) == 0) {
+                    BlockPos pos = new BlockPos(chunkX * 16, 64, chunkZ * 16);
+
+                    // Skip if chunk isn't ready
+                    if (!world.isAreaLoaded(pos, 16)) return;
+
+                    // Optional double-check to avoid regenerating
+                    ChunkPos cp = new ChunkPos(chunkX, chunkZ);
+                    if (!alreadyGenerated.add(cp)) return;
+
+                    generateVikingGallion(world, pos, random);
+                    System.out.println("generating : " + pos);
+                }
+            }
     }
+
+    public void generateVikingGallion(World world, BlockPos pos, Random random) {
+        MinecraftServer server = world.getMinecraftServer();
+        if (server == null) return;
+
+        TemplateManager manager = world.getSaveHandler().getStructureTemplateManager();
+        ResourceLocation gallionLocation = new ResourceLocation(Reference.MODID, "main_room");
+        Template template = manager.getTemplate(server, gallionLocation);
+
+        if (template == null) return;
+
+        PlacementSettings settings = new PlacementSettings()
+            .setIgnoreEntities(false)
+            .setMirror(Mirror.NONE)
+            .setRotation(Rotation.values()[random.nextInt(Rotation.values().length)])
+            .setChunk((ChunkPos) null)
+            .setReplacedBlock(null)
+            .setIgnoreStructureBlock(false);
+
+        // Disable block updates to prevent recursive generation
+        boolean oldCaptureBlockSnapshots = world.captureBlockSnapshots;
+        world.captureBlockSnapshots = true; // Disable actual world updates during placement
+
+        template.addBlocksToWorld(world, pos, settings);
+
+        world.captureBlockSnapshots = oldCaptureBlockSnapshots; // Restore default behavior
+    }
+
 
 	private void generateNether(World world, Random random, int x, int z)
     {
