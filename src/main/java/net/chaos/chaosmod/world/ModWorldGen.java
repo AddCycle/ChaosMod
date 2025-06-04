@@ -130,7 +130,7 @@ public class ModWorldGen implements IWorldGenerator {
 
         BlockPos.getAllInBox(pos, max).forEach(p -> {
             IBlockState state = world.getBlockState(p);
-            world.markAndNotifyBlock(p, world.getChunkFromBlockCoords(p), state, state, 3);
+            world.markAndNotifyBlock(p, world.getChunkFromBlockCoords(p), state, state, 1);
         });
     }
 
