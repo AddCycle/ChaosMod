@@ -8,6 +8,7 @@ import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.FlowerType;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
@@ -73,19 +74,29 @@ public class ModWorldGen implements IWorldGenerator {
             generateFlowers(world, random, x, z, 0);
 
             if (world.getWorldInfo().isMapFeaturesEnabled()) {
-                // Only generate once per ~1024 chunks (change this to control rarity)
                 if (random.nextInt(50) == 0) {
-                    BlockPos pos = new BlockPos(chunkX * 16, 64, chunkZ * 16);
+                	// trying to center that in the chunk
+                    int centerX = chunkX * 16 + 8;
+                    int centerZ = chunkZ * 16 + 8;
 
-                    // Skip if chunk isn't ready
+                    // Start from top and go down to find real surface
+                    BlockPos surface = world.getPrecipitationHeight(new BlockPos(centerX, 255, centerZ)).down();
+                    IBlockState state = world.getBlockState(surface);
+
+                    // Debug print
+                    System.out.println("Block at " + surface + " is " + state.getBlock() + " | Material: " + state.getMaterial());
+
+                    if (state.getMaterial() != Material.WATER) return; // not valid location
+
+                    BlockPos pos = surface; // One block above water
+
                     if (!world.isAreaLoaded(pos, 16)) return;
 
-                    // Optional double-check to avoid regenerating
                     ChunkPos cp = new ChunkPos(chunkX, chunkZ);
                     if (!alreadyGenerated.add(cp)) return;
 
                     generateVikingGallion(world, pos, random);
-                    System.out.println("generating : " + pos);
+                    System.out.println("Generating : " + pos);
                 }
             }
     }
@@ -95,7 +106,7 @@ public class ModWorldGen implements IWorldGenerator {
         if (server == null) return;
 
         TemplateManager manager = world.getSaveHandler().getStructureTemplateManager();
-        ResourceLocation gallionLocation = new ResourceLocation(Reference.MODID, "main_room");
+        ResourceLocation gallionLocation = new ResourceLocation(Reference.MODID, "viking_gallion");
         Template template = manager.getTemplate(server, gallionLocation);
 
         if (template == null) return;
@@ -106,7 +117,7 @@ public class ModWorldGen implements IWorldGenerator {
             .setRotation(Rotation.values()[random.nextInt(Rotation.values().length)])
             .setChunk((ChunkPos) null)
             .setReplacedBlock(null)
-            .setIgnoreStructureBlock(false);
+            .setIgnoreStructureBlock(true);
 
         // Disable block updates to prevent recursive generation
         boolean oldCaptureBlockSnapshots = world.captureBlockSnapshots;
@@ -115,6 +126,12 @@ public class ModWorldGen implements IWorldGenerator {
         template.addBlocksToWorld(world, pos, settings);
 
         world.captureBlockSnapshots = oldCaptureBlockSnapshots; // Restore default behavior
+        BlockPos max = pos.add(template.getSize()); // Get size of structure
+
+        BlockPos.getAllInBox(pos, max).forEach(p -> {
+            IBlockState state = world.getBlockState(p);
+            world.markAndNotifyBlock(p, world.getChunkFromBlockCoords(p), state, state, 3);
+        });
     }
 
 
