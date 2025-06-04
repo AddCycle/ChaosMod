@@ -2,6 +2,8 @@ package net.chaos.chaosmod.entity;
 
 import net.chaos.chaosmod.Main;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -25,6 +27,13 @@ public class EntityChaosSage extends EntityLiving {
 			player.openGui(Main.instance, Reference.GUI_DOCS_ID, this.world, this.getEntityId(), 0, 0); // TODO : change this to docs + do it
 		}
 		return true;
+	}
+	
+	@Override
+	protected void initEntityAI() {
+		super.initEntityAI();
+		this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 4.0F));
 	}
 
 	@Override

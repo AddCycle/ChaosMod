@@ -8,7 +8,13 @@ import net.chaos.chaosmod.potion.PotionEffectVikingFriends;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIFindEntityNearest;
+import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
 import net.minecraft.entity.ai.EntityAILookAtTradePlayer;
+import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,6 +59,18 @@ public class EntityViking extends EntityMob {
 	protected void initEntityAI() {
 		super.initEntityAI();
         this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(1, new EntityAIMoveTowardsTarget(this, 0.2, 20.0f)); // Come to the rescue of player ?
+        // this.tasks.addTask(2, new EntityAIAttackMelee(this, 15, false)); // Come to the rescue of player ? To save his resources
+        // this.targetTasks.addTask(0, new EntityAINearestAttackableTarget<EntityPicsou>(this, EntityPicsou.class, 10, true, true, null));
+        this.targetTasks.addTask(2, new EntityAIFindEntityNearestPlayer(this));
+	}
+	
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(300);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6);
+		this.getEntityAttribute(SWIM_SPEED).setBaseValue(10.5);
 	}
 
 	@Override

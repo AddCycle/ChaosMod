@@ -116,6 +116,9 @@ public class RegistryHandler {
 	        registry.register(recipe);
 	    }
 	    
+	    /*
+	     * Mathsmod adding a recipe
+	     */
 	    if (Loader.isModLoaded("mathsmod")) {
 	        Item JeanRobertPerezItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("mathsmod", "kurayum_ingot"));
 	        if (JeanRobertPerezItem != null) {
