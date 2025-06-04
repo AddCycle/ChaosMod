@@ -75,7 +75,7 @@ public class GuiHandler implements IGuiHandler {
 			return new BackpackGui(new BackpackContainer(player.inventory, player.getHeldItemMainhand()));
 		case 5:
 			System.out.println("Server GuiHandler received ID: " + ID + " x: " + x);
-			return new GuiFinalCredits(); // TODO : to change with guiChaosSage/docs
+			return new GuideGui(0);
 		case 6:
 			return new GuiInventoryExtended(player);
 			

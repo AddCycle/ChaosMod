@@ -33,7 +33,7 @@ public class EntityPicsou extends EntityCreature {
 	protected void initEntityAI() {
 		super.initEntityAI();
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(0, new EntityAIStealBlock(this, 3.0, 1));
+		this.tasks.addTask(0, new EntityAIStealBlock(this, 3.0, 100));
 		// this.tasks.addTask(1, new EntityAILookIdle(this));
 		// TODO Combine those two below into one as harvest farmland AI
 		/*this.tasks.addTask(0, new EntityAIMoveToBlock(this, 3.0, 10) {

@@ -157,7 +157,7 @@ public class EntityAIStealBlock extends EntityAIMoveToBlock
             // if (block instanceof BlockCrops && ((BlockCrops)block).isMaxAge(iblockstate) && this.wantsToReapStuff && (this.currentTask == 0 || this.currentTask < 0))
             if (block == Blocks.GOLD_BLOCK && (this.currentTask == 0 || this.currentTask < 0))
             {
-            	System.out.println("Picsou is moving...");
+            	// System.out.println("Picsou is moving...");
                 this.currentTask = 0;
                 return true;
             }

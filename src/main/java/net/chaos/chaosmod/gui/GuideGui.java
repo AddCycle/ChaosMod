@@ -99,7 +99,6 @@ public class GuideGui extends GuiScreen implements IInteractionObject {
 		RenderHelper.enableStandardItemLighting();
 	}
 
-	// 256 153
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
