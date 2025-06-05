@@ -2,6 +2,7 @@ package net.chaos.chaosmod.tileentity;
 
 import net.chaos.chaosmod.init.ModPotions;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
@@ -10,16 +11,29 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class TileEntityTrophyBase extends TileEntity implements ITickable {
+	public double range;
+	public int particles;
+	public Potion potion;
+	public EnumParticleTypes particleType;
+	
+	public TileEntityTrophyBase() {
+		this(4, 30, ModPotions.POTION_VIKING, EnumParticleTypes.REDSTONE);
+	}
+
+	public TileEntityTrophyBase(double range, int particles, Potion potion, EnumParticleTypes particleTypes) {
+		this.range = range;
+		this.particles = particles;
+		this.potion = potion;
+		particleType = particleTypes;
+	}
 
 	@Override
 	public void update() {
-		int r = 4;
-		int cnt = 30;
-		spawnParticleCircle(world, pos, r, cnt, EnumParticleTypes.REDSTONE);
-		applyEffectBasedOnRange(r, new PotionEffect(ModPotions.POTION_VIKING, 10, 0));
+		spawnParticleCircle(world, pos, range, particles, particleType);
+		applyEffectBasedOnRange(range, new PotionEffect(potion, 10, 0));
 	}
 
-	private void applyEffectBasedOnRange(int range, PotionEffect effectIn) {
+	private void applyEffectBasedOnRange(double range, PotionEffect effectIn) {
 		if (world.isRemote) return;
 		for (EntityPlayer pl : this.world.playerEntities) {
 			double dist = Math.sqrt(pl.getDistanceSqToCenter(pos));
