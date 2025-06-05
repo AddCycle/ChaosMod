@@ -115,7 +115,7 @@ public class PlayerLifeEvents {
 	}
 	
 	// TENTATIVE INFRUCTUEUSE
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onGuiOpen(GuiOpenEvent event) {
 	    // GUI is closing
@@ -125,8 +125,7 @@ public class PlayerLifeEvents {
 	            // ClientSoundHandler.forcePause(); // forcibly re-pause music
 	        });
 	    }
-	}
-	
+	}*/
 	
 	@SubscribeEvent
 	public void attachCapability(AttachCapabilitiesEvent<Entity> event) {

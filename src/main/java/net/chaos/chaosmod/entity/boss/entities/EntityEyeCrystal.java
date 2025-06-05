@@ -17,21 +17,29 @@ import net.minecraft.world.end.DragonFightManager;
 public class EntityEyeCrystal extends EntityEnderCrystal {
 	private int health;
     public final BossInfoServer bossInfo;
-
-	public EntityEyeCrystal(World worldIn) {
-		super(worldIn);
-		health = 10;
+    
+    public EntityEyeCrystal(World worldIn) {
+    	super(worldIn);
 		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.NOTCHED_10);
 		this.bossInfo.setName(this.getDisplayName());
-		this.setSize(1.5f, 3);
+		this.setSize(1.5f, 1.5f);
+    }
+
+	public EntityEyeCrystal(World worldIn, int health) {
+		this(worldIn);
+		this.health = health;
 	}
 
 	public EntityEyeCrystal(World worldIn, double x, double y, double z) {
 		super(worldIn, x, y, z);
-		health = 10;
 		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.NOTCHED_10);
 		this.bossInfo.setName(this.getDisplayName());
 		this.setSize(1.5f, 1.5f);
+	}
+
+	public EntityEyeCrystal(World worldIn, double x, double y, double z, int health) {
+		this(worldIn, x, y, z);
+		this.health = health;
 	}
 	
 	@Override

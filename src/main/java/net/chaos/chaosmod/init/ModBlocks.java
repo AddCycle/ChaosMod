@@ -6,6 +6,7 @@ import java.util.List;
 import net.chaos.chaosmod.blocks.AllemaniteBlock;
 import net.chaos.chaosmod.blocks.AllemaniteOre;
 import net.chaos.chaosmod.blocks.BlockBeam;
+import net.chaos.chaosmod.blocks.BlockTrophy;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.ConnectedBlock;
 import net.chaos.chaosmod.blocks.CookieJarBlock;
@@ -71,5 +72,6 @@ public class ModBlocks {
 	public static final Block CONNECTED_BLOCK = new ConnectedBlock("connected_block", Material.IRON);
 	public static final Block COOKIE_JAR = new CookieJarBlock("cookie_jar");
 	public static final Block BEAM_BLOCK = new BlockBeam("block_beam");
+	public static final Block TROPHY_BLOCK = new BlockTrophy("trophy_block");
 
 }

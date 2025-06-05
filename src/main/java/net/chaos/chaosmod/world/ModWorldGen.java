@@ -56,7 +56,7 @@ public class ModWorldGen implements IWorldGenerator {
 
     private void generateEnder(World world, Random random, int x, int z)
     {
-    	this.generateOre(ModBlocks.ENDERITE_ORE, Blocks.END_STONE, world, random, 3, 5, x, z, 40, 80);
+    	this.generateOre(ModBlocks.ENDERITE_ORE, Blocks.END_STONE, world, random, 3, 3, x, z, 40, 80);
         generateFlowers(world, random, x, z, 2);
     }
 
@@ -64,11 +64,11 @@ public class ModWorldGen implements IWorldGenerator {
     {
             if(random.nextInt(4) < 2)
             {
-            	this.generateOre(ModBlocks.OXONIUM_ORE, Blocks.STONE, world, random, 5, 5, x, z, 3, 30);
+            	this.generateOre(ModBlocks.OXONIUM_ORE, Blocks.STONE, world, random, 6, 5, x, z, 3, 50);
             }
             else
             {
-            	this.generateOre(ModBlocks.OXONIUM_ORE, Blocks.STONE, world, random, 3, 3, x, z, 3, 30);
+            	this.generateOre(ModBlocks.OXONIUM_ORE, Blocks.STONE, world, random, 5, 5, x, z, 3, 50);
             }
             
             generateFlowers(world, random, x, z, 0);
@@ -95,18 +95,18 @@ public class ModWorldGen implements IWorldGenerator {
                     ChunkPos cp = new ChunkPos(chunkX, chunkZ);
                     if (!alreadyGenerated.add(cp)) return;
 
-                    generateVikingGallion(world, pos, random);
+                    generateVikingGallion(world, pos, random, new ResourceLocation(Reference.MODID, "viking_gallion"));
                     System.out.println("Generating : " + pos);
                 }
             }
     }
 
-    public void generateVikingGallion(World world, BlockPos pos, Random random) {
+    public void generateVikingGallion(World world, BlockPos pos, Random random, ResourceLocation rl) {
         MinecraftServer server = world.getMinecraftServer();
         if (server == null) return;
 
         TemplateManager manager = world.getSaveHandler().getStructureTemplateManager();
-        ResourceLocation gallionLocation = new ResourceLocation(Reference.MODID, "viking_gallion");
+        ResourceLocation gallionLocation = rl;
         Template template = manager.getTemplate(server, gallionLocation);
 
         if (template == null) return;
@@ -137,7 +137,7 @@ public class ModWorldGen implements IWorldGenerator {
 
 	private void generateNether(World world, Random random, int x, int z)
     {
-		this.generateOre(ModBlocks.ALLEMANITE_ORE, Blocks.NETHERRACK, world, random, 4, 2, x, z, 3, 126);
+		this.generateOre(ModBlocks.ALLEMANITE_ORE, Blocks.NETHERRACK, world, random, 4, 4, x, z, 3, 126);
 		generateFlowers(world, random, x, z, 1);
     }
 

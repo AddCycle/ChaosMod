@@ -64,7 +64,7 @@ public class EntitiesDeathEvents {
         this.generatePylon(world, Blocks.OBSIDIAN, center_pylon.east(10), 3, 20);
         this.generatePylon(world, Blocks.OBSIDIAN, center_pylon.west(10), 3, 20);
 
-        EntityEyeCrystal boss = new EntityEyeCrystal(world, 456.5, 98, 461.5);
+        EntityEyeCrystal boss = new EntityEyeCrystal(world, 456.5, 98, 461.5, 100);
         world.spawnEntity(boss);
 	}
 	
@@ -86,8 +86,8 @@ public class EntitiesDeathEvents {
 			}
 		}
 		BlockPos pos = center.add(1.5, height + 1, 1.5);
-        EntityEyeCrystal boss = new EntityEyeCrystal(world, pos.getX(), pos.getY(), pos.getZ());
-        world.spawnEntity(boss);
+        EntityEyeCrystal minions = new EntityEyeCrystal(world, pos.getX(), pos.getY(), pos.getZ(), 20);
+        world.spawnEntity(minions);
 	}
 
 	private void generateGateway(BlockPos pos, World world)
