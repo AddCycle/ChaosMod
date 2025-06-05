@@ -8,6 +8,9 @@ import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderDragon;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -74,6 +77,31 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
         }
 
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
+
+        // System.out.println("trigger");
+        if (entity.getLaserTarget() != null) {
+        	System.out.println("No trigger");
+            renderLaserBeam(entity, entity.getLaserTarget(), x, y, z, partialTicks);
+        }
+    }
+    
+    private void renderLaserBeam(EntityEyeCrystal source, Entity entity, double x, double y, double z, float partialTicks) {
+        double startX = x;
+        double startY = y + source.getEyeHeight();
+        double startZ = z;
+
+        double dx = entity.posX - source.posX;
+        double dy = (entity.posY + entity.getEyeHeight()) - (source.posY + source.getEyeHeight());
+        double dz = entity.posZ - source.posZ;
+
+        int segments = 20;
+        for (int i = 0; i <= segments; i++) {
+            double t = i / (double)segments;
+            double px = startX + dx * t;
+            double py = startY + dy * t;
+            double pz = startZ + dz * t;
+            source.world.spawnParticle(EnumParticleTypes.REDSTONE, px, py, pz, 1, 0, 0); // red laser
+        }
     }
 
     /**

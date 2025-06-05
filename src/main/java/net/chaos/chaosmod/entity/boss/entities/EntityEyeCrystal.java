@@ -1,12 +1,22 @@
 package net.chaos.chaosmod.entity.boss.entities;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BossInfo.Color;
 import net.minecraft.world.BossInfo.Overlay;
 import net.minecraft.world.BossInfoServer;
@@ -15,6 +25,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.end.DragonFightManager;
 public class EntityEyeCrystal extends EntityEnderCrystal {
+	@Nullable
+	private EntityLivingBase laserTarget;
+	private int laserTicks;
 	private int health;
     public final BossInfoServer bossInfo;
     
@@ -148,5 +161,58 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
         }
 		
 		super.onUpdate();
+		
+		if (!world.isRemote) {
+	        if (laserTarget != null && laserTarget.isEntityAlive()) {
+	            laserTicks++;
+
+	            // looking at target
+	            double dx = laserTarget.posX - posX;
+	            double dy = laserTarget.posY + laserTarget.getEyeHeight() - (posY + getEyeHeight());
+	            double dz = laserTarget.posZ - posZ;
+	            rotationYaw = (float) (MathHelper.atan2(dz, dx) * (180D / Math.PI)) - 90F;
+
+	            if (laserTicks >= 40) {
+	                // Damage the target
+	                laserTarget.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 8.0F);
+	                world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_GUARDIAN_ATTACK, SoundCategory.HOSTILE, 1.0F, 1.0F);
+	                laserTicks = 0;
+	                laserTarget = null;
+	            }
+	        } else {
+	            laserTarget = findNearestTarget();
+	            laserTicks = 0;
+	        }
+	    }
 	}
+	
+	private EntityLivingBase findNearestTarget() {
+	    AxisAlignedBB box = new AxisAlignedBB(posX - 16, posY - 8, posZ - 16, posX + 16, posY + 8, posZ + 16);
+	    List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, box);
+
+	    EntityLivingBase closest = null;
+	    double closestDistSq = Double.MAX_VALUE;
+
+	    for (EntityLivingBase target : list) {
+	        if (target.isEntityAlive()) {
+	            double distSq = getDistanceSq(target);
+	            if (distSq < closestDistSq && ((this instanceof Entity) && getDistance(target) <= 40)) {
+	                closest = target;
+	                closestDistSq = distSq;
+	            } else {
+				}
+	        }
+	    }
+
+	    return closest;
+	}
+
+	public Entity getLaserTarget() {
+	    return laserTarget;
+	}
+
+	public void setLaserTarget(EntityLivingBase target) {
+	    this.laserTarget = (EntityLivingBase) target;
+	}
+
 }
