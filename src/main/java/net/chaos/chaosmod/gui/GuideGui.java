@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.tileentity.TileEntityBeaconRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -91,7 +92,6 @@ public class GuideGui extends GuiScreen implements IInteractionObject {
 		RenderHelper.disableStandardItemLighting();
 		this.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		RenderHelper.enableGUIStandardItemLighting();
-		InventoryPlayer inventoryplayer = this.mc.player.inventory;
 
 		GlStateManager.popMatrix();
 		GlStateManager.enableLighting();
@@ -142,8 +142,18 @@ public class GuideGui extends GuiScreen implements IInteractionObject {
 			Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, 32, 32, 32, 32);
 			this.mc.getTextureManager().bindTexture(new ResourceLocation(Reference.MODID, "textures/blocks/allemanite_ore.png"));
 			Gui.drawModalRectWithCustomSizedTexture(x_1, y, 0, 0, 32, 32, 32, 32);
+			/*this.mc.getTextureManager().bindTexture(new ResourceLocation(Reference.MODID, "textures/blocks/enderite_ore.png"));
+			Gui.drawModalRectWithCustomSizedTexture(x_2, y, 0, 0, 16, 16, 16, 48);*/
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(2.0F, 2.0F, 1.0F); // scale by 2x
 			this.mc.getTextureManager().bindTexture(new ResourceLocation(Reference.MODID, "textures/blocks/enderite_ore.png"));
-			Gui.drawModalRectWithCustomSizedTexture(x_2, y, 0, 0, 32, 32, 32, 32);
+			Gui.drawModalRectWithCustomSizedTexture(
+			    x_2 / 2, y / 2,
+			    0, 0,
+			    16, 16,
+			    16, 48
+			);
+			GlStateManager.popMatrix();
 
 			int origin_x = 49;
 			int origin_y = 27;

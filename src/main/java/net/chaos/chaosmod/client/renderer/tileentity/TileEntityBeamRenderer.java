@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.client.renderer.tileentity;
 
+import javax.annotation.Nonnull;
+
 import org.lwjgl.opengl.GL11;
 
 import net.chaos.chaosmod.tileentity.TileEntityBeam;
@@ -8,6 +10,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.math.AxisAlignedBB;
 
 public class TileEntityBeamRenderer extends TileEntitySpecialRenderer<TileEntityBeam> {
 	

@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import util.Reference;
 
 public class BlockTrophy extends BlockContainerBase implements ITileEntityProvider {
-    private static final AxisAlignedBB BOUNDING_BOX = new AxisAlignedBB(4 * 0.0625, 0.0, 4 * 0.0625, 12 * 0.0625, 1.0, 12 * 0.0625);
+    private static final AxisAlignedBB BOUNDING_BOX = new AxisAlignedBB(3 * 0.0625, 0.0, 3 * 0.0625, 13 * 0.0625, 1.0, 13 * 0.0625);
 
 	public BlockTrophy(String name) {
 		super(name, new MaterialTransparent(MapColor.ADOBE));
