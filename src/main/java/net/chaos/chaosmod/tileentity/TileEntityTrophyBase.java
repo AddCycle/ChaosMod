@@ -202,9 +202,9 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
     	switch (i) {
     	case 0: return ModPotions.POTION_VIKING; // base
     	case 1: return MobEffects.REGENERATION; // blue
-    	case 4: return MobEffects.FIRE_RESISTANCE; // red
+    	case 2: return MobEffects.FIRE_RESISTANCE; // red
     	case 3: return MobEffects.JUMP_BOOST; // purple
-    	case 2: return MobEffects.RESISTANCE; // dark purple
+    	case 4: return MobEffects.RESISTANCE; // dark purple
     	default: return MobEffects.ABSORPTION;
     	}
     }
@@ -213,9 +213,9 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
     	switch (i) {
     	case 0: return 0xffffff; // base
     	case 1: return 0x0000f4; // blue
-    	case 4: return 0x7f0000; // red
+    	case 2: return 0x7f0000; // red
     	case 3: return 0x00f000; // purple
-    	case 2: return 0x000000; // dark purple
+    	case 4: return 0x000000; // dark purple
     	default: return 0xffffff;
     	}
     }
