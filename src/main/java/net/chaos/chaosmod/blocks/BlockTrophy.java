@@ -23,10 +23,12 @@ import util.Reference;
 
 public class BlockTrophy extends BlockContainerBase implements ITileEntityProvider {
     private static final AxisAlignedBB BOUNDING_BOX = new AxisAlignedBB(3 * 0.0625, 0.0, 3 * 0.0625, 13 * 0.0625, 1.0, 13 * 0.0625);
+    public int variant;
 
-	public BlockTrophy(String name) {
+	public BlockTrophy(String name, int variant) {
 		super(name, new MaterialTransparent(MapColor.ADOBE));
 		setSoundType(SoundType.GLASS);
+		this.variant = variant;
 	}
 	
 	@Override
@@ -80,6 +82,7 @@ public class BlockTrophy extends BlockContainerBase implements ITileEntityProvid
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityTrophyBase();
+		return new TileEntityTrophyBase(variant);
+		// return new TileEntityTrophyBase(meta);
 	}
 }

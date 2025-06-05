@@ -21,17 +21,18 @@ import net.minecraft.world.World;
 import util.Reference;
 
 public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITickable,IInventory {
+	public int variant;
 	public double range;
 	public int particles;
 	public Potion potion;
 	public EnumParticleTypes particleType;
 	private NonNullList<ItemStack> content = NonNullList.<ItemStack>withSize(27, ItemStack.EMPTY);
 	
-	public TileEntityTrophyBase() {
-		this(4, 30, ModPotions.POTION_VIKING, EnumParticleTypes.REDSTONE);
+	public TileEntityTrophyBase(int variant) {
+		this(4, 30, ModPotions.POTION_VIKING, EnumParticleTypes.REDSTONE, variant);
 	}
 
-	public TileEntityTrophyBase(double range, int particles, Potion potion, EnumParticleTypes particleTypes) {
+	public TileEntityTrophyBase(double range, int particles, Potion potion, EnumParticleTypes particleTypes, int variant) {
 		this.range = range;
 		this.particles = particles;
 		this.potion = potion;

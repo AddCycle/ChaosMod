@@ -72,6 +72,10 @@ public class ModBlocks {
 	public static final Block CONNECTED_BLOCK = new ConnectedBlock("connected_block", Material.IRON);
 	public static final Block COOKIE_JAR = new CookieJarBlock("cookie_jar");
 	public static final Block BEAM_BLOCK = new BlockBeam("block_beam");
-	public static final Block TROPHY_BLOCK = new BlockTrophy("trophy_block");
+	public static final Block TROPHY_BLOCK = new BlockTrophy("trophy_block", 0);
+	public static final Block BRAVE_TROPHY = new BlockTrophy("brave_trophy", 1);
+	public static final Block FIREFIGHTER_TROPHY = new BlockTrophy("firefighter_trophy", 2);
+	public static final Block EYE_TROPHY = new BlockTrophy("eye_trophy", 3);
+	public static final Block TALENT_TROPHY = new BlockTrophy("talent_trophy", 4);
 
 }
