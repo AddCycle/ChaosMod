@@ -7,6 +7,7 @@ import net.chaos.chaosmod.init.ModPotions;
 import net.chaos.chaosmod.inventory.TrophyContainerBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -31,7 +32,7 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
 	private NonNullList<ItemStack> content = NonNullList.<ItemStack>withSize(27, ItemStack.EMPTY);
 	
 	public TileEntityTrophyBase(int variant) {
-		this(4, 30, ModPotions.POTION_VIKING, EnumParticleTypes.REDSTONE, variant);
+		this(4, 30, PotionHelper(variant), EnumParticleTypes.REDSTONE, variant);
 	}
 
 	public TileEntityTrophyBase(double range, int particles, Potion potion, EnumParticleTypes particleTypes, int variant) {
@@ -196,6 +197,17 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
 	protected NonNullList<ItemStack> getItems() {
 		return content;
 	}
+
+	private static Potion PotionHelper(int i) {
+    	switch (i) {
+    	case 0: return ModPotions.POTION_VIKING; // base
+    	case 1: return MobEffects.REGENERATION; // blue
+    	case 4: return MobEffects.FIRE_RESISTANCE; // red
+    	case 3: return MobEffects.JUMP_BOOST; // purple
+    	case 2: return MobEffects.RESISTANCE; // dark purple
+    	default: return MobEffects.ABSORPTION;
+    	}
+    }
 
 	private int helper(int i) {
     	switch (i) {

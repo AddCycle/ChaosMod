@@ -37,7 +37,7 @@ public class BlockTrophy extends BlockContainerBase implements ITileEntityProvid
 		if (!worldIn.isRemote) {
 			playerIn.openGui(Main.instance, Reference.GUI_TROPHY, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
-		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+		return true;
 	}
 	
 	@Override
