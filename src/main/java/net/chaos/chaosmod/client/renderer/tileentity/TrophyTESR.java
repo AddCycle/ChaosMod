@@ -1,7 +1,5 @@
 package net.chaos.chaosmod.client.renderer.tileentity;
 
-import javax.management.RuntimeErrorException;
-
 import net.chaos.chaosmod.client.model.ModelTrophyBase;
 import net.chaos.chaosmod.tileentity.TileEntityTrophyBase;
 import net.minecraft.client.Minecraft;

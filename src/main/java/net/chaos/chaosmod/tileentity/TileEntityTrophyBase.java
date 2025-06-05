@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.tileentity;
 
+import java.awt.Color;
+
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModPotions;
 import net.chaos.chaosmod.inventory.TrophyContainerBase;
@@ -37,11 +39,12 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
 		this.particles = particles;
 		this.potion = potion;
 		particleType = particleTypes;
+		this.variant = variant;
 	}
 
 	@Override
 	public void update() {
-		spawnParticleCircle(world, pos, range, particles, particleType);
+		spawnParticleCircle(world, pos, range, particles, particleType, helper(variant));
 		applyEffectBasedOnRange(range, new PotionEffect(potion, 10, 0));
 	}
 
@@ -56,16 +59,27 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
 		}
 	}
 
-	public void spawnParticleCircle(World world, BlockPos center, double radius, int particleCount, EnumParticleTypes particle) {
+	public void spawnParticleCircle(World world, BlockPos center, double radius, int particleCount, EnumParticleTypes type, int color) {
+		System.out.println("the variant is : " + variant);
 	    double cx = center.getX() + 0.5;
 	    double cy = center.getY() + 0.5;
 	    double cz = center.getZ() + 0.5;
+
+	    Color c = new Color(color);
+	    float r = c.getRed() / 255.0f;
+	    float g = c.getGreen() / 255.0f;
+	    float b = c.getBlue() / 255.0f;
+
+	    // Important: Redstone particle ignores speed unless red == 0
+	    if (r == 0) r = 1e-6f; // Hack to make redstone render with zero red
 
 	    for (int i = 0; i < particleCount; i++) {
 	        double angle = 2 * Math.PI * i / particleCount;
 	        double x = cx + radius * Math.cos(angle);
 	        double z = cz + radius * Math.sin(angle);
-	        world.spawnParticle(particle, x, cy, z, 0, 0, 0);
+
+	        // Last three args = R, G, B for redstone
+	        world.spawnParticle(type, x, cy, z, r, g, b);
 	    }
 	}
 
@@ -182,4 +196,15 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
 	protected NonNullList<ItemStack> getItems() {
 		return content;
 	}
+
+	private int helper(int i) {
+    	switch (i) {
+    	case 0: return 0xffffff; // base
+    	case 1: return 0x0000f4; // blue
+    	case 4: return 0x7f0000; // red
+    	case 3: return 0x00f000; // purple
+    	case 2: return 0x000000; // dark purple
+    	default: return 0xffffff;
+    	}
+    }
 }

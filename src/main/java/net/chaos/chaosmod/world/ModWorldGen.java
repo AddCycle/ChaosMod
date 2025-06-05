@@ -6,6 +6,7 @@ import java.util.Set;
 
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.FlowerType;
+import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -74,7 +75,7 @@ public class ModWorldGen implements IWorldGenerator {
             generateFlowers(world, random, x, z, 0);
 
             if (world.getWorldInfo().isMapFeaturesEnabled()) {
-                if (random.nextInt(50) == 0) {
+                if (random.nextInt(40) == 0) { // more frequent but I will add this to the config later TODO
                 	// trying to center that in the chunk
                     int centerX = chunkX * 16 + 8;
                     int centerZ = chunkZ * 16 + 8;
@@ -104,6 +105,7 @@ public class ModWorldGen implements IWorldGenerator {
     public void generateVikingGallion(World world, BlockPos pos, Random random, ResourceLocation rl) {
         MinecraftServer server = world.getMinecraftServer();
         if (server == null) return;
+        if (world.isRemote) return;
 
         TemplateManager manager = world.getSaveHandler().getStructureTemplateManager();
         ResourceLocation gallionLocation = rl;
@@ -132,6 +134,10 @@ public class ModWorldGen implements IWorldGenerator {
             IBlockState state = world.getBlockState(p);
             world.markAndNotifyBlock(p, world.getChunkFromBlockCoords(p), state, state, 1);
         });
+        
+        EntityViking viking = new EntityViking(world);
+        viking.setPosition(pos.getX() + 21, pos.getY() + 17, pos.getZ() + 20);
+        world.spawnEntity(viking);
     }
 
 

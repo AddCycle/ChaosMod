@@ -17,6 +17,8 @@ public class EntityChaosSage extends EntityLiving {
 
 	public EntityChaosSage(World worldIn) {
 		super(worldIn);
+		this.setEntityInvulnerable(true);
+		this.isImmuneToFire = true;
 	}
 
 	@Override
@@ -33,7 +35,12 @@ public class EntityChaosSage extends EntityLiving {
 	protected void initEntityAI() {
 		super.initEntityAI();
 		this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 4.0F));
+        this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
+	}
+	
+	@Override
+	public boolean isImmuneToExplosions() {
+		return true;
 	}
 
 	@Override
