@@ -10,9 +10,11 @@ import net.chaos.chaosmod.inventory.BackpackContainer;
 import net.chaos.chaosmod.inventory.ContainerChaosSage;
 import net.chaos.chaosmod.inventory.ForgeInterfaceContainer;
 import net.chaos.chaosmod.inventory.OxoniumFurnaceContainer;
+import net.chaos.chaosmod.inventory.TrophyContainerBase;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
+import net.chaos.chaosmod.tileentity.TileEntityTrophyBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -51,7 +53,8 @@ public class GuiHandler implements IGuiHandler {
 			};
 		case 6:
 			return new ContainerAccessory(player.inventory, world.isRemote, player);
-			// return EntityContains(player, world, x);
+		case 7:
+			return new TrophyContainerBase(player.inventory, (TileEntityTrophyBase) te);
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -78,6 +81,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuideGui(0);
 		case 6:
 			return new GuiInventoryExtended(player);
+		case 7:
+			return new TrophyGui(player.inventory, (TileEntityTrophyBase) te);
 			
 			// return new BackpackGui(player.inventory, new InventoryBackpack(player.inventory, 54));
 		default:

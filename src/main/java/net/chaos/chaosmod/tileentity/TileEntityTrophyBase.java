@@ -1,20 +1,31 @@
 package net.chaos.chaosmod.tileentity;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModPotions;
+import net.chaos.chaosmod.inventory.TrophyContainerBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import util.Reference;
 
-public class TileEntityTrophyBase extends TileEntity implements ITickable {
+public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITickable,IInventory {
 	public double range;
 	public int particles;
 	public Potion potion;
 	public EnumParticleTypes particleType;
+	private NonNullList<ItemStack> content = NonNullList.<ItemStack>withSize(27, ItemStack.EMPTY);
 	
 	public TileEntityTrophyBase() {
 		this(4, 30, ModPotions.POTION_VIKING, EnumParticleTypes.REDSTONE);
@@ -57,4 +68,117 @@ public class TileEntityTrophyBase extends TileEntity implements ITickable {
 	    }
 	}
 
+	@Override
+	public String getName() {
+		return new TextComponentTranslation("alz.container.name").getFormattedText();
+	}
+
+	@Override
+	public boolean hasCustomName() {
+		return false;
+	}
+
+	@Override
+	public int getSizeInventory() {
+		return 1;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		for (ItemStack itemstack : this.content) {
+            if (!itemstack.isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int index) {
+		return content.get(index);
+	}
+
+	@Override
+	public ItemStack decrStackSize(int index, int count) {
+        this.fillWithLoot((EntityPlayer)null);
+        ItemStack itemstack = ItemStackHelper.getAndSplit(this.getItems(), index, count);
+        return itemstack;
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		return null;
+	}
+
+	@Override
+	public void setInventorySlotContents(int index, ItemStack stack) {
+		this.fillWithLoot((EntityPlayer)null);
+        this.getItems().set(index, stack);
+
+        if (stack.getCount() > this.getInventoryStackLimit())
+        {
+            stack.setCount(this.getInventoryStackLimit());
+        }
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 1;
+	}
+
+	@Override
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		return true;
+	}
+
+	@Override
+	public void openInventory(EntityPlayer player) {
+		player.openGui(Main.instance, Reference.GUI_FURNACE_ID, world, 0, 0, 0);
+	}
+
+	@Override
+	public void closeInventory(EntityPlayer player) {
+
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		return index == 0;
+	}
+
+	@Override
+	public int getField(int id) {
+		return 0;
+	}
+
+	@Override
+	public void setField(int id, int value) {
+		
+	}
+
+	@Override
+	public int getFieldCount() {
+		return 1;
+	}
+
+	@Override
+	public void clear() {
+		content.clear();
+	}
+
+	@Override
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+		return new TrophyContainerBase(playerInventory, this);
+	}
+
+	@Override
+	public String getGuiID() {
+		return "chaosmod:trophy_gui";
+	}
+
+	@Override
+	protected NonNullList<ItemStack> getItems() {
+		return content;
+	}
 }

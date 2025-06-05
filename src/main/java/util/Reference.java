@@ -17,6 +17,8 @@ public class Reference {
     public static final int GUI_BACKPACK_ID = 4;
     public static final int GUI_DOCS_ID = 5;
     public static final int GUI_VIKING_ID = 5;
+    // 6 is for the extended player gui
+    public static final int GUI_TROPHY = 7;
     
     // Entities ids
     public static final int ENTITY_FORGE_GUARDIAN = 120;
