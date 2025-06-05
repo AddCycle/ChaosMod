@@ -16,13 +16,17 @@ public class TileEntityTrophyBase extends TileEntity implements ITickable {
 		int r = 4;
 		int cnt = 30;
 		spawnParticleCircle(world, pos, r, cnt, EnumParticleTypes.REDSTONE);
-		applyEffectBasedOnRange(r, new PotionEffect(ModPotions.POTION_VIKING, 20 * 1, 0));
+		applyEffectBasedOnRange(r, new PotionEffect(ModPotions.POTION_VIKING, 10, 0));
 	}
 
 	private void applyEffectBasedOnRange(int range, PotionEffect effectIn) {
 		if (world.isRemote) return;
-		for (EntityPlayer pl : this.getWorld().playerEntities) {
-			pl.addPotionEffect(effectIn);
+		for (EntityPlayer pl : this.world.playerEntities) {
+			double dist = Math.sqrt(pl.getDistanceSqToCenter(pos));
+			// System.out.println(dist);
+			if (dist <= range) {
+				pl.addPotionEffect(effectIn);
+			}
 		}
 	}
 
