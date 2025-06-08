@@ -98,6 +98,7 @@ public class EntitiesDeathEvents {
 		}
 		BlockPos pos = center.add(1.5, height + 1, 1.5);
         EntityEyeCrystal minions = new EntityEyeCrystal(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20);
+        minions.setBeamTarget(new BlockPos(456.5, 98, 461.5).down());
         world.spawnEntity(minions);
 	}
 

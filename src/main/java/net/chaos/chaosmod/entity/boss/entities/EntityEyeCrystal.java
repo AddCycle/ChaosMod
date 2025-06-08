@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.entity.RenderGuardian;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,13 +31,25 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	private int laserTicks;
 	private int health;
 	private int max_health;
-    public final BossInfoServer bossInfo;
+    public BossInfoServer bossInfo;
+    RenderGuardian r;
     
     public EntityEyeCrystal(World worldIn) {
     	super(worldIn);
 		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
 		this.bossInfo.setName(this.getDisplayName());
 		this.setSize(1.5f, 1.5f);
+		// this is for vanilla /summon <>
+		if (this.health == 0 && this.max_health == 0) {
+			this.health = 20;
+			this.max_health = 20;
+		}
+		// this is for the minions dummy shield
+		if (this.health == 1 && this.max_health == 1) {
+			bossInfo = null;
+			this.health = 20;
+			this.max_health = 20;
+		}
     }
 
 	public EntityEyeCrystal(World worldIn, int health) {
@@ -75,7 +88,6 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	@Override
 	public void setBeamTarget(BlockPos beamTarget) {
-		// TODO Auto-generated method stub
 		super.setBeamTarget(beamTarget);
 	}
 	
@@ -166,6 +178,10 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 		super.onUpdate();
 		
 		if (!world.isRemote) {
+			// System.out.println(laserTarget);
+			/*if (laserTarget == null) {
+	            laserTarget = findNearestTarget();
+			}*/
 	        if (laserTarget != null && laserTarget.isEntityAlive()) {
 	            laserTicks++;
 
@@ -177,8 +193,10 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 
 	            if (laserTicks >= 40) {
 	                // Damage the target
-	                laserTarget.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 8.0F);
-	                world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_GUARDIAN_ATTACK, SoundCategory.HOSTILE, 1.0F, 1.0F);
+	                // laserTarget.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 1.0F);
+	                laserTarget.attackEntityFrom(DamageSource.causeExplosionDamage(laserTarget), 0.1F);
+	                System.out.println("ATTACK");
+	                world.playSound(null, posX, posY, posZ, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0F, 1.0F);
 	                laserTicks = 0;
 	                laserTarget = null;
 	            }
@@ -190,7 +208,12 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	}
 	
 	private EntityLivingBase findNearestTarget() {
-	    AxisAlignedBB box = new AxisAlignedBB(posX - 16, posY - 8, posZ - 16, posX + 16, posY + 8, posZ + 16);
+		// a little box
+	    // AxisAlignedBB box = new AxisAlignedBB(posX - 16, posY - 8, posZ - 16, posX + 16, posY + 8, posZ + 16);
+		// big box 16x16x16
+		int height = 16;
+		int width = 16; // was too much
+	    AxisAlignedBB box = new AxisAlignedBB(posX - width, posY - height, posZ - width, posX + width, posY + height, posZ + width);
 	    List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, box);
 
 	    EntityLivingBase closest = null;
@@ -199,7 +222,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	    for (EntityLivingBase target : list) {
 	        if (target.isEntityAlive()) {
 	            double distSq = getDistanceSq(target);
-	            if (distSq < closestDistSq && ((this instanceof Entity) && getDistance(target) <= 40)) {
+	            if (distSq < closestDistSq && ((this instanceof Entity) && getDistance(target) <= 1000)) {
 	                closest = target;
 	                closestDistSq = distSq;
 	            } else {
@@ -207,6 +230,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	        }
 	    }
 
+	    System.out.println("Closest = " + closest);
 	    return closest;
 	}
 

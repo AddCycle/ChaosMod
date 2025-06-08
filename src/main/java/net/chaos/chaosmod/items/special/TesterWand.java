@@ -5,7 +5,6 @@ import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
-import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.items.ItemBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -74,6 +73,7 @@ public class TesterWand extends ItemBase {
 				case 4:
 					playerIn.sendMessage(new TextComponentString("playing sound : putin walk wide"));
 					EntityEyeCrystal boss = new EntityEyeCrystal(worldIn, playerIn.posX + 0.5, playerIn.posY + 0.5, playerIn.posZ + 0.5, 20);
+					boss.setBeamTarget(boss.getPosition().south(10));
 					if (!worldIn.isRemote) worldIn.spawnEntity(boss);
 					break;
 				default:

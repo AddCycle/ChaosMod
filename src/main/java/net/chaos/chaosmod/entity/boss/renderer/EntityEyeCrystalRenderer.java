@@ -1,13 +1,18 @@
 package net.chaos.chaosmod.entity.boss.renderer;
 
+import org.lwjgl.opengl.GL11;
+
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.boss.model.EntityEyeCrystalModel;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderDragon;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumParticleTypes;
@@ -20,6 +25,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
 
     public static final ResourceLocation ENDERCRYSTAL_BEAM_TEXTURES = new ResourceLocation(Reference.MODID, "textures/entity/eyecrystal/eyecrystal_beam.png");
 	private static final ResourceLocation ENDER_CRYSTAL_TEXTURES = new ResourceLocation(Reference.MODID, "textures/entity/eyecrystal/eyecrystal.png");
+    private static final ResourceLocation GUARDIAN_BEAM_TEXTURE = new ResourceLocation("textures/entity/guardian_beam.png");
     private final ModelBase modelEnderCrystal = new EntityEyeCrystalModel(0.0F, true);
     private final ModelBase modelEnderCrystalNoBase = new EntityEyeCrystalModel(0.0F, false);
 
@@ -80,10 +86,45 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
 
         // System.out.println("trigger");
         if (entity.getLaserTarget() != null) {
-        	System.out.println("No trigger");
-            renderLaserBeam(entity, entity.getLaserTarget(), x, y, z, partialTicks);
+        	Entity target = entity.getLaserTarget();
+            if (target != null) {
+                double tx = target.lastTickPosX + (target.posX - target.lastTickPosX) * partialTicks;
+                double ty = target.lastTickPosY + target.getEyeHeight() + (target.posY - target.lastTickPosY) * partialTicks;
+                double tz = target.lastTickPosZ + (target.posZ - target.lastTickPosZ) * partialTicks;
+
+                double sx = x;
+                double sy = y + entity.getEyeHeight();
+                double sz = z;
+
+                // Render beam from (sx,sy,sz) to (tx,ty,tz)
+                renderBeam(sx, sy, sz, tx - entity.posX, ty - entity.posY, tz - entity.posZ, partialTicks);
+            }
+        	// System.out.println("No trigger");
+            // renderLaserBeam(entity, entity.getLaserTarget(), x, y, z, partialTicks);
         }
     }
+    
+    private void renderBeam(double x, double y, double z, double dx, double dy, double dz, float partialTicks) {
+        GlStateManager.pushMatrix();
+        GlStateManager.disableTexture2D();
+        GlStateManager.disableLighting();
+        GlStateManager.disableCull();
+        GlStateManager.glLineWidth(4.0F);
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
+
+        buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        buffer.pos(x, y, z).color(0.0F, 0.5F, 1.0F, 1.0F).endVertex();
+        buffer.pos(x + dx, y + dy, z + dz).color(0.0F, 0.5F, 1.0F, 1.0F).endVertex();
+        tessellator.draw();
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.enableLighting();
+        GlStateManager.enableCull();
+        GlStateManager.popMatrix();
+    }
+
     
     private void renderLaserBeam(EntityEyeCrystal source, Entity entity, double x, double y, double z, float partialTicks) {
         double startX = x;
