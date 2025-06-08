@@ -86,8 +86,8 @@ public class EntitiesDeathEvents {
 			}
 		}
 		BlockPos pos = center.add(1.5, height + 1, 1.5);
-        EntityEyeCrystal minions = new EntityEyeCrystal(world, pos.getX(), pos.getY(), pos.getZ(), 20);
-        world.spawnEntity(minions);
+        /*EntityEyeCrystal minions = new EntityEyeCrystal(world, pos.getX(), pos.getY(), pos.getZ(), 20);
+        world.spawnEntity(minions);*/
 	}
 
 	private void generateGateway(BlockPos pos, World world)

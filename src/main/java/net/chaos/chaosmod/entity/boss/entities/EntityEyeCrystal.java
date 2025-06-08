@@ -29,11 +29,12 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	private EntityLivingBase laserTarget;
 	private int laserTicks;
 	private int health;
+	private int max_health;
     public final BossInfoServer bossInfo;
     
     public EntityEyeCrystal(World worldIn) {
     	super(worldIn);
-		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.NOTCHED_10);
+		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
 		this.bossInfo.setName(this.getDisplayName());
 		this.setSize(1.5f, 1.5f);
     }
@@ -41,11 +42,12 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	public EntityEyeCrystal(World worldIn, int health) {
 		this(worldIn);
 		this.health = health;
+		this.max_health = health;
 	}
 
 	public EntityEyeCrystal(World worldIn, double x, double y, double z) {
 		super(worldIn, x, y, z);
-		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.NOTCHED_10);
+		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
 		this.bossInfo.setName(this.getDisplayName());
 		this.setSize(1.5f, 1.5f);
 	}
@@ -53,6 +55,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	public EntityEyeCrystal(World worldIn, double x, double y, double z, int health) {
 		this(worldIn, x, y, z);
 		this.health = health;
+		this.max_health = health;
 	}
 	
 	@Override
@@ -151,7 +154,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	}
 
 	private float getMaxHealth() {
-		return 10; // FIXME do it a non hard-coded way
+		return max_health;
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.items.special;
 
 import net.chaos.chaosmod.cutscene.CutsceneManager;
+import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
@@ -72,7 +73,8 @@ public class TesterWand extends ItemBase {
 					break;
 				case 4:
 					playerIn.sendMessage(new TextComponentString("playing sound : putin walk wide"));
-					if (!worldIn.isRemote) worldIn.playSound(null, playerIn.getPosition(), ModSounds.PUTIN_WIDE_WALK, SoundCategory.RECORDS, 1.0f, 1.0f);
+					EntityEyeCrystal boss = new EntityEyeCrystal(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, 20);
+					if (!worldIn.isRemote) worldIn.spawnEntity(boss);
 					break;
 				default:
 					break;

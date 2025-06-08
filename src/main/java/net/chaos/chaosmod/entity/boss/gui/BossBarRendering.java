@@ -19,6 +19,10 @@ public class BossBarRendering {
 	public static final ResourceLocation BLAZE_PHASE_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/revenge_blaze_bar_2.png");
 	public static final ResourceLocation GIANT_PHASE_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/mountain_giant_bar_1.png");
 	public static final ResourceLocation GIANT_PHASE_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/mountain_giant_bar_2.png");
+	public static final ResourceLocation EYE_PHASE_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/eye_bar_1.png");
+	public static final ResourceLocation EYE_PHASE_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/eye_bar_2.png");
+	public static final ResourceLocation MASTER_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/master_bar_1.png");
+	public static final ResourceLocation MASTER_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/master_bar_2.png");
 
 	@SubscribeEvent
 	public void onRenderBossBar(RenderGameOverlayEvent.BossInfo event) {
@@ -28,7 +32,10 @@ public class BossBarRendering {
 
 	    BossInfo bossInfo = event.getBossInfo();
 
-	    if (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.revenge_blaze_boss.name").getUnformattedText()) && (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.mountain_giant_boss.name").getUnformattedText()))) {
+	    if (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.revenge_blaze_boss.name").getUnformattedText())
+	    && (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.mountain_giant_boss.name").getUnformattedText()))
+	    && (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.eye_of_truth.name").getUnformattedText()))
+	    && (!bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.chaos_master.name").getUnformattedText()))) {
 	    	return;
 	    }
 
@@ -43,6 +50,10 @@ public class BossBarRendering {
 	        mc.getTextureManager().bindTexture((bossInfo.getPercent()) >= 0.5f ? BLAZE_PHASE_1 : BLAZE_PHASE_2);
 	    } else if (bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.mountain_giant_boss.name").getUnformattedText())) {
 	    	mc.getTextureManager().bindTexture((bossInfo.getPercent()) >= 0.5f ? GIANT_PHASE_1 : GIANT_PHASE_2);
+	    } else if (bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.eye_of_truth.name").getUnformattedText())) {
+	    	mc.getTextureManager().bindTexture((bossInfo.getPercent()) >= 0.5f ? EYE_PHASE_1 : EYE_PHASE_2);
+	    } else if (bossInfo.getName().getUnformattedText().contains(new TextComponentTranslation("entity.chaos_master.name").getUnformattedText())) {
+	    	mc.getTextureManager().bindTexture((bossInfo.getPercent()) >= 0.5f ? MASTER_1 : MASTER_2);
 	    } else {
 	    	return;
 	    }
