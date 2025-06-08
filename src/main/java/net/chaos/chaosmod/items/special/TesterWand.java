@@ -73,7 +73,7 @@ public class TesterWand extends ItemBase {
 					break;
 				case 4:
 					playerIn.sendMessage(new TextComponentString("playing sound : putin walk wide"));
-					EntityEyeCrystal boss = new EntityEyeCrystal(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, 20);
+					EntityEyeCrystal boss = new EntityEyeCrystal(worldIn, playerIn.posX + 0.5, playerIn.posY + 0.5, playerIn.posZ + 0.5, 20);
 					if (!worldIn.isRemote) worldIn.spawnEntity(boss);
 					break;
 				default:
