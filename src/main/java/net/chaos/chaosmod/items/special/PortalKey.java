@@ -1,0 +1,43 @@
+package net.chaos.chaosmod.items.special;
+
+import net.chaos.chaosmod.blocks.DimensionPortal;
+import net.chaos.chaosmod.items.ItemBase;
+import net.minecraft.block.BlockPortal;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemFlintAndSteel;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
+
+public class PortalKey extends ItemBase {
+	ItemFlintAndSteel l;
+	BlockPortal l2;
+
+	public PortalKey(String name) {
+		super(name);
+	}
+	
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		ItemStack stack = playerIn.getHeldItem(handIn);
+	    RayTraceResult ray = this.rayTrace(worldIn, playerIn, false);
+
+	    if (ray == null || ray.typeOfHit != RayTraceResult.Type.BLOCK)
+	        return new ActionResult<>(EnumActionResult.FAIL, stack);
+
+	    BlockPos pos = ray.getBlockPos();
+
+	    if (DimensionPortal.trySpawnPortal(worldIn, pos)) {
+	        if (!playerIn.isCreative())
+	            stack.shrink(1);
+	        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+	    }
+
+	    return new ActionResult<>(EnumActionResult.FAIL, stack);
+	}
+
+}

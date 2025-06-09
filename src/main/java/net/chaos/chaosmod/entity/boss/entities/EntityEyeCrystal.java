@@ -14,13 +14,11 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntitySpectralArrow;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -33,6 +31,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.end.DragonFightManager;
+
 public class EntityEyeCrystal extends EntityEnderCrystal {
 	@Nullable
 	private EntityLivingBase laserTarget;
@@ -40,13 +39,16 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	private int health;
 	private int max_health;
     public BossInfoServer bossInfo;
+    public boolean isBoss;
     public static final DataParameter<Integer> LASER_TARGET_ID =
     	    EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.VARINT);
     
     public EntityEyeCrystal(World worldIn) {
     	super(worldIn);
-		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
-		this.bossInfo.setName(this.getDisplayName());
+    	if (this.isBoss) {
+    		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
+    		this.bossInfo.setName(this.getDisplayName());
+    	}
 		this.setSize(1.5f, 1.5f);
 		// this is for vanilla /summon <>
 		if (this.health == 0 && this.max_health == 0) {
@@ -61,23 +63,28 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 		}
     }
 
-	public EntityEyeCrystal(World worldIn, int health) {
+	public EntityEyeCrystal(World worldIn, int health, boolean isBoss) {
 		this(worldIn);
 		this.health = health;
 		this.max_health = health;
+		this.isBoss = isBoss;
 	}
 
 	public EntityEyeCrystal(World worldIn, double x, double y, double z) {
 		super(worldIn, x, y, z);
-		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
-		this.bossInfo.setName(this.getDisplayName());
+		if (this.isBoss) {
+			System.out.println("Setting boss info server");
+			bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
+			this.bossInfo.setName(this.getDisplayName());
+		}
 		this.setSize(1.5f, 1.5f);
 	}
 
-	public EntityEyeCrystal(World worldIn, double x, double y, double z, int health) {
+	public EntityEyeCrystal(World worldIn, double x, double y, double z, int health, boolean isBoss) {
 		this(worldIn, x, y, z);
 		this.health = health;
 		this.max_health = health;
+		this.isBoss = isBoss;
 	}
 	
 	@Override
@@ -93,7 +100,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	@Override
 	public boolean shouldShowBottom() {
-		return false;
+		return !isBoss; // only minions
 	}
 	
 	@Override
@@ -113,8 +120,8 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (this.isEntityAlive()) { 
-			health -= 0.5;
+		health -= amount;
+		if (this.isBoss && this.isEntityAlive()) {
 			this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
         }
 		if (this.isEntityInvulnerable(source))
@@ -150,8 +157,6 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
                     }
                 }
             }
-            
-
             return true;
         }
 	}
@@ -173,13 +178,13 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	@Override
 	public void addTrackingPlayer(EntityPlayerMP player) {
 		super.addTrackingPlayer(player);
-		this.bossInfo.addPlayer(player);
+		if (bossInfo != null) this.bossInfo.addPlayer(player);
 	}
 	
 	@Override
 	public void removeTrackingPlayer(EntityPlayerMP player) {
 		super.removeTrackingPlayer(player);
-		this.bossInfo.removePlayer(player);
+		if (bossInfo != null) this.bossInfo.removePlayer(player);
 	}
 	
 	private float getHealth() {
@@ -192,17 +197,15 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	@Override
 	public void onUpdate() {
+		super.onUpdate();
+
+		if (bossInfo == null) return;
+
 		if (this.isEntityAlive()) { 
 			this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
         }
 		
-		super.onUpdate();
-		
 		if (!world.isRemote) {
-			// System.out.println(laserTarget);
-			/*if (laserTarget == null) {
-	            laserTarget = findNearestTarget();
-			}*/
 	        if (laserTarget != null && laserTarget.isEntityAlive()) {
 	            laserTicks++;
 
@@ -218,7 +221,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	            	EntitySpectralArrow arrow = new EntitySpectralArrow(world, laserTarget.posX, laserTarget.posY, laserTarget.posZ);
 	                laserTarget.attackEntityFrom(DamageSource.causeArrowDamage(arrow, laserTarget), 6.0F);
 	                world.playSound(null, laserTarget.posX, laserTarget.posY, laserTarget.posZ,
-	                	    SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.HOSTILE, 1.0F, 1.0F);
+	                	    SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.HOSTILE, 0.5F, 0.3F);
 	                laserTicks = 0;
 	                laserTarget = null;
 	            }
@@ -268,6 +271,14 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 
 	public void setLaserTarget(EntityLivingBase target) {
 	    this.laserTarget = (EntityLivingBase) target;
+	}
+	
+	public int getLaserTicks() {
+		return laserTicks;
+	}
+
+	public boolean isBoss() {
+		return isBoss;
 	}
 
 }

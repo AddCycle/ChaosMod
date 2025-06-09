@@ -50,6 +50,7 @@ import net.chaos.chaosmod.world.events.PlayerAchivementsEvents;
 import net.chaos.chaosmod.world.events.PlayerFightEvents;
 import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
+import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.chaos.chaosmod.world.structures.StructureCustomVillage;
 import net.minecraft.client.renderer.tileentity.TileEntityBeaconRenderer;
@@ -93,6 +94,7 @@ public class Main
 	static Main Init() {
 		MapGenStructureIO.registerStructure(MapGenCustomVillage.Start.class, "Custom Village");
 		StructureCustomVillage.registerVillagePieces();
+		MapGenStructureIO.registerStructure(CustomWoodlandMansion.Start.class, "Custom Mansion");
 		return instance;
 	}
 	

@@ -13,6 +13,7 @@ import net.chaos.chaosmod.blocks.CookieJarBlock;
 import net.chaos.chaosmod.blocks.CustomBlockSapling;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomPlanks;
+import net.chaos.chaosmod.blocks.DimensionPortal;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
 import net.chaos.chaosmod.blocks.EnderiteForgeWalls;
 import net.chaos.chaosmod.blocks.EnderiteOre;
@@ -77,5 +78,6 @@ public class ModBlocks {
 	public static final Block FIREFIGHTER_TROPHY = new BlockTrophy("firefighter_trophy", 2);
 	public static final Block EYE_TROPHY = new BlockTrophy("eye_trophy", 3);
 	public static final Block TALENT_TROPHY = new BlockTrophy("talent_trophy", 4);
+	public static final Block PORTAL_FRAMES = new DimensionPortal("dim_portal");
 
 }

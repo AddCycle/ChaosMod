@@ -19,6 +19,7 @@ import net.chaos.chaosmod.items.special.EnderiteThunder;
 import net.chaos.chaosmod.items.special.ItemHeart;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
+import net.chaos.chaosmod.items.special.PortalKey;
 import net.chaos.chaosmod.items.special.TesterWand;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.items.tools.AllInOneSword;
@@ -112,6 +113,8 @@ public class ModItems {
 	public static final Item GIANT_HEART = new ItemHeart("giant_heart");
 	public static final Item BLAZING_HEART = new ItemHeart("blazing_heart");
 	public static final Item CHAOS_HEART = new ItemHeart("chaos_heart");
+
+	public static final Item PORTAL_IGNITER = new PortalKey("portal_key");
 	
 	//Food
 	public static Item OXONIUM_CARROT; 

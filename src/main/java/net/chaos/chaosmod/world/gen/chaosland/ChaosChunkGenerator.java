@@ -1,11 +1,10 @@
-package net.chaos.chaosmod.world.structures;
+package net.chaos.chaosmod.world.gen.chaosland;
 
 import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
@@ -32,11 +31,11 @@ import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
+import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
-import net.minecraft.world.gen.structure.WoodlandMansion;
 
-public class DimensionGenerator implements IChunkGenerator {
-    protected static final IBlockState STONE = Blocks.STONE.getDefaultState();
+public class ChaosChunkGenerator implements IChunkGenerator {
+	protected static final IBlockState STONE = Blocks.STONE.getDefaultState();
     private final Random rand;
     private NoiseGeneratorOctaves minLimitPerlinNoise;
     private NoiseGeneratorOctaves maxLimitPerlinNoise;
@@ -55,7 +54,7 @@ public class DimensionGenerator implements IChunkGenerator {
     private double[] depthBuffer = new double[256];
     private MapGenBase caveGenerator = new MapGenCaves();
     private MapGenStronghold strongholdGenerator = new MapGenStronghold();
-    private MapGenCustomVillage villageGenerator = new MapGenCustomVillage(); // custom
+    private MapGenVillage villageGenerator = new MapGenVillage();
     private MapGenMineshaft mineshaftGenerator = new MapGenMineshaft();
     private MapGenScatteredFeature scatteredFeatureGenerator = new MapGenScatteredFeature();
     private MapGenBase ravineGenerator = new MapGenRavine();
@@ -67,12 +66,12 @@ public class DimensionGenerator implements IChunkGenerator {
     double[] maxLimitRegion;
     double[] depthRegion;
 
-    public DimensionGenerator(World worldIn, long seed, boolean mapFeaturesEnabledIn, String generatorOptions)
+    public ChaosChunkGenerator(World worldIn, long seed, boolean mapFeaturesEnabledIn, String generatorOptions)
     {
         {
             caveGenerator = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(caveGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE);
             strongholdGenerator = (MapGenStronghold)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(strongholdGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD);
-            villageGenerator = (MapGenCustomVillage)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(villageGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE);
+            villageGenerator = (MapGenVillage)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(villageGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE);
             mineshaftGenerator = (MapGenMineshaft)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(mineshaftGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT);
             scatteredFeatureGenerator = (MapGenScatteredFeature)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(scatteredFeatureGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE);
             ravineGenerator = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(ravineGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE);
@@ -503,8 +502,6 @@ public class DimensionGenerator implements IChunkGenerator {
         }//Forge: End ICE
 
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(false, this, this.world, this.rand, x, z, flag);
-        // FIXME : additional gen might break things
-        this.villageGenerator.generateStructure(this.world, this.rand, chunkpos);
 
         BlockFalling.fallInstantly = false;
     }
@@ -647,7 +644,6 @@ public class DimensionGenerator implements IChunkGenerator {
             {
                 this.woodlandMansionGenerator.generate(this.world, x, z, (ChunkPrimer)null);
             }
-            this.villageGenerator.generate(this.world, x, z, (ChunkPrimer)null);
         }
     }
 }

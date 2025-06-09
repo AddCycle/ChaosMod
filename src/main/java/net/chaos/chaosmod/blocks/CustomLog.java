@@ -86,7 +86,8 @@ public class CustomLog extends BlockLog implements IHasModel {
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
 			EntityPlayer player) {
-		return new ItemStack(Item.getItemFromBlock(this), 1, this.getMetaFromState(state) - 4);
+		int meta = state.getValue(VARIANT).getMeta();
+		return new ItemStack(Item.getItemFromBlock(this), 1, meta);
 	}
 	
 	@Override
