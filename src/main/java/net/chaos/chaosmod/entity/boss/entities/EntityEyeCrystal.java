@@ -1,18 +1,20 @@
 package net.chaos.chaosmod.entity.boss.entities;
 
 import java.util.List;
+import java.util.OptionalInt;
 
 import javax.annotation.Nullable;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.entity.RenderGuardian;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -28,11 +30,12 @@ import net.minecraft.world.end.DragonFightManager;
 public class EntityEyeCrystal extends EntityEnderCrystal {
 	@Nullable
 	private EntityLivingBase laserTarget;
-	private int laserTicks;
+	public int laserTicks;
 	private int health;
 	private int max_health;
     public BossInfoServer bossInfo;
-    RenderGuardian r;
+    public static final DataParameter<Integer> LASER_TARGET_ID =
+    	    EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.VARINT);
     
     public EntityEyeCrystal(World worldIn) {
     	super(worldIn);
@@ -69,6 +72,12 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 		this(worldIn, x, y, z);
 		this.health = health;
 		this.max_health = health;
+	}
+	
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		this.dataManager.register(LASER_TARGET_ID, -1); // -1 means no target
 	}
 	
 	@Override
@@ -194,7 +203,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	            if (laserTicks >= 40) {
 	                // Damage the target
 	                // laserTarget.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 1.0F);
-	                laserTarget.attackEntityFrom(DamageSource.causeExplosionDamage(laserTarget), 0.1F);
+	                laserTarget.attackEntityFrom(DamageSource.causeExplosionDamage(laserTarget), 6.0F);
 	                System.out.println("ATTACK");
 	                world.playSound(null, posX, posY, posZ, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0F, 1.0F);
 	                laserTicks = 0;
@@ -203,6 +212,12 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	        } else {
 	            laserTarget = findNearestTarget();
 	            laserTicks = 0;
+	            
+	        }
+	        if (laserTarget != null && laserTicks > 20) {
+	        	this.dataManager.set(LASER_TARGET_ID, laserTarget.getEntityId());
+	        } else {
+	        	this.dataManager.set(LASER_TARGET_ID, -1);
 	        }
 	    }
 	}
