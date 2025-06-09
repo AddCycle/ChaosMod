@@ -1,7 +1,6 @@
 package net.chaos.chaosmod.entity.boss.entities;
 
 import java.util.List;
-import java.util.OptionalInt;
 
 import javax.annotation.Nullable;
 
@@ -11,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntitySpectralArrow;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -203,9 +203,10 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	            if (laserTicks >= 40) {
 	                // Damage the target
 	                // laserTarget.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 1.0F);
-	                laserTarget.attackEntityFrom(DamageSource.causeExplosionDamage(laserTarget), 6.0F);
-	                System.out.println("ATTACK");
-	                world.playSound(null, posX, posY, posZ, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0F, 1.0F);
+	            	EntitySpectralArrow arrow = new EntitySpectralArrow(world, laserTarget.posX, laserTarget.posY, laserTarget.posZ);
+	                laserTarget.attackEntityFrom(DamageSource.causeArrowDamage(arrow, laserTarget), 6.0F);
+	                world.playSound(null, laserTarget.posX, laserTarget.posY, laserTarget.posZ,
+	                	    SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.HOSTILE, 1.0F, 1.0F);
 	                laserTicks = 0;
 	                laserTarget = null;
 	            }
@@ -245,7 +246,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	        }
 	    }
 
-	    System.out.println("Closest = " + closest);
+	    // System.out.println("Closest = " + closest);
 	    return closest;
 	}
 
