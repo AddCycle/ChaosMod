@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,10 +14,13 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntitySpectralArrow;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -131,10 +137,16 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
                     }
 
                     this.onCrystalDestroyed(source);
-                    // this.health -= 0.5;
                     System.out.println("Health : " + this.health);
                     if (this.health <= 0) {
                     	this.setDead();
+                    	// TODO : refactor (eye loots part)
+                    	BlockPos pos = new BlockPos(401, 81, 401);
+                    	world.setBlockState(pos, ModBlocks.OXONIUM_CHEST.getDefaultState(), 2);
+                    	world.setBlockState(pos.down(4), ModBlocks.BEAM_BLOCK.getDefaultState(), 2);
+                    	TileEntityOxoniumChest te = (TileEntityOxoniumChest) world.getTileEntity(pos);
+                    	te.setInventorySlotContents(13, new ItemStack(ModBlocks.EYE_TROPHY, 3));
+                    	te.setInventorySlotContents(21, new ItemStack(ModItems.ENDERITE_THUNDER, 3));
                     }
                 }
             }
