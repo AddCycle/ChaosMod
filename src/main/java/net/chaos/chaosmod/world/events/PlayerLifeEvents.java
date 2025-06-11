@@ -66,7 +66,8 @@ public class PlayerLifeEvents {
 			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 1, false, false));
 		}
 
-		ItemStack heldi = player.getHeldItemMainhand();
+		// FIXME : tried to make a light that is following the player
+		/*ItemStack heldi = player.getHeldItemMainhand();
 		World world = player.getEntityWorld();
 
 		if (world.isRemote) {
@@ -77,7 +78,7 @@ public class PlayerLifeEvents {
 				// Remove light entity
 				LightEntityManager.removeLightEntity();
 			}
-		}
+		}*/
 		
 		IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
 	    if (cap == null) return;

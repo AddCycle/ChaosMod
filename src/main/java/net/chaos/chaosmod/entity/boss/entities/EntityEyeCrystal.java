@@ -81,10 +81,18 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	}
 
 	public EntityEyeCrystal(World worldIn, double x, double y, double z, int health, boolean isBoss) {
-		this(worldIn, x, y, z);
+		super(worldIn, x, y, z);
+		this.setSize(1.5f, 1.5f);
+
 		this.health = health;
 		this.max_health = health;
 		this.isBoss = isBoss;
+
+		if (this.isBoss) {
+			System.out.println("Setting boss info server");
+			bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
+			this.bossInfo.setName(this.getDisplayName());
+		}
 	}
 	
 	@Override
@@ -100,7 +108,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	@Override
 	public boolean shouldShowBottom() {
-		return !isBoss; // only minions
+		return isBoss; // only minions
 	}
 	
 	@Override
