@@ -96,19 +96,24 @@ public class PlayerLifeEvents {
 	@SubscribeEvent
 	public void onKeyInput(InputEvent.KeyInputEvent event) {
 	    Minecraft mc = Minecraft.getMinecraft();
-	    // EntityPlayer player = mc.player;
-	    // if (!player.isCreative()) return;
 
 	    if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
 	        if (Keyboard.getEventKey() == mc.gameSettings.keyBindInventory.getKeyCode()) {
 	            Main.network.sendToServer(new PacketOpenAccessoryGui());
 	        } else if (ModKeybinds.playMusicKey.isPressed()) {
-	        	ClientSoundHandler.playMusic(ModSounds.HOLLOW_PURPLE);
+	        	ClientSoundHandler.launchPlaylist();
 	        } else if (ModKeybinds.pauseMusicKey.isPressed()) {
 	        	if (ClientSoundHandler.isMusicPlaying() && !ClientSoundHandler.isMusicPaused()) ClientSoundHandler.pauseMusic();
 	        	else ClientSoundHandler.resumeMusic();
 	        } else if (ModKeybinds.stopMusicKey.isPressed()) {
 	        	ClientSoundHandler.stopMusic();
+	        } else if (ModKeybinds.nextMusicKey.isPressed()) {
+	        	ClientSoundHandler.stopMusic();
+	        	ClientSoundHandler.launchPlaylist();
+	        } else if (ModKeybinds.previousMusicKey.isPressed()) {
+	        	ClientSoundHandler.stopMusic();
+	        	ClientSoundHandler.index-=2;
+	        	ClientSoundHandler.launchPlaylist();
 	        }
 
 	    }

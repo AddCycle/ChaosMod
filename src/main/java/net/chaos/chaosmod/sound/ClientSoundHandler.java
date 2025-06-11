@@ -81,7 +81,7 @@ public class ClientSoundHandler {
     }
     
     public static void launchPlaylist() {
-    	if (index > sounds.size() - 1) index = 0;
+    	if (index > sounds.size() - 1 || index < 0) index = 0;
     	playMusic(sounds.get(index));
     	index++;
     }
