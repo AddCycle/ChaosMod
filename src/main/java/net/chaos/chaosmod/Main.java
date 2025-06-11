@@ -50,6 +50,7 @@ import net.chaos.chaosmod.world.events.PlayerAchivementsEvents;
 import net.chaos.chaosmod.world.events.PlayerFightEvents;
 import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
+import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
 import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.chaos.chaosmod.world.structures.StructureCustomVillage;
@@ -77,6 +78,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 import proxy.CommonProxy;
 import util.Reference;
+import util.blockstates.RenderBlockOutlinesEvent;
 import util.broadcast.MessageDisplayText;
 import util.broadcast.MessageDisplayTextHandler;
 import util.handlers.BlockPlaceHandler;
@@ -155,6 +157,16 @@ public class Main
 		// network.registerMessage(PacketSyncItemNBT.Handler.class, PacketSyncItemNBT.class, 5, Side.CLIENT);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
         // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
+        WorldGenerationOverrideEvents.class.getName(); // force-load
+        // WorldGenerationOverrideEvents.JVM_load();
+        try {
+            Class.forName("net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents");
+            logger.info("Manually loaded WorldGenerationOverrideEvents.");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        // MinecraftForge.EVENT_BUS.register(WorldGenerationOverrideEvents.class);
+        MinecraftForge.EVENT_BUS.register(new RenderBlockOutlinesEvent());
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
         MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());

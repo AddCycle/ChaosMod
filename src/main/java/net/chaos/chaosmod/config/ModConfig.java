@@ -11,6 +11,7 @@ public class ModConfig {
 	public static boolean displayCoords = false;
 	public static int minimapSize = 1;
 	public static int pixelSize = 1;
+	public static int outline_color = 0x000000; // hex
 
 	private static Configuration config;
 
@@ -29,6 +30,7 @@ public class ModConfig {
 		displayOverlay = config.getBoolean("Enable Outline", Configuration.CATEGORY_CLIENT, false, "Enable or disable the minimap outline (style).");
 		displayArrow = config.getBoolean("Enable Player Arrow", Configuration.CATEGORY_CLIENT, false, "Enable or disable player arrow pos");
 		displayCoords = config.getBoolean("Enable Coordinates", Configuration.CATEGORY_CLIENT, false, "Print or hide coordinates");
+		outline_color = config.getInt("Block Outline Color", Configuration.CATEGORY_CLIENT, 0x000000, 0x000000, 0xffffff, "Choose between 0 and 16,777,215");
 
 		if (config.hasChanged()) {
 			config.save();
