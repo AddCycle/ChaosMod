@@ -17,6 +17,7 @@ import net.chaos.chaosmod.blocks.DimensionPortal;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
 import net.chaos.chaosmod.blocks.EnderiteForgeWalls;
 import net.chaos.chaosmod.blocks.EnderiteOre;
+import net.chaos.chaosmod.blocks.FakeLightBlock;
 import net.chaos.chaosmod.blocks.ForgeInterfaceBlock;
 import net.chaos.chaosmod.blocks.OxoniumBlock;
 import net.chaos.chaosmod.blocks.OxoniumChest;
@@ -79,5 +80,6 @@ public class ModBlocks {
 	public static final Block EYE_TROPHY = new BlockTrophy("eye_trophy", 3);
 	public static final Block TALENT_TROPHY = new BlockTrophy("talent_trophy", 4);
 	public static final Block PORTAL_FRAMES = new DimensionPortal("dim_portal");
+	public static final Block FAKE_LIGHT_BLOCK = new FakeLightBlock("fake_light_block");
 
 }

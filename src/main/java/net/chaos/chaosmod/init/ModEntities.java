@@ -2,6 +2,7 @@ package net.chaos.chaosmod.init;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.EntityChaosSage;
+import net.chaos.chaosmod.entity.EntityFakeLight;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
@@ -16,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import util.Reference;
+import util.handlers.LightEntityManager;
 
 public class ModEntities {
 	
@@ -31,6 +33,7 @@ public class ModEntities {
 		registerEntity("picsou", EntityPicsou.class, Reference.ENTITY_PICSOU, 50, 31, 3093247);
 		registerEntity("little_big_giants", LittleGiantEntity.class, Reference.ENTITY_GIANTS, 50, 31, 3093247);
 		registerEntity("eye_of_truth", EntityEyeCrystal.class, Reference.EYE_CRYSTAL, 50, 31, 3093247);
+		registerEntity("light_entity", EntityFakeLight.class, Reference.LIGHT_ENTITY, 50, 31, 3093247);
 	}
 	
 	private static void registerEntity(String name, Class<? extends Entity> entity, int id, int range, int color1, int color2) {

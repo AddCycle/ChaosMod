@@ -13,8 +13,9 @@ public class LightEntityManager {
         if (world.isRemote) {
             if (currentLight == null || currentLight.isDead) {
                 currentLight = new EntityFakeLight(world);
-                currentLight.setPosition(player.posX, player.posY + 1.5, player.posZ);
+                currentLight.setPosition(player.posX, player.posY + 0.5, player.posZ);
                 world.spawnEntity(currentLight);
+                System.out.println("spawned");
             }
         }
     }
@@ -22,6 +23,7 @@ public class LightEntityManager {
     public static void removeLightEntity() {
         if (currentLight != null) {
             currentLight.setDead();
+            System.out.println("Killed");
             currentLight = null;
         }
     }

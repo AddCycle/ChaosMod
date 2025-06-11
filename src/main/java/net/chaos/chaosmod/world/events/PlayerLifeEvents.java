@@ -6,10 +6,10 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.AccessoryImpl;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.entity.EntityChaosSage;
+import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModKeybinds;
-import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
@@ -24,6 +24,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
@@ -32,7 +33,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -45,6 +45,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
+import util.handlers.LightEntityManager;
 
 @EventBusSubscriber
 public class PlayerLifeEvents {
@@ -64,6 +65,19 @@ public class PlayerLifeEvents {
 		if (!held.isEmpty() && held.getItem() instanceof TinkerersHammer) {
 			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 1, false, false));
 		}
+
+		ItemStack heldi = player.getHeldItemMainhand();
+		World world = player.getEntityWorld();
+
+		if (world.isRemote) {
+			if (heldi.getItem() == Item.getItemFromBlock(ModBlocks.LANTERN)) {
+				// Spawn or update invisible light entity at player’s position
+				LightEntityManager.updateLightEntity(player);
+			} else {
+				// Remove light entity
+				LightEntityManager.removeLightEntity();
+			}
+		}
 		
 		IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
 	    if (cap == null) return;
@@ -80,16 +94,7 @@ public class PlayerLifeEvents {
 	    		}
 	        }
 	    }
-		
-	    /*ItemStack held = player.getHeldItemMainhand();
-
-	    if (held.getItem() == Item.getItemFromBlock(ModBlocks.LANTERN)) {
-	        // Spawn or update invisible light entity at player’s position
-	        LightEntityManager.updateLightEntity(player);
-	    } else {
-	        // Remove light entity
-	        LightEntityManager.removeLightEntity();
-	    }*/
+	    
 	}
 
 	@SideOnly(Side.CLIENT)

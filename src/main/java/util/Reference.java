@@ -32,4 +32,5 @@ public class Reference {
 	public static final int ENTITY_PICSOU = 128;
 	public static final int ENTITY_GIANTS = 129;
 	public static final int EYE_CRYSTAL = 130;
+	public static final int LIGHT_ENTITY = 131;
 }

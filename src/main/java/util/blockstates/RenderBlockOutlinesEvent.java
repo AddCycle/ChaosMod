@@ -52,7 +52,7 @@ public class RenderBlockOutlinesEvent {
 	    GlStateManager.disableTexture2D();
 	    GlStateManager.enableBlend();
 	    // GlStateManager.disableDepth();
-	    GlStateManager.glLineWidth(10.0F);
+	    GlStateManager.glLineWidth(20.0F);
 
 	    RenderGlobal.drawSelectionBoundingBox(shifted, color.getRed(), color.getGreen(), color.getBlue(), 0.0F);
 

@@ -80,7 +80,8 @@ public class CustomLog extends BlockLog implements IHasModel {
 	
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return super.getItemDropped(state, rand, fortune);
+	    int meta = state.getValue(VARIANT).getMeta();
+		return new ItemStack(Item.getItemFromBlock(this), 1, meta).getItem();
 	}
 	
 	@Override
@@ -93,7 +94,7 @@ public class CustomLog extends BlockLog implements IHasModel {
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		List<ItemStack> drops = new ArrayList<>();
-	    int meta = this.getMetaFromState(state) - 4;
+		int meta = state.getValue(VARIANT).getMeta();
 	    drops.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));
 	    return drops;
 	}

@@ -1,6 +1,7 @@
 package util.handlers.entity;
 
 import net.chaos.chaosmod.entity.EntityChaosSage;
+import net.chaos.chaosmod.entity.EntityFakeLight;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
@@ -24,6 +25,7 @@ import net.chaos.chaosmod.entity.render.RenderChaosSage;
 import net.chaos.chaosmod.entity.render.RenderForgeGuardian;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -125,6 +127,20 @@ public class RenderHandler {
 			@Override
 			public Render<? super EntityEyeCrystal> createRenderFor(RenderManager manager) {
 				return new EntityEyeCrystalRenderer(manager);
+			}
+			
+		});
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityFakeLight.class, new IRenderFactory<EntityFakeLight>() {
+
+			@Override
+			public Render<? super EntityFakeLight> createRenderFor(RenderManager manager) {
+				return new Render<EntityFakeLight>(manager) {
+					@Override
+					protected ResourceLocation getEntityTexture(EntityFakeLight entity) {
+						return null;
+					}
+				};
 			}
 			
 		});
