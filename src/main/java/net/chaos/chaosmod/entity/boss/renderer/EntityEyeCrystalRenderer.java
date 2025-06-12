@@ -73,7 +73,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
 
         int targetId = entity.getDataManager().get(EntityEyeCrystal.LASER_TARGET_ID);
         Entity target = targetId != -1 ? Minecraft.getMinecraft().world.getEntityByID(targetId) : null;
-        if (target != null && entity.isBoss()) {
+        if (target != null) {
         	float f = partialTicks - 12;
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();

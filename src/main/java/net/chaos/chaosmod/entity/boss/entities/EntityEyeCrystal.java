@@ -159,12 +159,14 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
                     if (this.health <= 0) {
                     	this.setDead();
                     	// TODO : refactor (eye loots part)
-                    	BlockPos pos = new BlockPos(401, 81, 401);
-                    	world.setBlockState(pos, ModBlocks.OXONIUM_CHEST.getDefaultState(), 2);
-                    	world.setBlockState(pos.down(4), ModBlocks.BEAM_BLOCK.getDefaultState(), 2);
-                    	TileEntityOxoniumChest te = (TileEntityOxoniumChest) world.getTileEntity(pos);
-                    	te.setInventorySlotContents(13, new ItemStack(ModBlocks.EYE_TROPHY, 3));
-                    	te.setInventorySlotContents(21, new ItemStack(ModItems.ENDERITE_THUNDER, 3));
+                    	if (this.isBoss) {
+                    		BlockPos pos = new BlockPos(401, 81, 401);
+                    		world.setBlockState(pos, ModBlocks.OXONIUM_CHEST.getDefaultState(), 2);
+                    		world.setBlockState(pos.down(4), ModBlocks.BEAM_BLOCK.getDefaultState(), 2);
+                    		TileEntityOxoniumChest te = (TileEntityOxoniumChest) world.getTileEntity(pos);
+                    		te.setInventorySlotContents(13, new ItemStack(ModBlocks.EYE_TROPHY, 3));
+                    		te.setInventorySlotContents(21, new ItemStack(ModItems.ENDERITE_THUNDER, 3));
+                    	}
                     }
                 }
             }
