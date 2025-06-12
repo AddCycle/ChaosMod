@@ -45,7 +45,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
         float fl = (float)entity.innerRotation + partialTicks;
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
-        this.bindTexture((entity.getHealth() / entity.getMaxHealth()) <= 0.5 ? ENDER_CRYSTAL_TEXTURES : ENDER_CRYSTAL_PHASE_2);
+        this.bindTexture((entity.getHealth() / entity.getMaxHealth()) > 0.5 ? ENDER_CRYSTAL_TEXTURES : ENDER_CRYSTAL_PHASE_2);
         float fl1 = MathHelper.sin(fl * 0.2F) / 2.0F + 0.5F;
         fl1 = fl1 * fl1 + fl1;
 
