@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.google.common.cache.LoadingCache;
 
 import net.chaos.chaosmod.blocks.abstracted.AbstractBreakableBlock;
+import net.chaos.chaosmod.commands.TeleportUtil;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPortal;
@@ -21,6 +22,7 @@ import net.minecraft.block.state.pattern.BlockPattern;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.monster.EntityPigZombie;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemMonsterPlacer;
@@ -64,7 +66,8 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
         }
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    @SuppressWarnings("deprecation")
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
         super.updateTick(worldIn, pos, state, rand);
 
@@ -228,9 +231,10 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
      */
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
-        if (!entityIn.isRiding() && !entityIn.isBeingRidden() && entityIn.isNonBoss())
+        if (entityIn instanceof EntityPlayer && !entityIn.isRiding() && !entityIn.isBeingRidden() && entityIn.isNonBoss())
         {
-            entityIn.setPortal(pos);
+        	// entityIn.setPortal(pos);
+        	TeleportUtil.teleport((EntityPlayer) entityIn, 2, entityIn.posX, entityIn.posY, entityIn.posZ);
         }
     }
 
@@ -537,7 +541,8 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
                 }
             }
 
-            protected boolean isEmptyBlock(Block blockIn)
+            @SuppressWarnings("deprecation")
+			protected boolean isEmptyBlock(Block blockIn)
             {
                 return blockIn.getMaterial(blockIn.getBlockState().getBaseState()) == Material.AIR || blockIn == Blocks.FIRE || blockIn == ModBlocks.PORTAL_FRAMES;
             }

@@ -200,11 +200,11 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 		if (bossInfo != null) this.bossInfo.removePlayer(player);
 	}
 	
-	private float getHealth() {
+	public float getHealth() {
 		return health;
 	}
 
-	private float getMaxHealth() {
+	public float getMaxHealth() {
 		return max_health;
 	}
 	

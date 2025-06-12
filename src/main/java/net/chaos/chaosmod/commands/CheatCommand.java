@@ -8,6 +8,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.GameType;
 
 public class CheatCommand extends CommandBase {
 
@@ -25,6 +26,7 @@ public class CheatCommand extends CommandBase {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
 		player.capabilities.isCreativeMode = false;
+		player.setGameType(GameType.CREATIVE);
 		player.capabilities.allowFlying = true;
 		player.capabilities.disableDamage = true;
 		player.capabilities.setFlySpeed(2f);

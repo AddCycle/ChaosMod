@@ -23,13 +23,13 @@ public class PortalKey extends ItemBase {
 	    RayTraceResult ray = this.rayTrace(worldIn, playerIn, false);
 
 	    if (ray == null || ray.typeOfHit != RayTraceResult.Type.BLOCK)
-	        return new ActionResult<>(EnumActionResult.FAIL, stack);
+	        return new ActionResult<>(EnumActionResult.PASS, stack);
 
 	    BlockPos pos = ray.getBlockPos();
 
 	    if (DimensionPortal.trySpawnPortal(worldIn, pos.up())) {
-	        if (!playerIn.isCreative())
-	            stack.shrink(1);
+	        if (!playerIn.isCreative()) stack.shrink(1);
+	        playerIn.swingArm(handIn);
 	        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	    }
 

@@ -21,7 +21,8 @@ public class ClientSoundHandler {
 			ModSounds.CHAINSAWMAN_OP,
 			ModSounds.GRANDEUR,
 			ModSounds.ZANKYOU_SANKYA,
-			ModSounds.HOLLOW_PURPLE
+			ModSounds.HOLLOW_PURPLE,
+			ModSounds.PUTIN_WIDE_WALK
 		);
 	private static ISound currentMusic;
     private static boolean isPlaying = false;
@@ -81,7 +82,8 @@ public class ClientSoundHandler {
     }
     
     public static void launchPlaylist() {
-    	if (index > sounds.size() - 1 || index < 0) index = 0;
+    	if (index > sounds.size() - 1) index = 0;
+    	if (index < 0) index = sounds.size() - 1;
     	playMusic(sounds.get(index));
     	index++;
     }

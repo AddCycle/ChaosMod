@@ -26,6 +26,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
 
     public static final ResourceLocation ENDERCRYSTAL_BEAM_TEXTURES = new ResourceLocation(Reference.MODID, "textures/entity/eyecrystal/eyecrystal_beam.png");
 	private static final ResourceLocation ENDER_CRYSTAL_TEXTURES = new ResourceLocation(Reference.MODID, "textures/entity/eyecrystal/eyecrystal.png");
+	private static final ResourceLocation ENDER_CRYSTAL_PHASE_2 = new ResourceLocation(Reference.MODID, "textures/entity/eyecrystal/eyecrystal_phase2.png");
     private static final ResourceLocation GUARDIAN_BEAM_TEXTURE = new ResourceLocation("textures/entity/guardian_beam.png");
     private final ModelBase modelEnderCrystal = new EntityEyeCrystalModel(0.0F, true);
     private final ModelBase modelEnderCrystalNoBase = new EntityEyeCrystalModel(0.0F, false);
@@ -44,7 +45,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
         float fl = (float)entity.innerRotation + partialTicks;
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
-        this.bindTexture(ENDER_CRYSTAL_TEXTURES);
+        this.bindTexture((entity.getHealth() / entity.getMaxHealth()) <= 0.5 ? ENDER_CRYSTAL_TEXTURES : ENDER_CRYSTAL_PHASE_2);
         float fl1 = MathHelper.sin(fl * 0.2F) / 2.0F + 0.5F;
         fl1 = fl1 * fl1 + fl1;
 
