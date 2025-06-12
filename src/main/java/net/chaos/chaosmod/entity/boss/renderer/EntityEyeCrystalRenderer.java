@@ -75,7 +75,8 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
         int targetId = entity.getDataManager().get(EntityEyeCrystal.LASER_TARGET_ID);
         Entity target = targetId != -1 ? Minecraft.getMinecraft().world.getEntityByID(targetId) : null;
         if (target != null) {
-        	float f = partialTicks - 12;
+        	float f; 
+        	if ((entity.getHealth() / entity.getMaxHealth()) > 0.5) f = partialTicks - 12; else f = 0x000055;
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             this.bindTexture(GUARDIAN_BEAM_TEXTURE);
@@ -106,9 +107,18 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
             double d1 = (double)f2 * 0.05D * -1.5D;
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
             float f7 = f * f;
-            int j = 64 + (int)(f7 * 191.0F);
-            int k = 32 + (int)(f7 * 191.0F);
-            int l = 128 - (int)(f7 * 64.0F);
+            int j = 0;
+            int k = 0;
+            int l = 0;
+            if ((entity.getHealth() / entity.getMaxHealth()) > 0.5) {
+            	j = 64 + (int)(f7 * 191.0F);
+            	k = 32 + (int)(f7 * 191.0F);
+            	l = 128 - (int)(f7 * 64.0F);
+            } else {
+            	j = 255;
+            	k = 0;
+            	l = 0;
+            }
             double d2 = 0.2D;
             double d3 = 0.282D;
             double d4 = 0.0D + Math.cos(d1 + 2.356194490192345D) * 0.282D;
