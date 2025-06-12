@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.google.common.cache.LoadingCache;
 
 import net.chaos.chaosmod.blocks.abstracted.AbstractBreakableBlock;
+import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.block.material.Material;
@@ -72,10 +73,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
             int i = pos.getY();
             BlockPos blockpos;
 
-            for (blockpos = pos; !worldIn.getBlockState(blockpos).isTopSolid() && blockpos.getY() > 0; blockpos = blockpos.down())
-            {
-                ;
-            }
+            for (blockpos = pos; !worldIn.getBlockState(blockpos).isTopSolid() && blockpos.getY() > 0; blockpos = blockpos.down());
 
             if (i > 0 && !worldIn.getBlockState(blockpos.up()).isNormalCube())
             {
@@ -455,14 +453,14 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
                 {
                     BlockPos blockpos = p_180120_1_.offset(p_180120_2_, i);
 
-                    if (!this.isEmptyBlock(this.world.getBlockState(blockpos).getBlock()) || this.world.getBlockState(blockpos.down()).getBlock() != Blocks.OBSIDIAN)
+                    if (!this.isEmptyBlock(this.world.getBlockState(blockpos).getBlock()) || this.world.getBlockState(blockpos.down()).getBlock() != ModBlocks.ENDERITE_BRICKS)
                     {
                         break;
                     }
                 }
 
                 Block block = this.world.getBlockState(p_180120_1_.offset(p_180120_2_, i)).getBlock();
-                return block == Blocks.OBSIDIAN ? i : 0;
+                return block == ModBlocks.ENDERITE_BRICKS ? i : 0;
             }
 
             public int getHeight()
@@ -491,7 +489,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
                             break label56;
                         }
 
-                        if (block == Blocks.PORTAL)
+                        if (block == ModBlocks.PORTAL_FRAMES)
                         {
                             ++this.portalBlockCount;
                         }
@@ -500,7 +498,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
                         {
                             block = this.world.getBlockState(blockpos.offset(this.leftDir)).getBlock();
 
-                            if (block != Blocks.OBSIDIAN)
+                            if (block != ModBlocks.ENDERITE_BRICKS)
                             {
                                 break label56;
                             }
@@ -509,7 +507,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
                         {
                             block = this.world.getBlockState(blockpos.offset(this.rightDir)).getBlock();
 
-                            if (block != Blocks.OBSIDIAN)
+                            if (block != ModBlocks.ENDERITE_BRICKS)
                             {
                                 break label56;
                             }
@@ -519,7 +517,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
 
                 for (int j = 0; j < this.width; ++j)
                 {
-                    if (this.world.getBlockState(this.bottomLeft.offset(this.rightDir, j).up(this.height)).getBlock() != Blocks.OBSIDIAN)
+                    if (this.world.getBlockState(this.bottomLeft.offset(this.rightDir, j).up(this.height)).getBlock() != ModBlocks.ENDERITE_BRICKS)
                     {
                         this.height = 0;
                         break;
@@ -541,7 +539,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
 
             protected boolean isEmptyBlock(Block blockIn)
             {
-                return blockIn.getMaterial(blockIn.getBlockState().getBaseState()) == Material.AIR || blockIn == Blocks.FIRE || blockIn == Blocks.PORTAL;
+                return blockIn.getMaterial(blockIn.getBlockState().getBaseState()) == Material.AIR || blockIn == Blocks.FIRE || blockIn == ModBlocks.PORTAL_FRAMES;
             }
 
             public boolean isValid()
@@ -557,7 +555,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
 
                     for (int j = 0; j < this.height; ++j)
                     {
-                        this.world.setBlockState(blockpos.up(j), Blocks.PORTAL.getDefaultState().withProperty(BlockPortal.AXIS, this.axis), 2);
+                        this.world.setBlockState(blockpos.up(j), ModBlocks.PORTAL_FRAMES.getDefaultState().withProperty(BlockPortal.AXIS, this.axis), 2);
                     }
                 }
             }
