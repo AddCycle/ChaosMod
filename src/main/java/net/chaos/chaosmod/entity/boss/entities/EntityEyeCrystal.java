@@ -85,10 +85,13 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 		this.setSize(1.5f, 1.5f);
 
 		this.health = health;
+		System.out.println("setting health : " + this.health);
 		this.max_health = health;
+		System.out.println("setting max health : " + this.max_health);
 		this.isBoss = isBoss;
+		System.out.println("setting boss status : " + this.max_health);
 
-		if (this.isBoss) {
+		if (isBoss) {
 			System.out.println("Setting boss info server");
 			bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
 			this.bossInfo.setName(this.getDisplayName());
@@ -128,7 +131,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		health -= amount;
+		health -= 0.5; // FIXME : balance this shit
 		if (this.isBoss && this.isEntityAlive()) {
 			this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
         }
