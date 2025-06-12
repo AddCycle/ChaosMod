@@ -25,7 +25,6 @@ public class CheatCommand extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
-		player.capabilities.isCreativeMode = false;
 		player.setGameType(GameType.CREATIVE);
 		player.capabilities.allowFlying = true;
 		player.capabilities.disableDamage = true;

@@ -69,11 +69,11 @@ public class DimensionWarpCommand extends CommandBase {
 		entity.changeDimension(dimension_id, new CommandTeleporter(pos));
 	}
 
-    private static class CommandTeleporter implements ITeleporter
+    public static class CommandTeleporter implements ITeleporter
     {
         private final BlockPos targetPos;
 
-        private CommandTeleporter(BlockPos targetPos)
+        CommandTeleporter(BlockPos targetPos)
         {
             this.targetPos = targetPos;
         }
