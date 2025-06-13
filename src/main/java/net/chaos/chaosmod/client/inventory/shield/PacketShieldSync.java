@@ -1,9 +1,8 @@
-package net.chaos.chaosmod.network;
+package net.chaos.chaosmod.client.inventory.shield;
 
 import java.io.IOException;
 
 import io.netty.buffer.ByteBuf;
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.ClientAccessoryData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -15,15 +14,15 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class PacketAccessorySync implements IMessage {
+public class PacketShieldSync implements IMessage {
     private int playerID;
-    private ItemStack necklaceStack;
+    private ItemStack shieldStack;
 
-    public PacketAccessorySync() {} // required empty constructor
+    public PacketShieldSync() {} // required empty constructor
 
-    public PacketAccessorySync(EntityPlayer player, ItemStack necklace) {
+    public PacketShieldSync(EntityPlayer player, ItemStack shield) {
         this.playerID = player.getEntityId();
-        this.necklaceStack = necklace;
+        this.shieldStack = shield;
     }
 
     @Override
@@ -31,7 +30,7 @@ public class PacketAccessorySync implements IMessage {
         PacketBuffer pb = new PacketBuffer(buf);
         this.playerID = pb.readVarInt();
         try {
-			this.necklaceStack = pb.readItemStack();
+			this.shieldStack = pb.readItemStack();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -41,18 +40,18 @@ public class PacketAccessorySync implements IMessage {
     public void toBytes(ByteBuf buf) {
         PacketBuffer pb = new PacketBuffer(buf);
         pb.writeVarInt(playerID);
-        pb.writeItemStack(necklaceStack);
+        pb.writeItemStack(shieldStack);
     }
 
-    public static class Handler implements IMessageHandler<PacketAccessorySync, IMessage> {
+    public static class Handler implements IMessageHandler<PacketShieldSync, IMessage> {
         @Override
-        public IMessage onMessage(PacketAccessorySync message, MessageContext ctx) {
+        public IMessage onMessage(PacketShieldSync message, MessageContext ctx) {
         	if (ctx.side == Side.CLIENT) {
                 Minecraft.getMinecraft().addScheduledTask(() -> {
                     Entity player = Minecraft.getMinecraft().world.getEntityByID(message.playerID);
                     if (player != null) {
-                        ClientAccessoryData.setPlayerNecklace((EntityPlayer) player, message.necklaceStack);
-                        System.out.println("[Client] Necklace updated: " + message.necklaceStack);
+                        ClientAccessoryData.setPlayerShield((EntityPlayer) player, message.shieldStack);
+                        System.out.println("[Client] Shield updated: " + message.shieldStack);
                     }
                 });
             }

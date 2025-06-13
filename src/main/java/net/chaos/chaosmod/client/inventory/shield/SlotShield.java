@@ -1,43 +1,43 @@
-package net.chaos.chaosmod.client.inventory;
+package net.chaos.chaosmod.client.inventory.shield;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModCapabilities;
-import net.chaos.chaosmod.items.necklace.ItemNecklace;
 import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 
-public class SlotAccessory extends Slot {
+public class SlotShield extends Slot {
 	private EntityPlayer player;
 	public boolean visible = true;
 
-	public SlotAccessory(EntityPlayer player, IInventory inventory, int index, int x, int y) {
+	public SlotShield(EntityPlayer player, IInventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
         this.player = player;
     }
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        return stack.getItem() instanceof ItemNecklace;
+        return stack.getItem() instanceof ItemShield;
     }
     
     @Override
     public ItemStack getStack() {
-        IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
-        return cap != null ? cap.getAccessoryItem() : ItemStack.EMPTY;
+        IShield cap = player.getCapability(ModCapabilities.SHIELD, null);
+        return cap != null ? cap.getShieldItem() : ItemStack.EMPTY;
     }
 
     @Override
     public void putStack(ItemStack stack) {
-    	IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
+    	IShield cap = player.getCapability(ModCapabilities.SHIELD, null);
         if (cap != null) {
-            cap.setAccessoryItem(stack);
+            cap.setShieldItem(stack);
 
             if (!player.world.isRemote) {
-            	PacketAccessorySync packet = new PacketAccessorySync(player, stack);
+            	PacketShieldSync packet = new PacketShieldSync(player, stack);
                 Main.network.sendTo(packet, (EntityPlayerMP) player);
                 
                 Main.network.sendToAllTracking(packet, player);

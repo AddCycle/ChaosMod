@@ -1,27 +1,27 @@
 package net.chaos.chaosmod.client.inventory;
 
+import net.chaos.chaosmod.client.inventory.shield.ShieldInventory;
+import net.chaos.chaosmod.client.inventory.shield.SlotShield;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerAccessory extends ContainerPlayer {
-	public final AccessoryInventory accessory1;
-	// public final AccessoryInventory accessory2;
+	public final AccessoryInventory accessory;
+	public final ShieldInventory shield;
 	// public final AccessoryInventory accessory3;
 
     public ContainerAccessory(InventoryPlayer playerInventory, boolean localWorld, EntityPlayer player) {
         super(playerInventory, localWorld, player);
-        this.accessory1 = new AccessoryInventory(player);
-        // this.accessory2 = new AccessoryInventory(player);
+        this.accessory = new AccessoryInventory(player);
+        this.shield = new ShieldInventory(player);
         // this.accessory3 = new AccessoryInventory(player);
 
         // Add custom slot to the container (screen X=80, Y=8 for example)
         int offset = 4;
-        this.addSlotToContainer(new SlotAccessory(player, accessory1, 0, offset, -20));
-        // this.addSlotToContainer(new SlotAccessory(player, accessory2, 0, offset + 20, -20));
+        this.addSlotToContainer(new SlotAccessory(player, accessory, 0, offset, -20));
+        this.addSlotToContainer(new SlotShield(player, shield, 0, offset + 20, -20));
         // this.addSlotToContainer(new SlotAccessory(player, accessory3, 0, offset + 20 * 2, -20));
     }
 

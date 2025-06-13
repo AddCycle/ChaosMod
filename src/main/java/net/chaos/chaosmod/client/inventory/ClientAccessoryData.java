@@ -8,6 +8,8 @@ import net.minecraft.item.ItemStack;
 
 public class ClientAccessoryData {
 	private static final Map<EntityPlayer, ItemStack> necklaceMap = new WeakHashMap<>();
+	private static final Map<EntityPlayer, ItemStack> shieldMap = new WeakHashMap<>();
+	private static final Map<EntityPlayer, ItemStack> charmMap = new WeakHashMap<>();
 
     public static void setPlayerNecklace(EntityPlayer player, ItemStack stack) {
         if (stack == null || stack.isEmpty()) {
@@ -21,4 +23,27 @@ public class ClientAccessoryData {
         return necklaceMap.getOrDefault(player, ItemStack.EMPTY);
     }
 
+    public static void setPlayerShield(EntityPlayer player, ItemStack stack) {
+        if (stack == null || stack.isEmpty()) {
+            shieldMap.remove(player);
+        } else {
+            shieldMap.put(player, stack);
+        }
+    }
+
+    public static ItemStack getPlayerShield(EntityPlayer player) {
+        return shieldMap.getOrDefault(player, ItemStack.EMPTY);
+    }
+
+    public static void setPlayerCharm(EntityPlayer player, ItemStack stack) {
+        if (stack == null || stack.isEmpty()) {
+            charmMap.remove(player);
+        } else {
+            charmMap.put(player, stack);
+        }
+    }
+
+    public static ItemStack getPlayerCharm(EntityPlayer player) {
+        return charmMap.getOrDefault(player, ItemStack.EMPTY);
+    }
 }

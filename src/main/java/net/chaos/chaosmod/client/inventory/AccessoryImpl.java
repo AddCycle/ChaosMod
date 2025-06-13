@@ -27,9 +27,6 @@ public class AccessoryImpl implements IAccessory {
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
-        if (nbt.hasKey("Accessory"))
-            accessory = new ItemStack(nbt.getCompoundTag("Accessory"));
-        else
-            accessory = ItemStack.EMPTY;
+        if (nbt.hasKey("Accessory")) accessory = new ItemStack(nbt.getCompoundTag("Accessory")); else accessory = ItemStack.EMPTY;
     }
 }

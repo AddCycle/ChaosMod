@@ -36,6 +36,7 @@ public class LayerNecklace implements LayerRenderer<AbstractClientPlayer> {
     	if (player == null || player.isInvisible()) return;
     	
     	ItemStack necklaceStack = ClientAccessoryData.getPlayerNecklace(player);
+        // if (necklaceStack == null || necklaceStack.isEmpty()) necklaceStack = ClientAccessoryData.getPlayerShield(player);
         if (necklaceStack == null || necklaceStack.isEmpty()) return;
     	// ItemStack necklaceStack = player.getCapability(ModCapabilities.ACCESSORY, null).getAccessoryItem();
         /*if (necklaceStack.isEmpty() || !(necklaceStack.getItem() instanceof OxoniumNecklace)) {

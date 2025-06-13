@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import net.chaos.chaosmod.client.inventory.ContainerAccessory;
 import net.chaos.chaosmod.client.inventory.SlotAccessory;
+import net.chaos.chaosmod.client.inventory.shield.SlotShield;
 import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.sound.ClientSoundHandler;
 import net.minecraft.client.Minecraft;
@@ -26,6 +27,7 @@ public class GuiInventoryExtended extends GuiInventory {
 	public static final ResourceLocation INV_TEXTURE = new ResourceLocation("chaosmod:textures/gui/slot_icon2.png");
 	public static final ResourceLocation BUTTON_TEXTURE_ = new ResourceLocation("chaosmod:textures/gui/container/button_icons.png");
 	private boolean showAccessorySlot = false;
+	private boolean showShieldSlot = false;
     private GuiButton toggleButton;
 	private Slot hoveredSlot;
 
@@ -89,12 +91,6 @@ public class GuiInventoryExtended extends GuiInventory {
         this.addButton(new GuiButton(100, this.guiLeft + 50, this.guiTop - o, 30, 20, "|>")); // TODO : texture the button
         this.addButton(new GuiButton(101, this.guiLeft + 50 + 30, this.guiTop - o, 30, 20, "P")); // TODO : texture the button
         this.addButton(new GuiButton(102, this.guiLeft + 50 + 60, this.guiTop - o, 30, 20, "S")); // TODO : texture the button
-        /*this.addButton(new GuiButton(103, this.guiLeft + 140, this.guiTop + 5 + 20 * 4, 30, 20, "H")); // TODO : texture the button
-        this.addButton(new GuiButton(104, this.guiLeft + 140, this.guiTop + 5 + 20 * 6, 30, 20, "Z")); // TODO : texture the button
-        this.addButton(new GuiButton(105, this.guiLeft + 140, this.guiTop + 5 + 20 * 7, 30, 20, "BR")); // TODO : texture the button
-        this.addButton(new GuiButton(106, this.guiLeft + 140, this.guiTop + 5 + 20 * 8, 30, 20, "BC")); // TODO : texture the button
-        this.addButton(new GuiButton(107, this.guiLeft + 140, this.guiTop + 5 + 20 * 9, 30, 20, "G")); // TODO : texture the button
-        this.addButton(new GuiButton(108, this.guiLeft + 140, this.guiTop + 5 + 20 * 10, 30, 20, "HP")); // TODO : texture the button*/
     }
 	
 	private void resetGuiLeft()
@@ -153,11 +149,17 @@ public class GuiInventoryExtended extends GuiInventory {
             if (slot instanceof SlotAccessory) {
                 ((SlotAccessory) slot).visible = this.showAccessorySlot; // your toggle
             }
+            if (slot instanceof SlotShield) {
+                ((SlotShield) slot).visible = this.showShieldSlot; // your toggle
+            }
         }
 
         // Prevent interaction with hidden slots
         Slot hoveredSlot = this.getSlotUnderMouse();
         if (hoveredSlot instanceof SlotAccessory && !((SlotAccessory) hoveredSlot).visible) {
+            this.hoveredSlot = null;
+        }
+        if (hoveredSlot instanceof SlotShield && !((SlotShield) hoveredSlot).visible) {
             this.hoveredSlot = null;
         }
 
@@ -167,12 +169,15 @@ public class GuiInventoryExtended extends GuiInventory {
         if (!(hoveredSlot instanceof SlotAccessory && !((SlotAccessory) hoveredSlot).visible)) {
             renderHoveredToolTip(mouseX, mouseY);
         }
+        if (!(hoveredSlot instanceof SlotShield && !((SlotShield) hoveredSlot).visible)) {
+            renderHoveredToolTip(mouseX, mouseY);
+        }
     }
     
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         Slot slot = this.getSlotUnderMouse();
-        if (slot instanceof SlotAccessory && !((SlotAccessory) slot).visible) {
+        if (slot instanceof SlotAccessory && !((SlotAccessory) slot).visible || (slot instanceof SlotShield && !((SlotShield) slot).visible)) {
             return;
         }
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -183,6 +188,7 @@ public class GuiInventoryExtended extends GuiInventory {
     protected void actionPerformed(GuiButton button) throws IOException {
     	if (button.id == 99) {
             showAccessorySlot = !showAccessorySlot;
+            showShieldSlot = !showShieldSlot;
         } else if (button.id == 100) { // play
         	ClientSoundHandler.launchPlaylist();
         	// ClientSoundHandler.toggleMusic(ModSounds.FIRE_FORCE_OP);

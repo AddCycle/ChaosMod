@@ -5,8 +5,8 @@ import org.lwjgl.input.Keyboard;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.AccessoryImpl;
 import net.chaos.chaosmod.client.inventory.IAccessory;
+import net.chaos.chaosmod.client.inventory.shield.ShieldImpl;
 import net.chaos.chaosmod.entity.EntityChaosSage;
-import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModKeybinds;
@@ -24,7 +24,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
@@ -45,7 +44,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
-import util.handlers.LightEntityManager;
 
 @EventBusSubscriber
 public class PlayerLifeEvents {
@@ -209,4 +207,32 @@ public class PlayerLifeEvents {
 		}
 	}
 
+	@SubscribeEvent
+	public void attachCapabilityShield(AttachCapabilitiesEvent<Entity> event) {
+	    if (event.getObject() instanceof EntityPlayer) {
+	    	event.addCapability(new ResourceLocation("chaosmod", "shield"), new ICapabilitySerializable<NBTTagCompound>() {
+	    	    final ShieldImpl instance = new ShieldImpl();
+
+	    	    @Override
+	    	    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+	    	        return capability == ModCapabilities.SHIELD;
+	    	    }
+
+	    	    @Override
+	    	    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+	    	        return capability == ModCapabilities.SHIELD ? ModCapabilities.SHIELD.cast(instance) : null;
+	    	    }
+
+	    	    @Override
+	    	    public NBTTagCompound serializeNBT() {
+	    	        return instance.serializeNBT(); // very important!
+	    	    }
+
+	    	    @Override
+	    	    public void deserializeNBT(NBTTagCompound nbt) {
+	    	        instance.deserializeNBT(nbt);
+	    	    }
+	    	});
+	    }
+	}
 }

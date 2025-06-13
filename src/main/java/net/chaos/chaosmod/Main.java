@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomPlanks;
+import net.chaos.chaosmod.client.inventory.shield.PacketShieldSync;
 import net.chaos.chaosmod.commands.CheatCommand;
 import net.chaos.chaosmod.commands.CraftCommand;
 import net.chaos.chaosmod.commands.DimensionWarpCommand;
@@ -153,18 +154,12 @@ public class Main
 		network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 1, Side.CLIENT);
 		network.registerMessage(PacketOpenAccessoryGui.Handler.class, PacketOpenAccessoryGui.class, 2, Side.SERVER);
 		network.registerMessage(PacketAccessorySync.Handler.class, PacketAccessorySync.class, 3, Side.CLIENT);
-		network.registerMessage(PacketForgeCraft.Handler.class, PacketForgeCraft.class, 4, Side.SERVER);
-		// network.registerMessage(PacketSyncItemNBT.Handler.class, PacketSyncItemNBT.class, 5, Side.CLIENT);
+		network.registerMessage(PacketShieldSync.Handler.class, PacketShieldSync.class, 4, Side.CLIENT);
+		network.registerMessage(PacketForgeCraft.Handler.class, PacketForgeCraft.class, 5, Side.SERVER);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
         // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
         WorldGenerationOverrideEvents.class.getName(); // force-load
         // WorldGenerationOverrideEvents.JVM_load();
-        try {
-            Class.forName("net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents");
-            logger.info("Manually loaded WorldGenerationOverrideEvents.");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         // MinecraftForge.EVENT_BUS.register(WorldGenerationOverrideEvents.class);
         MinecraftForge.EVENT_BUS.register(new RenderBlockOutlinesEvent());
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());
