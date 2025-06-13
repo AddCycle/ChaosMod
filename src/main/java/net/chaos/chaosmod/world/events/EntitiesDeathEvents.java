@@ -77,7 +77,7 @@ public class EntitiesDeathEvents {
 	}
 	
 	private void generatePylon(World world, Block block, BlockPos center, int width, int height) {
-		Random rand = new Random();
+		// Random rand = new Random();
 		for (int i = 0; i <= height; i++) {
 			for (int j = 0; j < width; j++) {
 				for (int k = 0; k < width; k++) {
@@ -88,7 +88,7 @@ public class EntitiesDeathEvents {
 	}
 
 	private void generateMinionPylon(World world, Block block, BlockPos center, int width, int height) {
-		Random rand = new Random();
+		// Random rand = new Random();
 		for (int i = 0; i <= height; i++) {
 			for (int j = 0; j < width; j++) {
 				for (int k = 0; k < width; k++) {

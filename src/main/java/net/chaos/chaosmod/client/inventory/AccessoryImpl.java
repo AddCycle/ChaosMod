@@ -1,7 +1,5 @@
 package net.chaos.chaosmod.client.inventory;
 
-import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

