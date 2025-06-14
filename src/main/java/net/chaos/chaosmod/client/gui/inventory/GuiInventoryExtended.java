@@ -88,9 +88,9 @@ public class GuiInventoryExtended extends GuiInventory {
         });
         int o = 20; // offset
         int margin = 30;
-        this.addButton(new GuiButton(100, this.guiLeft + 50, this.guiTop - o, 30, 20, "|>")); // TODO : texture the button
-        this.addButton(new GuiButton(101, this.guiLeft + 50 + 30, this.guiTop - o, 30, 20, "P")); // TODO : texture the button
-        this.addButton(new GuiButton(102, this.guiLeft + 50 + 60, this.guiTop - o, 30, 20, "S")); // TODO : texture the button
+        this.addButton(new GuiButton(100, this.guiLeft + 70, this.guiTop - o, 30, 20, "|>")); // TODO : texture the button
+        this.addButton(new GuiButton(101, this.guiLeft + 70 + 30, this.guiTop - o, 30, 20, "P")); // TODO : texture the button
+        this.addButton(new GuiButton(102, this.guiLeft + 70 + 60, this.guiTop - o, 30, 20, "S")); // TODO : texture the button
     }
 	
 	private void resetGuiLeft()
@@ -191,7 +191,6 @@ public class GuiInventoryExtended extends GuiInventory {
             showShieldSlot = !showShieldSlot;
         } else if (button.id == 100) { // play
         	ClientSoundHandler.launchPlaylist();
-        	// ClientSoundHandler.toggleMusic(ModSounds.FIRE_FORCE_OP);
         } else if (button.id == 101) { // pause/resume
         	System.out.println("Music paused/resumed");
         	if (!ClientSoundHandler.isMusicPaused() && ClientSoundHandler.isMusicPlaying()) ClientSoundHandler.pauseMusic();

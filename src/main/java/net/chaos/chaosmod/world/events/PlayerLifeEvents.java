@@ -5,6 +5,7 @@ import org.lwjgl.input.Keyboard;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.AccessoryImpl;
 import net.chaos.chaosmod.client.inventory.IAccessory;
+import net.chaos.chaosmod.client.inventory.shield.IShield;
 import net.chaos.chaosmod.client.inventory.shield.ShieldImpl;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.init.ModCapabilities;
@@ -13,6 +14,8 @@ import net.chaos.chaosmod.init.ModKeybinds;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
+import net.chaos.chaosmod.items.shield.AllemaniteShield;
+import net.chaos.chaosmod.items.shield.OxoniumShield;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.chaos.chaosmod.sound.ClientSoundHandler;
@@ -79,20 +82,21 @@ public class PlayerLifeEvents {
 		}*/
 		
 		IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
-	    if (cap == null) return;
-
-	    ItemStack accessory = cap.getAccessoryItem();
-	    if (!accessory.isEmpty()) {
-	    	if (accessory.getItem() instanceof OxoniumNecklace) {
-	    		if (!player.isPotionActive(MobEffects.REGENERATION)) {
-	    			player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 20 * 3, 0, false, false));
+	    if (cap != null) {
+	    	ItemStack accessory = cap.getAccessoryItem();
+	    	if (!accessory.isEmpty()) {
+	    		if (accessory.getItem() instanceof OxoniumNecklace) {
+	    			if (!player.isPotionActive(MobEffects.REGENERATION)) {
+	    				player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 20 * 3, 0, false, false));
+	    			}
+	    		} else if (accessory.getItem() instanceof AllemaniteNecklace) { // TODO : add something for wither
+	    			if (!player.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
+	    				player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 20 * 3, 0, false, false));
+	    			}
 	    		}
-	        } else if (accessory.getItem() instanceof AllemaniteNecklace) { // TODO : add something for wither
-	    		if (!player.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-	    			player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 20 * 3, 0, false, false));
-	    		}
-	        }
+	    	}
 	    }
+
 	    
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModDamageSources;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.minecraft.block.state.IBlockState;
@@ -230,9 +231,8 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 
 	            if (laserTicks >= 40) {
 	                // Damage the target
-	                // laserTarget.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 1.0F);
-	            	EntitySpectralArrow arrow = new EntitySpectralArrow(world, laserTarget.posX, laserTarget.posY, laserTarget.posZ);
-	                laserTarget.attackEntityFrom(DamageSource.causeArrowDamage(arrow, laserTarget), 6.0F);
+	            	// EntitySpectralArrow arrow = new EntitySpectralArrow(world, laserTarget.posX, laserTarget.posY, laserTarget.posZ);
+	                laserTarget.attackEntityFrom(ModDamageSources.LASER_DAMAGE, 6.0F);
 	                world.playSound(null, laserTarget.posX, laserTarget.posY, laserTarget.posZ,
 	                	    SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.HOSTILE, 0.5F, 0.3F);
 	                laserTicks = 0;
