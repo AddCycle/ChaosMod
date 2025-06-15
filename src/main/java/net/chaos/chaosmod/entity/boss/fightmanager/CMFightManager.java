@@ -453,8 +453,10 @@ private static final Logger LOGGER = LogManager.getLogger();
         ChaosMasterBoss entitydragon = new ChaosMasterBoss(this.world);
         entitydragon.getPhaseManager().setPhase(CMPhaseList.HOLDING_PATTERN);
         entitydragon.setLocationAndAngles(0.0D, 128.0D, 0.0D, this.world.rand.nextFloat() * 360.0F, 0.0F);
+        entitydragon.setPosition(0.0D, 128.0D, 0.0D);
         this.world.spawnEntity(entitydragon);
         this.dragonUniqueId = entitydragon.getUniqueID();
+        System.out.println("Summoned dragon!");
         return entitydragon;
     }
 

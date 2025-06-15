@@ -114,6 +114,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
 
         if (!worldIn.isRemote && worldIn.provider instanceof DimensionProvider)
         {
+        	System.out.println("Setting up fight manager");
             this.fightManager = ((DimensionProvider)worldIn.provider).getDragonFightManager();
         }
         else
