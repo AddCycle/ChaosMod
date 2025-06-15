@@ -7,6 +7,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 public class ModelGiants extends ModelBase {
 	private final ModelRenderer left_leg;
@@ -21,6 +22,7 @@ public class ModelGiants extends ModelBase {
 		textureHeight = 32;
 
 		left_leg = new ModelRenderer(this);
+		// left_leg.setRotationPoint(0.0F, 24.0F, 0.0F);
 		left_leg.setRotationPoint(0.0F, 24.0F, 0.0F);
 		left_leg.cubeList.add(new ModelBox(left_leg, 20, 0, 2.0F, -6.0F, -1.0F, 2, 6, 2, 0.0F, false));
 
@@ -59,5 +61,35 @@ public class ModelGiants extends ModelBase {
 		modelRenderer.rotateAngleX = x;
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;
+	}
+	
+	@Override
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
+			float headPitch, float scaleFactor, Entity entityIn) {
+		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+		// Head rotation
+	    this.head.rotateAngleY = netHeadYaw * 0.017453292F;
+	    this.head.rotateAngleX = headPitch * 0.017453292F;
+
+	    // Limb swing
+	    this.right_arm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F;
+	    this.left_arm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
+
+	    this.right_arm.rotateAngleZ = 0.0F;
+	    this.left_arm.rotateAngleZ = 0.0F;
+
+	    // Subtle arm sway (adds realism)
+	    this.right_arm.rotateAngleY = 0.1F * MathHelper.sin(ageInTicks * 0.1F);
+	    this.left_arm.rotateAngleY = -0.1F * MathHelper.sin(ageInTicks * 0.1F);
+
+	    // Legs
+	    this.right_leg.rotateAngleX = -MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+	    this.left_leg.rotateAngleX = -MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+
+	    this.right_leg.rotateAngleY = 0.0F;
+	    this.left_leg.rotateAngleY = 0.0F;
+
+	    this.right_leg.rotateAngleZ = 0.0F;
+	    this.left_leg.rotateAngleZ = 0.0F;
 	}
 }

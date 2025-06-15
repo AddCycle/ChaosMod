@@ -45,7 +45,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
         float fl = (float)entity.innerRotation + partialTicks;
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
-        this.bindTexture((entity.getHealth() / entity.getMaxHealth()) > 0.5 ? ENDER_CRYSTAL_TEXTURES : ENDER_CRYSTAL_PHASE_2);
+        this.bindTexture(((entity.getHealth() / entity.getMaxHealth()) >= 0.5f) ? ENDER_CRYSTAL_TEXTURES : ENDER_CRYSTAL_PHASE_2);
         float fl1 = MathHelper.sin(fl * 0.2F) / 2.0F + 0.5F;
         fl1 = fl1 * fl1 + fl1;
 
@@ -76,7 +76,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
         Entity target = targetId != -1 ? Minecraft.getMinecraft().world.getEntityByID(targetId) : null;
         if (target != null) {
         	float f; 
-        	if ((entity.getHealth() / entity.getMaxHealth()) > 0.5) f = partialTicks - 12; else f = 0x000055;
+        	if ((entity.getHealth() / entity.getMaxHealth()) > 0.5f) f = partialTicks - 12; else f = 0x000055;
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             this.bindTexture(GUARDIAN_BEAM_TEXTURE);
@@ -110,7 +110,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
             int j = 0;
             int k = 0;
             int l = 0;
-            if ((entity.getHealth() / entity.getMaxHealth()) > 0.5) {
+            if ((entity.getHealth() / entity.getMaxHealth()) > 0.5f) {
             	j = 64 + (int)(f7 * 191.0F);
             	k = 32 + (int)(f7 * 191.0F);
             	l = 128 - (int)(f7 * 64.0F);

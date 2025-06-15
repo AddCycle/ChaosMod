@@ -6,9 +6,11 @@ import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
+import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
+import net.chaos.chaosmod.entity.boss.renderer.CMRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityEyeCrystalRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityMountainGiantBossRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityRevengeBlazeRenderer;
@@ -145,6 +147,14 @@ public class RenderHandler {
 			
 		});
 		
+		RenderingRegistry.registerEntityRenderingHandler(ChaosMasterBoss.class, new IRenderFactory<ChaosMasterBoss>() {
+
+			@Override
+			public Render<? super ChaosMasterBoss> createRenderFor(RenderManager manager) {
+				return new CMRenderer(manager);
+			}
+			
+		});
 	}
 
 }
