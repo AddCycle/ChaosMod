@@ -1,6 +1,5 @@
 package util.handlers;
 
-import mezz.jei.startup.PlayerJoinedWorldEvent;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.init.ModCapabilities;

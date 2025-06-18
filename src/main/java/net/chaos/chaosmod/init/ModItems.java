@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.chaos.chaosmod.items.ItemBase;
+import net.chaos.chaosmod.items.armor.AllemaniteArmor;
 import net.chaos.chaosmod.items.armor.ArmorBase;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.food.FoodEffectBase;
@@ -28,6 +29,7 @@ import net.chaos.chaosmod.items.tools.AllInOneSword;
 import net.chaos.chaosmod.items.tools.AllemanitePickaxe;
 import net.chaos.chaosmod.items.tools.AllemaniteSword;
 import net.chaos.chaosmod.items.tools.OxoniumHalleberd;
+import net.chaos.chaosmod.items.tools.OxoniumSword;
 import net.chaos.chaosmod.items.tools.ToolAxe;
 import net.chaos.chaosmod.items.tools.ToolHoe;
 import net.chaos.chaosmod.items.tools.ToolPickaxe;
@@ -64,6 +66,10 @@ public class ModItems {
 	public static final ToolMaterial MATERIAL_ENDERITE = EnumHelper.addToolMaterial("material_enderite", 7, 2000, 12.0f, 5.0f, 40);
 	public static final ArmorMaterial ARMOR_MATERIAL_OXONIUM = EnumHelper.addArmorMaterial("armor_material_oxonium", Reference.MODID + ":oxonium_ingot", 14,
 			new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f);
+	public static final ArmorMaterial ARMOR_MATERIAL_ALLEMANITE = EnumHelper.addArmorMaterial("armor_material_allemanite", Reference.MODID + ":allemanite_armor", 20,
+			new int[] { 3, 6, 8, 4 }, 20, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f);
+	public static final ArmorMaterial ARMOR_MATERIAL_ENDERITE = EnumHelper.addArmorMaterial("armor_material_enderite", Reference.MODID + ":armor_base", 26,
+			new int[] { 4, 7, 9, 5 }, 30, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f);
 	
 	//Items
 	public static final Item OXONIUM_INGOT = new ItemBase("oxonium_ingot");
@@ -71,7 +77,7 @@ public class ModItems {
 	public static final Item ENDERITE_INGOT = new EnderiteShard("enderite_ingot");
 	
 	//Tools
-	public static final ItemSword OXONIUM_SWORD = new ToolSword("oxonium_sword", MATERIAL_OXONIUM);
+	public static final ItemSword OXONIUM_SWORD = new OxoniumSword("oxonium_sword", MATERIAL_OXONIUM);
 	public static final ItemPickaxe OXONIUM_PICKAXE = new ToolPickaxe("oxonium_pickaxe", MATERIAL_OXONIUM);
 	public static final ItemAxe OXONIUM_AXE = new ToolAxe("oxonium_axe", MATERIAL_OXONIUM);
 	public static final ItemSpade OXONIUM_SHOVEL = new ToolSpade("oxonium_shovel", MATERIAL_OXONIUM);
@@ -91,11 +97,17 @@ public class ModItems {
 	public static final ItemSpade ENDERITE_SHOVEL = new ToolSpade("enderite_shovel", MATERIAL_ENDERITE);
 	public static final ItemHoe ENDERITE_HOE = new ToolHoe("enderite_hoe", MATERIAL_ENDERITE);
 	
-	//Armor
+	// OXONIUM Armor
 	public static final Item OXONIUM_HELMET = new ArmorBase("oxonium_helmet", ARMOR_MATERIAL_OXONIUM, 1, EntityEquipmentSlot.HEAD);
 	public static final Item OXONIUM_CHESTPLATE = new ArmorBase("oxonium_chestplate", ARMOR_MATERIAL_OXONIUM, 1, EntityEquipmentSlot.CHEST);
 	public static final Item OXONIUM_LEGGINGS = new ArmorBase("oxonium_leggings", ARMOR_MATERIAL_OXONIUM, 2, EntityEquipmentSlot.LEGS);
 	public static final Item OXONIUM_BOOTS = new OxoniumBoots("oxonium_boots", ARMOR_MATERIAL_OXONIUM, 1, EntityEquipmentSlot.FEET);
+
+	// ALLEMANITE Armor
+	public static final Item ALLEMANITE_HELMET = new AllemaniteArmor("allemanite_helmet", ARMOR_MATERIAL_ALLEMANITE, 1, EntityEquipmentSlot.HEAD);
+	public static final Item ALLEMANITE_CHESTPLATE = new AllemaniteArmor("allemanite_chestplate", ARMOR_MATERIAL_ALLEMANITE, 1, EntityEquipmentSlot.CHEST);
+	public static final Item ALLEMANITE_LEGGINGS = new AllemaniteArmor("allemanite_leggings", ARMOR_MATERIAL_ALLEMANITE, 2, EntityEquipmentSlot.LEGS);
+	public static final Item ALLEMANITE_BOOTS = new AllemaniteArmor("allemanite_boots", ARMOR_MATERIAL_ALLEMANITE, 1, EntityEquipmentSlot.FEET);
 	
 	// Special
 	public static final Item OXONIUM_UPGRADE = new ChestUpgradeBase("oxonium_upgrade"); // chest upgrade

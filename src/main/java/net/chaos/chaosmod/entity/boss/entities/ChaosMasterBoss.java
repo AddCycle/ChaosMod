@@ -128,7 +128,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(300.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
     }
 
     protected void entityInit()
@@ -197,7 +197,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
             float f12 = (this.rand.nextFloat() - 0.5F) * 8.0F;
             float f13 = (this.rand.nextFloat() - 0.5F) * 4.0F;
             float f15 = (this.rand.nextFloat() - 0.5F) * 8.0F;
-            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX + (double)f12, this.posY + 2.0D + (double)f13, this.posZ + (double)f15, 0.0D, 0.0D, 0.0D);
+            if (world.isRemote) this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX + (double)f12, this.posY + 2.0D + (double)f13, this.posZ + (double)f15, 0.0D, 0.0D, 0.0D);
         }
         else
         {
@@ -983,7 +983,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("DragonPhase", this.phaseManager.getCurrentPhase().getType().getId());
+        compound.setInteger("CustomDragonPhase", this.phaseManager.getCurrentPhase().getType().getId());
     }
 
     /**
@@ -993,9 +993,9 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
     {
         super.readEntityFromNBT(compound);
 
-        if (compound.hasKey("DragonPhase"))
+        if (compound.hasKey("CustomDragonPhase"))
         {
-            this.phaseManager.setPhase(CMPhaseList.getById(compound.getInteger("DragonPhase")));
+            this.phaseManager.setPhase(CMPhaseList.getById(compound.getInteger("CustomDragonPhase")));
         }
     }
 
@@ -1091,7 +1091,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
     public Vec3d getHeadLookVec(float p_184665_1_)
     {
         ICMPhase iphase = this.phaseManager.getCurrentPhase();
-        CMPhaseList <? extends ICMPhase > phaselist = iphase.getType();
+        CMPhaseList <? extends ICMPhase> phaselist = iphase.getType();
         Vec3d vec3d;
 
         if (phaselist != CMPhaseList.LANDING && phaselist != CMPhaseList.TAKEOFF)

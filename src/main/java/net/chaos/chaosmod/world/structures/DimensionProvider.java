@@ -3,6 +3,7 @@ package net.chaos.chaosmod.world.structures;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.entity.boss.fightmanager.CMFightManager;
+import net.chaos.chaosmod.init.ModDimensions;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -37,13 +38,13 @@ public class DimensionProvider extends WorldProvider {
     {
         this.biomeProvider = new BiomeProviderSingle(Biomes.SKY);
         NBTTagCompound nbttagcompound = this.world.getWorldInfo().getDimensionData(this.world.provider.getDimension());
-        this.dragonFightManager = this.world instanceof WorldServer ? new CMFightManager((WorldServer)this.world, nbttagcompound.getCompoundTag("DragonFight")) : null;
+        this.dragonFightManager = this.world instanceof WorldServer ? new CMFightManager((WorldServer)this.world, nbttagcompound.getCompoundTag("CustomDragonFight")) : null;
     }
 
-	/*@Override
+	@Override
 	public DimensionType getDimensionType() {
 		return ModDimensions.CUSTOM;
-	}*/
+	}
 	
 	@Override
 	public IChunkGenerator createChunkGenerator() {
@@ -148,10 +149,10 @@ public class DimensionProvider extends WorldProvider {
         return false;
     }
 
-    public DimensionType getDimensionType()
+    /*public DimensionType getDimensionType()
     {
         return DimensionType.THE_END;
-    }
+    }*/
 
     /**
      * Called when the world is performing a save. Only used to save the state of the Dragon Boss fight in
@@ -163,7 +164,7 @@ public class DimensionProvider extends WorldProvider {
 
         if (this.dragonFightManager != null)
         {
-            nbttagcompound.setTag("DragonFight", this.dragonFightManager.getCompound());
+            nbttagcompound.setTag("CustomDragonFight", this.dragonFightManager.getCompound());
         }
 
         this.world.getWorldInfo().setDimensionData(this.world.provider.getDimension(), nbttagcompound);

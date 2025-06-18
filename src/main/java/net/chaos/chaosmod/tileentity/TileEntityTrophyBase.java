@@ -45,7 +45,7 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
 
 	@Override
 	public void update() {
-		spawnParticleCircle(world, pos, range, particles, particleType, helper(variant));
+		if (world.isRemote) spawnParticleCircle(world, pos, range, particles, particleType, helper(variant));
 		applyEffectBasedOnRange(range, new PotionEffect(potion, 10, 0));
 	}
 

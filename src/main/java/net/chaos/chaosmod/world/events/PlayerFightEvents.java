@@ -90,10 +90,11 @@ public class PlayerFightEvents {
 	// To disable the cooldown like the pre-1.9 mc ver
 	@SubscribeEvent
 	public void onSwing(PlayerTickEvent event) {
-		if (event.phase == TickEvent.Phase.END && !event.player.world.isRemote) {
+		if (!event.player.world.isRemote) {
 	        event.player.resetCooldown(); // Disables the cooldown — resets it every tick
 	    }
 	}
+	
 	
 	// To apply all the modifiers
 	@SubscribeEvent

@@ -49,7 +49,6 @@ import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeEndDecorator;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.end.DragonFightManager;
 import net.minecraft.world.gen.feature.WorldGenEndGateway;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 import net.minecraft.world.gen.feature.WorldGenSpikes;
@@ -78,25 +77,25 @@ private static final Logger LOGGER = LogManager.getLogger();
     {
         this.world = worldIn;
 
-        if (compound.hasKey("DragonKilled", 99))
+        if (compound.hasKey("CustomDragonKilled", 99))
         {
-            if (compound.hasUniqueId("DragonUUID"))
+            if (compound.hasUniqueId("CustomDragonUUID"))
             {
-                this.dragonUniqueId = compound.getUniqueId("DragonUUID");
+                this.dragonUniqueId = compound.getUniqueId("CustomDragonUUID");
             }
 
-            this.dragonKilled = compound.getBoolean("DragonKilled");
-            this.previouslyKilled = compound.getBoolean("PreviouslyKilled");
-            this.scanForLegacyFight = !compound.getBoolean("LegacyScanPerformed"); // Forge: fix MC-105080
+            this.dragonKilled = compound.getBoolean("CustomDragonKilled");
+            this.previouslyKilled = compound.getBoolean("CustomPreviouslyKilled");
+            this.scanForLegacyFight = !compound.getBoolean("CustomLegacyScanPerformed"); // Forge: fix MC-105080
 
-            if (compound.getBoolean("IsRespawning"))
+            if (compound.getBoolean("CustomIsRespawning"))
             {
                 this.respawnState = ChaosMasterSpawnManager.START;
             }
 
-            if (compound.hasKey("ExitPortalLocation", 10))
+            if (compound.hasKey("CustomExitPortalLocation", 10))
             {
-                this.exitPortalLocation = NBTUtil.getPosFromTag(compound.getCompoundTag("ExitPortalLocation"));
+                this.exitPortalLocation = NBTUtil.getPosFromTag(compound.getCompoundTag("CustomExitPortalLocation"));
             }
         }
         else
@@ -105,9 +104,9 @@ private static final Logger LOGGER = LogManager.getLogger();
             this.previouslyKilled = true;
         }
 
-        if (compound.hasKey("Gateways", 9))
+        if (compound.hasKey("CustomGateways", 9))
         {
-            NBTTagList nbttaglist = compound.getTagList("Gateways", 3);
+            NBTTagList nbttaglist = compound.getTagList("CustomGateways", 3);
 
             for (int i = 0; i < nbttaglist.tagCount(); ++i)
             {
@@ -129,16 +128,16 @@ private static final Logger LOGGER = LogManager.getLogger();
 
         if (this.dragonUniqueId != null)
         {
-            nbttagcompound.setUniqueId("DragonUUID", this.dragonUniqueId);
+            nbttagcompound.setUniqueId("CustomDragonUUID", this.dragonUniqueId);
         }
 
-        nbttagcompound.setBoolean("DragonKilled", this.dragonKilled);
-        nbttagcompound.setBoolean("PreviouslyKilled", this.previouslyKilled);
-        nbttagcompound.setBoolean("LegacyScanPerformed", !this.scanForLegacyFight); // Forge: fix MC-105080
+        nbttagcompound.setBoolean("CustomDragonKilled", this.dragonKilled);
+        nbttagcompound.setBoolean("CustomPreviouslyKilled", this.previouslyKilled);
+        nbttagcompound.setBoolean("CustomLegacyScanPerformed", !this.scanForLegacyFight); // Forge: fix MC-105080
 
         if (this.exitPortalLocation != null)
         {
-            nbttagcompound.setTag("ExitPortalLocation", NBTUtil.createPosTag(this.exitPortalLocation));
+            nbttagcompound.setTag("CustomExitPortalLocation", NBTUtil.createPosTag(this.exitPortalLocation));
         }
 
         NBTTagList nbttaglist = new NBTTagList();
@@ -150,7 +149,7 @@ private static final Logger LOGGER = LogManager.getLogger();
             nbttaglist.appendTag(new NBTTagInt(i));
         }
 
-        nbttagcompound.setTag("Gateways", nbttaglist);
+        nbttagcompound.setTag("CustomGateways", nbttaglist);
         return nbttagcompound;
     }
 
@@ -449,14 +448,14 @@ private static final Logger LOGGER = LogManager.getLogger();
 
     private ChaosMasterBoss createNewDragon()
     {
-        this.world.getChunkFromBlockCoords(new BlockPos(0, 128, 0));
-        ChaosMasterBoss entitydragon = new ChaosMasterBoss(this.world);
-        entitydragon.getPhaseManager().setPhase(CMPhaseList.HOLDING_PATTERN);
-        entitydragon.setLocationAndAngles(0.0D, 128.0D, 0.0D, this.world.rand.nextFloat() * 360.0F, 0.0F);
-        entitydragon.setPosition(0.0D, 128.0D, 0.0D);
-        this.world.spawnEntity(entitydragon);
-        this.dragonUniqueId = entitydragon.getUniqueID();
-        System.out.println("Summoned dragon!");
+    	ChaosMasterBoss entitydragon = null;
+    	this.world.getChunkFromBlockCoords(new BlockPos(0, 128, 0));
+    	entitydragon = new ChaosMasterBoss(this.world);
+    	entitydragon.getPhaseManager().setPhase(CMPhaseList.HOLDING_PATTERN);
+    	entitydragon.setLocationAndAngles(0.0D, 128.0D, 0.0D, this.world.rand.nextFloat() * 360.0F, 0.0F);
+    	if (!this.world.isRemote) this.world.spawnEntity(entitydragon);
+    	this.dragonUniqueId = entitydragon.getUniqueID();
+    	System.out.println("Summoned dragon!");
         return entitydragon;
     }
 

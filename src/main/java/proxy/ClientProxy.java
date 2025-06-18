@@ -92,8 +92,9 @@ public class ClientProxy extends CommonProxy {
 	    skinMap.get("slim").addLayer(new LayerNecklace(skinMap.get("slim")));*/
 		Minecraft.getMinecraft().getRenderManager().getSkinMap().values().forEach(renderer -> {
 		    renderer.addLayer(new LayerNecklace(renderer));
+		    // renderer.addLayer(new LayerShield(renderer));
 		});
-		// RenderingRegistry.registerEntityRenderingHandler(EntityStillItem.class, manager -> new RenderItemStill(manager, Minecraft.getMinecraft().getRenderItem()));
+		
 		// ################################# END NECKLACE RENDERING ############################################
 	}
 
