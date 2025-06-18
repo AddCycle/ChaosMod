@@ -68,7 +68,7 @@ public class OxoniumSword extends ToolSword {
         Minecraft mc = Minecraft.getMinecraft();
         
         if (worldIn.isRemote) mc.effectRenderer.addEffect(
-        	new CoinParticles(worldIn, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, d0, 0.0D, d1));
+        	new CoinParticles(mc.getTextureManager(), worldIn, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, d0, 0.0D, d1));
 
         // ((WorldServer)worldIn).spawnParticle(EnumParticleTypes.SWEEP_ATTACK, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, 0, d0, 0.0D, d1, 0.0D);
     }

@@ -83,6 +83,5 @@ public class BlockTrophy extends BlockContainerBase implements ITileEntityProvid
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityTrophyBase(variant);
-		// return new TileEntityTrophyBase(meta);
 	}
 }

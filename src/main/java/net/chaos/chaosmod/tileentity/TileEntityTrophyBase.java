@@ -30,9 +30,10 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
 	public Potion potion;
 	public EnumParticleTypes particleType;
 	private NonNullList<ItemStack> content = NonNullList.<ItemStack>withSize(27, ItemStack.EMPTY);
+	private int tickCounter = 0;
 	
 	public TileEntityTrophyBase(int variant) {
-		this(4, 30, PotionHelper(variant), EnumParticleTypes.REDSTONE, variant);
+		this(4, 20, PotionHelper(variant), EnumParticleTypes.REDSTONE, variant);
 	}
 
 	public TileEntityTrophyBase(double range, int particles, Potion potion, EnumParticleTypes particleTypes, int variant) {
@@ -45,7 +46,11 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
 
 	@Override
 	public void update() {
-		if (world.isRemote) spawnParticleCircle(world, pos, range, particles, particleType, helper(variant));
+		tickCounter++;
+		if (world.isRemote && tickCounter >= 10) {
+			spawnParticleCircle(world, pos, range, particles, particleType, helper(variant));
+			tickCounter = 0;
+		}
 		applyEffectBasedOnRange(range, new PotionEffect(potion, 10, 0));
 	}
 
