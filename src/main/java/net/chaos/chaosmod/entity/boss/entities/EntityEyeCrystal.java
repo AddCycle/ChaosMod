@@ -167,6 +167,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
                     		TileEntityOxoniumChest te = (TileEntityOxoniumChest) world.getTileEntity(pos);
                     		te.setInventorySlotContents(13, new ItemStack(ModBlocks.EYE_TROPHY, 3));
                     		te.setInventorySlotContents(21, new ItemStack(ModItems.ENDERITE_THUNDER, 3));
+                    		te.setInventorySlotContents(22, new ItemStack(ModItems.CHAOS_HEART));
                     	}
                     }
                 }

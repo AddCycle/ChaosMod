@@ -5,6 +5,7 @@ import java.util.List;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.ai.EntityAICustomRangedAttack;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
+import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
@@ -213,7 +214,8 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
             }
             
             if (!world.isRemote) {
-            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.OXONIUM_HALLEBERD, count == 0 ? 1 : count))); // FIXME drop the giantHeart + BraveTrophy
+            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.GIANT_HEART, count == 0 ? 1 : count)));
+            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModBlocks.BRAVE_TROPHY, count == 0 ? 1 : count)));
             }
         }
         else

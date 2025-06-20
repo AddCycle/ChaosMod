@@ -179,12 +179,14 @@ public class ModelCustomArmour extends ModelBiped
 		this.bipedRightArm.showModel = slot == EntityEquipmentSlot.CHEST;
 		this.bipedLeftArm.showModel = slot == EntityEquipmentSlot.CHEST;
 		
-		this.bipedRightLeg.showModel = slot == EntityEquipmentSlot.LEGS;
-		this.bipedLeftLeg.showModel = slot == EntityEquipmentSlot.LEGS;
-		this.bipedRightLeg.showModel = slot == EntityEquipmentSlot.FEET;
-		this.bipedLeftLeg.showModel = slot == EntityEquipmentSlot.FEET;
-    	
-    	super.render(entity, f, f1, f2, f3, f4, f5);
+		if (slot == EntityEquipmentSlot.FEET) {
+			this.bipedRightLeg.showModel = slot == EntityEquipmentSlot.LEGS;
+			this.bipedLeftLeg.showModel = slot == EntityEquipmentSlot.LEGS;
+			this.bipedRightLeg.showModel = slot == EntityEquipmentSlot.FEET;
+			this.bipedLeftLeg.showModel = slot == EntityEquipmentSlot.FEET;
+		} else {
+			super.render(entity, f, f1, f2, f3, f4, f5);
+		}
     }
     
     @Override

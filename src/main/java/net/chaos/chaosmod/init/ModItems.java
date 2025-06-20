@@ -6,6 +6,7 @@ import java.util.List;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.items.armor.AllemaniteArmor;
 import net.chaos.chaosmod.items.armor.ArmorBase;
+import net.chaos.chaosmod.items.armor.EnderiteArmor;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.food.FoodEffectBase;
 import net.chaos.chaosmod.items.materials.AllemaniteIngot;
@@ -68,7 +69,7 @@ public class ModItems {
 			new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f);
 	public static final ArmorMaterial ARMOR_MATERIAL_ALLEMANITE = EnumHelper.addArmorMaterial("armor_material_allemanite", Reference.MODID + ":allemanite_armor", 20,
 			new int[] { 3, 6, 8, 4 }, 20, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f);
-	public static final ArmorMaterial ARMOR_MATERIAL_ENDERITE = EnumHelper.addArmorMaterial("armor_material_enderite", Reference.MODID + ":armor_base", 26,
+	public static final ArmorMaterial ARMOR_MATERIAL_ENDERITE = EnumHelper.addArmorMaterial("armor_material_enderite", Reference.MODID + ":enderite_armor", 26,
 			new int[] { 4, 7, 9, 5 }, 30, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f);
 	
 	//Items
@@ -108,6 +109,12 @@ public class ModItems {
 	public static final Item ALLEMANITE_CHESTPLATE = new AllemaniteArmor("allemanite_chestplate", ARMOR_MATERIAL_ALLEMANITE, 1, EntityEquipmentSlot.CHEST);
 	public static final Item ALLEMANITE_LEGGINGS = new AllemaniteArmor("allemanite_leggings", ARMOR_MATERIAL_ALLEMANITE, 2, EntityEquipmentSlot.LEGS);
 	public static final Item ALLEMANITE_BOOTS = new AllemaniteArmor("allemanite_boots", ARMOR_MATERIAL_ALLEMANITE, 1, EntityEquipmentSlot.FEET);
+
+	// ENDERITE Armor
+	public static final Item ENDERITE_HELMET = new EnderiteArmor("enderite_helmet", ARMOR_MATERIAL_ENDERITE, 1, EntityEquipmentSlot.HEAD);
+	public static final Item ENDERITE_CHESTPLATE = new EnderiteArmor("enderite_chestplate", ARMOR_MATERIAL_ENDERITE, 1, EntityEquipmentSlot.CHEST);
+	public static final Item ENDERITE_LEGGINGS = new EnderiteArmor("enderite_leggings", ARMOR_MATERIAL_ENDERITE, 2, EntityEquipmentSlot.LEGS);
+	public static final Item ENDERITE_BOOTS = new EnderiteArmor("enderite_boots", ARMOR_MATERIAL_ENDERITE, 1, EntityEquipmentSlot.FEET);
 	
 	// Special
 	public static final Item OXONIUM_UPGRADE = new ChestUpgradeBase("oxonium_upgrade"); // chest upgrade

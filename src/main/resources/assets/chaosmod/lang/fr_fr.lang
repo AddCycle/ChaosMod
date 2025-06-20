@@ -25,8 +25,18 @@ item.all_in_one_bow.name=Arc tout-en-un
 //Armor
 item.oxonium_helmet.name=Casque de securité en oxonium
 item.oxonium_chestplate.name=Plastron en oxonium
-item.oxoinum_leggings.name=Jambières en oxonium
+item.oxonium_leggings.name=Jambières en oxonium
 item.oxonium_boots.name=Bottes du brave
+
+item.allemanite_helmet.name=Casque en allemanite
+item.allemanite_chestplate.name=Plastron en allemanite
+item.allemanite_leggings.name=Jambières en allemanite
+item.allemanite_boots.name=Bottes en allemanite
+
+item.enderite_helmet.name=Casque en enderite
+item.enderite_chestplate.name=Plastron en enderite
+item.enderite_leggings.name=Jambières en enderite
+item.enderite_boots.name=Bottes en enderite
 
 // Items
 item.oxonium_ingot.name=Lingot d'Oxonium
@@ -60,6 +70,16 @@ tile.allemanite_block.name=Bloc d'Allemanite
 tile.enderite_ore.name=Minerais d'Enderite
 tile.enderite_block.name=Block d'Enderite
 tile.enderite_forge_walls.name=Murs de la Forge
+tile.custom_stairs.name=Escaliers Custom
+tile.custom_fences.name=Barrières Custom
+tile.custom_door.name=Porte Custom
+tile.custom_ladder.name=Echelle Custom
+tile.custom_pressure_plate.name=Plaque de Pression Custom
+tile.trophy_block.name=Trophée basique
+tile.brave_trophy.name=Trophée de Bravoure
+tile.firefighter_trophy.name=Trophée du Pompier
+tile.eye_trophy.name=Trophée aie aie aie
+tile.talent_trophy.name=Trophée du Talent
 
 // Decoration
 tile.oxonium_bricks.name=Brique en Oxonium

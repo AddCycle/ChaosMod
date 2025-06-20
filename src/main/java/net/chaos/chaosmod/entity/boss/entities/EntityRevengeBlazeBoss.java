@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import net.chaos.chaosmod.entity.ai.EntityAIEscapeWater;
 import net.chaos.chaosmod.entity.ai.EntityAIFlyOutOfWater;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
+import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -590,7 +591,8 @@ public class EntityRevengeBlazeBoss extends EntityMob {
             }
             
             if (!world.isRemote) {
-            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.ENDERITE_AXE, count == 0 ? 1 : count))); // FIXME drop the blazeHeart + trophy
+            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.BLAZING_HEART, count == 0 ? 1 : count)));
+            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModBlocks.FIREFIGHTER_TROPHY, count == 0 ? 1 : count)));
             }
         }
         else
@@ -598,7 +600,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
         	float progress = 1.0F - (float) this.deathTime / 200.0F;
             this.bossInfo.setPercent(Math.max(progress, 0.0F));
             this.bossInfo.setColor(BossInfo.Color.YELLOW);
-            this.bossInfo.setName(new TextComponentString("Dying...")); // FIXME : add localization
+            this.bossInfo.setName(new TextComponentString("entity.revenge_blaze_boss.death")); // FIXME : add localization
         }
     }
 }

@@ -26,7 +26,17 @@ item.all_in_one_bow.name=All In One Bow
 item.oxonium_helmet.name=Oxonium Security Helmet
 item.oxonium_chestplate.name=Oxonium Chestplate
 item.oxonium_leggings.name=Oxonium Leggings
-item.oxonium_boots.name=Brave boots
+item.oxonium_boots.name=Brave Boots
+
+item.allemanite_helmet.name=Allemanite Helmet
+item.allemanite_chestplate.name=Allemanite Chestplate
+item.allemanite_leggings.name=Allemanite Leggings
+item.allemanite_boots.name=Allemanite Boots
+
+item.enderite_helmet.name=Enderite Helmet
+item.enderite_chestplate.name=Enderite Chestplate
+item.enderite_leggings.name=Enderite Leggings
+item.enderite_boots.name=Enderite Boots
 
 // Items
 item.oxonium_ingot.name=Oxonium Ingot
@@ -60,6 +70,16 @@ tile.enderite_ore.name=Enderite Ore
 tile.enderite_block.name=Enderite Block
 tile.connected_block.name=Connected Block
 tile.enderite_forge_walls.name=Forge Walls
+tile.custom_stairs.name=Custom Stairs
+tile.custom_fences.name=Custom Fences
+tile.custom_door.name=Custom Door
+tile.custom_ladder.name=Custom Ladder
+tile.custom_pressure_plate.name=Custom Pressure Plate
+tile.trophy_block.name=Base Trophy
+tile.brave_trophy.name=Brave Trophy
+tile.firefighter_trophy.name=Firefighter Trophy
+tile.eye_trophy.name=Eye eye eye Trophy
+tile.talent_trophy.name=Talent Trophy
 
 // Decoration
 tile.oxonium_bricks.name=Oxonium Bricks

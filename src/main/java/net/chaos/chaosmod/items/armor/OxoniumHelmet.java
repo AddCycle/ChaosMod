@@ -9,9 +9,9 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ISpecialArmor;
 
 public class OxoniumHelmet extends ArmorBase {
-
 	public OxoniumHelmet(String name, ArmorMaterial materialIn, int renderIndexIn,
 			EntityEquipmentSlot equipmentSlotIn) {
 		super(name, materialIn, renderIndexIn, equipmentSlotIn);

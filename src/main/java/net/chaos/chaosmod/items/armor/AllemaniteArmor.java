@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.items.armor;
 
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
