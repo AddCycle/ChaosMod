@@ -1,14 +1,13 @@
 package net.chaos.chaosmod.items.special;
 
-import net.chaos.chaosmod.client.particles.ColoredSweepParticle;
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.cutscene.CutsceneManager;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
-import net.chaos.chaosmod.init.ModParticles;
 import net.chaos.chaosmod.items.ItemBase;
-import net.minecraft.client.Minecraft;
+import net.chaos.chaosmod.network.PacketSpawnCustomParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -19,6 +18,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TesterWand extends ItemBase {
 	public int projectile;
@@ -35,6 +36,12 @@ public class TesterWand extends ItemBase {
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
 		entity.attackEntityFrom(new DamageSource("killing_wand.debug.jemenfous"), 600);
 		return super.onLeftClickEntity(stack, player, entity);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean hasEffect(ItemStack stack) {
+		return true;
 	}
 
 	@Override
@@ -81,9 +88,8 @@ public class TesterWand extends ItemBase {
 	    		break;
 	    	case 5:
 	    		if (worldIn.isRemote) {
-	    			Minecraft.getMinecraft().effectRenderer.addEffect(
-	    			    new ColoredSweepParticle(Minecraft.getMinecraft().getTextureManager(), worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, 0, 0, 0, 0x00ff00)
-	    			);
+	    			Main.network.sendToAll(
+                new PacketSpawnCustomParticle("sweep", playerIn.posX, playerIn.posY, playerIn.posZ));
 	    			playerIn.sendMessage(new TextComponentString("spawning particles"));
 	    		}
 	    		break;

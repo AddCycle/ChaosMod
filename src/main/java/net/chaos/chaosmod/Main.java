@@ -33,6 +33,7 @@ import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
 import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.chaos.chaosmod.network.PacketForgeCraft;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
+import net.chaos.chaosmod.network.PacketSpawnCustomParticle;
 import net.chaos.chaosmod.recipes.machine.MachineRecipeRegistry;
 import net.chaos.chaosmod.tileentity.TileEntityBeam;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
@@ -50,7 +51,6 @@ import net.chaos.chaosmod.world.events.PlayerFightEvents;
 import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
 import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
-import net.chaos.chaosmod.world.gen.VillageWorldGen;
 import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.chaos.chaosmod.world.structures.StructureCustomVillage;
@@ -154,6 +154,7 @@ public class Main
 		network.registerMessage(PacketAccessorySync.Handler.class, PacketAccessorySync.class, 3, Side.CLIENT);
 		network.registerMessage(PacketShieldSync.Handler.class, PacketShieldSync.class, 4, Side.CLIENT);
 		network.registerMessage(PacketForgeCraft.Handler.class, PacketForgeCraft.class, 5, Side.SERVER);
+		network.registerMessage(PacketSpawnCustomParticle.ClientHandler.class, PacketSpawnCustomParticle.class, 6, Side.CLIENT);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
         // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
         WorldGenerationOverrideEvents.class.getName(); // force-load

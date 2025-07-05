@@ -2,9 +2,8 @@ package net.chaos.chaosmod.items.tools;
 
 import java.util.Random;
 
-import net.chaos.chaosmod.client.particles.CoinParticles;
-import net.chaos.chaosmod.client.particles.ColoredSweepParticle;
-import net.minecraft.client.Minecraft;
+import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.network.PacketSpawnCustomParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -52,25 +51,27 @@ public class OxoniumSword extends ToolSword {
         double d0 = (double)(-MathHelper.sin(playerIn.rotationYaw * 0.017453292F));
         double d1 = (double)MathHelper.cos(playerIn.rotationYaw * 0.017453292F);
         
-        Minecraft mc = Minecraft.getMinecraft();
+//        Minecraft mc = Minecraft.getMinecraft();
         
-        if (worldIn.isRemote) mc.effectRenderer.addEffect(
-        	new ColoredSweepParticle(mc.getTextureManager(), worldIn, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, d0, 0.0D, d1, random.nextInt(0xffffff + 1)));
+//        if (worldIn.isRemote) mc.effectRenderer.addEffect(
+//        	new ColoredSweepParticle(mc.getTextureManager(), worldIn, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, d0, 0.0D, d1, random.nextInt(0xffffff + 1)));
 
-        // ((WorldServer)worldIn).spawnParticle(EnumParticleTypes.SWEEP_ATTACK, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, 0, d0, 0.0D, d1, 0.0D);
+        if (!worldIn.isRemote) {
+        Main.network.sendToAll(
+                new PacketSpawnCustomParticle("sweep", playerIn.posX, playerIn.posY, playerIn.posZ));
+        }
     }
 
 	public void spawnCoinParticles(World worldIn, EntityPlayer playerIn)
     {
         double d0 = (double)(-MathHelper.sin(playerIn.rotationYaw * 0.017453292F));
         double d1 = (double)MathHelper.cos(playerIn.rotationYaw * 0.017453292F);
-        
-        Minecraft mc = Minecraft.getMinecraft();
-        
-        if (worldIn.isRemote) mc.effectRenderer.addEffect(
-        	new CoinParticles(mc.getTextureManager(), worldIn, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, d0, 0.0D, d1));
 
-        // ((WorldServer)worldIn).spawnParticle(EnumParticleTypes.SWEEP_ATTACK, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, 0, d0, 0.0D, d1, 0.0D);
+        if (!worldIn.isRemote) {
+        	Main.network.sendToAll(new PacketSpawnCustomParticle("coin", playerIn.posX, playerIn.posY, playerIn.posZ));
+        }
+//        if (worldIn.isRemote) mc.effectRenderer.addEffect(
+//        	new CoinParticles(mc.getTextureManager(), worldIn, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, d0, 0.0D, d1));
     }
 
 }
