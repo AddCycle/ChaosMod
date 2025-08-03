@@ -1,25 +1,16 @@
 package net.chaos.chaosmod.tileentity;
 
-import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.inventory.OxoniumFurnaceContainer;
 import net.chaos.chaosmod.recipes.OxoniumFurnaceRecipes;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -31,10 +22,7 @@ import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -42,18 +30,13 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackDataLists;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.event.HoverEvent;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import util.text.format.colors.ColorEnum;
 
 public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITickable, ISidedInventory {
     private static final int[] SLOTS_TOP = new int[] {0};
@@ -68,10 +51,6 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
     
     @Override
     public ITextComponent getDisplayName() {
-    	// de base je voulais faire en sorte que quand le four est en marche son nametag soit rouge puis vert quand ca ne l'est pas
-    	// or il fallait clic droit pour update le nom je sais pas comment l'update auto
-    	// return new TextComponentTranslation("tile.oxonium_furnace.name")
-    	 	// .setStyle(this.isBurning() ? new Style().setColor(TextFormatting.RED).setBold(true) : new Style().setColor(TextFormatting.GREEN).setBold(false));
     	return new TextComponentTranslation("tile.oxonium_furnace.name").setStyle(new Style().setHoverEvent(null).setColor(TextFormatting.DARK_BLUE).setBold(true));
     }
 

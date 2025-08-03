@@ -1,15 +1,13 @@
 package net.chaos.chaosmod.world;
-
-import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.FlowerType;
+import net.chaos.chaosmod.config.ModConfig;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.init.ModBlocks;
-import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -24,12 +22,9 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkGeneratorOverworld;
-import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
@@ -38,7 +33,6 @@ import util.Reference;
 
 public class ModWorldGen implements IWorldGenerator {
 	private static final Set<ChunkPos> alreadyGenerated = new HashSet<>();
-	// private final MapGenMyStructure myStructure = new MapGenMyStructure();
 	/*
 	 * Overworld = 0
 	 * End = 1
@@ -47,9 +41,6 @@ public class ModWorldGen implements IWorldGenerator {
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
-		/*if (world.provider.getDimension() == 0 && chunkGenerator instanceof ChunkGeneratorOverworld) {
-	        tryReplaceVillageGen((ChunkGeneratorOverworld) chunkGenerator);
-	    }*/
 		switch (world.provider.getDimension()) {
 		case -1:
 			generateNether(world, random, chunkX * 16, chunkZ * 16);
@@ -63,52 +54,7 @@ public class ModWorldGen implements IWorldGenerator {
 		}
 	}
 
-    private void tryReplaceVillageGen(ChunkGeneratorOverworld chunkGenerator) {
-    	/*try {
-            Field villageField = ChunkGeneratorOverworld.class.getDeclaredField("villageGen");
-
-            // Fallback for SRG name in case you're running with MCP-obfuscated environment
-            if (villageField == null) {
-                villageField = ChunkGeneratorOverworld.class.getDeclaredField("field_73168_g");
-            }
-
-            villageField.setAccessible(true);
-
-            Object current = villageField.get(chunkGenerator);
-            if (!(current instanceof MapGenCustomVillage)) {
-                System.out.println("[ChaosMod] Replacing vanilla village generator with custom one.");
-                villageField.set(chunkGenerator, new MapGenCustomVillage());
-            }
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            System.err.println("[ChaosMod] Failed to replace villageGen:");
-            e.printStackTrace();
-        }*/
-    	try {
-            IChunkGenerator gen = chunkGenerator;
-
-            // Check if this is ChunkGeneratorOverworld (vanilla)
-            if (gen.getClass().getSimpleName().equals("ChunkGeneratorOverworld")) {
-                Field[] fields = gen.getClass().getDeclaredFields();
-                for (Field field : fields) {
-                    field.setAccessible(true);
-                    Object value = field.get(gen);
-                    if (value instanceof MapGenVillage) {
-                        System.out.println("[ChaosMod] Replacing village generator: " + field.getName());
-                        field.set(gen, new MapGenCustomVillage()); // your custom class
-                        return;
-                    }
-                }
-                System.err.println("[ChaosMod] Could not find village generator field.");
-            } else {
-                System.err.println("[ChaosMod] Not ChunkGeneratorOverworld: " + gen.getClass().getName());
-            }
-        } catch (Exception e) {
-            System.err.println("[ChaosMod] Failed to replace villageGen:");
-            e.printStackTrace();
-        }
-	}
-
-	private void generateEnder(World world, Random random, int x, int z)
+    private void generateEnder(World world, Random random, int x, int z)
     {
     	this.generateOre(ModBlocks.ENDERITE_ORE, Blocks.END_STONE, world, random, 3, 3, x, z, 40, 80);
         generateFlowers(world, random, x, z, 2);
@@ -116,45 +62,48 @@ public class ModWorldGen implements IWorldGenerator {
 
     private void generateOverworld(World world, Random random, int x, int z, int chunkX, int chunkZ)
     {
-            if(random.nextInt(4) < 2)
-            {
-            	this.generateOre(ModBlocks.OXONIUM_ORE, Blocks.STONE, world, random, 6, 5, x, z, 3, 50);
-            }
-            else
-            {
-            	this.generateOre(ModBlocks.OXONIUM_ORE, Blocks.STONE, world, random, 5, 5, x, z, 3, 50);
-            }
-            
-            generateFlowers(world, random, x, z, 0);
+    	if(random.nextInt(4) < 2)
+    	{
+    		this.generateOre(ModBlocks.OXONIUM_ORE, Blocks.STONE, world, random, 6, 5, x, z, 3, 50);
+    	}
+    	else
+    	{
+    		this.generateOre(ModBlocks.OXONIUM_ORE, Blocks.STONE, world, random, 5, 5, x, z, 3, 50);
+    	}
 
-            if (world.getWorldInfo().isMapFeaturesEnabled()) {
-                if (random.nextInt(40) == 0) { // more frequent but I will add this to the config later TODO
-                	// trying to center that in the chunk
-                    int centerX = chunkX * 16 + 8;
-                    int centerZ = chunkZ * 16 + 8;
+    	generateFlowers(world, random, x, z, 0);
 
-                    // Start from top and go down to find real surface
-                    BlockPos surface = world.getPrecipitationHeight(new BlockPos(centerX, 255, centerZ)).down();
-                    IBlockState state = world.getBlockState(surface);
+    	if (!world.getWorldInfo().isMapFeaturesEnabled()) {
+    		return;
+    	}
 
-                    // Debug print
-                    System.out.println("Block at " + surface + " is " + state.getBlock() + " | Material: " + state.getMaterial());
+    	if (random.nextInt(100 - ModConfig.boat_spawn_rate) == 0) {
+    		// trying to center that in the chunk
+    		int centerX = chunkX * 16 + 8;
+    		int centerZ = chunkZ * 16 + 8;
 
-                    if (state.getMaterial() != Material.WATER) return; // not valid location
+    		// Start from top and go down to find real surface
+    		BlockPos surface = world.getPrecipitationHeight(new BlockPos(centerX, 255, centerZ)).down();
+    		IBlockState state = world.getBlockState(surface);
 
-                    BlockPos pos = surface; // One block above water
+    		// Debug print
+    		System.out.println("Block at " + surface + " is " + state.getBlock() + " | Material: " + state.getMaterial());
 
-                    if (!world.isAreaLoaded(pos, 16)) return;
+    		if (state.getMaterial() != Material.WATER) return; // not valid location
 
-                    ChunkPos cp = new ChunkPos(chunkX, chunkZ);
-                    if (!alreadyGenerated.add(cp)) return;
+    		BlockPos pos = surface; // One block above water
 
-                    generateVikingGallion(world, pos, random, new ResourceLocation(Reference.MODID, "viking_gallion"));
-                    System.out.println("Generating : " + pos);
-                }
-            }
+    		if (!world.isAreaLoaded(pos, 16)) return;
+
+    		ChunkPos cp = new ChunkPos(chunkX, chunkZ);
+    		if (!alreadyGenerated.add(cp)) return;
+
+    		generateVikingGallion(world, pos, random, new ResourceLocation(Reference.MODID, "viking_gallion"));
+    		System.out.println("Generating : " + pos);
+    	}
     }
 
+    // FIXME : populating chunks, causing cascading world gen lag
     public void generateVikingGallion(World world, BlockPos pos, Random random, ResourceLocation rl) {
         MinecraftServer server = world.getMinecraftServer();
         if (server == null) return;
@@ -172,7 +121,8 @@ public class ModWorldGen implements IWorldGenerator {
             .setRotation(Rotation.values()[random.nextInt(Rotation.values().length)])
             .setChunk((ChunkPos) null)
             .setReplacedBlock(null)
-            .setIgnoreStructureBlock(true);
+            .setIgnoreStructureBlock(true)
+            .setReplacedBlock(Blocks.LAPIS_BLOCK);
 
         // Disable block updates to prevent recursive generation
         boolean oldCaptureBlockSnapshots = world.captureBlockSnapshots;

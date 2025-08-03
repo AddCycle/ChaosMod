@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -185,16 +186,6 @@ public class Renderer {
         return mapColor.colorValue;
     }
     
-    // With Chunk by Chunk later v2
-    /*public static int getMapColorAt(Chunk chunk, int x, int y, int z) {
-        if (y < 0 || y > 255) return 0x000000; 
-        BlockPos pos = new BlockPos(x, y, z);
-        IBlockState state = chunk.getBlockState(pos);
-        MapColor mapColor = state.getMapColor(chunk.getWorld(), pos);
-        if (mapColor == null) return 0x000000;
-        return mapColor.colorValue;
-    }*/
-
 	public static int[][] getMapBlockColors(BlockPos playerPos, int mapSize) {
     	Minecraft mc = Minecraft.getMinecraft();
         World world = mc.world;
@@ -259,28 +250,6 @@ public class Renderer {
         }
     }
 
-    // v1 : very laggy passed 100 block map size
-    /*public static MapData getMapBlockColorsAndHeights(BlockPos playerPos, int mapSize) {
-        Minecraft mc = Minecraft.getMinecraft();
-        int[][] heights = new int[mapSize][mapSize];
-        int[][] colors = new int[mapSize][mapSize];
-
-        for (int dx = -mapSize / 2; dx < mapSize / 2; dx++) {
-            for (int dz = -mapSize / 2; dz < mapSize / 2; dz++) {
-                int x = dx + mapSize / 2;
-                int z = dz + mapSize / 2;
-                int worldX = playerPos.getX() + dx;
-                int worldZ = playerPos.getZ() + dz;
-                int worldY = mc.world.getHeight(worldX, worldZ);
-                BlockPos pos = new BlockPos(worldX, worldY - 1, worldZ);
-
-                heights[x][z] = worldY;
-                colors[x][z] = mc.world.getBlockState(pos).getMaterial().getMaterialMapColor().colorValue;
-            }
-        }
-        return new MapData(colors, heights);
-    }*/
-    
     public static MapData getMapBlockColorsAndHeights(BlockPos playerPos, int mapSize) {
         Minecraft mc = Minecraft.getMinecraft();
         World world = mc.world;
@@ -311,7 +280,9 @@ public class Renderer {
 
                 // Use chunk to get blockstate (faster than world.getBlockState)
                 IBlockState state = chunk.getBlockState(topPos);
+                System.out.println(state.getBlock());
                 MapColor color = state.getMaterial().getMaterialMapColor();
+                System.out.println("Color : " + color.colorValue);
 
                 heights[x][z] = worldY;
                 colors[x][z] = color != null ? color.colorValue : 0;

@@ -50,8 +50,10 @@ import net.minecraft.world.biome.BiomeTaiga;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
+import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraft.world.storage.loot.LootTableManager;
 
 public class StructureCustomVillage {
 	public static final Block planks = ModBlocks.CUSTOM_PLANK;
@@ -380,10 +382,6 @@ public class StructureCustomVillage {
                 this.setBlockState(worldIn, vitrage.getDefaultState(), 0, 3, 6, structureBoundingBoxIn);
                 this.setBlockState(worldIn, vitrage.getDefaultState(), 4, 3, 6, structureBoundingBoxIn);
                 this.setBlockState(worldIn, vitrage.getDefaultState(), 2, 3, 8, structureBoundingBoxIn);
-                /*this.placeTorch(worldIn, EnumFacing.SOUTH, 2, 4, 7, structureBoundingBoxIn);
-                this.placeTorch(worldIn, EnumFacing.EAST, 1, 4, 6, structureBoundingBoxIn);
-                this.placeTorch(worldIn, EnumFacing.WEST, 3, 4, 6, structureBoundingBoxIn);
-                this.placeTorch(worldIn, EnumFacing.NORTH, 2, 4, 5, structureBoundingBoxIn);*/
                 this.placeLantern(worldIn, EnumFacing.SOUTH, 2, 4, 7, structureBoundingBoxIn);
                 this.placeLantern(worldIn, EnumFacing.EAST, 1, 4, 6, structureBoundingBoxIn);
                 this.placeLantern(worldIn, EnumFacing.WEST, 3, 4, 6, structureBoundingBoxIn);
@@ -503,6 +501,7 @@ public class StructureCustomVillage {
                 switch (rand.nextInt(10))
                 {
                     case 0:
+                    	return Blocks.WHEAT;
                     case 1:
                         return Blocks.CARROTS;
                     case 2:
@@ -511,7 +510,7 @@ public class StructureCustomVillage {
                     case 4:
                         return Blocks.BEETROOTS;
                     default:
-                        return Blocks.WHEAT;
+                        return ModBlocks.OXONIUM_CARROT_BLOCK;
                 }
             }
 
@@ -631,6 +630,7 @@ public class StructureCustomVillage {
                 switch (rand.nextInt(10))
                 {
                     case 0:
+                    	return Blocks.WHEAT;
                     case 1:
                         return Blocks.CARROTS;
                     case 2:
@@ -639,7 +639,7 @@ public class StructureCustomVillage {
                     case 4:
                         return Blocks.BEETROOTS;
                     default:
-                        return Blocks.WHEAT;
+                        return ModBlocks.OXONIUM_CARROT_BLOCK;
                 }
             }
 
@@ -980,6 +980,7 @@ public class StructureCustomVillage {
             }
         }
 
+    // Blacksmith house
     public static class House2 extends StructureCustomVillage.Village
         {
             private boolean hasMadeChest;
@@ -1118,24 +1119,6 @@ public class StructureCustomVillage {
                     System.out.println("After placing chest, block is: " + worldIn.getBlockState(chestPos));
                     System.out.println("generated chest once and that's it");
                 }
-                System.out.println("CALLED");
-                /*if (!pendingChests.isEmpty() && !worldIn.isRemote) {
-                    MinecraftForge.EVENT_BUS.register(new Object() {
-                        @SubscribeEvent
-                        public void onWorldTick(TickEvent.WorldTickEvent event) {
-                            if (event.world == worldIn && event.phase == TickEvent.Phase.END) {
-                                for (ChestInfo info : pendingChests) {
-                                    TileEntity te = worldIn.getTileEntity(info.pos);
-                                    if (te instanceof TileEntityOxoniumChest) {
-                                        ((TileEntityOxoniumChest) te).setLootTable(info.loot, worldIn.rand.nextLong());
-                                        System.out.println("Delayed loot set at: " + info.pos);
-                                    }
-                                }
-                                MinecraftForge.EVENT_BUS.unregister(this); // run only once
-                            }
-                        }
-                    });
-                }*/
                 this.spawnVillagers(worldIn, structureBoundingBoxIn, 7, 1, 1, 1);
                 return true;
             }
@@ -1199,24 +1182,6 @@ public class StructureCustomVillage {
                     return false;
                 }
             }
-            /*private final List<ChestInfo> pendingChests = new ArrayList<>();
-
-            protected boolean generateChest(World worldIn, StructureBoundingBox box, Random rand, BlockPos pos, ResourceLocation loot, @Nullable IBlockState state)
-            {
-                if (!box.isVecInside(pos)) return false;
-
-                if (worldIn.getBlockState(pos).getBlock() != ModBlocks.OXONIUM_CHEST)
-                {
-                    if (state == null)
-                        state = ModBlocks.OXONIUM_CHEST.getDefaultState(); // or with facing correction
-
-                    worldIn.setBlockState(pos, state, 2);
-
-                    pendingChests.add(new ChestInfo(pos, loot));
-                    return true;
-                }
-                return false;
-            }*/
         }
 
     public static class House3 extends StructureCustomVillage.Village

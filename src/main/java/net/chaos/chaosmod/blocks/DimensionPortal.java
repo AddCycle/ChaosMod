@@ -493,7 +493,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
                             break label56;
                         }
 
-                        if (block == ModBlocks.PORTAL_FRAMES)
+                        if (block == ModBlocks.PORTAL_FRAME)
                         {
                             ++this.portalBlockCount;
                         }
@@ -544,7 +544,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
             @SuppressWarnings("deprecation")
 			protected boolean isEmptyBlock(Block blockIn)
             {
-                return blockIn.getMaterial(blockIn.getBlockState().getBaseState()) == Material.AIR || blockIn == Blocks.FIRE || blockIn == ModBlocks.PORTAL_FRAMES;
+                return blockIn.getMaterial(blockIn.getBlockState().getBaseState()) == Material.AIR || blockIn == Blocks.FIRE || blockIn == ModBlocks.PORTAL_FRAME;
             }
 
             public boolean isValid()
@@ -560,7 +560,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
 
                     for (int j = 0; j < this.height; ++j)
                     {
-                        this.world.setBlockState(blockpos.up(j), ModBlocks.PORTAL_FRAMES.getDefaultState().withProperty(BlockPortal.AXIS, this.axis), 2);
+                        this.world.setBlockState(blockpos.up(j), ModBlocks.PORTAL_FRAME.getDefaultState().withProperty(BlockPortal.AXIS, this.axis), 2);
                     }
                 }
             }

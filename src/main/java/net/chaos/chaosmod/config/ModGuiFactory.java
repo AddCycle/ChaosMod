@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.config;
-
-import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,13 +24,17 @@ public class ModGuiFactory implements IModGuiFactory {
 
     @Override
     public GuiConfig createConfigGui(GuiScreen parentScreen) {
-        return new GuiConfig(parentScreen, getConfigElements(), Reference.MODID, false, false, "ChaosMod config");
+        return new GuiConfig(parentScreen, getConfigElements(), Reference.MODID, false, false, "ChaosMod Config");
     }
 
     private List<IConfigElement> getConfigElements() {
-        // Configuration config = new Configuration(new File(Minecraft.getMinecraft().mcDataDir, "config/chaosmod.cfg"));
         Configuration config = ModConfig.getConfig();
-        return new ConfigElement(config.getCategory(Configuration.CATEGORY_CLIENT)).getChildElements();
+        List<IConfigElement> elts = new ArrayList<IConfigElement>();
+        for (String str : config.getCategoryNames()) {
+        	List<IConfigElement> curr = new ConfigElement(config.getCategory(str)).getChildElements();
+        	elts.addAll(curr);
+        }
+        return elts;
     }
 
     @Override

@@ -74,6 +74,7 @@ public class ModItems {
 	
 	//Items
 	public static final Item OXONIUM_INGOT = new ItemBase("oxonium_ingot");
+	public static final Item OXONIUM_NUGGET = new ItemBase("oxonium_nugget");
 	public static final Item ALLEMANITE_INGOT = new AllemaniteIngot("allemanite_ingot");
 	public static final Item ENDERITE_INGOT = new EnderiteShard("enderite_ingot");
 	

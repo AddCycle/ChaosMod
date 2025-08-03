@@ -35,7 +35,8 @@ public class CustomPlanks extends Block implements IHasModel {
 		setRegistryName(name);
 		this.setDefaultState(
 			this.blockState.getBaseState().withProperty(VARIANT, CustomPlankVariant.SNOWY));
-										  
+		setHardness(2.0F);
+		setResistance(5.0F);
 		
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlockPlanks(this).setRegistryName(this.getRegistryName()));

@@ -10,6 +10,7 @@ import net.chaos.chaosmod.Main;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -23,7 +24,6 @@ import util.broadcast.MessageDisplayText;
 @EventBusSubscriber
 public class PlayerTickBiomeEvent {
 	private static final Map<UUID, Biome> lastBiomes = new HashMap<>();
-	// private static final List<String> customBiomeNames = Arrays.asList("Giant Mountains");
 
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -45,6 +45,7 @@ public class PlayerTickBiomeEvent {
 	    			// Singleplayer client
 	    			ClientMessageHandler.displayMessage(message);
 	    		}
+	    		player.playSound(SoundEvents.MUSIC_END, 1.0f, 1.0f);
 	    	// }
 	        lastBiomes.put(playerId, currentBiome);
 	    }

@@ -110,17 +110,11 @@ public class EntityViking extends EntityMob {
 			return "";
 
 		// Checks distance
-		if (this.getDistanceSq(player) > 40)
+		if (this.getDistanceSq(player) > 40) {
 			return "";
+		}
 
-		// Ray trace from player’s eyes
-		// RayTraceResult ray = Minecraft.getMinecraft().objectMouseOver;
-
-		// Check if player is pointing at this entity
-		// if (ray != null && ray.typeOfHit == RayTraceResult.Type.ENTITY &&
-		// ray.entityHit == this) {
 		return "Hello traveler! Want a quest?";
-		// }
 	}
 
 	@Override

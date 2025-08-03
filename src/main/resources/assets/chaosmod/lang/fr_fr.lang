@@ -21,6 +21,7 @@ item.enderite_axe.name=Hache en Enderite
 item.enderite_shovel.name=Pelle en Enderite
 
 item.all_in_one_bow.name=Arc tout-en-un
+item.all_in_one_sword.name=Epée tout-en-un
 
 //Armor
 item.oxonium_helmet.name=Casque de securité en oxonium
@@ -42,6 +43,7 @@ item.enderite_boots.name=Bottes en enderite
 item.oxonium_ingot.name=Lingot d'Oxonium
 item.allemanite_ingot.name=Lingot d'Allemanite
 item.enderite_shard.name=Fragment d'Enderite
+item.oxonium_nugget.name=Nugget en Oxonium
 
 //Food
 item.oxonium_carrot.name=Carotte en Oxonium
@@ -55,6 +57,7 @@ item.allemanite_necklace.name=Pendentif en Allemanite
 item.enderite_thunder.name=Eclair d'Enderite
 item.debug_wand.name=Baguette du Debug
 item.custom_fireball.name=Boule de Feu Custom
+item.portal_key.name=Clé du Portail de Solarium
 
 item.giant_heart.name=Coeur du Géant
 item.blazing_heart.name=Coeur du Blaze

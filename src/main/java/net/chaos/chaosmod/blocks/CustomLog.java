@@ -32,7 +32,6 @@ public class CustomLog extends BlockLog implements IHasModel {
 		setRegistryName(name);
 		this.setDefaultState(
 			this.blockState.getBaseState().withProperty(VARIANT, CustomLogVariant.SNOWY).withProperty(LOG_AXIS, EnumAxis.Y));
-										  
 		
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlockLog(this).setRegistryName(this.getRegistryName()));

@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+		{
+			"item": "chaosmod:oxonium_ingot"
+		}
+	],
+	
+	"result":
+	{
+		"item": "chaosmod:oxonium_nugget",
+		"count": 9
+	}
+}

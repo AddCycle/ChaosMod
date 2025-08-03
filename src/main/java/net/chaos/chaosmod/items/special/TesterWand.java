@@ -64,10 +64,10 @@ public class TesterWand extends ItemBase {
 	    		Vec3d look = playerIn.getLookVec();
 	    		EntitySmallBlueFireball fireball = new EntitySmallBlueFireball(worldIn, playerIn, look.x, look.y, look.z);
 	    		fireball.setPosition(
-	    				playerIn.posX + look.x * 1.5,
-	    				playerIn.posY + playerIn.getEyeHeight() - 0.1,
-	    				playerIn.posZ + look.z * 1.5
-	    				);
+	    			playerIn.posX + look.x * 1.5,
+	    			playerIn.posY + playerIn.getEyeHeight() - 0.1,
+	    			playerIn.posZ + look.z * 1.5
+	    		);
 	    		if (!worldIn.isRemote) worldIn.spawnEntity(fireball);
 	    		break;
 	    	case 2:
@@ -78,7 +78,6 @@ public class TesterWand extends ItemBase {
 	    	case 3:
 	    		playerIn.sendMessage(new TextComponentString("STARTING cutscene : "));
 	    		CutsceneManager.startCutscene(playerIn.getPosition());
-	    		// if (!worldIn.isRemote) worldIn.playSound(null, playerIn.getPosition(), ModSounds.HIGHEST_OP, SoundCategory.RECORDS, 1.0f, 1.0f);
 	    		break;
 	    	case 4:
 	    		playerIn.sendMessage(new TextComponentString("spawning crystal"));

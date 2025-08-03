@@ -23,7 +23,7 @@ public class RenderBlockOutlinesEvent {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onBlockHighlight(DrawBlockHighlightEvent event) {
-	    if (event.getTarget().typeOfHit != RayTraceResult.Type.BLOCK) return;
+	    if (!ModConfig.isBlockOutlineColorEnabled || event.getTarget().typeOfHit != RayTraceResult.Type.BLOCK) return;
 
 	    World world = event.getPlayer().getEntityWorld();
 	    BlockPos pos = event.getTarget().getBlockPos();
@@ -44,8 +44,7 @@ public class RenderBlockOutlinesEvent {
 	    double dz = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTicks;
 
 	    AxisAlignedBB shifted = box.offset(-dx, -dy, -dz);
-	    Color color = new Color(ModConfig.outline_color);
-	    // System.out.println(color.getRGB());
+	    Color color = new Color(ModConfig.block_outline_color);
 
 	    // Draw red bounding box
 	    GlStateManager.pushMatrix();

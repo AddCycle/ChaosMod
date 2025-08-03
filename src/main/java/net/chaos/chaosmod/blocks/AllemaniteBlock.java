@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.blocks;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 
 public class AllemaniteBlock extends BlockBase {
 

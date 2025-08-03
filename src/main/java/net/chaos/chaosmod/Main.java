@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomPlanks;
 import net.chaos.chaosmod.client.inventory.shield.PacketShieldSync;
-import net.chaos.chaosmod.commands.CheatCommand;
 import net.chaos.chaosmod.commands.CraftCommand;
 import net.chaos.chaosmod.commands.DimensionWarpCommand;
 import net.chaos.chaosmod.commands.FeedCommand;
@@ -18,6 +17,7 @@ import net.chaos.chaosmod.commands.HomeCommand;
 import net.chaos.chaosmod.commands.LocalizeCommand;
 import net.chaos.chaosmod.commands.SetHomeCommand;
 import net.chaos.chaosmod.commands.TopCommand;
+import net.chaos.chaosmod.commands.UltimateDebuggerCommand;
 import net.chaos.chaosmod.commands.generation.LoadStructCommand;
 import net.chaos.chaosmod.config.ConfigEventHandler;
 import net.chaos.chaosmod.config.ModConfig;
@@ -57,10 +57,12 @@ import net.chaos.chaosmod.world.structures.StructureCustomVillage;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -118,10 +120,9 @@ public class Main
         proxy.preInit(event);
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
-    	ConfigEventHandler.JVM_load();
     	ModConfig.init(event.getSuggestedConfigurationFile());
         ModSounds.registerSounds();
-        ModCapabilities.register(); // for necklace and other things
+        ModCapabilities.register(); // for in-game-accessories
         // MapGenStructureIO.registerStructureComponent(StructureVillagePieces.Start.class, "MyVillageStart");
         // MapGenStructureIO.registerStructureComponent(StructureVillagePieces.House1.class, "MyStructureVillageHouse1");
         // StructureCustomVillage.registerVillagePieces();
@@ -132,8 +133,6 @@ public class Main
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         // GameRegistry.registerWorldGenerator(new VillageWorldGen(), 1);
         // GameRegistry.registerWorldGenerator(new VillageWorldGen(), 0);
-        // OreDictionary.registerOre("ingotEnderite", new ItemStack(ModItems.ENDERITE_INGOT));
-	    // OreDictionary.registerOre("toolTinkerHammer", new ItemStack(ModItems.TINKERERS_HAMMER, 1, OreDictionary.WILDCARD_VALUE));
         // GameRegistry.registerWorldGenerator(new ModGenSurface(), 0);
         // GameRegistry.registerWorldGenerator(new CustomDungeonBuilder(), 2);
         ModEntities.registerEntities();
@@ -145,7 +144,6 @@ public class Main
     public void init(FMLInitializationEvent event)
     {
         proxy.init(event);
-        // CapabilityManager.INSTANCE.register(IAccessory.class, new AccessoryStorage(), AccessoryImpl::new); // for the necklace and other accessories
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
         CustomProfessions.registerCustomProfessions();
     	network.registerMessage(MessageDisplayTextHandler.class, MessageDisplayText.class, 0, Side.CLIENT);
@@ -155,11 +153,7 @@ public class Main
 		network.registerMessage(PacketShieldSync.Handler.class, PacketShieldSync.class, 4, Side.CLIENT);
 		network.registerMessage(PacketForgeCraft.Handler.class, PacketForgeCraft.class, 5, Side.SERVER);
 		network.registerMessage(PacketSpawnCustomParticle.ClientHandler.class, PacketSpawnCustomParticle.class, 6, Side.CLIENT);
-        // GameRegistry.registerWorldGenerator(new WorldGenCustomDungeon(), 2);
-        // GameRegistry.registerWorldGenerator(new WorldGenCaveDungeon(), 3);
         WorldGenerationOverrideEvents.class.getName(); // force-load
-        // WorldGenerationOverrideEvents.JVM_load();
-        // MinecraftForge.EVENT_BUS.register(WorldGenerationOverrideEvents.class);
         MinecraftForge.EVENT_BUS.register(new RenderBlockOutlinesEvent());
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
@@ -176,11 +170,6 @@ public class Main
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.ENDER_GARDEN, 50));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CHAOS_LAND_BIOME, 50));
         ModDimensions.init();
-        // BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CUSTOM_HELL, 50));
-        /*DimensionManager.unregisterDimension(-1);
-        DimensionManager.registerDimension(-1, DimensionType.register(
-            "custom_hell", "_hell", -1, CustomHellProvider.class, false
-        ));*/
         // TODO : refactor that other part (it's forge tags to match any recipe using planks)
         // OreDictionary.registerOre("toolTinkerHammer", new ItemStack(ModItems.TINKERERS_HAMMER, 1, OreDictionary.WILDCARD_VALUE));
         for (CustomLog.CustomLogVariant variant : CustomLog.CustomLogVariant.values()) {
@@ -215,19 +204,21 @@ public class Main
     
     @EventHandler
     public void ServerInit(FMLServerStartingEvent event) {
-    	event.registerServerCommand(new DimensionWarpCommand());
-    	event.registerServerCommand(new TopCommand());
     	event.registerServerCommand(new FindBlockCommand());
     	event.registerServerCommand(new GuideCommand());
         event.registerServerCommand(new CraftCommand());
         event.registerServerCommand(new FurnaceCommand());
-        event.registerServerCommand(new CheatCommand());
+        event.registerServerCommand(new UltimateDebuggerCommand());
         event.registerServerCommand(new SetHomeCommand());
         event.registerServerCommand(new HomeCommand());
         event.registerServerCommand(new FireCommand());
-        event.registerServerCommand(new HealCommand());
         event.registerServerCommand(new FeedCommand());
         event.registerServerCommand(new LocalizeCommand());
         event.registerServerCommand(new LoadStructCommand());
+		if (!Loader.isModLoaded("mathsmod")) {
+			event.registerServerCommand(new TopCommand());
+			event.registerServerCommand(new DimensionWarpCommand());
+			event.registerServerCommand(new HealCommand());
+		}
     }
 }

@@ -48,7 +48,6 @@ public class GuiInventoryExtended extends GuiInventory {
         this.buttonList.add(toggleButton = new GuiButton(99, this.guiLeft + 59, this.guiTop + 8, 15, 12, "") {
         	@Override
         	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
         		if (this.visible)
         		{
         			FontRenderer fontrenderer = mc.fontRenderer;

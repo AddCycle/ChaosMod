@@ -127,19 +127,6 @@ public class PlayerLifeEvents {
 	    }
 	}
 	
-	// TENTATIVE INFRUCTUEUSE
-	/*@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void onGuiOpen(GuiOpenEvent event) {
-	    // GUI is closing
-	    if (event.getGui() == null && ClientSoundHandler.isMusicPaused()) {
-	        Minecraft.getMinecraft().addScheduledTask(() -> {
-	        	System.out.println("Pause force the sounds");
-	            // ClientSoundHandler.forcePause(); // forcibly re-pause music
-	        });
-	    }
-	}*/
-	
 	@SubscribeEvent
 	public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 	    if (event.getObject() instanceof EntityPlayer) {

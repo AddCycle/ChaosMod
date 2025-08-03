@@ -21,6 +21,7 @@ item.enderite_axe.name=Enderite Axe
 item.enderite_shovel.name=Enderite Shovel
 
 item.all_in_one_bow.name=All In One Bow
+item.all_in_one_sword.name=All In One Sword
 
 //Armor
 item.oxonium_helmet.name=Oxonium Security Helmet
@@ -42,6 +43,7 @@ item.enderite_boots.name=Enderite Boots
 item.oxonium_ingot.name=Oxonium Ingot
 item.allemanite_ingot.name=Allemanite Ingot
 item.enderite_ingot.name=Enderite Ingot
+item.oxonium_nugget.name=Oxonium Nugget
 
 //Food
 item.oxonium_carrot.name=Oxonium Carrot
@@ -55,6 +57,7 @@ item.allemanite_necklace.name=Allemanite Necklace
 item.enderite_thunder.name=Enderite Thunder
 item.debug_wand.name=Debug Wand
 item.custom_fireball.name=Custom Fireball
+item.portal_key.name=Portal Key
 
 item.giant_heart.name=Giant Heart
 item.blazing_heart.name=Blazing Heart

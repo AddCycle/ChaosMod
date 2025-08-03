@@ -51,14 +51,9 @@ public class OxoniumSword extends ToolSword {
         double d0 = (double)(-MathHelper.sin(playerIn.rotationYaw * 0.017453292F));
         double d1 = (double)MathHelper.cos(playerIn.rotationYaw * 0.017453292F);
         
-//        Minecraft mc = Minecraft.getMinecraft();
-        
-//        if (worldIn.isRemote) mc.effectRenderer.addEffect(
-//        	new ColoredSweepParticle(mc.getTextureManager(), worldIn, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, d0, 0.0D, d1, random.nextInt(0xffffff + 1)));
-
         if (!worldIn.isRemote) {
         Main.network.sendToAll(
-                new PacketSpawnCustomParticle("sweep", playerIn.posX, playerIn.posY, playerIn.posZ));
+        		new PacketSpawnCustomParticle("sweep", playerIn.posX, playerIn.posY, playerIn.posZ));
         }
     }
 
@@ -70,8 +65,6 @@ public class OxoniumSword extends ToolSword {
         if (!worldIn.isRemote) {
         	Main.network.sendToAll(new PacketSpawnCustomParticle("coin", playerIn.posX, playerIn.posY, playerIn.posZ));
         }
-//        if (worldIn.isRemote) mc.effectRenderer.addEffect(
-//        	new CoinParticles(mc.getTextureManager(), worldIn, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, d0, 0.0D, d1));
     }
 
 }

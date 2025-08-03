@@ -1,0 +1,76 @@
+<p align="center"><h1>ChaosMod 1.12.2 - project specs</h1></p>
+<hr>
+## Ideas (en vrac):
+-# All the unorganized ideas that I have for a first complete and fun version (around 10 hours of game):
+
+General purpose of this mod :
+Having fun through "the lore of (two -> four) civilizations which were overpowered and fought gigantic battles annihilating themselves."
+The mystery = "But for what purpose were they fighting ?"
+Next part of the lore = "The Chaos Master told the 2/4 civilians to fight for the cube of chaos because if another found it, they will destroy the world.
+So in order to preserve the peace, they had to find it first. And stop others from destroying the world"
+The Goal = "Kill the guardians to awaken the Boss of the Chaos and kill him to save the honor of the past civilians"
+Conclusion = "To much ambition of power leads to annihilation"
+
+New minerals :
+ - Oxonium (useful against the first civilization) :
+	Location : Overworld (same height as the iron ore)
+	Rarity : Uncommon (a little bit less than iron ore)
+	Purposes : (Stop redoundance not the same purposes as iron) [
+		NAME : DESCRIPTION : USAGE : STATS
+		Brave boots : Des bottes qui donnent la possibilité de fuire les combats comme un brave lorsque tu n'as presque plus de vie (< 20 %): do not be bothered by obstacles : speed boost & jump boost like you are panicked + no fall damage
+		Oxonium Necklace : Can be weared in an other slot : Grants regeneration I
+		Oxonium Hallebarde : Yolo, tu n'as plus rien a perdre : Lenteur mais des dégats de porc (+50% de degats/viking aidé)
+		Oxonium Bricks : Mais c'est de tout beauté : Ces briques resistent aux explosions
+		Oxonium Block : Si tu veux flex : Attire pixou qui va essayer de te les voler mais si tu le choppes, un grand tresor t'attends
+	]
+
+ - Allemanite (useful against the second) :
+	Location : In the Nether (maybe found in the new biome "Nether cave")
+	Rarity : Rare (a little bit more than diamond)
+	Purposes : (Stop redoundance and not the same purposes as netherite/diamond) [
+		NAME : DESCRIPTION : USAGE : STATS
+		Allemanite Estinguisher : Appelez les pompiers : When right-clicked on the ground under the player, animation of a smoke and extinguish the player from blue flames of the blaze : 10 usages at most
+		Allemanite Backpack : Oh you don't have place in your inventory ? No problem : Used to transport players loot and stuff, can be bound to a chest to transfer its stuff automatically and physically
+		Allemanite Pickaxe : Dig through the hell : Used to gather enderite & dig 3x3 blocks if the bourrin mode is active <idk>(shift+right-click)
+	]
+
+ - Enderite (useful against the third) :
+	Location : In the End (found in the Chaos biome inside the Ender)
+	Rarity : Legendary (like polarite)
+	Purposes : (Stop redoundance so new mechanic -> enderite forge) [
+		Enderite Tinkerer's hammer : Used to build the Enderite Forge : Right-click when the pattern is built to finish the construction
+		Enderite Forge : Used to craft advanced weapons/armors : Bow with blending of few minerals to give it some characteristics (ex : allemanite + oxonium = vitesse + resistance au feu bleu)
+		Enderite Thunder : Frappe par la foudre l'ennemi qu'il touche, ne fait rien aux creatures pacifiques : Craftable avec un eclair en bouteille trouvable dans les structures du Chaos Biome dans l'End (Palais de la foudre -> boss + loots + altar qui permetterait une fois le boss vaicu avec son coeur d'ouvrir un portail vers la dimension de la Foudre)
+	]
+
+New items :
+	NAME : DESCRIPTION : EFFECTS
+	Gimpsy Necklace : Le sang de tes morts : Can enter in a berserker mode by typing a key (maybe <ENTER>) + tellement excité que tu dois te reposer toutes les 10 secondes
+	Brave boots : Des bottes qui donnent la possibilité de fuire les combats comme un brave lorsque tu n'as presque plus de vie (< 20 %): do not be bothered by obstacles : speed boost & jump boost like you are panicked
+	Oxonium Necklace : Can be weared in an other slot : Grants
+	Oxonium Hallebarde : Yolo, tu n'as plus rien a perdre : Lenteur mais des dégats de porc (+50% de degats/viking aidé)
+
+New blocks :
+	NAME : DESCRIPTION : STATS
+	Oxonium Bricks : Mais c'est de tout beauté : Ces briques resistent aux explosions
+	Oxonium Block : Si tu veux flex : Attire pixou qui va essayer de te les voler mais si tu le choppes, un grand tresor t'attends
+
+New biomes :
+	NAME : DESCRIPTION : FUNCTION
+	Higher mountains : In order to spawn the boss "Mountain Giant", Also containing some Menhirs and Mahoris statues
+	Nether cave : In order to summon the boss "The Revenger Blaze", also containing some chests and loots as potions and allemanite enchanted pieces
+	Chaos biome : In order to summon the "The Eye of Truth boss"
+
+New dimension :
+	NAME : DESCRIPTION : FUNCTION
+	ChaosLand : Basically just a platform with an altar in the center to spawn the ChaosBoss
+
+New entities :
+	NAME : FUNCTION : DESCRIPTION : STATS
+	Pixou : req(3 blocks of oxonium), he will sneak and come to steal the blocks from you, if you watch him while he is coming at you, he will run away, you have to wait at him, while he is breaking blocks to steal them, then you hit him and he will disappear dropping you tons of <idk>(emeralds) : Si tu poses au moins 3 blocks d'oxonium les uns a cote des autres, il va essayer de te les choper
+	Le Sage du Chaos : Guider le joueur pas à pas dans son aventure jusqu'a la fin, allant des crafts jusqu'aux fights et meme aux bosses (donnant des indices je pense)
+	Boss de l'overworld : Le Géant des montagnes : Balance des pierres et frappe sur le sol generant une secousse qui propulse les joueurs en l'air : Il est plus facile a battre avec la Hallebarde en Oxonium et les bottes du Brave (no fall damage)
+	Boss du Nether : Le Blaze Vengeur : Attaque les joueurs avec des flammes et a 50 % de sa vie se transforme en blaze bleu : (message dans le chat : Il commence a faire un peu chaud ici...) puis balance des flammes bleues qui font tres mal et qui sont surtout impossible a eteindre sans l'extincteur en Allemanite
+	Boss de l'End : L'oeil de la verite : C'est une tour qui fait spawn des ennemis et qui a un altar qui spawn dans le biome du Chaos : Un boss qui change un peu de d'habitude avec des vagues et qui a la fin drop les 4 crystal shards qui font spawn le Dragon du Chaos
+	Boss du Chaos : Pour le faire spawn, il faut battre les 3 boss et un coeur de dragon donc... + Spawning animation -> health bar -> special weapons to fight him required to break his shield or to be more efficient through his phases -> Kill animation and special drops messages through chat and maybe a music : Pour reveiller le boss du chaos, il faudra tuer des boss intermedaires (Overworld, Nether, End et finalement le combat a lieu dans la dimension du Chaos) -> drop des items funs et surtout fait spawn un biome bisounours avec que des trucs golris
+	Bien sûr, l'objectif c'est ensuite de l'ameliorer, mais avant de le monetiser (github + patreon + ko-fi support nouvelles versions de minecraft + neoforge)

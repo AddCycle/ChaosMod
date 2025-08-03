@@ -20,9 +20,7 @@ import net.minecraft.world.gen.structure.StructureStart;
 public class MapGenCustomVillage extends MapGenStructure {
 
     public static List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.TAIGA, ModBiomes.GIANT_MOUNTAIN, ModBiomes.NETHER_CAVES, ModBiomes.ENDER_GARDEN, ModBiomes.CHAOS_LAND_BIOME);
-	// public static List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(ModBiomes.GIANT_MOUNTAIN, ModBiomes.NETHER_CAVES, ModBiomes.ENDER_GARDEN, ModBiomes.CHAOS_LAND_BIOME);
-	// public static List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(Biomes.PLAINS);
-	/** None */
+	/** None **/
 	private int size;
 	private int distance;
 	private final int minTownSeparation;

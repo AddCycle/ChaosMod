@@ -79,7 +79,7 @@ public class ModBlocks {
 	public static final Block FIREFIGHTER_TROPHY = new BlockTrophy("firefighter_trophy", 2);
 	public static final Block EYE_TROPHY = new BlockTrophy("eye_trophy", 3);
 	public static final Block TALENT_TROPHY = new BlockTrophy("talent_trophy", 4);
-	public static final Block PORTAL_FRAMES = new DimensionPortal("dim_portal");
-	public static final Block FAKE_LIGHT_BLOCK = new FakeLightBlock("fake_light_block");
+	public static final Block PORTAL_FRAME = new DimensionPortal("portal_frame");
+//	public static final Block FAKE_LIGHT_BLOCK = new FakeLightBlock("fake_light_block");
 
 }

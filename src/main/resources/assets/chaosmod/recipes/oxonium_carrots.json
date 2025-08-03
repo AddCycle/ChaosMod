@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"nnn",
+		"ncn",
+		"nnn"
+	],
+	
+	"key":
+	{
+		"n":
+		{
+			"item": "chaosmod:oxonium_nugget"
+		},
+
+		"c":
+		{
+			"item": "minecraft:carrot"
+		}
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:oxonium_carrot",
+		"count": 1
+	}
+}
