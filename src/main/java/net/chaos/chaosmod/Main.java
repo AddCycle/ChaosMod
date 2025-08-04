@@ -93,7 +93,7 @@ public class Main
 	@Instance
 	public static Main instance = Init(); // Maybe move that into the pre-init phase
 	
-	static Main Init() {
+	private static Main Init() {
 		MapGenStructureIO.registerStructure(MapGenCustomVillage.Start.class, "Custom Village");
 		StructureCustomVillage.registerVillagePieces();
 		MapGenStructureIO.registerStructure(CustomWoodlandMansion.Start.class, "Custom Mansion");
@@ -123,21 +123,8 @@ public class Main
     	ModConfig.init(event.getSuggestedConfigurationFile());
         ModSounds.registerSounds();
         ModCapabilities.register(); // for in-game-accessories
-        // MapGenStructureIO.registerStructureComponent(StructureVillagePieces.Start.class, "MyVillageStart");
-        // MapGenStructureIO.registerStructureComponent(StructureVillagePieces.House1.class, "MyStructureVillageHouse1");
-        // StructureCustomVillage.registerVillagePieces();
-
-        // Add structure to biomes in init:
-        
-        // registerStructure("MyEntireVillage", new Village());
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
-        // GameRegistry.registerWorldGenerator(new VillageWorldGen(), 1);
-        // GameRegistry.registerWorldGenerator(new VillageWorldGen(), 0);
-        // GameRegistry.registerWorldGenerator(new ModGenSurface(), 0);
-        // GameRegistry.registerWorldGenerator(new CustomDungeonBuilder(), 2);
         ModEntities.registerEntities();
-        // ChaosModPacketHandler.registerMessage();
-		// Main.network.registerMessage(OxoniumFurnaceMessageHandler.class, OxoniumFurnaceMessage.class, 1, Side.CLIENT);
     }
 
     @EventHandler

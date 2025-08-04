@@ -18,6 +18,8 @@ public class BlockBase extends Block implements IHasModel {
 		super(material);
 		setUnlocalizedName(name);
 		setRegistryName(name);
+		setHardness(2.0f);
+		setResistance(30.0f);
 	
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlockBase(this).setRegistryName(this.getRegistryName()));

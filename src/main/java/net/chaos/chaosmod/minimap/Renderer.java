@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.minimap;
 
 import java.awt.Color;
+import java.util.Arrays;
 
 import org.lwjgl.opengl.GL11;
 
@@ -16,14 +17,14 @@ import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,6 +37,109 @@ public class Renderer {
 	private static final ResourceLocation transparentMap = new ResourceLocation(Reference.MODID, "textures/gui/minimap/frame.png");
     private static final int WIDTH = 256;
     private static final int HEIGHT = 256;
+    private static DynamicTexture minimapTexture;
+    private static ResourceLocation minimapTextureLocation;
+    private static int lastMapSize = -1;
+    private static int lastPixelSize = -1;
+
+    public static void init() {
+        minimapTexture = new DynamicTexture(ModConfig.minimapSize, ModConfig.minimapSize);
+        minimapTextureLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("minimap", minimapTexture);
+    }
+    
+    public static void updateMinimapTexture(EntityPlayer player) {
+        int mapSize = ModConfig.minimapSize;
+        
+        if (minimapTexture == null || mapSize != lastMapSize) {
+            recreateMinimapTexture(mapSize);
+            lastMapSize = mapSize;
+        }
+
+        Renderer.MapData mapData = getMapBlockColorsAndHeights(player.getPosition(), mapSize);
+
+        int[][] colors = mapData.colors;
+        int[][] heights = mapData.heights;
+
+        int[] pixels = minimapTexture.getTextureData();
+        if (pixels.length != mapSize * mapSize) {
+            // Safety: avoid crash if size mismatch
+            recreateMinimapTexture(mapSize);
+            pixels = minimapTexture.getTextureData();
+        }
+
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                int height = heights[i][j];
+                int baseColor = colors[i][j];
+
+                int neighborI = Math.max(0, i - 1);
+                int neighborJ = Math.max(0, j - 1);
+                int neighborHeight = heights[neighborI][neighborJ];
+
+                int diff = height - neighborHeight;
+                float brightness = 1.0f + (diff * 0.15f);
+                brightness = Math.max(0.5f, Math.min(1.5f, brightness));
+
+                int shadedColor = applyBrightness(baseColor, brightness);
+
+                pixels[i + j * mapSize] = 0xFF000000 | shadedColor; // Ensure alpha = 255
+            }
+        }
+
+        minimapTexture.updateDynamicTexture(); // Upload to GPU
+    }
+    
+    public static void recreateMinimapTexture(int newSize) {
+        if (minimapTexture != null) {
+            minimapTexture.deleteGlTexture();
+        }
+
+        minimapTexture = new DynamicTexture(newSize, newSize);
+        minimapTextureLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("minimap", minimapTexture);
+
+        lastMapSize = newSize;
+        lastPixelSize = ModConfig.pixelSize; // assuming you have this
+    }
+    
+    public static void clearMinimap() {
+        if (minimapTexture == null) return;
+        int[] pixels = minimapTexture.getTextureData();
+        Arrays.fill(pixels, 0xFF000000); // Fill with opaque black
+        minimapTexture.updateDynamicTexture();
+    }
+    
+    public static void drawMinimap(ScaledResolution resolution, int pixelSize) {
+        int mapSize = ModConfig.minimapSize;
+
+        if (pixelSize != lastPixelSize || mapSize != lastMapSize) {
+            recreateMinimapTexture(mapSize);  // Optional: if pixelSize affects size
+            lastPixelSize = pixelSize;
+            lastMapSize = mapSize;
+        }
+        
+        if (minimapTexture == null || minimapTextureLocation == null) return;
+
+        Minecraft mc = Minecraft.getMinecraft();
+        GlStateManager.enableBlend();
+        mc.getTextureManager().bindTexture(minimapTextureLocation);
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buffer = tess.getBuffer();
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+
+        float x = 0; // offsetX
+        float y = 0; // offsetY
+        float width = mapSize * pixelSize;
+        float height = mapSize * pixelSize;
+
+        buffer.pos(x, y + height, 0).tex(0, 1).endVertex();
+        buffer.pos(x + width, y + height, 0).tex(1, 1).endVertex();
+        buffer.pos(x + width, y, 0).tex(1, 0).endVertex();
+        buffer.pos(x, y, 0).tex(0, 0).endVertex();
+
+        tess.draw();
+        GlStateManager.disableBlend();
+    }
     
     public static void drawOpaqueSprite(ScaledResolution resolution) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(opaqueLogo);
@@ -77,8 +181,8 @@ public class Renderer {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-        float w = (WIDTH * (pixelSize - 3)) / ((float)resolution.getScaleFactor()) - 1 + sizeOverlayConfig;
-        float h = (HEIGHT * (pixelSize - 3)) / ((float)resolution.getScaleFactor()) - 1 + sizeOverlayConfig;
+        float w = sizeOverlayConfig * pixelSize;
+        float h = sizeOverlayConfig * pixelSize;
         buffer.pos(0,0,0).tex(0, 0).color(1f, 1f, 1f, 1f).endVertex();
         buffer.pos(0,h,0).tex(0, 1f).color(1f, 1f, 1f, 1f).endVertex();
         buffer.pos(w, h,0).tex(1f, 1f).color(1f, 1f, 1f, 1f).endVertex();
@@ -103,10 +207,26 @@ public class Renderer {
             for (int dz = -8; dz <= 8; dz++) {
                 int worldX = playerPos.getX() + dx;
                 int worldZ = playerPos.getZ() + dz;
-                int worldY = mc.world.getTopSolidOrLiquidBlock(new BlockPos(worldX, 0, worldZ)).getY();
-                BlockPos pos = new BlockPos(worldX, worldY - 1, worldZ);
+                
+                int worldY = mc.world.getHeight(); // Start from max height
+                BlockPos topPos = null;
 
-                int color = mc.world.getBlockState(pos).getMaterial().getMaterialMapColor().colorValue;
+                for (int y = worldY - 1; y >= 0; y--) {
+                    BlockPos checkPos = new BlockPos(worldX, y, worldZ);
+                    IBlockState state = mc.world.getBlockState(checkPos);
+                    Material mat = state.getMaterial();
+
+                    if (state.getBlock().isAir(state, mc.world, checkPos) && mat != Material.PLANTS && mat != Material.VINE && mat != Material.LEAVES) {
+                        topPos = checkPos;
+                        break;
+                    }
+                }
+
+                if (topPos == null) {
+                    continue; // Skip this column, nothing found
+                }
+
+                int color = mc.world.getBlockState(topPos).getMaterial().getMaterialMapColor().colorValue;
                 // System.out.println("color : " + color);
                 Color c = new Color(color);
 
@@ -122,23 +242,7 @@ public class Renderer {
 
         tessellator.draw();
     }
-    
-    private static int average(int a, int b) {
-        return (a + b) / 2;
-    }
 
-    private static int blendBiomeColors(World world, BlockPos pos) {
-        Biome biome = world.getBiome(pos);
-        int grass = biome.getGrassColorAtPos(pos);
-        int foliage = ColorizerFoliage.getFoliageColor(biome.getTemperature(pos), biome.getRainfall());
-
-        int r = average((grass >> 16) & 0xFF, (foliage >> 16) & 0xFF);
-        int g = average((grass >> 8) & 0xFF, (foliage >> 8) & 0xFF);
-        int b = average(grass & 0xFF, foliage & 0xFF);
-
-        return (r << 16) | (g << 8) | b;
-    }
-    
     private static int getWorldTopColor(World world, BlockPos pos) {
     	// v4
     	IBlockState state = world.getBlockState(pos);
@@ -160,16 +264,6 @@ public class Renderer {
 
         // Safe fallback color
         return 0x555555;
-    	// v3
-    	// return blendBiomeColors(world, pos);
-    	// v2
-    	/*IBlockState state = world.getBlockState(pos);
-    	Biome biome = world.getBiome(pos);
-    	return biome.getGrassColorAtPos(pos);*/
-    	// v1
-        /*IBlockState state = world.getBlockState(pos);
-        MapColor mapColor = state.getMaterial().getMaterialMapColor();
-        return (mapColor != null) ? mapColor.colorValue : 0; // Default to black if null*/
     }
     
     public static int getBlockColor(World world, int x, int z) {
@@ -207,39 +301,6 @@ public class Renderer {
         return colors;
     }
     
-    // New TODO : optimizing
-    public static void drawPixel(ScaledResolution resolution, int size, float posX, float posY, int color) {
-        // Color c = (color != 9923917) ? new Color(color) : Color.cyan;
-    	// Extract color channels once
-        int r = (color >> 16) & 0xFF;
-        int g = (color >> 8) & 0xFF;
-        int b = color & 0xFF;
-
-        GlStateManager.pushMatrix();
-        GlStateManager.enableBlend();
-        GlStateManager.disableTexture2D(); // Only if you're drawing raw colors (no textures)
-        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-
-        float scale = resolution.getScaleFactor();
-        float pixel = size / scale;
-        float x = pixel * posX;
-        float y = pixel * posY;
-
-        buffer.pos(x, y, 0).color(r, g, b, 255).endVertex();
-        buffer.pos(x, y + pixel, 0).color(r, g, b, 255).endVertex();
-        buffer.pos(x + pixel, y + pixel, 0).color(r, g, b, 255).endVertex();
-        buffer.pos(x + pixel, y, 0).color(r, g, b, 255).endVertex();
-
-        tessellator.draw();
-
-        GlStateManager.enableTexture2D();
-        GlStateManager.popMatrix();
-    }
-    
     public static class MapData {
         public final int[][] colors;
         public final int[][] heights;
@@ -273,16 +334,22 @@ public class Renderer {
                     continue;
                 }
 
-                // Get chunk and world height
-                Chunk chunk = world.getChunkFromBlockCoords(heightQueryPos);
-                int worldY = world.getHeight(worldX, worldZ);
-                BlockPos topPos = new BlockPos(worldX, worldY - 1, worldZ);
+                MapColor color = MapColor.AIR;
+                int worldY = 0;
 
-                // Use chunk to get blockstate (faster than world.getBlockState)
-                IBlockState state = chunk.getBlockState(topPos);
-                System.out.println(state.getBlock());
-                MapColor color = state.getMaterial().getMaterialMapColor();
-                System.out.println("Color : " + color.colorValue);
+                for (int y = world.getActualHeight() - 1; y > 0; y--) {
+                    BlockPos checkPos = new BlockPos(worldX, y, worldZ);
+                    IBlockState state = world.getBlockState(checkPos);
+                    Material mat = state.getMaterial();
+
+                    if (!state.getBlock().isAir(state, world, checkPos) &&
+                        mat != Material.PLANTS &&
+                        mat != Material.VINE) {
+                        color = mat.getMaterialMapColor();
+                        worldY = y;
+                        break;
+                    }
+                }
 
                 heights[x][z] = worldY;
                 colors[x][z] = color != null ? color.colorValue : 0;
@@ -310,12 +377,8 @@ public class Renderer {
 
     	String coords = String.format("XYZ: %d / %d / %d", posX, posY, posZ);
 
-    	// Example: bottom-left of minimap
-    	int mapLeft = 0; // or wherever your minimap starts
-    	int mapTop = 0;
-    	// int textX = centerX + coords.length() / mapSize;
     	int textX = 2;
-    	int textY = centerY + mapSize / 4; // Just below minimap
+    	int textY = centerY + mapSize / 4;
 
     	if (ModConfig.displayCoords) mc.fontRenderer.drawStringWithShadow(coords, textX, textY, 0xFFFFFF);
         GlStateManager.disableTexture2D(); // Prevent texture bleed

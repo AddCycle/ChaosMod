@@ -233,8 +233,8 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
     {
         if (entityIn instanceof EntityPlayer && !entityIn.isRiding() && !entityIn.isBeingRidden() && entityIn.isNonBoss())
         {
-        	// entityIn.setPortal(pos);
-        	TeleportUtil.teleport((EntityPlayer) entityIn, 2, entityIn.posX, entityIn.posY, entityIn.posZ);
+        	int dimension = 2;
+        	TeleportUtil.teleport((EntityPlayer) entityIn, dimension, entityIn.posX, entityIn.posY, entityIn.posZ);
         }
     }
 
@@ -457,14 +457,14 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
                 {
                     BlockPos blockpos = p_180120_1_.offset(p_180120_2_, i);
 
-                    if (!this.isEmptyBlock(this.world.getBlockState(blockpos).getBlock()) || this.world.getBlockState(blockpos.down()).getBlock() != ModBlocks.ENDERITE_BRICKS)
+                    if (!this.isEmptyBlock(this.world.getBlockState(blockpos).getBlock()) || this.world.getBlockState(blockpos.down()).getBlock() != ModBlocks.CHAOS_PORTAL_BLOCK)
                     {
                         break;
                     }
                 }
 
                 Block block = this.world.getBlockState(p_180120_1_.offset(p_180120_2_, i)).getBlock();
-                return block == ModBlocks.ENDERITE_BRICKS ? i : 0;
+                return block == ModBlocks.CHAOS_PORTAL_BLOCK ? i : 0;
             }
 
             public int getHeight()
@@ -502,7 +502,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
                         {
                             block = this.world.getBlockState(blockpos.offset(this.leftDir)).getBlock();
 
-                            if (block != ModBlocks.ENDERITE_BRICKS)
+                            if (block != ModBlocks.CHAOS_PORTAL_BLOCK)
                             {
                                 break label56;
                             }
@@ -511,7 +511,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
                         {
                             block = this.world.getBlockState(blockpos.offset(this.rightDir)).getBlock();
 
-                            if (block != ModBlocks.ENDERITE_BRICKS)
+                            if (block != ModBlocks.CHAOS_PORTAL_BLOCK)
                             {
                                 break label56;
                             }
@@ -521,7 +521,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
 
                 for (int j = 0; j < this.width; ++j)
                 {
-                    if (this.world.getBlockState(this.bottomLeft.offset(this.rightDir, j).up(this.height)).getBlock() != ModBlocks.ENDERITE_BRICKS)
+                    if (this.world.getBlockState(this.bottomLeft.offset(this.rightDir, j).up(this.height)).getBlock() != ModBlocks.CHAOS_PORTAL_BLOCK)
                     {
                         this.height = 0;
                         break;

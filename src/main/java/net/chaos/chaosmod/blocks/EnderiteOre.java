@@ -1,22 +1,17 @@
 package net.chaos.chaosmod.blocks;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import net.chaos.chaosmod.init.ModItems;
-import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import util.text.format.colors.ColorEnum;
-import util.text.format.style.StyleEnum;
 
 public class EnderiteOre extends BlockBase {
 
@@ -30,8 +25,8 @@ public class EnderiteOre extends BlockBase {
 
 	@Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(ColorEnum.RED + "Mythical Ore");
-		tooltip.add(ColorEnum.DARK_PURPLE + "" + StyleEnum.ITALIC + "This mineral will be useful for teleporting purposes");
+		tooltip.add(TextFormatting.RED + "Mythical Ore");
+		tooltip.add(TextFormatting.DARK_PURPLE + "" + TextFormatting.ITALIC + "This mineral will be useful for teleporting purposes");
 	}
 	
 	@Override

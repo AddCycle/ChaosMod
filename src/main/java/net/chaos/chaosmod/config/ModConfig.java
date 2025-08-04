@@ -2,6 +2,8 @@ package net.chaos.chaosmod.config;
 
 import java.io.File;
 
+import net.chaos.chaosmod.minimap.Renderer;
+//import net.chaos.chaosmod.minimap.Renderer;
 import net.minecraftforge.common.config.Configuration;
 
 public class ModConfig {
@@ -26,8 +28,8 @@ public class ModConfig {
 
 	public static void loadConfig() {
 		isMinimapEnabled = config.getBoolean("Enable Minimap", Configuration.CATEGORY_CLIENT, false, "Enable or disable the minimap.");
-		minimapSize = config.getInt("Minimap Size", Configuration.CATEGORY_CLIENT, 100, 1, 500, "Change the minimap squared size");
-		pixelSize = config.getInt("Pixel Size", Configuration.CATEGORY_CLIENT, 4, 1, 20, "Change the minimap reach");
+		minimapSize = config.getInt("Minimap Size", Configuration.CATEGORY_CLIENT, 100, 50, 500, "Change the minimap squared size");
+		pixelSize = config.getInt("Pixel Size", Configuration.CATEGORY_CLIENT, 1, 1, 4, "Change the minimap reach");
 		displayOverlay = config.getBoolean("Enable Outline", Configuration.CATEGORY_CLIENT, false, "Enable or disable the minimap outline (style).");
 		displayArrow = config.getBoolean("Enable Player Arrow", Configuration.CATEGORY_CLIENT, false, "Enable or disable player arrow pos");
 		displayCoords = config.getBoolean("Enable Coordinates", Configuration.CATEGORY_CLIENT, false, "Print or hide coordinates");
@@ -36,6 +38,7 @@ public class ModConfig {
 		boat_spawn_rate = config.getInt("Viking Boat Spawn Rate", Configuration.CATEGORY_GENERAL, 10, 10, 40, "Choose between 10 to 40 (which is too much)");
 
 		if (config.hasChanged()) {
+			Renderer.clearMinimap();
 			config.save();
 		}
 	}

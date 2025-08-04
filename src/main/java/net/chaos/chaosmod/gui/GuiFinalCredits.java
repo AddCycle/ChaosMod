@@ -2,15 +2,12 @@ package net.chaos.chaosmod.gui;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
 
 import net.minecraft.client.gui.GuiScreen;
 
+// TODO : refactor this class in order to load from JSON file ".chaosmod" all the credits and dialogs
 public class GuiFinalCredits extends GuiScreen {
 	private final List<Map.Entry<String, Integer>> creditsLines = new ArrayList<>();
     private int scroll;

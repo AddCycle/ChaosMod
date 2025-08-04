@@ -10,7 +10,6 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.IModGuiFactory;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
-import util.Reference;
 
 public class ModGuiFactory implements IModGuiFactory {
 
@@ -23,8 +22,8 @@ public class ModGuiFactory implements IModGuiFactory {
     }
 
     @Override
-    public GuiConfig createConfigGui(GuiScreen parentScreen) {
-        return new GuiConfig(parentScreen, getConfigElements(), Reference.MODID, false, false, "ChaosMod Config");
+    public GuiScreen createConfigGui(GuiScreen parentScreen) {
+        return new GuiMainConfig(parentScreen);
     }
 
     private List<IConfigElement> getConfigElements() {

@@ -10,6 +10,7 @@ import net.chaos.chaosmod.entity.boss.gui.BossBarRendering;
 import net.chaos.chaosmod.init.ModKeybinds;
 import net.chaos.chaosmod.lore.dialogs.DialogEventHandler;
 import net.chaos.chaosmod.minimap.MinimapEventHandler;
+import net.chaos.chaosmod.minimap.Renderer;
 import net.chaos.chaosmod.tileentity.LanternTESR;
 import net.chaos.chaosmod.tileentity.TESRCookieJar;
 import net.chaos.chaosmod.tileentity.TileEntityBeam;
@@ -57,6 +58,7 @@ public class ClientProxy extends CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
         MinecraftForge.EVENT_BUS.register(new MinimapEventHandler());
+        Renderer.init();
         MinecraftForge.EVENT_BUS.register(new DialogEventHandler());
         MinecraftForge.EVENT_BUS.register(new CutsceneEvents());
 		// MinecraftForge.EVENT_BUS.register(ClientMessageHandler.class);
