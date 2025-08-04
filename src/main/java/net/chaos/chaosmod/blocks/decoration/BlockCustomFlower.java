@@ -3,6 +3,8 @@ package net.chaos.chaosmod.blocks.decoration;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
@@ -16,7 +18,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -67,14 +71,38 @@ public class BlockCustomFlower extends BlockBush implements IHasModel {
 			items.add(new ItemStack(this, 1, type.getMeta()));
 		}
 	}
-
+	
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		List<ItemStack> drops = new ArrayList<>();
-		int meta = this.getMetaFromState(state);
-		drops.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));
-		drops.add(new ItemStack(getRareDropFromMeta(meta)));
-		return drops;
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool) {
+	    if (!worldIn.isRemote) {
+	    	int meta = getMetaFromState(state);
+	        if (tool != null && tool.getItem() instanceof ItemShears) {
+	            // Drop your custom flower item
+	            spawnAsEntity(worldIn, pos, new ItemStack(this, 1, meta));
+	        } else {
+	            // Do nothing, or call super to drop nothing (optional)
+	        	ItemStack rareDrop = new ItemStack(getRareDropFromMeta(meta));
+	        	float baseChance = 0.2f; // 20% base chance
+	        	float fortuneBonus = 0.1f; // +10% per fortune level
+	        	float totalChance = baseChance + fortuneBonus;
+
+	        	// Clamp to 100%
+	        	if (totalChance > 1.0f) totalChance = 1.0f;
+
+	        	if (player.getEntityWorld().rand.nextFloat() < totalChance) {
+	        		spawnAsEntity(worldIn, pos, rareDrop);
+	        	}
+	        }
+	    }
+	}
+	
+	@Override
+	public float getPlayerRelativeBlockHardness(IBlockState state, EntityPlayer player, World world, BlockPos pos) {
+	    ItemStack held = player.getHeldItemMainhand();
+	    if (held.getItem() instanceof ItemShears) {
+	        return 0.5f; // Break instantly
+	    }
+	    return super.getPlayerRelativeBlockHardness(state, player, world, pos);
 	}
 
 	private Item getRareDropFromMeta(int meta) {

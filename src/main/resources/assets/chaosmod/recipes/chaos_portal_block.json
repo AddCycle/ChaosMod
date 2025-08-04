@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"OOO",
+		"OEO",
+		"OOO"
+	],
+	
+	"key":
+	{
+		"O":
+		{
+			"item": "chaosmod:oxonium_ingot"
+		},
+		"E":
+		{
+			"item": "chaosmod:enderite_ingot"
+		}
+
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:chaos_portal_block",
+		"count": 3
+	}
+}

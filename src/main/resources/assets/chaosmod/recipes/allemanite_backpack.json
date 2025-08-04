@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"AAA",
+		"AAS",
+		"AAS"
+	],
+	
+	"key":
+	{
+		"A":
+		{
+			"item": "chaosmod:allemanite_ingot"
+		},
+
+		"S":
+		{
+			"item": "minecraft:string"
+		}
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:allemanite_backpack",
+		"count": 1
+	}
+}

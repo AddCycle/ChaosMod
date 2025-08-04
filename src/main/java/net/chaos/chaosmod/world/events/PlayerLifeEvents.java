@@ -5,7 +5,6 @@ import org.lwjgl.input.Keyboard;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.AccessoryImpl;
 import net.chaos.chaosmod.client.inventory.IAccessory;
-import net.chaos.chaosmod.client.inventory.shield.IShield;
 import net.chaos.chaosmod.client.inventory.shield.ShieldImpl;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.init.ModCapabilities;
@@ -13,9 +12,8 @@ import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModKeybinds;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
+import net.chaos.chaosmod.items.necklace.EnderiteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
-import net.chaos.chaosmod.items.shield.AllemaniteShield;
-import net.chaos.chaosmod.items.shield.OxoniumShield;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.chaos.chaosmod.sound.ClientSoundHandler;
@@ -50,139 +48,122 @@ import util.Reference;
 
 @EventBusSubscriber
 public class PlayerLifeEvents {
-	
+
 	@SubscribeEvent
 	public void onPlayerTick(PlayerTickEvent event) {
 		EntityPlayer player = event.player;
 		ItemStack boots = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
 		ItemStack held = player.getHeldItemMainhand();
-		
+
 		if (!boots.isEmpty() && boots.getItem() instanceof OxoniumBoots) {
 			player.stepHeight = 1.0f;
 		} else {
 			player.stepHeight = 0.6f;
 		}
-		
+
 		if (!held.isEmpty() && held.getItem() instanceof TinkerersHammer) {
 			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 1, false, false));
 		}
 
-		// FIXME : tried to make a light that is following the player
-		/*ItemStack heldi = player.getHeldItemMainhand();
-		World world = player.getEntityWorld();
-
-		if (world.isRemote) {
-			if (heldi.getItem() == Item.getItemFromBlock(ModBlocks.LANTERN)) {
-				// Spawn or update invisible light entity at player’s position
-				LightEntityManager.updateLightEntity(player);
-			} else {
-				// Remove light entity
-				LightEntityManager.removeLightEntity();
-			}
-		}*/
-		
 		IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
-	    if (cap != null) {
-	    	ItemStack accessory = cap.getAccessoryItem();
-	    	if (!accessory.isEmpty()) {
-	    		if (accessory.getItem() instanceof OxoniumNecklace) {
-	    			if (!player.isPotionActive(MobEffects.REGENERATION)) {
-	    				player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 20 * 3, 0, false, false));
-	    			}
-	    		} else if (accessory.getItem() instanceof AllemaniteNecklace) { // TODO : add something for wither
-	    			if (!player.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-	    				player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 20 * 3, 0, false, false));
-	    			}
-	    		}
-	    	}
-	    }
+		if (cap != null) {
+			ItemStack accessory = cap.getAccessoryItem();
+			if (!accessory.isEmpty()) {
+				if (accessory.getItem() instanceof OxoniumNecklace) {
+					if (!player.isPotionActive(MobEffects.REGENERATION)) {
+						player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 20 * 3, 0, false, false));
+					}
+				} else if (accessory.getItem() instanceof AllemaniteNecklace) {
+					if (!player.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
+						player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 20 * 3, 0, false, false));
+					}
+				}
+			}
+		}
 
-	    
 	}
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onKeyInput(InputEvent.KeyInputEvent event) {
-	    Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getMinecraft();
 
-	    if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
-	        if (Keyboard.getEventKey() == mc.gameSettings.keyBindInventory.getKeyCode()) {
-	            Main.network.sendToServer(new PacketOpenAccessoryGui());
-	        } else if (ModKeybinds.playMusicKey.isPressed()) {
-	        	ClientSoundHandler.launchPlaylist();
-	        } else if (ModKeybinds.pauseMusicKey.isPressed()) {
-	        	if (ClientSoundHandler.isMusicPlaying() && !ClientSoundHandler.isMusicPaused()) ClientSoundHandler.pauseMusic();
-	        	else ClientSoundHandler.resumeMusic();
-	        } else if (ModKeybinds.stopMusicKey.isPressed()) {
-	        	ClientSoundHandler.stopMusic();
-	        } else if (ModKeybinds.nextMusicKey.isPressed()) {
-	        	ClientSoundHandler.stopMusic();
-	        	ClientSoundHandler.launchPlaylist();
-	        } else if (ModKeybinds.previousMusicKey.isPressed()) {
-	        	ClientSoundHandler.stopMusic();
-	        	ClientSoundHandler.index-=2;
-	        	ClientSoundHandler.launchPlaylist();
-	        }
+		if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
+			if (Keyboard.getEventKey() == mc.gameSettings.keyBindInventory.getKeyCode()) {
+				Main.network.sendToServer(new PacketOpenAccessoryGui());
+			} else if (ModKeybinds.playMusicKey.isPressed()) {
+				ClientSoundHandler.launchPlaylist();
+			} else if (ModKeybinds.pauseMusicKey.isPressed()) {
+				if (ClientSoundHandler.isMusicPlaying() && !ClientSoundHandler.isMusicPaused()) ClientSoundHandler.pauseMusic();
+				else ClientSoundHandler.resumeMusic();
+			} else if (ModKeybinds.stopMusicKey.isPressed()) {
+				ClientSoundHandler.stopMusic();
+			} else if (ModKeybinds.nextMusicKey.isPressed()) {
+				ClientSoundHandler.stopMusic();
+				ClientSoundHandler.launchPlaylist();
+			} else if (ModKeybinds.previousMusicKey.isPressed()) {
+				ClientSoundHandler.stopMusic();
+				ClientSoundHandler.index-=2;
+				ClientSoundHandler.launchPlaylist();
+			}
 
-	    }
+		}
 	}
-	
+
 	@SubscribeEvent
 	public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
-	    if (event.getObject() instanceof EntityPlayer) {
-	    	event.addCapability(new ResourceLocation("chaosmod", "accessory"), new ICapabilitySerializable<NBTTagCompound>() {
-	    	    final AccessoryImpl instance = new AccessoryImpl();
+		if (event.getObject() instanceof EntityPlayer) {
+			event.addCapability(new ResourceLocation("chaosmod", "accessory"), new ICapabilitySerializable<NBTTagCompound>() {
+				final AccessoryImpl instance = new AccessoryImpl();
 
-	    	    @Override
-	    	    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-	    	        return capability == ModCapabilities.ACCESSORY;
-	    	    }
+				@Override
+				public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+					return capability == ModCapabilities.ACCESSORY;
+				}
 
-	    	    @Override
-	    	    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-	    	        return capability == ModCapabilities.ACCESSORY ? ModCapabilities.ACCESSORY.cast(instance) : null;
-	    	    }
+				@Override
+				public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+					return capability == ModCapabilities.ACCESSORY ? ModCapabilities.ACCESSORY.cast(instance) : null;
+				}
 
-	    	    @Override
-	    	    public NBTTagCompound serializeNBT() {
-	    	        return instance.serializeNBT(); // very important!
-	    	    }
+				@Override
+				public NBTTagCompound serializeNBT() {
+					return instance.serializeNBT(); // very important!
+				}
 
-	    	    @Override
-	    	    public void deserializeNBT(NBTTagCompound nbt) {
-	    	        instance.deserializeNBT(nbt);
-	    	    }
-	    	});
-	    }
+				@Override
+				public void deserializeNBT(NBTTagCompound nbt) {
+					instance.deserializeNBT(nbt);
+				}
+			});
+		}
 	}
-	
+
 	@SubscribeEvent
 	// FIXME =?> verify this method
-    public static void onPlayerChangeDimension(PlayerChangedDimensionEvent event) {
+	public static void onPlayerChangeDimension(PlayerChangedDimensionEvent event) {
 		EntityPlayerMP player = (EntityPlayerMP) event.player;
 
-	    if (event.toDim == -1) {
-	        NBTTagCompound data = player.getEntityData();
-	        if (!data.getBoolean("chaos_has_spawned")) {
-	            data.setBoolean("chaos_has_spawned", true);
+		if (event.toDim == -1) {
+			NBTTagCompound data = player.getEntityData();
+			if (!data.getBoolean("chaos_has_spawned")) {
+				data.setBoolean("chaos_has_spawned", true);
 
-	            World world = player.world;
+				World world = player.world;
 
-	            if (!world.isRemote) {
-	                BlockPos pos = player.getPosition().add(2, 0, 2);
-	                Entity entity = EntityList.createEntityByIDFromName(
-	                    new ResourceLocation(Reference.MODID, "chaos_sage"), world
-	                );
+				if (!world.isRemote) {
+					BlockPos pos = player.getPosition().add(2, 0, 2);
+					Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Reference.MODID, "chaos_sage"), world);
 
-	                if (entity instanceof EntityChaosSage) {
-	                    entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
-	                    world.spawnEntity(entity);
-	                }
-	            }
-	        }
-	    }
-    }
-	
+					if (entity instanceof EntityChaosSage) {
+						entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
+						world.spawnEntity(entity);
+					}
+				}
+			}
+		}
+	}
+
 	@SubscribeEvent
 	public static void onCrafting(ItemCraftedEvent event) {
 		for (int i = 0; i < 9; i++) {
@@ -200,30 +181,30 @@ public class PlayerLifeEvents {
 
 	@SubscribeEvent
 	public void attachCapabilityShield(AttachCapabilitiesEvent<Entity> event) {
-	    if (event.getObject() instanceof EntityPlayer) {
-	    	event.addCapability(new ResourceLocation("chaosmod", "shield"), new ICapabilitySerializable<NBTTagCompound>() {
-	    	    final ShieldImpl instance = new ShieldImpl();
+		if (event.getObject() instanceof EntityPlayer) {
+			event.addCapability(new ResourceLocation("chaosmod", "shield"), new ICapabilitySerializable<NBTTagCompound>() {
+				final ShieldImpl instance = new ShieldImpl();
 
-	    	    @Override
-	    	    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-	    	        return capability == ModCapabilities.SHIELD;
-	    	    }
+				@Override
+				public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+					return capability == ModCapabilities.SHIELD;
+				}
 
-	    	    @Override
-	    	    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-	    	        return capability == ModCapabilities.SHIELD ? ModCapabilities.SHIELD.cast(instance) : null;
-	    	    }
+				@Override
+				public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+					return capability == ModCapabilities.SHIELD ? ModCapabilities.SHIELD.cast(instance) : null;
+				}
 
-	    	    @Override
-	    	    public NBTTagCompound serializeNBT() {
-	    	        return instance.serializeNBT(); // very important!
-	    	    }
+				@Override
+				public NBTTagCompound serializeNBT() {
+					return instance.serializeNBT(); // very important!
+				}
 
-	    	    @Override
-	    	    public void deserializeNBT(NBTTagCompound nbt) {
-	    	        instance.deserializeNBT(nbt);
-	    	    }
-	    	});
-	    }
+				@Override
+				public void deserializeNBT(NBTTagCompound nbt) {
+					instance.deserializeNBT(nbt);
+				}
+			});
+		}
 	}
 }

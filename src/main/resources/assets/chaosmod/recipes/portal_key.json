@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"  G",
+		" G ",
+		"G  "
+	],
+	
+	"key":
+	{
+		"G":
+		{
+			"item": "chaosmod:gold_ingot"
+		}
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:portal_key",
+		"count": 1
+	}
+}

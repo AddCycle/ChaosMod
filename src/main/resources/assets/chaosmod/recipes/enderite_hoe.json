@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"AA",
+		" S",
+		" S"
+	],
+	
+	"key":
+	{
+		"A":
+		{
+			"item": "chaosmod:enderite_ingot"
+		},
+
+		"S":
+		{
+			"item": "minecraft:stick"
+		}
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:enderite_hoe",
+		"count": 1
+	}
+}

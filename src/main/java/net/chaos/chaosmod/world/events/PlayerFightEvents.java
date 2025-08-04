@@ -2,12 +2,14 @@ package net.chaos.chaosmod.world.events;
 
 import java.util.UUID;
 
+import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.client.inventory.shield.IShield;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModDamageSources;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotions;
 import net.chaos.chaosmod.items.AbstractCustomBow;
+import net.chaos.chaosmod.items.necklace.EnderiteNecklace;
 import net.chaos.chaosmod.items.shield.AllemaniteShield;
 import net.chaos.chaosmod.items.shield.OxoniumShield;
 import net.chaos.chaosmod.items.special.OxoniumBow;
@@ -20,9 +22,10 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -47,6 +50,7 @@ public class PlayerFightEvents {
 			}
 		}
 
+
 		/*
 		 * Shield based damage eye_boss protection
 		 */
@@ -56,7 +60,9 @@ public class PlayerFightEvents {
 	    	if (!shield.isEmpty()) {
 	    		if (shield.getItem() instanceof OxoniumShield || shield.getItem() instanceof AllemaniteShield) {
 	    			if (event.getSource() == ModDamageSources.LASER_DAMAGE) {
+	    				float damage = event.getAmount();
 	    				event.setCanceled(true);
+	    				player.attackEntityFrom(ModDamageSources.LASER_DAMAGE, damage / 2);
 	    			}
 	    		}
 	    	}
@@ -73,7 +79,7 @@ public class PlayerFightEvents {
 			// for the oxonium the moment
 			float increasedDamage = 1.25f * (event.getAmount() - (player.getTotalArmorValue() / 20)); // 20 vanilla armor cap
 			event.setAmount(increasedDamage);
-			System.out.println("EVENT BOW : increasing damage taken by 25 %");
+			player.sendMessage(new TextComponentString("OXONIUM BOW : increasing all damages taken by 25 %"));
 		}
 
 		// FIXME : order to apply damages maybe on multiple events
@@ -81,6 +87,26 @@ public class PlayerFightEvents {
 	    if (!helmet.isEmpty() && helmet.getItem() == ModItems.OXONIUM_HELMET) {
 	    	if (event.getSource() == ModDamageSources.ROCK_DAMAGE) {
 	    		event.setAmount(event.getAmount() / 2);
+	    	}
+	    }
+	}
+	
+	@SubscribeEvent
+	public void enderiteNecklaceLogic(LivingEvent.LivingUpdateEvent event) {
+		/*
+		 * Prevents wither effect to apply :
+		 */
+		if (!(event.getEntity() instanceof EntityPlayer)) return;
+		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
+	    if (cap != null) {
+	    	ItemStack accessory = cap.getAccessoryItem();
+	    	if (!accessory.isEmpty()) {
+	    		if (accessory.getItem() instanceof EnderiteNecklace) {
+	    			if (player.isPotionActive(MobEffects.WITHER)) {
+	                    player.removePotionEffect(MobEffects.WITHER);
+	                }
+	    		}
 	    	}
 	    }
 	}

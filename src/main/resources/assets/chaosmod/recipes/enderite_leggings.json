@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"OOO",
+		"O O",
+		"O O"
+	],
+	
+	"key":
+	{
+		"O":
+		{
+			"item": "chaosmod:enderite_ingot"
+		}
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:enderite_leggings",
+		"count": 1
+	}
+}

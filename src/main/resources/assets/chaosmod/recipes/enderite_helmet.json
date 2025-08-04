@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"OOO",
+		"O O"
+	],
+	
+	"key":
+	{
+		"O":
+		{
+			"item": "chaosmod:enderite_ingot"
+		}
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:enderite_helmet",
+		"count": 1
+	}
+}

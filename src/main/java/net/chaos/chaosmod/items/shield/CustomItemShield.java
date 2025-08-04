@@ -19,8 +19,6 @@ public class CustomItemShield extends ItemBase implements IHasModel {
 
 	public CustomItemShield(String name) {
 		super(name);
-		setUnlocalizedName(name);
-		setRegistryName(name);
 		setMaxStackSize(1);
 		ModItems.ITEMS.add(this);
 	}

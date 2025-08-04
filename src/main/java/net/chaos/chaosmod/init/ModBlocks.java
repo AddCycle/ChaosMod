@@ -18,7 +18,6 @@ import net.chaos.chaosmod.blocks.DimensionPortal;
 import net.chaos.chaosmod.blocks.EnderiteBlock;
 import net.chaos.chaosmod.blocks.EnderiteForgeWalls;
 import net.chaos.chaosmod.blocks.EnderiteOre;
-import net.chaos.chaosmod.blocks.FakeLightBlock;
 import net.chaos.chaosmod.blocks.ForgeInterfaceBlock;
 import net.chaos.chaosmod.blocks.OxoniumBlock;
 import net.chaos.chaosmod.blocks.OxoniumChest;
