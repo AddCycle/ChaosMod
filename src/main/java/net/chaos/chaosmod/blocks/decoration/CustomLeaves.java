@@ -2,6 +2,7 @@ package net.chaos.chaosmod.blocks.decoration;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.ItemBlockLeaves;
@@ -15,7 +16,10 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
@@ -100,6 +104,60 @@ public class CustomLeaves extends BlockLeaves implements IHasModel {
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
 			EntityPlayer player) {
 		return new ItemStack(Item.getItemFromBlock(this), 1, this.getMetaFromState(state));
+	}
+	
+    public Item getItemDropped(IBlockState state, Random rand, int fortune)
+    {
+        return Item.getItemFromBlock(ModBlocks.CUSTOM_SAPLINGS);
+    }
+    
+    @Override
+    public int damageDropped(IBlockState state) {
+    	return this.getMetaFromState(state);
+    }
+	
+	@Override
+	// Drops golden apples based on fortune level
+	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
+		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, state.getBlock().getDefaultState().getBlock().getItem(worldIn, pos, state));
+	    int dropChance = Math.max(1, 5 - fortune);
+
+	    if (worldIn.rand.nextInt(dropChance) == 0) {
+	        spawnAsEntity(worldIn, pos, new ItemStack(Items.GOLDEN_APPLE, 1));
+	    }
+		super.dropApple(worldIn, pos, state, chance);
+	}
+	
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state,
+			int fortune) {
+		Random rand = world instanceof World ? ((World)world).rand : new Random();
+        int chance = this.getSaplingDropChance(state);
+
+        if (fortune > 0)
+        {
+            chance -= 2 << fortune;
+            if (chance < 10) chance = 10;
+        }
+
+        if (rand.nextInt(chance) == 0)
+        {
+            ItemStack drop = new ItemStack(this.getItemDropped(state, rand, fortune), 1, damageDropped(state));
+            if (!drop.isEmpty())
+                drops.add(drop);
+        }
+
+        chance = 200;
+        if (fortune > 0)
+        {
+            chance -= 10 << fortune;
+            if (chance < 40) chance = 40;
+        }
+
+        this.captureDrops(true);
+        if (world instanceof World)
+            this.dropApple((World)world, pos, state, chance); // Dammet mojang
+        drops.addAll(this.captureDrops(false));
 	}
 
     @Override
