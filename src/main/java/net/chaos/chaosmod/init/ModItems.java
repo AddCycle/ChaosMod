@@ -128,7 +128,7 @@ public class ModItems {
 	public static final Item ENDERITE_THUNDER = new EnderiteThunder("enderite_thunder");
 	public static final Item OXONIUM_NECKLACE = new OxoniumNecklace("oxonium_necklace");
 	public static final Item ALLEMANITE_NECKLACE = new AllemaniteNecklace("allemanite_necklace");
-	 public static final Item ENDERITE_NECKLACE = new EnderiteNecklace("enderite_necklace");
+	public static final Item ENDERITE_NECKLACE = new EnderiteNecklace("enderite_necklace");
 	public static final Item OXONIUM_SHIELD = new OxoniumShield("oxonium_shield");
 	public static final Item ALLEMANITE_SHIELD = new AllemaniteShield("allemanite_shield");
 	public static final Item ALL_IN_ONE_BOW = new AllInOneBow("all_in_one_bow", MATERIAL_ENDERITE); // TODO: add a blend material
@@ -144,11 +144,9 @@ public class ModItems {
 	//Food
 	public static Item OXONIUM_CARROT; 
 	
+	// Crops init
 	public static void initItems() {
 		OXONIUM_CARROT = 
 			new FoodEffectBase("oxonium_carrot", 5, 3.0f, ModBlocks.OXONIUM_CARROT_BLOCK, Blocks.FARMLAND, new PotionEffect(MobEffects.SPEED, 60*20, 0, false, true));
 	}
-	
-	// Potions
-	// public static final Item VIKING_FRIEND_POTION = new VikingFriendPotion("viking_friend");
 }

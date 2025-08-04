@@ -20,7 +20,7 @@ public abstract class ItemNecklace extends ItemBase {
 	
 	@Override
 	public CreativeTabs[] getCreativeTabs() {
-		return new CreativeTabs[] { CreativeTabs.MISC, ModTabs.ITEMS };
+		return new CreativeTabs[] { CreativeTabs.MISC, ModTabs.ITEMS, CreativeTabs.SEARCH };
 	}
 	
 	@Override

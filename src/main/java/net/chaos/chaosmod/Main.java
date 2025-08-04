@@ -81,8 +81,6 @@ import util.Reference;
 import util.blockstates.RenderBlockOutlinesEvent;
 import util.broadcast.MessageDisplayText;
 import util.broadcast.MessageDisplayTextHandler;
-import util.handlers.BlockPlaceHandler;
-import util.handlers.CommandMessageHandler;
 import util.handlers.PlayerInHandler;
 import util.handlers.RegistryHandler;
 
@@ -144,8 +142,6 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new RenderBlockOutlinesEvent());
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-        MinecraftForge.EVENT_BUS.register(new BlockPlaceHandler());
-        MinecraftForge.EVENT_BUS.register(new CommandMessageHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerInHandler());
         RegistryHandler.onSmeltingRegister();
         MachineRecipeRegistry.init();
