@@ -113,14 +113,15 @@ public class CustomLeaves extends BlockLeaves implements IHasModel {
     
     @Override
     public int damageDropped(IBlockState state) {
-    	return this.getMetaFromState(state);
+    	return state.getValue(VARIANT).getMeta();
     }
 	
 	@Override
 	// Drops golden apples based on fortune level
 	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
 		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, state.getBlock().getDefaultState().getBlock().getItem(worldIn, pos, state));
-	    int dropChance = Math.max(1, 5 - fortune);
+		int base = 15;
+	    int dropChance = Math.max(1, base - fortune);
 
 	    if (worldIn.rand.nextInt(dropChance) == 0) {
 	        spawnAsEntity(worldIn, pos, new ItemStack(Items.GOLDEN_APPLE, 1));
@@ -142,7 +143,7 @@ public class CustomLeaves extends BlockLeaves implements IHasModel {
 
         if (rand.nextInt(chance) == 0)
         {
-            ItemStack drop = new ItemStack(this.getItemDropped(state, rand, fortune), 1, damageDropped(state));
+            ItemStack drop = new ItemStack(this.getItemDropped(state, rand, fortune), 1, this.damageDropped(state));
             if (!drop.isEmpty())
                 drops.add(drop);
         }

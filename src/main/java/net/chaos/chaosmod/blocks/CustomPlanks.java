@@ -65,14 +65,12 @@ public class CustomPlanks extends Block implements IHasModel {
 	    }
 	    int variantMeta = meta & 0b0011;
 	    CustomPlankVariant variant = CustomPlankVariant.byMetadata(variantMeta);
-	    // return this.getDefaultState().withProperty(VARIANT, variant).withProperty(LOG_AXIS, axis);
 	    return this.getDefaultState().withProperty(VARIANT, variant);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
 	    int meta = state.getValue(VARIANT).getMeta();
-	    // meta |= state.getValue(LOG_AXIS).ordinal() << 2;
 	    return meta;
 	}
 

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S S",
+    "S#S",
+    "S S"
+  ],
+  "key": {
+    "#": {
+      "item": "chaosmod:custom_plank",
+      "data": 0
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "chaosmod:custom_ladder",
+    "count": 3
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "chaosmod:custom_plank",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "chaosmod:custom_stairs",
+    "count": 3
+  }
+}

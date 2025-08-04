@@ -1,6 +1,7 @@
 package proxy;
 
 import net.chaos.chaosmod.client.inventory.render.LayerNecklace;
+import net.chaos.chaosmod.client.inventory.render.LayerShield;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBeamRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBossAltarRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
@@ -94,7 +95,7 @@ public class ClientProxy extends CommonProxy {
 	    skinMap.get("slim").addLayer(new LayerNecklace(skinMap.get("slim")));*/
 		Minecraft.getMinecraft().getRenderManager().getSkinMap().values().forEach(renderer -> {
 		    renderer.addLayer(new LayerNecklace(renderer));
-		    // renderer.addLayer(new LayerShield(renderer));
+		    renderer.addLayer(new LayerShield(renderer));
 		});
 		
 		// ################################# END NECKLACE RENDERING ############################################

@@ -34,6 +34,7 @@ import net.chaos.chaosmod.blocks.decoration.BlockLantern;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
 import net.chaos.chaosmod.blocks.decoration.MineralBricks;
 import net.chaos.chaosmod.blocks.decoration.OxoniumStairs;
+import net.chaos.chaosmod.client.inventory.render.LayerNecklace;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;

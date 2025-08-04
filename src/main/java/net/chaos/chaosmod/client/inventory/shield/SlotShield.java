@@ -2,6 +2,7 @@ package net.chaos.chaosmod.client.inventory.shield;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.items.shield.CustomItemShield;
 import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -21,7 +22,7 @@ public class SlotShield extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        return stack.getItem() instanceof ItemShield;
+        return stack.getItem() instanceof CustomItemShield;
     }
     
     @Override
