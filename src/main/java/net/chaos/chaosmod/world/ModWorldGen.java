@@ -8,6 +8,7 @@ import net.chaos.chaosmod.blocks.decoration.FlowerType;
 import net.chaos.chaosmod.config.ModConfig;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -139,7 +140,7 @@ public class ModWorldGen implements IWorldGenerator {
         });
         
         EntityViking viking = new EntityViking(world);
-        viking.setPosition(pos.getX() + 21, pos.getY() + 17, pos.getZ() + 20);
+        viking.setPositionAndUpdate(pos.getX(), pos.getY() + 10, pos.getZ());
         world.spawnEntity(viking);
     }
 
@@ -167,7 +168,6 @@ public class ModWorldGen implements IWorldGenerator {
     }
 
     private void generateFlowers(World world, Random rand, int x, int z, int meta) {
-    	// FlowerType randomVariant = FlowerType.values()[rand.nextInt(FlowerType.values().length)];
 
     	// Set block state with the random variant
     	IBlockState flowerState = ModBlocks.CUSTOM_FLOWER.getDefaultState().withProperty(BlockCustomFlower.type, FlowerType.byMetadata(meta));

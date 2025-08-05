@@ -15,6 +15,9 @@ import util.Reference;
 public class PlayerInHandler {
 
 	@SubscribeEvent
+	/*
+	 * Sync players accessories on joining server
+	 */
 	public void onPlayerJoin(PlayerLoggedInEvent event) {
 		EntityPlayer player = event.player;
 	    if (!player.world.isRemote) {
@@ -27,6 +30,9 @@ public class PlayerInHandler {
 	}
 	
 	@SubscribeEvent
+	/*
+	 * When the player RESPAWN event is fired to prevent duplicates on server
+	 */
 	public void onPlayerClone(PlayerEvent.Clone event) {
 		if (!event.getOriginal().getEntityWorld().isRemote) {
 			event.getEntityPlayer().getEntityData().setIntArray(Reference.MODID + "_homepos", event.getOriginal().getEntityData().getIntArray(Reference.MODID + "_homepos"));

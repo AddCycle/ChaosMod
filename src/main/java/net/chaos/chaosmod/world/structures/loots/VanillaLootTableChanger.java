@@ -15,6 +15,4 @@ public class VanillaLootTableChanger {
 			System.out.println("Village blacksmith loottable loaded");
 	    }
 	}
-	
-	public static void JVM_load() {}
 }

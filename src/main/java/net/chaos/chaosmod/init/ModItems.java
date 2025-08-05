@@ -8,7 +8,7 @@ import net.chaos.chaosmod.items.armor.AllemaniteArmor;
 import net.chaos.chaosmod.items.armor.ArmorBase;
 import net.chaos.chaosmod.items.armor.EnderiteArmor;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
-import net.chaos.chaosmod.items.food.FoodEffectBase;
+import net.chaos.chaosmod.items.food.MineralFood;
 import net.chaos.chaosmod.items.materials.AllemaniteIngot;
 import net.chaos.chaosmod.items.materials.EnderiteShard;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
@@ -53,6 +53,7 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
 import util.Reference;
 
@@ -142,11 +143,11 @@ public class ModItems {
 	public static final Item PORTAL_IGNITER = new PortalKey("portal_key");
 	
 	//Food
-	public static Item OXONIUM_CARROT; 
+	public static Item OXONIUM_CARROT;
 	
 	// Crops init
 	public static void initItems() {
 		OXONIUM_CARROT = 
-			new FoodEffectBase("oxonium_carrot", 5, 3.0f, ModBlocks.OXONIUM_CARROT_BLOCK, Blocks.FARMLAND, new PotionEffect(MobEffects.SPEED, 60*20, 0, false, true));
+			new MineralFood("oxonium_carrot", 5, 3.0f, ModBlocks.OXONIUM_CARROT_BLOCK, Blocks.FARMLAND, new PotionEffect(MobEffects.SPEED, 60*20, 0, false, true), TextFormatting.BOLD + "" + TextFormatting.WHITE + "SPEED" + TextFormatting.GOLD + " I");
 	}
 }

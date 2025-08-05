@@ -18,6 +18,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -105,6 +106,7 @@ public class PlayerFightEvents {
 	    		if (accessory.getItem() instanceof EnderiteNecklace) {
 	    			if (player.isPotionActive(MobEffects.WITHER)) {
 	                    player.removePotionEffect(MobEffects.WITHER);
+	                    player.playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH, 1.0f, 1.0f);
 	                }
 	    		}
 	    	}

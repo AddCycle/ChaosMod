@@ -13,13 +13,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.structure.MapGenStructure;
+import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 
-public class MapGenCustomVillage extends MapGenStructure {
+public class MapGenCustomVillage extends MapGenVillage {
 
-    public static List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.TAIGA, ModBiomes.GIANT_MOUNTAIN, ModBiomes.NETHER_CAVES, ModBiomes.ENDER_GARDEN, ModBiomes.CHAOS_LAND_BIOME);
+    public static List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.COLD_TAIGA, Biomes.MUTATED_ICE_FLATS, Biomes.TAIGA, ModBiomes.GIANT_MOUNTAIN, ModBiomes.NETHER_CAVES, ModBiomes.ENDER_GARDEN, ModBiomes.CHAOS_LAND_BIOME);
 	/** None **/
 	private int size;
 	private int distance;
@@ -50,11 +50,12 @@ public class MapGenCustomVillage extends MapGenStructure {
 
 	public String getStructureName()
 	{
-		return "Village";
+		return "custom_village";
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
 	{
+//		if (chunkX == 0 && chunkZ == 0) return true; // force at spawn
 		int i = chunkX;
 		int j = chunkZ;
 
@@ -79,6 +80,7 @@ public class MapGenCustomVillage extends MapGenStructure {
 		if (i == k && j == l)
 		{
 			boolean flag = this.world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
+			System.out.println(flag);
 
 			if (flag)
 			{

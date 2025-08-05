@@ -22,9 +22,5 @@ public class WorldGenerationOverrideEvents {
             event.setNewGen(new MapGenCustomVillage());
         }
 	}
-	
-	public static void JVM_load() {
-		System.out.println("LOADED EVENT");
-	}
 
 }

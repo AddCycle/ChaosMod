@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"NNN",
+		"NBN",
+		"NNN"
+	],
+	
+	"key":
+	{
+		"N":
+		{
+			"item": "chaosmod:oxonium_nugget"
+		},
+		"B":
+		{
+			"item": "minecraft:stonebrick"
+		}
+
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:oxonium_bricks",
+		"count": 64
+	}
+}

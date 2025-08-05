@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.entity.boss.entities;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import net.chaos.chaosmod.entity.LittleGiantEntity;
@@ -12,7 +14,6 @@ import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveThroughVillage;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -48,6 +49,8 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
     public final BossInfoServer bossInfo;
     public boolean attacking = false;
     private int attackTimer = 0;
+    private int minionsMax = 10;
+    private List<LittleGiantEntity> entity_pool = new ArrayList<LittleGiantEntity>();
     private static final AxisAlignedBB ENTITY_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 20.0D, 20.0D, 20.0D);
     private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(EntityMountainGiantBoss.class, DataSerializers.BOOLEAN);
 
@@ -64,9 +67,10 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
 	@Override
 	protected void applyEntityAttributes() {
 	    super.applyEntityAttributes();
-	    this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(world.getDifficulty().getDifficultyId() == 1 ? 400.0D : 700.0D); // easy, normal | hard | >
-	    this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
-	    this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+	    int difficulty = world.getDifficulty().getDifficultyId();
+	    this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(difficulty * 200.0D); // easy, normal | hard | >
+	    this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(difficulty * 0.25D);
+	    this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(difficulty * 2.0D);
 	}
 	
 	@Override
@@ -112,14 +116,29 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
     }
 
     public void startAttack() {
-        this.attacking = true;
-        this.attackTimer = 20; // lasts for 1 second
-        this.setSwingingArms(true); // <--- THIS is crucial
-        if (this.getMaxHealth() / 2 <= this.getHealth()) {
-        	LittleGiantEntity little = new LittleGiantEntity(world);
-        	little.setPosition(this.posX + 0.5, this.posY, this.posZ + 0.5);
-        	if (!world.isRemote) world.spawnEntity(little); // TODO : make the minions attack only melee
-        }
+    	this.attacking = true;
+    	this.attackTimer = 20;
+    	this.setSwingingArms(true);
+    	if (!world.isRemote) {
+    		if (this.getMaxHealth() / 2 >= this.getHealth()) {
+    			if (!entity_pool.isEmpty()) {
+    				Iterator<LittleGiantEntity> iter = entity_pool.iterator();
+    				while (iter.hasNext()) {
+    				    LittleGiantEntity e = iter.next();
+    				    if (e.isDead) {
+    				        iter.remove();
+    				    }
+    				}
+    			}
+
+    			if (entity_pool.size() >= this.minionsMax) return;
+
+    			LittleGiantEntity little = new LittleGiantEntity(world);
+    			little.setPosition(this.posX + 0.5, this.posY, this.posZ + 0.5);
+    			entity_pool.add(little);
+    			world.spawnEntity(little);
+    		}
+    	}
     }
 
     public boolean isAttacking() {

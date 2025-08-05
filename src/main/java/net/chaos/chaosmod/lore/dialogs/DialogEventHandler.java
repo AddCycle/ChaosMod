@@ -21,7 +21,7 @@ public class DialogEventHandler {
 
 	@SubscribeEvent
 	public void onRenderLivingSpecials(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
-	    if (!(event.getEntity() instanceof EntityViking)) return;
+	    if (!(event.getEntity() instanceof ITalkable)) return;
 
 	    EntityViking entity = (EntityViking) event.getEntity();
 	    String dialog = entity.getDialogText();

@@ -28,7 +28,7 @@ public class ModConfig {
 
 	public static void loadConfig() {
 		isMinimapEnabled = config.getBoolean("Enable Minimap", Configuration.CATEGORY_CLIENT, false, "Enable or disable the minimap.");
-		minimapSize = config.getInt("Minimap Size", Configuration.CATEGORY_CLIENT, 100, 50, 500, "Change the minimap squared size");
+		minimapSize = config.getInt("Minimap Size", Configuration.CATEGORY_CLIENT, 50, 50, 200, "Change the minimap squared size");
 		pixelSize = config.getInt("Pixel Size", Configuration.CATEGORY_CLIENT, 1, 1, 4, "Change the minimap reach");
 		displayOverlay = config.getBoolean("Enable Outline", Configuration.CATEGORY_CLIENT, false, "Enable or disable the minimap outline (style).");
 		displayArrow = config.getBoolean("Enable Player Arrow", Configuration.CATEGORY_CLIENT, false, "Enable or disable player arrow pos");

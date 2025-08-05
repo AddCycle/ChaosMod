@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "chaosmod:oxonium_ingot"
+    }
+  },
+  "result": {
+    "item": "chaosmod:oxonium_stairs",
+    "count": 9
+  }
+}

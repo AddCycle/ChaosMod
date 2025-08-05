@@ -4,17 +4,14 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotions;
+import net.chaos.chaosmod.lore.dialogs.ITalkable;
 import net.chaos.chaosmod.potion.PotionEffectVikingFriends;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIFindEntityNearest;
 import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
-import net.minecraft.entity.ai.EntityAILookAtTradePlayer;
 import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +27,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
 
-public class EntityViking extends EntityMob {
+public class EntityViking extends EntityMob implements ITalkable {
 	public boolean angry = false;
 	public double prevChasingPosX;
 	public double prevChasingPosY;
@@ -92,8 +89,8 @@ public class EntityViking extends EntityMob {
 	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote)
 		{
-			player.openGui(Main.instance, Reference.GUI_DOCS_ID, this.world, this.getEntityId(), 0, 0);
-			player.addPotionEffect(new PotionEffectVikingFriends(ModPotions.POTION_VIKING, 20 * 300));
+			player.openGui(Main.instance, Reference.GUI_VIKING_ID, this.world, this.getEntityId(), 0, 0);
+			// player.addPotionEffect(new PotionEffectVikingFriends(ModPotions.POTION_VIKING, 20 * 300));
 		}
 		return true;
 	}

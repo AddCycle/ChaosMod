@@ -117,14 +117,16 @@ public class CustomLeaves extends BlockLeaves implements IHasModel {
     }
 	
 	@Override
-	// Drops golden apples based on fortune level
+	// Drops golden/regular apples based on fortune level
 	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
 		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, state.getBlock().getDefaultState().getBlock().getItem(worldIn, pos, state));
-		int base = 15;
+		int base = 20;
 	    int dropChance = Math.max(1, base - fortune);
 
 	    if (worldIn.rand.nextInt(dropChance) == 0) {
 	        spawnAsEntity(worldIn, pos, new ItemStack(Items.GOLDEN_APPLE, 1));
+	    } else if (worldIn.rand.nextInt(base - 10) == 0) {
+	        spawnAsEntity(worldIn, pos, new ItemStack(Items.APPLE, 1));
 	    }
 		super.dropApple(worldIn, pos, state, chance);
 	}

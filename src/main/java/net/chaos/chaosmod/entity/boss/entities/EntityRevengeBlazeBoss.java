@@ -87,34 +87,14 @@ public class EntityRevengeBlazeBoss extends EntityMob {
 	}
 	
 	private void updateDifficultyBuffs() {
-	    EnumDifficulty difficulty = this.world.getDifficulty();
-	    double health = 1024.0D;
-	    double attack_damage = 8.0D;
-	    double move_speed = 0.25000000417232513D;
+	    int difficulty = this.world.getDifficulty().getDifficultyId();
+	    double health = 350.0D * difficulty;
+	    double attack_damage = 2.0D * difficulty;
+	    double move_speed = 0.25000000417232513D * (difficulty / 2);
 
-	    switch (difficulty) {
-	        case PEACEFUL:
-	        	// shouldn't happen because peaceful not spawning mobs but in case...
-	        	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health / 8);
-	            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack_damage * 0.6);
-	            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(move_speed * 0.7);
-	            break;
-	        case EASY:
-	        	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health / 4);
-	            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack_damage * 0.8);
-	            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(move_speed * 0.8);
-	            break;
-	        case NORMAL:
-	        	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health * 0.75);
-	            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack_damage * 0.9);
-	            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(move_speed * 0.9);
-	            break;
-	        case HARD:
-	        	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health);
-	            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack_damage);
-	            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(move_speed);
-	            break;
-	    }
+	    this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health);
+	    this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack_damage);
+	    this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(move_speed);
 	}
 	
 	@Override
@@ -470,19 +450,15 @@ public class EntityRevengeBlazeBoss extends EntityMob {
                             switch (this.blaze.world.getDifficulty()) {
                             case PEACEFUL:
                             	power = 0;
-                            	// peace_factor = 400;
                             	break;
                             case EASY:
                             	power = 1;
-                            	// peace_factor = 60;
                             	break;
                             case NORMAL:
                             	power = 3;
-                            	// peace_factor = 51;
                             	break;
                             case HARD:
-                            	power = 20; // insane !! do not play HARD for fun
-                            	// peace_factor = 41;
+                            	power = 10; // insane !! do not play HARD for fun
                             	break;
 							default:
 								break;

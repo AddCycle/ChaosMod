@@ -39,5 +39,10 @@ public class UltimateDebuggerCommand extends CommandBase {
 	public int getRequiredPermissionLevel() {
 		return 0; // all players can use it as long as they know the key
 	}
+	
+	@Override
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		return true;
+	}
 
 }

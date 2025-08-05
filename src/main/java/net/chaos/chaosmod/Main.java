@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomPlanks;
 import net.chaos.chaosmod.client.inventory.shield.PacketShieldSync;
+import net.chaos.chaosmod.commands.CommandsManager;
 import net.chaos.chaosmod.commands.CraftCommand;
 import net.chaos.chaosmod.commands.DimensionWarpCommand;
 import net.chaos.chaosmod.commands.FeedCommand;
@@ -89,10 +90,10 @@ public class Main
 {
 	// Helps launch the ChaosMod
 	@Instance
-	public static Main instance = Init(); // Maybe move that into the pre-init phase
+	public static Main instance = Init();
 	
 	private static Main Init() {
-		MapGenStructureIO.registerStructure(MapGenCustomVillage.Start.class, "Custom Village");
+		MapGenStructureIO.registerStructure(MapGenCustomVillage.Start.class, "custom_village");
 		StructureCustomVillage.registerVillagePieces();
 		MapGenStructureIO.registerStructure(CustomWoodlandMansion.Start.class, "Custom Mansion");
 		return instance;
@@ -130,6 +131,7 @@ public class Main
     {
         proxy.init(event);
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
+    	MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenerationOverrideEvents());
         CustomProfessions.registerCustomProfessions();
     	network.registerMessage(MessageDisplayTextHandler.class, MessageDisplayText.class, 0, Side.CLIENT);
 		network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 1, Side.CLIENT);
@@ -187,21 +189,6 @@ public class Main
     
     @EventHandler
     public void ServerInit(FMLServerStartingEvent event) {
-    	event.registerServerCommand(new FindBlockCommand());
-    	event.registerServerCommand(new GuideCommand());
-        event.registerServerCommand(new CraftCommand());
-        event.registerServerCommand(new FurnaceCommand());
-        event.registerServerCommand(new UltimateDebuggerCommand());
-        event.registerServerCommand(new SetHomeCommand());
-        event.registerServerCommand(new HomeCommand());
-        event.registerServerCommand(new FireCommand());
-        event.registerServerCommand(new FeedCommand());
-        event.registerServerCommand(new LocalizeCommand());
-        event.registerServerCommand(new LoadStructCommand());
-		if (!Loader.isModLoaded("mathsmod")) {
-			event.registerServerCommand(new TopCommand());
-			event.registerServerCommand(new DimensionWarpCommand());
-			event.registerServerCommand(new HealCommand());
-		}
+    	CommandsManager.registerCommands(event);
     }
 }

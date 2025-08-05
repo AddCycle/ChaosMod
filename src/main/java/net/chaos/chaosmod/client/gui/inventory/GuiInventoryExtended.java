@@ -6,11 +6,8 @@ import java.util.Collection;
 import net.chaos.chaosmod.client.inventory.ContainerAccessory;
 import net.chaos.chaosmod.client.inventory.SlotAccessory;
 import net.chaos.chaosmod.client.inventory.shield.SlotShield;
-import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.sound.ClientSoundHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.ISound;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -30,11 +27,6 @@ public class GuiInventoryExtended extends GuiInventory {
 	private boolean showShieldSlot = false;
     private GuiButton toggleButton;
 	private Slot hoveredSlot;
-
-	// ############# Music management ################
-	// private ISound currentMusic = null;
-	// private boolean isMusicPlaying = false;
-	// Handled see : sound.ClientSoundHandler.java
 
 	public GuiInventoryExtended(EntityPlayer player) {
         super(player);
