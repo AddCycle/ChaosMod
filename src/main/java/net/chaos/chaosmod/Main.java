@@ -53,6 +53,7 @@ import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
 import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
 import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
+import net.chaos.chaosmod.world.structures.MapGenCustomCavesHell;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.chaos.chaosmod.world.structures.StructureCustomVillage;
 import net.minecraft.init.Biomes;

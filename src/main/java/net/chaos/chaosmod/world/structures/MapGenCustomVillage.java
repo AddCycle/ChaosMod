@@ -80,7 +80,6 @@ public class MapGenCustomVillage extends MapGenVillage {
 		if (i == k && j == l)
 		{
 			boolean flag = this.world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
-			System.out.println(flag);
 
 			if (flag)
 			{
