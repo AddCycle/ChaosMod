@@ -9,6 +9,7 @@ import com.google.common.cache.LoadingCache;
 import net.chaos.chaosmod.blocks.abstracted.AbstractBreakableBlock;
 import net.chaos.chaosmod.commands.TeleportUtil;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModDimensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.block.material.Material;
@@ -233,7 +234,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
     {
         if (entityIn instanceof EntityPlayer && !entityIn.isRiding() && !entityIn.isBeingRidden() && entityIn.isNonBoss())
         {
-        	int dimension = 2;
+        	int dimension = worldIn.provider.getDimension() == 0 ? ModDimensions.customId : 0;
         	TeleportUtil.teleport((EntityPlayer) entityIn, dimension, 0, 70, 0);
         }
     }

@@ -83,7 +83,7 @@ public class DimensionWarpCommand extends CommandBase {
         @Override
         public void placeEntity(World world, Entity entity, float yaw)
         {
-            entity.moveToBlockPosAndAngles(targetPos, yaw, entity.rotationPitch);
+        	entity.setPositionAndUpdate(targetPos.getX() + 0.5, targetPos.getY(), targetPos.getZ() + 0.5);
         }
     }
 

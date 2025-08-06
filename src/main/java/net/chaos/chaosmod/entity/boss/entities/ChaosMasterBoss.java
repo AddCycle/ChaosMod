@@ -8,7 +8,9 @@ import net.chaos.chaosmod.entity.boss.fightmanager.CMFightManager;
 import net.chaos.chaosmod.entity.boss.fightmanager.phase.CMPhaseList;
 import net.chaos.chaosmod.entity.boss.fightmanager.phase.CMPhaseManager;
 import net.chaos.chaosmod.entity.boss.fightmanager.phase.ICMPhase;
+import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModDamageSources;
+import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.world.structures.DimensionProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -21,11 +23,14 @@ import net.minecraft.entity.MoverType;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityEnderCrystal;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -45,6 +50,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -677,6 +683,20 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
      */
     protected void onDeathUpdate()
     {
+    	List<EntityPlayer> nearby_players = null;
+    	int count = 0;
+    	if (!world.isRemote) {
+    		int radius = 50; // FIXME: boss island radius
+    		nearby_players = world.getEntitiesWithinAABB(EntityPlayer.class, this.getEntityBoundingBox().grow(radius));
+    		count = nearby_players.size();
+    	}
+
+    	if (!world.isRemote) {
+    		for (EntityPlayerMP pl : world.getMinecraftServer().getPlayerList().getPlayers()) {
+    			pl.sendMessage(new TextComponentTranslation("entity.chaos_master.death_message"));
+    		}
+    	}
+
         if (this.fightManager != null)
         {
             this.fightManager.dragonUpdate(this);
@@ -705,6 +725,9 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
             if (this.deathTicks > 150 && this.deathTicks % 5 == 0 && flag)
             {
                 this.dropExperience(MathHelper.floor((float)i * 0.08F));
+            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.ALL_IN_ONE_SWORD, count == 0 ? 1 : count)));
+            	world.spawnEntity(new EntityItem(world, this.posX, this.posY + 1, this.posZ, new ItemStack(ModItems.ALL_IN_ONE_BOW, count == 0 ? 1 : count)));
+            	world.spawnEntity(new EntityItem(world, this.posX, this.posY + 2, this.posZ, new ItemStack(ModBlocks.TALENT_TROPHY, count == 0 ? 1 : count)));
             }
 
             if (this.deathTicks == 1)
