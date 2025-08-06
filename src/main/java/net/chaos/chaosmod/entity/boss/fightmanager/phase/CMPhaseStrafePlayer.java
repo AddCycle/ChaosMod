@@ -7,17 +7,20 @@ import org.apache.logging.log4j.Logger;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityDragonFireball;
 import net.minecraft.entity.projectile.EntityLargeFireball;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.event.entity.ProjectileImpactEvent.Fireball;
 
 public class CMPhaseStrafePlayer extends CMPhaseBase
 {
@@ -94,30 +97,50 @@ public class CMPhaseStrafePlayer extends CMPhaseBase
                         EntityDragonFireball entitydragonfireball = new EntityDragonFireball(this.dragon.world, this.dragon, d9 * accelFactor, d10 * accelFactor, d11 * accelFactor) {
                         	@Override
                         	public boolean attackEntityFrom(DamageSource source, float amount) {
-                                this.markVelocityChanged();
+                        	    this.markVelocityChanged();
 
-                                if (source.getTrueSource() != null)
-                                {
-                                    Vec3d vec3d = source.getTrueSource().getLookVec();
+                        	    Entity trueSource = source.getTrueSource();
+                        	    if (trueSource != null) {
+                        	        Vec3d lookVec = trueSource.getLookVec();
 
-                                    if (vec3d != null)
-                                    {
-                                        this.motionX = vec3d.x;
-                                        this.motionY = vec3d.y;
-                                        this.motionZ = vec3d.z;
-                                        this.accelerationX = this.motionX * 0.1D;
-                                        this.accelerationY = this.motionY * 0.1D;
-                                        this.accelerationZ = this.motionZ * 0.1D;
+                        	        if (lookVec != null) {
+                        	            Vec3d normLook = lookVec.normalize();
+
+                        	            // Redirect motion strongly back towards the attacker
+                        	            this.motionX = normLook.x * 1.0;
+                        	            this.motionY = normLook.y * 1.0;
+                        	            this.motionZ = normLook.z * 1.0;
+
+                        	            // Acceleration to keep it moving
+                        	            this.accelerationX = this.motionX * 0.5D;
+                        	            this.accelerationY = this.motionY * 0.5D;
+                        	            this.accelerationZ = this.motionZ * 0.5D;
+
+                        	            this.setPosition(this.posX + normLook.x * 0.5, this.posY + normLook.y * 0.5, this.posZ + normLook.z * 0.5);
+                        	        }
+
+                        	        if (trueSource instanceof EntityLivingBase) {
+                        	            this.shootingEntity = (EntityLivingBase) trueSource;
+                        	        }
+
+                        	        this.world.playSound(null, this.posX, this.posY, this.posZ, 
+                        	        	    SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                        	        
+                        	        for (int i = 0; i < 10; i++) {
+                                        double px = this.posX + (this.rand.nextDouble() - 0.5) * 0.5;
+                                        double py = this.posY + (this.rand.nextDouble() - 0.5) * 0.5;
+                                        double pz = this.posZ + (this.rand.nextDouble() - 0.5) * 0.5;
+                                        this.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, px, py, pz, 0, 0, 0);
                                     }
 
-                                    if (source.getTrueSource() instanceof EntityLivingBase)
-                                    {
-                                        this.shootingEntity = (EntityLivingBase)source.getTrueSource();
-                                    }
+                        	        if (trueSource instanceof EntityLivingBase) {
+                        	            this.shootingEntity = (EntityLivingBase) trueSource;
+                        	        }
 
-                                    return true;
-                                }
-                                return false;
+                        	        return true;
+                        	    }
+
+                        	    return false;
                         	}
                         };
                         entitydragonfireball.setLocationAndAngles(d6, d7, d8, 0.0F, 0.0F);

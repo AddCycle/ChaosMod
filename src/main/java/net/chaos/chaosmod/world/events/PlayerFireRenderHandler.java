@@ -118,13 +118,11 @@ public class PlayerFireRenderHandler {
 		if (event.getOverlayType() == RenderBlockOverlayEvent.OverlayType.FIRE) {
 			event.setCanceled(true);
             Minecraft mc = Minecraft.getMinecraft();
-//			System.out.println(mc.player.getEntityData().getBoolean("ShowCustomFireOverlay"));
 
             if (mc.player.getEntityData().getBoolean("ShowCustomFireOverlay")) {
-            	Main.getLogger().info("Player on fire rendering blue fire overlay : {}", event.getPlayer());
+            	// Main.getLogger().info("Player on fire rendering blue fire overlay : {}", event.getPlayer());
                 renderFireInFirstPerson(mc);
             }
-//            renderFireInFirstPerson(mc);
 		}
 	}
 	

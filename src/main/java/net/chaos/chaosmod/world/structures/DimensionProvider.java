@@ -41,7 +41,7 @@ public class DimensionProvider extends WorldProvider {
 
 	@Override
 	public DimensionType getDimensionType() {
-		return ModDimensions.CUSTOM; // fix should keep loaded
+		return ModDimensions.CUSTOM;
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class DimensionProvider extends WorldProvider {
 	
 	@Override
 	public int getRespawnDimension(EntityPlayerMP player) {
-		return 2;
+		return 0;
 	}
 
 	
@@ -99,7 +99,7 @@ public class DimensionProvider extends WorldProvider {
      */
     public boolean canRespawnHere()
     {
-        return true;
+        return false;
     }
 
     /**

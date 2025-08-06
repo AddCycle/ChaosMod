@@ -33,11 +33,12 @@ public class OxoniumHalleberd extends ToolSword {
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (isCharged && !worldIn.isRemote) {
 			EntityLightningBolt bolt = new EntityLightningBolt(worldIn, pos.getX(), pos.getY(), pos.getZ(), true);
-			worldIn.createExplosion(player, pos.getX(), pos.getY() + 1, pos.getZ(), 2.0f, false);
+			worldIn.createExplosion(null, pos.getX(), pos.getY() + 1, pos.getZ(), 2.0f, false);
 			worldIn.spawnEntity(bolt);
 			isCharged = false;
 		}
-		return EnumActionResult.SUCCESS;
+		if (this.isCharged) return EnumActionResult.SUCCESS;
+		return EnumActionResult.PASS;
 	}
 	
 	@Override
