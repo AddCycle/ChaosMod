@@ -34,6 +34,7 @@ import net.chaos.chaosmod.network.GuideCommandMessage.GuideMessageHandler;
 import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.chaos.chaosmod.network.PacketForgeCraft;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
+import net.chaos.chaosmod.network.PacketShowFireOverlay;
 import net.chaos.chaosmod.network.PacketSpawnCustomParticle;
 import net.chaos.chaosmod.recipes.machine.MachineRecipeRegistry;
 import net.chaos.chaosmod.tileentity.TileEntityBeam;
@@ -104,7 +105,7 @@ public class Main
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
 
-	public static final SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MODID);;
+	public static final SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MODID);
 
 	// Basically, a logger is for broadcasting messages through the console to help you debug your mod implementation
     private static Logger logger;
@@ -134,13 +135,15 @@ public class Main
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
     	MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenerationOverrideEvents());
         CustomProfessions.registerCustomProfessions();
-    	network.registerMessage(MessageDisplayTextHandler.class, MessageDisplayText.class, 0, Side.CLIENT);
+        int id = 0;
+    	network.registerMessage(MessageDisplayTextHandler.class, MessageDisplayText.class, id, Side.CLIENT);
 		network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, 1, Side.CLIENT);
 		network.registerMessage(PacketOpenAccessoryGui.Handler.class, PacketOpenAccessoryGui.class, 2, Side.SERVER);
 		network.registerMessage(PacketAccessorySync.Handler.class, PacketAccessorySync.class, 3, Side.CLIENT);
 		network.registerMessage(PacketShieldSync.Handler.class, PacketShieldSync.class, 4, Side.CLIENT);
 		network.registerMessage(PacketForgeCraft.Handler.class, PacketForgeCraft.class, 5, Side.SERVER);
 		network.registerMessage(PacketSpawnCustomParticle.ClientHandler.class, PacketSpawnCustomParticle.class, 6, Side.CLIENT);
+		network.registerMessage(PacketShowFireOverlay.Handler.class, PacketShowFireOverlay.class, 7, Side.CLIENT);
         WorldGenerationOverrideEvents.class.getName(); // force-load
         MinecraftForge.EVENT_BUS.register(new RenderBlockOutlinesEvent());
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());

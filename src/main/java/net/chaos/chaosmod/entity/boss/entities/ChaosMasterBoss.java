@@ -4,13 +4,11 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import net.chaos.chaosmod.entity.boss.fightmanager.CMFightManager;
 import net.chaos.chaosmod.entity.boss.fightmanager.phase.CMPhaseList;
 import net.chaos.chaosmod.entity.boss.fightmanager.phase.CMPhaseManager;
 import net.chaos.chaosmod.entity.boss.fightmanager.phase.ICMPhase;
+import net.chaos.chaosmod.init.ModDamageSources;
 import net.chaos.chaosmod.world.structures.DimensionProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -127,7 +125,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(400.0D);
     }
 
     protected void entityInit()
@@ -489,7 +487,8 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
 
                 if (!this.phaseManager.getCurrentPhase().getIsStationary() && ((EntityLivingBase)entity).getRevengeTimer() < entity.ticksExisted - 2)
                 {
-                    entity.attackEntityFrom(DamageSource.causeMobDamage(this), 7.0F); // FIXME : balance damage
+                    entity.attackEntityFrom(ModDamageSources.BLUE_FIRE, 4.0F); // FIXME : setting the blue fire burning flag
+                    entity.setFire(6); // BURN IT
                     this.applyEnchantments(this, entity);
                 }
             }
@@ -507,7 +506,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
 
             if (entity instanceof EntityLivingBase)
             {
-                entity.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F); // FIXME : balance damage
+                entity.attackEntityFrom(ModDamageSources.BLUE_FIRE, 10.0F); // FIXME : balance damage
                 this.applyEnchantments(this, entity);
             }
         }
@@ -1152,7 +1151,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
 
         if (crystal == this.healingEnderCrystal)
         {
-            this.attackEntityFromPart(this.dragonPartHead, DamageSource.causeExplosionDamage(entityplayer), 10.0F);
+            this.attackEntityFromPart(this.dragonPartHead, ModDamageSources.BLUE_FIRE, 10.0F); // FIXME also
         }
 
         this.phaseManager.getCurrentPhase().onCrystalDestroyed(crystal, pos, dmgSrc, entityplayer);

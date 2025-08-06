@@ -2,6 +2,7 @@ package net.chaos.chaosmod.world.events;
 
 import java.util.UUID;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.client.inventory.shield.IShield;
 import net.chaos.chaosmod.init.ModCapabilities;
@@ -25,6 +26,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.FOVUpdateEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -119,12 +122,6 @@ public class PlayerFightEvents {
 		if (!event.player.world.isRemote) {
 	        event.player.resetCooldown(); // Disables the cooldown — resets it every tick
 	    }
-	}
-	
-	
-	@SubscribeEvent
-	public void onAttack(AttackEntityEvent event) {
-		// event.getResult();
 	}
 	
 	@SubscribeEvent

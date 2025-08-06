@@ -39,11 +39,7 @@ public class EntityRevengeBlazeRenderer extends RenderLiving<EntityRevengeBlazeB
    // Only if the model changes
     @Override
     protected void preRenderCallback(EntityRevengeBlazeBoss entitylivingbaseIn, float partialTickTime) {
-        // if (entitylivingbaseIn.isTransformed()) {
     	this.mainModel = new ModelBlaze();
-        /*} else {
-            this.mainModel = normalModel;
-        }*/
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
     }
     

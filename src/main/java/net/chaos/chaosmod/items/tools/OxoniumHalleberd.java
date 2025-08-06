@@ -36,7 +36,6 @@ public class OxoniumHalleberd extends ToolSword {
 			worldIn.createExplosion(player, pos.getX(), pos.getY() + 1, pos.getZ(), 2.0f, false);
 			worldIn.spawnEntity(bolt);
 			isCharged = false;
-			System.out.println("USED");
 		}
 		return EnumActionResult.SUCCESS;
 	}
@@ -44,11 +43,9 @@ public class OxoniumHalleberd extends ToolSword {
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (!isCharged && !worldIn.isRemote) {
-			System.err.println("TICKING");
 			animationCount++;
 			if (animationCount >= cooldown) {
 				isCharged = true;
-				System.out.println("CHARGED");
 				animationCount = 0;
 			}
 		}

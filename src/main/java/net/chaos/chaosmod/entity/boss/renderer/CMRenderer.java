@@ -2,7 +2,6 @@ package net.chaos.chaosmod.entity.boss.renderer;
 
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.chaos.chaosmod.entity.boss.model.ChaosMasterModel;
-import net.chaos.chaosmod.world.structures.DimensionGenerator;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -14,12 +13,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import util.Reference;
 
 @SideOnly(Side.CLIENT)
 public class CMRenderer extends RenderLiving<ChaosMasterBoss> {
     public static final ResourceLocation ENDERCRYSTAL_BEAM_TEXTURES = new ResourceLocation("textures/entity/endercrystal/endercrystal_beam.png");
-    private static final ResourceLocation DRAGON_EXPLODING_TEXTURES = new ResourceLocation("textures/entity/enderdragon/dragon_exploding.png");
-    private static final ResourceLocation DRAGON_TEXTURES = new ResourceLocation("textures/entity/enderdragon/dragon.png");
+    private static final ResourceLocation DRAGON_EXPLODING_TEXTURES = new ResourceLocation(Reference.MODID, "textures/entity/boss/dragon_exploding.png");
+    private static final ResourceLocation DRAGON_TEXTURES = new ResourceLocation(Reference.MODID, "textures/entity/boss/chaos_master.png");
 
     public CMRenderer(RenderManager renderManagerIn)
     {

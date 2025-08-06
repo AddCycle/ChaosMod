@@ -5,20 +5,23 @@ import javax.annotation.Nullable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.dragon.phase.PhaseList;
-import net.minecraft.entity.boss.dragon.phase.PhaseStrafePlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityDragonFireball;
+import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.event.entity.ProjectileImpactEvent.Fireball;
 
 public class CMPhaseStrafePlayer extends CMPhaseBase
 {
+	EntityLargeFireball f;
     private static final Logger LOGGER = LogManager.getLogger();
     private int fireballCharge;
     private Path currentPath;
@@ -62,13 +65,14 @@ public class CMPhaseStrafePlayer extends CMPhaseBase
                 this.findNewTarget();
             }
 
-            double d13 = 64.0D;
+            // double d13 = 64.0D;
 
             if (this.attackTarget.getDistanceSq(this.dragon) < 4096.0D)
             {
                 if (this.dragon.canEntityBeSeen(this.attackTarget))
                 {
                     ++this.fireballCharge;
+                    Main.getLogger().info("CM fireball charge : {} until 5", this.fireballCharge);
                     Vec3d vec3d1 = (new Vec3d(this.attackTarget.posX - this.dragon.posX, 0.0D, this.attackTarget.posZ - this.dragon.posZ)).normalize();
                     Vec3d vec3d = (new Vec3d((double)MathHelper.sin(this.dragon.rotationYaw * 0.017453292F), 0.0D, (double)(-MathHelper.cos(this.dragon.rotationYaw * 0.017453292F)))).normalize();
                     float f1 = (float)vec3d.dotProduct(vec3d1);
@@ -77,7 +81,7 @@ public class CMPhaseStrafePlayer extends CMPhaseBase
 
                     if (this.fireballCharge >= 5 && f >= 0.0F && f < 10.0F)
                     {
-                        double d14 = 1.0D;
+                        // double d14 = 1.0D;
                         Vec3d vec3d2 = this.dragon.getLook(1.0F);
                         double d6 = this.dragon.dragonPartHead.posX - vec3d2.x * 1.0D;
                         double d7 = this.dragon.dragonPartHead.posY + (double)(this.dragon.dragonPartHead.height / 2.0F) + 0.5D;
@@ -86,7 +90,36 @@ public class CMPhaseStrafePlayer extends CMPhaseBase
                         double d10 = this.attackTarget.posY + (double)(this.attackTarget.height / 2.0F) - (d7 + (double)(this.dragon.dragonPartHead.height / 2.0F));
                         double d11 = this.attackTarget.posZ - d8;
                         this.dragon.world.playEvent((EntityPlayer)null, 1017, new BlockPos(this.dragon), 0);
-                        EntityDragonFireball entitydragonfireball = new EntityDragonFireball(this.dragon.world, this.dragon, d9, d10, d11);
+                        double accelFactor = 2;
+                        EntityDragonFireball entitydragonfireball = new EntityDragonFireball(this.dragon.world, this.dragon, d9 * accelFactor, d10 * accelFactor, d11 * accelFactor) {
+                        	@Override
+                        	public boolean attackEntityFrom(DamageSource source, float amount) {
+                                this.markVelocityChanged();
+
+                                if (source.getTrueSource() != null)
+                                {
+                                    Vec3d vec3d = source.getTrueSource().getLookVec();
+
+                                    if (vec3d != null)
+                                    {
+                                        this.motionX = vec3d.x;
+                                        this.motionY = vec3d.y;
+                                        this.motionZ = vec3d.z;
+                                        this.accelerationX = this.motionX * 0.1D;
+                                        this.accelerationY = this.motionY * 0.1D;
+                                        this.accelerationZ = this.motionZ * 0.1D;
+                                    }
+
+                                    if (source.getTrueSource() instanceof EntityLivingBase)
+                                    {
+                                        this.shootingEntity = (EntityLivingBase)source.getTrueSource();
+                                    }
+
+                                    return true;
+                                }
+                                return false;
+                        	}
+                        };
                         entitydragonfireball.setLocationAndAngles(d6, d7, d8, 0.0F, 0.0F);
                         this.dragon.world.spawnEntity(entitydragonfireball);
                         this.fireballCharge = 0;

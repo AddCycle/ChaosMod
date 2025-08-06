@@ -4,18 +4,6 @@ import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
-import net.minecraft.entity.boss.dragon.phase.IPhase;
-import net.minecraft.entity.boss.dragon.phase.PhaseChargingPlayer;
-import net.minecraft.entity.boss.dragon.phase.PhaseDying;
-import net.minecraft.entity.boss.dragon.phase.PhaseHoldingPattern;
-import net.minecraft.entity.boss.dragon.phase.PhaseHover;
-import net.minecraft.entity.boss.dragon.phase.PhaseLanding;
-import net.minecraft.entity.boss.dragon.phase.PhaseLandingApproach;
-import net.minecraft.entity.boss.dragon.phase.PhaseSittingAttacking;
-import net.minecraft.entity.boss.dragon.phase.PhaseSittingFlaming;
-import net.minecraft.entity.boss.dragon.phase.PhaseSittingScanning;
-import net.minecraft.entity.boss.dragon.phase.PhaseStrafePlayer;
-import net.minecraft.entity.boss.dragon.phase.PhaseTakeoff;
 
 public class CMPhaseList<T extends ICMPhase>
 {

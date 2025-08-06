@@ -22,13 +22,16 @@ import net.chaos.chaosmod.tileentity.TileEntityLantern;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.tileentity.TileEntityTrophyBase;
+import net.chaos.chaosmod.world.events.PlayerFireRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -53,6 +56,7 @@ public class ClientProxy extends CommonProxy {
 	public void preInit(FMLPreInitializationEvent event) {
         RenderHandler.registerEntityRenders();
         ModKeybinds.init();
+        MinecraftForge.EVENT_BUS.register(new PlayerFireRenderHandler());
 	}
 
 	@Override
@@ -65,12 +69,10 @@ public class ClientProxy extends CommonProxy {
 		// MinecraftForge.EVENT_BUS.register(ClientMessageHandler.class);
 		// OxoniumFurnace to suppress nametag
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new TileEntitySpecialRenderer<TileEntity>() {
-
 			@Override
 			protected void drawNameplate(TileEntity te, String str, double x, double y, double z, int maxDistance) {
 				return;
 			}
-				
 		});
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumChest.class, new TileEntityOxoniumChestRenderer<TileEntityOxoniumChest>());
@@ -88,11 +90,8 @@ public class ClientProxy extends CommonProxy {
 		// MinecraftForge.EVENT_BUS.register(new PlayerRenderManager());
 		MinecraftForge.EVENT_BUS.register(new BossBarRendering());
 		// ################################# NECKLACE RENDERING #############################################
-		/*Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
 
 	    // Add the layer to both Steve and Alex models
-	    skinMap.get("default").addLayer(new LayerNecklace(skinMap.get("default")));
-	    skinMap.get("slim").addLayer(new LayerNecklace(skinMap.get("slim")));*/
 		Minecraft.getMinecraft().getRenderManager().getSkinMap().values().forEach(renderer -> {
 		    renderer.addLayer(new LayerNecklace(renderer));
 		    renderer.addLayer(new LayerShield(renderer));
@@ -104,7 +103,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
-		// RegistryHandler.renderItems();
 	}
 	
 }
