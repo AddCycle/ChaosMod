@@ -42,7 +42,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
     public BossInfoServer bossInfo;
     public boolean isBoss;
     public static final DataParameter<Integer> LASER_TARGET_ID =
-    	    EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.VARINT);
+    	EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.VARINT);
     
     public EntityEyeCrystal(World worldIn) {
     	super(worldIn);

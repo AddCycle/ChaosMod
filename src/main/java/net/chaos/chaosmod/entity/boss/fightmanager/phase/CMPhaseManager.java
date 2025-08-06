@@ -3,8 +3,8 @@ package net.chaos.chaosmod.entity.boss.fightmanager.phase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
-import net.minecraft.entity.boss.dragon.phase.IPhase;
 
 public class CMPhaseManager {
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -20,10 +20,11 @@ public class CMPhaseManager {
 
     public void setPhase(CMPhaseList<?> phaseIn)
     {
-        if (this.phase == null) // || phaseIn != this.phase.getType()) FIXME : too important to be layed down
+        if (this.phase == null || phaseIn != this.phase.getType()) // FIX : phases were unchecked
         {
             if (this.phase != null)
             {
+            	Main.getLogger().info("Current phase chaosmaster dragon : {}", this.phase.getType());
                 this.phase.removeAreaEffect();
             }
 

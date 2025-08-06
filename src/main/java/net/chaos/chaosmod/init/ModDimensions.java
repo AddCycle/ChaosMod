@@ -14,7 +14,7 @@ public class ModDimensions {
 	
 	public static void registerDimensionTypes() {
 		customId = DimensionManager.getNextFreeDimId();
-		CUSTOM = DimensionType.register("custom_dim", "_dim", customId, DimensionProvider.class, true);
+		CUSTOM = DimensionType.register("custom_dim", "_dim", customId, DimensionProvider.class, false);
 		DimensionManager.registerDimension(customId, CUSTOM);
 	}
 }

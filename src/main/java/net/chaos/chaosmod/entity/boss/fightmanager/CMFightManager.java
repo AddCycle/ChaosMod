@@ -23,6 +23,7 @@ import com.google.common.collect.Sets;
 import net.chaos.chaosmod.entity.boss.ChaosMasterSpawnManager;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.chaos.chaosmod.entity.boss.fightmanager.phase.CMPhaseList;
+import net.chaos.chaosmod.world.gen.chaosland.WorldGenChaosLandPodium;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.state.BlockWorldState;
 import net.minecraft.block.state.pattern.BlockMatcher;
@@ -49,14 +50,15 @@ import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeEndDecorator;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.end.DragonFightManager;
 import net.minecraft.world.gen.feature.WorldGenEndGateway;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 import net.minecraft.world.gen.feature.WorldGenSpikes;
 
-public class CMFightManager {
-private static final Logger LOGGER = LogManager.getLogger();
+public class CMFightManager extends DragonFightManager {
+	private static final Logger LOGGER = LogManager.getLogger();
     private static final Predicate<EntityPlayerMP> VALID_PLAYER = Predicates.<EntityPlayerMP>and(EntitySelectors.IS_ALIVE, EntitySelectors.withinRange(0.0D, 128.0D, 0.0D, 192.0D));
-    private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(new TextComponentTranslation("entity.ChaosMaster.name", new Object[0]), BossInfo.Color.WHITE, BossInfo.Overlay.PROGRESS)).setPlayEndBossMusic(true).setCreateFog(true);
+    private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(new TextComponentTranslation("entity.ChaosMaster.name", new Object[0]), BossInfo.Color.WHITE, BossInfo.Overlay.PROGRESS)).setCreateFog(false); // .setPlayEndBossMusic(true)
     private final WorldServer world;
     private final List<Integer> gateways = Lists.<Integer>newArrayList();
     private final BlockPattern portalPattern;
@@ -75,6 +77,7 @@ private static final Logger LOGGER = LogManager.getLogger();
 
     public CMFightManager(WorldServer worldIn, NBTTagCompound compound)
     {
+    	super(worldIn, compound);
         this.world = worldIn;
 
         if (compound.hasKey("CustomDragonKilled", 99))
@@ -433,17 +436,17 @@ private static final Logger LOGGER = LogManager.getLogger();
 
     private void generatePortal(boolean active)
     {
-        WorldGenEndPodium worldgenendpodium = new WorldGenEndPodium(active);
+        WorldGenChaosLandPodium worldgenchaoslandpodium = new WorldGenChaosLandPodium(active);
 
         if (this.exitPortalLocation == null)
         {
-            for (this.exitPortalLocation = this.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION).down(); this.world.getBlockState(this.exitPortalLocation).getBlock() == Blocks.BEDROCK && this.exitPortalLocation.getY() > this.world.getSeaLevel(); this.exitPortalLocation = this.exitPortalLocation.down())
+            for (this.exitPortalLocation = this.world.getTopSolidOrLiquidBlock(WorldGenChaosLandPodium.END_PODIUM_LOCATION).down(); this.world.getBlockState(this.exitPortalLocation).getBlock() == Blocks.BEDROCK && this.exitPortalLocation.getY() > this.world.getSeaLevel(); this.exitPortalLocation = this.exitPortalLocation.down())
             {
                 ;
             }
         }
 
-        worldgenendpodium.generate(this.world, new Random(), this.exitPortalLocation);
+        worldgenchaoslandpodium.generate(this.world, new Random(), this.exitPortalLocation);
     }
 
     private ChaosMasterBoss createNewDragon()
@@ -453,9 +456,8 @@ private static final Logger LOGGER = LogManager.getLogger();
     	entitydragon = new ChaosMasterBoss(this.world);
     	entitydragon.getPhaseManager().setPhase(CMPhaseList.HOLDING_PATTERN);
     	entitydragon.setLocationAndAngles(0.0D, 128.0D, 0.0D, this.world.rand.nextFloat() * 360.0F, 0.0F);
-    	if (!this.world.isRemote) this.world.spawnEntity(entitydragon);
+    	this.world.spawnEntity(entitydragon);
     	this.dragonUniqueId = entitydragon.getUniqueID();
-    	System.out.println("Summoned dragon!");
         return entitydragon;
     }
 

@@ -20,7 +20,6 @@ import net.minecraft.entity.boss.dragon.phase.PhaseTakeoff;
 public class CMPhaseList<T extends ICMPhase>
 {
     private static CMPhaseList<?>[] phases = new CMPhaseList[0];
-    // TODO : all the phases
     public static final CMPhaseList<CMPhaseHoldingPattern> HOLDING_PATTERN = create(CMPhaseHoldingPattern.class, "HoldingPattern");
     public static final CMPhaseList<CMPhaseStrafePlayer> STRAFE_PLAYER = create(CMPhaseStrafePlayer.class, "StrafePlayer");
     public static final CMPhaseList<CMPhaseLandingApproach> LANDING_APPROACH = create(CMPhaseLandingApproach.class, "LandingApproach");

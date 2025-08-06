@@ -2,6 +2,7 @@ package net.chaos.chaosmod.world.structures;
 
 import javax.annotation.Nullable;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.boss.fightmanager.CMFightManager;
 import net.chaos.chaosmod.init.ModDimensions;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -23,10 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DimensionProvider extends WorldProvider {
-	private CMFightManager dragonFightManager;
-	DragonFightManager m;
-	ChunkGeneratorEnd e;
-	WorldProviderEnd nd;
+	private DragonFightManager dragonFightManager;
 
     /**
      * Creates a new {@link BiomeProvider} for the WorldProvider, and also sets the values of {@link #hasSkylight} and
@@ -38,18 +36,18 @@ public class DimensionProvider extends WorldProvider {
     {
         this.biomeProvider = new BiomeProviderSingle(Biomes.SKY);
         NBTTagCompound nbttagcompound = this.world.getWorldInfo().getDimensionData(this.world.provider.getDimension());
+        Main.getLogger().info("Init dragon fight in dim provider : {}", this.world instanceof WorldServer);
         this.dragonFightManager = this.world instanceof WorldServer ? new CMFightManager((WorldServer)this.world, nbttagcompound.getCompoundTag("CustomDragonFight")) : null;
     }
 
 	@Override
 	public DimensionType getDimensionType() {
-		return ModDimensions.CUSTOM;
+		return ModDimensions.CUSTOM; // fix should keep loaded
 	}
 	
 	@Override
 	public IChunkGenerator createChunkGenerator() {
 		return new ChunkGeneratorEnd(this.world, this.world.getWorldInfo().isMapFeaturesEnabled(), this.world.getSeed(), this.getSpawnCoordinate());
-		// return new DimensionGenerator(world, world.getSeed(), true, world.getWorldInfo().getGeneratorOptions());
 	}
 	
 	@Override
@@ -102,7 +100,7 @@ public class DimensionProvider extends WorldProvider {
      */
     public boolean canRespawnHere()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -132,7 +130,7 @@ public class DimensionProvider extends WorldProvider {
 
     public BlockPos getSpawnCoordinate()
     {
-        return new BlockPos(100, 50, 0);
+        return new BlockPos(0, 70, 0);
     }
 
     public int getAverageGroundLevel()
@@ -183,7 +181,7 @@ public class DimensionProvider extends WorldProvider {
     }
 
     @Nullable
-    public CMFightManager getDragonFightManager()
+    public DragonFightManager getDragonFightManager()
     {
         return this.dragonFightManager;
     }
@@ -192,7 +190,7 @@ public class DimensionProvider extends WorldProvider {
      * Called when a Player is added to the provider's world.
      */
     @Override
-    public void onPlayerAdded(net.minecraft.entity.player.EntityPlayerMP player)
+    public void onPlayerAdded(EntityPlayerMP player)
     {
         if (this.dragonFightManager != null)
         {
@@ -204,12 +202,11 @@ public class DimensionProvider extends WorldProvider {
      * Called when a Player is removed from the provider's world.
      */
     @Override
-    public void onPlayerRemoved(net.minecraft.entity.player.EntityPlayerMP player)
+    public void onPlayerRemoved(EntityPlayerMP player)
     {
         if (this.dragonFightManager != null)
         {
             this.dragonFightManager.removePlayer(player);
         }
     }
-
 }

@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.boss.dragon.phase.IPhase;
+import net.minecraft.entity.boss.dragon.phase.PhaseManager;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;

@@ -7,6 +7,7 @@ import net.chaos.chaosmod.blocks.AllemaniteBlock;
 import net.chaos.chaosmod.blocks.AllemaniteOre;
 import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.BlockBeam;
+import net.chaos.chaosmod.blocks.BlockChaosPortal;
 import net.chaos.chaosmod.blocks.BlockTrophy;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.ConnectedBlock;
@@ -82,6 +83,8 @@ public class ModBlocks {
 	public static final Block TALENT_TROPHY = new BlockTrophy("talent_trophy", 4);
 	public static final Block PORTAL_FRAME = new DimensionPortal("portal_frame");
 	public static final Block CHAOS_PORTAL_BLOCK = new BlockBase("chaos_portal_block", Material.ROCK);
+	public static final Block CHAOSLAND_PORTAL = new BlockChaosPortal("chaosland_portal");
 //	public static final Block FAKE_LIGHT_BLOCK = new FakeLightBlock("fake_light_block");
+
 
 }

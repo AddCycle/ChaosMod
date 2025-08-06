@@ -54,7 +54,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiPart {
-	private static final Logger LOGGER = LogManager.getLogger();
+	//	private static final Logger LOGGER = LogManager.getLogger();
     public static final DataParameter<Integer> PHASE = EntityDataManager.<Integer>createKey(ChaosMasterBoss.class, DataSerializers.VARINT);
     /** Ring buffer array for the last 64 Y-positions and yaw rotations. Used to calculate offsets for the animations. */
     public double[][] ringBuffer = new double[64][3];
@@ -114,8 +114,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
 
         if (!worldIn.isRemote && worldIn.provider instanceof DimensionProvider)
         {
-        	System.out.println("Setting up fight manager");
-            this.fightManager = ((DimensionProvider)worldIn.provider).getDragonFightManager();
+            this.fightManager = (CMFightManager) ((DimensionProvider)worldIn.provider).getDragonFightManager();
         }
         else
         {
@@ -552,7 +551,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
                         {
                             flag = true;
                         }
-                        else if (block.canEntityDestroy(iblockstate, this.world, blockpos, this) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, iblockstate))
+                        else if (block.canEntityDestroy(iblockstate, this.world, blockpos, this) && this.canDestroySpecificBlock(iblockstate.getBlock()) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, iblockstate))
                         {
                             if (block != Blocks.COMMAND_BLOCK && block != Blocks.REPEATING_COMMAND_BLOCK && block != Blocks.CHAIN_COMMAND_BLOCK && block != Blocks.IRON_BARS && block != Blocks.END_GATEWAY)
                             {
@@ -583,7 +582,21 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
         return flag;
     }
 
-    public boolean attackEntityFromPart(MultiPartEntityPart dragonPart, DamageSource source, float damage)
+    private boolean canDestroySpecificBlock(Block block) {
+    	return block != Blocks.BARRIER &&
+    		   block != Blocks.OBSIDIAN &&
+    		   block != Blocks.END_STONE &&
+    		   block != Blocks.BEDROCK &&
+    		   block != Blocks.END_PORTAL &&
+    		   block != Blocks.END_PORTAL_FRAME &&
+    		   block != Blocks.COMMAND_BLOCK &&
+    		   block != Blocks.REPEATING_COMMAND_BLOCK &&
+    		   block != Blocks.CHAIN_COMMAND_BLOCK &&
+    		   block != Blocks.IRON_BARS &&
+    		   block != Blocks.END_GATEWAY;
+    }
+
+	public boolean attackEntityFromPart(MultiPartEntityPart dragonPart, DamageSource source, float damage)
     {
         damage = this.phaseManager.getCurrentPhase().getAdjustedDamage(dragonPart, source, damage);
 
@@ -934,7 +947,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
         }
         else
         {
-            LOGGER.debug("Failed to find path from {} to {}", Integer.valueOf(startIdx), Integer.valueOf(finishIdx));
+//            LOGGER.debug("Failed to find path from {} to {}", Integer.valueOf(startIdx), Integer.valueOf(finishIdx));
 
             if (andThen != null)
             {
