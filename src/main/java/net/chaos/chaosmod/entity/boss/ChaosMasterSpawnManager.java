@@ -9,7 +9,6 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeEndDecorator;
-import net.minecraft.world.end.DragonSpawnManager;
 import net.minecraft.world.gen.feature.WorldGenSpikes;
 
 public enum ChaosMasterSpawnManager

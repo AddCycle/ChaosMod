@@ -58,7 +58,7 @@ import net.minecraft.world.gen.feature.WorldGenSpikes;
 public class CMFightManager extends DragonFightManager {
 	private static final Logger LOGGER = LogManager.getLogger();
     private static final Predicate<EntityPlayerMP> VALID_PLAYER = Predicates.<EntityPlayerMP>and(EntitySelectors.IS_ALIVE, EntitySelectors.withinRange(0.0D, 128.0D, 0.0D, 192.0D));
-    private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(new TextComponentTranslation("entity.ChaosMaster.name", new Object[0]), BossInfo.Color.WHITE, BossInfo.Overlay.PROGRESS)).setCreateFog(false); // .setPlayEndBossMusic(true)
+    private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(new TextComponentTranslation("entity.ChaosMaster.name"), BossInfo.Color.WHITE, BossInfo.Overlay.PROGRESS)).setCreateFog(true); // .setPlayEndBossMusic(true)
     private final WorldServer world;
     private final List<Integer> gateways = Lists.<Integer>newArrayList();
     private final BlockPattern portalPattern;

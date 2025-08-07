@@ -21,6 +21,7 @@ import net.chaos.chaosmod.items.special.AllemaniteExtinguisher;
 import net.chaos.chaosmod.items.special.ChestUpgradeBase;
 import net.chaos.chaosmod.items.special.CustomFireball;
 import net.chaos.chaosmod.items.special.EnderiteThunder;
+import net.chaos.chaosmod.items.special.ItemChaosLandCrystal;
 import net.chaos.chaosmod.items.special.ItemHeart;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
@@ -141,6 +142,7 @@ public class ModItems {
 	public static final Item CHAOS_HEART = new ItemHeart("chaos_heart");
 
 	public static final Item PORTAL_IGNITER = new PortalKey("portal_key");
+	public static final Item ENDER_CRYSTAL_CHAOSLAND_ITEM = new ItemChaosLandCrystal("chaosland_crystal_item");
 	
 	//Food
 	public static Item OXONIUM_CARROT;
