@@ -2,6 +2,7 @@ package net.chaos.chaosmod.world.events;
 
 import java.util.Random;
 
+import net.chaos.chaosmod.blocks.BlockChaosPortal;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
@@ -38,22 +39,14 @@ public class EntitiesDeathEvents {
         
         if (tile instanceof TileEntityOxoniumChest) {
         	Random rand = new Random();
-        	// LootTable table = new LootTable(new LootPool[] {}); just add chaos heart to the loots
-        	// ((TileEntityOxoniumChest) tile).setLootTable(LootTableList.CHESTS_END_CITY_TREASURE, rand.nextLong());
         	((TileEntityOxoniumChest) tile).setInventorySlotContents(12, new ItemStack(Blocks.DRAGON_EGG));
         	((TileEntityOxoniumChest) tile).setInventorySlotContents(13, new ItemStack(ModItems.CHAOS_HEART));
         	((TileEntityOxoniumChest) tile).setInventorySlotContents(14, new ItemStack(Blocks.DRAGON_EGG));
         	world.setBlockState(pos.down(3), ModBlocks.BEAM_BLOCK.getDefaultState(), 2);
-        	// TileEntityBeacon
         }
-        
-        /*EntityEyeCrystal crystal_of_truth = new EntityEyeCrystal(world, 0.5, world.getHeight(0, 0), 0.5);
-        if (crystal_of_truth != null) {
-        	if (!world.isRemote) world.spawnEntity(crystal_of_truth);
-        	System.out.println("SPAWNED !");
-        }*/
 
-        world.setBlockState(pos.up(2), Blocks.END_GATEWAY.getDefaultState(), 2);
+        // FIXME : make a teleporter more practical
+        world.setBlockState(pos.up(2), new BlockChaosPortal("second_tp_pos").getDefaultState(), 2);
         BlockPos target = new BlockPos(400, 80, 400); // Change as needed
         this.generatePlatform(world, ModBlocks.ENDERITE_BRICKS, target, 100);
         BlockPos center_pylon = new BlockPos(455, 81, 460);
@@ -64,7 +57,8 @@ public class EntitiesDeathEvents {
         this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.east(10), 3, 19);
         this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.west(10), 3, 19);
 
-        EntityEyeCrystal boss = new EntityEyeCrystal(world, 456.5, 98, 461.5, 100, true);
+        EntityEyeCrystal boss = new EntityEyeCrystal(world, 456.5, 98, 461.5);
+        boss.setup(100, true);
         world.spawnEntity(boss);
 	}
 	
@@ -97,7 +91,8 @@ public class EntitiesDeathEvents {
 			}
 		}
 		BlockPos pos = center.add(1.5, height + 1, 1.5);
-        EntityEyeCrystal minions = new EntityEyeCrystal(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20, false);
+        EntityEyeCrystal minions = new EntityEyeCrystal(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+        minions.setup(20, false);
         minions.setBeamTarget(new BlockPos(456.5, 98, 461.5).down());
         world.spawnEntity(minions);
 	}

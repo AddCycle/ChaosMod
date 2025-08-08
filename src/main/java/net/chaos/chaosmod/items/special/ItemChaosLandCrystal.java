@@ -2,6 +2,7 @@ package net.chaos.chaosmod.items.special;
 
 import java.util.List;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.boss.fightmanager.CMFightManager;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.world.structures.DimensionProvider;
@@ -79,6 +80,7 @@ public class ItemChaosLandCrystal extends ItemBase {
 							{
 								CMFightManager chaosmasterfightmanager = (CMFightManager) ((DimensionProvider)worldIn.provider).getDragonFightManager();
 								chaosmasterfightmanager.respawnDragon();
+								Main.getLogger().info("RESPAWNING ChaosMaster..");
 							}
 						}
 

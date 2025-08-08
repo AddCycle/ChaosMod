@@ -12,7 +12,6 @@ import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModKeybinds;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
-import net.chaos.chaosmod.items.necklace.EnderiteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;

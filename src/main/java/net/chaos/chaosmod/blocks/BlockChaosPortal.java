@@ -36,9 +36,11 @@ public class BlockChaosPortal extends BlockEndPortal {
                 WorldServer targetWorld = server.getWorld(customDimId);
 
                 if (targetWorld != null) {
-                	// player.mcServer.getPlayerList().transferPlayerToDimension(player, customDimId, new TeleporterChaos(targetWorld));
                 	BlockPos spawn = targetWorld.getSpawnPoint();
-                	TeleportUtil.teleport(player, customDimId, spawn.getX(), spawn.getY(), spawn.getZ());
+                	int x = spawn.getX();
+                	int z = spawn.getZ();
+                	int y = targetWorld.getHeight(x,z);
+                	TeleportUtil.teleport(player, customDimId, x, y, z);
                 }
             }
         }

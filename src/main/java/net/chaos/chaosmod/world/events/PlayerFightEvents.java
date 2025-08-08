@@ -65,8 +65,7 @@ public class PlayerFightEvents {
 	    		if (shield.getItem() instanceof OxoniumShield || shield.getItem() instanceof AllemaniteShield) {
 	    			if (event.getSource() == ModDamageSources.LASER_DAMAGE) {
 	    				float damage = event.getAmount();
-	    				event.setCanceled(true);
-	    				player.attackEntityFrom(ModDamageSources.LASER_DAMAGE, damage / 2);
+	    				event.setAmount(damage / 2);
 	    			}
 	    		}
 	    	}

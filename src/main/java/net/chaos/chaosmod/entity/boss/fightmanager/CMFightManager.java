@@ -52,13 +52,12 @@ import net.minecraft.world.biome.BiomeEndDecorator;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.end.DragonFightManager;
 import net.minecraft.world.gen.feature.WorldGenEndGateway;
-import net.minecraft.world.gen.feature.WorldGenEndPodium;
 import net.minecraft.world.gen.feature.WorldGenSpikes;
 
 public class CMFightManager extends DragonFightManager {
 	private static final Logger LOGGER = LogManager.getLogger();
     private static final Predicate<EntityPlayerMP> VALID_PLAYER = Predicates.<EntityPlayerMP>and(EntitySelectors.IS_ALIVE, EntitySelectors.withinRange(0.0D, 128.0D, 0.0D, 192.0D));
-    private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(new TextComponentTranslation("entity.ChaosMaster.name"), BossInfo.Color.WHITE, BossInfo.Overlay.PROGRESS)).setCreateFog(true); // .setPlayEndBossMusic(true)
+    private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(new TextComponentTranslation("entity.chaos_master.name"), BossInfo.Color.WHITE, BossInfo.Overlay.PROGRESS)).setCreateFog(true); // .setPlayEndBossMusic(true)
     private final WorldServer world;
     private final List<Integer> gateways = Lists.<Integer>newArrayList();
     private final BlockPattern portalPattern;
@@ -335,11 +334,11 @@ public class CMFightManager extends DragonFightManager {
             }
         }
 
-        int k = this.world.getHeight(WorldGenEndPodium.END_PODIUM_LOCATION).getY();
+        int k = this.world.getHeight(WorldGenChaosLandPodium.END_PODIUM_LOCATION).getY();
 
         for (int l = k; l >= 0; --l)
         {
-            BlockPattern.PatternHelper blockpattern$patternhelper1 = this.portalPattern.match(this.world, new BlockPos(WorldGenEndPodium.END_PODIUM_LOCATION.getX(), l, WorldGenEndPodium.END_PODIUM_LOCATION.getZ()));
+            BlockPattern.PatternHelper blockpattern$patternhelper1 = this.portalPattern.match(this.world, new BlockPos(WorldGenChaosLandPodium.END_PODIUM_LOCATION.getX(), l, WorldGenChaosLandPodium.END_PODIUM_LOCATION.getZ()));
 
             if (blockpattern$patternhelper1 != null)
             {
@@ -409,7 +408,7 @@ public class CMFightManager extends DragonFightManager {
 
             if (!this.previouslyKilled)
             {
-                this.world.setBlockState(this.world.getHeight(WorldGenEndPodium.END_PODIUM_LOCATION), Blocks.DRAGON_EGG.getDefaultState());
+                this.world.setBlockState(this.world.getHeight(WorldGenChaosLandPodium.END_PODIUM_LOCATION), Blocks.DRAGON_EGG.getDefaultState());
             }
 
             this.previouslyKilled = true;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModDamageSources;
 import net.chaos.chaosmod.init.ModItems;
@@ -13,8 +14,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.item.EntityEnderCrystal;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntitySpectralArrow;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -31,7 +32,6 @@ import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
-import net.minecraft.world.end.DragonFightManager;
 
 public class EntityEyeCrystal extends EntityEnderCrystal {
 	@Nullable
@@ -43,66 +43,47 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
     public boolean isBoss;
     public static final DataParameter<Integer> LASER_TARGET_ID =
     	EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.VARINT);
+    public static final DataParameter<Float> CLIENT_HEALTH = EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.FLOAT);
+    public static final DataParameter<Float> CLIENT_MAX_HEALTH = EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.FLOAT);
+    public static final DataParameter<Boolean> IS_BOSS = EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.BOOLEAN);
     
     public EntityEyeCrystal(World worldIn) {
     	super(worldIn);
-    	if (this.isBoss) {
-    		bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
-    		this.bossInfo.setName(this.getDisplayName());
-    	}
-		this.setSize(1.5f, 1.5f);
-		// this is for vanilla /summon <>
-		if (this.health == 0 && this.max_health == 0) {
-			this.health = 20;
-			this.max_health = 20;
-		}
-		// this is for the minions dummy shield
-		if (this.health == 1 && this.max_health == 1) {
-			bossInfo = null;
-			this.health = 20;
-			this.max_health = 20;
-		}
+    	this.setSize(1.5f, 1.5f);
     }
 
-	public EntityEyeCrystal(World worldIn, int health, boolean isBoss) {
-		this(worldIn);
-		this.health = health;
-		this.max_health = health;
-		this.isBoss = isBoss;
-	}
+    public EntityEyeCrystal(World worldIn, double x, double y, double z) {
+    	super(worldIn, x, y, z);
+    	this.setSize(1.5f, 1.5f);
+    }
 
-	public EntityEyeCrystal(World worldIn, double x, double y, double z) {
-		super(worldIn, x, y, z);
-		if (this.isBoss) {
-			System.out.println("Setting boss info server");
-			bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
-			this.bossInfo.setName(this.getDisplayName());
-		}
-		this.setSize(1.5f, 1.5f);
-	}
+	public void setup(int health, boolean isBoss) {
+	    this.health = health;
+	    this.max_health = health;
+	    this.isBoss = isBoss;
 
-	public EntityEyeCrystal(World worldIn, double x, double y, double z, int health, boolean isBoss) {
-		super(worldIn, x, y, z);
-		this.setSize(1.5f, 1.5f);
+	    // sync data
+	    this.dataManager.set(IS_BOSS, this.isBoss);
+	    this.dataManager.set(CLIENT_HEALTH, (float) this.health);
+	    this.dataManager.set(CLIENT_MAX_HEALTH, (float) this.max_health);
+	    Main.getLogger().info("setup : isBoss={}, health={}, max_health={}", this.isBoss, this.health, this.max_health);
 
-		this.health = health;
-		System.out.println("setting health : " + this.health);
-		this.max_health = health;
-		System.out.println("setting max health : " + this.max_health);
-		this.isBoss = isBoss;
-		System.out.println("setting boss status : " + this.max_health);
-
-		if (isBoss) {
-			System.out.println("Setting boss info server");
-			bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
-			this.bossInfo.setName(this.getDisplayName());
-		}
+	    // boss bar setup
+	    if (this.isBoss) {
+	        this.bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
+	        Main.getLogger().info("Setting up boss info server");
+	        this.bossInfo.setPercent(1f);
+	    }
 	}
 	
 	@Override
 	protected void entityInit() {
 		super.entityInit();
+		Main.getLogger().info("Setting data parameter isBoss : {}", this.isBoss);
+		this.dataManager.register(IS_BOSS, this.isBoss);
 		this.dataManager.register(LASER_TARGET_ID, -1); // -1 means no target
+		this.dataManager.register(CLIENT_HEALTH, this.getHealth());
+		this.dataManager.register(CLIENT_MAX_HEALTH, this.getMaxHealth());
 	}
 	
 	@Override
@@ -112,7 +93,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	@Override
 	public boolean shouldShowBottom() {
-		return isBoss; // only minions
+		return this.isBoss; // only minions
 	}
 	
 	@Override
@@ -156,7 +137,6 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
                     }
 
                     this.onCrystalDestroyed(source);
-                    System.out.println("Health : " + this.health);
                     if (this.health <= 0) {
                     	this.setDead();
                     	// TODO : refactor (eye loots part)
@@ -178,15 +158,9 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	private void onCrystalDestroyed(DamageSource source)
     {
-        if (this.world.provider instanceof WorldProviderEnd)
+        if (this.isBoss && this.world.provider instanceof WorldProviderEnd)
         {
-            WorldProviderEnd worldproviderend = (WorldProviderEnd)this.world.provider;
-            DragonFightManager dragonfightmanager = worldproviderend.getDragonFightManager();
-
-            if (dragonfightmanager != null)
-            {
-                dragonfightmanager.onCrystalDestroyed(this, source);
-            }
+            this.world.setRainStrength(1.0f);
         }
     }
 
@@ -203,11 +177,11 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	}
 	
 	public float getHealth() {
-		return health;
+		return Math.max(0, this.health);
 	}
 
 	public float getMaxHealth() {
-		return max_health;
+		return this.max_health;
 	}
 	
 	@Override
@@ -218,21 +192,29 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 
 		if (this.isEntityAlive()) { 
 			this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+			if (!this.world.isRemote) {
+			    this.dataManager.set(CLIENT_HEALTH, this.getHealth());
+			    this.dataManager.set(CLIENT_MAX_HEALTH, this.getMaxHealth());
+			}
         }
 		
 		if (!world.isRemote) {
-	        if (laserTarget != null && laserTarget.isEntityAlive()) {
+	        if (laserTarget != null && laserTarget.isEntityAlive() && laserTarget instanceof EntityPlayer) {
+	        	if (laserTicks == 0 && this.rand.nextBoolean()) {
+	                world.playSound(null, laserTarget.posX, laserTarget.posY, laserTarget.posZ,
+	                	SoundEvents.ENTITY_GHAST_WARN, SoundCategory.HOSTILE, 0.5F, 1.0F);
+	        	}
 	            laserTicks++;
 
 	            // looking at target
 	            double dx = laserTarget.posX - posX;
-	            double dy = laserTarget.posY + laserTarget.getEyeHeight() - (posY + getEyeHeight());
+	            double dy = (laserTarget.posY + laserTarget.getEyeHeight()) - (posY + height * 0.5);
 	            double dz = laserTarget.posZ - posZ;
 	            rotationYaw = (float) (MathHelper.atan2(dz, dx) * (180D / Math.PI)) - 90F;
+	            rotationPitch = (float) (-(MathHelper.atan2(dy, MathHelper.sqrt(dx * dx + dz * dz)) * (180D / Math.PI)));
 
 	            if (laserTicks >= 40) {
-	                // Damage the target
-	            	// EntitySpectralArrow arrow = new EntitySpectralArrow(world, laserTarget.posX, laserTarget.posY, laserTarget.posZ);
+	            	// Damage the target
 	                laserTarget.attackEntityFrom(ModDamageSources.LASER_DAMAGE, 6.0F);
 	                world.playSound(null, laserTarget.posX, laserTarget.posY, laserTarget.posZ,
 	                	    SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.HOSTILE, 0.5F, 0.3F);
@@ -254,7 +236,6 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	private EntityLivingBase findNearestTarget() {
 		// a little box
-	    // AxisAlignedBB box = new AxisAlignedBB(posX - 16, posY - 8, posZ - 16, posX + 16, posY + 8, posZ + 16);
 		// big box 16x16x16
 		int height = 16;
 		int width = 16; // was too much
@@ -275,7 +256,6 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	        }
 	    }
 
-	    // System.out.println("Closest = " + closest);
 	    return closest;
 	}
 
@@ -292,7 +272,12 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	}
 
 	public boolean isBoss() {
-		return isBoss;
+		return this.isBoss;
 	}
+	
+	@Override
+	public float getEyeHeight() {
+	    return 0.75f;
+	}	
 
 }

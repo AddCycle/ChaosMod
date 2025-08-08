@@ -1,7 +1,5 @@
 package net.chaos.chaosmod.entity.boss.renderer;
 
-import org.lwjgl.opengl.GL11;
-
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.boss.model.EntityEyeCrystalModel;
 import net.minecraft.client.Minecraft;
@@ -12,11 +10,9 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderGuardian;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -30,7 +26,6 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
     private static final ResourceLocation GUARDIAN_BEAM_TEXTURE = new ResourceLocation("textures/entity/guardian_beam.png");
     private final ModelBase modelEnderCrystal = new EntityEyeCrystalModel(0.0F, true);
     private final ModelBase modelEnderCrystalNoBase = new EntityEyeCrystalModel(0.0F, false);
-    RenderGuardian v;
 
     public EntityEyeCrystalRenderer(RenderManager renderManagerIn) {
 		super(renderManagerIn);
@@ -42,10 +37,14 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
      */
     public void doRender(EntityEyeCrystal entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
+    	boolean isBoss = entity.getDataManager().get(EntityEyeCrystal.IS_BOSS);
+        float health = entity.getDataManager().get(EntityEyeCrystal.CLIENT_HEALTH);
+        float max_health = entity.getDataManager().get(EntityEyeCrystal.CLIENT_MAX_HEALTH);
+        float percent = health / max_health;
         float fl = (float)entity.innerRotation + partialTicks;
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
-        this.bindTexture(((entity.getHealth() / entity.getMaxHealth()) >= 0.5f) ? ENDER_CRYSTAL_TEXTURES : ENDER_CRYSTAL_PHASE_2);
+        this.bindTexture(!isBoss || percent > 0.5f ? ENDER_CRYSTAL_TEXTURES : ENDER_CRYSTAL_PHASE_2);
         float fl1 = MathHelper.sin(fl * 0.2F) / 2.0F + 0.5F;
         fl1 = fl1 * fl1 + fl1;
 
@@ -76,7 +75,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
         Entity target = targetId != -1 ? Minecraft.getMinecraft().world.getEntityByID(targetId) : null;
         if (target != null) {
         	float f; 
-        	if ((entity.getHealth() / entity.getMaxHealth()) > 0.5f) f = partialTicks - 12; else f = 0x000055;
+        	if (percent > 0.5f) f = partialTicks - 12; else f = 0x000055;
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             this.bindTexture(GUARDIAN_BEAM_TEXTURE);
@@ -87,7 +86,7 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
             GlStateManager.disableBlend();
             GlStateManager.depthMask(true);
             float f1 = 240.0F;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, f1, f1);
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             float f2 = (float)entity.world.getTotalWorldTime() + partialTicks;
             float f3 = f2 * 0.5F % 1.0F;
@@ -103,14 +102,13 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
             float f6 = (float)Math.atan2(vec3d2.z, vec3d2.x);
             GlStateManager.rotate((((float)Math.PI / 2F) + -f6) * (180F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(f5 * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
-            int i = 1;
             double d1 = (double)f2 * 0.05D * -1.5D;
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
             float f7 = f * f;
             int j = 0;
             int k = 0;
             int l = 0;
-            if ((entity.getHealth() / entity.getMaxHealth()) > 0.5f) {
+            if (percent > 0.5f) {
             	j = 64 + (int)(f7 * 191.0F);
             	k = 32 + (int)(f7 * 191.0F);
             	l = 128 - (int)(f7 * 64.0F);
@@ -119,8 +117,8 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
             	k = 0;
             	l = 0;
             }
-            double d2 = 0.2D;
-            double d3 = 0.282D;
+            // double d2 = 0.2D;
+            // double d3 = 0.282D;
             double d4 = 0.0D + Math.cos(d1 + 2.356194490192345D) * 0.282D;
             double d5 = 0.0D + Math.sin(d1 + 2.356194490192345D) * 0.282D;
             double d6 = 0.0D + Math.cos(d1 + (Math.PI / 4D)) * 0.282D;
@@ -137,8 +135,8 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
             double d17 = 0.0D + Math.sin(d1 + (Math.PI / 2D)) * 0.2D;
             double d18 = 0.0D + Math.cos(d1 + (Math.PI * 3D / 2D)) * 0.2D;
             double d19 = 0.0D + Math.sin(d1 + (Math.PI * 3D / 2D)) * 0.2D;
-            double d20 = 0.0D;
-            double d21 = 0.4999D;
+            // double d20 = 0.0D;
+            // double d21 = 0.4999D;
             double d22 = (double)(-1.0F + f3);
             double d23 = d0 * 2.5D + d22;
             bufferbuilder.pos(d12, d0, d13).tex(0.4999D, d23).color(j, k, l, 255).endVertex();
@@ -171,47 +169,6 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
         double d1 = p_177110_2_ + entityLivingBaseIn.lastTickPosY + (entityLivingBaseIn.posY - entityLivingBaseIn.lastTickPosY) * (double)p_177110_4_;
         double d2 = entityLivingBaseIn.lastTickPosZ + (entityLivingBaseIn.posZ - entityLivingBaseIn.lastTickPosZ) * (double)p_177110_4_;
         return new Vec3d(d0, d1, d2);
-    }
-    
-    private void renderBeam(double x, double y, double z, double dx, double dy, double dz, float partialTicks) {
-        GlStateManager.pushMatrix();
-        GlStateManager.disableTexture2D();
-        GlStateManager.disableLighting();
-        GlStateManager.disableCull();
-        GlStateManager.glLineWidth(4.0F);
-
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-
-        buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
-        buffer.pos(x, y, z).color(0.0F, 0.5F, 1.0F, 1.0F).endVertex();
-        buffer.pos(x + dx, y + dy, z + dz).color(0.0F, 0.5F, 1.0F, 1.0F).endVertex();
-        tessellator.draw();
-
-        GlStateManager.enableTexture2D();
-        GlStateManager.enableLighting();
-        GlStateManager.enableCull();
-        GlStateManager.popMatrix();
-    }
-
-    
-    private void renderLaserBeam(EntityEyeCrystal source, Entity entity, double x, double y, double z, float partialTicks) {
-        double startX = x;
-        double startY = y + source.getEyeHeight();
-        double startZ = z;
-
-        double dx = entity.posX - source.posX;
-        double dy = (entity.posY + entity.getEyeHeight()) - (source.posY + source.getEyeHeight());
-        double dz = entity.posZ - source.posZ;
-
-        int segments = 20;
-        for (int i = 0; i <= segments; i++) {
-            double t = i / (double)segments;
-            double px = startX + dx * t;
-            double py = startY + dy * t;
-            double pz = startZ + dz * t;
-            source.world.spawnParticle(EnumParticleTypes.REDSTONE, px, py, pz, 1, 0, 0); // red laser
-        }
     }
 
     /**

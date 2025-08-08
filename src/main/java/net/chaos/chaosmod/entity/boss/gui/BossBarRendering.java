@@ -83,7 +83,7 @@ public class BossBarRendering {
 	    String bossName = bossInfo.getName().getFormattedText();
 	    int red = 0xFF0000;
 	    int blue = 0x0000FF;
-	    mc.fontRenderer.drawStringWithShadow(bossName, (width / 2) - (mc.fontRenderer.getStringWidth(bossName) / 2), padding_up - 10, (bossInfo.getPercent()) >= 0.5f ? red : blue);
+	    mc.fontRenderer.drawStringWithShadow(bossName, (width / 2) - (mc.fontRenderer.getStringWidth(bossName) / 2), padding_up - 10, bossInfo.getPercent() <= 0.5f ? red : blue);
 	}
 
 

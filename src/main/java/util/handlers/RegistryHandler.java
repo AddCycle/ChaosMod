@@ -6,7 +6,6 @@ import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotionTypes;
 import net.chaos.chaosmod.init.ModPotions;
-import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
 import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.minecraft.block.Block;
@@ -19,7 +18,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -32,7 +30,6 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfessio
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import util.IHasModel;
-import util.Reference;
 
 // Pour l'etape de build du mod
 @EventBusSubscriber

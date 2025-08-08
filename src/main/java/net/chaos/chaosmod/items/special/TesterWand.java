@@ -81,7 +81,8 @@ public class TesterWand extends ItemBase {
 	    		break;
 	    	case 4:
 	    		playerIn.sendMessage(new TextComponentString("spawning crystal"));
-	    		EntityEyeCrystal boss = new EntityEyeCrystal(worldIn, playerIn.posX + 0.5, playerIn.posY + 0.5, playerIn.posZ + 0.5, 20, true);
+	    		EntityEyeCrystal boss = new EntityEyeCrystal(worldIn, playerIn.posX + 0.5, playerIn.posY + 0.5, playerIn.posZ + 0.5);
+	    		boss.setup(20, true);
 	    		boss.setBeamTarget(boss.getPosition().south(10));
 	    		if (!worldIn.isRemote) worldIn.spawnEntity(boss);
 	    		break;

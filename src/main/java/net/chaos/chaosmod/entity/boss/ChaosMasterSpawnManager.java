@@ -18,7 +18,7 @@ public enum ChaosMasterSpawnManager
         {
             BlockPos blockpos = new BlockPos(0, 128, 0);
 
-            for (EntityEnderCrystal entityendercrystal : crystals)
+            for (EntityEnderCrystal entityendercrystal : crystals) // FIXME : replace it with custom crystals
             {
                 entityendercrystal.setBeamTarget(blockpos);
             }
@@ -45,7 +45,7 @@ public enum ChaosMasterSpawnManager
     SUMMONING_PILLARS {
         public void process(WorldServer worldIn, CMFightManager manager, List<EntityEnderCrystal> crystals, int ticks, BlockPos pos)
         {
-            int i = 40;
+            // int i = 40;
             boolean flag = ticks % 40 == 0;
             boolean flag1 = ticks % 40 == 39;
 
@@ -67,7 +67,7 @@ public enum ChaosMasterSpawnManager
                     }
                     else
                     {
-                        int k = 10;
+                        // int k = 10;
 
                         for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(new BlockPos(worldgenspikes$endspike.getCenterX() - 10, worldgenspikes$endspike.getHeight() - 10, worldgenspikes$endspike.getCenterZ() - 10), new BlockPos(worldgenspikes$endspike.getCenterX() + 10, worldgenspikes$endspike.getHeight() + 10, worldgenspikes$endspike.getCenterZ() + 10)))
                         {
@@ -97,7 +97,7 @@ public enum ChaosMasterSpawnManager
                 manager.setRespawnState(END);
                 manager.resetSpikeCrystals();
 
-                for (EntityEnderCrystal entityendercrystal : crystals)
+                for (EntityEnderCrystal entityendercrystal : crystals) // FIXME : replace with custom crystals
                 {
                     entityendercrystal.setBeamTarget((BlockPos)null);
                     worldIn.createExplosion(entityendercrystal, entityendercrystal.posX, entityendercrystal.posY, entityendercrystal.posZ, 6.0F, false);
@@ -110,7 +110,7 @@ public enum ChaosMasterSpawnManager
             }
             else if (ticks == 0)
             {
-                for (EntityEnderCrystal entityendercrystal1 : crystals)
+                for (EntityEnderCrystal entityendercrystal1 : crystals) // FIXME
                 {
                     entityendercrystal1.setBeamTarget(new BlockPos(0, 128, 0));
                 }
