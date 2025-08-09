@@ -30,11 +30,10 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfessio
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import util.IHasModel;
+import util.Reference;
 
-// Pour l'etape de build du mod
 @EventBusSubscriber
 public class RegistryHandler {
-	// S'occupe d'enregistrer tous les blocks definis dans BlockBase.java
 	// Blocks before items corrects issue of : oxonium_carrots requires blocks at init
 	static {
         // Ensures all items are initialized after blocks are created
@@ -117,25 +116,27 @@ public class RegistryHandler {
 	     * Mathsmod adding a recipe
 	     */
 	    if (Loader.isModLoaded("mathsmod")) {
-	        Item JeanRobertPerezItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("mathsmod", "kurayum_ingot"));
-	        if (JeanRobertPerezItem != null) {
-	        	ShapedOreRecipe recipe = new ShapedOreRecipe(
-	                    new ResourceLocation("chaosmod", "collab_recipe1"), // registry name
-	                    new ItemStack(ModItems.CHAOS_HEART), // result
-	                    " I ", "ICI", " I ",
-	                    'I', JeanRobertPerezItem,
-	                    'C', new ItemStack(ModItems.ENDERITE_INGOT, 3)
-	                );
-	                recipe.setRegistryName(new ResourceLocation("chaosmod", "collab_recipe1"));
-	                ForgeRegistries.RECIPES.register(recipe);
-	        }
+	    	Item JeanRobertPerezItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("mathsmod", "kurayum_ingot"));
+	    	if (JeanRobertPerezItem != null) {
+	    		ShapedOreRecipe recipe = new ShapedOreRecipe(
+	    				new ResourceLocation("chaosmod", "collab_recipe1"), // registry name
+	    				new ItemStack(ModItems.CHAOS_HEART), // result
+	    				" I ", // pattern
+	    				"ICI",
+	    				" I ",
+	    				'I', JeanRobertPerezItem,
+	    				'C', new ItemStack(ModItems.ENDERITE_INGOT, 3)
+	    				);
+	    		recipe.setRegistryName(new ResourceLocation(Reference.MODID, "collab_recipe1"));
+	    		ForgeRegistries.RECIPES.register(recipe);
+	    	}
 	    }
 	}
 	
 	@SubscribeEvent
 	public void onVillagerProfessionRegister(RegistryEvent.Register<VillagerProfession> event) {
 		Main.getLogger().info("REGISTERING VILLAGERS PROFESSIONS : ", event.getResult().name());
-		event.getRegistry().registerAll(CustomProfessions.CUSTOM_FARMER);
+		event.getRegistry().registerAll(CustomProfessions.CUSTOM_VIKING_TRADER);
 	}
 	
 	public static void onSmeltingRegister() {

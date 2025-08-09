@@ -38,6 +38,20 @@ public class DimensionProvider extends WorldProvider {
         Main.getLogger().info("Init dragon fight in dim provider : {}", this.world instanceof WorldServer);
         this.dragonFightManager = this.world instanceof WorldServer ? new CMFightManager((WorldServer)this.world, nbttagcompound.getCompoundTag("CustomDragonFight")) : null;
     }
+    
+    @Override
+    protected void generateLightBrightnessTable() {
+    	float base = 0.1F;
+        for (int i = 0; i <= 15; ++i) {
+            float f1 = 1.0F - (float) i / 15.0F;
+            this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - base) + base;
+        }
+    }
+    
+    @Override
+    public boolean hasSkyLight() {
+    	return false;
+    }
 
 	@Override
 	public DimensionType getDimensionType() {
@@ -76,16 +90,13 @@ public class DimensionProvider extends WorldProvider {
     @SideOnly(Side.CLIENT)
     public Vec3d getFogColor(float p_76562_1_, float p_76562_2_)
     {
-    	// int i = 10518688;
-        float f = MathHelper.cos(p_76562_1_ * ((float)Math.PI * 2F)) * 2.0F + 0.5F;
-        f = MathHelper.clamp(f, 0.0F, 1.0F);
-        float f1 = 0.627451F;
-        float f2 = 0.5019608F;
-        float f3 = 0.627451F;
-        f1 = f1 * (f * 0.0F + 0.15F);
-        f2 = f2 * (f * 0.0F + 0.15F);
-        f3 = f3 * (f * 0.0F + 0.15F);
-        return new Vec3d((double)f1, (double)f2, (double)f3);
+    	// float r = 0.85F; // red channel
+        // float g = 0.3F;  // green channel (low = more magenta)
+        // float b = 0.85F; // blue channel
+    	float r = 1.0f;
+    	float g = 1.0f;
+    	float b = 1.0f;
+        return new Vec3d(r, g, b);
     }
 
     @SideOnly(Side.CLIENT)
@@ -145,11 +156,6 @@ public class DimensionProvider extends WorldProvider {
     {
         return false;
     }
-
-    /*public DimensionType getDimensionType()
-    {
-        return DimensionType.THE_END;
-    }*/
 
     /**
      * Called when the world is performing a save. Only used to save the state of the Dragon Boss fight in

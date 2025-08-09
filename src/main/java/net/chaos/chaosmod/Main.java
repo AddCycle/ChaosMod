@@ -19,6 +19,7 @@ import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
 import net.chaos.chaosmod.tileentity.TileEntityCookieJar;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityLantern;
+import net.chaos.chaosmod.tileentity.TileEntityManager;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.tileentity.TileEntityTrophyBase;
@@ -138,14 +139,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new PlayerFightEvents());
         MinecraftForge.EVENT_BUS.register(new PlayerLifeEvents());
         MinecraftForge.EVENT_BUS.register(new PlayerAchivementsEvents());
-    	GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, new ResourceLocation(Reference.MODID, "oxonium_furnace"));
-    	GameRegistry.registerTileEntity(TileEntityOxoniumChest.class, new ResourceLocation(Reference.MODID, "oxonium_chest"));
-    	GameRegistry.registerTileEntity(TileEntityBossAltar.class, new ResourceLocation(Reference.MODID, "boss_altar"));
-    	GameRegistry.registerTileEntity(TileEntityForge.class, new ResourceLocation(Reference.MODID, "forge_interface"));
-    	GameRegistry.registerTileEntity(TileEntityLantern.class, new ResourceLocation(Reference.MODID, "lantern"));
-    	GameRegistry.registerTileEntity(TileEntityCookieJar.class, new ResourceLocation(Reference.MODID, "cookie_jar"));
-    	GameRegistry.registerTileEntity(TileEntityBeam.class, new ResourceLocation(Reference.MODID, "beam_block"));
-    	GameRegistry.registerTileEntity(TileEntityTrophyBase.class, new ResourceLocation(Reference.MODID, "trophy_base"));
+        TileEntityManager.registerTileEntities();
     }
     
     @EventHandler

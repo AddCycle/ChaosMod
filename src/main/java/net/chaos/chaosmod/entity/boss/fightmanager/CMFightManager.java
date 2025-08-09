@@ -23,6 +23,7 @@ import com.google.common.collect.Sets;
 import net.chaos.chaosmod.entity.boss.ChaosMasterSpawnManager;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.chaos.chaosmod.entity.boss.fightmanager.phase.CMPhaseList;
+import net.chaos.chaosmod.world.gen.chaosland.WorldGenChaosGateway;
 import net.chaos.chaosmod.world.gen.chaosland.WorldGenChaosLandPodium;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.state.BlockWorldState;
@@ -51,13 +52,12 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeEndDecorator;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.end.DragonFightManager;
-import net.minecraft.world.gen.feature.WorldGenEndGateway;
 import net.minecraft.world.gen.feature.WorldGenSpikes;
 
 public class CMFightManager extends DragonFightManager {
 	private static final Logger LOGGER = LogManager.getLogger();
     private static final Predicate<EntityPlayerMP> VALID_PLAYER = Predicates.<EntityPlayerMP>and(EntitySelectors.IS_ALIVE, EntitySelectors.withinRange(0.0D, 128.0D, 0.0D, 192.0D));
-    private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(new TextComponentTranslation("entity.chaos_master.name"), BossInfo.Color.WHITE, BossInfo.Overlay.PROGRESS)).setCreateFog(true); // .setPlayEndBossMusic(true)
+    private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(new TextComponentTranslation("entity.chaos_master.name"), BossInfo.Color.WHITE, BossInfo.Overlay.PROGRESS)).setCreateFog(true).setPlayEndBossMusic(true);
     private final WorldServer world;
     private final List<Integer> gateways = Lists.<Integer>newArrayList();
     private final BlockPattern portalPattern;
@@ -143,7 +143,7 @@ public class CMFightManager extends DragonFightManager {
         }
 
         NBTTagList nbttaglist = new NBTTagList();
-        Iterator iterator = this.gateways.iterator();
+        Iterator<Integer> iterator = this.gateways.iterator();
 
         while (iterator.hasNext())
         {
@@ -430,7 +430,7 @@ public class CMFightManager extends DragonFightManager {
     private void generateGateway(BlockPos pos)
     {
         this.world.playEvent(3000, pos, 0);
-        (new WorldGenEndGateway()).generate(this.world, new Random(), pos);
+        (new WorldGenChaosGateway()).generate(this.world, new Random(), pos);
     }
 
     private void generatePortal(boolean active)

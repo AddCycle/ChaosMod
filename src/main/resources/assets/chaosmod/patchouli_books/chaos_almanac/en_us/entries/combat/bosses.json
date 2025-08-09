@@ -24,7 +24,7 @@
   		"type": "entity",
   		"entity": "chaosmod:eye_of_truth",
   		"scale": 0.90,
-  		"offset": 0.0,
+  		"offset": 0.1,
   		"name": "Eye of Truth",
   		"text": "3st boss"
   	},
