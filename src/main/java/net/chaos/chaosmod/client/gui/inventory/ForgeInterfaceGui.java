@@ -6,6 +6,7 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.inventory.ForgeInterfaceContainer;
 import net.chaos.chaosmod.network.PacketForgeCraft;
+import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -127,7 +128,7 @@ public class ForgeInterfaceGui extends GuiContainer {
     
     private void sendForgeCraftPacket(int type) {
         BlockPos pos = ((TileEntityForge) this.tileEntity).getPos();
-        Main.network.sendToServer(new PacketForgeCraft(type, pos));
+        PacketManager.network.sendToServer(new PacketForgeCraft(type, pos));
     }
     
     @Override

@@ -1,13 +1,12 @@
 package net.chaos.chaosmod.client.renderer.tileentity;
 
-import com.ibm.icu.util.Calendar;
+import java.util.Calendar;
 
 import net.chaos.chaosmod.blocks.OxoniumChest;
 import net.chaos.chaosmod.client.model.OxoniumChestModel;
 import net.chaos.chaosmod.client.model.OxoniumLargeChestModel;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.minecraft.block.Block;
-import net.minecraft.client.model.ModelLargeChest;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -28,12 +27,12 @@ public class TileEntityOxoniumChestRenderer<T extends TileEntity> extends TileEn
 
     public TileEntityOxoniumChestRenderer()
     {
-        /*Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
         if (calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26)
         {
             this.isChristmas = true;
-        }*/
+        }
     }
 
     public void render(TileEntityOxoniumChest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.network.PacketManager;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -35,7 +35,7 @@ public class PlayerTickBiomeEvent {
 		if (lastBiome != currentBiome) {
 			String message = TextFormatting.RESET + "Now entering: " + TextFormatting.RED + "" + TextFormatting.BOLD + currentBiome.getRegistryName().toString();
 			if (player instanceof EntityPlayerMP) {
-				Main.network.sendTo(new MessageDisplayText(message), (EntityPlayerMP) player);
+				PacketManager.network.sendTo(new MessageDisplayText(message), (EntityPlayerMP) player);
 			} else if (player instanceof EntityPlayerSP) {
 				// Singleplayer client
 				ClientMessageHandler.displayMessage(message);

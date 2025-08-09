@@ -2,13 +2,13 @@
 {
   "modid": "chaosmod",
   "name": "ChaosMod",
-  "description": "Explore the Forgotten Story of the Ancient City of Chaos, please support on Ko-Fi https://ko-fi/addcycle !",
+  "description": "Explore the Forgotten Story of the Ancient City of Chaos, fight bosses, complete quests & have fun !",
   "version": "1.0.11",
   "mcversion": "1.12.2",
   "url": "",
   "updateUrl": "",
   "authorList": ["AddCycle"],
-  "credits": "Dédicace à personne fallait etre là, vous pouvez pas nous tuer on est déjà mort! (JeanRobertPerez, Jojo, Giu my little Calabrian pizza) mes 2 nouveaux amis",
+  "credits": "Special thanks to (JeanRobertPerez, DjoDjo) my 2 friends, for playtest & huge help",
   "logoFile": "chaosmod_title.png",
   "screenshots": [],
   "dependencies": [

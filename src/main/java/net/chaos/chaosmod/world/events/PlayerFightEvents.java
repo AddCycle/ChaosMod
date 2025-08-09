@@ -2,7 +2,6 @@ package net.chaos.chaosmod.world.events;
 
 import java.util.UUID;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.client.inventory.shield.IShield;
 import net.chaos.chaosmod.init.ModCapabilities;
@@ -26,11 +25,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.FOVUpdateEvent;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -112,14 +108,6 @@ public class PlayerFightEvents {
 	                }
 	    		}
 	    	}
-	    }
-	}
-	
-	// To disable the cooldown like the pre-1.9 mc ver
-	@SubscribeEvent
-	public void onSwing(PlayerTickEvent event) {
-		if (!event.player.world.isRemote) {
-	        event.player.resetCooldown(); // Disables the cooldown — resets it every tick
 	    }
 	}
 	

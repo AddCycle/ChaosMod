@@ -3,8 +3,6 @@ package net.chaos.chaosmod.entity.boss.fightmanager.phase;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
-import net.minecraft.entity.boss.dragon.phase.PhaseList;
-import net.minecraft.entity.boss.dragon.phase.PhaseStrafePlayer;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.Path;

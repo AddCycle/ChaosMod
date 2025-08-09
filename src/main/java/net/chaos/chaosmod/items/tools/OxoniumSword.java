@@ -1,8 +1,6 @@
 package net.chaos.chaosmod.items.tools;
 
-import java.util.Random;
-
-import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.network.PacketSpawnCustomParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class OxoniumSword extends ToolSword {
@@ -47,23 +44,23 @@ public class OxoniumSword extends ToolSword {
 
 	public void spawnSweepParticles(World worldIn, EntityPlayer playerIn)
     {
-		Random random = new Random();
-        double d0 = (double)(-MathHelper.sin(playerIn.rotationYaw * 0.017453292F));
-        double d1 = (double)MathHelper.cos(playerIn.rotationYaw * 0.017453292F);
+		// Random random = new Random();
+        // double d0 = (double)(-MathHelper.sin(playerIn.rotationYaw * 0.017453292F));
+        // double d1 = (double)MathHelper.cos(playerIn.rotationYaw * 0.017453292F);
         
         if (!worldIn.isRemote) {
-        Main.network.sendToAll(
+        PacketManager.network.sendToAll(
         		new PacketSpawnCustomParticle("sweep", playerIn.posX, playerIn.posY, playerIn.posZ));
         }
     }
 
 	public void spawnCoinParticles(World worldIn, EntityPlayer playerIn)
     {
-        double d0 = (double)(-MathHelper.sin(playerIn.rotationYaw * 0.017453292F));
-        double d1 = (double)MathHelper.cos(playerIn.rotationYaw * 0.017453292F);
+        // double d0 = (double)(-MathHelper.sin(playerIn.rotationYaw * 0.017453292F));
+        // double d1 = (double)MathHelper.cos(playerIn.rotationYaw * 0.017453292F);
 
         if (!worldIn.isRemote) {
-        	Main.network.sendToAll(new PacketSpawnCustomParticle("coin", playerIn.posX, playerIn.posY, playerIn.posZ));
+        	PacketManager.network.sendToAll(new PacketSpawnCustomParticle("coin", playerIn.posX, playerIn.posY, playerIn.posZ));
         }
     }
 

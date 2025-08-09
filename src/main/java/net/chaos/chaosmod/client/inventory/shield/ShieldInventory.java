@@ -2,7 +2,7 @@ package net.chaos.chaosmod.client.inventory.shield;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModCapabilities;
-import net.chaos.chaosmod.network.PacketAccessorySync;
+import net.chaos.chaosmod.network.PacketManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemShield;
@@ -137,7 +137,7 @@ public class ShieldInventory implements IInventory {
 	public void syncAccessoryToClients(EntityPlayer player, ItemStack shieldStack) {
 	    if (!player.world.isRemote) {
 	    	Main.getLogger().info("Syncing shield to clients for player " + player.getName() + " with stack: " + shieldStack);
-	        Main.network.sendToAll(new PacketShieldSync(player, shieldStack));
+	        PacketManager.network.sendToAll(new PacketShieldSync(player, shieldStack));
 	    }
 	}
 

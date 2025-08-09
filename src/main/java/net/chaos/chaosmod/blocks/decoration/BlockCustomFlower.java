@@ -1,8 +1,5 @@
 package net.chaos.chaosmod.blocks.decoration;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.Main;
@@ -24,7 +21,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import util.IHasModel;
 
@@ -96,11 +92,12 @@ public class BlockCustomFlower extends BlockBush implements IHasModel {
 	    }
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public float getPlayerRelativeBlockHardness(IBlockState state, EntityPlayer player, World world, BlockPos pos) {
 	    ItemStack held = player.getHeldItemMainhand();
 	    if (held.getItem() instanceof ItemShears) {
-	        return 0.5f; // Break instantly
+	        return 0.5f; // Break slightly instantly
 	    }
 	    return super.getPlayerRelativeBlockHardness(state, player, world, pos);
 	}

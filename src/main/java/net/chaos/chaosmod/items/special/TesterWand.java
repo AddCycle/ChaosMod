@@ -1,12 +1,12 @@
 package net.chaos.chaosmod.items.special;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.cutscene.CutsceneManager;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.chaos.chaosmod.items.ItemBase;
+import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.network.PacketSpawnCustomParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -88,7 +88,7 @@ public class TesterWand extends ItemBase {
 	    		break;
 	    	case 5:
 	    		if (worldIn.isRemote) {
-	    			Main.network.sendToAll(
+	    			PacketManager.network.sendToAll(
                 new PacketSpawnCustomParticle("sweep", playerIn.posX, playerIn.posY, playerIn.posZ));
 	    			playerIn.sendMessage(new TextComponentString("spawning particles"));
 	    		}

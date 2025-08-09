@@ -4,6 +4,7 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.items.necklace.ItemNecklace;
 import net.chaos.chaosmod.network.PacketAccessorySync;
+import net.chaos.chaosmod.network.PacketManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -137,7 +138,7 @@ public class AccessoryInventory implements IInventory {
 	public void syncAccessoryToClients(EntityPlayer player, ItemStack necklaceStack) {
 	    if (!player.world.isRemote) {
 	    	Main.getLogger().info("Syncing accessory to clients for player " + player.getName() + " with stack: " + necklaceStack);
-	        Main.network.sendToAll(new PacketAccessorySync(player, necklaceStack));
+	        PacketManager.network.sendToAll(new PacketAccessorySync(player, necklaceStack));
 	    }
 	}
 

@@ -1,14 +1,12 @@
 package net.chaos.chaosmod.client.inventory.shield;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.items.shield.CustomItemShield;
-import net.chaos.chaosmod.network.PacketAccessorySync;
+import net.chaos.chaosmod.network.PacketManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 
 public class SlotShield extends Slot {
@@ -39,9 +37,9 @@ public class SlotShield extends Slot {
 
             if (!player.world.isRemote) {
             	PacketShieldSync packet = new PacketShieldSync(player, stack);
-                Main.network.sendTo(packet, (EntityPlayerMP) player);
+                PacketManager.network.sendTo(packet, (EntityPlayerMP) player);
                 
-                Main.network.sendToAllTracking(packet, player);
+                PacketManager.network.sendToAllTracking(packet, player);
             }
         }
         this.onSlotChanged();

@@ -2,7 +2,6 @@ package net.chaos.chaosmod.world.events;
 
 import org.lwjgl.input.Keyboard;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.AccessoryImpl;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.client.inventory.shield.ShieldImpl;
@@ -14,6 +13,7 @@ import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
+import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.chaos.chaosmod.sound.ClientSoundHandler;
 import net.minecraft.client.Minecraft;
@@ -99,7 +99,7 @@ public class PlayerLifeEvents {
 
 		if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
 			if (Keyboard.getEventKey() == mc.gameSettings.keyBindInventory.getKeyCode()) {
-				Main.network.sendToServer(new PacketOpenAccessoryGui());
+				PacketManager.network.sendToServer(new PacketOpenAccessoryGui());
 			} else if (ModKeybinds.playMusicKey.isPressed()) {
 				ClientSoundHandler.launchPlaylist();
 			} else if (ModKeybinds.pauseMusicKey.isPressed()) {
@@ -156,9 +156,13 @@ public class PlayerLifeEvents {
 		if (event.toDim == -1) {
 			NBTTagCompound data = player.getEntityData();
 			if (!data.getBoolean("chaos_has_spawned")) {
-				data.setBoolean("chaos_has_spawned", true);
+				World world = player.getEntityWorld();
+				world.playerEntities.forEach(p -> {
+					if (!p.getEntityData().getBoolean("chaos_has_spawned")) {
+						p.getEntityData().setBoolean("chaos_has_spawned", true);
+					}
+				});
 
-				World world = player.world;
 
 				if (!world.isRemote) {
 					BlockPos pos = player.getPosition().add(2, 0, 2);

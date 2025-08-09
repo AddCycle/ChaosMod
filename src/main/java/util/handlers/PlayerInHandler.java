@@ -1,9 +1,9 @@
 package util.handlers;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.network.PacketAccessorySync;
+import net.chaos.chaosmod.network.PacketManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,7 @@ public class PlayerInHandler {
 	        IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
 	        if (cap != null) {
 	            ItemStack stack = cap.getAccessoryItem();
-	            Main.network.sendTo(new PacketAccessorySync(player, stack), (EntityPlayerMP) player);
+	            PacketManager.network.sendTo(new PacketAccessorySync(player, stack), (EntityPlayerMP) player);
 	        }
 	    }
 	}
@@ -35,7 +35,12 @@ public class PlayerInHandler {
 	 */
 	public void onPlayerClone(PlayerEvent.Clone event) {
 		if (!event.getOriginal().getEntityWorld().isRemote) {
+			// prevents issues with this mod necklaces
 			event.getEntityPlayer().getEntityData().setIntArray(Reference.MODID + "_homepos", event.getOriginal().getEntityData().getIntArray(Reference.MODID + "_homepos"));
+
+			// prevents issues with patchouli book gift
+			String key = Reference.MODID + ".first_join";
+			event.getEntityPlayer().getEntityData().setBoolean(key, event.getOriginal().getEntityData().getBoolean(key));
 		}
 
 		IAccessory oldCap = event.getOriginal().getCapability(ModCapabilities.ACCESSORY, null);

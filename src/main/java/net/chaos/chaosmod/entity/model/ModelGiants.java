@@ -22,7 +22,6 @@ public class ModelGiants extends ModelBase {
 		textureHeight = 32;
 
 		left_leg = new ModelRenderer(this);
-		// left_leg.setRotationPoint(0.0F, 24.0F, 0.0F);
 		left_leg.setRotationPoint(0.0F, 24.0F, 0.0F);
 		left_leg.cubeList.add(new ModelBox(left_leg, 20, 0, 2.0F, -6.0F, -1.0F, 2, 6, 2, 0.0F, false));
 

@@ -4,10 +4,10 @@ import org.lwjgl.opengl.GL11;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModDamageSources;
+import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.network.PacketShowFireOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -134,7 +134,7 @@ public class PlayerFireRenderHandler {
 				int seconds = 100;
 				int ticks = seconds * 20;
 				boolean shouldShow = true;
-				Main.network.sendTo(new PacketShowFireOverlay(shouldShow, ticks), (EntityPlayerMP) player);
+				PacketManager.network.sendTo(new PacketShowFireOverlay(shouldShow, ticks), (EntityPlayerMP) player);
 				Main.getLogger().info("Packet sent with blue fire rendering, {}", event.getSource());
 			}
 		}
