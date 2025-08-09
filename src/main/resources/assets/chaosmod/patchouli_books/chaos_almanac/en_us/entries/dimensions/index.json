@@ -1,0 +1,12 @@
+{
+  "name": "Getting Started",
+  "description": "You wanna change world like that ?",
+  "icon": "chaosmod:portal_key",
+  "category": "chaosmod:dimensions",
+  "pages": [
+    {
+	  "type": "text",
+	  "text": "This page is related to ChaosMod dimensions..."
+	}
+  ]
+}

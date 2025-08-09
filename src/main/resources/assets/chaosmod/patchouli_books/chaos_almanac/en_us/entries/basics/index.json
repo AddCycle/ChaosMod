@@ -3,6 +3,8 @@
   "description": "Path of chaos ?",
   "icon": "minecraft:writable_book",
   "category": "chaosmod:basics",
+  "read_by_default": false,
+  "advancement": "chaosmod:root",
   "pages": [
     {
 	  "type": "image",
