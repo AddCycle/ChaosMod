@@ -1,0 +1,69 @@
+{
+  "name": "Bosses",
+  "description": "You are in a big trouble",
+  "icon": "chaosmod:portal_key",
+  "category": "chaosmod:combat",
+  "pages": [
+  	{
+  		"type": "entity",
+  		"entity": "chaosmod:mountain_giant_boss",
+  		"scale": 1.0,
+  		"offset": 0.0,
+  		"name": "Mountain Giant",
+  		"text": "1st boss"
+  	},
+  	{
+  		"type": "entity",
+  		"entity": "chaosmod:revenge_blaze_boss",
+  		"scale": 1.0,
+  		"offset": 0.0,
+  		"name": "Revenge Blaze",
+  		"text": "2nd boss"
+  	},
+  	{
+  		"type": "entity",
+  		"entity": "chaosmod:eye_of_truth",
+  		"scale": 0.90,
+  		"offset": 0.0,
+  		"name": "Eye of Truth",
+  		"text": "3st boss"
+  	},
+  	{
+  		"type": "entity",
+  		"entity": "chaosmod:chaos_master",
+  		"scale": 2.0,
+  		"offset": -5.0,
+  		"name": "Chaos Master",
+  		"text": "The final 1st part lore boss"
+  	},
+  	{
+  		"type": "multiblock",
+  		"multiblock_id": "",
+  		"name": "Chaos Portal",
+  		"text": "Testing multiblock for chaos portal load",
+  		"multiblock": {
+  			"pattern": [
+					[
+						" CC "
+					], [
+						"C  C"
+					], [
+						"C  C"
+					], [
+						"C  C"
+					], [
+						" CC0"
+					]
+				],
+				"mapping": {
+					" ": "ANY",
+					"0": "ANY",
+					"C": "chaosmod:chaos_portal_block"
+				},
+				"symmetrical": false,
+				"offset": [0, 0, 0],
+				"view_offset": [0, 0, 0]
+			}	
+  	}
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Getting Started",
+  "description": "Path of chaos ?",
+  "icon": "chaosmod:oxonium_sword",
+  "category": "chaosmod:combat",
+  "pages": [
+    {
+	  "type": "image",
+	  "title": "Oxonium Material",
+	  "border": true,
+	  "images": [
+	 	"chaosmod:textures/items/allemanite_sword.png"
+	  ]
+	}
+  ]
+}

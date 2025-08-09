@@ -2,8 +2,8 @@
 {
   "modid": "chaosmod",
   "name": "ChaosMod",
-  "description": "Explore the Forgotten Story of the Ancient City of Chaos, please support on Ko-Fi !",
-  "version": "1.0.0",
+  "description": "Explore the Forgotten Story of the Ancient City of Chaos, please support on Ko-Fi https://ko-fi/addcycle !",
+  "version": "1.0.11",
   "mcversion": "1.12.2",
   "url": "",
   "updateUrl": "",
@@ -11,6 +11,9 @@
   "credits": "Dédicace à personne fallait etre là, vous pouvez pas nous tuer on est déjà mort! (JeanRobertPerez, Jojo, Giu my little Calabrian pizza) mes 2 nouveaux amis",
   "logoFile": "chaosmod_title.png",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": [
+    "after:patchouli",
+    "after:mathsmod"
+  ]
 }
 ]

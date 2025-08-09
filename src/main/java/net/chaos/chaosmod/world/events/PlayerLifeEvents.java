@@ -35,6 +35,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -44,9 +46,17 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
+import vazkii.patchouli.api.PatchouliAPI;
 
 @EventBusSubscriber
 public class PlayerLifeEvents {
+	
+	@SubscribeEvent
+	public void onPlayerJoin(EntityJoinWorldEvent event) {
+		if (Loader.isModLoaded("patchouli")) {
+			givePlayerInstructionBook(event);
+		}
+	}
 
 	@SubscribeEvent
 	public void onPlayerTick(PlayerTickEvent event) {
@@ -205,5 +215,16 @@ public class PlayerLifeEvents {
 				}
 			});
 		}
+	}
+	
+	public void givePlayerInstructionBook(EntityJoinWorldEvent event) {
+		if (!(event.getEntity() instanceof EntityPlayer)) return;
+		EntityPlayer player = (EntityPlayer) event.getEntity();
+		if (player.getEntityWorld().isRemote) return;
+		String key = Reference.MODID + ".first_join";
+		if (player.getEntityData().hasKey(key)) return;
+		player.getEntityData().setBoolean(key, false);
+		ItemStack book = PatchouliAPI.instance.getBookStack("chaosmod:chaos_almanac");
+		player.addItemStackToInventory(book);
 	}
 }

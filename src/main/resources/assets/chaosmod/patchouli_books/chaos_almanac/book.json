@@ -1,0 +1,11 @@
+{
+  "name": "patchouli.chaos_almanac.name",
+  "landing_text": "patchouli.chaos_almanac.landing",
+  "subtitle": "patchouli.chaos_almanac.subtitle",
+  "version": 1,
+  "model": "patchouli:book_blue",
+  "book_texture": "patchouli:textures/gui/book_blue.png",
+  "creative_tab": "misc",
+  "index_icon": "minecraft:book",
+  "use_blocky_font": false
+}

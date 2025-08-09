@@ -83,6 +83,7 @@ tile.brave_trophy.name=Brave Trophy
 tile.firefighter_trophy.name=Firefighter Trophy
 tile.eye_trophy.name=Eye eye eye Trophy
 tile.talent_trophy.name=Talent Trophy
+tile.chaos_portal_block.name=Chaos Portal Block
 
 // Decoration
 tile.oxonium_bricks.name=Oxonium Bricks
@@ -148,3 +149,8 @@ text.guide.title=ChaosMod Guide
 
 //Jei plugin
 chaosmod.jei.crafting_category=Chaos Crafting
+ 
+# Book Title
+patchouli.chaos_almanac.name=Chaos Almanac
+patchouli.chaos_almanac.subtitle=A Guide Leading to Chaos
+patchouli.chaos_almanac.landing=Welcome to Chaos...

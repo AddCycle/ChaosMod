@@ -28,12 +28,15 @@ repositories {
     mavenCentral()
     maven { url "https://dvs1.progwml6.com/files/maven" } // JEI
     maven { url "https://modmaven.dev" }
+    maven { url "https://maven.blamejared.com" } // For patchouli API
 }
 
 dependencies {
     // JEI runtime + API for development
     deobfCompile "mezz.jei:jei_1.12.2:4.15.0.268"
     compileOnly "mezz.jei:jei_1.12.2:4.15.0.268:api"
+
+    compile "vazkii.patchouli:Patchouli:${patchouli_version}"
 }
 
 processResources {

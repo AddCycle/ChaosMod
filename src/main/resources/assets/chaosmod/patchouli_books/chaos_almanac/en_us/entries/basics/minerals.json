@@ -1,0 +1,16 @@
+{
+  "name": "Minerals",
+  "description": "Using minerals",
+  "icon": "chaosmod:oxonium_ingot",
+  "category": "chaosmod:basics",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Go to the mine..."
+    },
+    {
+      "type": "text",
+      "text": "Smelt..."
+    }
+  ]
+}

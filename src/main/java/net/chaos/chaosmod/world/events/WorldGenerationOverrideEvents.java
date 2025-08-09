@@ -20,7 +20,7 @@ public class WorldGenerationOverrideEvents {
 	public void replaceStructureGenerator(InitMapGenEvent event) {
 		System.out.println("InitMapGenEvent triggered: " + event.getType());
 
-        if (event.getType() == InitMapGenEvent.EventType.VILLAGE) {
+        if (!Loader.isModLoaded("mathsmod") && event.getType() == InitMapGenEvent.EventType.VILLAGE) {
             Main.getLogger().info("CUSTOM VILLAGE REPLACEMENT");
             event.setNewGen(new MapGenCustomVillage());
         }

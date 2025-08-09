@@ -1,0 +1,16 @@
+{
+  "name": "Getting Started",
+  "description": "Path of chaos ?",
+  "icon": "minecraft:writable_book",
+  "category": "chaosmod:basics",
+  "pages": [
+    {
+	  "type": "image",
+	  "title": "Allemanite block",
+	  "border": true,
+	  "images": [
+	 	"chaosmod:textures/blocks/allemanite_block.png"
+	  ]
+	}
+  ]
+}

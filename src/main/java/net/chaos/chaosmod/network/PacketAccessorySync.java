@@ -52,7 +52,7 @@ public class PacketAccessorySync implements IMessage {
                     Entity player = Minecraft.getMinecraft().world.getEntityByID(message.playerID);
                     if (player != null) {
                         ClientAccessoryData.setPlayerNecklace((EntityPlayer) player, message.necklaceStack);
-                        System.out.println("[Client] Necklace updated: " + message.necklaceStack);
+                        Main.getLogger().info("[Client] Player {} necklace updated: {}", player.getName(), message.necklaceStack.getDisplayName());
                     }
                 });
             }

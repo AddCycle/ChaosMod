@@ -63,7 +63,7 @@ item.giant_heart.name=Coeur du Géant
 item.blazing_heart.name=Coeur du Blaze
 item.chaos_heart.name=Coeur du Chaos
 
-// Blocks
+// Blocs
 tile.oxonium_block.name=Bloc d'Oxonium
 tile.oxonium_ore.name=Minerais d'Oxonium
 tile.allemanite_ore.name=Minerais d'Allemanite
@@ -71,7 +71,7 @@ tile.oxonium_stairs.name=Escaliers en Oxonium
 tile.oxonium_stairs.name=Oxonium Stairs
 tile.allemanite_block.name=Bloc d'Allemanite
 tile.enderite_ore.name=Minerais d'Enderite
-tile.enderite_block.name=Block d'Enderite
+tile.enderite_block.name=Bloc d'Enderite
 tile.enderite_forge_walls.name=Murs de la Forge
 tile.custom_stairs.name=Escaliers Custom
 tile.custom_fences.name=Barrières Custom
@@ -83,6 +83,7 @@ tile.brave_trophy.name=Trophée de Bravoure
 tile.firefighter_trophy.name=Trophée du Pompier
 tile.eye_trophy.name=Trophée aie aie aie
 tile.talent_trophy.name=Trophée du Talent
+tile.chaos_portal_block.name=Bloc de Portail du Chaos
 
 // Decoration
 tile.oxonium_bricks.name=Brique en Oxonium
@@ -92,7 +93,7 @@ tile.custom_flower.snow_flower.name=Fleur de Neige
 tile.custom_flower.blazing_flower.name=Fleur de Feu
 tile.custom_flower.ender_flower.name=Fleur de l'End
 tile.custom_flower.thunder_flower.name=Fleur de Foudre
-tile.grass_block.name=Block d'herbe customisé
+tile.grass_block.name=Bloc d'herbe customisé
 tile.snowy_sapling.name=Pousse glacée
 tile.maple_sapling.name=Pousse d'érable
 tile.ender_sapling.name=Pousse de l'End
@@ -129,9 +130,9 @@ entity.little_big_giants.name=Petit géant
 entity.eye_of_truth.name=Oeil de Vérité
 
 //Gui
-itemGroup.chaosmodtab=Blocks de construction
+itemGroup.chaosmodtab=Blocs de construction
 itemGroup.chaosmodtab2=Items du Chaos
-itemGroup.chaosmodtab3=Blocks fonctionnels
+itemGroup.chaosmodtab3=Bloc fonctionnels
 itemGroup.chaosmodtab4=Potions
 gui.forge_interface_block.title=Forge du Chaos
 
