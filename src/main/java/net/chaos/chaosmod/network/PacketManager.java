@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
 import util.broadcast.MessageDisplayText;
-import util.broadcast.MessageDisplayTextHandler;
 
 public class PacketManager {
 
@@ -17,7 +16,7 @@ public class PacketManager {
 
 	public static void initMessages() {
 		int id = 0;
-    	network.registerMessage(MessageDisplayTextHandler.class, MessageDisplayText.class, id++, Side.CLIENT);
+    	network.registerMessage(MessageDisplayText.MessageDisplayTextHandler.class, MessageDisplayText.class, id++, Side.CLIENT);
 		network.registerMessage(GuideMessageHandler.class, GuideCommandMessage.class, id++, Side.CLIENT);
 		network.registerMessage(PacketOpenAccessoryGui.Handler.class, PacketOpenAccessoryGui.class, id++, Side.SERVER);
 		network.registerMessage(PacketAccessorySync.Handler.class, PacketAccessorySync.class, id++, Side.CLIENT);

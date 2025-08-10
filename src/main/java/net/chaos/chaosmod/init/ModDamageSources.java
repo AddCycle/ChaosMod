@@ -16,10 +16,6 @@ public class ModDamageSources {
 			return new TextComponentTranslation("damage.eye_boss.you_should_read_documentation"); // add localization
 		}
 	};
-	public static final DamageSource BLUE_FIRE = new DamageSource(Reference.MODID + ":blue_fire") {
-		public int getFireDamageDuration() {
-			return 0;
-		}
-	};
+	public static final DamageSource BLUE_FIRE = new DamageSource(Reference.MODID + ":blue_fire");
 
 }

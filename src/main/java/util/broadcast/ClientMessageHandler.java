@@ -23,7 +23,6 @@ public class ClientMessageHandler {
             int width = res.getScaledWidth();
             int height = res.getScaledHeight();
 
-            // GlStateManager.pushMatrix();
             GlStateManager.pushMatrix();
             GlStateManager.pushAttrib();
 
@@ -46,7 +45,6 @@ public class ClientMessageHandler {
 
             GlStateManager.popAttrib();
             GlStateManager.popMatrix();
-            // GlStateManager.popMatrix();
         }
     }
 

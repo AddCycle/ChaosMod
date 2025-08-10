@@ -55,7 +55,6 @@ public class MapGenCustomVillage extends MapGenVillage {
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
 	{
-//		if (chunkX == 0 && chunkZ == 0) return true; // force at spawn
 		int i = chunkX;
 		int j = chunkZ;
 

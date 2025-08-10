@@ -12,6 +12,7 @@ import net.chaos.chaosmod.blocks.CustomPlanks;
 import net.chaos.chaosmod.blocks.CustomPlanks.CustomPlankVariant;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModLootTableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockDoor;
@@ -1081,7 +1082,8 @@ public class StructureCustomVillage {
 			if (!this.hasMadeChest && structureBoundingBoxIn.isVecInside(new BlockPos(this.getXWithOffset(5, 5), this.getYWithOffset(1), this.getZWithOffset(5, 5))))
 			{
 				this.hasMadeChest = true;
-				this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+				// this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+				this.generateChest(worldIn, structureBoundingBoxIn, randomIn, 5, 1, 5, ModLootTableList.CHEST_VILLAGE_BLACKSMITH);
 			}
 
 			for (int i = 6; i <= 8; ++i)

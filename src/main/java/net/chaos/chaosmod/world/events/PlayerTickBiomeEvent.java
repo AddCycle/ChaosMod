@@ -1,48 +1,77 @@
 package net.chaos.chaosmod.world.events;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import net.chaos.chaosmod.network.PacketManager;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import util.broadcast.ClientMessageHandler;
 import util.broadcast.MessageDisplayText;
 
 @EventBusSubscriber
 public class PlayerTickBiomeEvent {
-	private static final Map<UUID, Biome> lastBiomes = new HashMap<>();
+    private static final Map<UUID, List<Biome>> lastBiomes = new HashMap<>();
+    private String currentBiomeName;
 
-	@SubscribeEvent
-	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.phase == TickEvent.Phase.END || event.player.world.isRemote) return;
+    @SubscribeEvent
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) return;
 
-		EntityPlayer player = event.player;
-		BlockPos pos = player.getPosition();
-		Biome currentBiome = player.world.getBiome(pos);
-		UUID playerId = player.getUniqueID();
+        EntityPlayer player = event.player;
+        World world = player.getEntityWorld();
+        BlockPos pos = player.getPosition();
+        Biome currentBiome = world.getBiome(pos);
+        UUID playerId = player.getUniqueID();
 
-		Biome lastBiome = lastBiomes.get(playerId);
-		if (lastBiome != currentBiome) {
-			String message = TextFormatting.RESET + "Now entering: " + TextFormatting.RED + "" + TextFormatting.BOLD + currentBiome.getRegistryName().toString();
-			if (player instanceof EntityPlayerMP) {
-				PacketManager.network.sendTo(new MessageDisplayText(message), (EntityPlayerMP) player);
-			} else if (player instanceof EntityPlayerSP) {
-				// Singleplayer client
-				ClientMessageHandler.displayMessage(message);
-			}
-			player.playSound(SoundEvents.MUSIC_END, 1.0f, 1.0f);
-			lastBiomes.put(playerId, currentBiome);
-		}
-	}
+        // CLIENT: store the name locally
+        if (world.isRemote) {
+            currentBiomeName = currentBiome.getBiomeName();
+            return;
+        }
 
+        // SERVER: biome tracking
+        List<Biome> visitedBiomes = lastBiomes.get(playerId);
+        if (visitedBiomes == null || visitedBiomes.isEmpty()) {
+            visitedBiomes = new ArrayList<>();
+            visitedBiomes.add(currentBiome);
+        }
+
+        if (!visitedBiomes.contains(currentBiome)) {
+            visitedBiomes.add(currentBiome);
+
+            String dataToSend;
+
+            boolean isSinglePlayer = FMLCommonHandler.instance().getMinecraftServerInstance().isSinglePlayer();
+
+            if (isSinglePlayer) {
+                String displayName = currentBiome.getBiomeName();
+                dataToSend = "NAME:" + displayName;
+            } else {
+                String registryName = currentBiome.getRegistryName().toString();
+                dataToSend = "REG:" + registryName;
+            }
+
+            if (player instanceof EntityPlayerMP) {
+                PacketManager.network.sendTo(new MessageDisplayText(dataToSend), (EntityPlayerMP) player);
+            }
+
+            world.playSound(null, player.getPosition(),
+                    SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.AMBIENT,
+                    1.0f, 1.0f);
+        }
+
+        lastBiomes.put(playerId, visitedBiomes);
+    }
 }
