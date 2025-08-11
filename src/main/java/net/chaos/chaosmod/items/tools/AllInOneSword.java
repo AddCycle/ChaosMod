@@ -33,9 +33,6 @@ public class AllInOneSword extends ToolSword {
 	
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (isSelected) {
-			System.out.println(this.getFontRenderer(stack));
-		}
 		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
 	}
 	

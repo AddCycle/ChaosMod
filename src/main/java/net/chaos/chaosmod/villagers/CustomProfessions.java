@@ -8,6 +8,5 @@ public class CustomProfessions {
 	
 	public static void registerCustomProfessions() {
 		ForgeRegistries.VILLAGER_PROFESSIONS.register(CUSTOM_VIKING_TRADER);
-		// ForgeRegistries.VILLAGER_PROFESSIONS.forEach(t -> System.out.println(t.getRegistryName()));
 	}
 }

@@ -1,6 +1,8 @@
 package util.handlers;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.blocks.CustomLog;
+import net.chaos.chaosmod.blocks.CustomPlanks;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
@@ -20,13 +22,16 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import util.IHasModel;
@@ -73,12 +78,12 @@ public class RegistryHandler {
 	
 	@SubscribeEvent
 	public static void onPotionRegister(RegistryEvent.Register<Potion> event) {
-		event.getRegistry().register(ModPotions.POTION_VIKING); // registerAll() later
+		event.getRegistry().registerAll(ModPotions.POTION_VIKING);
 	}
 	
 	@SubscribeEvent
     public static void registerPotionTypes(RegistryEvent.Register<PotionType> event) {
-        event.getRegistry().register(ModPotionTypes.VIKING_FRIEND_TYPE);
+        event.getRegistry().registerAll(ModPotionTypes.VIKING_FRIEND_TYPE);
     }
 	
 	@SubscribeEvent
@@ -139,11 +144,63 @@ public class RegistryHandler {
 		event.getRegistry().registerAll(CustomProfessions.CUSTOM_VIKING_TRADER);
 	}
 	
+	@SubscribeEvent
+	public void onVanillaFuelRegister(FurnaceFuelBurnTimeEvent event) {
+		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_SAPLINGS)) {
+			event.setBurnTime(100);
+		} else
+		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_LEAVES)) {
+			event.setBurnTime(100);
+		} else
+		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_DOOR)) {
+			event.setBurnTime(200);
+		} else
+		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_PLANK)) {
+			event.setBurnTime(300);
+		} else
+		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_LOG)) {
+			event.setBurnTime(300);
+		} else
+		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_LADDER)) {
+			event.setBurnTime(300);
+		} else
+		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_STAIRS)) {
+			event.setBurnTime(300);
+		} else
+		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_FENCES)) {
+			event.setBurnTime(300);
+		}
+		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_PRESSURE_PLATE)) {
+			event.setBurnTime(300);
+		}
+	}
+	
 	public static void onSmeltingRegister() {
 		// To be able to smelt the modded items only in custom furnace oxonium or >higher
 		GameRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM_INGOT), 0.2f);
 		CustomSmeltingRegistry.addSmelting(ModBlocks.OXONIUM_ORE, new ItemStack(ModItems.OXONIUM_INGOT), 0.4f);
 		CustomSmeltingRegistry.addSmelting(ModBlocks.ALLEMANITE_ORE, new ItemStack(ModItems.ALLEMANITE_INGOT), 0.8f);
 		CustomSmeltingRegistry.addSmelting(ModBlocks.ENDERITE_ORE, new ItemStack(ModItems.ENDERITE_INGOT), 1.2f);
+	}
+	
+	public static void onBrewingRecipeRegister() {
+		BrewingRecipeRegistry.addRecipe(ModPotions.POTION_VIKING_RECIPE);
+	}
+	
+	public static void onTagsRegister() {
+        for (CustomLog.CustomLogVariant variant : CustomLog.CustomLogVariant.values()) {
+            OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.CUSTOM_LOG, 1, variant.getMeta()));
+        }
+
+        for (CustomPlanks.CustomPlankVariant variant : CustomPlanks.CustomPlankVariant.values()) {
+            OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.CUSTOM_PLANK, 1, variant.getMeta()));
+        }
+
+        // custom wood items
+        OreDictionary.registerOre("stairWood", ModBlocks.CUSTOM_STAIRS);
+        OreDictionary.registerOre("doorWood", ModBlocks.CUSTOM_DOOR);
+        OreDictionary.registerOre("fenceWood", ModBlocks.CUSTOM_FENCES);
+        OreDictionary.registerOre("treeSapling", ModBlocks.CUSTOM_SAPLINGS);
+        OreDictionary.registerOre("treeLeaves", ModBlocks.CUSTOM_LEAVES);
 	}
 }

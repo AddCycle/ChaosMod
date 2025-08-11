@@ -9,25 +9,21 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
 import util.IHasModel;
-import util.Reference;
 
 public class BossAltar extends Block implements ITileEntityProvider, IHasModel {
 	/*
@@ -35,7 +31,7 @@ public class BossAltar extends Block implements ITileEntityProvider, IHasModel {
 	 * 0 = Mountain Giant
 	 * -1 = Blaze
 	 * 1 = Eye of truth
-	 * 2 = Chaos Master **actually I want him to spawn with another manner so for now ## DISABLED ##
+	 * 2 = Chaos Master, Spawning on himself
 	 */
 	public static int bossType = 0;
 
@@ -96,22 +92,14 @@ public class BossAltar extends Block implements ITileEntityProvider, IHasModel {
 	
 	@Override
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-		if (!worldIn.isRemote) player.sendMessage(new TextComponentString("Vous n'auriez pas du faire cela !"));
-		if (!worldIn.isRemote) {
-			player.attackEntityFrom(new DamageSource(Reference.MODID + ":killed_by_game") {
-				@Override
-				public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
-					return new TextComponentString(entityLivingBaseIn.getName() + " est tombé ko en voulant faire le mongol... XD");
-				}
-			}, Float.MAX_VALUE);
-		}
+		if (!worldIn.isRemote) player.sendMessage(new TextComponentTranslation("chaosmod.boss_altar.message"));
 		for (EntityPlayer pl : worldIn.playerEntities) {
 			if (!worldIn.isRemote)
-			pl.sendMessage(new TextComponentString("Encore un C** comme le Djo...")
+			pl.sendMessage(new TextComponentTranslation("chaosmod.boss_altar.message2")
 				.setStyle(new Style()
 				.setColor(TextFormatting.LIGHT_PURPLE)
-				.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Djo est vraiment C**, TFTG").setStyle(new Style().setColor(TextFormatting.DARK_RED))))
-				.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "Eh oui mon con !"))
+				.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentTranslation("chaosmod.boss_altar.show_text").setStyle(new Style().setColor(TextFormatting.DARK_RED))))
+				.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "chaosmod.boss_altar.suggested_command"))
 				));
 		}
 		super.onBlockHarvested(worldIn, pos, state, player);

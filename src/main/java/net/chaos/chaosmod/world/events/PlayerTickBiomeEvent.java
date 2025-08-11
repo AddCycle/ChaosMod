@@ -37,7 +37,7 @@ public class PlayerTickBiomeEvent {
 
         // CLIENT: store the name locally
         if (world.isRemote) {
-            currentBiomeName = currentBiome.getBiomeName();
+            setCurrentBiomeName(currentBiome.getBiomeName());
             return;
         }
 
@@ -74,4 +74,12 @@ public class PlayerTickBiomeEvent {
 
         lastBiomes.put(playerId, visitedBiomes);
     }
+
+	public String getCurrentBiomeName() {
+		return currentBiomeName;
+	}
+
+	public void setCurrentBiomeName(String currentBiomeName) {
+		this.currentBiomeName = currentBiomeName;
+	}
 }

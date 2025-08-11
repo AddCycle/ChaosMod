@@ -91,7 +91,7 @@ public class StructureCustomVillage {
 		list.add(new StructureCustomVillage.PieceWeight(StructureCustomVillage.Hall.class, 15, MathHelper.getInt(random, 0 + size, 2 + size)));
 		list.add(new StructureCustomVillage.PieceWeight(StructureCustomVillage.Field1.class, 3, MathHelper.getInt(random, 1 + size, 4 + size)));
 		list.add(new StructureCustomVillage.PieceWeight(StructureCustomVillage.Field2.class, 3, MathHelper.getInt(random, 2 + size, 4 + size * 2)));
-		list.add(new StructureCustomVillage.PieceWeight(StructureCustomVillage.House2.class, 15, MathHelper.getInt(random, 0, 1 + size)));
+		list.add(new StructureCustomVillage.PieceWeight(StructureCustomVillage.House2.class, 15, MathHelper.getInt(random, 1, 1 + size)));
 		list.add(new StructureCustomVillage.PieceWeight(StructureCustomVillage.House3.class, 8, MathHelper.getInt(random, 0 + size, 3 + size * 2)));
 		// net.minecraftforge.fml.common.registry.VillagerRegistry.addExtraVillageComponents(list, random, size);
 		/*for (IVillageCreationHandler handler : VillagerRegistry.instance().villageCreationHandlers.values())
@@ -2118,7 +2118,7 @@ public class StructureCustomVillage {
 		{
 			if (!this.isZombieInfested)
 			{
-				this.setBlockState(p_189926_1_, ModBlocks.LANTERN.getDefaultState().withProperty(BlockTorch.FACING, p_189926_2_), p_189926_3_, p_189926_4_, p_189926_5_, p_189926_6_);
+				this.setBlockState(p_189926_1_, ModBlocks.PINK_LANTERN.getDefaultState().withProperty(BlockTorch.FACING, p_189926_2_), p_189926_3_, p_189926_4_, p_189926_5_, p_189926_6_);
 			}
 		}
 

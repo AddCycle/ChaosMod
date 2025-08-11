@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 import com.google.common.collect.Maps;
 
 import net.chaos.chaosmod.init.ModBlocks;
-import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.init.Blocks;
@@ -15,7 +14,6 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 
 public class OxoniumFurnaceRecipes {
 
@@ -152,9 +150,6 @@ public class OxoniumFurnaceRecipes {
 
     public float getSmeltingExperience(ItemStack stack)
     {
-        // float ret = stack.getItem().getSmeltingExperience(stack);
-        // if (ret != -1) return ret;
-
         for (Entry<ItemStack, Float> entry : this.experienceList.entrySet())
         {
             if (this.compareItemStacks(stack, entry.getKey()))

@@ -53,8 +53,22 @@ public class PlayerLifeEvents {
 	
 	@SubscribeEvent
 	public void onPlayerJoin(EntityJoinWorldEvent event) {
-		if (Loader.isModLoaded("patchouli")) {
-			givePlayerInstructionBook(event);
+		if (!(event.getEntity() instanceof EntityPlayer)) return; // only if the entity is a player
+		if (event.getWorld().isRemote) return; // running only server side
+		EntityPlayer player = (EntityPlayer) event.getEntity();
+
+		String key = Reference.MODID + ".first_join";
+		if (!isPlayerFirstJoin(player)) {
+			player.getEntityData().setBoolean(key, false);
+		}
+
+		if (Loader.isModLoaded("patchouli") && isPlayerFirstJoin(player)) {
+			givePlayerInstructionBook(player);
+		}
+		
+		if (isPlayerFirstJoin(player)) {
+			// sets the player home on first join
+			event.getWorld().getMinecraftServer().commandManager.executeCommand(player, "sethome spawn");
 		}
 	}
 
@@ -221,13 +235,12 @@ public class PlayerLifeEvents {
 		}
 	}
 	
-	public void givePlayerInstructionBook(EntityJoinWorldEvent event) {
-		if (!(event.getEntity() instanceof EntityPlayer)) return;
-		EntityPlayer player = (EntityPlayer) event.getEntity();
-		if (player.getEntityWorld().isRemote) return;
+	public boolean isPlayerFirstJoin(EntityPlayer player) {
 		String key = Reference.MODID + ".first_join";
-		if (player.getEntityData().hasKey(key)) return;
-		player.getEntityData().setBoolean(key, false);
+		return player.getEntityData().hasKey(key);
+	}
+	
+	public void givePlayerInstructionBook(EntityPlayer player) {
 		ItemStack book = PatchouliAPI.instance.getBookStack("chaosmod:chaos_almanac");
 		player.addItemStackToInventory(book);
 	}

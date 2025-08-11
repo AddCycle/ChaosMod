@@ -27,14 +27,15 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
         int height = rand.nextInt(3) + 4; // Tree height
         boolean canGenerate = true;
 
-        // Check if we can generate here (you may want to expand this with biome rules)
+        // Check if we can generate here
         for (int y = 0; y <= height + 1; y++) {
             BlockPos checkPos = position.up(y);
-            if (!world.isAirBlock(checkPos) && !world.getBlockState(checkPos).getMaterial().isReplaceable() && world.getBlockState(position).getBlock() != ModBlocks.CUSTOM_LEAVES) {
+            if (!world.isAirBlock(checkPos) && !world.getBlockState(checkPos).getMaterial().isReplaceable() && 
+            	 world.getBlockState(position).getBlock() != ModBlocks.CUSTOM_LEAVES &&
+            	 world.getBlockState(position).getBlock() != ModBlocks.CUSTOM_STAIRS &&
+            	 world.getBlockState(position).getBlock() != ModBlocks.OXONIUM_STAIRS) {
                 canGenerate = false;
                 break;
-            } else {
-            	// System.out.println("CANT GENERATE HERE : " + position + " Blockstate : " + world.getBlockState(position).getBlock());
             }
         }
 
@@ -50,7 +51,7 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
         if (rand.nextInt(4) == 2) {
         	EnumFacing facing_light = EnumFacing.HORIZONTALS[rand.nextInt(4)];
         	BlockPos light_pos = position.up(height - 3).offset(facing_light);
-        	world.setBlockState(light_pos, ModBlocks.LANTERN.getStateForPlacement(world, light_pos, facing_light, light_pos.getX(), light_pos.getY(), light_pos.getZ(), 0, null, EnumHand.MAIN_HAND));
+        	world.setBlockState(light_pos, ModBlocks.PINK_LANTERN.getStateForPlacement(world, light_pos, facing_light, light_pos.getX(), light_pos.getY(), light_pos.getZ(), 0, null, EnumHand.MAIN_HAND));
         }
 
         if (rand.nextInt(100) == 0) world.setBlockState(position.up(height + 1), altar, 2); // boss altar on top of it 1/100 chance

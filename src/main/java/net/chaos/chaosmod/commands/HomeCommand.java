@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.commands;
 
+import net.chaos.chaosmod.Main;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -18,7 +19,7 @@ public class HomeCommand extends CommandBase {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/home";
+		return "/home <home_name> (if no args, teleports to the previous)";
 	}
 	
 	@Override
@@ -34,14 +35,39 @@ public class HomeCommand extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
-		boolean hasPosition = player.getEntityData().getIntArray(Reference.MODID + "_homepos").length != 0;
-		if (hasPosition) {
-			int[] playerPos = player.getEntityData().getIntArray(Reference.MODID + "_homepos");
-			player.setPositionAndUpdate(playerPos[0], playerPos[1], playerPos[2]);
+		String homesNumberKey = Reference.PREFIX + "homesNumber";
+		if (args.length > 0) {
+			String key = Reference.PREFIX + args[0] + "_homepos";
+			boolean hasPosition = player.getEntityData().getIntArray(key).length != 0;
+			if (hasPosition) {
+				int[] playerPos = player.getEntityData().getIntArray(key);
+				player.setPositionAndUpdate(playerPos[0], playerPos[1], playerPos[2]);
+			} else {
+				player.sendMessage(new TextComponentString("It appears you do not have a home yet !"));
+				player.sendMessage(new TextComponentString("Consider doing "+ TextFormatting.GOLD + "/sethome <name>"));
+			}
+
+			if (player.getEntityData().hasKey(homesNumberKey)) {
+				Main.getLogger().debug("HOME NUMBERS : {}", player.getEntityData().getInteger(homesNumberKey));
+			}
 		} else {
-			player.sendMessage(new TextComponentString("It appears you do not have a home yet !"));
-			player.sendMessage(new TextComponentString("Consider doing "+ TextFormatting.GOLD + "/sethome"));
+			// player previous home tp
+			String key = Reference.PREFIX + "prevhomepos";
+			boolean hasPosition = player.getEntityData().getIntArray(key).length != 0;
+			if (hasPosition) {
+				int[] playerPos = player.getEntityData().getIntArray(key);
+				player.getEntityData().setIntArray(key, playerPos);
+				player.setPositionAndUpdate(playerPos[0], playerPos[1], playerPos[2]);
+			} else {
+				player.sendMessage(new TextComponentString("It appears you do not have a home yet !"));
+				player.sendMessage(new TextComponentString("Consider doing "+ TextFormatting.GOLD + "/sethome <name>"));
+			}
+			if (player.getEntityData().hasKey(homesNumberKey)) {
+				Main.getLogger().debug("HOME NUMBERS : {}", player.getEntityData().getInteger(homesNumberKey));
+			}
+			return;
 		}
+
 	}
 
 }

@@ -1,5 +1,7 @@
 package util.handlers;
 
+import java.util.Set;
+
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.network.PacketAccessorySync;
@@ -35,14 +37,24 @@ public class PlayerInHandler {
 	 */
 	public void onPlayerClone(PlayerEvent.Clone event) {
 		if (!event.getOriginal().getEntityWorld().isRemote) {
-			// prevents issues with this mod necklaces
-			event.getEntityPlayer().getEntityData().setIntArray(Reference.MODID + "_homepos", event.getOriginal().getEntityData().getIntArray(Reference.MODID + "_homepos"));
+			// prevents issues with homes
+			String homesNumberKey = Reference.PREFIX + "homesNumber";
+			Set<String> homeSet = event.getOriginal().getEntityData().getKeySet();
+			homeSet.forEach(key -> {
+				if (key.equalsIgnoreCase(homesNumberKey)) {
+					event.getEntityPlayer().getEntityData().setInteger(key, event.getOriginal().getEntityData().getInteger(key));
+				} else
+				if (key.startsWith(Reference.PREFIX) && (key.endsWith("_homepos") || key.endsWith("prevhomepos"))) {
+					event.getEntityPlayer().getEntityData().setIntArray(key, event.getOriginal().getEntityData().getIntArray(key));
+				}
+			});
 
 			// prevents issues with patchouli book gift
 			String key = Reference.MODID + ".first_join";
 			event.getEntityPlayer().getEntityData().setBoolean(key, event.getOriginal().getEntityData().getBoolean(key));
 		}
 
+		// prevents issues with this mod necklaces
 		IAccessory oldCap = event.getOriginal().getCapability(ModCapabilities.ACCESSORY, null);
 	    IAccessory newCap = event.getEntityPlayer().getCapability(ModCapabilities.ACCESSORY, null);
 

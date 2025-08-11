@@ -6,10 +6,12 @@ import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.ItemBlockBase;
+import net.chaos.chaosmod.blocks.abstracted.AbstractBlockLantern;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityLantern;
 import net.minecraft.block.BlockTorch;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -21,9 +23,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.IHasModel;
 
-public class BlockLantern extends BlockTorch implements IHasModel {
+public class BlockLantern extends AbstractBlockLantern implements IHasModel {
 
-	public BlockLantern(String name) {
+	public BlockLantern(String name, MapColor mapColor) {
+		super(mapColor);
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setLightLevel(1.0f);

@@ -1,27 +1,23 @@
 package net.chaos.chaosmod.entity.ai;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockCrops;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.ai.EntityAIMoveToBlock;
-import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 /*
  * For now only working with EntityPicsou
  */
-public class EntityAIStealBlock extends EntityAIMoveToBlock
+public class EntityAIStealBlock extends CustomAIMoveToBlock
 {
 	/** Creature that is stealing */
-    private final EntityPicsou creature;
+    private final EntityPicsou creature; // FIXME : change to any entity
     private boolean hasItem;
     private boolean wantsToReapStuff;
     /** 0 => steal, 1 => give it back, -1 => flee away with the stolen thing */
@@ -29,7 +25,7 @@ public class EntityAIStealBlock extends EntityAIMoveToBlock
 
     public EntityAIStealBlock(EntityCreature creature, double speedIn, int length) {
 		super(creature, speedIn, length);
-        this.creature = (EntityPicsou) creature;
+        this.creature = (EntityPicsou) creature; // idem check the type
 	}
 
     /**
@@ -39,14 +35,14 @@ public class EntityAIStealBlock extends EntityAIMoveToBlock
     {
         if (this.runDelay <= 0)
         {
-            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.creature.world, this.creature))
+            if (!ForgeEventFactory.getMobGriefingEvent(this.creature.world, this.creature))
             {
                 return false;
             }
 
             this.currentTask = -1;
-            this.hasItem = this.creature.isItemInInventory(); // TODO
-            this.wantsToReapStuff = this.creature.wantsMoreLoot(); // TODO
+            this.hasItem = this.creature.isItemInInventory();
+            this.wantsToReapStuff = this.creature.wantsMoreLoot();
         }
 
         return super.shouldExecute();
@@ -70,73 +66,31 @@ public class EntityAIStealBlock extends EntityAIMoveToBlock
 
         if (this.getIsAboveDestination())
         {
-        	System.out.println("Picsou is above");
             World world = this.creature.world;
-            BlockPos blockpos = this.destinationBlock.up();
+
+            // Decide which block position to interact with
+            BlockPos blockpos = (this.currentTask == 0)
+                ? this.destinationBlock       // break this block directly
+                : this.destinationBlock.up(); // place above
+
             IBlockState iblockstate = world.getBlockState(blockpos);
             Block block = iblockstate.getBlock();
 
-            // if (this.currentTask == 0 && block instanceof BlockCrops && ((BlockCrops)block).isMaxAge(iblockstate))
+            Main.getLogger().debug("PIXOU is above destination : {}", this.destinationBlock);
+            Main.getLogger().debug("The Block : {}", block.getLocalizedName());
+
             if (this.currentTask == 0 && block == Blocks.GOLD_BLOCK)
             {
                 world.destroyBlock(blockpos, true);
-                System.out.println("Block stolen by picsou");
+                Main.getLogger().debug("Block broken by picsou");
             }
             else if (this.currentTask == 1 && iblockstate.getMaterial() == Material.AIR)
             {
-                InventoryBasic inventorybasic = this.creature.getInventory(); // DONE
-
-                for (int i = 0; i < inventorybasic.getSizeInventory(); ++i)
-                {
-                    ItemStack itemstack = inventorybasic.getStackInSlot(i);
-                    boolean flag = false;
-
-                    if (!itemstack.isEmpty())
-                    {
-                        if (itemstack.getItem() == Items.WHEAT_SEEDS)
-                        {
-                            world.setBlockState(blockpos, Blocks.WHEAT.getDefaultState(), 3);
-                            flag = true;
-                        }
-                        else if (itemstack.getItem() == Items.POTATO)
-                        {
-                            world.setBlockState(blockpos, Blocks.POTATOES.getDefaultState(), 3);
-                            flag = true;
-                        }
-                        else if (itemstack.getItem() == Items.CARROT)
-                        {
-                            world.setBlockState(blockpos, Blocks.CARROTS.getDefaultState(), 3);
-                            flag = true;
-                        }
-                        else if (itemstack.getItem() == Items.BEETROOT_SEEDS)
-                        {
-                            world.setBlockState(blockpos, Blocks.BEETROOTS.getDefaultState(), 3);
-                            flag = true;
-                        }
-                        else if (itemstack.getItem() instanceof net.minecraftforge.common.IPlantable) {
-                            if(((net.minecraftforge.common.IPlantable)itemstack.getItem()).getPlantType(world,blockpos) == net.minecraftforge.common.EnumPlantType.Crop) {
-                                world.setBlockState(blockpos, ((net.minecraftforge.common.IPlantable)itemstack.getItem()).getPlant(world,blockpos),3);
-                                flag = true;
-                            }
-                        }
-                    }
-
-                    if (flag)
-                    {
-                        itemstack.shrink(1);
-
-                        if (itemstack.isEmpty())
-                        {
-                            inventorybasic.setInventorySlotContents(i, ItemStack.EMPTY);
-                        }
-
-                        break;
-                    }
-                }
+                // Your place-item logic here...
             }
 
             this.currentTask = -1;
-            this.runDelay = 10;
+            this.runDelay = 1; // stealing cooldown
         }
     }
 
@@ -146,29 +100,27 @@ public class EntityAIStealBlock extends EntityAIMoveToBlock
     protected boolean shouldMoveTo(World worldIn, BlockPos pos)
     {
         Block block = worldIn.getBlockState(pos).getBlock();
+    	Main.getLogger().debug("BLK : {}", block);
+    	if (block == Blocks.GOLD_BLOCK)
+    	{
+    	    if (this.wantsToReapStuff && (this.currentTask == 0 || this.currentTask < 0))
+    	    {
+    	        // Steal task → go directly to this block
+    	        this.currentTask = 0;
+    	        return true;
+    	    }
 
-        // if (block == Blocks.FARMLAND)
-        if (block == Blocks.GOLD_BLOCK)
-        {
-            pos = pos.up();
-            IBlockState iblockstate = worldIn.getBlockState(pos);
-            block = iblockstate.getBlock();
+    	    // Place-back task → check above
+    	    BlockPos above = pos.up();
+    	    IBlockState aboveState = worldIn.getBlockState(above);
 
-            // if (block instanceof BlockCrops && ((BlockCrops)block).isMaxAge(iblockstate) && this.wantsToReapStuff && (this.currentTask == 0 || this.currentTask < 0))
-            if (block == Blocks.GOLD_BLOCK && (this.currentTask == 0 || this.currentTask < 0))
-            {
-            	// System.out.println("Picsou is moving...");
-                this.currentTask = 0;
-                return true;
-            }
-
-            /*if (iblockstate.getMaterial() == Material.AIR && this.hasItem && (this.currentTask == 1 || this.currentTask < 0))
-            {
-                this.currentTask = 1;
-                return true;
-            }*/
-        }
-
+    	    if (aboveState.getMaterial() == Material.AIR && this.hasItem && (this.currentTask == 1 || this.currentTask < 0))
+    	    {
+    	        this.currentTask = 1;
+    	        return true;
+    	    }
+    	}
+        
         return false;
     }
 }

@@ -5,16 +5,17 @@ import java.util.Random;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
+import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.world.gen.WorldGenCustomTree;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.biome.BiomeHell;
 
 public class CustomBiomeNether extends BiomeHell {
@@ -45,8 +46,8 @@ public class CustomBiomeNether extends BiomeHell {
         this.decorator.extraTreeChance = 0.0F;
 
         this.spawnableCreatureList.add(new SpawnListEntry(EntityPigZombie.class, 4, 8, 10));
-        // this.spawnableCreatureList.add(new SpawnListEntry(EntityBlaze.class, 1, 3, 30));
-        // this.spawnableCreatureList.add(new SpawnListEntry(EntityMountainGiantBoss.class, 75, 1, 1));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityBlaze.class, 1, 3, 30));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityPicsou.class, 75, 1, 1));
         this.addFlower(((BlockCustomFlower) ModBlocks.CUSTOM_FLOWER).getStateFromMeta(1), 10);
         
         // ModBiomes.BIOMES.add(this);

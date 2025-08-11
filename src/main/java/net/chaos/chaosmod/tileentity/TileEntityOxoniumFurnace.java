@@ -35,6 +35,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -323,13 +324,9 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
         {
             return 0;
         }
-        
-        if (stack.getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_SAPLINGS)) {
-        	return 100;
-        }
         else
         {
-            int burnTime = net.minecraftforge.event.ForgeEventFactory.getItemBurnTime(stack);
+            int burnTime = ForgeEventFactory.getItemBurnTime(stack);
             if (burnTime >= 0) return burnTime;
             Item item = stack.getItem();
 

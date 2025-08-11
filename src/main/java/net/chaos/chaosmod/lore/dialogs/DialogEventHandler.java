@@ -2,6 +2,8 @@ package net.chaos.chaosmod.lore.dialogs;
 
 import org.lwjgl.opengl.GL11;
 
+import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -23,8 +25,13 @@ public class DialogEventHandler {
 	public void onRenderLivingSpecials(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
 	    if (!(event.getEntity() instanceof ITalkable)) return;
 
-	    EntityViking entity = (EntityViking) event.getEntity();
-	    String dialog = entity.getDialogText();
+	    Entity entity = event.getEntity();
+	    String dialog = null;
+	    if (entity instanceof EntityViking) {
+	    	dialog = ((EntityViking) entity).getDialogText();
+	    } else if (entity instanceof EntityPicsou) {
+	    	dialog = ((EntityPicsou) entity).getDialogText();
+	    }
 
 	    if (dialog == null || dialog.isEmpty()) return;
 

@@ -2,12 +2,9 @@ package net.chaos.chaosmod;
 
 import org.apache.logging.log4j.Logger;
 
-import net.chaos.chaosmod.blocks.CustomLog;
-import net.chaos.chaosmod.blocks.CustomPlanks;
 import net.chaos.chaosmod.commands.CommandsManager;
 import net.chaos.chaosmod.config.ModConfig;
 import net.chaos.chaosmod.init.ModBiomes;
-import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModDimensions;
 import net.chaos.chaosmod.init.ModEntities;
@@ -27,7 +24,6 @@ import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.chaos.chaosmod.world.structures.StructureCustomVillage;
 import net.minecraft.init.Biomes;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
@@ -41,7 +37,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 import proxy.CommonProxy;
 import util.Reference;
 import util.blockstates.RenderBlockOutlinesEvent;
@@ -99,6 +94,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());
         MinecraftForge.EVENT_BUS.register(new PlayerInHandler());
         RegistryHandler.onSmeltingRegister();
+        RegistryHandler.onBrewingRecipeRegister();
         MachineRecipeRegistry.init();
         BiomeDictionary.addTypes(ModBiomes.GIANT_MOUNTAIN, BiomeDictionary.Type.MOUNTAIN);
         // BiomeDictionary.addTypes(ModBiomes.CUSTOM_HELL, BiomeDictionary.Type.NETHER);
@@ -108,14 +104,7 @@ public class Main
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.ENDER_GARDEN, 50));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CHAOS_LAND_BIOME, 50));
         ModDimensions.init();
-        // TODO : refactor that other part (it's forge tags to match any recipe using planks)
-        // OreDictionary.registerOre("toolTinkerHammer", new ItemStack(ModItems.TINKERERS_HAMMER, 1, OreDictionary.WILDCARD_VALUE));
-        for (CustomLog.CustomLogVariant variant : CustomLog.CustomLogVariant.values()) {
-            OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.CUSTOM_LOG, 1, variant.getMeta()));
-        }
-        for (CustomPlanks.CustomPlankVariant variant : CustomPlanks.CustomPlankVariant.values()) {
-            OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.CUSTOM_PLANK, 1, variant.getMeta()));
-        }
+        RegistryHandler.onTagsRegister();
         // ModStructures.registerStructures();
     }
 

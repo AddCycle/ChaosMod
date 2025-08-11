@@ -4,6 +4,8 @@ import java.util.Random;
 
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
+import net.chaos.chaosmod.entity.EntityForgeGuardian;
+import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.world.gen.WorldGenCustomTree;
@@ -47,8 +49,8 @@ public class CustomBiomeEnderGarden extends Biome {
         this.decorator.extraTreeChance = 0.0F;
 
         this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 2, 5, 10));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 2, 5, 10));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityPolarBear.class, 4, 8, 20));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityPicsou.class, 2, 5, 10));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityForgeGuardian.class, 4, 8, 20));
         this.spawnableCreatureList.add(new SpawnListEntry(EntitySnowman.class, 1, 3, 20));
         // this.spawnableCreatureList.add(new SpawnListEntry(EntityMountainGiantBoss.class, 75, 1, 1));
         this.addFlower(ModBlocks.CUSTOM_FLOWER.getDefaultState(), 5);
