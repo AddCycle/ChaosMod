@@ -19,5 +19,4 @@ public class TileEntityUtil {
             world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
         }
     }
-
 }

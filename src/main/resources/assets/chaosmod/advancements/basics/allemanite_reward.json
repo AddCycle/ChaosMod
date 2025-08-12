@@ -1,0 +1,32 @@
+{
+  "parent": "chaosmod:basics/oxonium_furnace_crafting",
+  "display": {
+    "icon": {
+      "item": "chaosmod:allemanite_ore"
+    },
+    "title": {
+      "text": "Mining task"
+    },
+    "description": {
+      "text": "Find Allemanite Ore"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "got_wheat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "chaosmod:allemanite_ore"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [ ]
+  }
+}

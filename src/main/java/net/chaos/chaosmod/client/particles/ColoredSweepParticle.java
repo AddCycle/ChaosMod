@@ -9,7 +9,6 @@ public class ColoredSweepParticle extends ParticleSweepAttack {
 			double dx, double dy, double dz, int colorHex) {
 		super(textureManagerIn, worldIn, x, y, z, dx, dy, dz);
 		int color = colorHex;
-		// System.out.println(String.format("Computed particle color rgb: #%06x", color));
 
 		int red = (color >> 16) & 0xFF;
 		int green = (color >> 8) & 0xFF;

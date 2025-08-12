@@ -1,14 +1,14 @@
 {
-  "parent": "chaosmod:root",
+  "parent": "chaosmod:basics/oxonium_reward",
   "display": {
     "icon": {
-      "item": "chaosmod:oxonium_ore"
+      "item": "chaosmod:oxonium_ingot"
     },
     "title": {
-      "text": "Gathering Oxonium"
+      "text": "Smelting task"
     },
     "description": {
-      "text": "Mine Oxonium and craft the Oxonium Necklace !"
+      "text": "Smelt Oxonium Ore"
     },
     "frame": "task",
     "show_toast": true,
@@ -20,13 +20,13 @@
       "conditions": {
         "items": [
           {
-            "item": "chaosmod:oxonium_ore"
+            "item": "chaosmod:oxonium_ingot"
           }
         ]
       }
     }
   },
   "rewards": {
-    "recipes": [ "chaosmod:oxonium_necklace" ]
+    "recipes": [ "chaosmod:oxonium_bricks", "chaosmod:oxonium_nuggets" ]
   }
 }

@@ -2,7 +2,6 @@ package net.chaos.chaosmod.lore.dialogs;
 
 import org.lwjgl.opengl.GL11;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.minecraft.client.Minecraft;
@@ -13,6 +12,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -31,6 +31,8 @@ public class DialogEventHandler {
 	    	dialog = ((EntityViking) entity).getDialogText();
 	    } else if (entity instanceof EntityPicsou) {
 	    	dialog = ((EntityPicsou) entity).getDialogText();
+	    } else if (entity instanceof EntityCreeper) {
+	    	dialog = "Kabuuuum !!";
 	    }
 
 	    if (dialog == null || dialog.isEmpty()) return;

@@ -19,7 +19,7 @@ public class HomeCommand extends CommandBase {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/home <home_name> (if no args, teleports to the previous)";
+		return "/home <home_name> (if no args, teleports to the early one)";
 	}
 	
 	@Override
@@ -41,6 +41,7 @@ public class HomeCommand extends CommandBase {
 			boolean hasPosition = player.getEntityData().getIntArray(key).length != 0;
 			if (hasPosition) {
 				int[] playerPos = player.getEntityData().getIntArray(key);
+				// TeleportUtil.teleport(player, player.dimension, playerPos[0], playerPos[1], playerPos[2]);
 				player.setPositionAndUpdate(playerPos[0], playerPos[1], playerPos[2]);
 			} else {
 				player.sendMessage(new TextComponentString("It appears you do not have a home yet !"));

@@ -10,7 +10,6 @@ import net.chaos.chaosmod.blocks.abstracted.AbstractBlockLantern;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityLantern;
-import net.minecraft.block.BlockTorch;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -50,8 +49,8 @@ public class BlockLantern extends AbstractBlockLantern implements IHasModel {
         double d0 = (double)pos.getX() + 0.5D;
         double d1 = (double)pos.getY() + 0.7D;
         double d2 = (double)pos.getZ() + 0.5D;
-        double d3 = 0.22D;
-        double d4 = 0.27D;
+        // double d3 = 0.22D;
+        // double d4 = 0.27D;
         double r = 1.0D;
         double g = 0.643D;
         double b = 0.961D;

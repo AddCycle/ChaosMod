@@ -3,6 +3,8 @@ package net.chaos.chaosmod.world.gen;
 import java.util.Random;
 
 import net.chaos.chaosmod.init.ModBlocks;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -33,7 +35,9 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
             if (!world.isAirBlock(checkPos) && !world.getBlockState(checkPos).getMaterial().isReplaceable() && 
             	 world.getBlockState(position).getBlock() != ModBlocks.CUSTOM_LEAVES &&
             	 world.getBlockState(position).getBlock() != ModBlocks.CUSTOM_STAIRS &&
-            	 world.getBlockState(position).getBlock() != ModBlocks.OXONIUM_STAIRS) {
+            	 world.getBlockState(position).getBlock() != ModBlocks.OXONIUM_STAIRS &&
+            	 !(world.getBlockState(position).getBlock() instanceof BlockBush) &&
+            	 !(world.getBlockState(position).getBlock() instanceof BlockLeaves)) {
                 canGenerate = false;
                 break;
             }

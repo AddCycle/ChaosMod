@@ -1,0 +1,33 @@
+{
+  "parent": "chaosmod:basics/root",
+  "display": {
+    "icon": {
+      "item": "chaosmod:oxonium_ore"
+    },
+    "title": {
+      "text": "Mining task"
+    },
+    "description": {
+      "text": "Find Oxonium Ore"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got_wheat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "chaosmod:oxonium_ore"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [ "chaosmod:oxonium_necklace" ]
+  }
+}

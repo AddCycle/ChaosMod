@@ -1,0 +1,32 @@
+{
+  "parent": "chaosmod:basics/smelting_oxonium",
+  "display": {
+    "icon": {
+      "item": "chaosmod:oxonium_furnace"
+    },
+    "title": {
+      "text": "Crafting task"
+    },
+    "description": {
+      "text": "Craft the powerful Oxonium Furnace"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "got_wheat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "chaosmod:oxonium_furnace"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [ "chaosmod:allemanite_ingot" ]
+  }
+}

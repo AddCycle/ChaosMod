@@ -50,7 +50,7 @@ public class PlayerInHandler {
 			});
 
 			// prevents issues with patchouli book gift
-			String key = Reference.MODID + ".first_join";
+			String key = Reference.PREFIX + "first_join";
 			event.getEntityPlayer().getEntityData().setBoolean(key, event.getOriginal().getEntityData().getBoolean(key));
 		}
 

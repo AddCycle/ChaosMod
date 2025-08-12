@@ -1,0 +1,32 @@
+{
+  "parent": "chaosmod:basics/allemanite_reward",
+  "display": {
+    "icon": {
+      "item": "chaosmod:allemanite_ingot"
+    },
+    "title": {
+      "text": "Smelting task"
+    },
+    "description": {
+      "text": "Smelt Allemanite Ore"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "got_wheat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "chaosmod:allemanite_ingot"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [ "chaosmod:allemanite_necklace" ]
+  }
+}

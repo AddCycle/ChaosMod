@@ -36,6 +36,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.world.BlockEvent.FarmlandTrampleEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -57,8 +58,8 @@ public class PlayerLifeEvents {
 		if (event.getWorld().isRemote) return; // running only server side
 		EntityPlayer player = (EntityPlayer) event.getEntity();
 
-		String key = Reference.MODID + ".first_join";
-		if (!isPlayerFirstJoin(player)) {
+		String key = Reference.PREFIX + "first_join";
+		if (isPlayerFirstJoin(player)) {
 			player.getEntityData().setBoolean(key, false);
 		}
 
@@ -69,6 +70,15 @@ public class PlayerLifeEvents {
 		if (isPlayerFirstJoin(player)) {
 			// sets the player home on first join
 			event.getWorld().getMinecraftServer().commandManager.executeCommand(player, "sethome spawn");
+		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerStepsOnCrops(FarmlandTrampleEvent event) {
+		if (!(event.getEntity() instanceof EntityPlayer) || event.getWorld().isRemote);
+		EntityPlayer player = (EntityPlayer) event.getEntity();
+		if (player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == ModItems.OXONIUM_BOOTS) {
+			event.setCanceled(true);
 		}
 	}
 
@@ -236,12 +246,12 @@ public class PlayerLifeEvents {
 	}
 	
 	public boolean isPlayerFirstJoin(EntityPlayer player) {
-		String key = Reference.MODID + ".first_join";
-		return player.getEntityData().hasKey(key);
+		String key = Reference.PREFIX + "first_join";
+		return !player.getEntityData().hasKey(key);
 	}
 	
 	public void givePlayerInstructionBook(EntityPlayer player) {
-		ItemStack book = PatchouliAPI.instance.getBookStack("chaosmod:chaos_almanac");
+		ItemStack book = PatchouliAPI.instance.getBookStack(Reference.PREFIX + "chaos_almanac");
 		player.addItemStackToInventory(book);
 	}
 }

@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 
+import net.chaos.chaosmod.init.ModMaterials;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -45,7 +46,7 @@ public class AbstractBlockLantern extends Block {
     protected static final AxisAlignedBB TORCH_EAST_AABB = new AxisAlignedBB(0.0D, 0.20000000298023224D, 0.3499999940395355D, 0.30000001192092896D, 0.800000011920929D, 0.6499999761581421D);
 
     public AbstractBlockLantern(MapColor blockMapColorIn) {
-		super(Material.CIRCUITS, blockMapColorIn);
+		super(ModMaterials.PINK_LANTERN, blockMapColorIn);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.DECORATIONS);

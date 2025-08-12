@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "chaosmod:oxonium_ore"
+      "item": "chaosmod:custom_log"
     },
     "title": {
       "text": "ChaosMod",
@@ -12,9 +12,10 @@
         "action": "show_text"
       }
     },
-    "description": "You are engaged...",
+    "description": "Harvest custom logs",
     "frame": "task",
     "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },

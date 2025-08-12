@@ -150,6 +150,6 @@ public class ModItems {
 	// Crops init
 	public static void initItems() {
 		OXONIUM_CARROT = 
-			new MineralFood("oxonium_carrot", 5, 3.0f, ModBlocks.OXONIUM_CARROT_BLOCK, Blocks.FARMLAND, new PotionEffect(MobEffects.SPEED, 60*20, 0, false, true), TextFormatting.BOLD + "" + TextFormatting.WHITE + "SPEED" + TextFormatting.GOLD + " I");
+			new MineralFood("oxonium_carrot", 5, 3.0f, ModBlocks.OXONIUM_CARROT_BLOCK, Blocks.FARMLAND, new PotionEffect(MobEffects.SPEED, 60*20, 0, false, true),  TextFormatting.WHITE + "" + TextFormatting.BOLD + "SPEED" + TextFormatting.RESET + TextFormatting.GOLD + " I");
 	}
 }
