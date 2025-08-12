@@ -23,6 +23,7 @@ import util.ui.components.JobsButtonBase;
 public class GuiScreenJobs extends GuiScreen {
 	public boolean DEBUG = false;
 	public static final ResourceLocation WIDGETS = new ResourceLocation(Reference.MODID, "textures/jobs/widgets.png");
+	public static final ResourceLocation FINAL_VER = new ResourceLocation(Reference.MODID, "textures/jobs/final_ver.png");
 	public List<JobComponent> components = new ArrayList<>();
 	public int dark = 0xff24292f;
 	public int light_dark = 0xff24292f;
@@ -35,7 +36,8 @@ public class GuiScreenJobs extends GuiScreen {
 
     public boolean isScrolling;
 
-    private static int savedScrollX = 0;
+    public int scrollStartMouseX = -1;
+    public boolean isDragging = false;
 	
 	public GuiScreenJobs(@Nullable GuiJobs jobs) { // Jobs
 		JobsList.init();
@@ -66,39 +68,54 @@ public class GuiScreenJobs extends GuiScreen {
 	public boolean doesGuiPauseGame() {
 		return false;
 	}
+	
+	public void scroll(int deltaX) {
+	    if (minX == Integer.MAX_VALUE || maxX == Integer.MIN_VALUE) {
+	        // calculate minX and maxX
+	        minX = Integer.MAX_VALUE;
+	        maxX = Integer.MIN_VALUE;
+	        components.forEach(c -> {
+	            if (c.x < minX) minX = c.x;
+	            if (c.x + c.width > maxX) maxX = c.x + c.width;
+	        });
+	    }
+	    int visibleWidth = this.width - 40;
+	    int contentWidth = maxX - minX;
 
-    public void scroll(int x)
-    {
-        // if (this.maxX - this.minX > 234)
-        {
-            this.scrollX = MathHelper.clamp(this.scrollX + x, -(this.maxX - 234), this.width);
-            Main.getLogger().info("isScrolling : {}", this.isScrolling);
-            Main.getLogger().info("Scrolling mouse X : {}", this.scrollMouseX);
-            Main.getLogger().info("Scrolling X : {}", this.scrollX);
-        }
-    }
-
+	    this.scrollX = MathHelper.clamp(this.scrollX + deltaX, 0, Math.max(0, contentWidth - visibleWidth));
+	}
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         int i = (this.width - 252) / 2;
         int j = (this.height - 140) / 2;
 
-        if (Mouse.isButtonDown(0))
-        {
-            if (!this.isScrolling)
-            {
-                this.isScrolling = true;
-                Main.getLogger().info("scrolling mouse... => {}", this.scrollMouseX);
-            }
-            this.scroll(mouseX - this.scrollMouseX);
-            Main.getLogger().info("scrolling scroll... => {}", this.scrollX);
+        if (Mouse.isButtonDown(0)) {
+            if (scrollStartMouseX == -1) {
+                // First frame mouse is down — remember start position
+                scrollStartMouseX = mouseX;
+                isDragging = false;
+            } else {
+                int deltaX = mouseX - scrollStartMouseX;
 
-            this.scrollMouseX = mouseX;
-        }
-        else
-        {
-            this.isScrolling = false;
+                // Only start dragging if moved more than threshold (e.g. 2 pixels)
+                if (!isDragging && Math.abs(deltaX) > 2) {
+                    isDragging = true;
+                    isScrolling = true;
+                    Main.getLogger().info("Started dragging at {}", scrollStartMouseX);
+                }
+
+                if (isDragging) {
+                    this.scroll(deltaX);
+                    Main.getLogger().info("Scrolling scroll... => {}", this.scrollX);
+
+                    scrollStartMouseX = mouseX; // update for next frame
+                }
+            }
+        } else {
+            isScrolling = false;
+            isDragging = false;
+            scrollStartMouseX = -1;
         }
 
 		this.drawDefaultBackground(scrollX);
