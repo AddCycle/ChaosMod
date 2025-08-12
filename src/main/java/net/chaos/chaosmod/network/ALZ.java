@@ -1,14 +1,14 @@
 package net.chaos.chaosmod.network;
 
 import net.chaos.chaosmod.client.gui.inventory.OxoniumFurnaceGui;
-import net.chaos.chaosmod.gui.GuideGui;
+import net.chaos.chaosmod.jobs.GuiScreenJobs;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 
 public class ALZ {
 	public static void alz0() {
-		Minecraft.getMinecraft().displayGuiScreen(new GuideGui(0));
+		Minecraft.getMinecraft().displayGuiScreen(new GuiScreenJobs(null));
 	}
 	
 	public static void alz1() {

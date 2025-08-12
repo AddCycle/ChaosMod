@@ -13,6 +13,7 @@ import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
+import net.chaos.chaosmod.jobs.GuiScreenJobs;
 import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.chaos.chaosmod.sound.ClientSoundHandler;
@@ -53,29 +54,43 @@ import vazkii.patchouli.api.PatchouliAPI;
 public class PlayerLifeEvents {
 	
 	@SubscribeEvent
+	// FIXED
 	public void onPlayerJoin(EntityJoinWorldEvent event) {
 		if (!(event.getEntity() instanceof EntityPlayer)) return; // only if the entity is a player
 		if (event.getWorld().isRemote) return; // running only server side
+
 		EntityPlayer player = (EntityPlayer) event.getEntity();
 
 		String key = Reference.PREFIX + "first_join";
-		if (isPlayerFirstJoin(player)) {
-			player.getEntityData().setBoolean(key, false);
+
+		NBTTagCompound entityData = player.getEntityData();
+		NBTTagCompound persistentData;
+		if (entityData.hasKey(EntityPlayer.PERSISTED_NBT_TAG, 10)) { // 10 = compound type
+		    persistentData = entityData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+		} else {
+		    persistentData = new NBTTagCompound();
+		    entityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistentData);
 		}
 
-		if (Loader.isModLoaded("patchouli") && isPlayerFirstJoin(player)) {
-			givePlayerInstructionBook(player);
-		}
-		
-		if (isPlayerFirstJoin(player)) {
-			// sets the player home on first join
+		boolean firstJoin = !persistentData.hasKey(key);
+
+		if (firstJoin) {
+			persistentData.setBoolean(key, true);
+			entityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistentData);
+
+			if (Loader.isModLoaded("patchouli")) {
+				givePlayerInstructionBook(player);
+			}
+
+			// sets his first home on join
 			event.getWorld().getMinecraftServer().commandManager.executeCommand(player, "sethome spawn");
 		}
 	}
 	
 	@SubscribeEvent
 	public void onPlayerStepsOnCrops(FarmlandTrampleEvent event) {
-		if (!(event.getEntity() instanceof EntityPlayer) || event.getWorld().isRemote);
+		if (!(event.getEntity() instanceof EntityPlayer)) return;
+		if (event.getWorld().isRemote) return;
 		EntityPlayer player = (EntityPlayer) event.getEntity();
 		if (player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == ModItems.OXONIUM_BOOTS) {
 			event.setCanceled(true);
@@ -138,8 +153,9 @@ public class PlayerLifeEvents {
 				ClientSoundHandler.stopMusic();
 				ClientSoundHandler.index-=2;
 				ClientSoundHandler.launchPlaylist();
+			} else if (ModKeybinds.displayJobsKey.isPressed()) {
+				mc.displayGuiScreen(new GuiScreenJobs(null));
 			}
-
 		}
 	}
 
@@ -243,11 +259,6 @@ public class PlayerLifeEvents {
 				}
 			});
 		}
-	}
-	
-	public boolean isPlayerFirstJoin(EntityPlayer player) {
-		String key = Reference.PREFIX + "first_join";
-		return !player.getEntityData().hasKey(key);
 	}
 	
 	public void givePlayerInstructionBook(EntityPlayer player) {

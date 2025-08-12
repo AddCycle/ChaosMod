@@ -9,6 +9,7 @@ import net.chaos.chaosmod.network.PacketManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -35,9 +36,10 @@ public class PlayerInHandler {
 	/*
 	 * When the player RESPAWN event is fired to prevent duplicates on server
 	 */
+
+	// prevents issues with homes & accessories
 	public void onPlayerClone(PlayerEvent.Clone event) {
 		if (!event.getOriginal().getEntityWorld().isRemote) {
-			// prevents issues with homes
 			String homesNumberKey = Reference.PREFIX + "homesNumber";
 			Set<String> homeSet = event.getOriginal().getEntityData().getKeySet();
 			homeSet.forEach(key -> {
@@ -50,8 +52,31 @@ public class PlayerInHandler {
 			});
 
 			// prevents issues with patchouli book gift
-			String key = Reference.PREFIX + "first_join";
-			event.getEntityPlayer().getEntityData().setBoolean(key, event.getOriginal().getEntityData().getBoolean(key));
+			NBTTagCompound origEntityData = event.getOriginal().getEntityData();
+	        NBTTagCompound newEntityData = event.getEntityPlayer().getEntityData();
+
+	        NBTTagCompound origPersist;
+	        if (origEntityData.hasKey(EntityPlayer.PERSISTED_NBT_TAG, 10)) {
+	            origPersist = origEntityData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+	        } else {
+	            origPersist = new NBTTagCompound();
+	            origEntityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, origPersist);
+	        }
+
+	        NBTTagCompound newPersist;
+	        if (newEntityData.hasKey(EntityPlayer.PERSISTED_NBT_TAG, 10)) {
+	            newPersist = newEntityData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+	        } else {
+	            newPersist = new NBTTagCompound();
+	            newEntityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, newPersist);
+	        }
+
+	        String key = Reference.PREFIX + "first_join";
+	        if (origPersist.hasKey(key)) {
+	            newPersist.setBoolean(key, origPersist.getBoolean(key));
+	        }
+
+	        newEntityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, newPersist);
 		}
 
 		// prevents issues with this mod necklaces

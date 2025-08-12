@@ -31,9 +31,9 @@ public class GuiHandler implements IGuiHandler {
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 		switch (ID) {
 		case 0:
-			return null; // new ContainerNull(player.inventory, player);
+			return null;
 		case 1:
-			return new OxoniumFurnaceContainer(player.inventory, (TileEntityOxoniumFurnace) te); // new ContainerNull(player.inventory, player);
+			return new OxoniumFurnaceContainer(player.inventory, (TileEntityOxoniumFurnace) te);
 		case 2: 
 			return null;
 		case 3:
@@ -67,7 +67,7 @@ public class GuiHandler implements IGuiHandler {
 		
 		switch (ID) {
 		case 0:
-			return new GuideGui(0);
+			throw new IllegalArgumentException("Unexpected value: " + ID);
 		case 1:
 			return new OxoniumFurnaceGui(player.inventory, (TileEntityOxoniumFurnace) te);
 		case 2:
@@ -78,13 +78,11 @@ public class GuiHandler implements IGuiHandler {
 			return new BackpackGui(new BackpackContainer(player.inventory, player.getHeldItemMainhand()));
 		case 5:
 			System.out.println("Server GuiHandler received ID: " + ID + " x: " + x);
-			return new GuideGui(0);
+			throw new IllegalArgumentException("Unexpected value: " + ID);
 		case 6:
 			return new GuiInventoryExtended(player);
 		case 7:
 			return new TrophyGui(player.inventory, (TileEntityTrophyBase) te);
-			
-			// return new BackpackGui(player.inventory, new InventoryBackpack(player.inventory, 54));
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -99,5 +97,4 @@ public class GuiHandler implements IGuiHandler {
         }
 		return null;
 	}
-
 }
