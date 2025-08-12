@@ -2,7 +2,6 @@ package net.chaos.chaosmod.commands;
 
 import java.util.Set;
 
-import net.chaos.chaosmod.Main;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
