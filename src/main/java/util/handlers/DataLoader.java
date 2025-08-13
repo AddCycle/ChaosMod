@@ -35,7 +35,7 @@ public class DataLoader {
     }
 
 	public static JsonObject loadServerJson(String pathInAssets) {
-	    String fullPath = "/assets/chaosmod/" + pathInAssets;
+		String fullPath = "/assets/" + Reference.MODID + "/" + pathInAssets;
 
 	    try (InputStream stream = DataLoader.class.getResourceAsStream(fullPath)) {
 	        if (stream == null) {

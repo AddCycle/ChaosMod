@@ -1,9 +1,7 @@
 package net.chaos.chaosmod.items.shield;
 
 import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.client.inventory.AccessoryInventory;
 import net.chaos.chaosmod.client.inventory.shield.ShieldInventory;
-import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,7 +18,6 @@ public class CustomItemShield extends ItemBase implements IHasModel {
 	public CustomItemShield(String name) {
 		super(name);
 		setMaxStackSize(1);
-		ModItems.ITEMS.add(this);
 	}
 	
 	@Override

@@ -4,8 +4,10 @@ import java.util.Set;
 
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.chaos.chaosmod.network.PacketManager;
+import net.chaos.chaosmod.network.PacketSyncJobs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -29,6 +31,11 @@ public class PlayerInHandler {
 	            ItemStack stack = cap.getAccessoryItem();
 	            PacketManager.network.sendTo(new PacketAccessorySync(player, stack), (EntityPlayerMP) player);
 	        }
+	    }
+	    
+	    if (event.player instanceof EntityPlayerMP) {
+	        String jsonData = JobsManager.toJsonString(); // serialize all jobs
+	        PacketManager.network.sendTo(new PacketSyncJobs(jsonData), (EntityPlayerMP) event.player);
 	    }
 	}
 	

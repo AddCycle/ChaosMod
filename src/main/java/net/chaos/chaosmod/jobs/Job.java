@@ -36,7 +36,17 @@ public class Job {
 		this.tasks.size();
 	}
 	
-	public Job DeserializeJob(JsonObject json) {
-		return null;
-	}
+	public JsonObject toJson() {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("id", id);
+        obj.addProperty("name", name);
+        return obj;
+    }
+
+    public static Job fromJson(JsonObject json) {
+        return new Job(
+            json.get("id").getAsString(),
+            json.get("name").getAsString()
+        );
+    }
 }

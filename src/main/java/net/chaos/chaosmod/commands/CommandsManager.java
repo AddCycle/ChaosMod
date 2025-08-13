@@ -8,8 +8,9 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 public class CommandsManager {
 
 	public static void registerCommands(FMLServerStartingEvent event) {
-    	event.registerServerCommand(new FindBlockCommand());
     	event.registerServerCommand(new GuideCommand());
+    	event.registerServerCommand(new FindBlockCommand());
+    	event.registerServerCommand(new JobsCommand());
         event.registerServerCommand(new CraftCommand());
         event.registerServerCommand(new FurnaceCommand());
         event.registerServerCommand(new UltimateDebuggerCommand());

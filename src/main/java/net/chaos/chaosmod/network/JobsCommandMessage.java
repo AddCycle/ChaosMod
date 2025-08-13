@@ -5,10 +5,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class GuideCommandMessage implements IMessage {
+public class JobsCommandMessage implements IMessage {
 	private int toSend;
 
-	public GuideCommandMessage() {}
+	public JobsCommandMessage() {}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
@@ -19,15 +19,15 @@ public class GuideCommandMessage implements IMessage {
 	public void toBytes(ByteBuf buf) {
 		buf.writeInt(toSend);
 	}
-	
-	public static class GuideMessageHandler implements IMessageHandler<GuideCommandMessage, IMessage> {
 
-		@Override
-		public IMessage onMessage(GuideCommandMessage message, MessageContext ctx) {
-			ALZ.alz0();
-			return null;
-		}
-		
+	public static class JobsMessageHandler implements IMessageHandler<JobsCommandMessage, IMessage> {
+
+	@Override
+	public IMessage onMessage(JobsCommandMessage message, MessageContext ctx) {
+		ALZ.alz0();
+		return null;
 	}
 
+}
+	
 }
