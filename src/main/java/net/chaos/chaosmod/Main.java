@@ -9,6 +9,7 @@ import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModDimensions;
 import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.init.ModSounds;
+import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.recipes.machine.MachineRecipeRegistry;
 import net.chaos.chaosmod.tileentity.TileEntityManager;
@@ -124,6 +125,7 @@ public class Main
     
     @EventHandler
     public void ServerInit(FMLServerStartingEvent event) {
+    	JobsManager.init();
     	CommandsManager.registerCommands(event);
     }
 }
