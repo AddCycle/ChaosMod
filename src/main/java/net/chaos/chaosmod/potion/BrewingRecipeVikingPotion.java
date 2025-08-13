@@ -10,22 +10,24 @@ import net.minecraftforge.common.brewing.IBrewingRecipe;
 
 public class BrewingRecipeVikingPotion implements IBrewingRecipe {
 
+	private static final ItemStack ACCEPTED_INPUT = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD);
+	private static final ItemStack ACCEPTED_INGREDIENT = new ItemStack(ModBlocks.CUSTOM_FLOWER, 1, 1);
+
 	@Override
 	public boolean isInput(ItemStack input) {
-		ItemStack accepted = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD);
-		return input == accepted;
+		// Use areItemStacksEqual to compare input including NBT (important for potions)
+		return ItemStack.areItemStacksEqual(input, ACCEPTED_INPUT);
 	}
 
 	@Override
 	public boolean isIngredient(ItemStack ingredient) {
-		ItemStack accepted = new ItemStack(ModBlocks.CUSTOM_FLOWER, 1, 1);
-		return ingredient == accepted;
+		// For ingredient, metadata matters but likely no NBT, so areItemsEqual is fine
+		return ItemStack.areItemsEqual(ingredient, ACCEPTED_INGREDIENT);
 	}
 
 	@Override
 	public ItemStack getOutput(ItemStack input, ItemStack ingredient) {
-		ItemStack res = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), ModPotionTypes.VIKING_FRIEND_TYPE);
-		return res;
+		// Return a new ItemStack of the potion with your custom type
+		return PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), ModPotionTypes.VIKING_FRIEND_TYPE);
 	}
-
 }

@@ -63,7 +63,7 @@ public class GuiScreenJobs extends GuiScreen {
 		});
 		super.initGui();
 	}
-	
+
 	@Override
 	public boolean doesGuiPauseGame() {
 		return false;
@@ -102,12 +102,10 @@ public class GuiScreenJobs extends GuiScreen {
                 if (!isDragging && Math.abs(deltaX) > 2) {
                     isDragging = true;
                     isScrolling = true;
-                    Main.getLogger().info("Started dragging at {}", scrollStartMouseX);
                 }
 
                 if (isDragging) {
                     this.scroll(deltaX);
-                    Main.getLogger().info("Scrolling scroll... => {}", this.scrollX);
 
                     scrollStartMouseX = mouseX; // update for next frame
                 }

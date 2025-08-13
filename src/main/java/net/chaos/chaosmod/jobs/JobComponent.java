@@ -23,9 +23,9 @@ public class JobComponent extends UIComponent {
 		super(screen,x,y,width,height);
 		this.job = job;
 		this.icon = job.index;
-		int componentSize = 32;
-		int centerX = this.width / 2 - componentSize / 2;
-		int centerY = this.height / 2 - componentSize / 2;
+		// int componentSize = 32;
+		// int centerX = this.width / 2 - componentSize / 2;
+		// int centerY = this.height / 2 - componentSize / 2;
 		// this.children.add(new SpriteComponent(screen, this, centerX, centerY, 0 + (this.icon * componentSize), 192, componentSize, componentSize, WIDGETS));
 	}
 	

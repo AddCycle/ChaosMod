@@ -41,4 +41,11 @@ public class JobsButtonBase extends GuiButton {
 			this.mouseDragged(mc, mouseX, mouseY);
 		}
 	}
+
+	@Override
+    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY)
+    {
+		int scrollX = this.x - this.screen.scrollX;
+        return this.enabled && this.visible && mouseX >= scrollX && mouseY >= this.y && mouseX < scrollX + this.width && mouseY < this.y + this.height;
+    }
 }
