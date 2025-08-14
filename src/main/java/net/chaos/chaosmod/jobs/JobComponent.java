@@ -61,10 +61,42 @@ public class JobComponent extends UIComponent {
 		screen.drawTexturedModalRect(x, y, 0, 0, this.width, this.height);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public void drawJobInfos(int x, int y) {
 		FontRenderer fr = screen.mc.fontRenderer;
 		Job job = this.job;
 		screen.drawCenteredString(fr, job.name, x + this.width / 2, y + fr.FONT_HEIGHT, 0xffffff);
+
+		String text = job.description;
+		if (text.isEmpty()) return;
+
+		int text_width = fr.getStringWidth(text);
+
+		int componentWidth = this.width;
+		String[] words = text.split(" ");
+		StringBuilder line = new StringBuilder();
+		int lineIndex = 0;
+		int offsetX = 5;
+		int offsetY = 10;
+
+		for (String word : words) {
+		    String testLine = (line.length() == 0) ? word : line + " " + word;
+
+		    if (fr.getStringWidth(testLine) < componentWidth - offsetX) {
+		        line = new StringBuilder(testLine);
+		    } else {
+		        this.drawString(fr, line.toString(), x + offsetX, y + (fr.FONT_HEIGHT + 2) * lineIndex + offsetY, 0xFFFFFF);
+		        line = new StringBuilder(word);
+		        lineIndex++;
+		    }
+		}
+
+		// Draw last remaining line
+		if (line.length() > 0) {
+		        this.drawString(fr, line.toString(), x + offsetX, y + (fr.FONT_HEIGHT + 2) * lineIndex + offsetY, 0xFFFFFF);
+		}
+	}
+	
+	private void drawString(FontRenderer fr, String text, int x, int y, int color) {
+		fr.drawStringWithShadow(text, (float)(x), (float)y, color);
 	}
 }

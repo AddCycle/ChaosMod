@@ -1,4 +1,7 @@
 {
 	"id": "fighter",
-	"name": "Fighter"
+	"name": "Fighter",
+	"description": "Fight enemies and gain pride",
+	"tasks": [],
+	"maxLevel": 0
 }

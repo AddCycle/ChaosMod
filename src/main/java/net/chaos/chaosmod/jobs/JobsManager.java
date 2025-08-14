@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.jobs;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -11,13 +11,13 @@ import net.chaos.chaosmod.Main;
 import util.handlers.DataLoader;
 
 public class JobsManager {
-	public static final List<Job> JOBS_REGISTRY = new ArrayList<Job>();
+	public static final Map<String, Job> REGISTRY = new LinkedHashMap<>();
 
 	public static Job FIGHTER;
-    public static Job FARMER;
-    public static Job HUNTER;
-    public static Job ALCHEMIST;
-    public static Job TAMER;
+	public static Job FARMER;
+	public static Job HUNTER;
+	public static Job ALCHEMIST;
+	public static Job TAMER;
 
     private static final Gson GSON = new Gson();
 
@@ -51,23 +51,28 @@ public class JobsManager {
 
     // Load jobs from JSON string (client-side)
     public static void loadFromJson(String jsonString) {
+    	int id = 0;
+		Main.getLogger().info("LOADING FROM JSON");
         JsonArray arr = GSON.fromJson(jsonString, JsonArray.class);
-        FIGHTER = Job.fromJson(arr.get(0).getAsJsonObject());
-        FARMER  = Job.fromJson(arr.get(1).getAsJsonObject());
-        HUNTER  = Job.fromJson(arr.get(2).getAsJsonObject());
-        ALCHEMIST = Job.fromJson(arr.get(3).getAsJsonObject());
-        TAMER   = Job.fromJson(arr.get(4).getAsJsonObject());
+        if (arr == null) {
+        	Main.getLogger().trace("ARRAY NULL not loading from json");
+        }
+        FIGHTER = Job.fromJson(arr.get(id++).getAsJsonObject());
+        FARMER  = Job.fromJson(arr.get(id++).getAsJsonObject());
+        HUNTER  = Job.fromJson(arr.get(id++).getAsJsonObject());
+        ALCHEMIST = Job.fromJson(arr.get(id++).getAsJsonObject());
+        TAMER   = Job.fromJson(arr.get(id++).getAsJsonObject());
         displayAll();
     }
 
     // ****************** BEFORE **********************
 
 	public static int nextId() {
-		return JOBS_REGISTRY.size();
+		return REGISTRY.size();
 	}
 	
 	public static void displayAll() {
 		Main.getLogger().info("************** JobRegistry **************");
-		JOBS_REGISTRY.forEach(job -> Main.getLogger().info("Job : {}", job.id));
+		REGISTRY.forEach((id, job) -> Main.getLogger().info("Job : {}", id));
 	}
 }

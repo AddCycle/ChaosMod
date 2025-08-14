@@ -4,10 +4,13 @@ import java.util.Set;
 
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.JobsManager;
+import net.chaos.chaosmod.jobs.PlayerJobs;
 import net.chaos.chaosmod.network.PacketAccessorySync;
 import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.network.PacketSyncJobs;
+import net.chaos.chaosmod.network.PacketSyncPlayerJobs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -33,11 +36,18 @@ public class PlayerInHandler {
 	        }
 	    }
 	    
-	    if (event.player instanceof EntityPlayerMP) {
+	    // Sending jobs data to client
+	    if (!player.world.isRemote) {
 	        String jsonData = JobsManager.toJsonString(); // serialize all jobs
 	        PacketManager.network.sendTo(new PacketSyncJobs(jsonData), (EntityPlayerMP) event.player);
 	    }
 	}
+	
+	public static void syncToClient(EntityPlayerMP player) {
+	    PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+	    PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), player);
+	}
+
 	
 	@SubscribeEvent
 	/*

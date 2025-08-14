@@ -3,6 +3,7 @@ package net.chaos.chaosmod.blocks.decoration;
 import java.util.List;
 
 import net.chaos.chaosmod.blocks.BlockBase;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
@@ -18,11 +19,18 @@ public class MineralBricks extends BlockBase {
 
 	public MineralBricks(String name, Material material, TextFormatting color, String description) {
 		super(name, material);
-		setHardness(2.0F);
-		setResistance(3000.0f);
-		setSoundType(SoundType.STONE);
+		this.setHardness(2.0f);
+		this.setResistance(3000.0f);
+		this.setHarvestLevel("pickaxe", 1);
+		this.setSoundType(SoundType.STONE);
 		this.format = color;
 		this.description = description;
+	}
+	
+	@Override
+	public Block setHardness(float hardness) {
+		this.blockHardness = hardness;
+		return this;
 	}
 	
 	@Override

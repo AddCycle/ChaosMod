@@ -26,11 +26,10 @@ public class EntityPicsouRenderer extends RenderLiving<EntityPicsou> {
 	@Override
 	public void doRender(EntityPicsou entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		tickCounter++;
-		if (tickCounter >= 30) {
+		if (tickCounter >= 100) {
 			spawnCoinParticles(entity.getEntityWorld(), entity);
 			tickCounter = 0;
 		}
-		// TODO Auto-generated method stub
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 

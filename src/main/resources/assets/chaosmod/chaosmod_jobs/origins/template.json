@@ -1,0 +1,20 @@
+{
+	"id": "template_job",
+	"name": "job_name",
+	"description": "job_description",	
+	"tasks": [
+		{
+			"id": "gather_wood",
+			"name": "Gathering Wood",
+			"description": "Go to a custom biome and gather wood",
+			"type": "harvest",
+			"target": {
+				"item": "chaosmod:custom_log",
+				"data": 1
+			},
+			"progress": "",
+			"goal": ""
+		}
+	],
+	"maxLevel": 20
+}

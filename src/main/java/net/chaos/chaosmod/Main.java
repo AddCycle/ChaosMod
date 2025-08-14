@@ -125,7 +125,7 @@ public class Main
     
     @EventHandler
     public void ServerInit(FMLServerStartingEvent event) {
-    	JobsManager.init();
+    	JobsManager.init(); // loads jobs on server side to send packet
     	CommandsManager.registerCommands(event);
     }
 }

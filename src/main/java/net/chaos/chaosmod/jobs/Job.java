@@ -3,6 +3,8 @@ package net.chaos.chaosmod.jobs;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.chaos.chaosmod.Main;
@@ -13,14 +15,24 @@ public class Job {
 	public int index;
 	public String name;
 	public String description;
-	public final List<JobTask> tasks = new ArrayList<JobTask>();
+	public int maxLevel;
+	public List<JobTask> tasks;
+	// public List<JobReward> rewards = new ArrayList<JobReward>();
 
-	public Job(String id, String name) {
-		this.id = Reference.PREFIX + id;
+	public Job(String id, String name, List<JobTask> tasks, String description, int maxLevel) {
+		this.id = id.contains(":") ? id : Reference.PREFIX + id;
 		this.name = name;
-		this.index = JobsManager.nextId();
+		Job existing = JobsManager.REGISTRY.get(this.id);
+	    if (existing != null) {
+	        this.index = existing.index; // keeps old index if existing
+	    } else {
+	        this.index = JobsManager.nextId(); // new index on init
+	    }
+		this.tasks = tasks != null ? tasks : new ArrayList<>();
+		this.description = description;
+		this.maxLevel = maxLevel;
 		
-		JobsManager.JOBS_REGISTRY.add(this);
+		JobsManager.REGISTRY.put(this.id, this);
 		Main.getLogger().info("REGISTERING JOB : {}", this.id);
 	}
 	
@@ -38,15 +50,46 @@ public class Job {
 	
 	public JsonObject toJson() {
         JsonObject obj = new JsonObject();
-        obj.addProperty("id", id);
-        obj.addProperty("name", name);
+        obj.addProperty("id", this.id);
+        obj.addProperty("name", this.name);
+        obj.addProperty("description", this.description);
+        obj.addProperty("maxLevel", this.maxLevel);
+
+        JsonArray tasksArr = new JsonArray();
+        for (JobTask task : tasks) {
+            tasksArr.add(task.toJson());
+        }
+        obj.add("tasks", tasksArr);
+
         return obj;
     }
 
     public static Job fromJson(JsonObject json) {
-        return new Job(
+    	Job job = new Job(
             json.get("id").getAsString(),
-            json.get("name").getAsString()
+            json.get("name").getAsString(),
+            json.has("tasks") ? convert(json.getAsJsonArray("tasks")) : new ArrayList<JobTask>(),
+            json.has("description") ? json.get("description").getAsString() : "",
+            json.has("maxLevel") ? json.get("maxLevel").getAsInt() : 0
         );
+    	Main.getLogger().info("job fromJson : {}", job.id);
+    	Main.getLogger().info("TASKS is null ? {} ", job.tasks == null);
+        return job;
     }
+    
+    private static List<JobTask> convert(JsonArray array) {
+    	List<JobTask> list = new ArrayList<>();
+        if (array != null) {
+            for (JsonElement el : array) {
+            	// Main.getLogger().info("called");
+                list.add(JobTask.fromJson(el.getAsJsonObject()));
+            }
+        }
+        return list;
+    }
+    
+    // TODO : REFACTOR : to not do all optional checks in the fromJson part
+    /*private static Job build(JsonObject json) {
+    	
+    }*/
 }

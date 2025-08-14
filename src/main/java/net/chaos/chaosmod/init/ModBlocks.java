@@ -9,6 +9,7 @@ import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.BlockBeam;
 import net.chaos.chaosmod.blocks.BlockChaosGateway;
 import net.chaos.chaosmod.blocks.BlockChaosPortal;
+import net.chaos.chaosmod.blocks.BlockDrawer;
 import net.chaos.chaosmod.blocks.BlockTrophy;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.ConnectedBlock;
@@ -86,7 +87,6 @@ public class ModBlocks {
 	public static final Block CHAOSLAND_PORTAL = new BlockChaosPortal("chaosland_portal");
 	public static final Block CHAOS_GATEWAY = new BlockChaosGateway("chaos_gateway");
 //	public static final Block FAKE_LIGHT_BLOCK = new FakeLightBlock("fake_light_block");
-
-
-
+	
+	public static final Block DRAWER = new BlockDrawer("drawer", Material.WOOD);
 }

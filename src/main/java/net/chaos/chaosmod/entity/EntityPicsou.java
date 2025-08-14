@@ -11,7 +11,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import util.Reference;
 
 public class EntityPicsou extends EntityCreature implements ITalkable {
 	private InventoryBasic inventory;
@@ -20,6 +22,7 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 		super(worldIn);
 		inventory = new InventoryBasic("picsou_inventory", false, 8);
 		this.setCanPickUpLoot(true);
+		this.experienceValue = 100;
 	}
 
 	@Override
@@ -29,6 +32,12 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.10);
 		this.getEntityAttribute(SWIM_SPEED).setBaseValue(10);
 	}
+	
+	@Override
+	protected void onDeathUpdate() {
+		// TODO Auto-generated method stub
+		super.onDeathUpdate();
+	}
 
 	@Override
 	protected void initEntityAI() {
@@ -36,6 +45,11 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		// this.tasks.addTask(0, new EntityAIStealBlock(this, 10.0, 16));
 		this.tasks.addTask(1, new EntityAIMineGold(this, 3.0, 16));
+	}
+	
+	@Override
+	protected ResourceLocation getLootTable() {
+		return new ResourceLocation(Reference.MODID, "dungeon_loot");
 	}
 
 	@Override

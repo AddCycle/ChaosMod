@@ -43,7 +43,7 @@ public class GuiScreenJobs extends GuiScreen {
 
 	@Override
 	public void initGui() {
-		JobsManager.JOBS_REGISTRY.forEach(job -> {
+		JobsManager.REGISTRY.forEach((jobId, job) -> {
 			int componentWidth = 80;
 			int componentHeight = 160;
 			// int centerX = this.width / 2 - componentWidth / 2;
