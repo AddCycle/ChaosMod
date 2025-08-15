@@ -70,7 +70,7 @@ public class Job {
             json.get("name").getAsString(),
             json.has("tasks") ? convert(json.getAsJsonArray("tasks")) : new ArrayList<JobTask>(),
             json.has("description") ? json.get("description").getAsString() : "default_description",
-            json.has("maxLevel") ? json.get("maxLevel").getAsInt() : 0
+            json.has("maxLevel") ? json.get("maxLevel").getAsInt() : 20
         );
     	Main.getLogger().info("job fromJson : {}", job.id);
     	Main.getLogger().info("TASKS is null ? {} ", job.tasks == null);

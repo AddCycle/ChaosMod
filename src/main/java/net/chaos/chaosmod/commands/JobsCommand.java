@@ -6,7 +6,11 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.jobs.JobProgress;
+import net.chaos.chaosmod.jobs.JobsManager;
+import net.chaos.chaosmod.jobs.PlayerJobsManager;
 import net.chaos.chaosmod.network.JobsCommandMessage;
 import net.chaos.chaosmod.network.PacketManager;
 import net.minecraft.command.CommandBase;
@@ -50,7 +54,7 @@ public class JobsCommand extends CommandBase implements ICommand {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/jobs (opens job gui)";
+		return "/jobs or /jobs list or /jobs job_id <xp> [amount]";
 	}
 	
 	@Override
@@ -67,10 +71,34 @@ public class JobsCommand extends CommandBase implements ICommand {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
 		World world = player.world;
-		if (!world.isRemote) {
-			PacketManager.network.sendTo(new JobsCommandMessage(), player);
-			player.sendMessage(new TextComponentString("[Server] : jobs gui opened"));
+		if (args.length > 0) {
+			switch (args.length) {
+			case 1: // list jobs
+				if (args[0].equalsIgnoreCase("list")) {
+					if (!world.isRemote) {
+						player.sendMessage(new TextComponentString("Jobs : " + JobsManager.REGISTRY.size()));
+						JobsManager.REGISTRY.forEach((jobId, job) -> {
+							player.sendMessage(new TextComponentString(job.id + ": " + job.description));
+						});
+					}
+				}
+				break;
+			case 3:
+				if (args[1].equalsIgnoreCase("xp")) {
+					Main.getLogger().info("Jobs : Command sent increase exp");
+					JobProgress.addExp(player, args[0], parseInt(args[2]));
+					player.sendMessage(new TextComponentString("success"));
+				}
+				break;
+			default:
+				break;
+			}
+		} else {
+			if (!world.isRemote) {
+				PacketManager.network.sendTo(new JobsCommandMessage(), player);
+				player.sendMessage(new TextComponentString("[Server] : jobs gui opened"));
+			}
+			player.sendMessage(new TextComponentString("[Client] : jobs gui opened"));
 		}
-		player.sendMessage(new TextComponentString("[Client] : jobs gui opened"));
 	}
 }

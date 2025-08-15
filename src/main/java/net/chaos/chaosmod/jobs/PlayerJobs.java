@@ -3,6 +3,7 @@ package net.chaos.chaosmod.jobs;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.chaos.chaosmod.Main;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
@@ -13,14 +14,15 @@ public class PlayerJobs implements ICapabilitySerializable<NBTTagCompound>{
 	private final Map<String, JobProgress> progressMap = new HashMap<>();
 	
 	public void addExp(String jobId, int amount) {
-        JobProgress progress = progressMap.get(jobId);
+        JobProgress progress = progressMap.computeIfAbsent(jobId, id -> new JobProgress(0, 0));
         if (progress != null) {
+        	Main.getLogger().info("called progress adding exp amount : {}", amount);
             progress.addExp(amount);
         }
     }
 
     public JobProgress getProgress(String jobId) {
-        return progressMap.get(jobId);
+    	return progressMap.computeIfAbsent(jobId, id -> new JobProgress(0, 0));
     }
 
     public void setProgress(String jobId, JobProgress progress) {
@@ -62,7 +64,7 @@ public class PlayerJobs implements ICapabilitySerializable<NBTTagCompound>{
         for (int i = 0; i < jobList.tagCount(); i++) {
             NBTTagCompound jobTag = jobList.getCompoundTagAt(i);
             String jobId = jobTag.getString("jobId");
-            JobProgress progress = new JobProgress();
+            JobProgress progress = new JobProgress(0, 0);
             progress.fromNBT(jobTag.getCompoundTag("progress"));
             progressMap.put(jobId, progress);
         }

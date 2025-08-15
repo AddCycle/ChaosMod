@@ -71,12 +71,12 @@ public class JobComponent extends UIComponent {
 
 		// player progress bar and on top his level
 		// screen.drawCenteredString(fr, String.format("MaxLevel : %d", job.maxLevel), x + this.width / 2, y + (fr.FONT_HEIGHT * 5), 0xffffff);
-		if (!job.tasks.isEmpty()) {
-			JobTask task = job.tasks.get(0);
-			if (task.id != null) {
-				screen.drawCenteredString(fr, String.format("high prio task : %s", task.id), x + this.width / 2, y + (fr.FONT_HEIGHT * 5), 0xffffff);
-			}
-		}
+//		if (!job.tasks.isEmpty()) {
+//			JobTask task = job.tasks.get(0);
+//			if (task.id != null) {
+//				screen.drawCenteredString(fr, String.format("high prio task : %s", task.id), x + this.width / 2, y + (fr.FONT_HEIGHT * 5), 0xffffff);
+//			}
+//		}
 	}
 
 	public void drawJobDescription(int x, int y) {

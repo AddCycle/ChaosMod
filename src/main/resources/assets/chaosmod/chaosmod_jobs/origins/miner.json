@@ -1,20 +1,8 @@
 {
 	"id": "miner",
 	"name": "Miner",
-	"description": "Crawl in the mines with you pickaxe",
+	"description": "Crawl in the mines with your pickaxe",
 	"tasks": [
-		{
-			"id": "gather_wood",
-			"name": "Gathering Wood",
-			"description": "Go to a custom biome and gather wood",
-			"type": "harvest",
-			"target": {
-				"item": "chaosmod:custom_log",
-				"data": 1
-			},
-			"progress": 0,
-			"goal": 20
-		},
 		{
 			"id": "gather_cobblestone",
 			"name": "Gathering Cobblestone",
@@ -25,7 +13,7 @@
 				"data": 0
 			},
 			"progress": 0,
-			"goal": 3
+			"goal": 32
 		}
 	],
 	"maxLevel": 20

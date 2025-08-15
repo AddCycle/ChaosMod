@@ -1,28 +1,16 @@
 {
 	"id": "fighter",
 	"name": "Fighter",
-	"description": "Fight enemies and gain pride",
+	"description": "Fight powerful opponents and earn respect++",
 	"tasks": [
 		{
-			"id": "gather_wood",
-			"name": "Gathering Wood",
-			"description": "Go to a custom biome and gather wood",
-			"type": "harvest",
+			"id": "first_kill",
+			"name": "Kill a zombie/anything",
+			"description": "Kill any hostile Mob",
+			"type": "kill",
 			"target": {
-				"item": "chaosmod:custom_log",
-				"data": 1
-			},
-			"progress": 0,
-			"goal": 20
-		},
-		{
-			"id": "gather_wood",
-			"name": "Gathering Wood",
-			"description": "Go to a custom biome and gather wood",
-			"type": "harvest",
-			"target": {
-				"item": "chaosmod:custom_log",
-				"data": 1
+				"entity": "minecraft:zombie",
+				"data": 0
 			},
 			"progress": 0,
 			"goal": 20

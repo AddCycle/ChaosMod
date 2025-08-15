@@ -24,6 +24,7 @@ public class PacketManager {
 		network.registerMessage(PacketSpawnCustomParticle.ClientHandler.class, PacketSpawnCustomParticle.class, id++, Side.CLIENT);
 		network.registerMessage(PacketShowFireOverlay.Handler.class, PacketShowFireOverlay.class, id++, Side.CLIENT);
 		network.registerMessage(PacketSyncJobs.Handler.class, PacketSyncJobs.class, id++, Side.CLIENT);
+		network.registerMessage(PacketSyncPlayerJobs.Handler.class, PacketSyncPlayerJobs.class, id++, Side.CLIENT);
 	}
 
 	public static void init() {

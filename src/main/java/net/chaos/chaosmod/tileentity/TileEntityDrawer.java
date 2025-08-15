@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.tileentity;
 
-import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 
 public class TileEntityDrawer extends TileEntity implements ITickable {
     // private NonNullList<ItemStack> chestContents = NonNullList.<ItemStack>withSize(1, ItemStack.EMPTY);
@@ -9,7 +9,7 @@ public class TileEntityDrawer extends TileEntity implements ITickable {
 	public TileEntityDrawer() {};
 
 	@Override
-	public void tick() {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}

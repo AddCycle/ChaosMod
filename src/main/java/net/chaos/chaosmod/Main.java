@@ -10,6 +10,7 @@ import net.chaos.chaosmod.init.ModDimensions;
 import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.jobs.JobsManager;
+import net.chaos.chaosmod.jobs.PlayerJobsEventHandler;
 import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.recipes.machine.MachineRecipeRegistry;
 import net.chaos.chaosmod.tileentity.TileEntityManager;
@@ -120,6 +121,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new PlayerFightEvents());
         MinecraftForge.EVENT_BUS.register(new PlayerLifeEvents());
         MinecraftForge.EVENT_BUS.register(new PlayerAchivementsEvents());
+        MinecraftForge.EVENT_BUS.register(new PlayerJobsEventHandler());
         TileEntityManager.registerTileEntities();
     }
     

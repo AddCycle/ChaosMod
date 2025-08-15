@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.jobs;
 
+import net.chaos.chaosmod.Main;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,13 +40,27 @@ public class GuiScreenJob extends GuiScreen {
 
         // Description
         drawSplitString(job.description, this.width / 2 - 100, 50, 200, 0xAAAAAA);
-
+        
         // Tasks
         int y = 90;
         int index = 1;
         for (JobTask task : job.tasks) {
             drawString(this.fontRenderer, String.format("%d - %s : (%d/%d)", index++, task.name, task.progress, task.goal), this.width / 2 - 100, y, 0xFFFFFF);
             y += this.fontRenderer.FONT_HEIGHT + 4;
+        }
+
+        // Level
+        PlayerJobs jobs = mc.player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+        if (jobs != null) {
+            JobProgress progress = jobs.getProgress(job.id);
+            int level = progress != null ? progress.getLevel() : 0;
+            int exp = progress != null ? progress.getExp() : 0;
+            drawCenteredString(fontRenderer, "Level: " + level, this.width / 2, y, 0xffffff);
+            drawCenteredString(fontRenderer, "Exp: " + exp, this.width / 2, y + 20, 0xffffff);
+            // ... draw stuff
+            // drawCenteredString(fontRenderer, String.format("Level: %d", level), this.width / 2, y + this.fontRenderer.FONT_HEIGHT + 4, 0xffffff);
+        } else {
+            drawCenteredString(fontRenderer, "Loading...", this.width / 2, 50, 0xFF0000);
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);

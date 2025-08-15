@@ -18,6 +18,9 @@ public class JobsManager {
 	public static Job HUNTER;
 	public static Job ALCHEMIST;
 	public static Job TAMER;
+	public static Job MINER;
+	public static Job FISHERMAN;
+	public static Job TRAVELER;
 
     private static final Gson GSON = new Gson();
 
@@ -27,6 +30,7 @@ public class JobsManager {
         HUNTER = loadJob("origins/hunter");
         ALCHEMIST = loadJob("origins/alchemist");
         TAMER = loadJob("origins/tamer");
+        MINER = loadJob("origins/miner");
 		displayAll();
     }
 
@@ -46,6 +50,7 @@ public class JobsManager {
         if (HUNTER != null) arr.add(HUNTER.toJson());
         if (ALCHEMIST != null) arr.add(ALCHEMIST.toJson());
         if (TAMER != null) arr.add(TAMER.toJson());
+        if (MINER != null) arr.add(MINER.toJson());
         return GSON.toJson(arr);
     }
 
@@ -62,6 +67,7 @@ public class JobsManager {
         HUNTER  = Job.fromJson(arr.get(id++).getAsJsonObject());
         ALCHEMIST = Job.fromJson(arr.get(id++).getAsJsonObject());
         TAMER   = Job.fromJson(arr.get(id++).getAsJsonObject());
+        MINER   = Job.fromJson(arr.get(id++).getAsJsonObject());
         displayAll();
     }
 

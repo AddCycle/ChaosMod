@@ -2,6 +2,7 @@ package proxy;
 
 import net.chaos.chaosmod.client.inventory.render.LayerNecklace;
 import net.chaos.chaosmod.client.inventory.render.LayerShield;
+import net.chaos.chaosmod.client.renderer.tileentity.DrawerTESR;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBeamRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBossAltarRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
@@ -17,6 +18,7 @@ import net.chaos.chaosmod.tileentity.TESRCookieJar;
 import net.chaos.chaosmod.tileentity.TileEntityBeam;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
 import net.chaos.chaosmod.tileentity.TileEntityCookieJar;
+import net.chaos.chaosmod.tileentity.TileEntityDrawer;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityLantern;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
@@ -85,6 +87,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookieJar.class, new TESRCookieJar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBeam.class, new TileEntityBeamRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrophyBase.class, new TrophyTESR());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDrawer.class, new DrawerTESR());
 		// MinecraftForge.EVENT_BUS.register(new PlayerRenderManager());
 		MinecraftForge.EVENT_BUS.register(new BossBarRendering());
 		// ################################# NECKLACE RENDERING #############################################

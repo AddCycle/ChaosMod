@@ -162,7 +162,7 @@ public class PlayerLifeEvents {
 	@SubscribeEvent
 	public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityPlayer) {
-			event.addCapability(new ResourceLocation("chaosmod", "accessory"), new ICapabilitySerializable<NBTTagCompound>() {
+			event.addCapability(new ResourceLocation(Reference.MODID, "accessory"), new ICapabilitySerializable<NBTTagCompound>() {
 				final AccessoryImpl instance = new AccessoryImpl();
 
 				@Override
@@ -235,7 +235,7 @@ public class PlayerLifeEvents {
 	@SubscribeEvent
 	public void attachCapabilityShield(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityPlayer) {
-			event.addCapability(new ResourceLocation("chaosmod", "shield"), new ICapabilitySerializable<NBTTagCompound>() {
+			event.addCapability(new ResourceLocation(Reference.MODID, "shield"), new ICapabilitySerializable<NBTTagCompound>() {
 				final ShieldImpl instance = new ShieldImpl();
 
 				@Override
