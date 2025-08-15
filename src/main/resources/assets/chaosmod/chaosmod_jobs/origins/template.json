@@ -12,8 +12,9 @@
 				"item": "chaosmod:custom_log",
 				"data": 1
 			},
-			"progress": "",
-			"goal": ""
+			"progress": 0,
+			"goal": 0,
+			"_comment": "TODO : add a rewards object with items/blocks"
 		}
 	],
 	"maxLevel": 20

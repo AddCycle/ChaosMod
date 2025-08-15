@@ -29,8 +29,6 @@ public class PlayerFireRenderHandler {
 
 	private static final ResourceLocation BLUE_FIRE_LAYER_0 = new ResourceLocation(Reference.MODID, "textures/entity/boss/blue_fire_layer_0.png");
 	private static final ResourceLocation BLUE_FIRE_LAYER_1 = new ResourceLocation(Reference.MODID, "textures/entity/boss/blue_fire_layer_0.png");
-//	private static final ResourceLocation GUI_BLUE_FIRE_OVERLAY_1 = new ResourceLocation(Reference.MODID, "textures/gui/blue_fire_layer_0.png"); // animated
-//	private static final ResourceLocation GUI_BLUE_FIRE_OVERLAY_2 = new ResourceLocation(Reference.MODID, "textures/gui/blue_fire_layer_1.png"); // animated
 
 	@SubscribeEvent
 	public void onRenderPlayer(RenderPlayerEvent.Pre event) {

@@ -19,6 +19,7 @@ import net.chaos.chaosmod.items.shield.OxoniumShield;
 import net.chaos.chaosmod.items.special.AllInOneBow;
 import net.chaos.chaosmod.items.special.AllemaniteExtinguisher;
 import net.chaos.chaosmod.items.special.ChestUpgradeBase;
+import net.chaos.chaosmod.items.special.CobbleStoneVoid;
 import net.chaos.chaosmod.items.special.CustomFireball;
 import net.chaos.chaosmod.items.special.EnderiteThunder;
 import net.chaos.chaosmod.items.special.ItemChaosLandCrystal;
@@ -143,11 +144,12 @@ public class ModItems {
 
 	public static final Item PORTAL_IGNITER = new PortalKey("portal_key");
 	public static final Item CHAOSLAND_CRYSTAL_ITEM = new ItemChaosLandCrystal("chaosland_crystal_item");
+	public static final Item COBBLESTONE_VOID = new CobbleStoneVoid("cobblestone_void");
 	
 	//Food
 	public static Item OXONIUM_CARROT;
 	
-	// Crops init
+	// Crops init after blocks init
 	public static void initItems() {
 		OXONIUM_CARROT = 
 			new MineralFood("oxonium_carrot", 5, 3.0f, ModBlocks.OXONIUM_CARROT_BLOCK, Blocks.FARMLAND, new PotionEffect(MobEffects.SPEED, 60*20, 0, false, true),  TextFormatting.WHITE + "" + TextFormatting.BOLD + "SPEED" + TextFormatting.RESET + TextFormatting.GOLD + " I");

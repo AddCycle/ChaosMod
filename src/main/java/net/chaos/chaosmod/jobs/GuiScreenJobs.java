@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import net.chaos.chaosmod.Main;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -149,5 +148,12 @@ public class GuiScreenJobs extends GuiScreen {
 		components.clear();
 		buttonList.clear();
 		super.onGuiClosed();
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton button) throws IOException {
+		Job selected = JobsManager.getJobByIndex(button.id);
+		this.mc.displayGuiScreen(new GuiScreenJob(this, selected));
+		super.actionPerformed(button);
 	}
 }

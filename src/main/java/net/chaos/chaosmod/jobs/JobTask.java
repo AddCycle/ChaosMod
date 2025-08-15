@@ -12,11 +12,11 @@ public class JobTask {
 	public String name;
 	public String description;
 	public TaskType type;
-	public String target;
+	public JobTaskTarget target;
 	public int progress;
 	public int goal;
 
-	public JobTask(String id, String name, String description, TaskType type, String target, int progress, int goal) {
+	public JobTask(String id, String name, String description, TaskType type, JobTaskTarget target, int progress, int goal) {
 		this.id = id.contains(":") ? id : Reference.PREFIX + id;
 		this.name = name;
 		this.description = description;
@@ -32,7 +32,11 @@ public class JobTask {
         obj.addProperty("name", name);
         obj.addProperty("description", description);
         obj.addProperty("type", type.name());
-        obj.addProperty("target", target);
+        if (target != null) {
+            obj.add("target", target.toJson());
+        } else {
+            obj.add("target", new JsonObject());
+        }
         obj.addProperty("progress", progress);
         obj.addProperty("goal", goal);
 
@@ -45,10 +49,14 @@ public class JobTask {
             json.get("name").getAsString(),
             json.get("description").getAsString(),
             fromName(json.get("type").getAsString()),
-            json.get("target").getAsString(),
+            convert(json.get("target").getAsJsonObject()),
             json.get("progress").getAsInt(),
             json.get("goal").getAsInt()
         );
+    }
+
+    public static JobTaskTarget convert(JsonObject json) {
+        return JobTaskTarget.fromJson(json);
     }
 
 }

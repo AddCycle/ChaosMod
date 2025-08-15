@@ -69,7 +69,7 @@ public class Job {
             json.get("id").getAsString(),
             json.get("name").getAsString(),
             json.has("tasks") ? convert(json.getAsJsonArray("tasks")) : new ArrayList<JobTask>(),
-            json.has("description") ? json.get("description").getAsString() : "",
+            json.has("description") ? json.get("description").getAsString() : "default_description",
             json.has("maxLevel") ? json.get("maxLevel").getAsInt() : 0
         );
     	Main.getLogger().info("job fromJson : {}", job.id);
@@ -79,9 +79,8 @@ public class Job {
     
     private static List<JobTask> convert(JsonArray array) {
     	List<JobTask> list = new ArrayList<>();
-        if (array != null) {
+        if (array != null || !array.isJsonNull()) {
             for (JsonElement el : array) {
-            	// Main.getLogger().info("called");
                 list.add(JobTask.fromJson(el.getAsJsonObject()));
             }
         }

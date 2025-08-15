@@ -2,6 +2,7 @@ package net.chaos.chaosmod.jobs;
 
 import com.google.gson.JsonObject;
 
+import net.chaos.chaosmod.Main;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -38,6 +39,11 @@ public class JobTaskTarget {
 
 	public static JobTaskTarget fromJson(JsonObject json) {
 		JsonObject targetJson = json.getAsJsonObject("target");
+		
+		if (targetJson == null) {
+			Main.getLogger().info("JobTaskTarget is null returning null");
+			return null;
+		}
 
         if (targetJson.has("block")) {
             Block block = Block.getBlockFromName(targetJson.get("block").getAsString());
@@ -56,10 +62,4 @@ public class JobTaskTarget {
 
         throw new IllegalArgumentException("Unknown target type in JSON: " + targetJson);
     }
-
-	private static Object convert(JsonObject asJsonObject) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

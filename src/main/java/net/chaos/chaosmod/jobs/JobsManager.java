@@ -75,4 +75,11 @@ public class JobsManager {
 		Main.getLogger().info("************** JobRegistry **************");
 		REGISTRY.forEach((id, job) -> Main.getLogger().info("Job : {}", id));
 	}
+	
+	public static Job getJobByIndex(int index) {
+	    return REGISTRY.values().stream()
+	            .filter(job -> job.index == index)
+	            .findFirst()
+	            .orElse(null);
+	}
 }

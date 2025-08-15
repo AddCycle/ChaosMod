@@ -5,8 +5,10 @@ import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
+import net.chaos.chaosmod.init.ModDamageSources;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.network.PacketManager;
+import net.chaos.chaosmod.network.PacketShowFireOverlay;
 import net.chaos.chaosmod.network.PacketSpawnCustomParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,12 +31,12 @@ public class TesterWand extends ItemBase {
 		super(name);
 		this.setMaxStackSize(1);
 		projectile = 0;
-		max = 5;
+		max = 6;
 	}
 	
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-		entity.attackEntityFrom(new DamageSource("killing_wand.debug.jemenfous"), 600);
+		if (!player.world.isRemote) entity.attackEntityFrom(DamageSource.causePlayerDamage(player), 600);
 		return super.onLeftClickEntity(stack, player, entity);
 	}
 	
@@ -87,10 +89,17 @@ public class TesterWand extends ItemBase {
 	    		if (!worldIn.isRemote) worldIn.spawnEntity(boss);
 	    		break;
 	    	case 5:
-	    		if (worldIn.isRemote) {
+	    		if (!worldIn.isRemote) {
 	    			PacketManager.network.sendToAll(
                 new PacketSpawnCustomParticle("sweep", playerIn.posX, playerIn.posY, playerIn.posZ));
 	    			playerIn.sendMessage(new TextComponentString("spawning particles"));
+	    		}
+	    		break;
+	    	case 6:
+	    		if (!worldIn.isRemote) {
+	    			playerIn.sendMessage(new TextComponentString("blue fire test"));
+	    			// playerIn.attackEntityFrom(ModDamageSources.BLUE_FIRE, 1.0f);
+	    			PacketManager.network.sendToAll(new PacketShowFireOverlay(true, 10));
 	    		}
 	    		break;
 	    	default:

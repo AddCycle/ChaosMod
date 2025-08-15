@@ -23,14 +23,10 @@ public class DialogEventHandler {
 
 	@SubscribeEvent
 	public void onRenderLivingSpecials(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
-	    if (!(event.getEntity() instanceof ITalkable)) return;
-
 	    Entity entity = event.getEntity();
 	    String dialog = null;
-	    if (entity instanceof EntityViking) {
-	    	dialog = ((EntityViking) entity).getDialogText();
-	    } else if (entity instanceof EntityPicsou) {
-	    	dialog = ((EntityPicsou) entity).getDialogText();
+	    if (entity instanceof ITalkable) {
+	    	dialog = ((ITalkable) entity).getDialogText();
 	    } else if (entity instanceof EntityCreeper) {
 	    	dialog = "Kabuuuum !!";
 	    }

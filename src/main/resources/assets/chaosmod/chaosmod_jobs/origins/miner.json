@@ -1,7 +1,7 @@
 {
-	"id": "fighter",
-	"name": "Fighter",
-	"description": "Fight enemies and gain pride",
+	"id": "miner",
+	"name": "Miner",
+	"description": "Crawl in the mines with you pickaxe",
 	"tasks": [
 		{
 			"id": "gather_wood",
@@ -16,16 +16,16 @@
 			"goal": 20
 		},
 		{
-			"id": "gather_wood",
-			"name": "Gathering Wood",
-			"description": "Go to a custom biome and gather wood",
+			"id": "gather_cobblestone",
+			"name": "Gathering Cobblestone",
+			"description": "Start mining",
 			"type": "harvest",
 			"target": {
-				"item": "chaosmod:custom_log",
-				"data": 1
+				"item": "minecraft:cobblestone",
+				"data": 0
 			},
 			"progress": 0,
-			"goal": 20
+			"goal": 3
 		}
 	],
 	"maxLevel": 20

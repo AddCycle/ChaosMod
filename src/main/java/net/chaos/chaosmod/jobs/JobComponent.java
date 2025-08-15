@@ -3,6 +3,7 @@ package net.chaos.chaosmod.jobs;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.chaos.chaosmod.Main;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -18,15 +19,13 @@ public class JobComponent extends UIComponent {
 	public List<UIComponent> children = new ArrayList<>();
 	public List<GuiButton> buttons = new ArrayList<>();
 	public static final ResourceLocation WIDGETS = new ResourceLocation(Reference.MODID, "textures/jobs/widgets.png");
+	private static FontRenderer fr;
 
 	public JobComponent(GuiScreen screen, Job job, int x, int y, int width, int height) {
 		super(screen,x,y,width,height);
 		this.job = job;
 		this.icon = job.index;
-		// int componentSize = 32;
-		// int centerX = this.width / 2 - componentSize / 2;
-		// int centerY = this.height / 2 - componentSize / 2;
-		// this.children.add(new SpriteComponent(screen, this, centerX, centerY, 0 + (this.icon * componentSize), 192, componentSize, componentSize, WIDGETS));
+		fr = this.screen.mc.fontRenderer;
 	}
 	
 	public void addButton(GuiButton button) {
@@ -62,21 +61,36 @@ public class JobComponent extends UIComponent {
 	}
 
 	public void drawJobInfos(int x, int y) {
-		FontRenderer fr = screen.mc.fontRenderer;
 		Job job = this.job;
 		screen.drawCenteredString(fr, job.name, x + this.width / 2, y + fr.FONT_HEIGHT, 0xffffff);
+		
+		drawJobDescription(x, y);
+		
+		// maxLevel
+		screen.drawCenteredString(fr, String.format("MaxLevel : %d", job.maxLevel), x + this.width / 2, y + (fr.FONT_HEIGHT * 3), 0xffffff);
 
+		// player progress bar and on top his level
+		// screen.drawCenteredString(fr, String.format("MaxLevel : %d", job.maxLevel), x + this.width / 2, y + (fr.FONT_HEIGHT * 5), 0xffffff);
+		if (!job.tasks.isEmpty()) {
+			JobTask task = job.tasks.get(0);
+			if (task.id != null) {
+				screen.drawCenteredString(fr, String.format("high prio task : %s", task.id), x + this.width / 2, y + (fr.FONT_HEIGHT * 5), 0xffffff);
+			}
+		}
+	}
+
+	public void drawJobDescription(int x, int y) {
 		String text = job.description;
-		if (text.isEmpty()) return;
 
-		int text_width = fr.getStringWidth(text);
+		// int text_width = fr.getStringWidth(text);
+		int text_height = fr.getWordWrappedHeight(text, this.width);
 
 		int componentWidth = this.width;
 		String[] words = text.split(" ");
 		StringBuilder line = new StringBuilder();
 		int lineIndex = 0;
 		int offsetX = 5;
-		int offsetY = 10;
+		int offsetY = (int)(this.height * 0.66) + text_height / 2;
 
 		for (String word : words) {
 		    String testLine = (line.length() == 0) ? word : line + " " + word;
