@@ -57,8 +57,6 @@ public class GuiScreenJob extends GuiScreen {
             int exp = progress != null ? progress.getExp() : 0;
             drawCenteredString(fontRenderer, "Level: " + level, this.width / 2, y, 0xffffff);
             drawCenteredString(fontRenderer, "Exp: " + exp, this.width / 2, y + 20, 0xffffff);
-            // ... draw stuff
-            // drawCenteredString(fontRenderer, String.format("Level: %d", level), this.width / 2, y + this.fontRenderer.FONT_HEIGHT + 4, 0xffffff);
         } else {
             drawCenteredString(fontRenderer, "Loading...", this.width / 2, 50, 0xFF0000);
         }

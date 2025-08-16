@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 public class JobProgress {
 	private int level;
 	private int exp;
+	private JobTaskManager taskManager;
 
 	public JobProgress(int level, int exp) {
 		this.level = level;
@@ -27,13 +28,15 @@ public class JobProgress {
 					new PacketSyncPlayerJobs(jobs),
 					player
 					);
-			/*PacketManager.network.sendTo(
-					new PacketSyncJobs(),
-					player
-					);*/
 			Main.getLogger().info("Packets sent SyncPlayerJobs(jobs) capabilities");
 		}
 	}
+
+	/*public void completeTask(String jobId, String taskId) {
+	    JobTask task = taskManager.getTask(jobId, taskId);
+	    task.progress = task.goal;
+	    if(task.progress >= task.goal) addExp(jobId, taskRewardExp);
+	}*/
 
 	public void addExp(int amount) {
 	    int exp = getExp() + amount;

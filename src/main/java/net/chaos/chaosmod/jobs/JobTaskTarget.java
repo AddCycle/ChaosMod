@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import net.chaos.chaosmod.Main;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class JobTaskTarget {
 	public Object target;
@@ -61,5 +62,47 @@ public class JobTaskTarget {
         }
 
         throw new IllegalArgumentException("Unknown target type in JSON: " + targetJson);
+    }
+	
+	public NBTTagCompound toNBT() {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setInteger("type", type.ordinal());
+        tag.setInteger("data", data);
+
+        switch (type) {
+            case BLOCK:
+                tag.setString("block", Block.REGISTRY.getNameForObject((Block) target).toString());
+                break;
+            case ITEM:
+                tag.setString("item", Item.REGISTRY.getNameForObject((Item) target).toString());
+                break;
+            case ENTITY:
+                tag.setString("entity", target.toString()); // store entity as string ID
+                break;
+        }
+
+        return tag;
+    }
+
+    // Load from NBT
+    public static JobTaskTarget fromNBT(NBTTagCompound tag) {
+        TargetType type = TargetType.values()[tag.getInteger("type")];
+        int data = tag.getInteger("data");
+
+        switch (type) {
+            case BLOCK:
+                Block block = Block.getBlockFromName(tag.getString("block"));
+                return new JobTaskTarget(block, data, TargetType.BLOCK);
+
+            case ITEM:
+                Item item = Item.getByNameOrId(tag.getString("item"));
+                return new JobTaskTarget(item, data, TargetType.ITEM);
+
+            case ENTITY:
+                String entityId = tag.getString("entity");
+                return new JobTaskTarget(entityId, 0, TargetType.ENTITY);
+        }
+
+        throw new IllegalArgumentException("Unknown TargetType in NBT: " + type);
     }
 }

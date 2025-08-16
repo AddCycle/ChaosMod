@@ -5,6 +5,7 @@ import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import util.IHasModel;
@@ -15,6 +16,9 @@ public abstract class BlockContainerBase extends BlockContainer implements IHasM
 		super(materialIn);
 		setUnlocalizedName(name);
 		setRegistryName(name);
+		setHardness(2.0F);
+		setResistance(5.0F);
+		setSoundType(SoundType.WOOD);
 	
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlockBase(this).setRegistryName(this.getRegistryName()));

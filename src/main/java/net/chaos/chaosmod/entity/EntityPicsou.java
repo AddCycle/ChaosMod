@@ -3,10 +3,12 @@ package net.chaos.chaosmod.entity;
 import net.chaos.chaosmod.entity.ai.EntityAIMineGold;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.lore.dialogs.ITalkable;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
@@ -158,6 +160,11 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 
 	@Override
 	public String getDialogText() {
+		EntityPlayer player = Minecraft.getMinecraft().player;
+		if (player == null || player.isCreative()) return "";
+
+		// Optional distance check
+		if (this.getDistanceSq(player) > 40) return "";
 		return "You owe me gold blocks...";
 	}
 }
