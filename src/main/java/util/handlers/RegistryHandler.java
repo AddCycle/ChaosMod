@@ -202,5 +202,10 @@ public class RegistryHandler {
         OreDictionary.registerOre("fenceWood", ModBlocks.CUSTOM_FENCES);
         OreDictionary.registerOre("treeSapling", ModBlocks.CUSTOM_SAPLINGS);
         OreDictionary.registerOre("treeLeaves", ModBlocks.CUSTOM_LEAVES);
+
+        // custom ores
+        OreDictionary.registerOre("oreOxonium", ModBlocks.OXONIUM_ORE);
+        OreDictionary.registerOre("oreAllemanite", ModBlocks.ALLEMANITE_ORE);
+        OreDictionary.registerOre("oreEnderite", ModBlocks.ENDERITE_ORE);
 	}
 }

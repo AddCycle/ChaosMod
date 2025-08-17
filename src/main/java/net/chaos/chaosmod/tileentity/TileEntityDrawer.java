@@ -3,6 +3,9 @@ package net.chaos.chaosmod.tileentity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
@@ -110,6 +113,33 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
             player.setHeldItem(EnumHand.MAIN_HAND, hand);
         }
     }
+    
+    // ############# FIXME : verify if it is allowed to have the same name for tag multiple drawer types ###################
+    
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        compound.setTag("Stack", stack.writeToNBT(new NBTTagCompound()));
+        return compound;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        stack = new ItemStack(compound.getCompoundTag("Stack"));
+    }
+    
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound tag = new NBTTagCompound();
+        writeToNBT(tag);
+        return new SPacketUpdateTileEntity(pos, 1, tag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        readFromNBT(pkt.getNbtCompound());
+    }
 
     // IInventory implementation for one slot
     @Override public int getSizeInventory() { return 1; }
@@ -119,8 +149,10 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
     @Override public ItemStack removeStackFromSlot(int index) { return removeStack(stack.getCount()); }
     @Override public void setInventorySlotContents(int index, ItemStack stack) { this.stack = stack; markDirty(); }
     @Override public int getInventoryStackLimit() { return limit; }
-    @Override public void markDirty() {
-    	if (world != null) {
+    @Override
+    public void markDirty() {
+        super.markDirty();
+        if (world != null && !world.isRemote) {
             world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
         }
     }

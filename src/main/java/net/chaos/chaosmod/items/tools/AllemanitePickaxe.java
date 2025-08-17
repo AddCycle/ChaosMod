@@ -3,10 +3,13 @@ package net.chaos.chaosmod.items.tools;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -41,9 +44,23 @@ public class AllemanitePickaxe extends ItemPickaxe implements IHasModel {
                     {
                     	if(entityLiving instanceof EntityPlayer)
                         {
-                    		worldIn.getBlockState(bPos).getBlock().onBlockDestroyedByPlayer(worldIn, bPos, worldIn.getBlockState(bPos));
-                            worldIn.getBlockState(bPos).getBlock().harvestBlock(worldIn, (EntityPlayer) entityLiving, bPos, worldIn.getBlockState(bPos), worldIn.getTileEntity(bPos), stack);
-                            worldIn.destroyBlock(bPos, false);
+                    		IBlockState targetState = worldIn.getBlockState(bPos);
+                    		Block targetBlock = targetState.getBlock();
+
+                    		targetBlock.onBlockDestroyedByPlayer(worldIn, bPos, targetState);
+                    		targetBlock.harvestBlock(worldIn, (EntityPlayer) entityLiving, bPos, targetState, worldIn.getTileEntity(bPos), stack);
+
+                    		// Drop XP manually (fortune/silk touch aware)
+                    		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+                    		// TODO : handle silk touch
+                    		// int silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack);
+                    		int xp = targetBlock.getExpDrop(targetState, worldIn, bPos, fortune);
+                    		if (xp > 0) {
+                    		    targetBlock.dropXpOnBlockBreak(worldIn, bPos, xp);
+                    		}
+
+                    		// Remove block without extra drops
+                    		worldIn.setBlockToAir(bPos);
                         }
                     	else
                     	{
@@ -85,7 +102,7 @@ public class AllemanitePickaxe extends ItemPickaxe implements IHasModel {
 		 }
 	 }
 	 
-	 @Override
+	@Override
 	public CreativeTabs[] getCreativeTabs() {
 		 return new CreativeTabs[] { ModTabs.ITEMS, CreativeTabs.TOOLS };
 	}

@@ -2,7 +2,6 @@ package net.chaos.chaosmod.entity;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.EntityMob;
@@ -14,6 +13,7 @@ public class LittleGiantEntity extends EntityMob {
 	public LittleGiantEntity(World worldIn) {
 		super(worldIn);
 		this.setSize(0.5f, 1.5f);
+		this.experienceValue = 50;
 	}
 	
 	@Override

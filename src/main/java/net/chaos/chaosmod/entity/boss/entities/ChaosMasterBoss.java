@@ -756,12 +756,12 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
         }
     }
 
-    private void dropExperience(int p_184668_1_)
+    private void dropExperience(int partialTicks)
     {
-        while (p_184668_1_ > 0)
+        while (partialTicks > 0)
         {
-            int i = EntityXPOrb.getXPSplit(p_184668_1_);
-            p_184668_1_ -= i;
+            int i = EntityXPOrb.getXPSplit(partialTicks);
+            partialTicks -= i;
             this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY, this.posZ, i));
         }
     }

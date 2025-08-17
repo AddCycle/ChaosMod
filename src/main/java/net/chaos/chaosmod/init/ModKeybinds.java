@@ -16,6 +16,9 @@ public class ModKeybinds {
 	public static KeyBinding previousMusicKey;
 	public static KeyBinding displayJobsKey;
 
+	// life binds
+	// public static KeyBinding dropAllTypeItems;
+
 	public static void init() {
         String category_sounds = "key.categories.sounds";
         String category_guis = "key.categories.guis";
@@ -26,6 +29,9 @@ public class ModKeybinds {
         nextMusicKey = new KeyBinding("key.sound_handler.next", Keyboard.KEY_N, category_sounds);
         previousMusicKey = new KeyBinding("key.sound_handler.previous", Keyboard.KEY_M, category_sounds);
         displayJobsKey = new KeyBinding("key.job_handler.open", Keyboard.KEY_SEMICOLON, category_guis);
+        
+        // life binds
+        // dropAllTypeItems = new KeyBinding("key.inventory.dropAll", Keyboard.KEY_Q, category_guis);
 
         ClientRegistry.registerKeyBinding(playMusicKey);
         ClientRegistry.registerKeyBinding(pauseMusicKey);
@@ -33,5 +39,7 @@ public class ModKeybinds {
         ClientRegistry.registerKeyBinding(nextMusicKey);
         ClientRegistry.registerKeyBinding(previousMusicKey);
         ClientRegistry.registerKeyBinding(displayJobsKey);
+        // life binds
+        // ClientRegistry.registerKeyBinding(dropAllTypeItems);
     }
 }

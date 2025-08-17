@@ -58,6 +58,7 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
 		super(worldIn);
 		this.isImmuneToFire = true;
 		this.noClip = false;
+		this.experienceValue = 150;
 		this.setNoGravity(false);
 		bossInfo = new BossInfoServer(getDisplayName(), Color.BLUE, Overlay.PROGRESS);
 		this.bossInfo.setName(this.getDisplayName());

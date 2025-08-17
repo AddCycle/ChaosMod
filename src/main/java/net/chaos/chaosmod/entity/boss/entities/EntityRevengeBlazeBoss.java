@@ -50,6 +50,7 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -71,7 +72,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
         this.setPathPriority(PathNodeType.DANGER_FIRE, 0.0F);
         this.setPathPriority(PathNodeType.DAMAGE_FIRE, 0.0F);
         this.isImmuneToFire = true;
-        this.experienceValue = 10;
+        this.experienceValue = 200;
         this.bossInfo = new BossInfoServer(this.getDisplayName(), BossInfo.Color.RED, BossInfo.Overlay.PROGRESS);
         this.bossInfo.setName(this.getDisplayName());
 	}
@@ -126,10 +127,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		// this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1024.0D);
 		updateDifficultyBuffs();
-        // this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
-        // this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.21000000417232513D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(48.0D);
 	}
 
@@ -528,7 +526,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
             if (!this.world.isRemote && (this.isPlayer() || this.recentlyHit > 0 && this.canDropLoot() && this.world.getGameRules().getBoolean("doMobLoot")))
             {
                 int i = this.getExperiencePoints(this.attackingPlayer);
-                i = net.minecraftforge.event.ForgeEventFactory.getExperienceDrop(this, this.attackingPlayer, i);
+                i = ForgeEventFactory.getExperienceDrop(this, this.attackingPlayer, i);
                 while (i > 0)
                 {
                     int j = EntityXPOrb.getXPSplit(i);

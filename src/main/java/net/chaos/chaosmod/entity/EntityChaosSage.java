@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import util.Reference;
 
@@ -17,7 +18,8 @@ public class EntityChaosSage extends EntityLiving {
 
 	public EntityChaosSage(World worldIn) {
 		super(worldIn);
-		this.setEntityInvulnerable(true);
+		// this.setEntityInvulnerable(true);
+		this.experienceValue = 0;
 		this.isImmuneToFire = true;
 	}
 
@@ -36,6 +38,14 @@ public class EntityChaosSage extends EntityLiving {
 		super.initEntityAI();
 		this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
+	}
+	
+	@Override
+	protected void onDeathUpdate() {
+		this.getEntityWorld().playerEntities.forEach((player) -> {
+			player.sendMessage(new TextComponentString("An outlaw killed our sage !"));
+		});
+		super.onDeathUpdate();
 	}
 	
 	@Override

@@ -33,6 +33,7 @@ import net.chaos.chaosmod.items.tools.AllInOneSword;
 import net.chaos.chaosmod.items.tools.AllemanitePickaxe;
 import net.chaos.chaosmod.items.tools.AllemaniteSword;
 import net.chaos.chaosmod.items.tools.OxoniumHalleberd;
+import net.chaos.chaosmod.items.tools.OxoniumPickaxe;
 import net.chaos.chaosmod.items.tools.OxoniumSword;
 import net.chaos.chaosmod.items.tools.ToolAxe;
 import net.chaos.chaosmod.items.tools.ToolHoe;
@@ -84,7 +85,7 @@ public class ModItems {
 	
 	//Tools
 	public static final ItemSword OXONIUM_SWORD = new OxoniumSword("oxonium_sword", MATERIAL_OXONIUM);
-	public static final ItemPickaxe OXONIUM_PICKAXE = new ToolPickaxe("oxonium_pickaxe", MATERIAL_OXONIUM);
+	public static final ItemPickaxe OXONIUM_PICKAXE = new OxoniumPickaxe("oxonium_pickaxe", MATERIAL_OXONIUM);
 	public static final ItemAxe OXONIUM_AXE = new ToolAxe("oxonium_axe", MATERIAL_OXONIUM);
 	public static final ItemSpade OXONIUM_SHOVEL = new ToolSpade("oxonium_shovel", MATERIAL_OXONIUM);
 	public static final ItemHoe OXONIUM_HOE = new ToolHoe("oxonium_hoe", MATERIAL_OXONIUM);

@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+  	"textures": {
+    "north": "chaosmod:blocks/oak_drawer_front",
+    "south": "chaosmod:blocks/oak_drawer_side",
+    "east":  "chaosmod:blocks/oak_drawer_side",
+    "west":  "chaosmod:blocks/oak_drawer_side",
+    "up":    "chaosmod:blocks/oak_drawer_side",
+    "down":  "chaosmod:blocks/oak_drawer_side",
+    "particle": "chaosmod:blocks/oak_drawer_side"
+  }
+}
