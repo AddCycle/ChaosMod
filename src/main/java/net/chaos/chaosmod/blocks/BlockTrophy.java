@@ -11,6 +11,8 @@ import net.minecraft.block.material.MaterialTransparent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -83,5 +85,21 @@ public class BlockTrophy extends BlockContainerBase implements ITileEntityProvid
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityTrophyBase(variant);
+	}
+	
+	@Override
+	// FIX : 1.0.14 the block drops content when harvested
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		TileEntity te = worldIn.getTileEntity(pos);
+		
+		if (te instanceof TileEntityTrophyBase) {
+			TileEntityTrophyBase base = (TileEntityTrophyBase) te;
+			ItemStack stack = base.getStackInSlot(0);
+			if (stack != null && !stack.isEmpty()) {
+				InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stack);
+			}
+		}
+		
+		super.breakBlock(worldIn, pos, state);
 	}
 }
