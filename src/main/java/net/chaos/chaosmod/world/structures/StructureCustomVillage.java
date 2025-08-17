@@ -93,6 +93,7 @@ public class StructureCustomVillage {
 		list.add(new StructureCustomVillage.PieceWeight(StructureCustomVillage.Field2.class, 3, MathHelper.getInt(random, 2 + size, 4 + size * 2)));
 		list.add(new StructureCustomVillage.PieceWeight(StructureCustomVillage.House2.class, 15, MathHelper.getInt(random, 1, 1 + size)));
 		list.add(new StructureCustomVillage.PieceWeight(StructureCustomVillage.House3.class, 8, MathHelper.getInt(random, 0 + size, 3 + size * 2)));
+		// list.add(new StructureCustomVillage.PieceWeight(StructureCustomVillage.Well.class, 8, MathHelper.getInt(random, 1 + size, 3 + size * 2)));
 		// net.minecraftforge.fml.common.registry.VillagerRegistry.addExtraVillageComponents(list, random, size);
 		/*for (IVillageCreationHandler handler : VillagerRegistry.instance().villageCreationHandlers.values())
         {
@@ -2190,14 +2191,24 @@ public class StructureCustomVillage {
 			}
 
 			IBlockState cobble = ModBlocks.OXONIUM_BRICKS.getDefaultState();
+			IBlockState cobble2 = ModBlocks.ALLEMANITE_BRICKS.getDefaultState();
+			IBlockState cobble3 = ModBlocks.ENDERITE_BRICKS.getDefaultState();
 			IBlockState fence = ModBlocks.CUSTOM_FENCES.getDefaultState();
 			IBlockState iblockstate = this.getBiomeSpecificBlockState(cobble);
 			IBlockState iblockstate1 = this.getBiomeSpecificBlockState(fence);
-			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 1, 4, 12, 4, iblockstate, Blocks.FLOWING_WATER.getDefaultState(), false);
+			IBlockState iblockstate2 = this.getBiomeSpecificBlockState(cobble2);
+			IBlockState iblockstate3 = this.getBiomeSpecificBlockState(cobble3);
+			
+			int depth = -50;
+			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, depth, 1, 4, 12, 4, iblockstate, Blocks.AIR.getDefaultState(), false);
+			
+			// opens the well hole
 			this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 12, 2, structureBoundingBoxIn);
 			this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 3, 12, 2, structureBoundingBoxIn);
 			this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 12, 3, structureBoundingBoxIn);
 			this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 3, 12, 3, structureBoundingBoxIn);
+
+			// sets fences
 			this.setBlockState(worldIn, iblockstate1, 1, 13, 1, structureBoundingBoxIn);
 			this.setBlockState(worldIn, iblockstate1, 1, 14, 1, structureBoundingBoxIn);
 			this.setBlockState(worldIn, iblockstate1, 4, 13, 1, structureBoundingBoxIn);
@@ -2206,8 +2217,11 @@ public class StructureCustomVillage {
 			this.setBlockState(worldIn, iblockstate1, 1, 14, 4, structureBoundingBoxIn);
 			this.setBlockState(worldIn, iblockstate1, 4, 13, 4, structureBoundingBoxIn);
 			this.setBlockState(worldIn, iblockstate1, 4, 14, 4, structureBoundingBoxIn);
+
+			// making the top of the well
 			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 15, 1, 4, 15, 4, iblockstate, iblockstate, false);
 
+			// expand the walls of the well
 			for (int i = 0; i <= 5; ++i)
 			{
 				for (int j = 0; j <= 5; ++j)
@@ -2220,7 +2234,65 @@ public class StructureCustomVillage {
 				}
 			}
 
+			// building hallways
+			addHallway(worldIn, structureBoundingBoxIn, 1, -50, 1, 30, 6, 6, iblockstate2, iblockstate3);
+
 			return true;
+		}
+		
+		/**
+		 * Adds a hallway to the structure.
+		 *
+		 * @param worldIn The world
+		 * @param structureBoundingBoxIn The bounding box
+		 * @param startX Starting X coordinate (relative to bounding box)
+		 * @param startY Starting Y coordinate
+		 * @param startZ Starting Z coordinate
+		 * @param length Length of the hallway
+		 * @param width Width of the hallway
+		 * @param height Height of the hallway
+		 * @param wallBlock Block for walls and ceiling
+		 * @param floorBlock Block for floor
+		 */
+		public void addHallway(World worldIn, StructureBoundingBox structureBoundingBoxIn,
+		                       int startX, int startY, int startZ,
+		                       int length, int width, int height,
+		                       IBlockState wallBlock, IBlockState floorBlock) {
+
+		    IBlockState air = Blocks.AIR.getDefaultState();
+
+		    // Floor
+		    this.fillWithBlocks(worldIn, structureBoundingBoxIn,
+		            startX, startY, startZ,
+		            startX + width - 1, startY, startZ + length - 1,
+		            floorBlock, floorBlock, false);
+
+		    // Ceiling
+		    this.fillWithBlocks(worldIn, structureBoundingBoxIn,
+		            startX, startY + height - 1, startZ,
+		            startX + width - 1, startY + height - 1, startZ + length - 1,
+		            wallBlock, wallBlock, false);
+
+		    // Walls
+		    // Left wall
+		    this.fillWithBlocks(worldIn, structureBoundingBoxIn,
+		            startX, startY + 1, startZ,
+		            startX, startY + height - 2, startZ + length - 1,
+		            wallBlock, wallBlock, false);
+
+		    // Right wall
+		    this.fillWithBlocks(worldIn, structureBoundingBoxIn,
+		            startX + width - 1, startY + 1, startZ,
+		            startX + width - 1, startY + height - 2, startZ + length - 1,
+		            wallBlock, wallBlock, false);
+
+		    // Hollow inside
+		    if (width > 2 && height > 2) {
+		        this.fillWithBlocks(worldIn, structureBoundingBoxIn,
+		                startX + 1, startY + 1, startZ,
+		                startX + width - 2, startY + height - 2, startZ + length - 1,
+		                air, air, false);
+		    }
 		}
 	}
 

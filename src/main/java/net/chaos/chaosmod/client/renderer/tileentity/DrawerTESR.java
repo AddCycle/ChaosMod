@@ -1,12 +1,14 @@
 package net.chaos.chaosmod.client.renderer.tileentity;
 import net.chaos.chaosmod.blocks.BlockDrawer;
 import net.chaos.chaosmod.tileentity.TileEntityDrawer;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
@@ -52,24 +54,49 @@ public class DrawerTESR extends TileEntitySpecialRenderer<TileEntityDrawer> {
 	        GlStateManager.pushMatrix();
 	        GlStateManager.disableDepth();
 	        
-	        GlStateManager.pushMatrix();
-	        float scale = 0.5f;
-	        GlStateManager.scale(scale, scale, 0.01f);
-	        GlStateManager.translate(0, 0, -0.2);
+	        Block block = Block.getBlockFromItem(stack.getItem());
+	        if (block == Blocks.AIR) {
+	            // It's a normal item → keep normal Z, depth test + depth write
+	        	GlStateManager.pushMatrix();
+	        	float scale = 0.5f;
+	        	GlStateManager.scale(scale, scale, -0.02);
+	        	GlStateManager.translate(0,0,1);
+	        	GlStateManager.rotate(180, 1, 0, 0);
 
-	        // Keep depth test ON to occlude blocks behind
-	        GlStateManager.enableDepth();
+	        	// Keep depth test ON to occlude blocks behind
+	        	GlStateManager.enableDepth();
 
-	        // Disable depth writing so drawer stays flat
-	        GlStateManager.depthMask(false);
+	        	// Disable depth writing so drawer stays flat
+	        	GlStateManager.depthMask(false);
 
-	        // Use GUI lighting instead of world lighting
-	        RenderHelper.disableStandardItemLighting();
-	        Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GUI);
+	        	// Use GUI lighting instead of world lighting
+	        	RenderHelper.disableStandardItemLighting();
+	        	Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GUI);
 
-	        // Restore depth write
-	        GlStateManager.depthMask(true);
-	        GlStateManager.popMatrix();
+	        	// Restore depth write
+	        	GlStateManager.depthMask(true);
+	        	GlStateManager.popMatrix();
+	        } else {
+	            // It's a block → you can flatten it and disable depth writing
+	        	GlStateManager.pushMatrix();
+	        	float scale = 0.5f;
+	        	GlStateManager.scale(scale, scale, 0.01f);
+	        	GlStateManager.translate(0, 0, -0.2);
+
+	        	// Keep depth test ON to occlude blocks behind
+	        	GlStateManager.enableDepth();
+
+	        	// Disable depth writing so drawer stays flat
+	        	GlStateManager.depthMask(false);
+
+	        	// Use GUI lighting instead of world lighting
+	        	RenderHelper.disableStandardItemLighting();
+	        	Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GUI);
+
+	        	// Restore depth write
+	        	GlStateManager.depthMask(true);
+	        	GlStateManager.popMatrix();
+	        }
 
 	        GlStateManager.pushMatrix();
 	        GlStateManager.scale(0.02, 0.02, 0.02);
