@@ -54,10 +54,21 @@ public class DrawerTESR extends TileEntitySpecialRenderer<TileEntityDrawer> {
 	        
 	        GlStateManager.pushMatrix();
 	        float scale = 0.5f;
-	        GlStateManager.scale(scale, scale, 0.1);
-	        RenderHelper.enableStandardItemLighting();
-	        Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GUI);
+	        GlStateManager.scale(scale, scale, 0.01f);
+	        GlStateManager.translate(0, 0, -0.2);
+
+	        // Keep depth test ON to occlude blocks behind
+	        GlStateManager.enableDepth();
+
+	        // Disable depth writing so drawer stays flat
+	        GlStateManager.depthMask(false);
+
+	        // Use GUI lighting instead of world lighting
 	        RenderHelper.disableStandardItemLighting();
+	        Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GUI);
+
+	        // Restore depth write
+	        GlStateManager.depthMask(true);
 	        GlStateManager.popMatrix();
 
 	        GlStateManager.pushMatrix();
