@@ -105,6 +105,7 @@ public class DrawerTESR extends TileEntitySpecialRenderer<TileEntityDrawer> {
 				float scale = 0.5f;
 				GlStateManager.scale(scale, scale, 0.01f);
 				GlStateManager.translate(0, 0, -0.2);
+				GlStateManager.rotate(180, 1, 0, 0);
 
 				// Keep depth test ON to occlude blocks behind
 				GlStateManager.enableDepth();

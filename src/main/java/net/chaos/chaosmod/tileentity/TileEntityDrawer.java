@@ -65,9 +65,19 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
     }
 
     // Removes items from the drawer
-    public ItemStack removeStack(int amount) {
+    /*public ItemStack removeStack(int amount) {
         if (stack.isEmpty()) return ItemStack.EMPTY;
         int removed = Math.min(amount, stack.getCount());
+        ItemStack out = stack.splitStack(removed);
+        if (stack.getCount() <= 0) stack = ItemStack.EMPTY;
+        markDirty();
+        return out;
+    }*/
+    public ItemStack removeStack(int amount) {
+        if (stack.isEmpty()) return ItemStack.EMPTY;
+
+        int maxItemStack = stack.getMaxStackSize();
+        int removed = Math.min(amount, Math.min(stack.getCount(), maxItemStack));
         ItemStack out = stack.splitStack(removed);
         if (stack.getCount() <= 0) stack = ItemStack.EMPTY;
         markDirty();
