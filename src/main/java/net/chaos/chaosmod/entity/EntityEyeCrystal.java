@@ -183,9 +183,15 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 				rotationYaw = (float) (MathHelper.atan2(dz, dx) * (180D / Math.PI)) - 90F;
 				rotationPitch = (float) (-(MathHelper.atan2(dy, MathHelper.sqrt(dx * dx + dz * dz)) * (180D / Math.PI)));
 
-				if (laserTicks >= 20 * 10) {
+	            float damage = 5.0f;
+	            if (this.getHealth() / this.getMaxHealth() > 0.5f) {
+	            	damage = 3.0f;
+	            } else {
+	            	damage = 8.0f;
+	            }
+				if (laserTicks >= 20 * 5) { // every 5 seconds
 					// Damage the target
-					laserTarget.attackEntityFrom(ModDamageSources.LASER_DAMAGE, 2.0F);
+					laserTarget.attackEntityFrom(ModDamageSources.LASER_DAMAGE, damage);
 					world.playSound(null, laserTarget.posX, laserTarget.posY, laserTarget.posZ,
 							SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.HOSTILE, 0.5F, 0.3F);
 					laserTicks = 0;
@@ -205,28 +211,30 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	}
 
 	private EntityLivingBase findNearestTarget() {
-		// a little box
-		// big box 16x16x16
-		int height = 16;
-		int width = 16; // was too much
-		AxisAlignedBB box = new AxisAlignedBB(posX - width, posY - height, posZ - width, posX + width, posY + height, posZ + width);
-		List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, box);
+	    double horizontal = 16;
+	    double vertical = 32;
 
-		EntityLivingBase closest = null;
-		double closestDistSq = Double.MAX_VALUE;
+	    AxisAlignedBB box = new AxisAlignedBB(
+	        posX - horizontal, posY - vertical, posZ - horizontal,
+	        posX + horizontal, posY + vertical, posZ + horizontal
+	    );
 
-		for (EntityLivingBase target : list) {
-			if (target.isEntityAlive()) {
-				double distSq = getDistanceSq(target);
-				if (distSq < closestDistSq && ((this instanceof Entity) && getDistance(target) <= 1000)) {
-					closest = target;
-					closestDistSq = distSq;
-				} else {
-				}
-			}
-		}
+	    List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, box);
 
-		return closest;
+	    EntityPlayer closest = null;
+	    double closestDistSq = Double.MAX_VALUE;
+
+	    for (EntityPlayer player : list) {
+	        if (player.isEntityAlive() && !player.isSpectator()) {
+	            double distSq = getDistanceSq(player);
+	            if (distSq < closestDistSq) {
+	                closest = player;
+	                closestDistSq = distSq;
+	            }
+	        }
+	    }
+
+	    return closest;
 	}
 
 	public Entity getLaserTarget() {

@@ -210,9 +210,15 @@ public class EntityEyeCrystalBoss extends EntityEnderCrystal {
 	            rotationYaw = (float) (MathHelper.atan2(dz, dx) * (180D / Math.PI)) - 90F;
 	            rotationPitch = (float) (-(MathHelper.atan2(dy, MathHelper.sqrt(dx * dx + dz * dz)) * (180D / Math.PI)));
 
-	            if (laserTicks >= 40) {
+	            float damage = 5.0f;
+	            if (this.getHealth() / this.getMaxHealth() > 0.5f) {
+	            	damage = 5.0f;
+	            } else {
+	            	damage = 20.0f;
+	            }
+	            if (laserTicks >= 20 * 6) { // every 6 seconds
 	            	// Damage the target
-	                laserTarget.attackEntityFrom(ModDamageSources.LASER_DAMAGE, 6.0F);
+	                laserTarget.attackEntityFrom(ModDamageSources.LASER_DAMAGE, damage);
 	                world.playSound(null, laserTarget.posX, laserTarget.posY, laserTarget.posZ,
 	                	    SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.HOSTILE, 0.5F, 0.3F);
 	                laserTicks = 0;
@@ -230,34 +236,6 @@ public class EntityEyeCrystalBoss extends EntityEnderCrystal {
 	        }
 	    }
 	}
-	
-	// ver 1
-	/*private EntityLivingBase findNearestTarget() {
-		double horizontal = 256;
-		double vertical = 256; // or bigger if your turret is high up
-
-		AxisAlignedBB box = new AxisAlignedBB(
-		    posX - horizontal, posY - vertical, posZ - horizontal,
-		    posX + horizontal, posY + vertical, posZ + horizontal
-		);
-	    List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, box);
-
-	    EntityLivingBase closest = null;
-	    double closestDistSq = Double.MAX_VALUE;
-
-	    for (EntityLivingBase target : list) {
-	        if (target.isEntityAlive()) {
-	        	double distSq = getDistanceSq(target);
-
-	            if (distSq < closestDistSq) {
-	                closest = target;
-	                closestDistSq = distSq;
-	            }
-	        }
-	    }
-
-	    return closest;
-	}*/
 	
 	private EntityLivingBase findNearestTarget() {
 	    double horizontal = 32;
