@@ -3,7 +3,6 @@ package net.chaos.chaosmod;
 import org.apache.logging.log4j.Logger;
 
 import net.chaos.chaosmod.commands.CommandsManager;
-import net.chaos.chaosmod.config.ModConfig;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModDimensions;
@@ -77,7 +76,6 @@ public class Main
         proxy.preInit(event);
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
-    	ModConfig.init(event.getSuggestedConfigurationFile());
         ModSounds.registerSounds();
         ModCapabilities.register(); // for in-game-accessories
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);

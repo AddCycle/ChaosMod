@@ -1,14 +1,14 @@
 package net.chaos.chaosmod.world;
+import static net.chaos.chaosmod.config.ModConfig.SERVER;
+
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.FlowerType;
-import net.chaos.chaosmod.config.ModConfig;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.init.ModBlocks;
-import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -78,7 +78,7 @@ public class ModWorldGen implements IWorldGenerator {
     		return;
     	}
 
-    	if (random.nextInt(100 - ModConfig.boat_spawn_rate) == 0) {
+    	if (random.nextInt(100 - SERVER.boat_spawn_rate) == 0) {
     		// trying to center that in the chunk
     		int centerX = chunkX * 16 + 8;
     		int centerZ = chunkZ * 16 + 8;

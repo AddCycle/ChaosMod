@@ -65,14 +65,6 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
     }
 
     // Removes items from the drawer
-    /*public ItemStack removeStack(int amount) {
-        if (stack.isEmpty()) return ItemStack.EMPTY;
-        int removed = Math.min(amount, stack.getCount());
-        ItemStack out = stack.splitStack(removed);
-        if (stack.getCount() <= 0) stack = ItemStack.EMPTY;
-        markDirty();
-        return out;
-    }*/
     public ItemStack removeStack(int amount) {
         if (stack.isEmpty()) return ItemStack.EMPTY;
 
@@ -94,6 +86,15 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
     }
 
     // Shift-right: puts everything into player inventory
+    // FIXME : maybe this is better :
+    /*
+     * while (!stack.isEmpty()) {
+    ItemStack part = removeStack(stack.getMaxStackSize());
+    if (!player.inventory.addItemStackToInventory(part)) {
+        player.entityDropItem(part, 0);
+    }
+}
+     */
     public void giveAllToPlayer(EntityPlayer player) {
         if (!stack.isEmpty()) {
             boolean allAdded = player.inventory.addItemStackToInventory(stack);

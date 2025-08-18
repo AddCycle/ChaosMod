@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.minimap;
 
+import static net.chaos.chaosmod.config.ModConfig.CLIENT;
+
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,7 +10,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-import net.chaos.chaosmod.config.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -36,7 +37,7 @@ public class MinimapEventHandler {
 
 	@SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
-		if (!ModConfig.isMinimapEnabled) return;
+		if (!CLIENT.isMinimapEnabled) return;
 		if (event.getType() != ElementType.ALL) return;
 
 		Minecraft mc = Minecraft.getMinecraft();
@@ -51,9 +52,9 @@ public class MinimapEventHandler {
             lastPlayerX = (int)player.posX;
             lastPlayerZ = (int)player.posZ;
         }
-        Renderer.drawMinimap(event.getResolution(), ModConfig.pixelSize);
-		if (ModConfig.displayOverlay) Renderer.drawTransparentMap(event.getResolution(), ModConfig.pixelSize);
-		if (ModConfig.displayArrow) drawArrow(event.getResolution(), ModConfig.minimapSize, ModConfig.pixelSize);
+        Renderer.drawMinimap(event.getResolution(), CLIENT.pixelSize);
+		if (CLIENT.displayOverlay) Renderer.drawTransparentMap(event.getResolution(), CLIENT.pixelSize);
+		if (CLIENT.displayArrow) drawArrow(event.getResolution(), CLIENT.minimapSize, CLIENT.pixelSize);
 		// FIXME : later re-enable player arrows because Louis want to troll other players
 		// Make an item in order to make this feature enabled like while holding an item in their hands
 		// drawPlayersArrows(resolution, mapSize, pixelSize);

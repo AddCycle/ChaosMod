@@ -2,7 +2,8 @@ package util.blockstates;
 
 import java.awt.Color;
 
-import net.chaos.chaosmod.config.ModConfig;
+import static net.chaos.chaosmod.config.ModConfig.CLIENT;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
@@ -23,7 +24,7 @@ public class RenderBlockOutlinesEvent {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onBlockHighlight(DrawBlockHighlightEvent event) {
-	    if (!ModConfig.isBlockOutlineColorEnabled || event.getTarget().typeOfHit != RayTraceResult.Type.BLOCK) return;
+	    if (!CLIENT.isBlockOutlineColorEnabled || event.getTarget().typeOfHit != RayTraceResult.Type.BLOCK) return;
 
 	    World world = event.getPlayer().getEntityWorld();
 	    BlockPos pos = event.getTarget().getBlockPos();
@@ -44,7 +45,7 @@ public class RenderBlockOutlinesEvent {
 	    double dz = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTicks;
 
 	    AxisAlignedBB shifted = box.offset(-dx, -dy, -dz);
-	    Color color = new Color(ModConfig.block_outline_color);
+	    Color color = new Color(CLIENT.block_outline_color);
 
 	    // Draw red bounding box
 	    GlStateManager.pushMatrix();

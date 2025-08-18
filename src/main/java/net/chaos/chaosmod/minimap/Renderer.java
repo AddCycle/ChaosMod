@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.minimap;
 
+import static net.chaos.chaosmod.config.ModConfig.CLIENT;
+
 import java.awt.Color;
 import java.util.Arrays;
 
@@ -42,12 +44,13 @@ public class Renderer {
     private static int lastPixelSize = -1;
 
     public static void init() {
-        minimapTexture = new DynamicTexture(ModConfig.minimapSize, ModConfig.minimapSize);
+    	int mapSize = CLIENT.minimapSize;
+        minimapTexture = new DynamicTexture(mapSize, mapSize);
         minimapTextureLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("minimap", minimapTexture);
     }
     
     public static void updateMinimapTexture(EntityPlayer player) {
-        int mapSize = ModConfig.minimapSize;
+        int mapSize = CLIENT.minimapSize;
         
         if (minimapTexture == null || mapSize != lastMapSize) {
             recreateMinimapTexture(mapSize);
@@ -97,7 +100,7 @@ public class Renderer {
         minimapTextureLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("minimap", minimapTexture);
 
         lastMapSize = newSize;
-        lastPixelSize = ModConfig.pixelSize; // assuming you have this
+        lastPixelSize = CLIENT.pixelSize; // assuming you have this
     }
     
     public static void clearMinimap() {
@@ -108,7 +111,7 @@ public class Renderer {
     }
     
     public static void drawMinimap(ScaledResolution resolution, int pixelSize) {
-        int mapSize = ModConfig.minimapSize;
+        int mapSize = CLIENT.minimapSize;
 
         if (pixelSize != lastPixelSize || mapSize != lastMapSize) {
             recreateMinimapTexture(mapSize);  // Optional: if pixelSize affects size
@@ -175,7 +178,7 @@ public class Renderer {
 
     public static void drawTransparentMap(ScaledResolution resolution, int pixelSize) {
     	GlStateManager.pushMatrix();
-    	int sizeOverlayConfig = ModConfig.minimapSize;
+    	int sizeOverlayConfig = CLIENT.minimapSize;
         Minecraft.getMinecraft().getTextureManager().bindTexture(transparentMap);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
@@ -379,7 +382,7 @@ public class Renderer {
     	int textX = 2;
     	int textY = centerY + mapSize / 4;
 
-    	if (ModConfig.displayCoords) mc.fontRenderer.drawStringWithShadow(coords, textX, textY, 0xFFFFFF);
+    	if (CLIENT.displayCoords) mc.fontRenderer.drawStringWithShadow(coords, textX, textY, 0xFFFFFF);
         GlStateManager.disableTexture2D(); // Prevent texture bleed
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha(); // Disable alpha to prevent fading
