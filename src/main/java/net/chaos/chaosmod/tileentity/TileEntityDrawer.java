@@ -50,9 +50,10 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
         int res = 0;
         if (stack.isEmpty()) {
             int addCount = Math.min(limit, toAdd.getCount());
-            stack = new ItemStack(toAdd.getItem(), addCount, toAdd.getMetadata());
+            stack = toAdd.copy();            // copies item type, count, metadata, AND NBT
+            stack.setCount(addCount);        // adjust count to fit limit
             res = addCount;
-        } else if (stack.isItemEqual(toAdd)) {
+        } else if (stack.isItemEqual(toAdd) && ItemStack.areItemStackTagsEqual(stack, toAdd)) {
             int space = limit - stack.getCount();
             int addCount = Math.min(space, toAdd.getCount());
             stack.grow(addCount);
@@ -118,27 +119,34 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
     
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
-        compound.setTag("Stack", stack.writeToNBT(new NBTTagCompound()));
-        return compound;
+    	super.writeToNBT(compound);
+    	compound.setTag("Stack", stack.writeToNBT(new NBTTagCompound()));
+    	return compound;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        stack = new ItemStack(compound.getCompoundTag("Stack"));
+    	super.readFromNBT(compound);
+    	stack = new ItemStack(compound.getCompoundTag("Stack"));
     }
-    
+
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound tag = new NBTTagCompound();
-        writeToNBT(tag);
-        return new SPacketUpdateTileEntity(pos, 1, tag);
+    	NBTTagCompound tag = new NBTTagCompound();
+    	writeToNBT(tag);
+    	return new SPacketUpdateTileEntity(pos, 1, tag);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-        readFromNBT(pkt.getNbtCompound());
+    	readFromNBT(pkt.getNbtCompound());
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+    	NBTTagCompound tag = super.getUpdateTag();
+        writeToNBT(tag);
+        return tag;
     }
 
     // IInventory implementation for one slot
