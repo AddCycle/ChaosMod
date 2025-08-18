@@ -2,6 +2,7 @@ package net.chaos.chaosmod.network;
 
 import io.netty.buffer.ByteBuf;
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.jobs.JobTaskManager;
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -34,6 +35,7 @@ public class PacketSyncJobs implements IMessage {
 			Main.getLogger().info("PACKET JOBS LOADING SENT...");
 			Minecraft.getMinecraft().addScheduledTask(() -> {
 				JobsManager.loadFromJson(message.jsonData);
+				JobTaskManager.initTasks();
 			});
 			return null;
 		}

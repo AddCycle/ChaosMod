@@ -2,6 +2,7 @@ package net.chaos.chaosmod.commands;
 
 import net.chaos.chaosmod.commands.generation.LoadStructCommand;
 import net.chaos.chaosmod.commands.generation.LocateCustomVillage;
+import net.chaos.chaosmod.commands.jobs.JobsCommand;
 import net.chaos.chaosmod.commands.jobs.SyncJobsCommand;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;

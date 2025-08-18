@@ -9,9 +9,9 @@ import com.google.gson.JsonObject;
 
 import net.chaos.chaosmod.Main;
 import util.handlers.DataLoader;
-
 public class JobsManager {
 	public static final Map<String, Job> REGISTRY = new LinkedHashMap<>();
+	public static final JobTaskManager TASK_MANAGER = new JobTaskManager();
 
 	public static Job FIGHTER;
 	public static Job FARMER;
@@ -24,6 +24,7 @@ public class JobsManager {
 
     private static final Gson GSON = new Gson();
 
+    // only for the server to init the jobs (server-side only) loading
     public static void init() {
         FIGHTER = loadJob("origins/fighter");
         FARMER = loadJob("origins/farmer");

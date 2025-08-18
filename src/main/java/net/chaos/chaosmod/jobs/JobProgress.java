@@ -9,7 +9,6 @@ import net.minecraft.nbt.NBTTagCompound;
 public class JobProgress {
 	private int level;
 	private int exp;
-	private JobTaskManager taskManager;
 
 	public JobProgress(int level, int exp) {
 		this.level = level;
@@ -32,11 +31,15 @@ public class JobProgress {
 		}
 	}
 
-	/*public void completeTask(String jobId, String taskId) {
-	    JobTask task = taskManager.getTask(jobId, taskId);
-	    task.progress = task.goal;
-	    if(task.progress >= task.goal) addExp(jobId, taskRewardExp);
-	}*/
+	public void completeTask(EntityPlayerMP player, String jobId, String taskId) {
+        JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
+        if (task == null) return;
+
+        task.progress = task.goal; // mark complete
+        if (task.progress >= task.goal) {
+            addExp(player, jobId, task.rewardExp);
+        }
+    }
 
 	public void addExp(int amount) {
 	    int exp = getExp() + amount;
@@ -58,7 +61,7 @@ public class JobProgress {
 		Main.getLogger().info("Job : exp to next level : {}", 100 + (level * 50));
 		return 100 + (level * 50);
 	}
-
+	
 	public NBTTagCompound toNBT() {
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setInteger("level", getLevel());

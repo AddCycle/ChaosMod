@@ -1,7 +1,5 @@
 package net.chaos.chaosmod.jobs;
 
-import net.chaos.chaosmod.Main;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.relauncher.Side;
@@ -45,7 +43,7 @@ public class GuiScreenJob extends GuiScreen {
         int y = 90;
         int index = 1;
         for (JobTask task : job.tasks) {
-            drawString(this.fontRenderer, String.format("%d - %s : (%d/%d)", index++, task.name, task.progress, task.goal), this.width / 2 - 100, y, 0xFFFFFF);
+            drawString(this.fontRenderer, String.format("%d - %s : (%d/%d) exp = %d", index++, task.name, task.progress, task.goal, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
             y += this.fontRenderer.FONT_HEIGHT + 4;
         }
 

@@ -46,12 +46,6 @@ public class PlayerInHandler {
 	
 	public static void syncToClient(EntityPlayerMP player) {
 	    PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
-	    // TODO : remove because lazy initialized as you call addExp()
-	    /*JobsManager.REGISTRY.forEach((jobId, job) -> {
-	    	if (jobs.hasProgress(jobId)) {
-	    		jobs.setProgress(jobId, new JobProgress());
-	    	}
-	    });*/
 	    PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), player);
 	}
 

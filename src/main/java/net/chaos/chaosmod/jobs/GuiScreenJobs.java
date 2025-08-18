@@ -38,7 +38,7 @@ public class GuiScreenJobs extends GuiScreen {
     public int scrollStartMouseX = -1;
     public boolean isDragging = false;
 	
-	public GuiScreenJobs(@Nullable GuiJobs jobs) {}
+	public GuiScreenJobs() {}
 
 	@Override
 	public void initGui() {

@@ -15,8 +15,9 @@ public class JobTask {
 	public JobTaskTarget target;
 	public int progress;
 	public int goal;
+	public int rewardExp;
 
-	public JobTask(String id, String name, String description, TaskType type, JobTaskTarget target, int progress, int goal) {
+	public JobTask(String id, String name, String description, TaskType type, JobTaskTarget target, int progress, int goal, int rewardExp) {
 		this.id = id.contains(":") ? id : Reference.PREFIX + id;
 		this.name = name;
 		this.description = description;
@@ -24,6 +25,7 @@ public class JobTask {
 		this.target = target;
 		this.progress = progress;
 		this.goal = goal;
+		this.rewardExp = rewardExp;
 	}
 
 	public JsonObject toJson() {
@@ -39,6 +41,7 @@ public class JobTask {
         }
         obj.addProperty("progress", progress);
         obj.addProperty("goal", goal);
+        obj.addProperty("rewardExp", rewardExp);
 
         return obj;
     }
@@ -51,7 +54,8 @@ public class JobTask {
             fromName(json.get("type").getAsString()),
             convert(json.get("target").getAsJsonObject()),
             json.get("progress").getAsInt(),
-            json.get("goal").getAsInt()
+            json.get("goal").getAsInt(),
+            json.has("rewardExp") ? json.get("rewardExp").getAsInt() : 0
         );
     }
 

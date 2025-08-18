@@ -10,9 +10,17 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
+/**
+ * Per-player job capabilities storage client-side
+ */
 public class PlayerJobs implements ICapabilitySerializable<NBTTagCompound>{
 	private final Map<String, JobProgress> progressMap = new HashMap<>();
 	
+	/**
+	 * adds exp to the job specified by id in handled by JobProgress
+	 * @param jobId
+	 * @param amount
+	 */
 	public void addExp(String jobId, int amount) {
         JobProgress progress = progressMap.computeIfAbsent(jobId, id -> new JobProgress(0, 0));
         if (progress != null) {
@@ -21,10 +29,20 @@ public class PlayerJobs implements ICapabilitySerializable<NBTTagCompound>{
         }
     }
 
+	/**
+	 * Returns the job current progress (level,xp)
+	 * @param jobId
+	 * @return
+	 */
     public JobProgress getProgress(String jobId) {
     	return progressMap.computeIfAbsent(jobId, id -> new JobProgress(0, 0));
     }
 
+    /**
+     * Directly modify the jobProgress of the job
+     * @param jobId
+     * @param progress
+     */
     public void setProgress(String jobId, JobProgress progress) {
         progressMap.put(jobId, progress);
     }

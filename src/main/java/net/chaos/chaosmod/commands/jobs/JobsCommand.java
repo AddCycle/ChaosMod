@@ -1,16 +1,19 @@
-package net.chaos.chaosmod.commands;
+package net.chaos.chaosmod.commands.jobs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.JobProgress;
+import net.chaos.chaosmod.jobs.JobTask;
 import net.chaos.chaosmod.jobs.JobsManager;
-import net.chaos.chaosmod.jobs.PlayerJobsManager;
+import net.chaos.chaosmod.jobs.PlayerJobs;
 import net.chaos.chaosmod.network.JobsCommandMessage;
 import net.chaos.chaosmod.network.PacketManager;
 import net.minecraft.command.CommandBase;
@@ -83,11 +86,59 @@ public class JobsCommand extends CommandBase implements ICommand {
 					}
 				}
 				break;
+			case 2:
+				if (args[1].equalsIgnoreCase("tasks") && !world.isRemote) {
+				    Main.getLogger().info("Jobs : Command sent list task progress");
+
+				    Collection<JobTask> taskList = JobsManager.TASK_MANAGER.getTasks(args[0]);
+				    if (taskList.isEmpty()) {
+				        player.sendMessage(new TextComponentString("No tasks registered for job " + args[0]));
+				    } else {
+				        taskList.forEach(task -> {
+				            int progress = task.progress;
+				            player.sendMessage(new TextComponentString(
+				                String.format("%s: %d/%d (reward %d exp)",
+				                    task.id, progress, task.goal, task.rewardExp)
+				            ));
+				        });
+				    }
+				}
 			case 3:
-				if (args[1].equalsIgnoreCase("xp")) {
+				if (args[1].equalsIgnoreCase("xp") && !world.isRemote) {
 					Main.getLogger().info("Jobs : Command sent increase exp");
 					JobProgress.addExp(player, args[0], parseInt(args[2]));
 					player.sendMessage(new TextComponentString("success"));
+				}
+				break;
+			case 4:
+				// jobs job_id task task_id complete|reset|     later -> (progress <amount>)
+				if (args[1].equalsIgnoreCase("task") && !world.isRemote) {
+				    JobTask task = JobsManager.TASK_MANAGER.getTask(args[0], args[2]);
+				    if (task == null) {
+				        player.sendMessage(new TextComponentString("Task not found: " + args[2]));
+				        return;
+				    }
+
+				    // Fetch the player's jobs capability
+				    PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+				    if (jobs == null) {
+				        player.sendMessage(new TextComponentString("Player has no jobs capability!"));
+				        return;
+				    }
+
+				    if (args[3].equalsIgnoreCase("complete")) {
+				        // Mark task as complete via JobProgress, which handles XP
+				        jobs.getProgress(args[0]).completeTask(player, args[0], args[2]);
+				        player.sendMessage(new TextComponentString("Task '" + args[2] + "' marked complete."));
+				        player.sendMessage(new TextComponentString("isTaskComplete: " + JobsManager.TASK_MANAGER.isTaskComplete(args[0], args[2])));
+				    } else if (args[3].equalsIgnoreCase("reset")) {
+				        // Reset task progress
+				        JobsManager.TASK_MANAGER.resetTask(args[0], args[2]);
+				        player.sendMessage(new TextComponentString("Task '" + args[2] + "' reset."));
+				        player.sendMessage(new TextComponentString("isTaskComplete: " + JobsManager.TASK_MANAGER.isTaskComplete(args[0], args[2])));
+				    }
+
+				    player.sendMessage(new TextComponentString("commands.task.success"));
 				}
 				break;
 			default:
@@ -99,6 +150,7 @@ public class JobsCommand extends CommandBase implements ICommand {
 				player.sendMessage(new TextComponentString("[Server] : jobs gui opened"));
 			}
 			player.sendMessage(new TextComponentString("[Client] : jobs gui opened"));
+			player.sendMessage(new TextComponentString("usage (<job_id> xp <amount>) or (list)"));
 		}
 	}
 }

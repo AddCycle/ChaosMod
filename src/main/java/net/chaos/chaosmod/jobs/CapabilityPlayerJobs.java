@@ -9,6 +9,10 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import util.Reference;
 
+/**
+ * This class stores the PlayerJobs completion client-side
+ * You should see the PlayerJobs class for more infos
+ */
 public class CapabilityPlayerJobs {
 	public static final ResourceLocation KEY = new ResourceLocation(Reference.MODID, "player_jobs");
 

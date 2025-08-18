@@ -77,7 +77,8 @@ public class Job {
         return job;
     }
     
-    private static List<JobTask> convert(JsonArray array) {
+    @SuppressWarnings("null")
+	private static List<JobTask> convert(JsonArray array) {
     	List<JobTask> list = new ArrayList<>();
         if (array != null || !array.isJsonNull()) {
             for (JsonElement el : array) {

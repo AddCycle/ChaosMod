@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 import org.lwjgl.opengl.GL11;
 
-import net.chaos.chaosmod.config.ModConfig;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;

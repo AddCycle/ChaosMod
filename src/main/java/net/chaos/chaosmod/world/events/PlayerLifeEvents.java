@@ -158,52 +158,9 @@ public class PlayerLifeEvents {
 				ClientSoundHandler.index-=2;
 				ClientSoundHandler.launchPlaylist();
 			} else if (ModKeybinds.displayJobsKey.isPressed()) {
-				mc.displayGuiScreen(new GuiScreenJobs(null));
+				mc.displayGuiScreen(new GuiScreenJobs());
 			}
 		}
-		
-		if (mc.currentScreen != null) {
-	        Main.getLogger().info("key combo good dropping all items...");
-	        boolean ctrl = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
-	        boolean shift = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
-
-	        if (ctrl && shift && Keyboard.getEventKey() == Keyboard.KEY_Q && Keyboard.getEventKeyState()) {
-	        	Main.getLogger().info("key combo good dropping all items...");
-	            // handleDropAll(mc);
-	        }
-	    }
-	}
-	
-	@SideOnly(Side.CLIENT)
-	private void handleDropAll(Minecraft mc) {
-	    GuiContainer gui = (GuiContainer) mc.currentScreen;
-	    Slot hovered = gui.getSlotUnderMouse();
-
-	    if (hovered != null && hovered.getHasStack()) {
-	        ItemStack hoveredStack = hovered.getStack();
-
-	        // Ignore vanilla items if you want (e.g. skip anything from minecraft:)
-//	        if (!hoveredStack.getItem().getRegistryName().getResourceDomain().equals("minecraft")) {
-//	            dropAllOfType(mc, hoveredStack);
-//	        }
-	        dropAllOfType(mc, hoveredStack);
-	    }
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void dropAllOfType(Minecraft mc, ItemStack hoveredStack) {
-		EntityPlayerSP player = mc.player;
-
-	    for (int i = 0; i < player.inventory.mainInventory.size(); i++) {
-	        ItemStack stack = player.inventory.mainInventory.get(i);
-
-	        if (!stack.isEmpty() && stack.getItem() == hoveredStack.getItem()) {
-	            // Drop it (false = throw entire stack, true = single item)
-	            player.dropItem(stack.copy(), true, false);
-	            player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
-	        }
-	    }
-		
 	}
 
 	@SubscribeEvent

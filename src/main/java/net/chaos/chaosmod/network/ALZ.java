@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class ALZ {
 	public static void alz0() {
-		Minecraft.getMinecraft().displayGuiScreen(new GuiScreenJobs(null));
+		Minecraft.getMinecraft().displayGuiScreen(new GuiScreenJobs());
 	}
 	
 	public static void alz1() {

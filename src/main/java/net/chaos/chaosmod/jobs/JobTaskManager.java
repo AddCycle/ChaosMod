@@ -5,11 +5,27 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.chaos.chaosmod.Main;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class JobTaskManager {
-	// jobId, activeTasksList
-	private Map<String, Map<String, JobTask>> tasks = new HashMap<>();
+	// jobId, (activeTasksList = TaskId, Task)
+	private static Map<String, Map<String, JobTask>> tasks = new HashMap<>();
+	
+	public static void initTasks() {
+		Main.getLogger().info("initializing tasks for JobTaskManager");
+		JobsManager.REGISTRY.forEach((jobId, job) -> {
+			Map<String, JobTask> jobTasks = new HashMap<>();
+
+			job.tasks.forEach((jobTask) -> {
+				Main.getLogger().info("registering task : {} for job {}", jobTask.id, jobId);
+				jobTasks.put(jobTask.id, jobTask);
+			});
+			
+			
+			tasks.put(jobId, jobTasks);
+		});
+	}
 
 	public Collection<JobTask> getTasks(String jobId) {
         return tasks.getOrDefault(jobId, Collections.emptyMap()).values();
@@ -36,6 +52,13 @@ public class JobTaskManager {
             }
         }
     }
+
+	public void resetTask(String jobId, String taskId) {
+        JobTask task = getTask(jobId, taskId);
+        if (task != null) {
+            task.progress = 0;
+        }
+    }
 	
 	public boolean isTaskComplete(String jobId, String taskId) {
         JobTask task = getTask(jobId, taskId);
@@ -58,6 +81,7 @@ public class JobTaskManager {
 	            }
 	            taskTag.setInteger("progress", task.progress);
 	            taskTag.setInteger("goal", task.goal);
+	            taskTag.setInteger("rewardExp", task.rewardExp);
 
 	            jobTag.setTag(task.id, taskTag);
 	        }
@@ -81,7 +105,8 @@ public class JobTaskManager {
 	                TaskType.valueOf(taskTag.getString("type")),
 	                taskTag.hasKey("target") ? JobTaskTarget.fromNBT(taskTag.getCompoundTag("target")) : null,
 	                taskTag.getInteger("progress"),
-	                taskTag.getInteger("goal")
+	                taskTag.getInteger("goal"),
+	                taskTag.getInteger("rewardExp")
 	            );
 	            jobTasks.put(task.id, task);
 	        }

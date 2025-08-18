@@ -8,6 +8,7 @@ import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModDimensions;
 import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.init.ModSounds;
+import net.chaos.chaosmod.jobs.JobTaskManager;
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.jobs.PlayerJobsEventHandler;
 import net.chaos.chaosmod.network.PacketManager;
