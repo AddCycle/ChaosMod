@@ -108,11 +108,14 @@ public class EntityEyeCrystalBossRenderer extends Render<EntityEyeCrystalBoss> {
             int k = 0;
             int l = 0;
             if (percent > 0.5f) {
-            	j = 64 + (int)(f7 * 191.0F);
-            	k = 32 + (int)(f7 * 191.0F);
-            	l = 128 - (int)(f7 * 64.0F);
-            } else {
+//            	j = 64 + (int)(f7 * 191.0F);
+//            	k = 32 + (int)(f7 * 191.0F);
+//            	l = 128 - (int)(f7 * 64.0F);
             	j = 255;
+            	k = 255;
+            	l = 255;
+            } else {
+            	j = 0;
             	k = 0;
             	l = 0;
             }
