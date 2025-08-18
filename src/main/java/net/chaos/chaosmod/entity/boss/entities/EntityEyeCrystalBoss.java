@@ -33,54 +33,53 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
 
-public class EntityEyeCrystal extends EntityEnderCrystal {
+public class EntityEyeCrystalBoss extends EntityEnderCrystal {
 	@Nullable
 	private EntityLivingBase laserTarget;
 	public int laserTicks;
 	private int health;
 	private int max_health;
     public BossInfoServer bossInfo;
-    public boolean isBoss;
     public static final DataParameter<Integer> LASER_TARGET_ID =
-    	EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.VARINT);
-    public static final DataParameter<Float> CLIENT_HEALTH = EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.FLOAT);
-    public static final DataParameter<Float> CLIENT_MAX_HEALTH = EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.FLOAT);
-    public static final DataParameter<Boolean> IS_BOSS = EntityDataManager.createKey(EntityEyeCrystal.class, DataSerializers.BOOLEAN);
+    	EntityDataManager.createKey(EntityEyeCrystalBoss.class, DataSerializers.VARINT);
+    public static final DataParameter<Float> CLIENT_HEALTH = EntityDataManager.createKey(EntityEyeCrystalBoss.class, DataSerializers.FLOAT);
+    public static final DataParameter<Float> CLIENT_MAX_HEALTH = EntityDataManager.createKey(EntityEyeCrystalBoss.class, DataSerializers.FLOAT);
     
-    public EntityEyeCrystal(World worldIn) {
+    public EntityEyeCrystalBoss(World worldIn) {
     	super(worldIn);
     	this.setSize(1.5f, 1.5f);
+    	this.setup(100);
     }
 
-    public EntityEyeCrystal(World worldIn, double x, double y, double z) {
-    	super(worldIn, x, y, z);
+    public EntityEyeCrystalBoss(World worldIn, double x, double y, double z) {
+    	this(worldIn, x, y, z, 100);
     	this.setSize(1.5f, 1.5f);
     }
 
-	public void setup(int health, boolean isBoss) {
+    public EntityEyeCrystalBoss(World worldIn, double x, double y, double z, int health) {
+    	super(worldIn, x, y, z);
+    	this.setSize(1.5f, 1.5f);
+    	this.setup(health);
+    }
+
+	public void setup(int health) {
 	    this.health = health;
 	    this.max_health = health;
-	    this.isBoss = isBoss;
 
 	    // sync data
-	    this.dataManager.set(IS_BOSS, this.isBoss);
 	    this.dataManager.set(CLIENT_HEALTH, (float) this.health);
 	    this.dataManager.set(CLIENT_MAX_HEALTH, (float) this.max_health);
-	    Main.getLogger().info("setup : isBoss={}, health={}, max_health={}", this.isBoss, this.health, this.max_health);
 
 	    // boss bar setup
-	    if (this.isBoss) {
-	        this.bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
-	        Main.getLogger().info("Setting up boss info server");
-	        this.bossInfo.setPercent(1f);
-	    }
+	    this.bossInfo = new BossInfoServer(this.getDisplayName(), Color.PURPLE, Overlay.PROGRESS);
+	    Main.getLogger().info("Setting up boss info server");
+	    this.bossInfo.setPercent(1f);
 	}
 	
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		Main.getLogger().info("Setting data parameter isBoss : {}", this.isBoss);
-		this.dataManager.register(IS_BOSS, this.isBoss);
+		Main.getLogger().info("Setting data parameter for eye crystal boss :");
 		this.dataManager.register(LASER_TARGET_ID, -1); // -1 means no target
 		this.dataManager.register(CLIENT_HEALTH, this.getHealth());
 		this.dataManager.register(CLIENT_MAX_HEALTH, this.getMaxHealth());
@@ -93,7 +92,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	@Override
 	public boolean shouldShowBottom() {
-		return this.isBoss; // only minions
+		return false;
 	}
 	
 	@Override
@@ -114,7 +113,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		health -= 0.5; // FIXME : balance this shit
-		if (this.isBoss && this.isEntityAlive()) {
+		if (this.isEntityAlive()) {
 			this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
         }
 		if (this.isEntityInvulnerable(source))
@@ -133,22 +132,19 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
                 {
                     if (!source.isExplosion())
                     {
-                        this.world.createExplosion((Entity)null, this.posX, this.posY, this.posZ, 10.0F, false);
+                        this.world.createExplosion((Entity)null, this.posX, this.posY, this.posZ, 3.0F, false);
                     }
 
                     this.onCrystalDestroyed(source);
                     if (this.health <= 0) {
                     	this.setDead();
-                    	// TODO : refactor (eye loots part)
-                    	if (this.isBoss) {
-                    		BlockPos pos = new BlockPos(401, 81, 401);
-                    		world.setBlockState(pos, ModBlocks.OXONIUM_CHEST.getDefaultState(), 2);
-                    		world.setBlockState(pos.down(4), ModBlocks.BEAM_BLOCK.getDefaultState(), 2);
-                    		TileEntityOxoniumChest te = (TileEntityOxoniumChest) world.getTileEntity(pos);
-                    		te.setInventorySlotContents(13, new ItemStack(ModBlocks.EYE_TROPHY, 3));
-                    		te.setInventorySlotContents(21, new ItemStack(ModItems.ENDERITE_THUNDER, 3));
-                    		te.setInventorySlotContents(22, new ItemStack(ModItems.CHAOS_HEART));
-                    	}
+                    	BlockPos pos = new BlockPos(401, 81, 401);
+                    	world.setBlockState(pos, ModBlocks.OXONIUM_CHEST.getDefaultState(), 2);
+                    	world.setBlockState(pos.down(4), ModBlocks.BEAM_BLOCK.getDefaultState(), 2);
+                    	TileEntityOxoniumChest te = (TileEntityOxoniumChest) world.getTileEntity(pos);
+                    	te.setInventorySlotContents(13, new ItemStack(ModBlocks.EYE_TROPHY, 3));
+                    	te.setInventorySlotContents(21, new ItemStack(ModItems.ENDERITE_THUNDER, 3));
+                    	te.setInventorySlotContents(22, new ItemStack(ModItems.CHAOS_HEART));
                     }
                 }
             }
@@ -158,7 +154,8 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	
 	private void onCrystalDestroyed(DamageSource source)
     {
-        if (this.isBoss && this.world.provider instanceof WorldProviderEnd)
+		// FIXME : balance this shit
+        if (this.world.provider instanceof WorldProviderEnd)
         {
             this.world.setRainStrength(1.0f);
         }
@@ -199,7 +196,7 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
         }
 		
 		if (!world.isRemote) {
-	        if (laserTarget != null && laserTarget.isEntityAlive() && laserTarget instanceof EntityPlayer) {
+	        if (laserTarget != null && laserTarget.isEntityAlive()) {
 	        	if (laserTicks == 0 && this.rand.nextBoolean()) {
 	                world.playSound(null, laserTarget.posX, laserTarget.posY, laserTarget.posZ,
 	                	SoundEvents.ENTITY_GHAST_WARN, SoundCategory.HOSTILE, 0.5F, 1.0F);
@@ -234,12 +231,15 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 	    }
 	}
 	
-	private EntityLivingBase findNearestTarget() {
-		// a little box
-		// big box 16x16x16
-		int height = 16;
-		int width = 16; // was too much
-	    AxisAlignedBB box = new AxisAlignedBB(posX - width, posY - height, posZ - width, posX + width, posY + height, posZ + width);
+	// ver 1
+	/*private EntityLivingBase findNearestTarget() {
+		double horizontal = 256;
+		double vertical = 256; // or bigger if your turret is high up
+
+		AxisAlignedBB box = new AxisAlignedBB(
+		    posX - horizontal, posY - vertical, posZ - horizontal,
+		    posX + horizontal, posY + vertical, posZ + horizontal
+		);
 	    List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, box);
 
 	    EntityLivingBase closest = null;
@@ -247,12 +247,39 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 
 	    for (EntityLivingBase target : list) {
 	        if (target.isEntityAlive()) {
-	            double distSq = getDistanceSq(target);
-	            if (distSq < closestDistSq && ((this instanceof Entity) && getDistance(target) <= 1000)) {
+	        	double distSq = getDistanceSq(target);
+
+	            if (distSq < closestDistSq) {
 	                closest = target;
 	                closestDistSq = distSq;
-	            } else {
-				}
+	            }
+	        }
+	    }
+
+	    return closest;
+	}*/
+	
+	private EntityLivingBase findNearestTarget() {
+	    double horizontal = 32;
+	    double vertical = 32;
+
+	    AxisAlignedBB box = new AxisAlignedBB(
+	        posX - horizontal, posY - vertical, posZ - horizontal,
+	        posX + horizontal, posY + vertical, posZ + horizontal
+	    );
+
+	    List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, box);
+
+	    EntityPlayer closest = null;
+	    double closestDistSq = Double.MAX_VALUE;
+
+	    for (EntityPlayer player : list) {
+	        if (player.isEntityAlive() && !player.isSpectator()) {
+	            double distSq = getDistanceSq(player);
+	            if (distSq < closestDistSq) {
+	                closest = player;
+	                closestDistSq = distSq;
+	            }
 	        }
 	    }
 
@@ -271,10 +298,6 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 		return laserTicks;
 	}
 
-	public boolean isBoss() {
-		return this.isBoss;
-	}
-	
 	@Override
 	public float getEyeHeight() {
 	    return 0.75f;

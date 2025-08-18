@@ -2,12 +2,13 @@ package net.chaos.chaosmod.init;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.EntityChaosSage;
+import net.chaos.chaosmod.entity.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
-import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
+import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
@@ -33,7 +34,8 @@ public class ModEntities {
 		registerEntity("picsou", EntityPicsou.class, Reference.ENTITY_PICSOU, 50, Colors.BLUE, Colors.ORANGE);
 		registerEntity("little_big_giants", LittleGiantEntity.class, Reference.ENTITY_GIANTS, 50, Colors.ORANGE, Colors.YELLOW);
 		// FIXME : separate boss and minions also
-		registerEntity("eye_of_truth", EntityEyeCrystal.class, Reference.EYE_CRYSTAL, 50, Colors.PURPLE, Colors.YELLOW);
+		registerEntity("eye_of_truth", EntityEyeCrystalBoss.class, Reference.EYE_OF_TRUTH, 50, Colors.PURPLE, Colors.RED);
+		registerEntity("eye_crystal", EntityEyeCrystal.class, Reference.EYE_CRYSTAL, 50, Colors.PURPLE, Colors.YELLOW);
 		// registerEntity("light_entity", EntityFakeLight.class, Reference.LIGHT_ENTITY, 50, 31, 3093247);
 		registerEntity("chaos_master", ChaosMasterBoss.class, Reference.CHAOS_MASTER, 50, Colors.CYAN, Colors.WHITE);
 	}

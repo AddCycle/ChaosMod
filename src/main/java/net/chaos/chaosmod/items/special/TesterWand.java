@@ -1,11 +1,11 @@
 package net.chaos.chaosmod.items.special;
 
 import net.chaos.chaosmod.cutscene.CutsceneManager;
-import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
+import net.chaos.chaosmod.entity.EntityEyeCrystal;
+import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
-import net.chaos.chaosmod.init.ModDamageSources;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.network.PacketShowFireOverlay;
@@ -82,9 +82,8 @@ public class TesterWand extends ItemBase {
 	    		CutsceneManager.startCutscene(playerIn.getPosition());
 	    		break;
 	    	case 4:
-	    		playerIn.sendMessage(new TextComponentString("spawning crystal"));
-	    		EntityEyeCrystal boss = new EntityEyeCrystal(worldIn, playerIn.posX + 0.5, playerIn.posY + 0.5, playerIn.posZ + 0.5);
-	    		boss.setup(20, true);
+	    		playerIn.sendMessage(new TextComponentString("spawning boss eye crystal"));
+	    		EntityEyeCrystalBoss boss = new EntityEyeCrystalBoss(worldIn, playerIn.posX + 0.5, playerIn.posY + 0.5, playerIn.posZ + 0.5);
 	    		boss.setBeamTarget(boss.getPosition().south(10));
 	    		if (!worldIn.isRemote) worldIn.spawnEntity(boss);
 	    		break;

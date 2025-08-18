@@ -31,6 +31,7 @@ public class BlockChaosGateway extends BlockContainer implements IHasModel {
     public BlockChaosGateway(String name)
     {
         super(Material.PORTAL);
+        setBlockUnbreakable();
         this.setLightLevel(1.0F);
     }
 

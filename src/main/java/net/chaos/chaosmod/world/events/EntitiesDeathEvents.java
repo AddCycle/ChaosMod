@@ -3,7 +3,8 @@ package net.chaos.chaosmod.world.events;
 import java.util.Random;
 
 import net.chaos.chaosmod.blocks.BlockChaosPortal;
-import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
+import net.chaos.chaosmod.entity.EntityEyeCrystal;
+import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
@@ -30,8 +31,6 @@ public class EntitiesDeathEvents {
 		
 		World world = event.getEntity().world;
         if (world.isRemote) return; // only run on server
-
-        EntityDragon dragon = (EntityDragon) event.getEntity();
         
         BlockPos pos = new BlockPos(3, world.getHeight(3, 3), 3);
         world.setBlockState(pos, ModBlocks.OXONIUM_CHEST.getDefaultState(), 2);
@@ -52,13 +51,12 @@ public class EntitiesDeathEvents {
         BlockPos center_pylon = new BlockPos(455, 81, 460);
         this.generatePylon(world, ModBlocks.ALLEMANITE_BRICKS, center_pylon, 3, 15);
         
-        this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.north(10), 3, 19);
+        /*this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.north(10), 3, 19);
         this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.south(10), 3, 19);
         this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.east(10), 3, 19);
-        this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.west(10), 3, 19);
+        this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.west(10), 3, 19);*/
 
-        EntityEyeCrystal boss = new EntityEyeCrystal(world, 456.5, 98, 461.5);
-        boss.setup(100, true);
+        EntityEyeCrystalBoss boss = new EntityEyeCrystalBoss(world, 456.5, 98, 461.5);
         world.spawnEntity(boss);
 	}
 	
@@ -92,7 +90,6 @@ public class EntitiesDeathEvents {
 		}
 		BlockPos pos = center.add(1.5, height + 1, 1.5);
         EntityEyeCrystal minions = new EntityEyeCrystal(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-        minions.setup(20, false);
         minions.setBeamTarget(new BlockPos(456.5, 98, 461.5).down());
         world.spawnEntity(minions);
 	}

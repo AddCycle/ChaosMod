@@ -16,7 +16,7 @@ public class AbstractBreakableBlock extends BlockBreakable implements IHasModel 
 		super(materialIn, ignoreSimilarityIn);
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setHardness(-1.0F);
+		setBlockUnbreakable();
 		setSoundType(SoundType.GLASS);
 		setLightLevel(0.75F);
 	

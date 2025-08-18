@@ -58,6 +58,7 @@ item.enderite_thunder.name=Enderite Thunder
 item.debug_wand.name=Debug Wand
 item.custom_fireball.name=Custom Fireball
 item.portal_key.name=Portal Key
+item.cobblestone_void.name=Cobblestone Void
 
 item.giant_heart.name=Giant Heart
 item.blazing_heart.name=Blazing Heart
@@ -118,6 +119,7 @@ tile.oxonium_furnace.name=Oxonium Furnace
 tile.oxonium_chest.name=Oxonium Chest
 tile.boss_altar.name=Boss Altar
 tile.forge_interface_block.name=Forge Interface Block
+tile.drawer.name=Basic Drawer
 
 // Entities
 entity.forge_guardian.name=Forge Guardian of Chaos

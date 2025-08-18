@@ -1,17 +1,17 @@
 package util.handlers.entity;
 
 import net.chaos.chaosmod.entity.EntityChaosSage;
-import net.chaos.chaosmod.entity.EntityFakeLight;
+import net.chaos.chaosmod.entity.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
-import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
+import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
 import net.chaos.chaosmod.entity.boss.renderer.CMRenderer;
-import net.chaos.chaosmod.entity.boss.renderer.EntityEyeCrystalRenderer;
+import net.chaos.chaosmod.entity.boss.renderer.EntityEyeCrystalBossRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityMountainGiantBossRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityRevengeBlazeRenderer;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
@@ -20,6 +20,7 @@ import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.chaos.chaosmod.entity.projectile.render.EntityMenhirRenderer;
 import net.chaos.chaosmod.entity.projectile.render.EntityRockRenderer;
 import net.chaos.chaosmod.entity.projectile.render.EntitySmallBlueFireballRenderer;
+import net.chaos.chaosmod.entity.render.EntityEyeCrystalRenderer;
 import net.chaos.chaosmod.entity.render.EntityPicsouRenderer;
 import net.chaos.chaosmod.entity.render.EntityVikingRenderer;
 import net.chaos.chaosmod.entity.render.LittleGiantRenderer;
@@ -27,7 +28,6 @@ import net.chaos.chaosmod.entity.render.RenderChaosSage;
 import net.chaos.chaosmod.entity.render.RenderForgeGuardian;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -124,6 +124,15 @@ public class RenderHandler {
 			
 		});
 
+		RenderingRegistry.registerEntityRenderingHandler(EntityEyeCrystalBoss.class, new IRenderFactory<EntityEyeCrystalBoss>() {
+
+			@Override
+			public Render<? super EntityEyeCrystalBoss> createRenderFor(RenderManager manager) {
+				return new EntityEyeCrystalBossRenderer(manager);
+			}
+			
+		});
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityEyeCrystal.class, new IRenderFactory<EntityEyeCrystal>() {
 
 			@Override
@@ -133,19 +142,19 @@ public class RenderHandler {
 			
 		});
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityFakeLight.class, new IRenderFactory<EntityFakeLight>() {
-
-			@Override
-			public Render<? super EntityFakeLight> createRenderFor(RenderManager manager) {
-				return new Render<EntityFakeLight>(manager) {
-					@Override
-					protected ResourceLocation getEntityTexture(EntityFakeLight entity) {
-						return null;
-					}
-				};
-			}
-			
-		});
+//		RenderingRegistry.registerEntityRenderingHandler(EntityFakeLight.class, new IRenderFactory<EntityFakeLight>() {
+//
+//			@Override
+//			public Render<? super EntityFakeLight> createRenderFor(RenderManager manager) {
+//				return new Render<EntityFakeLight>(manager) {
+//					@Override
+//					protected ResourceLocation getEntityTexture(EntityFakeLight entity) {
+//						return null;
+//					}
+//				};
+//			}
+//			
+//		});
 		
 		RenderingRegistry.registerEntityRenderingHandler(ChaosMasterBoss.class, new IRenderFactory<ChaosMasterBoss>() {
 

@@ -17,6 +17,7 @@ public class BlockChaosPortal extends BlockEndPortal {
 
     public BlockChaosPortal(String name) {
         super(Material.PORTAL);
+        this.setBlockUnbreakable();
         this.setRegistryName(name);
         this.setUnlocalizedName(name);
         this.setLightLevel(1.0F);

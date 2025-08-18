@@ -20,19 +20,21 @@ public class Reference {
     public static final int GUI_VIKING_ID = 6;
     // 6 is for the extended player gui
     public static final int GUI_TROPHY = 7;
-    
+
     // Entities ids
-    public static final int ENTITY_FORGE_GUARDIAN = 120;
-	public static final int REVENGE_BLAZE_BOSS = 121;
-	public static final int SMALL_BLUE_FIREBALL = 122;
-	public static final int MOUNTAIN_GIANT_BOSS = 123;
-	public static final int ENTITY_ROCK = 124;
-	public static final int CHAOS_SAGE = 125;
-	public static final int ENTITY_MENHIR = 126;
-	public static final int ENTITY_VIKING = 127;
-	public static final int ENTITY_PICSOU = 128;
-	public static final int ENTITY_GIANTS = 129;
-	public static final int EYE_CRYSTAL = 130;
-	public static final int LIGHT_ENTITY = 131;
-	public static final int CHAOS_MASTER = 132;
+    private static int id = 120;
+    public static final int ENTITY_FORGE_GUARDIAN = id++;
+	public static final int REVENGE_BLAZE_BOSS = id++;
+	public static final int SMALL_BLUE_FIREBALL = id++;
+	public static final int MOUNTAIN_GIANT_BOSS = id++;
+	public static final int ENTITY_ROCK = id++;
+	public static final int CHAOS_SAGE = id++;
+	public static final int ENTITY_MENHIR = id++;
+	public static final int ENTITY_VIKING = id++;
+	public static final int ENTITY_PICSOU = id++;
+	public static final int ENTITY_GIANTS = id++;
+	public static final int EYE_OF_TRUTH = id++;
+	public static final int EYE_CRYSTAL = id++;
+	public static final int LIGHT_ENTITY = id++;
+	public static final int CHAOS_MASTER = id++;
 }

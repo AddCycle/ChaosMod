@@ -1,6 +1,6 @@
-package net.chaos.chaosmod.entity.boss.renderer;
+package net.chaos.chaosmod.entity.render;
 
-import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystal;
+import net.chaos.chaosmod.entity.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.boss.model.EntityEyeCrystalModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -37,14 +37,13 @@ public class EntityEyeCrystalRenderer extends Render<EntityEyeCrystal> {
      */
     public void doRender(EntityEyeCrystal entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-    	boolean isBoss = entity.getDataManager().get(EntityEyeCrystal.IS_BOSS);
         float health = entity.getDataManager().get(EntityEyeCrystal.CLIENT_HEALTH);
         float max_health = entity.getDataManager().get(EntityEyeCrystal.CLIENT_MAX_HEALTH);
         float percent = health / max_health;
         float fl = (float)entity.innerRotation + partialTicks;
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
-        this.bindTexture(!isBoss || percent > 0.5f ? ENDER_CRYSTAL_TEXTURES : ENDER_CRYSTAL_PHASE_2);
+        this.bindTexture(percent > 0.5f ? ENDER_CRYSTAL_TEXTURES : ENDER_CRYSTAL_PHASE_2);
         float fl1 = MathHelper.sin(fl * 0.2F) / 2.0F + 0.5F;
         fl1 = fl1 * fl1 + fl1;
 

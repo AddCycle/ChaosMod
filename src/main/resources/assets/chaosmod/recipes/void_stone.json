@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#C#",
+        "CQC",
+        "#C#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:coal"
+        },
+        "C": {
+            "item": "minecraft:cobblestone"
+        },
+        "Q": {
+            "item": "minecraft:chest"
+        }
+    },
+    "result": {
+   		"item": "chaosmod:cobblestone_void"
+    }
+}

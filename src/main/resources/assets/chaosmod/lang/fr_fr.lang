@@ -58,6 +58,7 @@ item.enderite_thunder.name=Eclair d'Enderite
 item.debug_wand.name=Baguette du Debug
 item.custom_fireball.name=Boule de Feu Custom
 item.portal_key.name=Clé du Portail de Solarium
+item.cobblestone_void.name=Pierre du néant
 
 item.giant_heart.name=Coeur du Géant
 item.blazing_heart.name=Coeur du Blaze
@@ -118,6 +119,7 @@ tile.oxonium_furnace.name=Four en Oxonium
 tile.oxonium_chest.name=Coffre en Oxonium
 tile.boss_altar.name=Autel des Boss
 tile.forge_interface_block.name=Interface de la Forge
+tile.drawer.name=Tiroir Basique
 
 // Entities
 entity.forge_guardian.name=Gardien de la Forge du Chaos
