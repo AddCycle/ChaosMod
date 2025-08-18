@@ -51,10 +51,10 @@ public class EntitiesDeathEvents {
         BlockPos center_pylon = new BlockPos(455, 81, 460);
         this.generatePylon(world, ModBlocks.ALLEMANITE_BRICKS, center_pylon, 3, 15);
         
-        /*this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.north(10), 3, 19);
+        this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.north(10), 3, 19);
         this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.south(10), 3, 19);
         this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.east(10), 3, 19);
-        this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.west(10), 3, 19);*/
+        this.generateMinionPylon(world, Blocks.OBSIDIAN, center_pylon.west(10), 3, 19);
 
         EntityEyeCrystalBoss boss = new EntityEyeCrystalBoss(world, 456.5, 98, 461.5);
         world.spawnEntity(boss);
@@ -89,7 +89,7 @@ public class EntitiesDeathEvents {
 			}
 		}
 		BlockPos pos = center.add(1.5, height + 1, 1.5);
-        EntityEyeCrystal minions = new EntityEyeCrystal(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+        EntityEyeCrystal minions = new EntityEyeCrystal(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20);
         minions.setBeamTarget(new BlockPos(456.5, 98, 461.5).down());
         world.spawnEntity(minions);
 	}

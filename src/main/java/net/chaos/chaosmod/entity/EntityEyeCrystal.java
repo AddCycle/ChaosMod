@@ -183,9 +183,9 @@ public class EntityEyeCrystal extends EntityEnderCrystal {
 				rotationYaw = (float) (MathHelper.atan2(dz, dx) * (180D / Math.PI)) - 90F;
 				rotationPitch = (float) (-(MathHelper.atan2(dy, MathHelper.sqrt(dx * dx + dz * dz)) * (180D / Math.PI)));
 
-				if (laserTicks >= 40) {
+				if (laserTicks >= 20 * 10) {
 					// Damage the target
-					laserTarget.attackEntityFrom(ModDamageSources.LASER_DAMAGE, 6.0F);
+					laserTarget.attackEntityFrom(ModDamageSources.LASER_DAMAGE, 2.0F);
 					world.playSound(null, laserTarget.posX, laserTarget.posY, laserTarget.posZ,
 							SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.HOSTILE, 0.5F, 0.3F);
 					laserTicks = 0;
