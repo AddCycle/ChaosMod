@@ -15,6 +15,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
 
 public class EntityPicsou extends EntityCreature implements ITalkable {
@@ -159,6 +161,7 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public String getDialogText() {
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		if (player == null || player.isCreative()) return "";
