@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.tileentity;
 
+import net.chaos.chaosmod.Main;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -10,9 +11,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
+
 public class TileEntityDrawer extends TileEntity implements ITickable, IInventory {
 	private ItemStack stack = ItemStack.EMPTY;
+	private ItemStack dummy = ItemStack.EMPTY;
 	private final int limit;
+	private int totalCount = 0;
 	
 	public TileEntityDrawer() {
 		this.limit = 64;
@@ -26,13 +30,22 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
 	public void update() {
 		// do tick updates here maybe count rendering or with renderer but updating the texture
 	}
+	
+	public int getTotalCount() {
+		return totalCount;
+	}
 
 	public ItemStack getStack() {
+		// Main.getLogger().info("getSTack count : {}", stack.getCount());
         return stack;
     }
 
     public int getLimit(ItemStack stack) {
         return limit;
+    }
+    
+    public ItemStack getDummy() {
+    	return dummy;
     }
     
     public ItemStack removeAll() {
@@ -49,14 +62,21 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
 
         int res = 0;
         if (stack.isEmpty()) {
-            int addCount = Math.min(limit, toAdd.getCount());
+            int addCount = toAdd.getCount();
+            Main.getLogger().info("addStack, addCount : {}", addCount);
             stack = toAdd.copy();            // copies item type, count, metadata, AND NBT
+            dummy = toAdd.copy();
+            dummy.setCount(1); // always 1
             stack.setCount(addCount);        // adjust count to fit limit
+            totalCount = addCount;
             res = addCount;
         } else if (stack.isItemEqual(toAdd) && ItemStack.areItemStackTagsEqual(stack, toAdd)) {
             int space = limit - stack.getCount();
+            Main.getLogger().info("addStack, spaceLeft : {}", space);
             int addCount = Math.min(space, toAdd.getCount());
             stack.grow(addCount);
+            totalCount += addCount;
+            Main.getLogger().info("addStack, items equal addCount : {}", addCount);
             res = addCount;
         }
 
@@ -71,13 +91,18 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
         int maxItemStack = stack.getMaxStackSize();
         int removed = Math.min(amount, Math.min(stack.getCount(), maxItemStack));
         ItemStack out = stack.splitStack(removed);
-        if (stack.getCount() <= 0) stack = ItemStack.EMPTY;
+        totalCount -= removed;
+        Main.getLogger().info("removeStack, removed items : {}", removed);
+        if (totalCount <= 0) {
+        	stack = ItemStack.EMPTY;
+            dummy = ItemStack.EMPTY;
+        }
         markDirty();
         return out;
     }
 
     // Shift-left: drops everything on the ground
-    public void dropAll(EntityPlayer player) {
+    /*public void dropAll(EntityPlayer player) {
         if (!stack.isEmpty()) {
             player.entityDropItem(stack, 0);
             stack = ItemStack.EMPTY;
@@ -85,16 +110,6 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
         }
     }
 
-    // Shift-right: puts everything into player inventory
-    // FIXME : maybe this is better :
-    /*
-     * while (!stack.isEmpty()) {
-    ItemStack part = removeStack(stack.getMaxStackSize());
-    if (!player.inventory.addItemStackToInventory(part)) {
-        player.entityDropItem(part, 0);
-    }
-}
-     */
     public void giveAllToPlayer(EntityPlayer player) {
         if (!stack.isEmpty()) {
             boolean allAdded = player.inventory.addItemStackToInventory(stack);
@@ -105,7 +120,7 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
             stack = ItemStack.EMPTY;
             markDirty();
         }
-    }
+    }*/
 
     // Right-click: puts items from hand into drawer
     public void addFromHand(EntityPlayer player) {
@@ -128,17 +143,68 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
     
     // ############# FIXME : verify if it is allowed to have the same name for tag multiple drawer types ###################
     
+//    @Override
+//    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+//    	super.writeToNBT(compound);
+//    	ItemStack copyWithoutCount = new ItemStack(stack.getItem(), 1);
+//    	compound.setTag("Stack", copyWithoutCount.writeToNBT(new NBTTagCompound()));
+//    	compound.setInteger("totalCount", totalCount);
+//    	compound.setTag("dummy", dummy.writeToNBT(new NBTTagCompound()));
+//    	return compound;
+//    }
+//
+//    @Override
+//    public void readFromNBT(NBTTagCompound compound) {
+//    	super.readFromNBT(compound);
+//    	totalCount = compound.getInteger("totalCount");
+//    	stack = new ItemStack(compound.getCompoundTag("Stack"));
+//    	stack.setCount(totalCount);
+//    	compound.getTag("dummy");
+//    }
+    
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-    	super.writeToNBT(compound);
-    	compound.setTag("Stack", stack.writeToNBT(new NBTTagCompound()));
-    	return compound;
+        super.writeToNBT(compound);
+
+        if (!stack.isEmpty()) {
+            // Save stack with its meta + NBT
+            NBTTagCompound itemTag = new NBTTagCompound();
+            stack.writeToNBT(itemTag);
+
+            // Force count = 1 (so we don't hit the byte limit)
+            itemTag.setByte("Count", (byte) 1);
+
+            compound.setTag("Stack", itemTag);
+            compound.setInteger("totalCount", totalCount);
+
+            // Save dummy too (just for rendering, always 1)
+            NBTTagCompound dummyTag = new NBTTagCompound();
+            dummy.writeToNBT(dummyTag);
+            compound.setTag("dummy", dummyTag);
+        }
+
+        return compound;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-    	super.readFromNBT(compound);
-    	stack = new ItemStack(compound.getCompoundTag("Stack"));
+        super.readFromNBT(compound);
+
+        totalCount = compound.getInteger("totalCount");
+
+        if (compound.hasKey("Stack")) {
+            stack = new ItemStack(compound.getCompoundTag("Stack"));
+            stack.setCount(totalCount); // restore big count
+        } else {
+            stack = ItemStack.EMPTY;
+        }
+
+        if (compound.hasKey("dummy")) {
+            dummy = new ItemStack(compound.getCompoundTag("dummy"));
+        } else {
+            dummy = stack.isEmpty() ? ItemStack.EMPTY : stack.copy();
+            dummy.setCount(1);
+        }
     }
 
     @Override

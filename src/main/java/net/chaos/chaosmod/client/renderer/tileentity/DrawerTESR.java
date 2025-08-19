@@ -23,9 +23,11 @@ public class DrawerTESR extends TileEntitySpecialRenderer<TileEntityDrawer> {
 
 	@Override
 	public void render(TileEntityDrawer te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-		int count = te.getStack().getCount();
+		int count = te.getTotalCount();
 		// System.out.println("count : " + count);
-		ItemStack stack = te.getStack();
+		ItemStack stack = te.getDummy();
+		// System.out.println("stack" + stack.getDisplayName());
+
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5, y + 0.5, z); // center on the block
 
@@ -53,7 +55,7 @@ public class DrawerTESR extends TileEntitySpecialRenderer<TileEntityDrawer> {
 
 		if(count >= 0) {
 			String text = String.valueOf(count);
-			String item = stack.getItem().getRegistryName().toString();
+			// String item = stack.getItem().getRegistryName().toString();
 
 			// Get tooltip
 			List<String> tooltip = stack.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
@@ -71,7 +73,7 @@ public class DrawerTESR extends TileEntitySpecialRenderer<TileEntityDrawer> {
 			GlStateManager.pushMatrix();
 			GlStateManager.disableDepth();
 
-			Block block = Block.getBlockFromItem(stack.getItem());
+			Block block = Block.getBlockFromItem(te.getStack().getItem());
 			if (block == Blocks.AIR) {
 				// It's a normal item → keep normal Z, depth test + depth write
 				GlStateManager.pushMatrix();
