@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -56,6 +57,23 @@ public class BlockDrawer extends BlockContainerBase {
 		if (worldIn.isRemote) return;
 	    if (!playerIn.isSneaking()) return;
 	    moveContentToPlayerInventory(worldIn, pos, playerIn, EnumHand.MAIN_HAND);
+	}
+	
+	@Override
+	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
+		if (!worldIn.isRemote) { // server side only
+	        TileEntity te = worldIn.getTileEntity(pos);
+	        if (te instanceof TileEntityDrawer) { // if your TileEntity stores items
+	            TileEntityDrawer tile = (TileEntityDrawer) te;
+
+	            ItemStack stack = tile.getStack();
+	            if (!stack.isEmpty()) {
+	            	InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stack);
+	            }
+	        }
+	    }
+
+		super.onBlockHarvested(worldIn, pos, state, player);
 	}
 	
 	public boolean moveContentToDrawer(World world, BlockPos pos, EntityPlayer player, EnumHand hand) {
