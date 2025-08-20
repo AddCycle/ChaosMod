@@ -7,10 +7,10 @@ import util.Reference;
 @Config(modid = Reference.MODID)
 public class ModConfig {
 	
-	@Config.Name("Client Settings")
+	// @Config.Name("Client Settings")
     public static final Client CLIENT = new Client();
 
-    @Config.Name("Server Settings")
+    // @Config.Name("Server Settings")
     public static final Server SERVER = new Server();
 
 	public static class Client {

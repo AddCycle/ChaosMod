@@ -68,7 +68,11 @@ public class BlockDrawer extends BlockContainerBase {
 
 	            ItemStack stack = tile.getStack();
 	            if (!stack.isEmpty()) {
-	            	InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stack);
+	                int max = stack.getMaxStackSize();
+	                while (!stack.isEmpty()) {
+	                    ItemStack drop = stack.splitStack(Math.min(stack.getCount(), max));
+	                    InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), drop);
+	                }
 	            }
 	        }
 	    }
