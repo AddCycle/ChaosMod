@@ -2,38 +2,19 @@ package proxy;
 
 import net.chaos.chaosmod.client.inventory.render.LayerNecklace;
 import net.chaos.chaosmod.client.inventory.render.LayerShield;
-import net.chaos.chaosmod.client.renderer.tileentity.DrawerTESR;
-import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBeamRenderer;
-import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBossAltarRenderer;
-import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
-import net.chaos.chaosmod.client.renderer.tileentity.TrophyTESR;
 import net.chaos.chaosmod.cutscene.CutsceneEvents;
 import net.chaos.chaosmod.entity.boss.gui.BossBarRendering;
 import net.chaos.chaosmod.init.ModKeybinds;
 import net.chaos.chaosmod.lore.dialogs.DialogEventHandler;
 import net.chaos.chaosmod.minimap.MinimapEventHandler;
 import net.chaos.chaosmod.minimap.Renderer;
-import net.chaos.chaosmod.tileentity.LanternTESR;
-import net.chaos.chaosmod.tileentity.TESRCookieJar;
-import net.chaos.chaosmod.tileentity.TileEntityBeam;
-import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
-import net.chaos.chaosmod.tileentity.TileEntityCookieJar;
-import net.chaos.chaosmod.tileentity.TileEntityDrawer;
-import net.chaos.chaosmod.tileentity.TileEntityForge;
-import net.chaos.chaosmod.tileentity.TileEntityLantern;
-import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
-import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
-import net.chaos.chaosmod.tileentity.TileEntityTrophyBase;
 import net.chaos.chaosmod.world.events.PlayerFireRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -67,26 +48,7 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new DialogEventHandler());
         MinecraftForge.EVENT_BUS.register(new CutsceneEvents());
 		// OxoniumFurnace to suppress nametag
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new TileEntitySpecialRenderer<TileEntity>() {
-			@Override
-			protected void drawNameplate(TileEntity te, String str, double x, double y, double z, int maxDistance) {
-				return;
-			}
-		});
-
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumChest.class, new TileEntityOxoniumChestRenderer<TileEntityOxoniumChest>());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBossAltar.class, new TileEntityBossAltarRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityForge.class, new TileEntitySpecialRenderer<TileEntity>() {
-			@Override
-			protected void drawNameplate(TileEntity te, String str, double x, double y, double z, int maxDistance) {
-				return;
-			}
-		});
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLantern.class, new LanternTESR());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCookieJar.class, new TESRCookieJar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBeam.class, new TileEntityBeamRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrophyBase.class, new TrophyTESR());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDrawer.class, new DrawerTESR());
+        RenderHandler.bindTESRs();
 		// MinecraftForge.EVENT_BUS.register(new PlayerRenderManager());
 		MinecraftForge.EVENT_BUS.register(new BossBarRendering());
 		// ################################# NECKLACE RENDERING #############################################

@@ -5,7 +5,9 @@ import java.util.Random;
 import net.chaos.chaosmod.fluids.BlockFluidClassicBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockGrass;
 import net.minecraft.block.BlockSapling;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -44,7 +46,9 @@ public class BlockFertilizedWater extends BlockFluidClassicBase {
 	            IGrowable growable = (IGrowable) block;
 
 	            // Server: grow crop and trigger vanilla bonemeal particles
-	            if (!world.isRemote && growable.canGrow(world, targetPos, state, false)) {
+	            if (!world.isRemote && growable.canGrow(world, targetPos, state, false)
+	            	&& !(growable instanceof BlockGrass)
+	            	&& !(growable instanceof BlockTallGrass)) {
 	                growable.grow(world, rand, targetPos, state);
 	                world.playEvent(2005, targetPos, 0);
 	            }

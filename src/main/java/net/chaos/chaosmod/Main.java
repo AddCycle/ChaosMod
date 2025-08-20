@@ -3,6 +3,8 @@ package net.chaos.chaosmod;
 import org.apache.logging.log4j.Logger;
 
 import net.chaos.chaosmod.commands.CommandsManager;
+import net.chaos.chaosmod.common.capabilities.CapabilityEventHandler;
+import net.chaos.chaosmod.common.capabilities.MoneyStorage;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModDimensions;
@@ -85,6 +87,7 @@ public class Main
         GameRegistry.registerWorldGenerator(new WorldGenCustomStructure("nether_box", 0), 1);
         ModEntities.registerEntities();
         ModFluids.registerFluids();
+        MoneyStorage.register();
     }
 
     @EventHandler

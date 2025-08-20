@@ -10,8 +10,11 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
 
+@SideOnly(Side.CLIENT)
 public class EntityPicsouRenderer extends RenderLiving<EntityPicsou> {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/picsou.png");
 	private int tickCounter = 0;

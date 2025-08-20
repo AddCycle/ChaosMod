@@ -2,7 +2,6 @@ package net.chaos.chaosmod.world.events;
 
 import org.lwjgl.input.Keyboard;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.AccessoryImpl;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.client.inventory.shield.ShieldImpl;
@@ -19,8 +18,6 @@ import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
 import net.chaos.chaosmod.sound.ClientSoundHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,7 +25,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;

@@ -39,4 +39,5 @@ public class Reference {
 	public static final int EYE_CRYSTAL = id++;
 	public static final int LIGHT_ENTITY = id++;
 	public static final int CHAOS_MASTER = id++;
+	public static final int ENTITY_BIPED_BASIC = id++;
 }
