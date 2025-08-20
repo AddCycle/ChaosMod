@@ -1,18 +1,7 @@
 package proxy;
 
-import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBossAltarRenderer;
-import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
-import net.chaos.chaosmod.tileentity.LanternTESR;
-import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
-import net.chaos.chaosmod.tileentity.TileEntityForge;
-import net.chaos.chaosmod.tileentity.TileEntityLantern;
-import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
-import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

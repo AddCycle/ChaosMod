@@ -9,7 +9,7 @@ import net.chaos.chaosmod.blocks.CustomPlanks.CustomPlankVariant;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
-import net.chaos.chaosmod.world.gen.WorldGenCustomTree;
+import net.chaos.chaosmod.world.gen.overworld.WorldGenCustomTree;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSapling;

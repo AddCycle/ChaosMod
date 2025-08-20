@@ -8,7 +8,7 @@ import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
-import net.chaos.chaosmod.world.gen.WorldGenCustomTree;
+import net.chaos.chaosmod.world.gen.overworld.WorldGenCustomTree;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityPolarBear;

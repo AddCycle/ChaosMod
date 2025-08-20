@@ -9,6 +9,8 @@ public class Reference {
     public static final String ACCEPTED_VERSIONS = "[1.12.2]";
     public static final String CLIENT_PROXY_CLASS = "proxy.ClientProxy";
     public static final String COMMON_PROXY_CLASS = "proxy.CommonProxy";
+    public static final String GUI_FACTORY_CLASS = "net.chaos.chaosmod.config.ModGuiFactory";
+    public static final String OPTIONAL_DEPENDENCIES = "after:jei;after:patchouli;after:mathsmod";
     
     // GUI ids
     public static final int GUI_GUIDE_ID = 0;

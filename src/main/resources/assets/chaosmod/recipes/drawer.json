@@ -1,0 +1,21 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "WWW",
+    "WCW",
+    "WWW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    },
+    "C": {
+    	"item": "minecraft:chest"
+    }
+  },
+  "result": {
+    "item": "chaosmod:drawer",
+    "count": 1
+  }
+}

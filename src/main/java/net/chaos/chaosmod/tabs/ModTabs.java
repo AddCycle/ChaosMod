@@ -28,6 +28,8 @@ public class ModTabs extends GeneralTab {
 			potionHelper(items, ModPotionTypes.VIKING_FRIEND_TYPE);
 		}
 	};
+
+	public static final CreativeTabs MISC = new GeneralTab("chaosmodtab5", "general_bg.png", Items.LAVA_BUCKET, null, false);
 	
 	public static void potionHelper(NonNullList<ItemStack> items, PotionType potionType) {
 		items.add(PotionUtils.addPotionToItemStack(
@@ -37,5 +39,4 @@ public class ModTabs extends GeneralTab {
 		items.add(PotionUtils.addPotionToItemStack(
 				new ItemStack(Items.LINGERING_POTION), potionType));
 	}
-	
 }

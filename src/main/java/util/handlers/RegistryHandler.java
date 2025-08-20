@@ -5,6 +5,7 @@ import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomPlanks;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModFluidBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotionTypes;
 import net.chaos.chaosmod.init.ModPotions;
@@ -36,6 +37,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import util.IHasModel;
 import util.Reference;
+import util.handlers.entity.RenderHandler;
 
 @EventBusSubscriber
 public class RegistryHandler {
@@ -47,22 +49,25 @@ public class RegistryHandler {
 
 	@SubscribeEvent
 	public static void onBlockRegister(RegistryEvent.Register<Block> event) {
-		System.out.println("register blocks");
 		event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
+		event.getRegistry().registerAll(ModFluidBlocks.FLUID_BLOCKS.toArray(new Block[0]));
 	}
 
-	// S'occupe d'enregistrer tous les items definis dans ItemBase.java
 	@SubscribeEvent
 	public static void onItemRegister(RegistryEvent.Register<Item> event) {
-		System.out.println("register items");
 		event.getRegistry().registerAll(ModItems.ITEMS.toArray(new Item[0]));
 	}
-
 	
-	// En gros cette partie sert a grouper plusieurs items/blocks dans une meme interface qui est simplement un groupe d'objets
+	// This event is for registering models of items/blocks
 	@SubscribeEvent
 	public static void onModelRegister(ModelRegistryEvent event) {
 		for (Block block : ModBlocks.BLOCKS) {
+			if (block instanceof IHasModel) {
+				((IHasModel)block).registerModels();
+			}
+		}
+
+		for (Block block : ModFluidBlocks.FLUID_BLOCKS) {
 			if (block instanceof IHasModel) {
 				((IHasModel)block).registerModels();
 			}
@@ -73,7 +78,9 @@ public class RegistryHandler {
 				((IHasModel)item).registerModels();
 			}
 		}
-			
+		
+		// For now registering fluids rendering
+        RenderHandler.registerCustomMeshesAndStates();
 	}
 	
 	@SubscribeEvent
@@ -91,7 +98,6 @@ public class RegistryHandler {
         ModBiomes.registerBiomes();
         event.getRegistry().registerAll(ModBiomes.BIOMES.toArray(new Biome[0]));
     }
-	
 
 	@SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {

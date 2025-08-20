@@ -12,6 +12,7 @@
   "logoFile": "chaosmod_title.png",
   "screenshots": [],
   "dependencies": [
+    "after:jei",
     "after:patchouli",
     "after:mathsmod"
   ]

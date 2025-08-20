@@ -100,6 +100,10 @@ public class MapGenCustomVillage extends MapGenVillage {
 		return new MapGenCustomVillage.Start(this.world, this.rand, chunkX, chunkZ, this.size);
 	}
 
+	public int getMinTownSeparation() {
+		return minTownSeparation;
+	}
+
 	public static class Start extends StructureStart
 	{
 		/** well ... thats what it does */

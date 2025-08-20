@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.world.gen;
+package net.chaos.chaosmod.world.gen.overworld;
 
 import java.util.Random;
 

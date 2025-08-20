@@ -7,8 +7,8 @@ import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModDimensions;
 import net.chaos.chaosmod.init.ModEntities;
+import net.chaos.chaosmod.init.ModFluids;
 import net.chaos.chaosmod.init.ModSounds;
-import net.chaos.chaosmod.jobs.JobTaskManager;
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.jobs.PlayerJobsEventHandler;
 import net.chaos.chaosmod.network.PacketManager;
@@ -23,6 +23,7 @@ import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
 import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
 import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
+import net.chaos.chaosmod.world.gen.overworld.WorldGenCustomStructure;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.chaos.chaosmod.world.structures.StructureCustomVillage;
 import net.minecraft.init.Biomes;
@@ -45,7 +46,7 @@ import util.blockstates.RenderBlockOutlinesEvent;
 import util.handlers.PlayerInHandler;
 import util.handlers.RegistryHandler;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = "net.chaos.chaosmod.config.ModGuiFactory")
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY_CLASS, dependencies = Reference.OPTIONAL_DEPENDENCIES)
 public class Main
 {
 	// Helps launch the ChaosMod
@@ -80,7 +81,10 @@ public class Main
         ModSounds.registerSounds();
         ModCapabilities.register(); // for in-game-accessories
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
+        // GameRegistry.registerWorldGenerator(new WorldGenCustomStructure("nether_dungeon", 0), 1);
+        GameRegistry.registerWorldGenerator(new WorldGenCustomStructure("nether_box", 0), 1);
         ModEntities.registerEntities();
+        ModFluids.registerFluids();
     }
 
     @EventHandler

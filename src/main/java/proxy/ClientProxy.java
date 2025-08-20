@@ -66,7 +66,6 @@ public class ClientProxy extends CommonProxy {
         Renderer.init();
         MinecraftForge.EVENT_BUS.register(new DialogEventHandler());
         MinecraftForge.EVENT_BUS.register(new CutsceneEvents());
-		// MinecraftForge.EVENT_BUS.register(ClientMessageHandler.class);
 		// OxoniumFurnace to suppress nametag
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new TileEntitySpecialRenderer<TileEntity>() {
 			@Override

@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.world.events;
 
+import java.util.Random;
+
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.world.structures.MapGenCustomCavesHell;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
@@ -12,10 +14,7 @@ import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID)
 public class WorldGenerationOverrideEvents {
-
-	static {
-        System.out.println("Static block triggered for WorldGenerationOverrideEvents.");
-    }
+	public static final Random rand = new Random();
 
 	@SubscribeEvent
 	public void replaceStructureGenerator(InitMapGenEvent event) {
@@ -38,5 +37,4 @@ public class WorldGenerationOverrideEvents {
             event.setNewGen(new MapGenCustomCavesHell());
         }
 	}
-
 }

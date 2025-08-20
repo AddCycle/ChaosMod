@@ -20,7 +20,6 @@ sourceCompatibility = targetCompatibility = "1.8" // Java 8 for MC 1.12.2
 
 minecraft {
  	version = "1.12.2-14.23.5.2847"
-    mappings = "stable_39"
     runDir = "run"
     mappings = "snapshot_20171003"
 }
@@ -30,6 +29,9 @@ repositories {
     maven { url "https://dvs1.progwml6.com/files/maven" } // JEI
     maven { url "https://modmaven.dev" }
     maven { url "https://maven.blamejared.com" } // For patchouli API
+    flatDir {
+        dirs 'build/libs'
+    }
 }
 
 dependencies {
@@ -37,7 +39,12 @@ dependencies {
     deobfCompile "mezz.jei:jei_1.12.2:4.15.0.268"
     compileOnly "mezz.jei:jei_1.12.2:4.15.0.268:api"
 
+	// patchouli api
     compile "vazkii.patchouli:Patchouli:${patchouli_version}"
+    
+    deobfCompile name: 'worldedit-forge-mc1.12.2-6.1.10-dist'
+
+    deobfCompile name: 'mathsmod-2.3.3'
 }
 
 processResources {
