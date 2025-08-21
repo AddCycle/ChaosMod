@@ -16,7 +16,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import util.Colors;
@@ -93,11 +95,26 @@ public class AdditionalOverlayInfosEvents {
                 Block block = state.getBlock();
 
                 String info = new TextComponentTranslation(block.getLocalizedName()).getFormattedText();
-                String rawName = block.getRegistryName().getResourceDomain();
-                String mod_info = Character.toUpperCase(rawName.charAt(0)) + rawName.substring(1);
+                ResourceLocation rl = block.getRegistryName();
+
+                String modId = "unknown";
+                String modName = "Unknown Mod";
+                if (rl != null) {
+                    modId = rl.getResourceDomain();
+
+                	// Lookup mod container
+                    ModContainer container = Loader.instance().getIndexedModList().get(modId);
+                    if (container != null) {
+                        modName = container.getName(); // Nice formatted mod name
+                    } else {
+                        // fallback: just capitalize the modid
+                        modName = Character.toUpperCase(modId.charAt(0)) + modId.substring(1);
+                    }
+                }
 
                 mc.fontRenderer.drawStringWithShadow(info, x - mc.fontRenderer.getStringWidth(info) / 2, y, 0xFFFFFF);
-                mc.fontRenderer.drawStringWithShadow(mod_info, x - mc.fontRenderer.getStringWidth(mod_info) / 2, y + 10, Colors.BLUE.getRGB());
+                mc.fontRenderer.drawStringWithShadow(modName, x - mc.fontRenderer.getStringWidth(modName) / 2, y + 10, Colors.BLUE.getRGB());
+
 
             } else if (finalResult.typeOfHit == RayTraceResult.Type.ENTITY) {
             	Entity entity = finalResult.entityHit;
@@ -107,15 +124,23 @@ public class AdditionalOverlayInfosEvents {
 
                 // Registry name lookup
                 ResourceLocation rl = EntityList.getKey(entity);
-                String modId = "Unknown";
+                String modId = "unknown";
+                String modName = "Unknown Mod";
                 if (rl != null) {
                     modId = rl.getResourceDomain();
+
+                	// Lookup mod container
+                    ModContainer container = Loader.instance().getIndexedModList().get(modId);
+                    if (container != null) {
+                        modName = container.getName(); // Nice formatted mod name
+                    } else {
+                        // fallback: just capitalize the modid
+                        modName = Character.toUpperCase(modId.charAt(0)) + modId.substring(1);
+                    }
                 }
 
-                String mod_info = Character.toUpperCase(modId.charAt(0)) + modId.substring(1);
-
                 mc.fontRenderer.drawStringWithShadow(info, x - mc.fontRenderer.getStringWidth(info) / 2, y, 0xFFFFFF);
-                mc.fontRenderer.drawStringWithShadow(mod_info, x - mc.fontRenderer.getStringWidth(mod_info) / 2, y + 10, Colors.BLUE.getRGB());
+                mc.fontRenderer.drawStringWithShadow(modName, x - mc.fontRenderer.getStringWidth(modName) / 2, y + 10, Colors.BLUE.getRGB());
             }
         }
     }
