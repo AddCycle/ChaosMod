@@ -91,6 +91,7 @@ tile.eye_trophy.name=Eye eye eye Trophy
 tile.talent_trophy.name=Talent Trophy
 tile.chaos_portal_block.name=Chaos Portal Block
 
+
 // Decoration
 tile.oxonium_bricks.name=Oxonium Bricks
 tile.allemanite_bricks.name=Allemanite Bricks
@@ -118,6 +119,12 @@ tile.custom_leaves.olive.name=Olive Leaves
 tile.grass_block.name=Custom Grass Block
 tile.lantern.name=Pink Lantern
 tile.cookie_jar.name=Cookie Jar
+
+//Overlay needs
+tile.custom_log.name=Custom Log
+tile.custom_plank.name=Custom Planks
+tile.custom_leaves.name=Custom Leaves
+tile.custom_flower.name=Custom Flower
 
 // TileEntities (machines for the moment)
 tile.oxonium_furnace.name=Oxonium Furnace

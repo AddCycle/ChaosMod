@@ -232,12 +232,4 @@ public class CustomLeaves extends BlockLeaves implements IHasModel {
     public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
     	return true;
     }
-    
-    @Override
-    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
-    	IBlockState state = worldIn.getBlockState(pos);
-        Block blockAtPos = state.getBlock();
-        return blockAtPos == this && this.isFlammable(worldIn, pos, EnumFacing.UP);
-    }
-
 }

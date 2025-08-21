@@ -4,8 +4,15 @@ import java.util.Random;
 
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockFarmland;
+import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -36,7 +43,16 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
             	 world.getBlockState(position).getBlock() != ModBlocks.CUSTOM_LEAVES &&
             	 world.getBlockState(position).getBlock() != ModBlocks.CUSTOM_STAIRS &&
             	 world.getBlockState(position).getBlock() != ModBlocks.OXONIUM_STAIRS &&
+            	 world.getBlockState(position).getBlock() != ModBlocks.OXONIUM_BRICKS &&
+            	 world.getBlockState(position).getBlock() != Blocks.GRASS_PATH &&
+            	 world.getBlockState(position).getBlock() != Blocks.WOOL &&
             	 !(world.getBlockState(position).getBlock() instanceof BlockBush) &&
+            	 !(world.getBlockState(position).getBlock() instanceof BlockStairs) &&
+            	 !(world.getBlockState(position).getBlock() instanceof BlockPlanks) &&
+            	 !(world.getBlockState(position).getBlock() instanceof BlockFence) &&
+            	 !(world.getBlockState(position).getBlock() instanceof BlockCrops) &&
+            	 !(world.getBlockState(position).getBlock() instanceof BlockFarmland) &&
+            	 !(world.getBlockState(position).getBlock() instanceof BlockLog) &&
             	 !(world.getBlockState(position).getBlock() instanceof BlockLeaves)) {
                 canGenerate = false;
                 break;
