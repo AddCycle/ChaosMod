@@ -39,6 +39,11 @@ item.enderite_chestplate.name=Enderite Chestplate
 item.enderite_leggings.name=Enderite Leggings
 item.enderite_boots.name=Enderite Boots
 
+// money
+item.wad.1000.name=1k Bills
+item.wad.2000.name=2k Bills
+item.wad.5000.name=5k Bills
+
 // Items
 item.oxonium_ingot.name=Oxonium Ingot
 item.allemanite_ingot.name=Allemanite Ingot
@@ -145,6 +150,9 @@ splash_potion.effect.viking_friend=Splash Potion of Vikings
 lingering_potion.effect.viking_friend=Lingering Potion of Vikings
 tipped_arrow.effect.viking_friend=Arrow of Vikings
 effect.viking_friend=Viking Friend
+
+// Enchantments
+enchantment.vein_miner=Vein Miner
 
 //Guide
 text.guide.title=ChaosMod Guide

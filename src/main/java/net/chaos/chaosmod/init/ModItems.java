@@ -24,6 +24,7 @@ import net.chaos.chaosmod.items.special.CustomFireball;
 import net.chaos.chaosmod.items.special.EnderiteThunder;
 import net.chaos.chaosmod.items.special.ItemChaosLandCrystal;
 import net.chaos.chaosmod.items.special.ItemHeart;
+import net.chaos.chaosmod.items.special.ItemMoneyWad;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.items.special.PortalKey;
@@ -146,6 +147,9 @@ public class ModItems {
 	public static final Item PORTAL_IGNITER = new PortalKey("portal_key");
 	public static final Item CHAOSLAND_CRYSTAL_ITEM = new ItemChaosLandCrystal("chaosland_crystal_item");
 	public static final Item COBBLESTONE_VOID = new CobbleStoneVoid("cobblestone_void");
+	
+	// Money
+	public static final Item MONEY_WAD = new ItemMoneyWad("wad");
 	
 	//Food
 	public static Item OXONIUM_CARROT;

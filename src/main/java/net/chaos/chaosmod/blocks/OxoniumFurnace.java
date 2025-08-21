@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.blocks;
 
+import java.util.List;
 import java.util.Random;
 
 import net.chaos.chaosmod.Main;
@@ -14,6 +15,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,6 +34,7 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -58,6 +61,12 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
         if (!this.getRegistryName().getResourcePath().equals("lit_oxonium_furnace")) {
         	ModItems.ITEMS.add(new ItemBlockFurnaces(this).setRegistryName(this.getRegistryName()));
         }
+    }
+    
+    @Override
+    public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
+    	tooltip.add(TextFormatting.GRAY + "[TEMPERATURE] : > 1064");
+    	super.addInformation(stack, player, tooltip, advanced);
     }
     
 	@Override
@@ -116,7 +125,7 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
             double d0 = (double)pos.getX() + 0.5D;
             double d1 = (double)pos.getY() + rand.nextDouble() * 6.0D / 16.0D;
             double d2 = (double)pos.getZ() + 0.5D;
-            double d3 = 0.52D;
+            // double d3 = 0.52D;
             double d4 = rand.nextDouble() * 0.6D - 0.3D;
 
             if (rand.nextDouble() < 0.1D)

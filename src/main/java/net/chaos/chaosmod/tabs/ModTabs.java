@@ -1,12 +1,15 @@
 package net.chaos.chaosmod.tabs;
 
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModEnchants;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotionTypes;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
@@ -20,7 +23,15 @@ public class ModTabs extends GeneralTab {
 
 	//Custom ChaosMod Tabs -- feel free to add more
 	public static final CreativeTabs BUILDING_BLOCKS = new GeneralTab("chaosmodtab", "general_bg.png", null, ModBlocks.OXONIUM_ORE, true);
-	public static final CreativeTabs ITEMS = new GeneralTab("chaosmodtab2", "general_bg.png", ModItems.OXONIUM_NECKLACE, null, false);
+	public static final CreativeTabs ITEMS = new GeneralTab("chaosmodtab2", "general_bg.png", ModItems.OXONIUM_NECKLACE, null, false) {
+		@Override
+		public void displayAllRelevantItems(NonNullList<ItemStack> items) {
+			super.displayAllRelevantItems(items);
+			ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+			ItemEnchantedBook.addEnchantment(book, new EnchantmentData(ModEnchants.VEIN_MINER, 1));
+			items.add(book);
+		}
+	};
 	public static final CreativeTabs GENERAL_TAB = new GeneralTab("chaosmodtab3", "general_bg.png", ModItems.OXONIUM_UPGRADE, null, false);
 	public static final CreativeTabs POTIONS = new GeneralTab("chaosmodtab4", "general_bg.png", Items.POTIONITEM, null, false) {
 		@Override

@@ -60,6 +60,11 @@ item.custom_fireball.name=Boule de Feu Custom
 item.portal_key.name=Clé du Portail de Solarium
 item.cobblestone_void.name=Pierre du néant
 
+// money
+item.wad.1000.name=Kichta de 1k
+item.wad.2000.name=Kichta de 2k
+item.wad.5000.name=Kichta de 5k
+
 item.giant_heart.name=Coeur du Géant
 item.blazing_heart.name=Coeur du Blaze
 item.chaos_heart.name=Coeur du Chaos
@@ -144,6 +149,9 @@ splash_potion.effect.viking_friend=Splash Potion des Companions
 lingering_potion.effect.viking_friend=Potion flèchée des Companions
 tipped_arrow.effect.viking_friend=Flèche des Companions Vikings
 effect.viking_friend=Compagnon Viking
+
+// Enchantments
+enchantment.vein_miner=Mineur de filons
 
 //Guide
 text.guide.title=Guide du Chaos

@@ -8,6 +8,7 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.ItemBlockLeaves;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.SoundType;
@@ -23,6 +24,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -52,7 +54,7 @@ public class CustomLeaves extends BlockLeaves implements IHasModel {
 	
 	@Override
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.CUTOUT;
+        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     @Override
@@ -214,6 +216,28 @@ public class CustomLeaves extends BlockLeaves implements IHasModel {
     @Override
     public BlockPlanks.EnumType getWoodType(int meta) {
         return BlockPlanks.EnumType.OAK;
+    }
+    
+    @Override
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
+    	return 60;
+    }
+    
+    @Override
+    public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
+    	return 30;
+    }
+    
+    @Override
+    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
+    	return true;
+    }
+    
+    @Override
+    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
+    	IBlockState state = worldIn.getBlockState(pos);
+        Block blockAtPos = state.getBlock();
+        return blockAtPos == this && this.isFlammable(worldIn, pos, EnumFacing.UP);
     }
 
 }

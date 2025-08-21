@@ -13,6 +13,6 @@ public class ItemBlockFurnaces extends ItemBlock {
 
 	@Override
 	public CreativeTabs[] getCreativeTabs() {
-		return new CreativeTabs[] { ModTabs.GENERAL_TAB, CreativeTabs.DECORATIONS };
+		return new CreativeTabs[] { ModTabs.GENERAL_TAB, CreativeTabs.DECORATIONS, CreativeTabs.SEARCH };
 	}
 }

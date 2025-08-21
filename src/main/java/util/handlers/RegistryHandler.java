@@ -3,8 +3,10 @@ package util.handlers;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomPlanks;
+import net.chaos.chaosmod.enchantments.EnchantmentVeinMiner;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModEnchants;
 import net.chaos.chaosmod.init.ModFluidBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotionTypes;
@@ -12,6 +14,7 @@ import net.chaos.chaosmod.init.ModPotions;
 import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
 import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -97,6 +100,11 @@ public class RegistryHandler {
     public static void onBiomeRegister(RegistryEvent.Register<Biome> event) {
         ModBiomes.registerBiomes();
         event.getRegistry().registerAll(ModBiomes.BIOMES.toArray(new Biome[0]));
+    }
+
+	@SubscribeEvent
+    public static void onEnchantmentRegister(RegistryEvent.Register<Enchantment> event) {
+        event.getRegistry().register(ModEnchants.VEIN_MINER); // register them here
     }
 
 	@SubscribeEvent
