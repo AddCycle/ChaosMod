@@ -47,6 +47,14 @@ public class ModConfig {
 		@Config.Comment("Choose between 0 and 16,777,215")
 		@Config.RangeInt(min = 0x000000, max = 0xffffff)
 		public int block_outline_color = 0x000000;
+
+		@Config.Name("Additional Block/Entity infos")
+		@Config.Comment("Display the raytraced object name & mod")
+		public boolean areAdditionalInfosEnabled = true;
+		
+		@Config.Name("Additional Block/Entity infos background")
+		@Config.Comment("Maybe you can see read it more clearly")
+		public boolean isAdditionalInfosBackgroundEnabled = false;
 	}
 
 	public static class Server {

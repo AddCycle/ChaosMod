@@ -8,7 +8,6 @@ import net.chaos.chaosmod.init.ModKeybinds;
 import net.chaos.chaosmod.lore.dialogs.DialogEventHandler;
 import net.chaos.chaosmod.minimap.MinimapEventHandler;
 import net.chaos.chaosmod.minimap.Renderer;
-import net.chaos.chaosmod.world.events.PlayerFireRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -37,7 +36,7 @@ public class ClientProxy extends CommonProxy {
 	public void preInit(FMLPreInitializationEvent event) {
         RenderHandler.registerEntityRenders();
         ModKeybinds.init();
-        MinecraftForge.EVENT_BUS.register(new PlayerFireRenderHandler());
+        // MinecraftForge.EVENT_BUS.register(new PlayerFireRenderHandler());
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package net.chaos.chaosmod.items.special;
 import net.chaos.chaosmod.common.capabilities.IMoney;
 import net.chaos.chaosmod.common.capabilities.MoneyProvider;
 import net.chaos.chaosmod.items.AbstractItemMetadatas;
+import net.chaos.chaosmod.network.PacketShowFireOverlay;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -10,6 +11,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 
 public class ItemMoneyWad extends AbstractItemMetadatas {
 

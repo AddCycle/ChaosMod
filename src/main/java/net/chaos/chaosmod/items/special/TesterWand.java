@@ -1,14 +1,13 @@
 package net.chaos.chaosmod.items.special;
 
 import net.chaos.chaosmod.cutscene.CutsceneManager;
-import net.chaos.chaosmod.entity.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
+import net.chaos.chaosmod.init.ModDamageSources;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.network.PacketManager;
-import net.chaos.chaosmod.network.PacketShowFireOverlay;
 import net.chaos.chaosmod.network.PacketSpawnCustomParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -97,8 +96,8 @@ public class TesterWand extends ItemBase {
 	    	case 6:
 	    		if (!worldIn.isRemote) {
 	    			playerIn.sendMessage(new TextComponentString("blue fire test"));
-	    			// playerIn.attackEntityFrom(ModDamageSources.BLUE_FIRE, 1.0f);
-	    			PacketManager.network.sendToAll(new PacketShowFireOverlay(true, 10));
+	    			playerIn.attackEntityFrom(ModDamageSources.BLUE_FIRE, 4.0f);
+	    			// PacketManager.network.sendToAll(new PacketShowFireOverlay(true, 10));
 	    		}
 	    		break;
 	    	default:

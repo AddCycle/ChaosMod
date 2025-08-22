@@ -7,9 +7,10 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
 
-@EventBusSubscriber(modid = Reference.MODID)
+@EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class ItemTooltipEventHandler {
 	
 	@SubscribeEvent
