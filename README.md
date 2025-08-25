@@ -23,5 +23,5 @@ Feel free to take my assets or even my code but understand it before it's more i
 `DO NOT USE ANY OF THE ASSETS AS A COMMERCIAL WAY OR CONTACT ME BEFORE (PLEASE I'M TOLERANT)`
 
 ## SUPPORT :
-You can support-me on ko-fi below
+You can support-me on ko-fi below <br />
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G11DFJ25)
