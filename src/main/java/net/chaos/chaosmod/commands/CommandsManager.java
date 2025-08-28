@@ -22,7 +22,7 @@ public class CommandsManager {
         event.registerServerCommand(new HomeCommand());
         event.registerServerCommand(new HomeListCommand());
         event.registerServerCommand(new DelHomeCommand());
-        event.registerServerCommand(new SyncJobsCommand());
+        // event.registerServerCommand(new SyncJobsCommand());
         event.registerServerCommand(new FireCommand());
         event.registerServerCommand(new LocalizeCommand());
         event.registerServerCommand(new LocateCustomVillage());
