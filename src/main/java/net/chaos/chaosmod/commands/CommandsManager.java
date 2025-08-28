@@ -2,8 +2,10 @@ package net.chaos.chaosmod.commands;
 
 import net.chaos.chaosmod.commands.generation.LoadStructCommand;
 import net.chaos.chaosmod.commands.generation.LocateCustomVillage;
+import net.chaos.chaosmod.commands.hunt.HuntCommand;
 import net.chaos.chaosmod.commands.jobs.JobsCommand;
 import net.chaos.chaosmod.commands.jobs.SyncJobsCommand;
+import net.chaos.chaosmod.commands.market.MarketCommand;
 import net.chaos.chaosmod.commands.market.MoneyCommand;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
@@ -16,7 +18,6 @@ public class CommandsManager {
     	event.registerServerCommand(new JobsCommand());
         event.registerServerCommand(new CraftCommand());
         event.registerServerCommand(new FurnaceCommand());
-        event.registerServerCommand(new UltimateDebuggerCommand());
         event.registerServerCommand(new SetHomeCommand());
         event.registerServerCommand(new HomeCommand());
         event.registerServerCommand(new HomeListCommand());
@@ -27,6 +28,8 @@ public class CommandsManager {
         event.registerServerCommand(new LocateCustomVillage());
         event.registerServerCommand(new LoadStructCommand());
     	event.registerServerCommand(new MoneyCommand());
+    	event.registerServerCommand(new MarketCommand());
+    	event.registerServerCommand(new HuntCommand());
 		if (!Loader.isModLoaded("mathsmod")) {
 			event.registerServerCommand(new TopCommand());
 			event.registerServerCommand(new DimensionWarpCommand());

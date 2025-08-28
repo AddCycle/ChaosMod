@@ -4,15 +4,11 @@ import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import util.Reference;
 
 public class EnchantmentVeinMiner extends AbstractEnchantment {
 
 	public EnchantmentVeinMiner(String name, Rarity rarityIn) {
-		super(rarityIn, EnumEnchantmentType.DIGGER, new EntityEquipmentSlot[]{EntityEquipmentSlot.MAINHAND});
-		this.setName(name);
-        this.setRegistryName(new ResourceLocation(Reference.MODID, name));
+		super(name, rarityIn, EnumEnchantmentType.DIGGER, new EntityEquipmentSlot[]{EntityEquipmentSlot.MAINHAND});
 	}
 
 	@Override

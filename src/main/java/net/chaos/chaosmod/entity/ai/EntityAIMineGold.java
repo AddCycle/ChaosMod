@@ -3,6 +3,8 @@ package net.chaos.chaosmod.entity.ai;
 import java.util.List;
 
 import net.chaos.chaosmod.entity.EntityPicsou;
+import net.chaos.chaosmod.init.ModBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
@@ -20,7 +22,19 @@ public class EntityAIMineGold extends CustomAIMoveToBlock {
 
     @Override
     protected boolean shouldMoveTo(World world, BlockPos pos) {
-        return pos != null && world.getBlockState(pos).getBlock() == Blocks.GOLD_BLOCK;
+    	if (pos == null) return false;
+    	Block block = world.getBlockState(pos).getBlock();
+        return pos != null && isPrecious(block);
+    }
+    
+    private boolean isPrecious(Block block) {
+    	return block == Blocks.GOLD_BLOCK ||
+    		   block == Blocks.DIAMOND_BLOCK ||
+    		   block == Blocks.EMERALD_BLOCK ||
+    		   block == ModBlocks.OXONIUM_BLOCK ||
+    		   block == ModBlocks.ALLEMANITE_BLOCK ||
+    		   block == Blocks.LAPIS_BLOCK ||
+    		   block == Blocks.GLOWSTONE;
     }
 
     @Override
@@ -35,11 +49,13 @@ public class EntityAIMineGold extends CustomAIMoveToBlock {
         if (this.creature.getDistanceSqToCenter(this.destinationBlock) < 2.0D) {
             World world = this.creature.world;
             BlockPos targetPos = this.destinationBlock;
+            Block block = world.getBlockState(targetPos).getBlock();
 
-            if (world.getBlockState(targetPos).getBlock() == Blocks.GOLD_BLOCK) {
-                world.destroyBlock(targetPos, true); // Drop items
-                collectNearbyItems();
-                this.setLastBlock(targetPos);
+            if (isPrecious(block))
+            {
+            	world.destroyBlock(targetPos, true); // Drop items
+            	collectNearbyItems();
+            	this.setLastBlock(targetPos);
             }
 
             // Instantly search for the next block, no cooldown

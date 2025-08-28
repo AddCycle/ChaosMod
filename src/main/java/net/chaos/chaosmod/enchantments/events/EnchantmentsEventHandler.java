@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
+import net.chaos.chaosmod.enchantments.EnchantmentLavaWalker;
 import net.chaos.chaosmod.init.ModEnchants;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -21,6 +22,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -40,13 +42,37 @@ public class EnchantmentsEventHandler {
 	    BlockPos pos = event.getPos();
 	    IBlockState state = world.getBlockState(pos);
 
+	    // ---------------- VEIN MINER ----------------------
 	    if (held.isItemEnchanted() && EnchantmentHelper.getEnchantmentLevel(ModEnchants.VEIN_MINER, held) > 0) {
-		if (!world.isRemote) {
-			if (isOreBlock(state)) {
-				veinMine(world, pos, state, player, held);
-			}
-		}
+	    	if (!world.isRemote) {
+	    		if (isOreBlock(state)) {
+	    			veinMine(world, pos, state, player, held);
+	    		}
+	    	}
 	    }
+	    
+	}
+
+	@SubscribeEvent
+	// LAVA_WALKER
+	public static void onLavaWalking(LivingUpdateEvent event) {
+		if (!(event.getEntityLiving() instanceof EntityPlayer)) return;
+	    EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+	    World world = player.getEntityWorld();
+
+	    // Block infos
+	    BlockPos pos = player.getPosition().down();
+	    Block block = player.world.getBlockState(pos).getBlock();
+
+	    if (block == Blocks.LAVA) {
+	    	int i = EnchantmentHelper.getMaxEnchantmentLevel(ModEnchants.LAVA_WALKER, player);
+
+	    	if (i > 0)
+	    	{
+	    		EnchantmentLavaWalker.freezeNearby(player, world, pos.up(), i);
+	    	}
+	    }
+	    
 	}
 	
 	@SubscribeEvent

@@ -18,8 +18,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 
 public class MapGenCustomVillage extends MapGenVillage {
-
-    public static List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.COLD_TAIGA, Biomes.MUTATED_ICE_FLATS, Biomes.TAIGA, ModBiomes.GIANT_MOUNTAIN, ModBiomes.NETHER_CAVES, ModBiomes.ENDER_GARDEN, ModBiomes.CHAOS_LAND_BIOME);
+    public static final List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.COLD_TAIGA, Biomes.MUTATED_ICE_FLATS, Biomes.TAIGA, ModBiomes.GIANT_MOUNTAIN, ModBiomes.NETHER_CAVES, ModBiomes.ENDER_GARDEN, ModBiomes.CHAOS_LAND_BIOME);
 	/** None **/
 	private int size;
 	private int distance;
@@ -97,7 +96,16 @@ public class MapGenCustomVillage extends MapGenVillage {
 
 	protected StructureStart getStructureStart(int chunkX, int chunkZ)
 	{
-		return new MapGenCustomVillage.Start(this.world, this.rand, chunkX, chunkZ, this.size);
+		// 50% chance vanilla or custom per village
+        boolean useVanilla = this.world.rand.nextBoolean();
+
+        if (useVanilla) {
+            // Let vanilla generate the village
+        	return new MapGenVillage.Start(this.world, this.rand, chunkX, chunkZ, this.size);
+        } else {
+            // Use your custom village start
+            return new MapGenCustomVillage.Start(this.world, this.rand, chunkX, chunkZ, this.size);
+        }
 	}
 
 	public int getMinTownSeparation() {

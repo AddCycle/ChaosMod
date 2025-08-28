@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"NNN",
+		"NBN",
+		"NNN"
+	],
+	
+	"key":
+	{
+		"N":
+		{
+			"item": "chaosmod:enderite_nugget"
+		},
+		"B":
+		{
+			"item": "minecraft:stonebrick",
+			"data": 0
+		}
+
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:enderite_bricks",
+		"count": 64
+	}
+}

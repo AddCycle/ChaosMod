@@ -12,6 +12,7 @@ import net.chaos.chaosmod.blocks.CustomPlanks;
 import net.chaos.chaosmod.blocks.CustomPlanks.CustomPlankVariant;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModFluidBlocks;
 import net.chaos.chaosmod.init.ModLootTableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
@@ -55,8 +56,8 @@ import net.minecraft.world.storage.loot.LootTableList;
 public class StructureCustomVillage {
 	public static final Block planks = ModBlocks.CUSTOM_PLANK;
 	public static final Block log = ModBlocks.CUSTOM_LOG;
-	public static final Block stairs = ModBlocks.CUSTOM_STAIRS;
-	public static final Block fences = ModBlocks.CUSTOM_FENCES;
+	public static final Block stairs = ModBlocks.SNOWY_STAIRS;
+	public static final Block fences = ModBlocks.SNOWY_FENCE;
 	public static final Block ladder = ModBlocks.CUSTOM_LADDER;
 	public static final Block pressure_plate = ModBlocks.CUSTOM_PRESSURE_PLATE;
 	public static final Block door = ModBlocks.CUSTOM_DOOR;
@@ -332,7 +333,7 @@ public class StructureCustomVillage {
 
 			Block facade = ModBlocks.OXONIUM_BRICKS;
 			// Block stairs = ModBlocks.OXONIUM_STAIRS; // for now because maybe need to change the orientation
-			Block stairs = ModBlocks.CUSTOM_STAIRS;
+			Block stairs = ModBlocks.SNOWY_STAIRS;
 			Block vitrage = Blocks.STAINED_GLASS_PANE; // white for the moment
 			IBlockState iblockstate = facade.getDefaultState();
 			IBlockState iblockstate1 = this.getBiomeSpecificBlockState(stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
@@ -547,8 +548,8 @@ public class StructureCustomVillage {
 			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 12, 0, 0, 12, 0, 8, iblockstate, iblockstate, false);
 			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 0, 11, 0, 0, iblockstate, iblockstate, false);
 			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 8, 11, 0, 8, iblockstate, iblockstate, false);
-			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 0, 1, 3, 0, 7, Blocks.WATER.getDefaultState(), Blocks.WATER.getDefaultState(), false);
-			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 9, 0, 1, 9, 0, 7, Blocks.WATER.getDefaultState(), Blocks.WATER.getDefaultState(), false);
+			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 0, 1, 3, 0, 7, ModFluidBlocks.FERTILIZED_WATER_BLOCK.getDefaultState(), ModFluidBlocks.FERTILIZED_WATER_BLOCK.getDefaultState(), false);
+			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 9, 0, 1, 9, 0, 7, ModFluidBlocks.FERTILIZED_WATER_BLOCK.getDefaultState(), ModFluidBlocks.FERTILIZED_WATER_BLOCK.getDefaultState(), false);
 
 			for (int i = 1; i <= 7; ++i)
 			{
@@ -673,7 +674,7 @@ public class StructureCustomVillage {
 			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 6, 0, 0, 6, 0, 8, iblockstate, iblockstate, false);
 			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 0, 5, 0, 0, iblockstate, iblockstate, false);
 			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 8, 5, 0, 8, iblockstate, iblockstate, false);
-			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 0, 1, 3, 0, 7, Blocks.WATER.getDefaultState(), Blocks.WATER.getDefaultState(), false);
+			this.fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 0, 1, 3, 0, 7, ModFluidBlocks.FERTILIZED_WATER_BLOCK.getDefaultState(), ModFluidBlocks.FERTILIZED_WATER_BLOCK.getDefaultState(), false);
 
 			for (int i = 1; i <= 7; ++i)
 			{
@@ -874,7 +875,7 @@ public class StructureCustomVillage {
 			}
 
 			Block facade = ModBlocks.OXONIUM_BRICKS;
-			Block stairs = ModBlocks.CUSTOM_STAIRS;
+			Block stairs = ModBlocks.SNOWY_STAIRS;
 			Block planks = ModBlocks.CUSTOM_PLANK; // snowy ones by default
 			Block stairs_ = Blocks.STONE_BRICK_STAIRS; // cobble ones
 			IBlockState vitrage = Blocks.STAINED_GLASS_PANE.getDefaultState().withProperty(BlockStainedGlassPane.COLOR, EnumDyeColor.PINK);
@@ -2193,7 +2194,7 @@ public class StructureCustomVillage {
 			IBlockState cobble = ModBlocks.OXONIUM_BRICKS.getDefaultState();
 			IBlockState cobble2 = ModBlocks.ALLEMANITE_BRICKS.getDefaultState();
 			IBlockState cobble3 = ModBlocks.ENDERITE_BRICKS.getDefaultState();
-			IBlockState fence = ModBlocks.CUSTOM_FENCES.getDefaultState();
+			IBlockState fence = ModBlocks.SNOWY_FENCE.getDefaultState();
 			IBlockState iblockstate = this.getBiomeSpecificBlockState(cobble);
 			IBlockState iblockstate1 = this.getBiomeSpecificBlockState(fence);
 			IBlockState iblockstate2 = this.getBiomeSpecificBlockState(cobble2);
@@ -2362,7 +2363,7 @@ public class StructureCustomVillage {
 			IBlockState planks = ModBlocks.CUSTOM_PLANK.getDefaultState();
 			IBlockState stairs = Blocks.STONE_BRICK_STAIRS.getDefaultState();
 			IBlockState log = ModBlocks.CUSTOM_LOG.getDefaultState();
-			IBlockState fence = ModBlocks.CUSTOM_FENCES.getDefaultState();
+			IBlockState fence = ModBlocks.SNOWY_FENCE.getDefaultState();
 			IBlockState iblockstate = this.getBiomeSpecificBlockState(cobble);
 			IBlockState iblockstate1 = this.getBiomeSpecificBlockState(planks);
 			IBlockState iblockstate2 = this.getBiomeSpecificBlockState(stairs.withProperty(BlockStairs.FACING, EnumFacing.NORTH));

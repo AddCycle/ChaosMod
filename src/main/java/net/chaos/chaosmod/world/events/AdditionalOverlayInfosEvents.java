@@ -118,17 +118,21 @@ public class AdditionalOverlayInfosEvents {
                     if (container != null) {
                         modName = container.getName(); // Nice formatted mod name
                     } else {
-                        // fallback: just capitalize the modid
+                        // fallback: just capitalizing the modid
                         modName = Character.toUpperCase(modId.charAt(0)) + modId.substring(1);
                     }
                 }
                 
+                int infoWidth = mc.fontRenderer.getStringWidth(info);
+                int modWidth = mc.fontRenderer.getStringWidth(modName);
+                width = Math.max(infoWidth, width) + 5;
+                
                 if (ModConfig.CLIENT.isAdditionalInfosBackgroundEnabled) drawColoredRect(x - width / 2, y - height / 2 + offsetY, width, height, color);
 
-                mc.fontRenderer.drawStringWithShadow(info, x - mc.fontRenderer.getStringWidth(info) / 2, y, 0xFFFFFF);
+                mc.fontRenderer.drawStringWithShadow(info, x - infoWidth / 2, y, 0xFFFFFF);
                 GlStateManager.color(1, 1, 1, 1);
 
-                mc.fontRenderer.drawStringWithShadow(modName, x - mc.fontRenderer.getStringWidth(modName) / 2, y + 10, Colors.BLUE.getRGB());
+                mc.fontRenderer.drawStringWithShadow(modName, x - modWidth / 2, y + 10, Colors.BLUE.getRGB());
                 GlStateManager.color(1, 1, 1, 1);
 
             } else if (finalResult.typeOfHit == RayTraceResult.Type.ENTITY) {
@@ -154,12 +158,16 @@ public class AdditionalOverlayInfosEvents {
                     }
                 }
                 
+                int infoWidth = mc.fontRenderer.getStringWidth(info);
+                int modWidth = mc.fontRenderer.getStringWidth(modName);
+                width = Math.max(infoWidth, width) + 5;
+                
                 if (ModConfig.CLIENT.isAdditionalInfosBackgroundEnabled) drawColoredRect(x - width / 2, y - height / 2 + offsetY, width, height, color);
 
-                mc.fontRenderer.drawStringWithShadow(info, x - mc.fontRenderer.getStringWidth(info) / 2, y, 0xFFFFFF);
+                mc.fontRenderer.drawStringWithShadow(info, x - infoWidth / 2, y, 0xFFFFFF);
                 GlStateManager.color(1, 1, 1, 1);
 
-                mc.fontRenderer.drawStringWithShadow(modName, x - mc.fontRenderer.getStringWidth(modName) / 2, y + 10, Colors.BLUE.getRGB());
+                mc.fontRenderer.drawStringWithShadow(modName, x - modWidth / 2, y + 10, Colors.BLUE.getRGB());
                 GlStateManager.color(1, 1, 1, 1);
             }
         }

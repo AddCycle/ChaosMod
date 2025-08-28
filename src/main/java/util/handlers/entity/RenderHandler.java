@@ -1,6 +1,7 @@
 package util.handlers.entity;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.client.renderer.tileentity.AtmTESR;
 import net.chaos.chaosmod.client.renderer.tileentity.DrawerTESR;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBeamRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBossAltarRenderer;
@@ -35,8 +36,10 @@ import net.chaos.chaosmod.entity.render.LittleGiantRenderer;
 import net.chaos.chaosmod.entity.render.RenderChaosSage;
 import net.chaos.chaosmod.entity.render.RenderForgeGuardian;
 import net.chaos.chaosmod.init.ModFluidBlocks;
+import net.chaos.chaosmod.particle.ParticleMoneyBill.ParticleMoneyBillFactory;
 import net.chaos.chaosmod.tileentity.LanternTESR;
 import net.chaos.chaosmod.tileentity.TESRCookieJar;
+import net.chaos.chaosmod.tileentity.TileEntityATM;
 import net.chaos.chaosmod.tileentity.TileEntityBeam;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;
 import net.chaos.chaosmod.tileentity.TileEntityCookieJar;
@@ -48,6 +51,7 @@ import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.tileentity.TileEntityTrophyBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
@@ -235,6 +239,6 @@ public class RenderHandler {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBeam.class, new TileEntityBeamRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrophyBase.class, new TrophyTESR());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDrawer.class, new DrawerTESR());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityATM.class, new AtmTESR());
 	}
-
 }

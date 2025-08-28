@@ -3,7 +3,6 @@ package util.handlers;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomPlanks;
-import net.chaos.chaosmod.enchantments.EnchantmentVeinMiner;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModEnchants;
@@ -15,6 +14,8 @@ import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
 import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -22,6 +23,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -104,11 +106,12 @@ public class RegistryHandler {
 
 	@SubscribeEvent
     public static void onEnchantmentRegister(RegistryEvent.Register<Enchantment> event) {
-        event.getRegistry().register(ModEnchants.VEIN_MINER); // register them here
+        event.getRegistry().registerAll(ModEnchants.ENCHANTS.toArray(new Enchantment[0]));
     }
 
 	@SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+		// FIXME : suppress comments when texture is fixed...
 		System.out.println("Registering custom recipes");
 	    IForgeRegistry<IRecipe> registry = event.getRegistry();
 
@@ -160,31 +163,38 @@ public class RegistryHandler {
 	
 	@SubscribeEvent
 	public void onVanillaFuelRegister(FurnaceFuelBurnTimeEvent event) {
-		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_SAPLINGS)) {
+		Item item = event.getItemStack().getItem();
+		if (item == Item.getItemFromBlock(ModBlocks.CUSTOM_SAPLINGS)) {
 			event.setBurnTime(100);
 		} else
-		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_LEAVES)) {
+		if (item == Item.getItemFromBlock(ModBlocks.CUSTOM_LEAVES)) {
 			event.setBurnTime(100);
 		} else
-		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_DOOR)) {
+		if (item == Item.getItemFromBlock(ModBlocks.CUSTOM_DOOR)) {
 			event.setBurnTime(200);
 		} else
-		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_PLANK)) {
+		if (item == Item.getItemFromBlock(ModBlocks.CUSTOM_PLANK)) {
 			event.setBurnTime(300);
 		} else
-		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_LOG)) {
+		if (item == Item.getItemFromBlock(ModBlocks.CUSTOM_LOG)) {
 			event.setBurnTime(300);
 		} else
-		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_LADDER)) {
+		if (item == Item.getItemFromBlock(ModBlocks.CUSTOM_LADDER)) {
 			event.setBurnTime(300);
 		} else
-		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_STAIRS)) {
+		if (item == Item.getItemFromBlock(ModBlocks.SNOWY_STAIRS) ||
+			item == Item.getItemFromBlock(ModBlocks.MAPLE_STAIRS) ||
+			item == Item.getItemFromBlock(ModBlocks.ENDER_STAIRS) ||
+			item == Item.getItemFromBlock(ModBlocks.OLIVE_STAIRS)) {
 			event.setBurnTime(300);
 		} else
-		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_FENCES)) {
+		if (item == Item.getItemFromBlock(ModBlocks.SNOWY_FENCE) ||
+			item == Item.getItemFromBlock(ModBlocks.MAPLE_FENCE) ||
+			item == Item.getItemFromBlock(ModBlocks.ENDER_FENCE) ||
+			item == Item.getItemFromBlock(ModBlocks.OLIVE_FENCE)) {
 			event.setBurnTime(300);
 		}
-		if (event.getItemStack().getItem() == Item.getItemFromBlock(ModBlocks.CUSTOM_PRESSURE_PLATE)) {
+		if (item == Item.getItemFromBlock(ModBlocks.CUSTOM_PRESSURE_PLATE)) {
 			event.setBurnTime(300);
 		}
 	}
@@ -198,7 +208,10 @@ public class RegistryHandler {
 	}
 	
 	public static void onBrewingRecipeRegister() {
-		BrewingRecipeRegistry.addRecipe(ModPotions.POTION_VIKING_RECIPE);
+		ItemStack input = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD);
+		ItemStack ingredient = new ItemStack(ModBlocks.CUSTOM_FLOWER, 1, 0);
+		ItemStack output = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), ModPotionTypes.VIKING_FRIEND_TYPE);
+		BrewingRecipeRegistry.addRecipe(input, ingredient, output);
 	}
 	
 	public static void onTagsRegister() {
@@ -211,9 +224,15 @@ public class RegistryHandler {
         }
 
         // custom wood items
-        OreDictionary.registerOre("stairWood", ModBlocks.CUSTOM_STAIRS);
+        OreDictionary.registerOre("stairWood", ModBlocks.SNOWY_STAIRS);
+        OreDictionary.registerOre("stairWood", ModBlocks.MAPLE_STAIRS);
+        OreDictionary.registerOre("stairWood", ModBlocks.ENDER_STAIRS);
+        OreDictionary.registerOre("stairWood", ModBlocks.OLIVE_STAIRS);
         OreDictionary.registerOre("doorWood", ModBlocks.CUSTOM_DOOR);
-        OreDictionary.registerOre("fenceWood", ModBlocks.CUSTOM_FENCES);
+        OreDictionary.registerOre("fenceWood", ModBlocks.SNOWY_FENCE);
+        OreDictionary.registerOre("fenceWood", ModBlocks.MAPLE_FENCE);
+        OreDictionary.registerOre("fenceWood", ModBlocks.ENDER_FENCE);
+        OreDictionary.registerOre("fenceWood", ModBlocks.OLIVE_FENCE);
         OreDictionary.registerOre("treeSapling", ModBlocks.CUSTOM_SAPLINGS);
         OreDictionary.registerOre("treeLeaves", ModBlocks.CUSTOM_LEAVES);
 

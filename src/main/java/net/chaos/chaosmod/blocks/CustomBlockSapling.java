@@ -14,6 +14,7 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -45,8 +46,8 @@ public class CustomBlockSapling extends BlockBush implements IHasModel, IGrowabl
 		super(material);
 		setUnlocalizedName(name);
 		setRegistryName(name);
+		setSoundType(SoundType.PLANT);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, CustomPlanks.CustomPlankVariant.SNOWY).withProperty(STAGE, Integer.valueOf(0)));
-        // this.setCreativeTab(CreativeTabs.DECORATIONS);
 		
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlockSapling(this).setRegistryName(this.getRegistryName()));

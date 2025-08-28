@@ -7,6 +7,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -70,6 +71,15 @@ public class ModelPixou extends ModelBase {
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
 			float headPitch, float scaleFactor, Entity entityIn) {
-		// this.left_leg.rotateAngleZ =
+	    this.head.rotateAngleY = netHeadYaw * 0.017453292F;
+	    this.head.rotateAngleX = headPitch * 0.017453292F;
+
+        float f = 1.0F;
+        this.right_leg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f;
+        this.left_leg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount / f;
+        this.right_leg.rotateAngleY = 0.0F;
+        this.left_leg.rotateAngleY = 0.0F;
+        this.right_leg.rotateAngleZ = 0.0F;
+        this.left_leg.rotateAngleZ = 0.0F;
 	}
 }

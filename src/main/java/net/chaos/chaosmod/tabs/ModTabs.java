@@ -2,6 +2,7 @@ package net.chaos.chaosmod.tabs;
 
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModEnchants;
+import net.chaos.chaosmod.init.ModFluids;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotionTypes;
 import net.minecraft.block.Block;
@@ -14,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 
 public class ModTabs extends GeneralTab {
 
@@ -40,7 +43,25 @@ public class ModTabs extends GeneralTab {
 		}
 	};
 
-	public static final CreativeTabs MISC = new GeneralTab("chaosmodtab5", "general_bg.png", Items.LAVA_BUCKET, null, false);
+	public static final CreativeTabs MISC = new GeneralTab("chaosmodtab5", "general_bg.png", Items.LAVA_BUCKET, null, false) {
+		@Override
+		public void displayAllRelevantItems(NonNullList<ItemStack> list) {
+			super.displayAllRelevantItems(list);
+			FluidStack fluidStack = new FluidStack(ModFluids.FERTILIZED_WATER, 1);
+			ItemStack bucket = FluidUtil.getFilledBucket(fluidStack);
+			list.add(bucket);
+		}
+		
+		@Override
+		public ItemStack getTabIconItem() {
+	        if (ModFluids.FERTILIZED_WATER != null) {
+	        	FluidStack fluidStack = new FluidStack(ModFluids.FERTILIZED_WATER, 1);
+	        	ItemStack bucket = FluidUtil.getFilledBucket(fluidStack);
+	            return bucket;
+	        }
+	        return new ItemStack(Items.BUCKET);
+		}
+	};
 	
 	public static void potionHelper(NonNullList<ItemStack> items, PotionType potionType) {
 		items.add(PotionUtils.addPotionToItemStack(

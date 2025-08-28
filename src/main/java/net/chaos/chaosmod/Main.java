@@ -2,8 +2,8 @@ package net.chaos.chaosmod;
 
 import org.apache.logging.log4j.Logger;
 
+import net.chaos.chaosmod.blocks.complex.mimic.StartupCommon;
 import net.chaos.chaosmod.commands.CommandsManager;
-import net.chaos.chaosmod.common.capabilities.CapabilityEventHandler;
 import net.chaos.chaosmod.common.capabilities.MoneyStorage;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModCapabilities;
@@ -25,9 +25,9 @@ import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
 import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
 import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
-import net.chaos.chaosmod.world.gen.overworld.WorldGenCustomStructure;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.chaos.chaosmod.world.structures.StructureCustomVillage;
+import net.chaos.chaosmod.world.structures.VillageAdditionalStructure;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.BiomeDictionary;
@@ -42,6 +42,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import proxy.CommonProxy;
 import util.Reference;
 import util.blockstates.RenderBlockOutlinesEvent;
@@ -53,12 +54,9 @@ public class Main
 {
 	// Helps launch the ChaosMod
 	@Instance
-	public static Main instance = Init();
+	public static Main instance = InitStructures();
 	
-	private static Main Init() {
-		MapGenStructureIO.registerStructure(MapGenCustomVillage.Start.class, "custom_village");
-		StructureCustomVillage.registerVillagePieces();
-		MapGenStructureIO.registerStructure(CustomWoodlandMansion.Start.class, "Custom Mansion");
+	private static Main InitStructures() {
 		return instance;
 	}
 	
@@ -77,6 +75,7 @@ public class Main
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+		StartupCommon.preInitCommon();
         proxy.preInit(event);
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
@@ -84,7 +83,7 @@ public class Main
         ModCapabilities.register(); // for in-game-accessories
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomStructure("nether_dungeon", 0), 1);
-        GameRegistry.registerWorldGenerator(new WorldGenCustomStructure("nether_box", 0), 1);
+        // GameRegistry.registerWorldGenerator(new WorldGenCustomStructure("nether_box", 0), 1);
         ModEntities.registerEntities();
         ModFluids.registerFluids();
         MoneyStorage.register();
@@ -96,6 +95,7 @@ public class Main
         proxy.init(event);
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
         PacketManager.init();
+        VillagerRegistry.instance().registerVillageCreationHandler(new VillageAdditionalStructure.CreationHandler());
     	MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenerationOverrideEvents());
         CustomProfessions.registerCustomProfessions();
         MinecraftForge.EVENT_BUS.register(new RenderBlockOutlinesEvent());
@@ -113,6 +113,11 @@ public class Main
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CHAOS_LAND_BIOME, 50));
         ModDimensions.init();
         RegistryHandler.onTagsRegister();
+        // STructures registering ----------------------------- MOVE SOMEWHERE ELSE -----------
+		MapGenStructureIO.registerStructureComponent(VillageAdditionalStructure.class, "Vas");
+		MapGenStructureIO.registerStructure(MapGenCustomVillage.Start.class, "custom_village");
+		StructureCustomVillage.registerVillagePieces();
+		MapGenStructureIO.registerStructure(CustomWoodlandMansion.Start.class, "Custom Mansion");
         // ModStructures.registerStructures();
     }
 

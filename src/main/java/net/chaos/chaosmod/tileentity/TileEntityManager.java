@@ -17,6 +17,7 @@ public class TileEntityManager {
     	GameRegistry.registerTileEntity(TileEntityTrophyBase.class, new ResourceLocation(Reference.MODID, "trophy_base"));
     	GameRegistry.registerTileEntity(TileEntityChaosGateway.class, new ResourceLocation(Reference.MODID, "chaos_gateway"));
     	GameRegistry.registerTileEntity(TileEntityDrawer.class, new ResourceLocation(Reference.MODID, "drawer"));
+    	GameRegistry.registerTileEntity(TileEntityATM.class, new ResourceLocation(Reference.MODID, "atm_machine"));
 	}
 
 }

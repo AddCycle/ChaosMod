@@ -3,6 +3,7 @@ package net.chaos.chaosmod.world.gen.overworld;
 import java.util.Random;
 
 import net.chaos.chaosmod.init.ModBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockFarmland;
@@ -39,21 +40,22 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
         // Check if we can generate here
         for (int y = 0; y <= height + 1; y++) {
             BlockPos checkPos = position.up(y);
+            Block block = world.getBlockState(position).getBlock();
             if (!world.isAirBlock(checkPos) && !world.getBlockState(checkPos).getMaterial().isReplaceable() && 
-            	 world.getBlockState(position).getBlock() != ModBlocks.CUSTOM_LEAVES &&
-            	 world.getBlockState(position).getBlock() != ModBlocks.CUSTOM_STAIRS &&
-            	 world.getBlockState(position).getBlock() != ModBlocks.OXONIUM_STAIRS &&
-            	 world.getBlockState(position).getBlock() != ModBlocks.OXONIUM_BRICKS &&
-            	 world.getBlockState(position).getBlock() != Blocks.GRASS_PATH &&
-            	 world.getBlockState(position).getBlock() != Blocks.WOOL &&
-            	 !(world.getBlockState(position).getBlock() instanceof BlockBush) &&
-            	 !(world.getBlockState(position).getBlock() instanceof BlockStairs) &&
-            	 !(world.getBlockState(position).getBlock() instanceof BlockPlanks) &&
-            	 !(world.getBlockState(position).getBlock() instanceof BlockFence) &&
-            	 !(world.getBlockState(position).getBlock() instanceof BlockCrops) &&
-            	 !(world.getBlockState(position).getBlock() instanceof BlockFarmland) &&
-            	 !(world.getBlockState(position).getBlock() instanceof BlockLog) &&
-            	 !(world.getBlockState(position).getBlock() instanceof BlockLeaves)) {
+            	 block != ModBlocks.CUSTOM_LEAVES &&
+            	 block != ModBlocks.SNOWY_STAIRS &&
+            	 block != ModBlocks.OXONIUM_STAIRS &&
+            	 block != ModBlocks.OXONIUM_BRICKS &&
+            	 block != Blocks.GRASS_PATH &&
+            	 block != Blocks.WOOL &&
+            	 !(block instanceof BlockBush) &&
+            	 !(block instanceof BlockStairs) &&
+            	 !(block instanceof BlockPlanks) &&
+            	 !(block instanceof BlockFence) &&
+            	 !(block instanceof BlockCrops) &&
+            	 !(block instanceof BlockFarmland) &&
+            	 !(block instanceof BlockLog) &&
+            	 !(block instanceof BlockLeaves)) {
                 canGenerate = false;
                 break;
             }

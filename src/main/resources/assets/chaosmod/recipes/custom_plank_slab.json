@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"",
+		"WWW",
+		""
+	],
+	
+	"key":
+	{
+		"W":
+		{
+			"item": "chaosmod:custom_plank",
+			"data": 0
+		}
+
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:custom_plank_slab",
+		"count": 6
+	}
+}

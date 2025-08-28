@@ -68,7 +68,7 @@ public class PlayerTickBiomeEvent {
             }
 
             world.playSound(null, player.getPosition(),
-                    SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.PLAYERS,
+                    SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS,
                     1.0f, 1.0f);
         }
 

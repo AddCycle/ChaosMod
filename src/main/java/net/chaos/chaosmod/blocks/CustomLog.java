@@ -16,6 +16,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -98,7 +99,22 @@ public class CustomLog extends BlockLog implements IHasModel {
 	    return drops;
 	}
 	
-	public enum CustomLogVariant implements IStringSerializable {
+	@Override
+	public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
+		return 5;
+	}
+	
+	@Override
+	public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
+		return true;
+	}
+	
+	@Override
+	public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
+		return 5; // vanilla 5 for logs
+	}
+	
+	public static enum CustomLogVariant implements IStringSerializable {
         SNOWY(0, "snowy_log"),
         MAPLE(1, "maple_log"),
         ENDER(2, "ender_log"),

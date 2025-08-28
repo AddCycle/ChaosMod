@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "variant=default": { "model": "chaosmod:abstract_block_slab_full" }
+  }
+}

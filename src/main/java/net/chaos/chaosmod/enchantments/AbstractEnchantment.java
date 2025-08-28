@@ -1,14 +1,21 @@
 package net.chaos.chaosmod.enchantments;
 
+import net.chaos.chaosmod.init.ModEnchants;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import util.Reference;
 
 public abstract class AbstractEnchantment extends Enchantment {
 
-	protected AbstractEnchantment(Rarity rarityIn, EnumEnchantmentType typeIn, EntityEquipmentSlot[] slots) {
+	protected AbstractEnchantment(String name, Rarity rarityIn, EnumEnchantmentType typeIn, EntityEquipmentSlot[] slots) {
 		super(rarityIn, typeIn, slots);
+		this.setName(name);
+        this.setRegistryName(new ResourceLocation(Reference.MODID, name));
+        
+        ModEnchants.ENCHANTS.add(this);
 	}
 	
 	@Override

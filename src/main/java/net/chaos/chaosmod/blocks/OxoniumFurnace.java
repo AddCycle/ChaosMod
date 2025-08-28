@@ -167,7 +167,6 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
     		if (tileentity instanceof TileEntityOxoniumFurnace)
     		{
     			playerIn.openGui(Main.instance, Reference.GUI_FURNACE_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
-    			// Main.network.sendTo(new OxoniumFurnaceMessage(), (EntityPlayerMP) playerIn);
     			playerIn.addStat(StatList.FURNACE_INTERACTION);
     		}
     	}
@@ -183,14 +182,8 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
 
         if (active)
         {
-            // worldIn.setBlockState(pos, Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-
             worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
             worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            // worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
-            // worldIn.setBlockState(pos, ModBlocks.OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
-            //worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
-            //worldIn.setBlockState(pos, ModBlocks.LIT_OXONIUM_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(LIT, true), 3);
         }
         else
         {

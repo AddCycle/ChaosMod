@@ -9,13 +9,16 @@ import net.chaos.chaosmod.init.ModDamageSources;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.network.PacketSpawnCustomParticle;
+import net.chaos.chaosmod.particle.CustomParticleSpawnManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -37,6 +40,15 @@ public class TesterWand extends ItemBase {
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
 		if (!player.world.isRemote) entity.attackEntityFrom(DamageSource.causePlayerDamage(player), 600);
 		return super.onLeftClickEntity(stack, player, entity);
+	}
+	
+	@Override
+	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
+			EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (worldIn.isRemote) {
+			CustomParticleSpawnManager.spawnMoneyParticle(worldIn, pos.add(0, 1, 0), 0, 0.1, 0);
+		}
+        return EnumActionResult.SUCCESS;
 	}
 	
 	@Override

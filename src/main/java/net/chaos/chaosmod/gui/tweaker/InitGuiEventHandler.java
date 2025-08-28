@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
+import util.ui.components.IconButtonBase;
 
 @EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class InitGuiEventHandler {
@@ -20,7 +21,7 @@ public class InitGuiEventHandler {
 	public static void onGuiInit(InitGuiEvent.Post event) {
 		GuiScreen gui = event.getGui();
 		if (gui instanceof GuiIngameMenu) {
-			event.getButtonList().add(new GuiButton(99, gui.width - 20, 0, 20, 20, "C"));
+			event.getButtonList().add(new IconButtonBase(99, gui.width - 20, 5, 15, 12));
 		}
 		if (gui instanceof GuiMainMenu) {
 			

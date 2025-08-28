@@ -1,9 +1,8 @@
 package net.chaos.chaosmod.entity.render;
 
-import net.chaos.chaosmod.client.particles.CoinParticles;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.model.ModelPixou;
-import net.minecraft.client.Minecraft;
+import net.chaos.chaosmod.particle.CustomParticleSpawnManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityCreature;
@@ -41,12 +40,7 @@ public class EntityPicsouRenderer extends RenderLiving<EntityPicsou> {
         double d0 = (double)(-MathHelper.sin(entity.rotationYaw * 0.017453292F));
         double d1 = (double)MathHelper.cos(entity.rotationYaw * 0.017453292F);
         
-        Minecraft mc = Minecraft.getMinecraft();
-        
-        if (worldIn.isRemote) mc.effectRenderer.addEffect(
-        	new CoinParticles(mc.getTextureManager(), worldIn, entity.posX, entity.posY + (double)entity.height * 0.5D, entity.posZ, d0, 0.0D, d1));
-
-        // ((WorldServer)worldIn).spawnParticle(EnumParticleTypes.SWEEP_ATTACK, playerIn.posX + d0, playerIn.posY + (double)playerIn.height * 0.5D, playerIn.posZ + d1, 0, d0, 0.0D, d1, 0.0D);
+        if (worldIn.isRemote) CustomParticleSpawnManager.spawnMoneyParticle(worldIn, entity.getPosition(), 0.0D, 1.0D, 0.0D);
     }
 
 	@Override

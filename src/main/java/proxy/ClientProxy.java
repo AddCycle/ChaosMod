@@ -1,5 +1,7 @@
 package proxy;
 
+import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.blocks.complex.mimic.MimicStartupClient;
 import net.chaos.chaosmod.client.inventory.render.LayerNecklace;
 import net.chaos.chaosmod.client.inventory.render.LayerShield;
 import net.chaos.chaosmod.cutscene.CutsceneEvents;
@@ -29,14 +31,17 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerVariantRenderer(Item item, int meta, String name, String variant) {
-	    ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(new ResourceLocation(Reference.MODID, name), variant));
+		ResourceLocation rl = new ResourceLocation(Reference.MODID, name);
+		Main.getLogger().info("VARIANT : {}", rl.toString());
+		System.out.println("VARIANT registration : " + (new ModelResourceLocation(rl, variant)).toString());
+	    ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(rl, variant));
 	}
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
         RenderHandler.registerEntityRenders();
         ModKeybinds.init();
-        // MinecraftForge.EVENT_BUS.register(new PlayerFireRenderHandler());
+        MimicStartupClient.preInitClientOnly();
 	}
 
 	@Override
@@ -46,9 +51,7 @@ public class ClientProxy extends CommonProxy {
         Renderer.init();
         MinecraftForge.EVENT_BUS.register(new DialogEventHandler());
         MinecraftForge.EVENT_BUS.register(new CutsceneEvents());
-		// OxoniumFurnace to suppress nametag
         RenderHandler.bindTESRs();
-		// MinecraftForge.EVENT_BUS.register(new PlayerRenderManager());
 		MinecraftForge.EVENT_BUS.register(new BossBarRendering());
 		// ################################# NECKLACE RENDERING #############################################
 

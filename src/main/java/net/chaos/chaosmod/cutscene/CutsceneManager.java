@@ -27,8 +27,7 @@ public class CutsceneManager {
         EntityPlayer player = mc.player;
 
         EntityCamera cam = new EntityCamera(world);
-        // cam.setPositionAndRotation(player.posX, player.posY, player.posZ, 0, 0);
-        cam.setPositionAndRotation(pos.getX(), pos.getY(), pos.getZ(), 0, 0);
+        cam.setPositionAndRotation(pos.getX(), pos.getY(), pos.getZ(), player.cameraYaw, player.cameraPitch);
         world.spawnEntity(cam);
 
         camera = cam; // store it in a static field for access in tick/update

@@ -1,0 +1,8 @@
+{
+    "parent": "block/outer_stairs",
+    "textures": {
+        "bottom": "chaosmod:blocks/olive_plank",
+        "top": "chaosmod:blocks/olive_plank",
+        "side": "chaosmod:blocks/olive_plank"
+    }
+}

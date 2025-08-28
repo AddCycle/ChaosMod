@@ -16,7 +16,7 @@ public class TinkerersHammer extends AbstractCraftingItem {
 	
 	public TinkerersHammer(String name) {
 		super(name);
-		this.setMaxDamage(8);
+		this.setMaxDamage(10);
 	}
 	
 	@Override
@@ -27,7 +27,7 @@ public class TinkerersHammer extends AbstractCraftingItem {
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("Are you an engineer ?"); // le travail c'est la santé
+		tooltip.add("Wow this thing is really heavy !"); // le travail c'est la santé
 	}
 
 	@Override

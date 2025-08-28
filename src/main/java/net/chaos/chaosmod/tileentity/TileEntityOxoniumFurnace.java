@@ -1,7 +1,6 @@
 package net.chaos.chaosmod.tileentity;
 
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
-import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.inventory.OxoniumFurnaceContainer;
 import net.chaos.chaosmod.recipes.OxoniumFurnaceRecipes;
 import net.minecraft.block.Block;
@@ -22,6 +21,7 @@ import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
@@ -101,7 +101,7 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
 
         if (index == 0 && !flag)
         {
-            this.totalCookTime = this.getCookTime(stack);
+            this.totalCookTime = getCookTime(stack);
             this.cookTime = 0;
             this.markDirty();
         }
@@ -264,6 +264,10 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
         {
             ItemStack itemstack = OxoniumFurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
 
+            if (itemstack.isEmpty()) {
+            	itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
+            }
+
             if (itemstack.isEmpty())
             {
                 return false;
@@ -299,6 +303,10 @@ public class TileEntityOxoniumFurnace extends TileEntityLockable implements ITic
             ItemStack itemstack = this.furnaceItemStacks.get(0);
             ItemStack itemstack1 = OxoniumFurnaceRecipes.instance().getSmeltingResult(itemstack);
             ItemStack itemstack2 = this.furnaceItemStacks.get(2);
+            
+            if (itemstack1.isEmpty()) {
+            	itemstack1 = FurnaceRecipes.instance().getSmeltingResult(itemstack);
+            }
 
             if (itemstack2.isEmpty())
             {

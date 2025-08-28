@@ -155,7 +155,7 @@ public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITic
 
 	@Override
 	public void openInventory(EntityPlayer player) {
-		player.openGui(Main.instance, Reference.GUI_FURNACE_ID, world, 0, 0, 0);
+		// player.openGui(Main.instance, Reference.GUI_FURNACE_ID, world, 0, 0, 0);
 	}
 
 	@Override

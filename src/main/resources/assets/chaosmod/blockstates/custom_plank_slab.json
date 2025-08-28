@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=bottom,variant=default": { "model": "chaosmod:half_slab_default" },
+        "half=top,variant=default": { "model": "chaosmod:upper_slab_default" }
+    }
+}

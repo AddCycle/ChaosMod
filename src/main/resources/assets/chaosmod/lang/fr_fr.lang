@@ -145,6 +145,7 @@ itemGroup.chaosmodtab=Blocs de construction
 itemGroup.chaosmodtab2=Items du Chaos
 itemGroup.chaosmodtab3=Bloc fonctionnels
 itemGroup.chaosmodtab4=Potions
+itemGroup.chaosmodtab5=Divers
 gui.forge_interface_block.title=Forge du Chaos
 
 // Potions
@@ -156,6 +157,9 @@ effect.viking_friend=Compagnon Viking
 
 // Enchantments
 enchantment.vein_miner=Mineur de filons
+
+// Fluids
+fluid.fertilized_water=Eau fertilisée
 
 //Guide
 text.guide.title=Guide du Chaos

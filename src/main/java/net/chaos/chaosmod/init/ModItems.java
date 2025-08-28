@@ -3,6 +3,7 @@ package net.chaos.chaosmod.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.chaos.chaosmod.blocks.abstracted.ItemBlockSlab;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.items.armor.AllemaniteArmor;
 import net.chaos.chaosmod.items.armor.ArmorBase;
@@ -34,6 +35,7 @@ import net.chaos.chaosmod.items.tools.AllInOneSword;
 import net.chaos.chaosmod.items.tools.AllemanitePickaxe;
 import net.chaos.chaosmod.items.tools.AllemaniteSword;
 import net.chaos.chaosmod.items.tools.OxoniumHalleberd;
+import net.chaos.chaosmod.items.tools.OxoniumHoe;
 import net.chaos.chaosmod.items.tools.OxoniumPickaxe;
 import net.chaos.chaosmod.items.tools.OxoniumSword;
 import net.chaos.chaosmod.items.tools.ToolAxe;
@@ -41,6 +43,8 @@ import net.chaos.chaosmod.items.tools.ToolHoe;
 import net.chaos.chaosmod.items.tools.ToolPickaxe;
 import net.chaos.chaosmod.items.tools.ToolSpade;
 import net.chaos.chaosmod.items.tools.ToolSword;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -71,25 +75,27 @@ public class ModItems {
 	public static final ToolMaterial MATERIAL_OXONIUM = EnumHelper.addToolMaterial("material_oxonium", 3, 250, 6.0F, 2.0F, 14);
 	public static final ToolMaterial MATERIAL_ALLEMANITE = EnumHelper.addToolMaterial("material_allemanite", 5, 600, 10.0f, 3.0f, 30);
 	public static final ToolMaterial MATERIAL_ENDERITE = EnumHelper.addToolMaterial("material_enderite", 7, 2000, 12.0f, 5.0f, 40);
-	public static final ArmorMaterial ARMOR_MATERIAL_OXONIUM = EnumHelper.addArmorMaterial("armor_material_oxonium", Reference.MODID + ":oxonium_ingot", 14,
+	public static final ArmorMaterial ARMOR_MATERIAL_OXONIUM = EnumHelper.addArmorMaterial("armor_material_oxonium", Reference.PREFIX + "oxonium_ingot", 14,
 			new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f);
-	public static final ArmorMaterial ARMOR_MATERIAL_ALLEMANITE = EnumHelper.addArmorMaterial("armor_material_allemanite", Reference.MODID + ":allemanite_armor", 20,
+	public static final ArmorMaterial ARMOR_MATERIAL_ALLEMANITE = EnumHelper.addArmorMaterial("armor_material_allemanite", Reference.PREFIX + "allemanite_armor", 20,
 			new int[] { 3, 6, 8, 4 }, 20, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f);
-	public static final ArmorMaterial ARMOR_MATERIAL_ENDERITE = EnumHelper.addArmorMaterial("armor_material_enderite", Reference.MODID + ":enderite_armor", 26,
+	public static final ArmorMaterial ARMOR_MATERIAL_ENDERITE = EnumHelper.addArmorMaterial("armor_material_enderite", Reference.PREFIX + "enderite_armor", 26,
 			new int[] { 4, 7, 9, 5 }, 30, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f);
 	
 	//Items
 	public static final Item OXONIUM_INGOT = new ItemBase("oxonium_ingot");
 	public static final Item OXONIUM_NUGGET = new ItemBase("oxonium_nugget");
 	public static final Item ALLEMANITE_INGOT = new AllemaniteIngot("allemanite_ingot");
+	public static final Item ALLEMANITE_NUGGET = new ItemBase("allemanite_nugget");
 	public static final Item ENDERITE_INGOT = new EnderiteShard("enderite_ingot");
+	public static final Item ENDERITE_NUGGET = new ItemBase("enderite_nugget");
 	
 	//Tools
 	public static final ItemSword OXONIUM_SWORD = new OxoniumSword("oxonium_sword", MATERIAL_OXONIUM);
 	public static final ItemPickaxe OXONIUM_PICKAXE = new OxoniumPickaxe("oxonium_pickaxe", MATERIAL_OXONIUM);
 	public static final ItemAxe OXONIUM_AXE = new ToolAxe("oxonium_axe", MATERIAL_OXONIUM);
 	public static final ItemSpade OXONIUM_SHOVEL = new ToolSpade("oxonium_shovel", MATERIAL_OXONIUM);
-	public static final ItemHoe OXONIUM_HOE = new ToolHoe("oxonium_hoe", MATERIAL_OXONIUM);
+	public static final ItemHoe OXONIUM_HOE = new OxoniumHoe("oxonium_hoe", MATERIAL_OXONIUM);
 	public static final ItemBow OXONIUM_BOW = new OxoniumBow("oxonium_bow", MATERIAL_OXONIUM);
 	public static final ItemSword OXONIUM_HALLEBERD = new OxoniumHalleberd("oxonium_halleberd", MATERIAL_OXONIUM);
 
@@ -154,9 +160,24 @@ public class ModItems {
 	//Food
 	public static Item OXONIUM_CARROT;
 	
-	// Crops init after blocks init
+	// Slab items
+	// public static Item ABSTRACT_SLAB;
+	public static Item CUSTOM_SLAB;
+	public static Item OXONIUM_SLAB;
+	
+	// Items init needs after blocks init (ex: crops, slabs...)
 	public static void initItems() {
 		OXONIUM_CARROT = 
 			new MineralFood("oxonium_carrot", 5, 3.0f, ModBlocks.OXONIUM_CARROT_BLOCK, Blocks.FARMLAND, new PotionEffect(MobEffects.SPEED, 60*20, 0, false, true),  TextFormatting.WHITE + "" + TextFormatting.BOLD + "SPEED" + TextFormatting.RESET + TextFormatting.GOLD + " I");
+		CUSTOM_SLAB = helper(ModBlocks.CUSTOM_PLANK_SLAB_HALF, ModBlocks.CUSTOM_PLANK_SLAB_DOUBLE);
+		OXONIUM_SLAB = helper(ModBlocks.OXONIUM_BLOCK_SLAB_HALF, ModBlocks.OXONIUM_BLOCK_SLAB_DOUBLE);
+	}
+	
+	public static ItemBlockSlab helper(Block halfSlab, Block slabDouble) {
+		return (ItemBlockSlab) new ItemBlockSlab(
+	            halfSlab,
+	            (BlockSlab) halfSlab,
+	            (BlockSlab) slabDouble)
+	        .setRegistryName(halfSlab.getRegistryName());
 	}
 }

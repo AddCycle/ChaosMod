@@ -1,0 +1,6 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "chaosmod:blocks/shape_shifter_block"
+	}
+}

@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "variant=default": { "model": "chaosmod:oxonium_block_slab_full" }
+  }
+}

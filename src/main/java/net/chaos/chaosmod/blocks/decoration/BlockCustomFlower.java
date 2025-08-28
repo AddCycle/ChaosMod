@@ -107,11 +107,11 @@ public class BlockCustomFlower extends BlockBush implements IHasModel {
 		case 0:
 			return ModItems.OXONIUM_NUGGET;
 		case 1:
-			return ModItems.OXONIUM_NUGGET;
+			return ModItems.ALLEMANITE_NUGGET;
 		case 2:
-			return ModItems.OXONIUM_NUGGET;
+			return ModItems.ENDERITE_NUGGET;
 		case 3:
-			return ModItems.OXONIUM_NUGGET;
+			return ModItems.ENDERITE_NUGGET; // solarite ?
 		default:
 			return ModItems.OXONIUM_NUGGET;
 		}

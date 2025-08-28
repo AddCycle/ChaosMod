@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "#S#",
+    "#S#"
+  ],
+  "key": {
+    "#": {
+      "item": "chaosmod:custom_plank",
+      "data": 1
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "chaosmod:maple_fence",
+    "count": 3
+  }
+}

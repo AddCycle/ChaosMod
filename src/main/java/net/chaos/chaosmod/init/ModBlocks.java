@@ -11,7 +11,6 @@ import net.chaos.chaosmod.blocks.BlockChaosPortal;
 import net.chaos.chaosmod.blocks.BlockDrawer;
 import net.chaos.chaosmod.blocks.BlockTrophy;
 import net.chaos.chaosmod.blocks.BossAltar;
-import net.chaos.chaosmod.blocks.ConnectedBlock;
 import net.chaos.chaosmod.blocks.CookieJarBlock;
 import net.chaos.chaosmod.blocks.CustomBlockSapling;
 import net.chaos.chaosmod.blocks.CustomLog;
@@ -23,8 +22,9 @@ import net.chaos.chaosmod.blocks.ForgeInterfaceBlock;
 import net.chaos.chaosmod.blocks.OxoniumBlock;
 import net.chaos.chaosmod.blocks.OxoniumChest;
 import net.chaos.chaosmod.blocks.OxoniumFurnace;
+import net.chaos.chaosmod.blocks.abstracted.AbstractBlockSlab;
 import net.chaos.chaosmod.blocks.abstracted.AbstractDoor;
-import net.chaos.chaosmod.blocks.abstracted.AbstractFences;
+import net.chaos.chaosmod.blocks.abstracted.AbstractFence;
 import net.chaos.chaosmod.blocks.abstracted.AbstractLadder;
 import net.chaos.chaosmod.blocks.abstracted.AbstractPressurePlate;
 import net.chaos.chaosmod.blocks.abstracted.AbstractStairs;
@@ -34,6 +34,7 @@ import net.chaos.chaosmod.blocks.decoration.BlockLantern;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
 import net.chaos.chaosmod.blocks.decoration.MineralBricks;
 import net.chaos.chaosmod.blocks.decoration.OxoniumStairs;
+import net.chaos.chaosmod.blocks.machines.ATMBlock;
 import net.chaos.chaosmod.blocks.ores.AllemaniteOre;
 import net.chaos.chaosmod.blocks.ores.EnderiteOre;
 import net.chaos.chaosmod.blocks.ores.OxoniumOre;
@@ -66,15 +67,26 @@ public class ModBlocks {
 	public static final Block CUSTOM_FLOWER = new BlockCustomFlower("custom_flower");
 	public static final Block CUSTOM_LOG = new CustomLog("custom_log");
 	public static final Block CUSTOM_PLANK = new CustomPlanks("custom_plank", Material.WOOD);
-	public static final Block CUSTOM_STAIRS = new AbstractStairs("custom_stairs", CUSTOM_PLANK.getDefaultState()); // .withProperty(CustomPlanks.VARIANT, CustomPlankVariant.SNOWY) TODO : for later
-	public static final Block CUSTOM_FENCES = new AbstractFences("custom_fences", Material.WOOD, MapColor.LIGHT_BLUE);
+	public static final Block SNOWY_STAIRS = new AbstractStairs("snowy_stairs", CUSTOM_PLANK.getDefaultState());
+	public static final Block MAPLE_STAIRS = new AbstractStairs("maple_stairs", CUSTOM_PLANK.getDefaultState());
+	public static final Block ENDER_STAIRS = new AbstractStairs("ender_stairs", CUSTOM_PLANK.getDefaultState());
+	public static final Block OLIVE_STAIRS = new AbstractStairs("olive_stairs", CUSTOM_PLANK.getDefaultState());
+	public static final Block SNOWY_FENCE = new AbstractFence("snowy_fence", Material.WOOD, MapColor.LIGHT_BLUE);
+	public static final Block MAPLE_FENCE = new AbstractFence("maple_fence", Material.WOOD, MapColor.RED);
+	public static final Block ENDER_FENCE = new AbstractFence("ender_fence", Material.WOOD, MapColor.PURPLE);
+	public static final Block OLIVE_FENCE = new AbstractFence("olive_fence", Material.WOOD, MapColor.GREEN);
 	public static final Block CUSTOM_DOOR = new AbstractDoor("custom_door", Material.WOOD);
 	public static final Block CUSTOM_LADDER = new AbstractLadder("custom_ladder", Material.WOOD); // .withProperty(CustomPlanks.VARIANT, CustomPlankVariant.SNOWY) TODO : for later
 	public static final Block CUSTOM_PRESSURE_PLATE = new AbstractPressurePlate("custom_pressure_plate", Material.WOOD); // .withProperty(CustomPlanks.VARIANT, CustomPlankVariant.SNOWY) TODO : for later
+	public static final Block CUSTOM_PLANK_SLAB_HALF = new AbstractBlockSlab.Half("custom_plank_slab", Material.WOOD, MapColor.BLUE);
+	public static final Block CUSTOM_PLANK_SLAB_DOUBLE = new AbstractBlockSlab.Double("custom_plank_slab_double", Material.WOOD, MapColor.BLUE, CUSTOM_PLANK_SLAB_HALF);
+	public static final Block OXONIUM_BLOCK_SLAB_HALF = new AbstractBlockSlab.Half("oxonium_block_slab", Material.WOOD, MapColor.BLUE);
+	public static final Block OXONIUM_BLOCK_SLAB_DOUBLE = new AbstractBlockSlab.Double("oxonium_block_slab_double", Material.WOOD, MapColor.BLUE, OXONIUM_BLOCK_SLAB_HALF);
+
 	public static final Block CUSTOM_LEAVES = new CustomLeaves("custom_leaves");
 	public static final Block CUSTOM_SAPLINGS = new CustomBlockSapling("custom_sapling", Material.PLANTS);
 	public static final Block PINK_LANTERN = new BlockLantern("lantern", MapColor.PINK);
-	public static final Block CONNECTED_BLOCK = new ConnectedBlock("connected_block", Material.IRON);
+	// public static final Block CONNECTED_BLOCK = new ConnectedBlock("connected_block", Material.IRON);
 	public static final Block COOKIE_JAR = new CookieJarBlock("cookie_jar");
 	public static final Block BEAM_BLOCK = new BlockBeam("block_beam");
 	public static final Block TROPHY_BLOCK = new BlockTrophy("trophy_block", 0);
@@ -88,4 +100,6 @@ public class ModBlocks {
 	public static final Block CHAOS_GATEWAY = new BlockChaosGateway("chaos_gateway");
 	
 	public static final Block DRAWER = new BlockDrawer("drawer", Material.WOOD);
+	public static final Block ATM_BLOCK = new ATMBlock("atm_block", Material.IRON);
+	// public static final Block SHAPE_SHIFTER_BLOCK = new ShapeShifterBlock();
 }

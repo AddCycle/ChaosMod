@@ -148,6 +148,7 @@ itemGroup.chaosmodtab=Building blocks
 itemGroup.chaosmodtab2=Chaos Items
 itemGroup.chaosmodtab3=Functional Blocks
 itemGroup.chaosmodtab4=Potions
+itemGroup.chaosmodtab5=Miscellaneous
 gui.forge_interface_block.title=Chaos Forge
 // effect.viking_friend=Viking Friend
 
@@ -160,6 +161,9 @@ effect.viking_friend=Viking Friend
 
 // Enchantments
 enchantment.vein_miner=Vein Miner
+
+// Fluids
+fluid.fertilized_water=Fertilized Water
 
 //Guide
 text.guide.title=ChaosMod Guide

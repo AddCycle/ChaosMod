@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -24,15 +25,17 @@ public class DialogEventHandler {
 	public void onRenderLivingSpecials(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
 	    Entity entity = event.getEntity();
 	    String dialog = null;
-	    if (entity instanceof ITalkable) {
-	    	dialog = ((ITalkable) entity).getDialogText();
-	    } else if (entity instanceof EntityCreeper) {
-	    	EntityPlayer player = Minecraft.getMinecraft().player;
-	    	if (entity.getDistanceSq(player) > 60) {
-	    		dialog = "";
-	    	} else {
+	    EntityPlayer player = Minecraft.getMinecraft().player;
+	    if (entity.getDistanceSq(player) < 60) {
+	    	if (entity instanceof ITalkable) {
+	    		dialog = ((ITalkable) entity).getDialogText();
+	    	} else if (entity instanceof EntityCreeper) {
 	    		dialog = "Kabuuuum !!";
+	    	} else if (entity instanceof EntityZombie) {
+	    		dialog = "Brains...";
 	    	}
+	    } else {
+	    	dialog = "";
 	    }
 
 	    if (dialog == null || dialog.isEmpty()) return;

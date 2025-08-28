@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class EntityCamera extends Entity{
+public class EntityCamera extends Entity {
 	public EntityCamera(World world) {
         super(world);
         this.noClip = true;
