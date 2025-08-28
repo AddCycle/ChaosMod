@@ -20,9 +20,6 @@ public class ConnectedBlock extends Block implements IHasModel {
     public static final PropertyBool WEST  = PropertyBool.create("west");
     public static final PropertyBool UP    = PropertyBool.create("up");
     public static final PropertyBool DOWN  = PropertyBool.create("down");
-    public static final PropertyBool MAIN  = PropertyBool.create("a");
-    // 0 = up, 1 = down, 2 = right, 3 = left (is there an air block)
-    // public static final PropertyInteger FACE_CORNERS = PropertyInteger.create("a", 0, 3);
 
     public ConnectedBlock(String name, Material material) {
     	super(material);
@@ -34,8 +31,7 @@ public class ConnectedBlock extends Block implements IHasModel {
             .withProperty(EAST, false)
             .withProperty(WEST, false)
             .withProperty(UP, false)
-            .withProperty(DOWN, false)
-            .withProperty(MAIN, false));
+            .withProperty(DOWN, false));
         
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlockBase(this).setRegistryName(this.getRegistryName()));
@@ -44,25 +40,18 @@ public class ConnectedBlock extends Block implements IHasModel {
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         Block block = this;
-        Block main = ModBlocks.FORGE_INTERFACE_BLOCK;
         return state
             .withProperty(NORTH, worldIn.getBlockState(pos.north()).getBlock() == block)
             .withProperty(SOUTH, worldIn.getBlockState(pos.south()).getBlock() == block)
             .withProperty(EAST,  worldIn.getBlockState(pos.east()).getBlock() == block)
             .withProperty(WEST,  worldIn.getBlockState(pos.west()).getBlock() == block)
             .withProperty(UP,  worldIn.getBlockState(pos.up()).getBlock() == block)
-            .withProperty(DOWN,  worldIn.getBlockState(pos.down()).getBlock() == block)
-            .withProperty(MAIN,  worldIn.getBlockState(pos.down()).getBlock() == main
-            || worldIn.getBlockState(pos.up()).getBlock() == main
-        	|| worldIn.getBlockState(pos.north()).getBlock() == main
-        	|| worldIn.getBlockState(pos.south()).getBlock() == main
-        	|| worldIn.getBlockState(pos.east()).getBlock() == main
-        	|| worldIn.getBlockState(pos.west()).getBlock() == main);
+            .withProperty(DOWN,  worldIn.getBlockState(pos.down()).getBlock() == block);
     }
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, NORTH, SOUTH, EAST, WEST, UP, DOWN, MAIN);
+        return new BlockStateContainer(this, NORTH, SOUTH, EAST, WEST, UP, DOWN);
     }
 
     @Override

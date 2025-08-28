@@ -86,8 +86,7 @@ public class ForgeInterfaceBlock extends BlockContainer implements ITileEntityPr
 	 * This function is for checking the setup of the ChaosForge 3x3 structure
 	 */
 	private boolean checkSetup(EntityPlayer player, BlockPos pos, World worldIn, EnumFacing facing) {
-		// FIXME : restablish when texture model is fixed
-		/*BlockPos center = pos.offset(facing.getOpposite());
+		BlockPos center = pos.offset(facing.getOpposite());
 		BlockPos center2 = pos.offset(facing.getOpposite(), 2);
 		BlockPos[] positions = calculate_positions(pos, facing);
 		BlockPos[] positions2 = calculate_positions_center(center, facing);
@@ -106,7 +105,7 @@ public class ForgeInterfaceBlock extends BlockContainer implements ITileEntityPr
 			BlockPos curr_pos = p;
 			Block to_check = worldIn.getBlockState(curr_pos).getBlock();
 			if (to_check != ModBlocks.FORGE_WALLS) return false;
-		}*/
+		}
 		return true;
 	}
 	
