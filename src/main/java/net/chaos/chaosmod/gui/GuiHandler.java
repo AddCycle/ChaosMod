@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.gui;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.gui.inventory.BackpackGui;
 import net.chaos.chaosmod.client.gui.inventory.ForgeInterfaceGui;
 import net.chaos.chaosmod.client.gui.inventory.GuiInventoryExtended;
@@ -62,6 +63,15 @@ public class GuiHandler implements IGuiHandler {
 			return new TrophyContainerBase(inventory, (TileEntityTrophyBase) te);
 		case Reference.GUI_ATM_ID:
 			return new ATMContainer(inventory, (TileEntityATM) te, player);
+		case Reference.GUI_MARKET_ID:
+			// return new MarketContainer(inventory, );
+			// FIXME : add a container with the slots
+			return new Container() {
+				@Override
+				public boolean canInteractWith(EntityPlayer playerIn) {
+					return true;
+				}
+			};
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -79,19 +89,22 @@ public class GuiHandler implements IGuiHandler {
 			return new OxoniumFurnaceGui(player.inventory, (TileEntityOxoniumFurnace) te);
 		case Reference.GUI_CREDITS_ID:
 			return new GuiFinalCredits();
-		case 3:
+		case Reference.GUI_FORGE_ID:
 			return new ForgeInterfaceGui(player.inventory, (TileEntityForge) te);
-		case 4:
+		case Reference.GUI_BACKPACK_ID:
 			return new BackpackGui(new BackpackContainer(player.inventory, player.getHeldItemMainhand()));
 		case 5:
 			System.out.println("Server GuiHandler received ID: " + ID + " x: " + x);
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		case 6:
 			return new GuiInventoryExtended(player);
-		case 7:
+		case Reference.GUI_TROPHY:
 			return new TrophyGui(player.inventory, (TileEntityTrophyBase) te);
 		case Reference.GUI_ATM_ID:
 			return new GuiATM(player.inventory, (TileEntityATM) te, player);
+		case Reference.GUI_MARKET_ID:
+			// Main.getLogger().info("opened gui market");
+			return new GuiMarket();
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}

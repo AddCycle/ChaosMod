@@ -4,9 +4,11 @@ import net.chaos.chaosmod.commands.generation.LoadStructCommand;
 import net.chaos.chaosmod.commands.generation.LocateCustomVillage;
 import net.chaos.chaosmod.commands.hunt.HuntCommand;
 import net.chaos.chaosmod.commands.jobs.JobsCommand;
-import net.chaos.chaosmod.commands.jobs.SyncJobsCommand;
+import net.chaos.chaosmod.commands.market.AddOfferCommand;
+import net.chaos.chaosmod.commands.market.BuyCommand;
 import net.chaos.chaosmod.commands.market.MarketCommand;
 import net.chaos.chaosmod.commands.market.MoneyCommand;
+import net.chaos.chaosmod.commands.market.SellCommand;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
@@ -22,13 +24,15 @@ public class CommandsManager {
         event.registerServerCommand(new HomeCommand());
         event.registerServerCommand(new HomeListCommand());
         event.registerServerCommand(new DelHomeCommand());
-        // event.registerServerCommand(new SyncJobsCommand());
         event.registerServerCommand(new FireCommand());
         event.registerServerCommand(new LocalizeCommand());
         event.registerServerCommand(new LocateCustomVillage());
         event.registerServerCommand(new LoadStructCommand());
     	event.registerServerCommand(new MoneyCommand());
     	event.registerServerCommand(new MarketCommand());
+    	event.registerServerCommand(new BuyCommand());
+    	event.registerServerCommand(new SellCommand());
+    	event.registerServerCommand(new AddOfferCommand());
     	event.registerServerCommand(new HuntCommand());
 		if (!Loader.isModLoaded("mathsmod")) {
 			event.registerServerCommand(new TopCommand());

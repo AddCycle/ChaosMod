@@ -3,6 +3,7 @@ package net.chaos.chaosmod.network;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.inventory.shield.PacketShieldSync;
 import net.chaos.chaosmod.gui.GuiHandler;
+import net.chaos.chaosmod.network.market.PacketSyncMarket;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -25,6 +26,7 @@ public class PacketManager {
 		network.registerMessage(PacketShowFireOverlay.Handler.class, PacketShowFireOverlay.class, id++, Side.CLIENT);
 		network.registerMessage(PacketSyncJobs.Handler.class, PacketSyncJobs.class, id++, Side.CLIENT);
 		network.registerMessage(PacketSyncPlayerJobs.Handler.class, PacketSyncPlayerJobs.class, id++, Side.CLIENT);
+		network.registerMessage(PacketSyncMarket.Handler.class, PacketSyncMarket.class, id++, Side.CLIENT);
 	}
 
 	public static void init() {

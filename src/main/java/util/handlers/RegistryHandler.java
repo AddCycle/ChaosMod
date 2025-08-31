@@ -208,10 +208,7 @@ public class RegistryHandler {
 	}
 	
 	public static void onBrewingRecipeRegister() {
-		ItemStack input = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD);
-		ItemStack ingredient = new ItemStack(ModBlocks.CUSTOM_FLOWER, 1, 0);
-		ItemStack output = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), ModPotionTypes.VIKING_FRIEND_TYPE);
-		BrewingRecipeRegistry.addRecipe(input, ingredient, output);
+		registerPotion(ModBlocks.CUSTOM_FLOWER, ModPotionTypes.VIKING_FRIEND_TYPE);
 	}
 	
 	public static void onTagsRegister() {
@@ -240,5 +237,25 @@ public class RegistryHandler {
         OreDictionary.registerOre("oreOxonium", ModBlocks.OXONIUM_ORE);
         OreDictionary.registerOre("oreAllemanite", ModBlocks.ALLEMANITE_ORE);
         OreDictionary.registerOre("oreEnderite", ModBlocks.ENDERITE_ORE);
+	}
+	
+	public static void registerPotion(Item item, PotionType type) {
+		registerPotion(item, type, 0);
+	}
+
+	public static void registerPotion(Item item, PotionType type, int data) {
+		BrewingRecipeRegistry.addRecipe(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD), new ItemStack(item, 1, data), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), type));
+		BrewingRecipeRegistry.addRecipe(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), type), new ItemStack(Items.GUNPOWDER), PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), type));
+		BrewingRecipeRegistry.addRecipe(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), type), new ItemStack(Items.DRAGON_BREATH), PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), type));
+	}
+
+	public static void registerPotion(Block block, PotionType type) {
+		registerPotion(block, type, 0);
+	}
+
+	public static void registerPotion(Block block, PotionType type, int data) {
+		BrewingRecipeRegistry.addRecipe(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD), new ItemStack(block, 1, data), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), type));
+		BrewingRecipeRegistry.addRecipe(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), type), new ItemStack(Items.GUNPOWDER), PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), type));
+		BrewingRecipeRegistry.addRecipe(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), type), new ItemStack(Items.DRAGON_BREATH), PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), type));
 	}
 }

@@ -21,11 +21,13 @@ import net.chaos.chaosmod.items.special.AllInOneBow;
 import net.chaos.chaosmod.items.special.AllemaniteExtinguisher;
 import net.chaos.chaosmod.items.special.ChestUpgradeBase;
 import net.chaos.chaosmod.items.special.CobbleStoneVoid;
+import net.chaos.chaosmod.items.special.CraftingWand;
 import net.chaos.chaosmod.items.special.CustomFireball;
 import net.chaos.chaosmod.items.special.EnderiteThunder;
 import net.chaos.chaosmod.items.special.ItemChaosLandCrystal;
 import net.chaos.chaosmod.items.special.ItemHeart;
 import net.chaos.chaosmod.items.special.ItemMoneyWad;
+import net.chaos.chaosmod.items.special.MarketRemote;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.items.special.PortalKey;
@@ -144,6 +146,8 @@ public class ModItems {
 	public static final Item ALLEMANITE_SHIELD = new AllemaniteShield("allemanite_shield");
 	public static final Item ALL_IN_ONE_BOW = new AllInOneBow("all_in_one_bow", MATERIAL_ENDERITE); // TODO: add a blend material
 	public static final Item ALL_IN_ONE_SWORD = new AllInOneSword("all_in_one_sword", MATERIAL_ENDERITE);
+	public static final Item CRAFTING_WAND = new CraftingWand("crafting_wand");
+	public static final Item MARKET_REMOTE = new MarketRemote("market_remote");
 	
 	// Boss special loots
 	public static final Item GIANT_HEART = new ItemHeart("giant_heart");

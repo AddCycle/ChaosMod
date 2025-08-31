@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "G G",
+    "GGG"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:coal",
+      "data": 0
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "chaosmod:cookie_jar"
+  }
+}

@@ -23,6 +23,7 @@ public class Reference {
     // 6 is for the extended player gui
     public static final int GUI_TROPHY = 7;
 	public static final int GUI_ATM_ID = 8;
+	public static final int GUI_MARKET_ID = 9;
 
     // Entities ids
     private static int entityId = 120;

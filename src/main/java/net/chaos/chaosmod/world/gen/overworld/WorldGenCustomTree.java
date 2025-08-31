@@ -4,14 +4,6 @@ import java.util.Random;
 
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.BlockFence;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -42,27 +34,13 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
             BlockPos checkPos = position.up(y);
             Block block = world.getBlockState(position).getBlock();
             if (!world.isAirBlock(checkPos) && !world.getBlockState(checkPos).getMaterial().isReplaceable() && 
-            	 block != ModBlocks.CUSTOM_LEAVES &&
-            	 block != ModBlocks.SNOWY_STAIRS &&
-            	 block != ModBlocks.OXONIUM_STAIRS &&
-            	 block != ModBlocks.OXONIUM_BRICKS &&
-            	 block != Blocks.GRASS_PATH &&
-            	 block != Blocks.WOOL &&
-            	 !(block instanceof BlockBush) &&
-            	 !(block instanceof BlockStairs) &&
-            	 !(block instanceof BlockPlanks) &&
-            	 !(block instanceof BlockFence) &&
-            	 !(block instanceof BlockCrops) &&
-            	 !(block instanceof BlockFarmland) &&
-            	 !(block instanceof BlockLog) &&
-            	 !(block instanceof BlockLeaves)) {
+            	block != Blocks.GRASS) {
                 canGenerate = false;
                 break;
             }
         }
 
         if (!canGenerate) return false;
-
 
         // Set logs
         for (int y = 0; y < height; y++) {

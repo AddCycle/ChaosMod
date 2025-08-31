@@ -2,9 +2,9 @@
 	"type": "minecraft:crafting_shaped",
 	
 	"pattern": [
-		"",
+		"   ",
 		"OOO",
-		""
+		"   "
 	],
 	
 	"key":
@@ -19,6 +19,7 @@
 	"result":
 	{
 		"item": "chaosmod:oxonium_block_slab",
+		"data": 0,
 		"count": 64
 	}
 }
