@@ -23,12 +23,14 @@ public class TopCommand extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
-		World entityWorld = player.getEntityWorld();
-		int dimension = entityWorld.provider.getDimension();
+		World world = player.getEntityWorld();
+
+		int dimension = world.provider.getDimension();
 		BlockPos pos = player.getPosition();
-		int height = entityWorld.getHeight(pos.getX(), pos.getZ());
+		int height = world.getHeight(pos.getX(), pos.getZ());
+
 		if (pos.getY() < height) {
-			TeleportUtil.teleport(player, dimension, pos.getX() + 0.5, height, pos.getZ() + 0.5);
+			TeleportUtil.teleportCenter(player, dimension, pos.getX(), height, pos.getZ());
 		}
 	}
 }

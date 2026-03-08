@@ -28,7 +28,7 @@ public class LoadStructCommand extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 		if (args.length != 1) {
-			notifyCommandListener(sender, this, "Usage: /template_load <name>");
+			notifyCommandListener(sender, this, getUsage(sender));
 			return;
 		}
 
@@ -46,7 +46,6 @@ public class LoadStructCommand extends CommandBase {
 
 		PlacementSettings settings = new PlacementSettings()
 				.setMirror(Mirror.NONE)
-				// .setRotation(Rotation.NONE)
 				.setRotation(Rotation.CLOCKWISE_90)
 				.setIgnoreEntities(false)
 				.setChunk(null)
@@ -56,10 +55,5 @@ public class LoadStructCommand extends CommandBase {
 		template.addBlocksToWorld(world, pos, settings);
 
 		notifyCommandListener(sender, this, "Template loaded: " + templateName + " at " + pos);
-	}
-
-	@Override
-	public int getRequiredPermissionLevel() {
-		return 2;
 	}
 }

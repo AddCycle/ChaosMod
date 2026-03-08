@@ -35,4 +35,11 @@ public class TeleportUtil extends Teleporter {
 		}
 	}
 
+	public static void teleportCenter(EntityPlayer player, int dimension, double x, double y, double z) {
+		if (player.dimension != dimension) {
+			player.changeDimension(dimension, new CommandTeleporter(new BlockPos(x, y, z)));
+		} else {
+			player.setPositionAndUpdate(x + 0.5, y, z + 0.5);
+		}
+	}
 }

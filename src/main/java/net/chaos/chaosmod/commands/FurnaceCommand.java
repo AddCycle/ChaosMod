@@ -29,19 +29,19 @@ public class FurnaceCommand extends CommandBase {
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
 		ItemStack held = player.getHeldItemMainhand();
 		ItemStack result = null;
-		int quantity = held.getCount();
-		Smelt smelter = new Smelt(null);
+
 		if (held != ItemStack.EMPTY) {
+			Smelt smelter = new Smelt(null);
 			result = smelter.apply(held, new Random(), null);
 		}
-		if (!held.isItemEqual(result)) {
-			System.out.println("Successfully melted : " + held.getDisplayName() + " into " + result.getDisplayName());
-			player.sendMessage(new TextComponentString("Successfully melted : " + held.getDisplayName() + " into " + result.getDisplayName()));
-			player.setHeldItem(EnumHand.MAIN_HAND, result);
-		} else if (held != null) {
-			System.err.println("Failed to melt : " + held.getDisplayName());
-			player.sendMessage(new TextComponentString("Failed to melt : " + held.getDisplayName()));
-		}
-	}
 
+		if (!held.isItemEqual(result)) {
+			player.sendMessage(new TextComponentString(
+					"Successfully melted : " + held.getDisplayName() + " into " + result.getDisplayName()));
+			player.setHeldItem(EnumHand.MAIN_HAND, result);
+			return;
+		}
+
+		player.sendMessage(new TextComponentString("Failed to melt : " + held.getDisplayName()));
+	}
 }

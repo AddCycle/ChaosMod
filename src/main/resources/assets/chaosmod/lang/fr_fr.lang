@@ -148,6 +148,10 @@ itemGroup.chaosmodtab4=Potions
 itemGroup.chaosmodtab5=Divers
 gui.forge_interface_block.title=Forge du Chaos
 
+// Commands
+command.craft.successful=Interface de crafting ouverte
+command.heal.successful=Joueur %s soigné avec succès
+
 // Potions
 potion.effect.viking_friend=Potion des Companions
 splash_potion.effect.viking_friend=Splash Potion des Companions

@@ -27,6 +27,7 @@ public class CraftCommand extends CommandBase {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
 		World world = player.getEntityWorld();
+
 		player.displayGui(new BlockWorkbench.InterfaceCraftingTable(world, player.getPosition()) {
 			@Override
 			public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
@@ -38,7 +39,8 @@ public class CraftCommand extends CommandBase {
 				};
 			}
 		});
-		notifyCommandListener(sender, this, "commands.craft.successful", new Object[] {player.getName()});
+
+		notifyCommandListener(sender, this, "command.craft.successful");
 	}
 
 }

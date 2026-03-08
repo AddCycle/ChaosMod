@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 
 public class FireCommand extends CommandBase {
+	private static final int DEFAULT_DURATION = 2;
 
 	@Override
 	public String getName() {
@@ -22,11 +23,12 @@ public class FireCommand extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
-		int duration = 0;
+
+		int duration = DEFAULT_DURATION;
 		try {
 			duration = parseInt(args[0]);
-		} catch (NumberInvalidException e) {}
-		if (!player.isBurning()) player.setFire(duration == 0 ? 2 : duration);
+		} catch (NumberInvalidException e) {
+			if (!player.isBurning()) player.setFire(duration);
+		}
 	}
-
 }

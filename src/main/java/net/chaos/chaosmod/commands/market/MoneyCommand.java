@@ -33,7 +33,6 @@ public class MoneyCommand extends AbstractPermissionFreeCommand {
 			@Nullable BlockPos targetPos) {
 		List<String> completions = new ArrayList<>();
 
-		// player names
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames());
 		}
@@ -43,17 +42,6 @@ public class MoneyCommand extends AbstractPermissionFreeCommand {
 		}
 
 		return completions;
-	}
-
-	private void setCompletion(String[] args, List<String> completions) {
-		String prefix = args[1].toLowerCase();
-		for (MoneyAction action : MoneyAction.values()) {
-			String name = action.name().toLowerCase();
-
-			if (name.startsWith(prefix)) {
-				completions.add(name);
-			}
-		}
 	}
 
 	@Override
@@ -104,14 +92,6 @@ public class MoneyCommand extends AbstractPermissionFreeCommand {
 		applyAction(sender, target, money, action, amount);
 	}
 
-	private IMoney getMoney(EntityPlayerMP player) throws CommandException {
-		IMoney money = player.getCapability(MoneyProvider.MONEY_CAPABILITY, null);
-		if (money == null) {
-			throw new CommandException("Target has no money capability.");
-		}
-		return money;
-	}
-
 	private void applyAction(ICommandSender sender, EntityPlayerMP target, IMoney money, MoneyAction action, int amount)
 			throws WrongUsageException {
 		switch (action) {
@@ -138,8 +118,12 @@ public class MoneyCommand extends AbstractPermissionFreeCommand {
 		}
 	}
 
-	private enum MoneyAction {
-		SET, ADD;
+	private IMoney getMoney(EntityPlayerMP player) throws CommandException {
+		IMoney money = player.getCapability(MoneyProvider.MONEY_CAPABILITY, null);
+		if (money == null) {
+			throw new CommandException("Target has no money capability.");
+		}
+		return money;
 	}
 
 	private MoneyAction getAction(ICommandSender sender, String action) throws WrongUsageException {
@@ -151,5 +135,20 @@ public class MoneyCommand extends AbstractPermissionFreeCommand {
 		}
 
 		return result;
+	}
+
+	private void setCompletion(String[] args, List<String> completions) {
+		String prefix = args[1].toLowerCase();
+		for (MoneyAction action : MoneyAction.values()) {
+			String name = action.name().toLowerCase();
+
+			if (name.startsWith(prefix)) {
+				completions.add(name);
+			}
+		}
+	}
+
+	private enum MoneyAction {
+		SET, ADD;
 	}
 }

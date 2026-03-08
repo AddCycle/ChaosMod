@@ -77,6 +77,9 @@ entity.revenge_blaze_boss.name=Blaze Vengeur
 itemGroup.chaosmodtab=Objets du Chaos
 gui.forge_interface_block.title=Forge du Chaos
 
+// Commands
+commands.craft.successful=Interface de crafting ouverte
+
 //Guide
 text.guide.title=Guide du Chaos
 

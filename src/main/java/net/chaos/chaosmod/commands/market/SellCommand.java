@@ -25,10 +25,8 @@ public class SellCommand extends AbstractPermissionFreeCommand {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
 		World world = player.getEntityWorld();
-		if (!world.isRemote) {
-			MarketData data = MarketDataHandler.get(world);
-			// TODO
-		}
+		MarketData data = MarketDataHandler.get(world);
+		// TODO
 	}
 
 }
