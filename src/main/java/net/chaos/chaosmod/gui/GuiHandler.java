@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.gui;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.gui.inventory.BackpackGui;
 import net.chaos.chaosmod.client.gui.inventory.ForgeInterfaceGui;
 import net.chaos.chaosmod.client.gui.inventory.GuiInventoryExtended;
@@ -103,7 +102,6 @@ public class GuiHandler implements IGuiHandler {
 		case Reference.GUI_ATM_ID:
 			return new GuiATM(player.inventory, (TileEntityATM) te, player);
 		case Reference.GUI_MARKET_ID:
-			// Main.getLogger().info("opened gui market");
 			return new GuiMarket();
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
