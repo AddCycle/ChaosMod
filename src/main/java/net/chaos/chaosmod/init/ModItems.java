@@ -34,8 +34,10 @@ import net.chaos.chaosmod.items.special.PortalKey;
 import net.chaos.chaosmod.items.special.TesterWand;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.items.tools.AllInOneSword;
+import net.chaos.chaosmod.items.tools.AllemaniteHoe;
 import net.chaos.chaosmod.items.tools.AllemanitePickaxe;
 import net.chaos.chaosmod.items.tools.AllemaniteSword;
+import net.chaos.chaosmod.items.tools.OxoniumAxe;
 import net.chaos.chaosmod.items.tools.OxoniumHalleberd;
 import net.chaos.chaosmod.items.tools.OxoniumHoe;
 import net.chaos.chaosmod.items.tools.OxoniumPickaxe;
@@ -95,7 +97,7 @@ public class ModItems {
 	//Tools
 	public static final ItemSword OXONIUM_SWORD = new OxoniumSword("oxonium_sword", MATERIAL_OXONIUM);
 	public static final ItemPickaxe OXONIUM_PICKAXE = new OxoniumPickaxe("oxonium_pickaxe", MATERIAL_OXONIUM);
-	public static final ItemAxe OXONIUM_AXE = new ToolAxe("oxonium_axe", MATERIAL_OXONIUM);
+	public static final ItemAxe OXONIUM_AXE = new OxoniumAxe("oxonium_axe", MATERIAL_OXONIUM);
 	public static final ItemSpade OXONIUM_SHOVEL = new ToolSpade("oxonium_shovel", MATERIAL_OXONIUM);
 	public static final ItemHoe OXONIUM_HOE = new OxoniumHoe("oxonium_hoe", MATERIAL_OXONIUM);
 	public static final ItemBow OXONIUM_BOW = new OxoniumBow("oxonium_bow", MATERIAL_OXONIUM);
@@ -105,7 +107,7 @@ public class ModItems {
 	public static final ItemPickaxe ALLEMANITE_PICKAXE = new AllemanitePickaxe("allemanite_pickaxe", MATERIAL_ALLEMANITE);
 	public static final ItemAxe ALLEMANITE_AXE = new ToolAxe("allemanite_axe", MATERIAL_ALLEMANITE);
 	public static final ItemSpade ALLEMANITE_SHOVEL = new ToolSpade("allemanite_shovel", MATERIAL_ALLEMANITE);
-	public static final ItemHoe ALLEMANITE_HOE = new ToolHoe("allemanite_hoe", MATERIAL_ALLEMANITE);
+	public static final ItemHoe ALLEMANITE_HOE = new AllemaniteHoe("allemanite_hoe", MATERIAL_ALLEMANITE);
 
 	public static final ItemSword ENDERITE_SWORD = new ToolSword("enderite_sword", MATERIAL_ENDERITE);
 	public static final ItemPickaxe ENDERITE_PICKAXE = new ToolPickaxe("enderite_pickaxe", MATERIAL_ENDERITE);

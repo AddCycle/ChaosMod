@@ -93,7 +93,6 @@ public class GuiHandler implements IGuiHandler {
 		case Reference.GUI_BACKPACK_ID:
 			return new BackpackGui(new BackpackContainer(player.inventory, player.getHeldItemMainhand()));
 		case 5:
-			System.out.println("Server GuiHandler received ID: " + ID + " x: " + x);
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		case 6:
 			return new GuiInventoryExtended(player);

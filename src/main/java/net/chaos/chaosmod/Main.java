@@ -52,7 +52,6 @@ import util.handlers.RegistryHandler;
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY_CLASS, dependencies = Reference.OPTIONAL_DEPENDENCIES)
 public class Main
 {
-	// Helps launch the ChaosMod
 	@Instance
 	public static Main instance = InitStructures();
 	
@@ -60,18 +59,15 @@ public class Main
 		return instance;
 	}
 	
-	// This is for server and client handling
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
 
-	// Basically, a logger is for broadcasting messages through the console to help you debug your mod implementation
     private static Logger logger;
     
     public static Logger getLogger() {
     	return logger;
     }
 
-    // Before the initialization of the Mod (When the forge window is not opened yet)
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -80,7 +76,7 @@ public class Main
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
         ModSounds.registerSounds();
-        ModCapabilities.register(); // for in-game-accessories
+        ModCapabilities.register();
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomStructure("nether_dungeon", 0), 1);
         // GameRegistry.registerWorldGenerator(new WorldGenCustomStructure("nether_box", 0), 1);
@@ -113,7 +109,7 @@ public class Main
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CHAOS_LAND_BIOME, 50));
         ModDimensions.init();
         RegistryHandler.onTagsRegister();
-        // STructures registering ----------------------------- MOVE SOMEWHERE ELSE -----------
+
 		MapGenStructureIO.registerStructureComponent(VillageAdditionalStructure.class, "Vas");
 		MapGenStructureIO.registerStructure(MapGenCustomVillage.Start.class, "custom_village");
 		StructureCustomVillage.registerVillagePieces();
@@ -121,7 +117,6 @@ public class Main
         // ModStructures.registerStructures();
     }
 
-    // After the launching of the instance
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {

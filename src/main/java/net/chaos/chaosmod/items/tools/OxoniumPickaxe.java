@@ -42,7 +42,7 @@ public class OxoniumPickaxe extends ItemPickaxe implements IHasModel {
 
 		ModItems.ITEMS.add(this);
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		String tip = String.format("%s[BUFF] %sVein mining", TextFormatting.GREEN, TextFormatting.RESET);
@@ -53,39 +53,40 @@ public class OxoniumPickaxe extends ItemPickaxe implements IHasModel {
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos,
 			EntityLivingBase entityLiving) {
-		if (!world.isRemote && entityLiving instanceof EntityPlayer && mode == 1) {
+		if (world.isRemote)
+			return true;
+
+		if (entityLiving instanceof EntityPlayer && mode == 1) {
 			if (isOreBlock(state)) {
 				veinMine(world, pos, state, (EntityPlayer) entityLiving, stack);
 			}
 		}
+
 		return super.onBlockDestroyed(stack, world, state, pos, entityLiving);
+	}
+
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		if (worldIn.isRemote)
+			return super.onItemRightClick(worldIn, playerIn, handIn);
+
+		mode++;
+		mode %= 2;
+
+		playerIn.sendMessage(new TextComponentString("mode = " + (mode == 1 ? "VEIN MINER" : "NORMAL")));
+
+		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}
 
 	private boolean isOreBlock(IBlockState state) {
 		Block block = state.getBlock();
 
-		// Normalize special vanilla cases
-		if (block == Blocks.LIT_REDSTONE_ORE) {
-			block = Blocks.REDSTONE_ORE;
-			state = normalizeOre(block).getDefaultState();
-		}
+		block = normalizeOre(block);
+		state = block.getDefaultState();
 
-		// If the block itself is explicitly one of the known vanilla ores
-		if (block == Blocks.COAL_ORE ||
-				block == Blocks.IRON_ORE ||
-				block == Blocks.GOLD_ORE ||
-				block == Blocks.DIAMOND_ORE ||
-				block == Blocks.EMERALD_ORE ||
-				block == Blocks.LAPIS_ORE ||
-				block == Blocks.QUARTZ_ORE ||
-				block == Blocks.REDSTONE_ORE) {
-			return true;
-		}
-
-		// Otherwise, check OreDictionary (modded ores usually register here)
 		Item item = Item.getItemFromBlock(block);
 		if (item == Items.AIR) {
-			return false; // no item form, can't be ore
+			return false;
 		}
 
 		ItemStack stack = new ItemStack(item, 1, block.damageDropped(state));
@@ -100,6 +101,10 @@ public class OxoniumPickaxe extends ItemPickaxe implements IHasModel {
 			}
 		}
 
+		if (item.getRegistryName().getResourcePath().endsWith("_ore")) {
+			return true;
+		}
+
 		return false;
 	}
 
@@ -112,23 +117,24 @@ public class OxoniumPickaxe extends ItemPickaxe implements IHasModel {
 		while (!toCheck.isEmpty()) {
 			BlockPos pos = toCheck.poll();
 
-			if (visited.contains(pos)) continue;
+			if (visited.contains(pos))
+				continue;
 			visited.add(pos);
 
 			IBlockState state = world.getBlockState(pos);
-			// NEW: normalize before comparing
 			Block current = normalizeOre(state.getBlock());
 			Block target = normalizeOre(targetState.getBlock());
 
-			if (current == target) { // instead of state.getBlock() == targetState.getBlock()
-				// Break this block like normal
+			if (current == target) {
+				// Break this block normally
 				Block block = state.getBlock();
 				block.onBlockDestroyedByPlayer(world, pos, state);
 				block.harvestBlock(world, player, pos, state, world.getTileEntity(pos), tool);
 
 				int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, tool);
 				int xp = block.getExpDrop(state, world, pos, fortune);
-				if (xp > 0) block.dropXpOnBlockBreak(world, pos, xp);
+				if (xp > 0)
+					block.dropXpOnBlockBreak(world, pos, xp);
 
 				world.setBlockToAir(pos);
 
@@ -137,27 +143,13 @@ public class OxoniumPickaxe extends ItemPickaxe implements IHasModel {
 					BlockPos neighbor = pos.offset(face);
 					if (!visited.contains(neighbor)) {
 						Block neighborBlock = normalizeOre(world.getBlockState(neighbor).getBlock());
-						if (neighborBlock == target) { // instead of == targetState.getBlock()
+						if (neighborBlock == target) {
 							toCheck.add(neighbor);
 						}
 					}
 				}
 			}
 		}
-	}
-
-	private Block normalizeOre(Block block) {
-		if (block == Blocks.LIT_REDSTONE_ORE) return Blocks.REDSTONE_ORE;
-		return block;
-	}
-
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		if (!worldIn.isRemote) {
-			playerIn.sendMessage(new TextComponentString("mode = " + (mode == 0 ? "vein miner" : "normal")));
-			if (mode == 0) mode = 1; else mode = 0;
-		}
-		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}
 
 	@Override
@@ -170,4 +162,9 @@ public class OxoniumPickaxe extends ItemPickaxe implements IHasModel {
 		return new CreativeTabs[] { ModTabs.ITEMS, CreativeTabs.TOOLS };
 	}
 
+	private Block normalizeOre(Block block) {
+		if (block == Blocks.LIT_REDSTONE_ORE)
+			return Blocks.REDSTONE_ORE;
+		return block;
+	}
 }
