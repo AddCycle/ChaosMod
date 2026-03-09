@@ -32,7 +32,8 @@ public class CommandsManager {
 		new BuyCommand(),
 		new SellCommand(),
 		new AddOfferCommand(),
-		new HuntCommand());
+		new HuntCommand(),
+		new BackCommand());
 
 		if (!Loader.isModLoaded("mathsmod")) {
 			register(event,

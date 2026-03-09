@@ -68,4 +68,8 @@ public class BlockHelper {
 			}
 		}
 	}
+
+	public static int[] getPosArray(BlockPos deathPos) {
+		return new int[] {deathPos.getX(), deathPos.getY(), deathPos.getZ()};
+	}
 }

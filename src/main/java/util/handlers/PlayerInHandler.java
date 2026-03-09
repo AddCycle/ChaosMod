@@ -15,11 +15,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.Clone;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import util.Reference;
+import util.blockstates.BlockHelper;
 
+// TODO: REFACTOR & move this class inside the world.events package
 public class PlayerInHandler {
 
 	@SubscribeEvent
@@ -28,81 +32,90 @@ public class PlayerInHandler {
 	 */
 	public void onPlayerJoin(PlayerLoggedInEvent event) {
 		EntityPlayer player = event.player;
-	    if (!player.world.isRemote) {
-	        IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
-	        if (cap != null) {
-	            ItemStack stack = cap.getAccessoryItem();
-	            PacketManager.network.sendTo(new PacketAccessorySync(player, stack), (EntityPlayerMP) player);
-	        }
-	    }
-	    
-	    // Sending jobs data to client
-	    if (!player.world.isRemote) {
-	        String jsonData = JobsManager.toJsonString(); // serialize all jobs
-	        PacketManager.network.sendTo(new PacketSyncJobs(jsonData), (EntityPlayerMP) event.player);
-	        syncToClient((EntityPlayerMP) event.player); // sync capabilities if player has one
-	    }
-	}
-	
-	public static void syncToClient(EntityPlayerMP player) {
-	    PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
-	    PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), player);
-	}
 
-	
-	@SubscribeEvent
-	/*
-	 * When the player RESPAWN event is fired to prevent duplicates on server
-	 */
+		if (player.world.isRemote)
+			return;
 
-	// prevents issues with homes & accessories
-	public void onPlayerClone(PlayerEvent.Clone event) {
-		if (!event.getOriginal().getEntityWorld().isRemote) {
-			String homesNumberKey = Reference.PREFIX + "homesNumber";
-			Set<String> homeSet = event.getOriginal().getEntityData().getKeySet();
-			homeSet.forEach(key -> {
-				if (key.equalsIgnoreCase(homesNumberKey)) {
-					event.getEntityPlayer().getEntityData().setInteger(key, event.getOriginal().getEntityData().getInteger(key));
-				} else
-				if (key.startsWith(Reference.PREFIX) && (key.endsWith("_homepos") || key.endsWith("prevhomepos"))) {
-					event.getEntityPlayer().getEntityData().setIntArray(key, event.getOriginal().getEntityData().getIntArray(key));
-				}
-			});
-
-			// prevents issues with patchouli book gift
-			NBTTagCompound origEntityData = event.getOriginal().getEntityData();
-	        NBTTagCompound newEntityData = event.getEntityPlayer().getEntityData();
-
-	        NBTTagCompound origPersist;
-	        if (origEntityData.hasKey(EntityPlayer.PERSISTED_NBT_TAG, 10)) {
-	            origPersist = origEntityData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-	        } else {
-	            origPersist = new NBTTagCompound();
-	            origEntityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, origPersist);
-	        }
-
-	        NBTTagCompound newPersist;
-	        if (newEntityData.hasKey(EntityPlayer.PERSISTED_NBT_TAG, 10)) {
-	            newPersist = newEntityData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-	        } else {
-	            newPersist = new NBTTagCompound();
-	            newEntityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, newPersist);
-	        }
-
-	        String key = Reference.PREFIX + "first_join";
-	        if (origPersist.hasKey(key)) {
-	            newPersist.setBoolean(key, origPersist.getBoolean(key));
-	        }
-
-	        newEntityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, newPersist);
+		IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
+		if (cap != null) {
+			ItemStack stack = cap.getAccessoryItem();
+			PacketManager.network.sendTo(new PacketAccessorySync(player, stack), (EntityPlayerMP) player);
 		}
 
-		// prevents issues with this mod necklaces
-		IAccessory oldCap = event.getOriginal().getCapability(ModCapabilities.ACCESSORY, null);
-	    IAccessory newCap = event.getEntityPlayer().getCapability(ModCapabilities.ACCESSORY, null);
+		// Sending jobs data to client
+		String jsonData = JobsManager.toJsonString(); // serialize all jobs
+		PacketManager.network.sendTo(new PacketSyncJobs(jsonData), (EntityPlayerMP) event.player);
+		syncJobCapabilities((EntityPlayerMP) event.player);
+	}
 
-	    if (oldCap != null && newCap != null) {
-	        newCap.setAccessoryItem(oldCap.getAccessoryItem().copy());
-	    }
+	@SubscribeEvent
+	public void onPlayerClone(PlayerEvent.Clone event) {
+
+		syncAccessories(event);
+
+		if (event.getOriginal().getEntityWorld().isRemote)
+			return;
+
+		String homeCountKey = Reference.PREFIX + "homesNumber";
+		Set<String> homeSet = event.getOriginal().getEntityData().getKeySet();
+		homeSet.forEach(key ->
+		{
+			if (key.equalsIgnoreCase(homeCountKey)) {
+				event.getEntityPlayer().getEntityData().setInteger(key,
+						event.getOriginal().getEntityData().getInteger(key));
+			} else if (key.startsWith(Reference.PREFIX) && (key.endsWith("_homepos") || key.endsWith("prevhomepos"))) {
+				event.getEntityPlayer().getEntityData().setIntArray(key,
+						event.getOriginal().getEntityData().getIntArray(key));
+			}
+		});
+
+		// prevents issues with patchouli book gift
+		NBTTagCompound originalData = event.getOriginal().getEntityData();
+		NBTTagCompound clonedData = event.getEntityPlayer().getEntityData();
+
+		NBTTagCompound originalPersistentData;
+		if (originalData.hasKey(EntityPlayer.PERSISTED_NBT_TAG, 10)) {
+			originalPersistentData = originalData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+		} else {
+			originalPersistentData = new NBTTagCompound();
+			originalData.setTag(EntityPlayer.PERSISTED_NBT_TAG, originalPersistentData);
+		}
+
+		NBTTagCompound newPersistentData;
+		if (clonedData.hasKey(EntityPlayer.PERSISTED_NBT_TAG, 10)) {
+			newPersistentData = clonedData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+		} else {
+			newPersistentData = new NBTTagCompound();
+			clonedData.setTag(EntityPlayer.PERSISTED_NBT_TAG, newPersistentData);
+		}
+
+		String key = Reference.PREFIX + "first_join";
+		if (originalPersistentData.hasKey(key)) {
+			newPersistentData.setBoolean(key, originalPersistentData.getBoolean(key));
+		}
+
+		if (event.isWasDeath()) {
+			String deathKey = Reference.PREFIX + "lastDeathPosition";
+			BlockPos deathPos = event.getOriginal().getPosition();
+
+			newPersistentData.setIntArray(deathKey, BlockHelper.getPosArray(deathPos));
+		}
+
+		clonedData.setTag(EntityPlayer.PERSISTED_NBT_TAG, newPersistentData);
+	}
+
+	public static void syncJobCapabilities(EntityPlayerMP player) {
+		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+		PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), player);
+	}
+
+	private void syncAccessories(Clone event) {
+		// prevents issues with necklaces items
+		IAccessory oldCap = event.getOriginal().getCapability(ModCapabilities.ACCESSORY, null);
+		IAccessory newCap = event.getEntityPlayer().getCapability(ModCapabilities.ACCESSORY, null);
+
+		if (oldCap != null && newCap != null) {
+			newCap.setAccessoryItem(oldCap.getAccessoryItem().copy());
+		}
 	}
 }

@@ -54,10 +54,9 @@ import vazkii.patchouli.api.PatchouliAPI;
 public class PlayerLifeEvents {
 	
 	@SubscribeEvent
-	// FIXED
 	public void onPlayerJoin(EntityJoinWorldEvent event) {
-		if (!(event.getEntity() instanceof EntityPlayer)) return; // only if the entity is a player
-		if (event.getWorld().isRemote) return; // running only server side
+		if (!(event.getEntity() instanceof EntityPlayer)) return;
+		if (event.getWorld().isRemote) return;
 
 		EntityPlayer player = (EntityPlayer) event.getEntity();
 
