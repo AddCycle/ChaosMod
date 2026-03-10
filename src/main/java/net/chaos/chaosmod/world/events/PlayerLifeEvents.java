@@ -139,7 +139,7 @@ public class PlayerLifeEvents {
 			if (Keyboard.getEventKey() == mc.gameSettings.keyBindInventory.getKeyCode()) {
 				PacketManager.network.sendToServer(new PacketOpenAccessoryGui());
 			} else if (ModKeybinds.playMusicKey.isPressed()) {
-				ClientSoundHandler.launchPlaylist();
+				ClientSoundHandler.nextSound();
 			} else if (ModKeybinds.pauseMusicKey.isPressed()) {
 				if (ClientSoundHandler.isMusicPlaying() && !ClientSoundHandler.isMusicPaused()) ClientSoundHandler.pauseMusic();
 				else ClientSoundHandler.resumeMusic();
@@ -147,11 +147,11 @@ public class PlayerLifeEvents {
 				ClientSoundHandler.stopMusic();
 			} else if (ModKeybinds.nextMusicKey.isPressed()) {
 				ClientSoundHandler.stopMusic();
-				ClientSoundHandler.launchPlaylist();
+				ClientSoundHandler.nextSound();
 			} else if (ModKeybinds.previousMusicKey.isPressed()) {
 				ClientSoundHandler.stopMusic();
 				ClientSoundHandler.index-=2;
-				ClientSoundHandler.launchPlaylist();
+				ClientSoundHandler.nextSound();
 			} else if (ModKeybinds.displayJobsKey.isPressed()) {
 				mc.displayGuiScreen(new GuiScreenJobs());
 			}

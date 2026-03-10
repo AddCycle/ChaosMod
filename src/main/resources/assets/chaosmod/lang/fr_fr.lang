@@ -161,6 +161,18 @@ effect.viking_friend=Compagnon Viking
 
 // Enchantments
 enchantment.vein_miner=Mineur de filons
+enchantment.lava_walker=Marcheur sur Lave
+
+enchantment.level.1=I
+enchantment.level.2=II
+enchantment.level.3=III
+enchantment.level.4=IV
+enchantment.level.5=V
+enchantment.level.6=VI
+enchantment.level.7=VII
+enchantment.level.8=VIII
+enchantment.level.9=IX
+enchantment.level.10=X
 
 // Fluids
 fluid.fertilized_water=Eau fertilisée
