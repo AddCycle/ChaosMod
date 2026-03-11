@@ -24,8 +24,8 @@ public class ModTabs extends GeneralTab {
 		super(label, image, icon, block, flag);
 	}
 
-	//Custom ChaosMod Tabs -- feel free to add more
 	public static final CreativeTabs BUILDING_BLOCKS = new GeneralTab("chaosmodtab", "general_bg.png", null, ModBlocks.OXONIUM_ORE, true);
+
 	public static final CreativeTabs ITEMS = new GeneralTab("chaosmodtab2", "general_bg.png", ModItems.OXONIUM_NECKLACE, null, false) {
 		@Override
 		public void displayAllRelevantItems(NonNullList<ItemStack> items) {
@@ -35,7 +35,9 @@ public class ModTabs extends GeneralTab {
 			items.add(book);
 		}
 	};
+
 	public static final CreativeTabs GENERAL_TAB = new GeneralTab("chaosmodtab3", "general_bg.png", ModItems.OXONIUM_UPGRADE, null, false);
+
 	public static final CreativeTabs POTIONS = new GeneralTab("chaosmodtab4", "general_bg.png", Items.POTIONITEM, null, false) {
 		@Override
 		public void displayAllRelevantItems(NonNullList<ItemStack> items) {
@@ -63,7 +65,7 @@ public class ModTabs extends GeneralTab {
 		}
 	};
 	
-	public static void potionHelper(NonNullList<ItemStack> items, PotionType potionType) {
+	private static void potionHelper(NonNullList<ItemStack> items, PotionType potionType) {
 		items.add(PotionUtils.addPotionToItemStack(
 				new ItemStack(Items.POTIONITEM), potionType));
 		items.add(PotionUtils.addPotionToItemStack(

@@ -73,7 +73,7 @@ public class DimensionWarpCommand extends CommandBase {
     {
         private final BlockPos targetPos;
 
-        CommandTeleporter(BlockPos targetPos)
+        public CommandTeleporter(BlockPos targetPos)
         {
             this.targetPos = targetPos;
         }

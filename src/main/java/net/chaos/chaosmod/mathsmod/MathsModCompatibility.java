@@ -1,5 +1,5 @@
 package net.chaos.chaosmod.mathsmod;
 
-public class MathCompatibility {
+public class MathsModCompatibility {
 	// Look at util.RegistryHandler
 }

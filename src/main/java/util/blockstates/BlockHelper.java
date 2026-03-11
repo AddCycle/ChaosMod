@@ -9,11 +9,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockHelper {
 
@@ -67,6 +71,42 @@ public class BlockHelper {
 				}
 			}
 		}
+	}
+
+	public static boolean isOreBlock(IBlockState state) {
+		Block block = state.getBlock();
+
+		block = normalizeOre(block);
+		state = block.getDefaultState();
+
+		Item item = Item.getItemFromBlock(block);
+		if (item == Items.AIR) {
+			return false;
+		}
+
+		ItemStack stack = new ItemStack(item, 1, block.damageDropped(state));
+		if (stack.isEmpty()) {
+			return false;
+		}
+
+		for (int id : OreDictionary.getOreIDs(stack)) {
+			String name = OreDictionary.getOreName(id);
+			if (name != null && name.toLowerCase().startsWith("ore")) {
+				return true;
+			}
+		}
+
+		if (item.getRegistryName().getResourcePath().endsWith("_ore")) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public static Block normalizeOre(Block block) {
+		if (block == Blocks.LIT_REDSTONE_ORE)
+			return Blocks.REDSTONE_ORE;
+		return block;
 	}
 
 	public static int[] getPosArray(BlockPos deathPos) {

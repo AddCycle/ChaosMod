@@ -21,7 +21,6 @@ public class ModBiomes {
 	public static final Biome CHAOS_LAND_BIOME = new CustomBiomeChaosLand().setRegistryName(new ResourceLocation(Reference.MODID, "chaos_land_biome"));;
 	public static final Biome CUSTOM_HELL = new CustomBiomeHell().setRegistryName(new ResourceLocation(Reference.MODID, "custom_hell"));
 
-
     public static void registerBiomes() {
     	BIOMES.add(GIANT_MOUNTAIN);
         BIOMES.add(NETHER_CAVES);
@@ -29,5 +28,4 @@ public class ModBiomes {
         BIOMES.add(CHAOS_LAND_BIOME);
         BIOMES.add(CUSTOM_HELL);
     }
-
 }

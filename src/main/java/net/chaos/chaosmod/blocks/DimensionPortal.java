@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import com.google.common.cache.LoadingCache;
 
 import net.chaos.chaosmod.blocks.abstracted.AbstractBreakableBlock;
-import net.chaos.chaosmod.commands.TeleportUtil;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModDimensions;
 import net.minecraft.block.Block;
@@ -40,6 +39,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import util.dimensions.TeleportUtil;
 
 public class DimensionPortal extends AbstractBreakableBlock {
 public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacing.Axis>create("axis", EnumFacing.Axis.class, EnumFacing.Axis.X, EnumFacing.Axis.Z);

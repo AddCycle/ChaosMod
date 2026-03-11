@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.commands;
+package util.dimensions;
 
 import net.chaos.chaosmod.commands.DimensionWarpCommand.CommandTeleporter;
 import net.minecraft.entity.Entity;

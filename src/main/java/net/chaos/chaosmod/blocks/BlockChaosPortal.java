@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.blocks;
 
-import net.chaos.chaosmod.commands.TeleportUtil;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModDimensions;
 import net.minecraft.block.BlockEndPortal;
@@ -12,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import util.dimensions.TeleportUtil;
 
 public class BlockChaosPortal extends BlockEndPortal {
 

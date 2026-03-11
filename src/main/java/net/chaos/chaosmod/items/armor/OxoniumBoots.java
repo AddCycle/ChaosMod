@@ -24,5 +24,4 @@ public class OxoniumBoots extends ArmorBase {
 	public boolean canItemEditBlocks() {
 		return false;
 	}
-
 }

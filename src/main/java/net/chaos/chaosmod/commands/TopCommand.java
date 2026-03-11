@@ -6,6 +6,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import util.dimensions.TeleportUtil;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 public class TopCommand extends CommandBase {
