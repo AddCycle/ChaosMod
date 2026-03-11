@@ -69,8 +69,8 @@ public class ShapeShifterBlock extends Block implements IBlockModel {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		IProperty [] listedProperties = new IProperty[0]; // no listed properties
-		IUnlistedProperty [] unlistedProperties = new IUnlistedProperty[] {COPIEDBLOCK};
+		IProperty<?> [] listedProperties = new IProperty[0]; // no listed properties
+		IUnlistedProperty<?> [] unlistedProperties = new IUnlistedProperty[] {COPIEDBLOCK};
 		return new ExtendedBlockState(this, listedProperties, unlistedProperties);
 	}
 

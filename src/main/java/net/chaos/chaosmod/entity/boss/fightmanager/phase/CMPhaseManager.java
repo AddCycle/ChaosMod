@@ -54,6 +54,6 @@ public class CMPhaseManager {
             this.phases[i] = phaseIn.createPhase(this.dragon);
         }
 
-        return (T)this.phases[i];
+        return (T) this.phases[i];
     }
 }

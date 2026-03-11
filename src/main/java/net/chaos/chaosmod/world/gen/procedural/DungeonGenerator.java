@@ -226,7 +226,8 @@ public class DungeonGenerator {
         return manager.getTemplate(server, rl);
     }
 
-    private static List<Connector> findConnectors(Template template, PlacementSettings settings, BlockPos origin) {
+    @SuppressWarnings("unused")
+	private static List<Connector> findConnectors(Template template, PlacementSettings settings, BlockPos origin) {
         List<Connector> connectors = new ArrayList<>();
         Map<BlockPos, String> dataBlocks = template.getDataBlocks(BlockPos.ORIGIN, settings);
 

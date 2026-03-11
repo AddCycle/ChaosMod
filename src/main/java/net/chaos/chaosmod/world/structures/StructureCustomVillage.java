@@ -522,6 +522,7 @@ public class StructureCustomVillage {
 		 * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
 		 * Mineshafts at the end, it adds Fences...
 		 */
+		@SuppressWarnings("deprecation")
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn)
 		{
 			if (this.averageGroundLvl < 0)
@@ -651,6 +652,7 @@ public class StructureCustomVillage {
 		 * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
 		 * Mineshafts at the end, it adds Fences...
 		 */
+		@SuppressWarnings("deprecation")
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn)
 		{
 			if (this.averageGroundLvl < 0)
@@ -1757,6 +1759,7 @@ public class StructureCustomVillage {
 		 * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
 		 * Mineshafts at the end, it adds Fences...
 		 */
+		@SuppressWarnings("deprecation")
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn)
 		{
 			if (this.averageGroundLvl < 0)
@@ -1988,11 +1991,13 @@ public class StructureCustomVillage {
 		{
 			return currentVillagerProfession;
 		}
+		@SuppressWarnings("deprecation")
 		protected net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession chooseForgeProfession(int count, net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession prof)
 		{
 			return net.minecraftforge.fml.common.registry.VillagerRegistry.getById(chooseProfession(count, net.minecraftforge.fml.common.registry.VillagerRegistry.getId(prof)));
 		}
 
+		@SuppressWarnings("deprecation")
 		protected IBlockState getBiomeSpecificBlockState(IBlockState blockstateIn)
 		{
 			net.minecraftforge.event.terraingen.BiomeEvent.GetVillageBlockID event = new net.minecraftforge.event.terraingen.BiomeEvent.GetVillageBlockID(startPiece == null ? null : startPiece.biome, blockstateIn);

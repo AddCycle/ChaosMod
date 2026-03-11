@@ -79,7 +79,7 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
-		Container container = EntityContains(player, world, x);
+//		Container container = EntityContains(player, world, x);
 		
 		switch (ID) {
 		case 0:
@@ -107,6 +107,7 @@ public class GuiHandler implements IGuiHandler {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private Container EntityContains(EntityPlayer player, World world, int entityId) {
 		Entity entity = world.getEntityByID(entityId);
 		if (entity instanceof EntityChaosSage && !entity.isDead)

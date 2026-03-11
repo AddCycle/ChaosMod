@@ -10,5 +10,4 @@ public class FertilizedWaterFluid extends Fluid {
 		super(fluidName, still, flowing, overlay);
 		setUnlocalizedName(fluidName);
 	}
-
 }

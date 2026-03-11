@@ -139,15 +139,15 @@ public class RegistryHandler {
 	     * Mathsmod adding a recipe
 	     */
 	    if (Loader.isModLoaded("mathsmod")) {
-	    	Item JeanRobertPerezItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("mathsmod", "kurayum_ingot"));
-	    	if (JeanRobertPerezItem != null) {
+	    	Item itemJRP = ForgeRegistries.ITEMS.getValue(new ResourceLocation("mathsmod", "kurayum_ingot"));
+	    	if (itemJRP != null) {
 	    		ShapedOreRecipe recipe = new ShapedOreRecipe(
 	    				new ResourceLocation("chaosmod", "collab_recipe1"), // registry name
 	    				new ItemStack(ModItems.CHAOS_HEART), // result
 	    				" I ", // pattern
 	    				"ICI",
 	    				" I ",
-	    				'I', JeanRobertPerezItem,
+	    				'I', itemJRP,
 	    				'C', new ItemStack(ModItems.ENDERITE_INGOT, 3)
 	    				);
 	    		recipe.setRegistryName(new ResourceLocation(Reference.MODID, "collab_recipe1"));

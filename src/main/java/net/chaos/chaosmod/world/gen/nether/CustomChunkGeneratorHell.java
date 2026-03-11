@@ -30,7 +30,10 @@ import net.minecraft.world.gen.feature.WorldGenHellLava;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 
+@SuppressWarnings("unused")
 public class CustomChunkGeneratorHell implements IChunkGenerator {
     protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
     protected static final IBlockState NETHERRACK = Blocks.NETHERRACK.getDefaultState();
@@ -387,7 +390,8 @@ public class CustomChunkGeneratorHell implements IChunkGenerator {
     /**
      * Generate initial structures in this chunk, e.g. mineshafts, temples, lakes, and dungeons
      */
-    public void populate(int x, int z)
+    @SuppressWarnings("deprecation")
+	public void populate(int x, int z)
     {
         BlockFalling.fallInstantly = true;
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(true, this, this.world, this.rand, x, z, false);
@@ -463,7 +467,7 @@ public class CustomChunkGeneratorHell implements IChunkGenerator {
 
         biome.decorate(this.world, this.rand, new BlockPos(i, 0, j));
 
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Post(this.world, this.rand, blockpos));
+        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(this.world, this.rand, blockpos));
 
         BlockFalling.fallInstantly = false;
     }

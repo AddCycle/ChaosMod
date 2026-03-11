@@ -7,6 +7,7 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.client.Minecraft;
@@ -16,8 +17,8 @@ import net.minecraft.item.ItemStack;
 
 public class ExplorationCategory implements IRecipeCategory<ExplorationWrapper>{
 	public static final String UID = "chaosmod.exploration_category";
-	public static int WIDTH = 150;
-	public static int HEIGHT = 100;
+	public static final int WIDTH = 150;
+	public static final int HEIGHT = 100;
 	
 	private final IDrawable background;
 
@@ -52,8 +53,8 @@ public class ExplorationCategory implements IRecipeCategory<ExplorationWrapper>{
         IGuiItemStackGroup stacks = layout.getItemStacks();
 
         // Arrange input/output positions manually
-        List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
-        List<List<ItemStack>> outputs = ingredients.getOutputs(ItemStack.class);
+        List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
+        List<List<ItemStack>> outputs = ingredients.getOutputs(VanillaTypes.ITEM);
 
         for (int i = 0; i < inputs.size(); i++) {
             int x = (i % 5) * 18;

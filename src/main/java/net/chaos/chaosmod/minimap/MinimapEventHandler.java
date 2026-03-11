@@ -56,11 +56,12 @@ public class MinimapEventHandler {
         Renderer.drawMinimap(event.getResolution(), CLIENT.pixelSize);
 		if (CLIENT.displayOverlay) Renderer.drawTransparentMap(event.getResolution(), CLIENT.pixelSize);
 		if (CLIENT.displayArrow) drawArrow(event.getResolution(), CLIENT.minimapSize, CLIENT.pixelSize);
-		// FIXME : later re-enable player arrows because Louis want to troll other players
+		// FIXME : later re-enable player arrows because JRP want to troll other players
 		// Make an item in order to make this feature enabled like while holding an item in their hands
 		// drawPlayersArrows(resolution, mapSize, pixelSize);
     }
 	
+	@SuppressWarnings("unused")
 	private static void drawPlayersArrows(ScaledResolution resolution, int mapSize, int pixelSize) {
 		Random rand = new Random();
 		Minecraft mc = Minecraft.getMinecraft();
