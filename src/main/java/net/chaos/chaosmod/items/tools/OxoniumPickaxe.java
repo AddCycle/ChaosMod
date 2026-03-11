@@ -5,7 +5,6 @@ import static util.blockstates.BlockHelper.isOreBlock;
 
 import java.util.List;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.block.state.IBlockState;
@@ -21,9 +20,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import util.IHasModel;
+import proxy.IItemModel;
 
-public class OxoniumPickaxe extends ItemPickaxe implements IHasModel {
+public class OxoniumPickaxe extends ItemPickaxe implements IItemModel {
 	private int mode = 0;
 
 	public OxoniumPickaxe(String name, ToolMaterial material) {
@@ -67,11 +66,6 @@ public class OxoniumPickaxe extends ItemPickaxe implements IHasModel {
 		playerIn.sendMessage(new TextComponentString("mode = " + getMode(mode)));
 
 		return super.onItemRightClick(worldIn, playerIn, handIn);
-	}
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 
 	@Override

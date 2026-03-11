@@ -22,6 +22,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
+// TODO : refactor this part
 public class MinimapEventHandler {
 	public static Map<UUID, Integer> map = new HashMap<>(); // stores the color of the player arrow to draw on the minimap
 	private static int colorIndex = 0;
@@ -32,7 +33,7 @@ public class MinimapEventHandler {
 	private int lastPlayerX;
 	private int lastPlayerZ;
 	/*
-	 * TODO : Note for me later : Don't use RenderGameOverlayEvent alone use one phase : Pre, Post, Chat, BossInfo => too laggy
+	 * TODO : Note for me later : Don't use RenderGameOverlayEvent alone use one phase : Pre, Post, Chat, BossInfo => otherwise too laggy
 	 */
 
 	@SubscribeEvent

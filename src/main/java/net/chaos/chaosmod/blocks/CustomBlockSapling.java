@@ -33,9 +33,9 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class CustomBlockSapling extends BlockBush implements IHasModel, IGrowable {
+public class CustomBlockSapling extends BlockBush implements IBlockModel, IGrowable {
 	BlockSapling block;
     public static final PropertyEnum<CustomPlankVariant> TYPE = PropertyEnum.<CustomPlankVariant>create("type", CustomPlankVariant.class);
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);

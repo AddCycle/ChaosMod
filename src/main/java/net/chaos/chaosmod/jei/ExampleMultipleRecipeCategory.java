@@ -10,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import util.Reference;
 
 public class ExampleMultipleRecipeCategory implements IRecipeCategory<ExampleMultipleRecipeWrapper>{
 	public static final String UID = "chaosmod.general_category_multiple";

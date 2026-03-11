@@ -40,7 +40,8 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfessio
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
-import util.IHasModel;
+import proxy.IBlockModel;
+import proxy.IItemModel;
 import util.Reference;
 import util.handlers.entity.RenderHandler;
 
@@ -67,20 +68,20 @@ public class RegistryHandler {
 	@SubscribeEvent
 	public static void onModelRegister(ModelRegistryEvent event) {
 		for (Block block : ModBlocks.BLOCKS) {
-			if (block instanceof IHasModel) {
-				((IHasModel)block).registerModels();
+			if (block instanceof IBlockModel) {
+				((IBlockModel)block).registerModels();
 			}
 		}
 
 		for (Block block : ModFluidBlocks.FLUID_BLOCKS) {
-			if (block instanceof IHasModel) {
-				((IHasModel)block).registerModels();
+			if (block instanceof IBlockModel) {
+				((IBlockModel)block).registerModels();
 			}
 		}
 
 		for (Item item : ModItems.ITEMS) {
-			if (item instanceof IHasModel) {
-				((IHasModel)item).registerModels();
+			if (item instanceof IItemModel) {
+				((IItemModel)item).registerModels();
 			}
 		}
 		

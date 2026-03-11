@@ -6,8 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
-import net.minecraft.entity.boss.dragon.phase.PhaseChargingPlayer;
-import net.minecraft.entity.boss.dragon.phase.PhaseList;
 import net.minecraft.util.math.Vec3d;
 
 public class CMPhaseChargingPlayer extends CMPhaseBase {

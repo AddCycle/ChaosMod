@@ -1,12 +1,9 @@
 package net.chaos.chaosmod.entity.model;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelIronGolem;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 
 /**
  * ModelIronGolem - Either Mojang or a mod author

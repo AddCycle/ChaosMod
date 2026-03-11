@@ -1,15 +1,15 @@
 package net.chaos.chaosmod.blocks;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-// Defines a basic block structure along with a name and a material property
-public class BlockBase extends Block implements IHasModel {
+/**
+ * Basic Block-subclass with name & material
+ */
+public class BlockBase extends Block implements IBlockModel {
 	
 	public BlockBase(String name, Material material) {
 		super(material);
@@ -20,10 +20,5 @@ public class BlockBase extends Block implements IHasModel {
 	
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlockBase(this).setRegistryName(this.getRegistryName()));
-	}
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
 	}
 }

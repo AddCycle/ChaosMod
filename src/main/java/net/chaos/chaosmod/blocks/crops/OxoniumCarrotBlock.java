@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.blocks.crops;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.ItemBlockBase;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
@@ -16,9 +15,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class OxoniumCarrotBlock extends BlockCrops implements IHasModel, IPlantable {
+public class OxoniumCarrotBlock extends BlockCrops implements IBlockModel, IPlantable {
 	private static final AxisAlignedBB[] CARROT_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.1875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.3125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.4375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5625D, 1.0D)};
 	
 	public OxoniumCarrotBlock(String name) {
@@ -69,9 +68,4 @@ public class OxoniumCarrotBlock extends BlockCrops implements IHasModel, IPlanta
     protected boolean canSustainBush(IBlockState state) {
         return state.getBlock() == Blocks.FARMLAND;
     }
-    
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-	}
 }

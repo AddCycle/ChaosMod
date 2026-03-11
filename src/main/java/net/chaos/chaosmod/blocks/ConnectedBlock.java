@@ -11,9 +11,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class ConnectedBlock extends Block implements IHasModel {
+public class ConnectedBlock extends Block implements IBlockModel {
     public static final PropertyBool NORTH = PropertyBool.create("north");
     public static final PropertyBool SOUTH = PropertyBool.create("south");
     public static final PropertyBool EAST  = PropertyBool.create("east");

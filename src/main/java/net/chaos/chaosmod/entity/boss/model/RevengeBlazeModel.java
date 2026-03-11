@@ -1,13 +1,8 @@
 package net.chaos.chaosmod.entity.boss.model;
 
-import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.runtime.JeiHelpers;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelBlaze;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.entity.RenderBlaze;
-import net.minecraft.command.server.CommandSummon;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
@@ -30,6 +25,7 @@ public class RevengeBlazeModel extends ModelBase {
 	private final ModelRenderer stick11;
 	private final ModelRenderer stick12;
 
+	@Deprecated
 	public RevengeBlazeModel() {
 		textureWidth = 64;
 		textureHeight = 32;
@@ -88,6 +84,7 @@ public class RevengeBlazeModel extends ModelBase {
 	}
 
 	@Override
+	@Deprecated
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
 		head.render(scale);
@@ -105,6 +102,8 @@ public class RevengeBlazeModel extends ModelBase {
 		stick12.render(scale);
 	}
 
+
+	@Deprecated
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
 		modelRenderer.rotateAngleX = x;
 		modelRenderer.rotateAngleY = y;
@@ -112,6 +111,7 @@ public class RevengeBlazeModel extends ModelBase {
 	}
 	
 	@Override
+	@Deprecated
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
 			float headPitch, float scaleFactor, Entity entityIn) {
 		float f = ageInTicks * (float)Math.PI * 0.03F;

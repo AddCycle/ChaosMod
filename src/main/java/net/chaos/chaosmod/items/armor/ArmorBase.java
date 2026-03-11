@@ -1,14 +1,13 @@
 package net.chaos.chaosmod.items.armor;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
-import util.IHasModel;
+import proxy.IItemModel;
 
-public class ArmorBase extends ItemArmor implements IHasModel {
+public class ArmorBase extends ItemArmor implements IItemModel {
 
 	public ArmorBase(String name, ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
@@ -21,12 +20,6 @@ public class ArmorBase extends ItemArmor implements IHasModel {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.COMBAT, ModTabs.ITEMS }; // You can add other tabs
+        return new CreativeTabs[]{ CreativeTabs.COMBAT, ModTabs.ITEMS };
     }
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
-	}
-
 }

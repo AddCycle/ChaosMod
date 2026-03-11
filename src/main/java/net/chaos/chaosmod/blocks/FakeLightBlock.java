@@ -2,7 +2,6 @@ package net.chaos.chaosmod.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 
 public class FakeLightBlock extends BlockBase {

@@ -23,9 +23,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class CustomLog extends BlockLog implements IHasModel {
+public class CustomLog extends BlockLog implements IBlockModel {
 	public static final PropertyEnum<CustomLogVariant> VARIANT = PropertyEnum.create("variant", CustomLogVariant.class);
 	
 	public CustomLog(String name) {

@@ -13,8 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import util.Reference;
 
 public class ExplorationCategory implements IRecipeCategory<ExplorationWrapper>{
 	public static final String UID = "chaosmod.exploration_category";

@@ -1,16 +1,9 @@
 package net.chaos.chaosmod.network;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Random;
-
 import io.netty.buffer.ByteBuf;
 import net.chaos.chaosmod.client.particles.ClientEffectRender;
-import net.chaos.chaosmod.client.particles.CoinParticles;
-import net.chaos.chaosmod.client.particles.ColoredSweepParticle;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;

@@ -2,7 +2,6 @@ package net.chaos.chaosmod.blocks;
 
 import javax.annotation.Nullable;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
@@ -24,7 +23,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
@@ -42,9 +40,9 @@ import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class OxoniumChest extends BlockContainer implements IHasModel {
+public class OxoniumChest extends BlockContainer implements IBlockModel {
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
     protected static final AxisAlignedBB NORTH_CHEST_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0D, 0.9375D, 0.875D, 0.9375D);
     protected static final AxisAlignedBB SOUTH_CHEST_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.875D, 1.0D);
@@ -68,11 +66,6 @@ public class OxoniumChest extends BlockContainer implements IHasModel {
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlockFurnaces(this).setRegistryName(this.getRegistryName()));
     }
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-	}
 
     public boolean isOpaqueCube(IBlockState state)
     {

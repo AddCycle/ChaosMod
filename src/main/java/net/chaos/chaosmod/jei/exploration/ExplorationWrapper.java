@@ -1,8 +1,6 @@
 package net.chaos.chaosmod.jei.exploration;
 
 import java.util.Collections;
-import java.util.List;
-
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;

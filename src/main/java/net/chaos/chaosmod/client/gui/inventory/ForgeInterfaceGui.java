@@ -2,7 +2,6 @@ package net.chaos.chaosmod.client.gui.inventory;
 
 import java.io.IOException;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.inventory.ForgeInterfaceContainer;
 import net.chaos.chaosmod.network.PacketForgeCraft;

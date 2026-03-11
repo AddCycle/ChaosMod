@@ -2,7 +2,6 @@ package net.chaos.chaosmod.items.special;
 
 import javax.annotation.Nullable;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.creativetab.CreativeTabs;
@@ -26,13 +25,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import util.IHasModel;
+import proxy.IItemModel;
 
-public class OxoniumBow extends ItemBow implements IHasModel {
+public class OxoniumBow extends ItemBow implements IItemModel {
 	private boolean low;
 	
 	public OxoniumBow(String name, ToolMaterial material) {
-		this.setMaxStackSize(1);
 		this.setMaxDamage(600);
 		this.setRegistryName(name);
 		this.setUnlocalizedName(name);
@@ -177,10 +175,4 @@ public class OxoniumBow extends ItemBow implements IHasModel {
 	public CreativeTabs[] getCreativeTabs() {
 		return new CreativeTabs[] { ModTabs.ITEMS, CreativeTabs.COMBAT };
 	}
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
-	}
-
 }

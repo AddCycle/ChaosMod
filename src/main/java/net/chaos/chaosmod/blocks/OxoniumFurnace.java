@@ -38,10 +38,10 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import util.IHasModel;
+import proxy.IBlockModel;
 import util.Reference;
 
-public class OxoniumFurnace extends BlockContainer implements IHasModel {
+public class OxoniumFurnace extends BlockContainer implements IBlockModel {
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public static final PropertyBool LIT = PropertyBool.create("lit");
     private final boolean isBurning;
@@ -69,11 +69,6 @@ public class OxoniumFurnace extends BlockContainer implements IHasModel {
     	super.addInformation(stack, player, tooltip, advanced);
     }
     
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-	}
-
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
         return Item.getItemFromBlock(ModBlocks.OXONIUM_FURNACE);

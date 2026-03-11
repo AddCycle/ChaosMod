@@ -3,9 +3,6 @@ package net.chaos.chaosmod.entity.boss.fightmanager.phase;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
-import net.minecraft.entity.boss.dragon.phase.PhaseLanding;
-import net.minecraft.entity.boss.dragon.phase.PhaseList;
-import net.minecraft.entity.boss.dragon.phase.PhaseSittingFlaming;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;

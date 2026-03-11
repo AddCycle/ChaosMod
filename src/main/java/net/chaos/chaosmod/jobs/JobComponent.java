@@ -3,7 +3,6 @@ package net.chaos.chaosmod.jobs;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.chaos.chaosmod.Main;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

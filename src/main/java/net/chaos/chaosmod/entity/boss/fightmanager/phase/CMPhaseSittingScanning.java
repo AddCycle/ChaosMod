@@ -2,8 +2,6 @@ package net.chaos.chaosmod.entity.boss.fightmanager.phase;
 
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.dragon.phase.PhaseChargingPlayer;
-import net.minecraft.entity.boss.dragon.phase.PhaseList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 

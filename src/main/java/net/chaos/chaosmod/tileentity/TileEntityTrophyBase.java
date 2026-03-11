@@ -2,7 +2,6 @@ package net.chaos.chaosmod.tileentity;
 
 import java.awt.Color;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModPotions;
 import net.chaos.chaosmod.inventory.TrophyContainerBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +20,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import util.Reference;
 
 public class TileEntityTrophyBase extends TileEntityLockableLoot implements ITickable,IInventory {
 	public int variant;

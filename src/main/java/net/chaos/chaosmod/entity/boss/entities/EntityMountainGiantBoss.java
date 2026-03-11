@@ -98,9 +98,9 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
         this.tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0D, false));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPigZombie.class}));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPlayer.class}));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, false));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, true));
     }
 
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)

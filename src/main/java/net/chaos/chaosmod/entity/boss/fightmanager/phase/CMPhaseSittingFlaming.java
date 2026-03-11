@@ -2,8 +2,6 @@ package net.chaos.chaosmod.entity.boss.fightmanager.phase;
 
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.minecraft.entity.EntityAreaEffectCloud;
-import net.minecraft.entity.boss.dragon.phase.PhaseList;
-import net.minecraft.entity.boss.dragon.phase.PhaseSittingFlaming;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;

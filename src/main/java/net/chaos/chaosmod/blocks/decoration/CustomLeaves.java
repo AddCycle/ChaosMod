@@ -8,7 +8,6 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.ItemBlockLeaves;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.SoundType;
@@ -31,9 +30,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class CustomLeaves extends BlockLeaves implements IHasModel {
+public class CustomLeaves extends BlockLeaves implements IBlockModel {
 	public static final PropertyEnum<CustomLeafVariant> VARIANT = PropertyEnum.create("variant", CustomLeafVariant.class);
     public static final PropertyBool DECAYABLE = PropertyBool.create("decayable");
     public static final PropertyBool CHECK_DECAY = PropertyBool.create("check_decay");

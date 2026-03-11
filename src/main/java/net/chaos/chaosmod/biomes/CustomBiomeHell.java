@@ -1,11 +1,8 @@
 package net.chaos.chaosmod.biomes;
 
-import net.chaos.chaosmod.init.ModBlocks;
-import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeHell;
 public class CustomBiomeHell extends BiomeHell {

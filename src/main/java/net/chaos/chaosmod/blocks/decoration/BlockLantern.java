@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.ItemBlockBase;
 import net.chaos.chaosmod.blocks.abstracted.AbstractBlockLantern;
 import net.chaos.chaosmod.init.ModBlocks;
@@ -12,7 +11,6 @@ import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tileentity.TileEntityLantern;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -20,9 +18,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class BlockLantern extends AbstractBlockLantern implements IHasModel {
+public class BlockLantern extends AbstractBlockLantern implements IBlockModel {
 
 	public BlockLantern(String name, MapColor mapColor) {
 		super(mapColor);
@@ -37,11 +35,6 @@ public class BlockLantern extends AbstractBlockLantern implements IHasModel {
 	}
 
 	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-	}
-	
-	@Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
@@ -49,8 +42,6 @@ public class BlockLantern extends AbstractBlockLantern implements IHasModel {
         double d0 = (double)pos.getX() + 0.5D;
         double d1 = (double)pos.getY() + 0.7D;
         double d2 = (double)pos.getZ() + 0.5D;
-        // double d3 = 0.22D;
-        // double d4 = 0.27D;
         double r = 1.0D;
         double g = 0.643D;
         double b = 0.961D;
@@ -58,13 +49,11 @@ public class BlockLantern extends AbstractBlockLantern implements IHasModel {
         if (enumfacing.getAxis().isHorizontal())
         {
             EnumFacing enumfacing1 = enumfacing.getOpposite();
-            // worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + 0.27D * (double)enumfacing1.getFrontOffsetX(), d1 + 0.22D, d2 + 0.27D * (double)enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0 + 0.27D * (double)enumfacing1.getFrontOffsetX(), d1 + 0.22D, d2 + 0.27D * (double)enumfacing1.getFrontOffsetZ(), r, g, b);
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0 - 0.27D * (double)enumfacing1.getFrontOffsetX(), d1 - 0.22D, d2 - 0.27D * (double)enumfacing1.getFrontOffsetZ(), r, g, b);
         }
         else
         {
-            // worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, r, g, b);
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, -d0, d1, -d2, r, g, b);
         }
@@ -80,5 +69,4 @@ public class BlockLantern extends AbstractBlockLantern implements IHasModel {
     public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityLantern();
     }
-
 }

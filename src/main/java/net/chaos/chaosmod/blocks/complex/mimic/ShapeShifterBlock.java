@@ -5,14 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import net.chaos.chaosmod.Main;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -24,9 +22,9 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class ShapeShifterBlock extends Block implements IHasModel {
+public class ShapeShifterBlock extends Block implements IBlockModel {
 	public static final UnlistedPropertyCopiedBlock COPIEDBLOCK = new UnlistedPropertyCopiedBlock();
 
 	public ShapeShifterBlock() {
@@ -170,10 +168,5 @@ public class ShapeShifterBlock extends Block implements IHasModel {
 		}
 		assert false : "this shouldn't be possible";
 		return null;
-	}
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
 	}
 }

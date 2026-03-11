@@ -12,13 +12,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class AbstractDoor extends BlockDoor implements IHasModel {
+// TODO : make it in ModBlocks to allow iron materials type also
+public class AbstractDoor extends BlockDoor implements IBlockModel {
 
 	public AbstractDoor(String name, Material materialIn) {
 		super(materialIn);
-		// TODO : make it in ModBlocks to allow iron materials type
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setHardness(3.0F);

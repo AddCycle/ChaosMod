@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.creativetab.CreativeTabs;
@@ -25,18 +24,17 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import util.IHasModel;
+import proxy.IItemModel;
 
-public abstract class AbstractCustomBow extends ItemBow implements IHasModel {
-	// private boolean low;
-	public float drawTime = 20.0f; // default is 20.0F
+public abstract class AbstractCustomBow extends ItemBow implements IItemModel {
+	public float drawTime = 20.0f;
 	public float damageMultiplier = 1.0f;
 	public int streak;
 	
 	public AbstractCustomBow(String name, ToolMaterial material) {
-		this.setMaxStackSize(1);
 		this.setRegistryName(name);
 		this.setUnlocalizedName(name);
 		
@@ -65,11 +63,6 @@ public abstract class AbstractCustomBow extends ItemBow implements IHasModel {
 	}
 	
 	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
-	}
-	
-	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
         return MathHelper.hsvToRGB(Math.max(0.0F, (float) (1.0F - getDurabilityForDisplay(stack))) / 3.0F, 1.0F, 1.0F);
 	}
@@ -90,7 +83,7 @@ public abstract class AbstractCustomBow extends ItemBow implements IHasModel {
             ItemStack itemstack = this.findAmmo(entityplayer);
 
             int i = this.getMaxItemUseDuration(stack) - timeLeft;
-            i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, worldIn, entityplayer, i, !itemstack.isEmpty() || flag);
+            i = ForgeEventFactory.onArrowLoose(stack, worldIn, entityplayer, i, !itemstack.isEmpty() || flag);
             if (i < 0) return;
 
             if (!itemstack.isEmpty() || flag)

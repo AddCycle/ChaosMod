@@ -25,9 +25,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class CustomPlanks extends Block implements IHasModel {
+public class CustomPlanks extends Block implements IBlockModel {
 	public static final PropertyEnum<CustomPlankVariant> VARIANT = PropertyEnum.create("variant", CustomPlankVariant.class);
 	
 	public CustomPlanks(String name, Material material) {
@@ -57,7 +57,8 @@ public class CustomPlanks extends Block implements IHasModel {
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-	    EnumAxis axis;
+	    @SuppressWarnings("unused")
+		EnumAxis axis;
 	    switch (meta & 0b1100) {
 	        case 0b0100: axis = EnumAxis.X; break;
 	        case 0b1000: axis = EnumAxis.Z; break;

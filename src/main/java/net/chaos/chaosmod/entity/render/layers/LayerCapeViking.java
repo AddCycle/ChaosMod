@@ -5,7 +5,6 @@ import net.chaos.chaosmod.entity.model.ModelViking;
 import net.chaos.chaosmod.entity.render.EntityVikingRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import util.Reference;

@@ -2,7 +2,6 @@ package net.chaos.chaosmod.blocks.abstracted;
 
 import java.util.List;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.ItemBlockBase;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
@@ -17,14 +16,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class AbstractPressurePlate extends BlockPressurePlate implements IHasModel {
+public class AbstractPressurePlate extends BlockPressurePlate implements IBlockModel {
+	public static final PropertyBool POWERED = PropertyBool.create("powered");
+    private final BlockPressurePlate.Sensitivity sensitivity;
 
 	public AbstractPressurePlate(String name, Material materialIn) {
 		super(materialIn, Sensitivity.EVERYTHING);
@@ -38,14 +38,6 @@ public class AbstractPressurePlate extends BlockPressurePlate implements IHasMod
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlockBase(this).setRegistryName(this.getRegistryName()));
 	}
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-	}
-
-	public static final PropertyBool POWERED = PropertyBool.create("powered");
-    private final BlockPressurePlate.Sensitivity sensitivity;
 
     protected IBlockState setRedstoneStrength(IBlockState state, int strength)
     {

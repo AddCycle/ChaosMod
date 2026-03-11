@@ -2,7 +2,6 @@ package net.chaos.chaosmod.blocks.abstracted;
 
 import java.util.Random;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
@@ -18,9 +17,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public abstract class AbstractBlockSlab extends BlockSlab implements IHasModel {
+public abstract class AbstractBlockSlab extends BlockSlab implements IBlockModel {
 	public static final PropertyEnum<AbstractBlockSlab.Variant> VARIANT = PropertyEnum.<AbstractBlockSlab.Variant>create("variant", AbstractBlockSlab.Variant.class);
 	public Block halfSlab;
 
@@ -141,10 +140,5 @@ public abstract class AbstractBlockSlab extends BlockSlab implements IHasModel {
 		{
 			return "default";
 		}
-	}
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
 	}
 }

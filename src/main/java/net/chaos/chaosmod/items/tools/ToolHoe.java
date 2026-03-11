@@ -16,10 +16,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import util.IHasModel;
+import proxy.IItemModel;
 import util.Reference;
 
-public class ToolHoe extends ItemHoe implements IHasModel {
+public class ToolHoe extends ItemHoe implements IItemModel {
 
 	public ToolHoe(String name, ToolMaterial material) {
 		super(material);
@@ -46,15 +46,10 @@ public class ToolHoe extends ItemHoe implements IHasModel {
 		}
 		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}
-	
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
-	}
 
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.TOOLS, ModTabs.ITEMS }; // You can add other tabs
+        return new CreativeTabs[]{ CreativeTabs.TOOLS, ModTabs.ITEMS };
     }
 }

@@ -1,9 +1,7 @@
 package net.chaos.chaosmod.entity;
 
-import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityFakeLight extends Entity {

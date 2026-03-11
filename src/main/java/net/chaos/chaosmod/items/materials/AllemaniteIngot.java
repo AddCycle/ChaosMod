@@ -4,16 +4,10 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.items.ItemBase;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import util.Reference;
 
 public class AllemaniteIngot extends ItemBase {
 

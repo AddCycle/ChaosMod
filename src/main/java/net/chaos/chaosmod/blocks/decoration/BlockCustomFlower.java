@@ -22,14 +22,13 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class BlockCustomFlower extends BlockBush implements IHasModel {
+public class BlockCustomFlower extends BlockBush implements IBlockModel {
 	public static final PropertyEnum<FlowerType> type = PropertyEnum.create("variant", FlowerType.class);
 
 	public BlockCustomFlower(String name)
 	{
-		super();
 		setRegistryName(name);
 		setUnlocalizedName(name);
 		setSoundType(SoundType.PLANT);
@@ -129,5 +128,4 @@ public class BlockCustomFlower extends BlockBush implements IHasModel {
 			Main.proxy.registerVariantRenderer(Item.getItemFromBlock(this), type.getMeta(), type.getName(), "inventory");
 		}
 	}
-
 }

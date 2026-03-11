@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.items.tools;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.tabs.ModTabs;
 import net.minecraft.block.Block;
@@ -18,9 +17,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import util.IHasModel;
+import proxy.IItemModel;
 
-public class AllemanitePickaxe extends ItemPickaxe implements IHasModel {
+public class AllemanitePickaxe extends ItemPickaxe implements IItemModel {
 	int radius = 1;
 	public int mode = 0;
 
@@ -105,10 +104,5 @@ public class AllemanitePickaxe extends ItemPickaxe implements IHasModel {
 	@Override
 	public CreativeTabs[] getCreativeTabs() {
 		 return new CreativeTabs[] { ModTabs.ITEMS, CreativeTabs.TOOLS };
-	}
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 }

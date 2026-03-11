@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.tileentity.TileEntityChaosGateway;
 import net.minecraft.block.Block;
@@ -13,7 +12,6 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -24,9 +22,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import util.IHasModel;
+import proxy.IBlockModel;
 
-public class BlockChaosGateway extends BlockContainer implements IHasModel {
+public class BlockChaosGateway extends BlockContainer implements IBlockModel {
 
     public BlockChaosGateway(String name)
     {
@@ -139,10 +137,5 @@ public class BlockChaosGateway extends BlockContainer implements IHasModel {
     {
         return BlockFaceShape.UNDEFINED;
     }
-
-	@Override
-	public void registerModels() {
-		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-	}
 
 }

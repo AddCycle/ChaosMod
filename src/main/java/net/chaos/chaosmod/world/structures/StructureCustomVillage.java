@@ -51,7 +51,6 @@ import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-import net.minecraft.world.storage.loot.LootTableList;
 
 public class StructureCustomVillage {
 	public static final Block planks = ModBlocks.CUSTOM_PLANK;

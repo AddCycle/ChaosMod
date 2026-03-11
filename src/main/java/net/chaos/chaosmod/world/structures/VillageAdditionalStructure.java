@@ -23,7 +23,6 @@ import net.minecraft.world.gen.structure.StructureVillagePieces.Village;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.IVillageCreationHandler;
-import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
 
 public class VillageAdditionalStructure extends StructureVillagePieces.Village {
     private boolean hasMadeChest;
