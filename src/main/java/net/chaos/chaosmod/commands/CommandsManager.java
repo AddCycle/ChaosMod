@@ -11,6 +11,7 @@ import net.chaos.chaosmod.commands.market.SellCommand;
 import net.minecraft.command.ICommand;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import util.Reference;
 
 public class CommandsManager {
 
@@ -33,9 +34,10 @@ public class CommandsManager {
 		new SellCommand(),
 		new AddOfferCommand(),
 		new HuntCommand(),
-		new BackCommand());
+		new BackCommand(),
+		new BiomeCommand());
 
-		if (!Loader.isModLoaded("mathsmod")) {
+		if (!Loader.isModLoaded(Reference.MATHSMOD)) {
 			register(event,
 			new TopCommand(),
 			new DimensionWarpCommand(),

@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 
 public class BlockFertilizedWater extends BlockFluidClassicBase {
+	private List<BlockPos> growables = new ArrayList<>();
 
 	public BlockFertilizedWater(String name, Fluid fluid, Material material, MapColor mapColor) {
 		super(name, fluid, material, mapColor);
@@ -44,8 +45,6 @@ public class BlockFertilizedWater extends BlockFluidClassicBase {
 		if (world.isRemote)
 			return;
 
-		List<BlockPos> growables = new ArrayList<>();
-
 		int r = 4;
 		for (BlockPos targetPos : BlockPos.getAllInBoxMutable(pos.add(-r, -1, -r), pos.add(r, 1, r))) {
 
@@ -70,6 +69,8 @@ public class BlockFertilizedWater extends BlockFluidClassicBase {
 						rand);
 			}
 		}
+		
+		growables.clear();
 	}
 
 	private void growCrop(World world, IGrowable growable, BlockPos targetPos, IBlockState state, Random rand) {

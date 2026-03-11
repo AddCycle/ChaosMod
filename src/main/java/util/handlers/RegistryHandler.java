@@ -10,6 +10,7 @@ import net.chaos.chaosmod.init.ModFluidBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotionTypes;
 import net.chaos.chaosmod.init.ModPotions;
+import net.chaos.chaosmod.mathsmod.MathsModCompatibility;
 import net.chaos.chaosmod.recipes.CustomSmeltingRegistry;
 import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.minecraft.block.Block;
@@ -31,18 +32,14 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import proxy.IBlockModel;
 import proxy.IItemModel;
-import util.Reference;
 import util.handlers.entity.RenderHandler;
 
 @EventBusSubscriber
@@ -138,22 +135,7 @@ public class RegistryHandler {
 	    /*
 	     * Mathsmod adding a recipe
 	     */
-	    if (Loader.isModLoaded("mathsmod")) {
-	    	Item itemJRP = ForgeRegistries.ITEMS.getValue(new ResourceLocation("mathsmod", "kurayum_ingot"));
-	    	if (itemJRP != null) {
-	    		ShapedOreRecipe recipe = new ShapedOreRecipe(
-	    				new ResourceLocation("chaosmod", "collab_recipe1"), // registry name
-	    				new ItemStack(ModItems.CHAOS_HEART), // result
-	    				" I ", // pattern
-	    				"ICI",
-	    				" I ",
-	    				'I', itemJRP,
-	    				'C', new ItemStack(ModItems.ENDERITE_INGOT, 3)
-	    				);
-	    		recipe.setRegistryName(new ResourceLocation(Reference.MODID, "collab_recipe1"));
-	    		ForgeRegistries.RECIPES.register(recipe);
-	    	}
-	    }
+	    MathsModCompatibility.registerSampleRecipe();
 	}
 	
 	@SubscribeEvent
