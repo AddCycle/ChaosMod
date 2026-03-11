@@ -109,8 +109,6 @@ public class RegistryHandler {
 
 	@SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		// FIXME : suppress comments when texture is fixed...
-		System.out.println("Registering custom recipes");
 	    IForgeRegistry<IRecipe> registry = event.getRegistry();
 
 	    int maxDamage = (new ItemStack(ModItems.TINKERERS_HAMMER)).getMaxDamage();

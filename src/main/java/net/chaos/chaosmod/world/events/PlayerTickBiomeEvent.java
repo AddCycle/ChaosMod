@@ -35,7 +35,6 @@ public class PlayerTickBiomeEvent {
         Biome currentBiome = world.getBiome(pos);
         UUID playerId = player.getUniqueID();
 
-        // CLIENT: store the name locally
         if (world.isRemote) {
             setCurrentBiomeName(currentBiome.getBiomeName());
             return;

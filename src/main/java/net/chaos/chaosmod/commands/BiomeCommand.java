@@ -1,6 +1,8 @@
 package net.chaos.chaosmod.commands;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -9,7 +11,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.util.text.event.ClickEvent.Action;
+import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -23,7 +30,7 @@ public class BiomeCommand extends CommandBase {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/biome [biome_id] [range] (default 100)";
+		return "/biome [biome_id] [range] (default 1000)";
 	}
 
 	@Override
@@ -41,13 +48,16 @@ public class BiomeCommand extends CommandBase {
 			return;
 		}
 
-		String biomeId = null;
-		if (args.length > 0) {
-			biomeId = args[0];
-		}
-		Biome biome = ForgeRegistries.BIOMES.getValue(getRLFromBiomeId(biomeId));
+		String biomeId = args[0];
 
-		int range = 100;
+		Biome biome = ForgeRegistries.BIOMES.getValue(getRLFromBiomeId(biomeId));
+		
+		if (biome == null) {
+		    player.sendMessage(new TextComponentString("Biome not found in registry: " + biomeId));
+		    return;
+		}
+
+		int range = 1000;
 		if (args.length > 1) {
 			range = parseInt(args[1]);
 		}
@@ -62,11 +72,31 @@ public class BiomeCommand extends CommandBase {
 			return;
 		}
 
-		String msg = String.format("The biome %s is located at: %d %d %d", biome.getRegistryName(), biomePos.getX(),
-				biomePos.getY(), biomePos.getZ());
-		player.sendMessage(new TextComponentString(msg));
+		int top = world.getTopSolidOrLiquidBlock(biomePos).getY(); // forces the chunk to load
+		String coords = String.format("%d %d %d", biomePos.getX(),
+				top, biomePos.getZ());
+		String msg = String.format("The biome %s is located at: %s ", biome.getRegistryName(), coords);
+		TextComponentString text = new TextComponentString(msg);
+		TextComponentString teleport = new TextComponentString("TELEPORT");
+		
+		Style style = teleport.getStyle();
 
-		// TODO : use getModdedBiomesGenerators to extend the function
+		style.setColor(TextFormatting.RED).setBold(true);
+		
+		style.setClickEvent(new ClickEvent(Action.RUN_COMMAND, String.format("/tp %s %s", player.getName(), coords)));
+		
+		style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Teleport to biome")));
+
+		player.sendMessage(text.appendSibling(teleport));
+	}
+	
+	@Override
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args,
+			BlockPos targetPos) {
+		if (args.length != 1) 
+			return Collections.<String>emptyList();
+
+		return ForgeRegistries.BIOMES.getKeys().stream().map(rl -> rl.toString()).collect(Collectors.toList());
 	}
 
 	private ResourceLocation getRLFromBiomeId(String id) {
