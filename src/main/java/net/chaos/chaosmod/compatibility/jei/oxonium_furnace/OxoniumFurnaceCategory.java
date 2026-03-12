@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jei.oxonium_furnace;
+package net.chaos.chaosmod.compatibility.jei.oxonium_furnace;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;

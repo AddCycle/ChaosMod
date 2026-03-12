@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jei.exploration;
+package net.chaos.chaosmod.compatibility.jei.exploration;
 
 import java.util.Collections;
 import mezz.jei.api.ingredients.IIngredients;

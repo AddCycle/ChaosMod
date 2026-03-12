@@ -1,8 +1,8 @@
 package util.blockstates;
 
-import java.awt.Color;
-
 import static net.chaos.chaosmod.config.ModConfig.CLIENT;
+
+import java.awt.Color;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
@@ -16,14 +16,16 @@ import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import util.Reference;
 
-@EventBusSubscriber
+/**
+ * TODO : Fix block outline using default RenderGlobal.drawSelectionBox
+ */
+@EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class RenderBlockOutlinesEvent {
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onBlockHighlight(DrawBlockHighlightEvent event) {
+	public static void onBlockHighlight(DrawBlockHighlightEvent event) {
 	    if (!CLIENT.isBlockOutlineColorEnabled || event.getTarget().typeOfHit != RayTraceResult.Type.BLOCK) return;
 
 	    World world = event.getPlayer().getEntityWorld();
@@ -34,7 +36,6 @@ public class RenderBlockOutlinesEvent {
 
 	    if (box == null) return;
 
-	    // Cancel default block outline
 	    event.setCanceled(true);
 
 	    // Interpolate view position
@@ -47,18 +48,17 @@ public class RenderBlockOutlinesEvent {
 	    AxisAlignedBB shifted = box.offset(-dx, -dy, -dz);
 	    Color color = new Color(CLIENT.block_outline_color);
 
-	    // Draw red bounding box
 	    GlStateManager.pushMatrix();
+	    GlStateManager.pushAttrib();
 	    GlStateManager.disableTexture2D();
 	    GlStateManager.enableBlend();
-	    // GlStateManager.disableDepth();
 	    GlStateManager.glLineWidth(20.0F);
 
 	    RenderGlobal.drawSelectionBoundingBox(shifted, color.getRed(), color.getGreen(), color.getBlue(), 0.0F);
 
-	    // GlStateManager.enableDepth();
 	    GlStateManager.disableBlend();
 	    GlStateManager.enableTexture2D();
+	    GlStateManager.popAttrib();
 	    GlStateManager.popMatrix();
 	}
 }

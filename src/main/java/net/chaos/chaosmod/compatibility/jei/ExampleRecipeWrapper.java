@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jei;
+package net.chaos.chaosmod.compatibility.jei;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;

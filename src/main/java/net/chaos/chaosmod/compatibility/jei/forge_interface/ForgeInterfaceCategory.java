@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jei.forge_interface;
+package net.chaos.chaosmod.compatibility.jei.forge_interface;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;

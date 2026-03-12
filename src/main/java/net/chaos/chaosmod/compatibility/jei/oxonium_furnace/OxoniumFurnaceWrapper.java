@@ -1,24 +1,24 @@
-package net.chaos.chaosmod.jei.forge_interface;
+package net.chaos.chaosmod.compatibility.jei.oxonium_furnace;
 
-import java.util.List;
+import java.util.Collections;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 
-public class ForgeInterfaceRecipeWrapper implements IRecipeWrapper {
-	private final List<ItemStack> inputs;
+public class OxoniumFurnaceWrapper implements IRecipeWrapper {
+	private final ItemStack input;
     private final ItemStack output;
 
-    public ForgeInterfaceRecipeWrapper(List<ItemStack> inputs, ItemStack output) {
-        this.inputs = inputs;
+    public OxoniumFurnaceWrapper(ItemStack input, ItemStack output) {
+        this.input = input;
         this.output = output;
     }
 
     @Override
     public void getIngredients(IIngredients ingredients) {
-        ingredients.setInputs(VanillaTypes.ITEM, inputs);
+        ingredients.setInputs(VanillaTypes.ITEM, Collections.singletonList(input));
         ingredients.setOutput(VanillaTypes.ITEM, output);
     }
 

@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jei.forge_interface;
+package net.chaos.chaosmod.compatibility.jei.forge_interface;
 
 import java.util.Arrays;
 import java.util.List;

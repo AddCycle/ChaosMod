@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.mathsmod;
+package net.chaos.chaosmod.compatibility.mathsmod;
 
 import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.item.Item;

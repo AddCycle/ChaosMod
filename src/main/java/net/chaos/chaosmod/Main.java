@@ -22,7 +22,6 @@ import net.chaos.chaosmod.world.events.EntitiesDeathEvents;
 import net.chaos.chaosmod.world.events.PlayerAchivementsEvents;
 import net.chaos.chaosmod.world.events.PlayerFightEvents;
 import net.chaos.chaosmod.world.events.PlayerLifeEvents;
-import net.chaos.chaosmod.world.events.PlayerTickBiomeEvent;
 import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
 import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
@@ -45,19 +44,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import proxy.CommonProxy;
 import util.Reference;
-import util.blockstates.RenderBlockOutlinesEvent;
-import util.handlers.PlayerInHandler;
 import util.handlers.RegistryHandler;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY_CLASS, dependencies = Reference.OPTIONAL_DEPENDENCIES)
 public class Main
 {
 	@Instance
-	public static Main instance = InitStructures();
-	
-	private static Main InitStructures() {
-		return instance;
-	}
+	public static Main instance;
 	
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
@@ -94,9 +87,6 @@ public class Main
         VillagerRegistry.instance().registerVillageCreationHandler(new VillageAdditionalStructure.CreationHandler());
     	MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenerationOverrideEvents());
         CustomProfessions.registerCustomProfessions();
-        MinecraftForge.EVENT_BUS.register(new RenderBlockOutlinesEvent());
-        MinecraftForge.EVENT_BUS.register(new PlayerTickBiomeEvent());
-        MinecraftForge.EVENT_BUS.register(new PlayerInHandler());
         RegistryHandler.onSmeltingRegister();
         RegistryHandler.onBrewingRecipeRegister();
         MachineRecipeRegistry.init();

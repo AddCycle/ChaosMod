@@ -1,16 +1,16 @@
-package net.chaos.chaosmod.jei;
+package net.chaos.chaosmod.compatibility.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import net.chaos.chaosmod.compatibility.jei.exploration.ExplorationCategory;
+import net.chaos.chaosmod.compatibility.jei.exploration.ExplorationMaker;
+import net.chaos.chaosmod.compatibility.jei.forge_interface.ForgeInterfaceCategory;
+import net.chaos.chaosmod.compatibility.jei.forge_interface.ForgeInterfaceRecipeMaker;
+import net.chaos.chaosmod.compatibility.jei.oxonium_furnace.OxoniumFurnaceCategory;
+import net.chaos.chaosmod.compatibility.jei.oxonium_furnace.OxoniumFurnaceMaker;
 import net.chaos.chaosmod.init.ModBlocks;
-import net.chaos.chaosmod.jei.exploration.ExplorationCategory;
-import net.chaos.chaosmod.jei.exploration.ExplorationMaker;
-import net.chaos.chaosmod.jei.forge_interface.ForgeInterfaceCategory;
-import net.chaos.chaosmod.jei.forge_interface.ForgeInterfaceRecipeMaker;
-import net.chaos.chaosmod.jei.oxonium_furnace.OxoniumFurnaceCategory;
-import net.chaos.chaosmod.jei.oxonium_furnace.OxoniumFurnaceMaker;
 import net.minecraft.item.ItemStack;
 
 @JEIPlugin

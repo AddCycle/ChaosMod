@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jei;
+package net.chaos.chaosmod.compatibility.jei;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -11,13 +11,13 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 
-public class ExampleMultipleRecipeCategory implements IRecipeCategory<ExampleMultipleRecipeWrapper>{
-	public static final String UID = "chaosmod.general_category_multiple";
+public class ExampleRecipeCategory implements IRecipeCategory<ExampleRecipeWrapper> {
+	public static final String UID = "chaosmod.general_category";
 
     private final IDrawable background;
     private final String localizedName;
 
-    public ExampleMultipleRecipeCategory(IGuiHelper guiHelper) {
+    public ExampleRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createDrawable(new ResourceLocation("minecraft", "textures/gui/container/crafting_table.png"), 29, 16, 116, 54);
         this.localizedName = new TextComponentTranslation("chaosmod.jei.crafting_category")
         		.setStyle(new Style().setBold(true).setColor(TextFormatting.BLUE)).getFormattedText();
@@ -39,18 +39,10 @@ public class ExampleMultipleRecipeCategory implements IRecipeCategory<ExampleMul
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, ExampleMultipleRecipeWrapper recipeWrapper, IIngredients ingredients) {
+    public void setRecipe(IRecipeLayout recipeLayout, ExampleRecipeWrapper recipeWrapper, IIngredients ingredients) {
         IGuiItemStackGroup stacks = recipeLayout.getItemStacks();
-        boolean flag = false;
-        int j = 0;
-        for (int i = 0; i < 9; i++) { // 9x9 crafting table
-        	if (i % 3 == 0 && flag) {
-        		j += 18;
-        	}
-        	stacks.init(i, true, (i % 3) * 18, j); // Inputs
-        	flag = true;
-        }
-        stacks.init(9, false, 94, 18); // Output
+        stacks.init(0, true, 0, 18);  // Input
+        stacks.init(1, false, 94, 18); // Output
 
         stacks.set(ingredients);
     }

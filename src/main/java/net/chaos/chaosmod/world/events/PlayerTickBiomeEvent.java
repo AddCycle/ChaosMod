@@ -18,67 +18,66 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import util.Reference;
 import util.broadcast.MessageDisplayText;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = Reference.MODID, value = { Side.SERVER, Side.CLIENT })
 public class PlayerTickBiomeEvent {
-    private static final Map<UUID, List<Biome>> lastBiomes = new HashMap<>();
-    private String currentBiomeName;
+	private static final Map<UUID, List<Biome>> lastBiomes = new HashMap<>();
+	private static String currentBiomeName;
 
-    @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.END) return;
+	@SubscribeEvent
+	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+		if (event.phase == TickEvent.Phase.END)
+			return;
 
-        EntityPlayer player = event.player;
-        World world = player.getEntityWorld();
-        BlockPos pos = player.getPosition();
-        Biome currentBiome = world.getBiome(pos);
-        UUID playerId = player.getUniqueID();
+		EntityPlayer player = event.player;
+		World world = player.getEntityWorld();
+		BlockPos pos = player.getPosition();
+		Biome currentBiome = world.getBiome(pos);
+		UUID playerId = player.getUniqueID();
 
-        if (world.isRemote) {
-            setCurrentBiomeName(currentBiome.getBiomeName());
-            return;
-        }
+		if (world.isRemote) {
+			setCurrentBiomeName(currentBiome.getBiomeName());
+			return;
+		}
 
-        // SERVER: biome tracking
-        List<Biome> visitedBiomes = lastBiomes.get(playerId);
-        if (visitedBiomes == null || visitedBiomes.isEmpty()) {
-            visitedBiomes = new ArrayList<>();
-            visitedBiomes.add(currentBiome);
-        }
+		// SERVER: biome tracking
+		List<Biome> visitedBiomes = lastBiomes.get(playerId);
+		if (visitedBiomes == null) {
+			visitedBiomes = new ArrayList<>();
+		}
 
-        if (!visitedBiomes.contains(currentBiome)) {
-            visitedBiomes.add(currentBiome);
+		if (!visitedBiomes.contains(currentBiome)) {
+			visitedBiomes.add(currentBiome);
 
-            String dataToSend;
+			String dataToSend;
 
-            boolean isSinglePlayer = FMLCommonHandler.instance().getMinecraftServerInstance().isSinglePlayer();
+			boolean isSinglePlayer = FMLCommonHandler.instance().getMinecraftServerInstance().isSinglePlayer();
 
-            if (isSinglePlayer) {
-                String displayName = currentBiome.getBiomeName();
-                dataToSend = "NAME:" + displayName;
-            } else {
-                String registryName = currentBiome.getRegistryName().toString();
-                dataToSend = "REG:" + registryName;
-            }
+			if (isSinglePlayer) {
+				String displayName = currentBiome.getBiomeName();
+				dataToSend = "NAME:" + displayName;
+			} else {
+				String registryName = currentBiome.getRegistryName().toString();
+				dataToSend = "REG:" + registryName;
+			}
 
-            if (player instanceof EntityPlayerMP) {
-                PacketManager.network.sendTo(new MessageDisplayText(dataToSend), (EntityPlayerMP) player);
-            }
+			PacketManager.network.sendTo(new MessageDisplayText(dataToSend), (EntityPlayerMP) player);
 
-            world.playSound(null, player.getPosition(),
-                    SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS,
-                    1.0f, 1.0f);
-        }
+			world.playSound(null, player.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS,
+					1.0f, 1.0f);
+		}
 
-        lastBiomes.put(playerId, visitedBiomes);
-    }
+		lastBiomes.put(playerId, visitedBiomes);
+	}
 
-	public String getCurrentBiomeName() {
+	public static String getCurrentBiomeName() {
 		return currentBiomeName;
 	}
 
-	public void setCurrentBiomeName(String currentBiomeName) {
-		this.currentBiomeName = currentBiomeName;
+	public static void setCurrentBiomeName(String newBiomeName) {
+		currentBiomeName = newBiomeName;
 	}
 }

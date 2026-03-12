@@ -12,7 +12,7 @@ public class ClientMessageHandler {
 
     public static void displayMessage(String message) {
         currentMessage = message;
-        displayUntil = System.currentTimeMillis() + 3000; // 3 seconds
+        displayUntil = System.currentTimeMillis() + 3000;
     }
 
     @SubscribeEvent
@@ -30,14 +30,14 @@ public class ClientMessageHandler {
             GlStateManager.disableDepth();
             GlStateManager.disableLighting();
             GlStateManager.disableAlpha();
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F); // Safe default
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F); // white
             mc.fontRenderer.drawStringWithShadow(
                 currentMessage,
                 width / 2 - mc.fontRenderer.getStringWidth(currentMessage) / 2,
                 height / 4,
                 0xFFFFFF
             );
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F); // Restore color
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F); // white
             GlStateManager.enableAlpha();
             GlStateManager.enableDepth();
             GlStateManager.enableLighting();

@@ -1,4 +1,4 @@
-package util.handlers;
+package net.chaos.chaosmod.world.events;
 
 import java.util.Set;
 
@@ -18,19 +18,22 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.Clone;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import util.Reference;
 import util.blockstates.BlockHelper;
 
 // TODO: REFACTOR & move this class inside the world.events package
+@EventBusSubscriber(modid = Reference.MODID)
 public class PlayerInHandler {
 
 	@SubscribeEvent
-	/*
+	/**
 	 * Sync players accessories on joining server
+	 * @param event
 	 */
-	public void onPlayerJoin(PlayerLoggedInEvent event) {
+	public static void onPlayerJoin(PlayerLoggedInEvent event) {
 		EntityPlayer player = event.player;
 
 		if (player.world.isRemote)
@@ -49,7 +52,7 @@ public class PlayerInHandler {
 	}
 
 	@SubscribeEvent
-	public void onPlayerClone(PlayerEvent.Clone event) {
+	public static void onPlayerClone(PlayerEvent.Clone event) {
 
 		syncAccessories(event);
 
@@ -109,7 +112,7 @@ public class PlayerInHandler {
 		PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), player);
 	}
 
-	private void syncAccessories(Clone event) {
+	private static void syncAccessories(Clone event) {
 		// prevents issues with necklaces items
 		IAccessory oldCap = event.getOriginal().getCapability(ModCapabilities.ACCESSORY, null);
 		IAccessory newCap = event.getEntityPlayer().getCapability(ModCapabilities.ACCESSORY, null);

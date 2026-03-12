@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jei;
+package net.chaos.chaosmod.compatibility.jei;
 
 import java.util.ArrayList;
 import java.util.List;
