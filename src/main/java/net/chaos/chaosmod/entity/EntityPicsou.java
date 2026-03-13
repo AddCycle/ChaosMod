@@ -1,7 +1,8 @@
 package net.chaos.chaosmod.entity;
 
-import net.chaos.chaosmod.entity.ai.EntityAIMineGold;
+import static net.minecraft.item.Item.getItemFromBlock;
 
+import net.chaos.chaosmod.entity.ai.EntityAIMineGold;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.lore.dialogs.ITalkable;
 import net.minecraft.client.Minecraft;
@@ -40,7 +41,7 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.10);
 		this.getEntityAttribute(SWIM_SPEED).setBaseValue(10);
 	}
-	
+
 	@Override
 	protected void onDeathUpdate() {
 		super.onDeathUpdate();
@@ -51,11 +52,12 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 	@Override
 	protected void initEntityAI() {
 		super.initEntityAI();
+
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		// this.tasks.addTask(0, new EntityAIStealBlock(this, 10.0, 16));
 		this.tasks.addTask(1, new EntityAIMineGold(this, 3.0, 16));
 	}
-	
+
 	@Override
 	protected ResourceLocation getLootTable() {
 		return new ResourceLocation(Reference.MODID, "dungeon_loot");
@@ -63,34 +65,32 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 
 	@Override
 	public void updateEquipmentIfNeeded(EntityItem itemEntity) {
-	    ItemStack stack = itemEntity.getItem();
+		ItemStack stack = itemEntity.getItem();
 
-	    // Try to insert into custom inventory first
-	    for (int i = 0; i < inventory.getSizeInventory(); i++) {
-	        ItemStack slotStack = inventory.getStackInSlot(i);
+		// Try to insert into custom inventory first
+		for (int i = 0; i < inventory.getSizeInventory(); i++) {
+			ItemStack slotStack = inventory.getStackInSlot(i);
 
-	        if (slotStack.isEmpty()) {
-	            this.inventory.setInventorySlotContents(i, stack.copy());
-	            itemEntity.setDead();
-	            return;
-	        }
-	        else if (ItemStack.areItemsEqual(slotStack, stack) &&
-	                 ItemStack.areItemStackTagsEqual(slotStack, stack) &&
-	                 slotStack.getCount() < slotStack.getMaxStackSize()) {
+			if (slotStack.isEmpty()) {
+				this.inventory.setInventorySlotContents(i, stack.copy());
+				itemEntity.setDead();
+				return;
+			} else if (ItemStack.areItemsEqual(slotStack, stack) && ItemStack.areItemStackTagsEqual(slotStack, stack)
+					&& slotStack.getCount() < slotStack.getMaxStackSize()) {
 
-	            int transferAmount = Math.min(stack.getCount(), slotStack.getMaxStackSize() - slotStack.getCount());
-	            slotStack.grow(transferAmount);
-	            stack.shrink(transferAmount);
+				int transferAmount = Math.min(stack.getCount(), slotStack.getMaxStackSize() - slotStack.getCount());
+				slotStack.grow(transferAmount);
+				stack.shrink(transferAmount);
 
-	            if (stack.isEmpty()) {
-	                itemEntity.setDead();
-	                return;
-	            }
-	        }
-	    }
+				if (stack.isEmpty()) {
+					itemEntity.setDead();
+					return;
+				}
+			}
+		}
 
-	    // Fallback to vanilla behavior if custom inventory is full
-	    super.updateEquipmentIfNeeded(itemEntity);
+		// Fallback to vanilla behavior if custom inventory is full
+		super.updateEquipmentIfNeeded(itemEntity);
 	}
 
 	@Override
@@ -98,42 +98,27 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 		return false;
 	}
 
-	public boolean isItemInInventory()
-	{
-		for (int i = 0; i < this.inventory.getSizeInventory(); ++i)
-		{
+	public boolean isItemInInventory() {
+		for (int i = 0; i < this.inventory.getSizeInventory(); ++i) {
 			ItemStack itemstack = this.inventory.getStackInSlot(i);
 
-			// TODO : refactor that in constructor, init an arrayList or something static and check if it's in it
-			if (!itemstack.isEmpty())
-			{
+			if (!itemstack.isEmpty()) {
 				Item item = itemstack.getItem();
-				return item == Item.getItemFromBlock(ModBlocks.OXONIUM_BLOCK)
-						|| item == Item.getItemFromBlock(ModBlocks.ALLEMANITE_BLOCK)
-						|| item == Item.getItemFromBlock(ModBlocks.ENDERITE_BLOCK)
-						|| item == Item.getItemFromBlock(Blocks.GOLD_BLOCK)
-						|| item == Item.getItemFromBlock(Blocks.DIAMOND_BLOCK)
-						|| item == Item.getItemFromBlock(Blocks.LAPIS_BLOCK)
-						|| item == Item.getItemFromBlock(Blocks.GLOWSTONE);
+				return isItemWanted(item);
 			}
 		}
 
 		return false;
 	}
 
-
-	public boolean wantsMoreLoot()
-	{
+	public boolean wantsMoreLoot() {
 		// TODO
 		// boolean flag = this.getProfession() == 0; isFilou ?
 		boolean flag = true;
 
-		if (flag)
-		{
+		if (flag) {
 			return !this.hasEnoughItems(5);
-		}
-		else
-		{
+		} else {
 			return !this.hasEnoughItems(1);
 		}
 	}
@@ -141,18 +126,21 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 	/**
 	 * Returns true if picsou has enough items in inventory
 	 */
-	private boolean hasEnoughItems(int multiplier)
-	{
+	private boolean hasEnoughItems(int multiplier) {
 		// boolean flag = this.getProfession() == 0;
 
-		for (int i = 0; i < this.inventory.getSizeInventory(); ++i)
-		{
+		for (int i = 0; i < this.inventory.getSizeInventory(); ++i) {
 			ItemStack itemstack = this.inventory.getStackInSlot(i);
 
-			if (!itemstack.isEmpty())
-			{
-				if ((itemstack.getItem() == Item.getItemFromBlock(Blocks.DIAMOND_BLOCK) && itemstack.getCount() >= 1 * multiplier) || (itemstack.getItem() == Item.getItemFromBlock(ModBlocks.ENDERITE_BLOCK) && itemstack.getCount() >= 1 * multiplier) || (itemstack.getItem() == Item.getItemFromBlock(ModBlocks.OXONIUM_BLOCK) && itemstack.getCount() >= 2 * multiplier) || (itemstack.getItem() == Item.getItemFromBlock(Blocks.GOLD_BLOCK) && itemstack.getCount() >= 12 * multiplier))
-				{
+			if (!itemstack.isEmpty()) {
+				if ((itemstack.getItem() == getItemFromBlock(Blocks.DIAMOND_BLOCK)
+						&& itemstack.getCount() >= 1 * multiplier)
+						|| (itemstack.getItem() == getItemFromBlock(ModBlocks.ENDERITE_BLOCK)
+								&& itemstack.getCount() >= 1 * multiplier)
+						|| (itemstack.getItem() == getItemFromBlock(ModBlocks.OXONIUM_BLOCK)
+								&& itemstack.getCount() >= 2 * multiplier)
+						|| (itemstack.getItem() == getItemFromBlock(Blocks.GOLD_BLOCK)
+								&& itemstack.getCount() >= 12 * multiplier)) {
 					return true;
 				}
 			}
@@ -162,13 +150,23 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 	}
 
 	private void dropAllItems() {
-	    for (int i = 0; i < inventory.getSizeInventory(); i++) {
-	        ItemStack stack = inventory.getStackInSlot(i);
-	        if (!stack.isEmpty()) {
-	            entityDropItem(stack.copy(), 0);
-	            inventory.setInventorySlotContents(i, ItemStack.EMPTY);
-	        }
-	    }
+		for (int i = 0; i < inventory.getSizeInventory(); i++) {
+			ItemStack stack = inventory.getStackInSlot(i);
+			if (!stack.isEmpty()) {
+				entityDropItem(stack.copy(), 0);
+				inventory.setInventorySlotContents(i, ItemStack.EMPTY);
+			}
+		}
+	}
+
+	private boolean isItemWanted(Item item) {
+		return item == getItemFromBlock(ModBlocks.OXONIUM_BLOCK)
+				|| item == getItemFromBlock(ModBlocks.ALLEMANITE_BLOCK)
+				|| item == getItemFromBlock(ModBlocks.ENDERITE_BLOCK)
+				|| item == getItemFromBlock(Blocks.GOLD_BLOCK)
+				|| item == getItemFromBlock(Blocks.DIAMOND_BLOCK)
+				|| item == getItemFromBlock(Blocks.LAPIS_BLOCK)
+				|| item == getItemFromBlock(Blocks.GLOWSTONE);
 	}
 
 	public InventoryBasic getInventory() {
@@ -179,10 +177,12 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 	@SideOnly(Side.CLIENT)
 	public String getDialogText() {
 		EntityPlayer player = Minecraft.getMinecraft().player;
-		if (player == null || player.isCreative()) return "";
+		if (player == null || player.isCreative())
+			return "";
 
 		// Optional distance check
-		if (this.getDistanceSq(player) > 40) return "";
+		if (this.getDistanceSq(player) > 40)
+			return "";
 		return "You owe me gold blocks...";
 	}
 }

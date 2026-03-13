@@ -18,8 +18,10 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
+import util.annotations.ClientBus;
 
 @EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
+@ClientBus(comment = "This is a chaosmod comment")
 public class DialogEventHandler {
 
 	@SubscribeEvent

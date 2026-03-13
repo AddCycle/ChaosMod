@@ -11,6 +11,7 @@ import net.chaos.chaosmod.init.ModDimensions;
 import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.init.ModFluids;
 import net.chaos.chaosmod.init.ModSounds;
+import net.chaos.chaosmod.init.ModStructures;
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.recipes.machine.MachineRecipeRegistry;
@@ -19,11 +20,7 @@ import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
 import net.chaos.chaosmod.world.events.terraingen.OreGenOverrideEvents;
-import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
-import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
-import net.chaos.chaosmod.world.structures.StructureCustomVillage;
 import net.chaos.chaosmod.world.structures.VillageAdditionalStructure;
-import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -37,6 +34,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import proxy.CommonProxy;
 import util.Reference;
+import util.annotations.ClientBusHandler;
 import util.handlers.RegistryHandler;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY_CLASS, dependencies = Reference.OPTIONAL_DEPENDENCIES)
@@ -57,11 +55,10 @@ public class Main
         proxy.preInit(event);
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
+    	ClientBusHandler.init();
         ModSounds.registerSounds();
         ModCapabilities.register();
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
-        // GameRegistry.registerWorldGenerator(new WorldGenCustomStructure("nether_dungeon", 0), 1);
-        // GameRegistry.registerWorldGenerator(new WorldGenCustomStructure("nether_box", 0), 1);
         ModEntities.registerEntities();
         ModFluids.registerFluids();
         MoneyStorage.register();
@@ -84,11 +81,7 @@ public class Main
         ModDimensions.init();
         RegistryHandler.onTagsRegister();
 
-		MapGenStructureIO.registerStructureComponent(VillageAdditionalStructure.class, "Vas");
-		MapGenStructureIO.registerStructure(MapGenCustomVillage.Start.class, "custom_village");
-		StructureCustomVillage.registerVillagePieces();
-		MapGenStructureIO.registerStructure(CustomWoodlandMansion.Start.class, "Custom Mansion");
-        // ModStructures.registerStructures();
+        ModStructures.registerStructures();
     }
 
     @EventHandler
@@ -102,7 +95,7 @@ public class Main
     
     @EventHandler
     public void ServerInit(FMLServerStartingEvent event) {
-    	JobsManager.init(); // loads jobs on server side to send packet
+    	JobsManager.init();
     	CommandsManager.registerCommands(event);
     }
 

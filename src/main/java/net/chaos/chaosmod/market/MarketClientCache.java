@@ -8,7 +8,7 @@ public class MarketClientCache {
 	private static final List<MarketOffer> offers = new ArrayList<>();
 
     public static void updateOffers(List<MarketOffer> newOffers) {
-        offers.clear();
+    	clear();
         offers.addAll(newOffers);
     }
 
