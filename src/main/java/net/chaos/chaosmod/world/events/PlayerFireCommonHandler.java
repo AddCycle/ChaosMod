@@ -2,8 +2,8 @@ package net.chaos.chaosmod.world.events;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModDamageSources;
-import net.chaos.chaosmod.network.PacketManager;
-import net.chaos.chaosmod.network.PacketShowFireOverlay;
+import net.chaos.chaosmod.network.packets.PacketManager;
+import net.chaos.chaosmod.network.packets.PacketShowFireOverlay;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;

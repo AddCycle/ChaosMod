@@ -28,3 +28,4 @@ Changes:
   - Pixou drops the stole `mineral` blocks (I think only gold works right now)
   - Removed garbage blocks as andesite, diorite, granite from generation
   - Optimized `/find <block_id> [range]` command
+  - refactor: automatic packet registration with custom annotation @ModPackets(modid, side)

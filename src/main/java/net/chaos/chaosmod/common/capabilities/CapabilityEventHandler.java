@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.common.capabilities;
 
 import net.chaos.chaosmod.Main;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -15,13 +16,14 @@ public class CapabilityEventHandler {
 	private static final ResourceLocation MONEY_CAPABILITY_ID = new ResourceLocation(Reference.MODID, "money");
 
 	@SubscribeEvent
-	public static void attachCapability(AttachCapabilitiesEvent<EntityPlayer> event) {
-		Main.getLogger().debug("ATTACHING MONEY capability attachCapability event");
-		event.addCapability(MONEY_CAPABILITY_ID, new MoneyProvider());
-		Main.getLogger().debug("ATTACHED MONEY capability attachCapability event : {}", event.getCapabilities());
+	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+		if (!(event.getObject() instanceof EntityPlayer)) return;
+
+		Main.getLogger().debug("ATTACHING MONEY capability");
+
+	    event.addCapability(MONEY_CAPABILITY_ID, new MoneyProvider());
 	}
 
-	// Persist money after death (clone player data)
 	@SubscribeEvent
 	public static void clonePlayer(PlayerEvent.Clone event) {
 		if (!event.isWasDeath()) return;

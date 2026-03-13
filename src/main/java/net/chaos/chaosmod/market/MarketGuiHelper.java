@@ -1,8 +1,8 @@
 package net.chaos.chaosmod.market;
 
 import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.network.market.PacketSyncMarket;
+import net.chaos.chaosmod.network.packets.PacketManager;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;

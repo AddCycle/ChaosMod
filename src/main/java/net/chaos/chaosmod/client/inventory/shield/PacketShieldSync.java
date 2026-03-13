@@ -13,7 +13,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
+import util.Reference;
+import util.annotations.ModPacket;
 
+@ModPacket(modid = Reference.MODID, side = Side.CLIENT)
 public class PacketShieldSync implements IMessage {
     private int playerID;
     private ItemStack shieldStack;

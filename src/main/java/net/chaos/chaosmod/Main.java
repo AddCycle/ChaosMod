@@ -13,7 +13,7 @@ import net.chaos.chaosmod.init.ModFluids;
 import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.init.ModStructures;
 import net.chaos.chaosmod.jobs.JobsManager;
-import net.chaos.chaosmod.network.PacketManager;
+import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.recipes.machine.MachineRecipeRegistry;
 import net.chaos.chaosmod.tileentity.TileEntityManager;
 import net.chaos.chaosmod.villagers.CustomProfessions;
@@ -62,6 +62,7 @@ public class Main
         ModEntities.registerEntities();
         ModFluids.registerFluids();
         MoneyStorage.register();
+        PacketManager.registerPackets(event);
     }
 
     @EventHandler

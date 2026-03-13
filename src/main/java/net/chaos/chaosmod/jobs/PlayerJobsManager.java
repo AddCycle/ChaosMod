@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.jobs;
 
-import net.chaos.chaosmod.network.PacketManager;
-import net.chaos.chaosmod.network.PacketSyncPlayerJobs;
+import net.chaos.chaosmod.network.packets.PacketManager;
+import net.chaos.chaosmod.network.packets.PacketSyncPlayerJobs;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 public class PlayerJobsManager {

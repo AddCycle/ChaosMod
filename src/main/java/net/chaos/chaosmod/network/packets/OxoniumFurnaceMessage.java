@@ -1,9 +1,15 @@
-package net.chaos.chaosmod.network;
+package net.chaos.chaosmod.network.packets;
 
 import io.netty.buffer.ByteBuf;
+import net.chaos.chaosmod.client.gui.inventory.OxoniumFurnaceGui;
+import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
+import net.minecraft.client.Minecraft;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class OxoniumFurnaceMessage implements IMessage {
 	private int toSend;
@@ -24,10 +30,17 @@ public class OxoniumFurnaceMessage implements IMessage {
 
 		@Override
 		public IMessage onMessage(OxoniumFurnaceMessage message, MessageContext ctx) {
-			ALZ.alz1();
+			openOxoniumFurnaceGui();
 			return null;
 		}
-		
 	}
 
+	@SideOnly(Side.CLIENT)
+	public static void openOxoniumFurnaceGui() {
+		Minecraft mc = Minecraft.getMinecraft();
+		TileEntity tile = mc.world.getTileEntity(mc.player.getPosition().add(1, 0, 0));
+		if (tile instanceof TileEntityOxoniumFurnace) {
+			mc.displayGuiScreen(new OxoniumFurnaceGui(mc.player.inventory, (TileEntityOxoniumFurnace) tile));
+		}
+	}
 }

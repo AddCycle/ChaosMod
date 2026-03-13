@@ -1,13 +1,18 @@
-package net.chaos.chaosmod.network;
+package net.chaos.chaosmod.network.packets;
 
 import java.nio.charset.StandardCharsets;
+
 import io.netty.buffer.ByteBuf;
 import net.chaos.chaosmod.client.particles.ClientEffectRender;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import util.Reference;
+import util.annotations.ModPacket;
 
+@ModPacket(modid = Reference.MODID, side = Side.CLIENT)
 public class PacketSpawnCustomParticle implements IMessage{
 	public double x, y, z;
 	public String type;
@@ -41,31 +46,10 @@ public class PacketSpawnCustomParticle implements IMessage{
 		buf.writeDouble(z);
 	}
 	
-	// Inside PacketHandler.java
 	public static class ClientHandler implements IMessageHandler<PacketSpawnCustomParticle, IMessage> {
 	    @Override
 	    public IMessage onMessage(PacketSpawnCustomParticle msg, MessageContext ctx) {
 	        Minecraft.getMinecraft().addScheduledTask(() -> {
-//	            World world = Minecraft.getMinecraft().world;
-//	            EntityPlayer player = Minecraft.getMinecraft().player;
-//
-//	            if (world != null && player != null) {
-//	                Random rand = new Random();
-//
-//	                double dx = -MathHelper.sin(player.rotationYaw * 0.017453292F);
-//	                double dz = MathHelper.cos(player.rotationYaw * 0.017453292F);
-//	                double px = msg.x + dx;
-//	                double py = msg.y + player.height * 0.5;
-//	                double pz = msg.z + dz;
-//
-//	                if (msg.type.equals("sweep")) {
-//	                    Minecraft.getMinecraft().effectRenderer.addEffect(
-//	                        new ColoredSweepParticle(Minecraft.getMinecraft().getTextureManager(), world, px, py, pz, dx, 0.0D, dz, rand.nextInt(0xffffff + 1)));
-//	                } else if (msg.type.equals("coin")) {
-//	                    Minecraft.getMinecraft().effectRenderer.addEffect(
-//	                        new CoinParticles(Minecraft.getMinecraft().getTextureManager(), world, px, py, pz, dx, 0.0D, dz));
-//	                }
-//	            }
 	            Minecraft.getMinecraft().addScheduledTask(() -> {
 	                ClientEffectRender.spawnCustomParticle(msg.type, msg.x, msg.y, msg.z);
 	            });

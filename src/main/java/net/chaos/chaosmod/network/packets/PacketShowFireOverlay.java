@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.network;
+package net.chaos.chaosmod.network.packets;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -8,7 +8,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import util.Reference;
+import util.annotations.ModPacket;
 
+@ModPacket(modid = Reference.MODID, side = Side.CLIENT)
 public class PacketShowFireOverlay implements IMessage {
     private boolean show;
     private int duration;

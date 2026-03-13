@@ -14,9 +14,8 @@ import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.jobs.GuiScreenJobs;
-import net.chaos.chaosmod.network.PacketManager;
-import net.chaos.chaosmod.network.PacketOpenAccessoryGui;
-import net.chaos.chaosmod.sound.ClientSoundHandler;
+import net.chaos.chaosmod.network.packets.PacketManager;
+import net.chaos.chaosmod.network.packets.PacketOpenAccessoryGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -138,20 +137,20 @@ public class PlayerLifeEvents {
 		if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
 			if (Keyboard.getEventKey() == mc.gameSettings.keyBindInventory.getKeyCode()) {
 				PacketManager.network.sendToServer(new PacketOpenAccessoryGui());
-			} else if (ModKeybinds.playMusicKey.isPressed()) {
-				ClientSoundHandler.nextSound();
-			} else if (ModKeybinds.pauseMusicKey.isPressed()) {
-				if (ClientSoundHandler.isMusicPlaying() && !ClientSoundHandler.isMusicPaused()) ClientSoundHandler.pauseMusic();
-				else ClientSoundHandler.resumeMusic();
-			} else if (ModKeybinds.stopMusicKey.isPressed()) {
-				ClientSoundHandler.stopMusic();
-			} else if (ModKeybinds.nextMusicKey.isPressed()) {
-				ClientSoundHandler.stopMusic();
-				ClientSoundHandler.nextSound();
-			} else if (ModKeybinds.previousMusicKey.isPressed()) {
-				ClientSoundHandler.stopMusic();
-				ClientSoundHandler.index-=2;
-				ClientSoundHandler.nextSound();
+//			} else if (ModKeybinds.playMusicKey.isPressed()) {
+//				ClientSoundHandler.nextSound();
+//			} else if (ModKeybinds.pauseMusicKey.isPressed()) {
+//				if (ClientSoundHandler.isMusicPlaying() && !ClientSoundHandler.isMusicPaused()) ClientSoundHandler.pauseMusic();
+//				else ClientSoundHandler.resumeMusic();
+//			} else if (ModKeybinds.stopMusicKey.isPressed()) {
+//				ClientSoundHandler.stopMusic();
+//			} else if (ModKeybinds.nextMusicKey.isPressed()) {
+//				ClientSoundHandler.stopMusic();
+//				ClientSoundHandler.nextSound();
+//			} else if (ModKeybinds.previousMusicKey.isPressed()) {
+//				ClientSoundHandler.stopMusic();
+//				ClientSoundHandler.index-=2;
+//				ClientSoundHandler.nextSound();
 			} else if (ModKeybinds.displayJobsKey.isPressed()) {
 				mc.displayGuiScreen(new GuiScreenJobs());
 			}
@@ -218,12 +217,14 @@ public class PlayerLifeEvents {
 
 	@SubscribeEvent
 	public static void onCrafting(ItemCraftedEvent event) {
+		if (event.player.world.isRemote) return;
+
 		for (int i = 0; i < 9; i++) {
 			if (event.craftMatrix.getStackInSlot(i).getItem() == ModItems.TINKERERS_HAMMER) {
 				ItemStack item = event.craftMatrix.getStackInSlot(i);
 				if (item.getItemDamage() < item.getMaxDamage() - 1) {
 					event.player.playSound(SoundEvents.BLOCK_ANVIL_USE, 1.0f, 1.0f);
-					if (!event.player.world.isRemote) event.player.sendMessage(new TextComponentString("Recipe contains hammer, playing sound... based on damage : " + (item.getItemDamage() + 1) + "/" + item.getMaxDamage()));
+					event.player.sendMessage(new TextComponentString("Recipe contains hammer, playing sound... based on damage : " + (item.getItemDamage() + 1) + "/" + item.getMaxDamage()));
 				} else {
 					event.player.playSound(SoundEvents.BLOCK_ANVIL_LAND, 1.0f, 1.0f);
 				}

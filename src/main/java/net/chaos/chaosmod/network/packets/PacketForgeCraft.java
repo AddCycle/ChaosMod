@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.network;
+package net.chaos.chaosmod.network.packets;
 
 import io.netty.buffer.ByteBuf;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
@@ -9,7 +9,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import util.Reference;
+import util.annotations.ModPacket;
 
+@ModPacket(modid = Reference.MODID, side = Side.SERVER)
 public class PacketForgeCraft implements IMessage {
     private int craftType;
     private BlockPos pos;

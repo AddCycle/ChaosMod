@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.inventory.ForgeInterfaceContainer;
-import net.chaos.chaosmod.network.PacketForgeCraft;
-import net.chaos.chaosmod.network.PacketManager;
+import net.chaos.chaosmod.network.packets.PacketForgeCraft;
+import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

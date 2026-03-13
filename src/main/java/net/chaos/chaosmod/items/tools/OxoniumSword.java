@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.items.tools;
 
-import net.chaos.chaosmod.network.PacketManager;
-import net.chaos.chaosmod.network.PacketSpawnCustomParticle;
+import net.chaos.chaosmod.network.packets.PacketManager;
+import net.chaos.chaosmod.network.packets.PacketSpawnCustomParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
