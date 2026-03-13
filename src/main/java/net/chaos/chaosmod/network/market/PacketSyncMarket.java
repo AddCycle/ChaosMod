@@ -48,6 +48,4 @@ public class PacketSyncMarket implements IMessage {
 		}
 		
 	}
-
-
 }

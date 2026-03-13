@@ -13,14 +13,12 @@ public class WorldGenerationOverrideEvents {
 
 	@SubscribeEvent
 	public void replaceStructureGenerator(InitMapGenEvent event) {
-		System.out.println("InitMapGenEvent triggered: " + event.getType());
-
         if (event.getType() == InitMapGenEvent.EventType.VILLAGE && event.getOriginalGen() instanceof MapGenVillage) {
             Main.getLogger().info("CUSTOM VILLAGE REPLACEMENT");
             event.setNewGen(new MapGenCustomVillage());
         }
         
-        if (Loader.isModLoaded("mathsmod") && event.getType() == InitMapGenEvent.EventType.VILLAGE) {
+        if (Loader.isModLoaded(Reference.MATHSMOD) && event.getType() == InitMapGenEvent.EventType.VILLAGE) {
         	Main.getLogger().info("MathsMod is loaded, detecting SirojusVillageGen...");
         	if (event.getOriginalGen().getClass().getName().equals("com.mod.mathsmod.add.World.dims.generator.structures.MapGenSirojusVillage")) {
         		Main.getLogger().info("!!!!!!!!!!!!!!!!!!!!! Found MapGenSirojusVillage !!!!!!!!!!!!!!!!!!!!!");

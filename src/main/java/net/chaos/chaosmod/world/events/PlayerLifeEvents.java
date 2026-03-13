@@ -51,11 +51,13 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 @EventBusSubscriber(modid = Reference.MODID)
 public class PlayerLifeEvents {
-	
+
 	@SubscribeEvent
 	public static void onPlayerJoin(EntityJoinWorldEvent event) {
-		if (!(event.getEntity() instanceof EntityPlayer)) return;
-		if (event.getWorld().isRemote) return;
+		if (!(event.getEntity() instanceof EntityPlayer))
+			return;
+		if (event.getWorld().isRemote)
+			return;
 
 		EntityPlayer player = (EntityPlayer) event.getEntity();
 
@@ -64,10 +66,10 @@ public class PlayerLifeEvents {
 		NBTTagCompound entityData = player.getEntityData();
 		NBTTagCompound persistentData;
 		if (entityData.hasKey(EntityPlayer.PERSISTED_NBT_TAG, 10)) { // 10 = compound type
-		    persistentData = entityData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+			persistentData = entityData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 		} else {
-		    persistentData = new NBTTagCompound();
-		    entityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistentData);
+			persistentData = new NBTTagCompound();
+			entityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistentData);
 		}
 
 		boolean firstJoin = !persistentData.hasKey(key);
@@ -84,11 +86,13 @@ public class PlayerLifeEvents {
 			event.getWorld().getMinecraftServer().commandManager.executeCommand(player, "sethome spawn");
 		}
 	}
-	
+
 	@SubscribeEvent
 	public static void onPlayerStepsOnCrops(FarmlandTrampleEvent event) {
-		if (!(event.getEntity() instanceof EntityPlayer)) return;
-		if (event.getWorld().isRemote) return;
+		if (!(event.getEntity() instanceof EntityPlayer))
+			return;
+		if (event.getWorld().isRemote)
+			return;
 		EntityPlayer player = (EntityPlayer) event.getEntity();
 		if (player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == ModItems.OXONIUM_BOOTS) {
 			event.setCanceled(true);
@@ -160,29 +164,31 @@ public class PlayerLifeEvents {
 	@SubscribeEvent
 	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityPlayer) {
-			event.addCapability(new ResourceLocation(Reference.MODID, "accessory"), new ICapabilitySerializable<NBTTagCompound>() {
-				final AccessoryImpl instance = new AccessoryImpl();
+			event.addCapability(new ResourceLocation(Reference.MODID, "accessory"),
+					new ICapabilitySerializable<NBTTagCompound>() {
+						final AccessoryImpl instance = new AccessoryImpl();
 
-				@Override
-				public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-					return capability == ModCapabilities.ACCESSORY;
-				}
+						@Override
+						public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+							return capability == ModCapabilities.ACCESSORY;
+						}
 
-				@Override
-				public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-					return capability == ModCapabilities.ACCESSORY ? ModCapabilities.ACCESSORY.cast(instance) : null;
-				}
+						@Override
+						public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+							return capability == ModCapabilities.ACCESSORY ? ModCapabilities.ACCESSORY.cast(instance)
+									: null;
+						}
 
-				@Override
-				public NBTTagCompound serializeNBT() {
-					return instance.serializeNBT(); // very important!
-				}
+						@Override
+						public NBTTagCompound serializeNBT() {
+							return instance.serializeNBT(); // very important!
+						}
 
-				@Override
-				public void deserializeNBT(NBTTagCompound nbt) {
-					instance.deserializeNBT(nbt);
-				}
-			});
+						@Override
+						public void deserializeNBT(NBTTagCompound nbt) {
+							instance.deserializeNBT(nbt);
+						}
+					});
 		}
 	}
 
@@ -195,16 +201,17 @@ public class PlayerLifeEvents {
 			NBTTagCompound data = player.getEntityData();
 			if (!data.getBoolean("chaos_has_spawned")) {
 				World world = player.getEntityWorld();
-				world.playerEntities.forEach(p -> {
+				world.playerEntities.forEach(p ->
+				{
 					if (!p.getEntityData().getBoolean("chaos_has_spawned")) {
 						p.getEntityData().setBoolean("chaos_has_spawned", true);
 					}
 				});
 
-
 				if (!world.isRemote) {
 					BlockPos pos = player.getPosition().add(2, 0, 2);
-					Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Reference.MODID, "chaos_sage"), world);
+					Entity entity = EntityList
+							.createEntityByIDFromName(new ResourceLocation(Reference.MODID, "chaos_sage"), world);
 
 					if (entity instanceof EntityChaosSage) {
 						entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
@@ -217,14 +224,17 @@ public class PlayerLifeEvents {
 
 	@SubscribeEvent
 	public static void onCrafting(ItemCraftedEvent event) {
-		if (event.player.world.isRemote) return;
+		if (event.player.world.isRemote)
+			return;
 
 		for (int i = 0; i < 9; i++) {
 			if (event.craftMatrix.getStackInSlot(i).getItem() == ModItems.TINKERERS_HAMMER) {
 				ItemStack item = event.craftMatrix.getStackInSlot(i);
 				if (item.getItemDamage() < item.getMaxDamage() - 1) {
 					event.player.playSound(SoundEvents.BLOCK_ANVIL_USE, 1.0f, 1.0f);
-					event.player.sendMessage(new TextComponentString("Recipe contains hammer, playing sound... based on damage : " + (item.getItemDamage() + 1) + "/" + item.getMaxDamage()));
+					event.player.sendMessage(
+							new TextComponentString("Recipe contains hammer, playing sound... based on damage : "
+									+ (item.getItemDamage() + 1) + "/" + item.getMaxDamage()));
 				} else {
 					event.player.playSound(SoundEvents.BLOCK_ANVIL_LAND, 1.0f, 1.0f);
 				}
@@ -234,33 +244,34 @@ public class PlayerLifeEvents {
 
 	@SubscribeEvent
 	public static void attachCapabilityShield(AttachCapabilitiesEvent<Entity> event) {
-		if (event.getObject() instanceof EntityPlayer) {
-			event.addCapability(new ResourceLocation(Reference.MODID, "shield"), new ICapabilitySerializable<NBTTagCompound>() {
-				final ShieldImpl instance = new ShieldImpl();
+		if (!(event.getObject() instanceof EntityPlayer))
+			return;
+		event.addCapability(new ResourceLocation(Reference.MODID, "shield"),
+				new ICapabilitySerializable<NBTTagCompound>() {
+					final ShieldImpl instance = new ShieldImpl();
 
-				@Override
-				public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-					return capability == ModCapabilities.SHIELD;
-				}
+					@Override
+					public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+						return capability == ModCapabilities.SHIELD;
+					}
 
-				@Override
-				public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-					return capability == ModCapabilities.SHIELD ? ModCapabilities.SHIELD.cast(instance) : null;
-				}
+					@Override
+					public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+						return capability == ModCapabilities.SHIELD ? ModCapabilities.SHIELD.cast(instance) : null;
+					}
 
-				@Override
-				public NBTTagCompound serializeNBT() {
-					return instance.serializeNBT(); // very important!
-				}
+					@Override
+					public NBTTagCompound serializeNBT() {
+						return instance.serializeNBT();
+					}
 
-				@Override
-				public void deserializeNBT(NBTTagCompound nbt) {
-					instance.deserializeNBT(nbt);
-				}
-			});
-		}
+					@Override
+					public void deserializeNBT(NBTTagCompound nbt) {
+						instance.deserializeNBT(nbt);
+					}
+				});
 	}
-	
+
 	public static void givePlayerInstructionBook(EntityPlayer player) {
 		ItemStack book = PatchouliAPI.instance.getBookStack(Reference.PREFIX + "chaos_almanac");
 		player.addItemStackToInventory(book);
