@@ -12,25 +12,18 @@ import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.init.ModFluids;
 import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.jobs.JobsManager;
-import net.chaos.chaosmod.jobs.PlayerJobsEventHandler;
 import net.chaos.chaosmod.network.PacketManager;
 import net.chaos.chaosmod.recipes.machine.MachineRecipeRegistry;
 import net.chaos.chaosmod.tileentity.TileEntityManager;
 import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.chaos.chaosmod.world.ModWorldGen;
-import net.chaos.chaosmod.world.events.EntitiesDeathEvents;
-import net.chaos.chaosmod.world.events.PlayerAchivementsEvents;
-import net.chaos.chaosmod.world.events.PlayerFightEvents;
-import net.chaos.chaosmod.world.events.PlayerLifeEvents;
 import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
+import net.chaos.chaosmod.world.events.terraingen.OreGenOverrideEvents;
 import net.chaos.chaosmod.world.gen.chaosland.CustomWoodlandMansion;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.chaos.chaosmod.world.structures.StructureCustomVillage;
 import net.chaos.chaosmod.world.structures.VillageAdditionalStructure;
-import net.minecraft.init.Biomes;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -57,14 +50,10 @@ public class Main
 
     private static Logger logger;
     
-    public static Logger getLogger() {
-    	return logger;
-    }
-
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-		StartupCommon.preInitCommon();
+		StartupCommon.preInitCommon(); // TODO : refactor remove (shape_shifting_block)
         proxy.preInit(event);
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
@@ -85,18 +74,13 @@ public class Main
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
         PacketManager.init();
         VillagerRegistry.instance().registerVillageCreationHandler(new VillageAdditionalStructure.CreationHandler());
+        MinecraftForge.ORE_GEN_BUS.register(new OreGenOverrideEvents());
     	MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenerationOverrideEvents());
         CustomProfessions.registerCustomProfessions();
         RegistryHandler.onSmeltingRegister();
         RegistryHandler.onBrewingRecipeRegister();
         MachineRecipeRegistry.init();
-        BiomeDictionary.addTypes(ModBiomes.GIANT_MOUNTAIN, BiomeDictionary.Type.MOUNTAIN);
-        // BiomeDictionary.addTypes(ModBiomes.CUSTOM_HELL, BiomeDictionary.Type.NETHER);
-        BiomeManager.removeBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(Biomes.PLAINS, 10));
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.GIANT_MOUNTAIN, 50));
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.NETHER_CAVES, 50));
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.ENDER_GARDEN, 50));
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.CHAOS_LAND_BIOME, 50));
+        ModBiomes.init();
         ModDimensions.init();
         RegistryHandler.onTagsRegister();
 
@@ -113,11 +97,6 @@ public class Main
     	proxy.postInit(event);
     	logger.info("CHAOSMOD POST-INIT PHASE {}", event.getModState());
     	// VillagerTradeHandler.onRegisterTrades();
-        MinecraftForge.EVENT_BUS.register(new EntitiesDeathEvents());
-        MinecraftForge.EVENT_BUS.register(new PlayerFightEvents());
-        MinecraftForge.EVENT_BUS.register(new PlayerLifeEvents());
-        MinecraftForge.EVENT_BUS.register(new PlayerAchivementsEvents());
-        MinecraftForge.EVENT_BUS.register(new PlayerJobsEventHandler());
         TileEntityManager.registerTileEntities();
     }
     
@@ -126,4 +105,6 @@ public class Main
     	JobsManager.init(); // loads jobs on server side to send packet
     	CommandsManager.registerCommands(event);
     }
+
+    public static Logger getLogger() { return logger; }
 }

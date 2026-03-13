@@ -17,27 +17,28 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import util.Reference;
 
-@SideOnly(Side.CLIENT)
-// TODO : refactor this part
+// TODO : Refactor the class
+@EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class MinimapEventHandler {
-	public static Map<UUID, Integer> map = new HashMap<>(); // stores the color of the player arrow to draw on the minimap
+	public static Map<UUID, Integer> playerArrowColor = new HashMap<>();
 	private static int colorIndex = 0;
 	public static List<Integer> colors = Arrays.asList(0xff0000, 0x0000ff, 0x00ff00, 0xff8400, 0x8d00a3); // red, blue, green, orange, purple
 	private static final int UPDATE_INTERVAL = 5; // every 5 ticks
 	private static int updateTick = 0;
 	private static Renderer.MapData cachedMapData = null;
-	private int lastPlayerX;
-	private int lastPlayerZ;
+	private static int lastPlayerX;
+	private static int lastPlayerZ;
 	/*
-	 * TODO : Note for me later : Don't use RenderGameOverlayEvent alone use one phase : Pre, Post, Chat, BossInfo => otherwise too laggy
+	 * Note for me later : Don't use RenderGameOverlayEvent alone use one phase : Pre, Post, Chat, BossInfo => otherwise too laggy
 	 */
 
 	@SubscribeEvent
-    public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
+    public static void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
 		if (!CLIENT.isMinimapEnabled) return;
 		if (event.getType() != ElementType.ALL) return;
 
@@ -58,10 +59,9 @@ public class MinimapEventHandler {
 		if (CLIENT.displayArrow) drawArrow(event.getResolution(), CLIENT.minimapSize, CLIENT.pixelSize);
 		// FIXME : later re-enable player arrows because JRP want to troll other players
 		// Make an item in order to make this feature enabled like while holding an item in their hands
-		// drawPlayersArrows(resolution, mapSize, pixelSize);
+		 drawPlayersArrows(event.getResolution(), CLIENT.minimapSize, CLIENT.pixelSize);
     }
 	
-	@SuppressWarnings("unused")
 	private static void drawPlayersArrows(ScaledResolution resolution, int mapSize, int pixelSize) {
 		Random rand = new Random();
 		Minecraft mc = Minecraft.getMinecraft();
@@ -70,22 +70,22 @@ public class MinimapEventHandler {
 		for (EntityPlayer player : players) {
 		    if (player == localPlayer) continue; // Skip self
 		    UUID playerId = player.getUniqueID();
-		    if (!map.containsKey(playerId)) {
+		    if (!playerArrowColor.containsKey(playerId)) {
 	            int assignedColor = 0x000000;
 	            if (colorIndex < colors.size()) {
 	                assignedColor = colors.get(colorIndex);
 	            } else {
 	            	Color color = new Color(rand.nextInt(0xffffff));
-	            	if (!map.containsValue(color.getRGB())) assignedColor = color.getRGB(); // fallback color that is not in the map
+	            	if (!playerArrowColor.containsValue(color.getRGB())) assignedColor = color.getRGB(); // fallback color that is not in the map
 	            }
-	            map.put(playerId, assignedColor);
+	            playerArrowColor.put(playerId, assignedColor);
 	            colorIndex++;
 	        }
 		    double distanceX = getDistanceX(player, localPlayer);
 		    double distanceZ = getDistanceZ(player, localPlayer);
 		    double pythagorean = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
 		    if (pythagorean > mapSize / 3) continue; // Skip distant players (example: map block range)
-		    drawArrowAt(resolution, mapSize, pixelSize, distanceX, distanceZ, player, map.get(playerId));
+		    drawArrowAt(resolution, mapSize, pixelSize, distanceX, distanceZ, player, playerArrowColor.get(playerId));
 		}
 	}
 	
@@ -105,10 +105,6 @@ public class MinimapEventHandler {
 		float scale = resolution.getScaleFactor();
 		int side = mapSize * pixelSize;
 
-	    // center of the screen
-//		int centerX = (resolution.getScaledWidth() - mapSize * pixelSize) / 2 + (mapSize * pixelSize) / 2;
-//		int centerY = (resolution.getScaledHeight() - mapSize * pixelSize) / 2 + (mapSize * pixelSize) / 2;
-
 		int centerX = side / 2;
 		int centerY = side / 2;
 
@@ -117,7 +113,7 @@ public class MinimapEventHandler {
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
 
-        Renderer.drawPlayerArrow(resolution, centerX, centerY, playerYaw, 0xFFFFFF, mapSize); // white arrow for the local player
+        Renderer.drawPlayerArrow(resolution, centerX, centerY, playerYaw, 0xFFFFFF, mapSize);
 
         // Restore GL state
         GlStateManager.enableDepth();

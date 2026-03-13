@@ -12,6 +12,7 @@ import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityPigZombie;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -29,7 +30,7 @@ public class CustomBiomeNether extends BiomeHell {
 	
 	public CustomBiomeNether() {
         super(new Biome.BiomeProperties("Nether Caves")
-            .setBaseHeight(Biome.getBiome(162).getBaseHeight())
+            .setBaseHeight(Biomes.MUTATED_EXTREME_HILLS_WITH_TREES.getBaseHeight())
             .setHeightVariation(0.1F)
             .setTemperature(1.0F)
             .setWaterColor(65535)

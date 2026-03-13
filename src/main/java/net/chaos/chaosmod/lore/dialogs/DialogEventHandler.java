@@ -14,15 +14,16 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import util.Reference;
 
-@SideOnly(Side.CLIENT)
+@EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class DialogEventHandler {
 
 	@SubscribeEvent
-	public void onRenderLivingSpecials(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
+	public static void onRenderLivingSpecials(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
 	    Entity entity = event.getEntity();
 	    String dialog = null;
 	    EntityPlayer player = Minecraft.getMinecraft().player;
@@ -43,7 +44,8 @@ public class DialogEventHandler {
 	    renderDialogBox(event.getX(), event.getY(), event.getZ(), dialog, event.getEntity(), event.getPartialRenderTick());
 	}
 	
-	public void renderDialogBox(double x, double y, double z, String text, Entity entity, float partialTicks) {
+	public static void renderDialogBox(double x, double y, double z, String text, Entity entity, float partialTicks) {
+		
 		Minecraft mc = Minecraft.getMinecraft();
 	    RenderManager renderManager = mc.getRenderManager();
 
@@ -87,5 +89,4 @@ public class DialogEventHandler {
 
 	    GlStateManager.popMatrix();
 	}
-
 }

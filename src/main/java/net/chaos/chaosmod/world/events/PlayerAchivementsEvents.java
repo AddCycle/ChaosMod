@@ -11,16 +11,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import util.Reference;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = Reference.MODID)
 public class PlayerAchivementsEvents {
 	
 	@SubscribeEvent
-	public void onAdvancementMade(AdvancementEvent event) {
+	public static void onAdvancementMade(AdvancementEvent event) {
 		EntityPlayer player = event.getEntityPlayer();
 		World world = player.getEntityWorld();
 		int count = 4;
-		System.out.println(event.getAdvancement().getId().toString());
 		
 		if (event.getAdvancement().getId().toString().equals("chaosmod:basic/harvest_reward") && !world.isRemote) {
 			if (player.inventory.addItemStackToInventory(new ItemStack(ModBlocks.OXONIUM_BLOCK, count))) {

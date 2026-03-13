@@ -33,14 +33,15 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import util.Reference;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = Reference.MODID)
 public class PlayerFightEvents {
 	public static final UUID SPEED_BOOST_UUID = UUID.fromString("f84c6a4d-2b1d-4315-b6fa-3db1a3d8e5c3");
 	public static final UUID ATTACK_BOOST_UUID = UUID.fromString("0e6a8b8a-91d0-4b92-8aa4-7d44a6f5c3b1");
 	
 	@SubscribeEvent
-	public void onPlayerHurt(LivingDamageEvent event) {
+	public static void onPlayerHurt(LivingDamageEvent event) {
 		if (!(event.getEntityLiving() instanceof EntityPlayer)) return;
 		
 		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
@@ -91,7 +92,7 @@ public class PlayerFightEvents {
 	}
 	
 	@SubscribeEvent
-	public void enderiteNecklaceLogic(LivingEvent.LivingUpdateEvent event) {
+	public static void enderiteNecklaceLogic(LivingEvent.LivingUpdateEvent event) {
 		/*
 		 * Prevents wither effect to apply :
 		 */
@@ -112,7 +113,7 @@ public class PlayerFightEvents {
 	}
 	
 	@SubscribeEvent
-	public void onPlayerTick(PlayerTickEvent event) {
+	public static void onPlayerTick(PlayerTickEvent event) {
 		EntityPlayer player = event.player;
 	    if (player.world.isRemote || event.phase == TickEvent.Phase.END) return;
 
@@ -155,7 +156,7 @@ public class PlayerFightEvents {
 	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
-	public void onFOVUpdate(FOVUpdateEvent event) {
+	public static void onFOVUpdate(FOVUpdateEvent event) {
 	    EntityPlayer player = event.getEntity();
 
 	    Item item = player.getActiveItemStack().getItem();

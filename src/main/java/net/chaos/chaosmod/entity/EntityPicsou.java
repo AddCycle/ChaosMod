@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.entity;
 
 import net.chaos.chaosmod.entity.ai.EntityAIMineGold;
+
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.lore.dialogs.ITalkable;
 import net.minecraft.client.Minecraft;
@@ -18,6 +19,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
+
+/**
+ * TODO : fix and refactor this entire class along with EntityAIStealBlock
+ */
 public class EntityPicsou extends EntityCreature implements ITalkable {
 	private InventoryBasic inventory;
 
@@ -38,8 +43,9 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 	
 	@Override
 	protected void onDeathUpdate() {
-		// TODO Auto-generated method stub
 		super.onDeathUpdate();
+
+		dropAllItems();
 	}
 
 	@Override
@@ -67,7 +73,7 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 	            this.inventory.setInventorySlotContents(i, stack.copy());
 	            itemEntity.setDead();
 	            return;
-	        } 
+	        }
 	        else if (ItemStack.areItemsEqual(slotStack, stack) &&
 	                 ItemStack.areItemStackTagsEqual(slotStack, stack) &&
 	                 slotStack.getCount() < slotStack.getMaxStackSize()) {
@@ -153,6 +159,16 @@ public class EntityPicsou extends EntityCreature implements ITalkable {
 		}
 
 		return false;
+	}
+
+	private void dropAllItems() {
+	    for (int i = 0; i < inventory.getSizeInventory(); i++) {
+	        ItemStack stack = inventory.getStackInSlot(i);
+	        if (!stack.isEmpty()) {
+	            entityDropItem(stack.copy(), 0);
+	            inventory.setInventorySlotContents(i, ItemStack.EMPTY);
+	        }
+	    }
 	}
 
 	public InventoryBasic getInventory() {

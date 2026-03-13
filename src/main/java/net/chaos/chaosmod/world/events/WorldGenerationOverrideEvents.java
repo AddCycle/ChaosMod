@@ -1,20 +1,15 @@
 package net.chaos.chaosmod.world.events;
 
-import java.util.Random;
-
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.world.structures.MapGenCustomCavesHell;
 import net.chaos.chaosmod.world.structures.MapGenCustomVillage;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import util.Reference;
 
-@EventBusSubscriber(modid = Reference.MODID)
 public class WorldGenerationOverrideEvents {
-	public static final Random rand = new Random();
 
 	@SubscribeEvent
 	public void replaceStructureGenerator(InitMapGenEvent event) {
@@ -32,7 +27,7 @@ public class WorldGenerationOverrideEvents {
         	}
         }
         
-        if (!Loader.isModLoaded("biomesoplenty") && event.getType() == InitMapGenEvent.EventType.NETHER_CAVE) {
+        if (!Loader.isModLoaded(Reference.BIOMESOPLENTY) && event.getType() == InitMapGenEvent.EventType.NETHER_CAVE) {
             Main.getLogger().info("CUSTOM NETHER CAVES REPLACEMENT");
             event.setNewGen(new MapGenCustomCavesHell());
         }

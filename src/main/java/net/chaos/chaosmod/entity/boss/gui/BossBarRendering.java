@@ -12,20 +12,19 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
 
-@EventBusSubscriber(Side.CLIENT)
+@EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class BossBarRendering {
-	public static int flag = 0;
-	public static final ResourceLocation BLAZE_PHASE_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/revenge_blaze_bar_1.png");
-	public static final ResourceLocation BLAZE_PHASE_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/revenge_blaze_bar_2.png");
-	public static final ResourceLocation GIANT_PHASE_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/mountain_giant_bar_1.png");
-	public static final ResourceLocation GIANT_PHASE_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/mountain_giant_bar_2.png");
-	public static final ResourceLocation EYE_PHASE_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/eye_bar_1.png");
-	public static final ResourceLocation EYE_PHASE_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/eye_bar_2.png");
-	public static final ResourceLocation MASTER_1 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/master_bar_1.png");
-	public static final ResourceLocation MASTER_2 = new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/master_bar_2.png");
+	public static final ResourceLocation BLAZE_PHASE_1 = createBossRL("revenge_blaze_bar_1.png");
+	public static final ResourceLocation BLAZE_PHASE_2 = createBossRL("revenge_blaze_bar_2.png");
+	public static final ResourceLocation GIANT_PHASE_1 = createBossRL("mountain_giant_bar_1.png");
+	public static final ResourceLocation GIANT_PHASE_2 = createBossRL("mountain_giant_bar_2.png");
+	public static final ResourceLocation EYE_PHASE_1 = createBossRL("eye_bar_1.png");
+	public static final ResourceLocation EYE_PHASE_2 = createBossRL("eye_bar_2.png");
+	public static final ResourceLocation MASTER_1 = createBossRL("master_bar_1.png");
+	public static final ResourceLocation MASTER_2 = createBossRL("master_bar_2.png");
 
 	@SubscribeEvent
-	public void onRenderBossBar(RenderGameOverlayEvent.BossInfo event) {
+	public static void onRenderBossBar(RenderGameOverlayEvent.BossInfo event) {
 	    if (!(event.getBossInfo() instanceof BossInfo)) {
 	        return;
 	    }
@@ -85,6 +84,8 @@ public class BossBarRendering {
 	    int blue = 0x0000FF;
 	    mc.fontRenderer.drawStringWithShadow(bossName, (width / 2) - (mc.fontRenderer.getStringWidth(bossName) / 2), padding_up - 10, bossInfo.getPercent() <= 0.5f ? red : blue);
 	}
-
-
+	
+	private static ResourceLocation createBossRL(String path) {
+		return new ResourceLocation(Reference.MODID, "textures/gui/entity/boss/" + path);
+	}
 }

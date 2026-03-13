@@ -10,10 +10,13 @@ import net.chaos.chaosmod.biomes.CustomBiomeNether;
 import net.chaos.chaosmod.biomes.CustomBiomeOverworld;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
 import util.Reference;
 
 public class ModBiomes {
 	public static final List<Biome> BIOMES = new ArrayList<Biome>();
+	public static final int CUSTOM_BIOME_WEIGHT = 50;
 
 	public static final Biome GIANT_MOUNTAIN = new CustomBiomeOverworld().setRegistryName(new ResourceLocation(Reference.MODID, "giant_mountains"));;
 	public static final Biome NETHER_CAVES = new CustomBiomeNether().setRegistryName(new ResourceLocation(Reference.MODID, "nether_caves"));;
@@ -27,5 +30,19 @@ public class ModBiomes {
         BIOMES.add(ENDER_GARDEN);
         BIOMES.add(CHAOS_LAND_BIOME);
         BIOMES.add(CUSTOM_HELL);
+    }
+    
+    public static void init() {
+    	addBiome(ModBiomes.GIANT_MOUNTAIN, BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.COLD);
+        addBiome(ModBiomes.NETHER_CAVES);
+        addBiome(ModBiomes.ENDER_GARDEN);
+        addBiome(ModBiomes.CHAOS_LAND_BIOME);
+//        BiomeManager.removeBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(Biomes.PLAINS, 10));
+        // BiomeDictionary.addTypes(ModBiomes.CUSTOM_HELL, BiomeDictionary.Type.NETHER);
+    }
+    
+    public static void addBiome(Biome biome, BiomeDictionary.Type ...types) {
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(biome, CUSTOM_BIOME_WEIGHT));
+        BiomeDictionary.addTypes(biome, types);
     }
 }

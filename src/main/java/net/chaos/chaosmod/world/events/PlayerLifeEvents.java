@@ -50,11 +50,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
 import vazkii.patchouli.api.PatchouliAPI;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = Reference.MODID)
 public class PlayerLifeEvents {
 	
 	@SubscribeEvent
-	public void onPlayerJoin(EntityJoinWorldEvent event) {
+	public static void onPlayerJoin(EntityJoinWorldEvent event) {
 		if (!(event.getEntity() instanceof EntityPlayer)) return;
 		if (event.getWorld().isRemote) return;
 
@@ -77,7 +77,7 @@ public class PlayerLifeEvents {
 			persistentData.setBoolean(key, true);
 			entityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistentData);
 
-			if (Loader.isModLoaded("patchouli")) {
+			if (Loader.isModLoaded(Reference.PATCHOULI)) {
 				givePlayerInstructionBook(player);
 			}
 
@@ -87,7 +87,7 @@ public class PlayerLifeEvents {
 	}
 	
 	@SubscribeEvent
-	public void onPlayerStepsOnCrops(FarmlandTrampleEvent event) {
+	public static void onPlayerStepsOnCrops(FarmlandTrampleEvent event) {
 		if (!(event.getEntity() instanceof EntityPlayer)) return;
 		if (event.getWorld().isRemote) return;
 		EntityPlayer player = (EntityPlayer) event.getEntity();
@@ -97,7 +97,7 @@ public class PlayerLifeEvents {
 	}
 
 	@SubscribeEvent
-	public void onPlayerTick(PlayerTickEvent event) {
+	public static void onPlayerTick(PlayerTickEvent event) {
 		EntityPlayer player = event.player;
 		ItemStack boots = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
 		ItemStack held = player.getHeldItemMainhand();
@@ -132,7 +132,7 @@ public class PlayerLifeEvents {
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
-	public void onKeyInput(InputEvent.KeyInputEvent event) {
+	public static void onKeyInput(InputEvent.KeyInputEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 
 		if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
@@ -159,7 +159,7 @@ public class PlayerLifeEvents {
 	}
 
 	@SubscribeEvent
-	public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityPlayer) {
 			event.addCapability(new ResourceLocation(Reference.MODID, "accessory"), new ICapabilitySerializable<NBTTagCompound>() {
 				final AccessoryImpl instance = new AccessoryImpl();
@@ -232,7 +232,7 @@ public class PlayerLifeEvents {
 	}
 
 	@SubscribeEvent
-	public void attachCapabilityShield(AttachCapabilitiesEvent<Entity> event) {
+	public static void attachCapabilityShield(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityPlayer) {
 			event.addCapability(new ResourceLocation(Reference.MODID, "shield"), new ICapabilitySerializable<NBTTagCompound>() {
 				final ShieldImpl instance = new ShieldImpl();
@@ -260,7 +260,7 @@ public class PlayerLifeEvents {
 		}
 	}
 	
-	public void givePlayerInstructionBook(EntityPlayer player) {
+	public static void givePlayerInstructionBook(EntityPlayer player) {
 		ItemStack book = PatchouliAPI.instance.getBookStack(Reference.PREFIX + "chaos_almanac");
 		player.addItemStackToInventory(book);
 	}

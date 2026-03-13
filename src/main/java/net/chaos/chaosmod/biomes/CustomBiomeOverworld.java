@@ -12,6 +12,7 @@ import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -28,7 +29,7 @@ public class CustomBiomeOverworld extends Biome {
 	
 	public CustomBiomeOverworld() {
         super(new Biome.BiomeProperties("Giant Mountains")
-            .setBaseHeight(Biome.getBiome(162).getBaseHeight())
+            .setBaseHeight(Biomes.MUTATED_EXTREME_HILLS_WITH_TREES.getBaseHeight())
             .setHeightVariation(0.1F)
             .setTemperature(0.4F)
             .setSnowEnabled()
@@ -51,10 +52,8 @@ public class CustomBiomeOverworld extends Biome {
         this.spawnableCreatureList.add(new SpawnListEntry(EntitySnowman.class, 1, 3, 20));
         this.spawnableCaveCreatureList.add(new SpawnListEntry(EntityWitch.class, 1, 3, 20));
         this.spawnableCaveCreatureList.add(new SpawnListEntry(EntityWitherSkeleton.class, 1, 3, 20));
-        // this.spawnableCreatureList.add(new SpawnListEntry(EntityMountainGiantBoss.class, 75, 1, 1));
+
         this.addFlower(ModBlocks.CUSTOM_FLOWER.getDefaultState(), 5);
-        
-        // ModBiomes.BIOMES.add(this);
     }
 	
 	@Override
@@ -81,9 +80,6 @@ public class CustomBiomeOverworld extends Biome {
 	
 	@Override
 	public int getGrassColorAtPos(BlockPos pos) {
-		// return 0x7ca4f7;
-		// return 0x1a60f0;
 		return 0x07bdf5;
-		// return ColorizerGrass.getGrassColor(0.0F, 0.5F);
 	}
 }

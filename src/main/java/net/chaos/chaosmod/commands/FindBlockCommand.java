@@ -1,8 +1,5 @@
 package net.chaos.chaosmod.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -25,15 +22,8 @@ public class FindBlockCommand extends CommandBase {
 	}
 
 	@Override
-	public List<String> getAliases() {
-		ArrayList<String> aliases = new ArrayList<>();
-		aliases.add("scan");
-		return aliases;
-	}
-
-	@Override
 	public String getUsage(ICommandSender sender) {
-		return String.format("/find or /scan <mod:block_id> [range (%d,%d)]", MIN_RANGE, MAX_RANGE);
+		return String.format("/find <mod:block_id> [range (%d,%d)]", MIN_RANGE, MAX_RANGE);
 	}
 
 	@Override
@@ -44,8 +34,6 @@ public class FindBlockCommand extends CommandBase {
 		}
 
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
-		if (player.getEntityWorld().isRemote)
-			return;
 
 		int range = DEFAULT_RANGE;
 		if (args.length > 1) {
@@ -55,6 +43,7 @@ public class FindBlockCommand extends CommandBase {
 				throw new CommandException(getUsage(sender));
 			}
 		}
+
 		int cnt = 0;
 
 		BlockPos player_pos = player.getPosition();

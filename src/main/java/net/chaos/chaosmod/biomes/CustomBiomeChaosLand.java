@@ -12,6 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -28,7 +29,7 @@ public class CustomBiomeChaosLand extends Biome {
 	
 	public CustomBiomeChaosLand() {
         super(new Biome.BiomeProperties("Chaos Land")
-            .setBaseHeight(Biome.getBiome(162).getBaseHeight())
+            .setBaseHeight(Biomes.MUTATED_EXTREME_HILLS_WITH_TREES.getBaseHeight())
             .setHeightVariation(0.1F)
             .setTemperature(0.4F)
             .setSnowEnabled()

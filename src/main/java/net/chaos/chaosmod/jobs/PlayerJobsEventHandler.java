@@ -8,14 +8,15 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import util.Reference;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber(modid = Reference.MODID)
 public class PlayerJobsEventHandler {
 
 	@SubscribeEvent
-	public void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+	public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
 	    if (event.getObject() instanceof EntityPlayer) {
 	        PlayerJobs jobs = new PlayerJobs();
 	        event.addCapability(CapabilityPlayerJobs.KEY, new ICapabilitySerializable<NBTTagCompound>() {
@@ -45,7 +46,7 @@ public class PlayerJobsEventHandler {
 	
 	@SubscribeEvent
 	public static void onPlayerClone(PlayerEvent.Clone event) {
-	    if (!event.isWasDeath()) return; // optionally copy on death too
+	    if (!event.isWasDeath()) return;
 
 	    PlayerJobs oldJobs = event.getOriginal().getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
 	    PlayerJobs newJobs = event.getEntityPlayer().getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);

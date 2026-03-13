@@ -18,11 +18,13 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
 import util.broadcast.MessageDisplayText;
 
-@EventBusSubscriber(modid = Reference.MODID, value = { Side.SERVER, Side.CLIENT })
+@EventBusSubscriber(modid = Reference.MODID)
+/**
+ * TODO: store the visited biomes into the player with a capability
+ */
 public class PlayerTickBiomeEvent {
 	private static final Map<UUID, List<Biome>> lastBiomes = new HashMap<>();
 	private static String currentBiomeName;
