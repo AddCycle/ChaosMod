@@ -14,10 +14,6 @@ public class ColoredSweepParticle extends ParticleSweepAttack {
 		int green = (color >> 8) & 0xFF;
 		int blue = (color) & 0xFF;
 
-		System.out.println("red : " + red);
-		System.out.println("green : " + green);
-		System.out.println("blue : " + blue);
-
 		// Normalize to [0.0, 1.0] float values
 		this.particleRed = red / 255.0f;
 		this.particleGreen = green / 255.0f;

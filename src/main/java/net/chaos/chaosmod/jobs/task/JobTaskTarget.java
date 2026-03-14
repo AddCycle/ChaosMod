@@ -1,8 +1,9 @@
-package net.chaos.chaosmod.jobs;
+package net.chaos.chaosmod.jobs.task;
 
 import com.google.gson.JsonObject;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.jobs.TargetType;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;

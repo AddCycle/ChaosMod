@@ -50,16 +50,16 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityRevengeBlazeBoss extends EntityMob {
     private final BossInfoServer bossInfo;
 
-    /** Random offset used in floating behaviour */
     private float heightOffset = 0.5F;
-    /** ticks until heightOffset is randomized */
     private int heightOffsetUpdateTime;
     private static final DataParameter<Byte> ON_FIRE = EntityDataManager.<Byte>createKey(EntityBlaze.class, DataSerializers.BYTE);
 	private static final DataParameter<Boolean> TRANSFORMED = EntityDataManager.createKey(EntityRevengeBlazeBoss.class, DataSerializers.BOOLEAN);
@@ -149,15 +149,15 @@ public class EntityRevengeBlazeBoss extends EntityMob {
     @SideOnly(Side.CLIENT)
     public int getBrightnessForRender()
     {
-        return 15728880;
+        return 0xf000f0;
     }
     
     /*
      * This part is about avoiding projectiles if phase 2
      */
     private boolean teleportTo(double x, double y, double z) {
-        net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
-        if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) return false;
+        EnderTeleportEvent event = new EnderTeleportEvent(this, x, y, z, 0);
+        if (MinecraftForge.EVENT_BUS.post(event)) return false;
         boolean flag = this.attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ());
 
         if (flag)
@@ -570,7 +570,7 @@ public class EntityRevengeBlazeBoss extends EntityMob {
         	float progress = 1.0F - (float) this.deathTime / 200.0F;
             this.bossInfo.setPercent(Math.max(progress, 0.0F));
             this.bossInfo.setColor(BossInfo.Color.YELLOW);
-            this.bossInfo.setName(new TextComponentString("entity.revenge_blaze_boss.death")); // FIXME : add localization
+            this.bossInfo.setName(new TextComponentString("entity.revenge_blaze_boss.death"));
         }
     }
 }

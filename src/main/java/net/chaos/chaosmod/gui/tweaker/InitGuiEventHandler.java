@@ -57,8 +57,8 @@ public class InitGuiEventHandler {
 	// FIXME : playlist issue
 	@SubscribeEvent
 	public static void onSoundPlayed(PlaySoundEvent event) {
-		System.out.println("played sound " + event.getName());
-		System.out.println("tried to check current sound " + ClientSoundHandler.getSoundName());
+//		System.out.println("played sound " + event.getName());
+//		System.out.println("tried to check current sound " + ClientSoundHandler.getSoundName());
 		if (event.getName().equalsIgnoreCase(ClientSoundHandler.getSoundName())) {
 	        if (ClientSoundHandler.isMusicPaused()) {
 	            ClientSoundHandler.forcePauseMusic();

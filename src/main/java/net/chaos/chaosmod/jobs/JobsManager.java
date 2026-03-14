@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.jobs.task.JobTaskManager;
 import util.handlers.DataLoader;
 public class JobsManager {
 	public static final Map<String, Job> REGISTRY = new LinkedHashMap<>();
@@ -24,7 +25,9 @@ public class JobsManager {
 
     private static final Gson GSON = new Gson();
 
-    // only for the server to init the jobs (server-side only) loading
+    /**
+     * init the jobs (server-side only) loading
+     */
     public static void init() {
         FIGHTER = loadJob("origins/fighter");
         FARMER = loadJob("origins/farmer");
@@ -43,7 +46,10 @@ public class JobsManager {
         return null;
     }
 
-    // Convert all jobs into a JSON string for sending
+    /**
+     * Convert all jobs into a JSON string for sending
+     * @return
+     */
     public static String toJsonString() {
         JsonArray arr = new JsonArray();
         if (FIGHTER != null) arr.add(FIGHTER.toJson());
@@ -55,7 +61,10 @@ public class JobsManager {
         return GSON.toJson(arr);
     }
 
-    // Load jobs from JSON string (client-side)
+    /**
+     * Load jobs from JSON string (client-side)
+     * @param jsonString
+     */
     public static void loadFromJson(String jsonString) {
     	int id = 0;
 		Main.getLogger().info("LOADING FROM JSON");
@@ -71,8 +80,6 @@ public class JobsManager {
         MINER   = Job.fromJson(arr.get(id++).getAsJsonObject());
         displayAll();
     }
-
-    // ****************** BEFORE **********************
 
 	public static int nextId() {
 		return REGISTRY.size();

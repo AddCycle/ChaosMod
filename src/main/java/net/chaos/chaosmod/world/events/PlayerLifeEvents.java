@@ -13,7 +13,7 @@ import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
-import net.chaos.chaosmod.jobs.GuiScreenJobs;
+import net.chaos.chaosmod.jobs.gui.GuiScreenJobs;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.network.packets.PacketOpenAccessoryGui;
 import net.minecraft.client.Minecraft;

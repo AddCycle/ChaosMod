@@ -60,8 +60,7 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
 		this.noClip = false;
 		this.experienceValue = 150;
 		this.setNoGravity(false);
-		bossInfo = new BossInfoServer(getDisplayName(), Color.BLUE, Overlay.PROGRESS);
-		this.bossInfo.setName(this.getDisplayName());
+		bossInfo = new BossInfoServer(this.getDisplayName(), Color.BLUE, Overlay.PROGRESS);
 		this.setSize(1.5f, 3);
 	}
 	
@@ -243,7 +242,7 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
         	float progress = 1.0F - (float) this.deathTime / 200.0F;
             this.bossInfo.setPercent(Math.max(progress, 0.0F));
             this.bossInfo.setColor(BossInfo.Color.GREEN);
-            this.bossInfo.setName(new TextComponentTranslation("boss.mountain_giant.death")); // FIXME : add localization
+            this.bossInfo.setName(new TextComponentTranslation("boss.mountain_giant.death"));
         }
 	}
 	

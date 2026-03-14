@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.chaos.chaosmod.jobs.GuiScreenJobs;
+import net.chaos.chaosmod.jobs.gui.GuiScreenJobs;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;

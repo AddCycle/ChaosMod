@@ -1,12 +1,12 @@
-package net.chaos.chaosmod.jobs;
+package net.chaos.chaosmod.jobs.task;
 
-import static net.chaos.chaosmod.jobs.TaskType.fromName;
+import static net.chaos.chaosmod.jobs.task.TaskType.fromName;
 
 import com.google.gson.JsonObject;
 
 import util.Reference;
 
-// wire to the forge hooks/events in order to detect all the changes with block broken/harvested more accurately
+// TODO: wire to the forge hooks/events in order to detect all the changes with block broken/harvested more accurately
 public class JobTask {
 	public String id;
 	public String name;

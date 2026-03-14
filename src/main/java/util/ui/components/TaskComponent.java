@@ -1,6 +1,6 @@
 package util.ui.components;
 
-import net.chaos.chaosmod.jobs.UIComponent;
+import net.chaos.chaosmod.jobs.ui.UIComponent;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

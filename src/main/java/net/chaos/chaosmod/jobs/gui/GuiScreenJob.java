@@ -1,5 +1,10 @@
-package net.chaos.chaosmod.jobs;
+package net.chaos.chaosmod.jobs.gui;
 
+import net.chaos.chaosmod.jobs.CapabilityPlayerJobs;
+import net.chaos.chaosmod.jobs.Job;
+import net.chaos.chaosmod.jobs.JobProgress;
+import net.chaos.chaosmod.jobs.PlayerJobs;
+import net.chaos.chaosmod.jobs.task.JobTask;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.relauncher.Side;
@@ -8,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiScreenJob extends GuiScreen {
 	private final GuiScreen parent;
-    private final Job job; // The selected job
+    private final Job job;
 
     public GuiScreenJob(GuiScreen parent, Job job) {
         this.parent = parent;

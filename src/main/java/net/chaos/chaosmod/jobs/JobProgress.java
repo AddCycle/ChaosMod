@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.jobs;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.jobs.task.JobTask;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.network.packets.PacketSyncPlayerJobs;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -17,51 +18,72 @@ public class JobProgress {
 
 	public static void addExp(EntityPlayerMP player, String jobId, int amount) {
 		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
-		Main.getLogger().info("Jobs(JobProgress.addExp): player has capability jobs ? {}", jobs.hasCapability(CapabilityPlayerJobs.PLAYER_JOBS, null));
+		Main.getLogger().info("Jobs(JobProgress.addExp): player has capability jobs ? {}",
+				jobs.hasCapability(CapabilityPlayerJobs.PLAYER_JOBS, null));
 		if (jobs != null) {
 			Main.getLogger().info("Jobs : Adding exp method call for job = {} : {}", jobId, amount);
 			jobs.addExp(jobId, amount);
 
 			// Send updated data to client
-			PacketManager.network.sendTo(
-					new PacketSyncPlayerJobs(jobs),
-					player
-					);
+			PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), player);
 			Main.getLogger().info("Packets sent SyncPlayerJobs(jobs) capabilities");
 		}
 	}
 
-	public void completeTask(EntityPlayerMP player, String jobId, String taskId) {
-        JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
-        if (task == null) return;
+	public void incrementTask(EntityPlayerMP player, String jobId, String taskId) {
+		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
+		if (task == null) {
+			Main.getLogger().error("Task not found: {}", taskId);
+			return;
+		}
 
-        task.progress = task.goal; // mark complete
-        if (task.progress >= task.goal) {
-            addExp(player, jobId, task.rewardExp);
-        }
-    }
+		if (task.progress >= task.goal) {
+			completeTask(player, jobId, taskId);
+		} else {
+			task.progress++;
+			Main.getLogger().info("incremented task: {}, {}/{}", taskId, task.progress, task.goal);
+		}
+		
+		syncJobs(player);
+	}
+
+	public void completeTask(EntityPlayerMP player, String jobId, String taskId) {
+		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
+		if (task == null)
+			return;
+
+		task.progress = task.goal; // mark complete
+		if (task.progress >= task.goal) {
+			addExp(player, jobId, task.rewardExp);
+		}
+	}
+	
+	public static void syncJobs(EntityPlayerMP player) {
+	    PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+		PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), player);
+	}
 
 	public void addExp(int amount) {
-	    int exp = getExp() + amount;
-	    int level = getLevel();
-	    Main.getLogger().info("level : {}", getLevel());
-	    Main.getLogger().info("exp : {}", getExp());
-	    Main.getLogger().info("next level xp requirement : {}", getExpToNextLevel(level));
+		int exp = getExp() + amount;
+		int level = getLevel();
+		Main.getLogger().info("level : {}", getLevel());
+		Main.getLogger().info("exp : {}", getExp());
+		Main.getLogger().info("next level xp requirement : {}", getExpToNextLevel(level));
 
-	    while (exp >= getExpToNextLevel(level)) { // pass level, not call getLevel()
-	        exp -= getExpToNextLevel(level);
-	        level++;
-	    }
+		while (exp >= getExpToNextLevel(level)) { // pass level, not call getLevel()
+			exp -= getExpToNextLevel(level);
+			level++;
+		}
 
-	    setExp(exp);
-	    setLevel(level);
+		setExp(exp);
+		setLevel(level);
 	}
 
 	private int getExpToNextLevel(int level) {
 		Main.getLogger().info("Job : exp to next level : {}", 100 + (level * 50));
 		return 100 + (level * 50);
 	}
-	
+
 	public NBTTagCompound toNBT() {
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setInteger("level", getLevel());

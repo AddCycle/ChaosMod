@@ -6,8 +6,8 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.commands.AbstractPermissionFreeCommand;
-import net.chaos.chaosmod.common.capabilities.IMoney;
-import net.chaos.chaosmod.common.capabilities.MoneyProvider;
+import net.chaos.chaosmod.common.capabilities.money.IMoney;
+import net.chaos.chaosmod.common.capabilities.money.MoneyProvider;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;

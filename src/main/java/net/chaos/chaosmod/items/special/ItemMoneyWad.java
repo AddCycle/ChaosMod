@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.items.special;
 
-import net.chaos.chaosmod.common.capabilities.IMoney;
-import net.chaos.chaosmod.common.capabilities.MoneyProvider;
+import net.chaos.chaosmod.common.capabilities.money.IMoney;
+import net.chaos.chaosmod.common.capabilities.money.MoneyProvider;
 import net.chaos.chaosmod.items.AbstractItemMetadatas;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

@@ -1,8 +1,11 @@
-package net.chaos.chaosmod.jobs;
+package net.chaos.chaosmod.jobs.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.chaos.chaosmod.jobs.Job;
+import net.chaos.chaosmod.jobs.gui.GuiScreenJobs;
+import net.chaos.chaosmod.jobs.task.JobTask;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

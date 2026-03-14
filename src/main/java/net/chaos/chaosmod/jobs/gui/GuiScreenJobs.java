@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jobs;
+package net.chaos.chaosmod.jobs.gui;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,6 +7,9 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import net.chaos.chaosmod.jobs.Job;
+import net.chaos.chaosmod.jobs.JobsManager;
+import net.chaos.chaosmod.jobs.ui.JobComponent;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;

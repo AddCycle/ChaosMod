@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jobs;
+package net.chaos.chaosmod.jobs.task;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.jobs.JobsManager;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class JobTaskManager {

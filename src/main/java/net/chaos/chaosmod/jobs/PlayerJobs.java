@@ -13,7 +13,7 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 /**
  * Per-player job capabilities storage client-side
  */
-public class PlayerJobs implements ICapabilitySerializable<NBTTagCompound>{
+public class PlayerJobs implements ICapabilitySerializable<NBTTagCompound> {
 	private final Map<String, JobProgress> progressMap = new HashMap<>();
 	
 	/**
@@ -87,5 +87,4 @@ public class PlayerJobs implements ICapabilitySerializable<NBTTagCompound>{
             progressMap.put(jobId, progress);
         }
 	}
-
 }

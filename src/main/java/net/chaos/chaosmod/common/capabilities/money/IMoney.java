@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.common.capabilities;
+package net.chaos.chaosmod.common.capabilities.money;
 
 public interface IMoney {
 	public int get();

@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jobs;
+package net.chaos.chaosmod.jobs.task;
 
 public enum TaskType {
     HARVEST("harvest"),

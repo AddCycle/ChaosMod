@@ -2,8 +2,8 @@ package net.chaos.chaosmod.network.packets;
 
 import io.netty.buffer.ByteBuf;
 import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.jobs.JobTaskManager;
 import net.chaos.chaosmod.jobs.JobsManager;
+import net.chaos.chaosmod.jobs.task.JobTaskManager;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

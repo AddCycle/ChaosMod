@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.common.capabilities;
+package net.chaos.chaosmod.common.capabilities.money;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -6,7 +6,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
-public class MoneyProvider implements ICapabilitySerializable<NBTTagCompound>{
+public class MoneyProvider implements ICapabilitySerializable<NBTTagCompound> {
 	
 	@CapabilityInject(IMoney.class)
 	public static final Capability<IMoney> MONEY_CAPABILITY = null;
@@ -31,7 +31,5 @@ public class MoneyProvider implements ICapabilitySerializable<NBTTagCompound>{
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
 		MONEY_CAPABILITY.getStorage().readNBT(MONEY_CAPABILITY, instance, null, nbt);
-		
 	}
-
 }

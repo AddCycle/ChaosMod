@@ -12,9 +12,11 @@ public enum TargetType {
 	}
 
 	static TargetType valueOf(int val) {
-		if (val == 0) {
-			return BLOCK;
+		switch (val) {
+			case 0: return BLOCK;
+			case 1: return ENTITY;
+			case 2: return ITEM;
+			default: throw new IllegalArgumentException("Unknown TargetType");
 		}
-		return val == 1 ? ENTITY : ITEM;
 	}
 }

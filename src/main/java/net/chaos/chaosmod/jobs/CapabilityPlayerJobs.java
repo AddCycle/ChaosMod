@@ -14,10 +14,10 @@ import util.Reference;
  * You should see the PlayerJobs class for more infos
  */
 public class CapabilityPlayerJobs {
-	public static final ResourceLocation KEY = new ResourceLocation(Reference.MODID, "player_jobs");
+	public static final ResourceLocation JOBS_CAPABILITY_ID = new ResourceLocation(Reference.MODID, "player_jobs");
 
 	@CapabilityInject(PlayerJobs.class)
-	public static Capability<PlayerJobs> PLAYER_JOBS = null;
+	public static final Capability<PlayerJobs> PLAYER_JOBS = null;
 
 	public static void register() {
 		CapabilityManager.INSTANCE.register(PlayerJobs.class, new Storage(), PlayerJobs::new);
@@ -27,13 +27,11 @@ public class CapabilityPlayerJobs {
 
         @Override
         public NBTBase writeNBT(Capability<PlayerJobs> capability, PlayerJobs instance, EnumFacing side) {
-            // Serialize PlayerJobs to NBT
             return instance.serializeNBT();
         }
 
         @Override
         public void readNBT(Capability<PlayerJobs> capability, PlayerJobs instance, EnumFacing side, NBTBase nbt) {
-            // Deserialize PlayerJobs from NBT
             if (nbt instanceof NBTTagCompound) {
                 instance.deserializeNBT((NBTTagCompound) nbt);
             }

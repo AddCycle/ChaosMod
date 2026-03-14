@@ -1,7 +1,7 @@
 package util.ui.components;
 
-import net.chaos.chaosmod.jobs.GuiScreenJobs;
-import net.chaos.chaosmod.jobs.UIComponent;
+import net.chaos.chaosmod.jobs.gui.GuiScreenJobs;
+import net.chaos.chaosmod.jobs.ui.UIComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;

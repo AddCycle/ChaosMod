@@ -11,6 +11,10 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 
+/**
+ * FIXME : import other capabilities or make only the static instances go here as they would spread
+ * at multiple places inside the code...
+ */
 public class ModCapabilities {
 	@CapabilityInject(IAccessory.class)
     public static final Capability<IAccessory> ACCESSORY = null;

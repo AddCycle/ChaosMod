@@ -27,8 +27,7 @@ import proxy.IBlockModel;
 public class BlockCustomFlower extends BlockBush implements IBlockModel {
 	public static final PropertyEnum<FlowerType> type = PropertyEnum.create("variant", FlowerType.class);
 
-	public BlockCustomFlower(String name)
-	{
+	public BlockCustomFlower(String name) {
 		setRegistryName(name);
 		setUnlocalizedName(name);
 		setSoundType(SoundType.PLANT);
@@ -41,8 +40,8 @@ public class BlockCustomFlower extends BlockBush implements IBlockModel {
 
 	@Override
 	protected boolean canSustainBush(IBlockState state) {
-		return state.getBlock() == Blocks.END_STONE || state.getBlock() == Blocks.NETHERRACK || state.getBlock() == Blocks.SNOW
-				|| super.canSustainBush(state);
+		return state.getBlock() == Blocks.END_STONE || state.getBlock() == Blocks.NETHERRACK
+				|| state.getBlock() == Blocks.SNOW || super.canSustainBush(state);
 	}
 
 	@Override
@@ -68,51 +67,60 @@ public class BlockCustomFlower extends BlockBush implements IBlockModel {
 	}
 	
 	@Override
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool) {
-	    if (!worldIn.isRemote) {
-	    	int meta = getMetaFromState(state);
-	        if (tool != null && tool.getItem() instanceof ItemShears) {
-	            // Drop your custom flower item
-	            spawnAsEntity(worldIn, pos, new ItemStack(this, 1, meta));
-	        } else {
-	            // Do nothing, or call super to drop nothing (optional)
-	        	ItemStack rareDrop = new ItemStack(getRareDropFromMeta(meta));
-	        	float baseChance = 0.2f; // 20% base chance
-	        	float fortuneBonus = 0.1f; // +10% per fortune level
-	        	float totalChance = baseChance + fortuneBonus;
-
-	        	// Clamp to 100%
-	        	if (totalChance > 1.0f) totalChance = 1.0f;
-
-	        	if (player.getEntityWorld().rand.nextFloat() < totalChance) {
-	        		spawnAsEntity(worldIn, pos, rareDrop);
-	        	}
-	        }
-	    }
+	public int damageDropped(IBlockState state) {
+		return this.getMetaFromState(state);
 	}
-	
+
+	@Override
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state,
+			@Nullable TileEntity te, ItemStack tool) {
+		if (worldIn.isRemote)
+			return;
+
+		int meta = getMetaFromState(state);
+		if (tool != null && tool.getItem() instanceof ItemShears) {
+			// Drop your custom flower item
+			spawnAsEntity(worldIn, pos, new ItemStack(this, 1, meta));
+			return;
+		}
+
+		// Do nothing, or call super to drop nothing (optional)
+		ItemStack rareDrop = new ItemStack(getRareDropFromMeta(meta));
+		float baseChance = 0.2f; // 20% base chance
+		float fortuneBonus = 0.1f; // +10% per fortune level
+		float totalChance = baseChance + fortuneBonus;
+
+		// Clamp to 100%
+		if (totalChance > 1.0f)
+			totalChance = 1.0f;
+
+		if (player.getEntityWorld().rand.nextFloat() < totalChance) {
+			spawnAsEntity(worldIn, pos, rareDrop);
+		}
+	}
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public float getPlayerRelativeBlockHardness(IBlockState state, EntityPlayer player, World world, BlockPos pos) {
-	    ItemStack held = player.getHeldItemMainhand();
-	    if (held.getItem() instanceof ItemShears) {
-	        return 0.5f; // Break slightly instantly
-	    }
-	    return super.getPlayerRelativeBlockHardness(state, player, world, pos);
+		ItemStack held = player.getHeldItemMainhand();
+		if (held.getItem() instanceof ItemShears) {
+			return 0.5f; // Break slightly instantly
+		}
+		return super.getPlayerRelativeBlockHardness(state, player, world, pos);
 	}
 
 	private Item getRareDropFromMeta(int meta) {
 		switch (meta) {
-		case 0:
-			return ModItems.OXONIUM_NUGGET;
-		case 1:
-			return ModItems.ALLEMANITE_NUGGET;
-		case 2:
-			return ModItems.ENDERITE_NUGGET;
-		case 3:
-			return ModItems.ENDERITE_NUGGET; // solarite ?
-		default:
-			return ModItems.OXONIUM_NUGGET;
+			case 0:
+				return ModItems.OXONIUM_NUGGET;
+			case 1:
+				return ModItems.ALLEMANITE_NUGGET;
+			case 2:
+				return ModItems.ENDERITE_NUGGET;
+			case 3:
+				return ModItems.ENDERITE_NUGGET; // solarite ?
+			default:
+				return ModItems.OXONIUM_NUGGET;
 		}
 	}
 
@@ -125,7 +133,8 @@ public class BlockCustomFlower extends BlockBush implements IBlockModel {
 	@Override
 	public void registerModels() {
 		for (FlowerType type : FlowerType.values()) {
-			Main.proxy.registerVariantRenderer(Item.getItemFromBlock(this), type.getMeta(), type.getName(), "inventory");
+			Main.proxy.registerVariantRenderer(Item.getItemFromBlock(this), type.getMeta(), type.getName(),
+					"inventory");
 		}
 	}
 }

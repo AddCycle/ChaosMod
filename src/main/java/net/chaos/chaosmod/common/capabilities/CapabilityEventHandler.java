@@ -1,12 +1,20 @@
 package net.chaos.chaosmod.common.capabilities;
 
+import java.util.function.BiConsumer;
+
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.common.capabilities.money.IMoney;
+import net.chaos.chaosmod.common.capabilities.money.MoneyProvider;
+import net.chaos.chaosmod.common.capabilities.money.MoneyStorage;
+import net.chaos.chaosmod.jobs.CapabilityPlayerJobs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import util.Reference;
@@ -19,26 +27,41 @@ public class CapabilityEventHandler {
 	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 		if (!(event.getObject() instanceof EntityPlayer)) return;
 
-		Main.getLogger().debug("ATTACHING MONEY capability");
+		Main.getLogger().debug("ATTACHING " + Reference.MODID + " capabilities...");
 
-	    event.addCapability(MONEY_CAPABILITY_ID, new MoneyProvider());
+	    attachCapabilities(event);
 	}
 
 	@SubscribeEvent
 	public static void clonePlayer(PlayerEvent.Clone event) {
 		if (!event.isWasDeath()) return;
 
-		Main.getLogger().info("ATTACHING MONEY capability back cloning player");
-		IMoney oldMoney = event.getOriginal().getCapability(MoneyProvider.MONEY_CAPABILITY, null);
-		IMoney newMoney = event.getEntityPlayer().getCapability(MoneyProvider.MONEY_CAPABILITY, null);
-		if (oldMoney != null && newMoney != null) {
+		Main.getLogger().debug("syncing MONEY capability");
+		syncCapability(MoneyProvider.MONEY_CAPABILITY, event, (oldMoney, newMoney) -> {
 			newMoney.set(oldMoney.get());
-		}
+		});
 	}
 
 	@SubscribeEvent
 	public static void onPlayerLoggedIn(PlayerLoggedInEvent event) {
 		IMoney money = event.player.getCapability(MoneyProvider.MONEY_CAPABILITY, null);
-		Main.getLogger().info("MONEY capability default value set : {}", money.get());
+		Main.getLogger().info("MONEY capability default value : {}", money.get());
+	}
+	
+	public static void registerAllCapabilities(FMLPreInitializationEvent event) {
+		MoneyStorage.register();
+		CapabilityPlayerJobs.register();
+	}
+
+	private static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+	    event.addCapability(MONEY_CAPABILITY_ID, new MoneyProvider());
+	}
+	
+	private static <T> void syncCapability(Capability<T> capability, PlayerEvent.Clone event, BiConsumer<T, T> callback) {
+		T oldOne = event.getOriginal().getCapability(capability, null);
+		T newOne = event.getEntityPlayer().getCapability(capability, null);
+		if (oldOne != null && newOne != null) {
+			callback.accept(oldOne, newOne);
+		}
 	}
 }

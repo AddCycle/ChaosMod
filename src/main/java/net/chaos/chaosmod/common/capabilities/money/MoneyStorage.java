@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.common.capabilities;
+package net.chaos.chaosmod.common.capabilities.money;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -44,5 +44,4 @@ public class MoneyStorage implements IMoney {
 	public static void register() {
 		CapabilityManager.INSTANCE.register(IMoney.class, new Storage(), MoneyStorage::new);
 	}
-		
 }

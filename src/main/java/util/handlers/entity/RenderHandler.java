@@ -196,28 +196,6 @@ public class RenderHandler {
 		});
 	}
 	
-	public static void registerCustomMeshesAndStates() {
-		registerFluidRendering(ModFluidBlocks.FERTILIZED_WATER_BLOCK);
-	}
-	
-	public static void registerFluidRendering(Block fluidBlock) {
-		ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluidBlock), new ItemMeshDefinition() {
-			@Override
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-				return new ModelResourceLocation(fluidBlock.getRegistryName(), "fluid");
-			}
-		});
-		
-		ModelLoader.setCustomStateMapper(fluidBlock, new StateMapperBase() {
-			
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				Main.getLogger().info("Registering state mapper for : {}", fluidBlock.getRegistryName());
-				return new ModelResourceLocation(fluidBlock.getRegistryName(), "fluid");
-			}
-		});
-	}
-
 	public static void bindTESRs() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOxoniumFurnace.class, new TileEntitySpecialRenderer<TileEntity>() {
 			@Override
@@ -238,5 +216,31 @@ public class RenderHandler {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrophyBase.class, new TrophyTESR());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDrawer.class, new DrawerTESR());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityATM.class, new AtmTESR());
+	}
+
+	/**
+	 * Add fluids here also
+	 */
+	public static void registerCustomMeshesAndStates() {
+		registerFluidRendering(ModFluidBlocks.FERTILIZED_WATER_BLOCK);
+	}
+	
+	public static void registerFluidRendering(Block fluidBlock) {
+		Main.getLogger().info("Registering mesh definition & state mapper for : {}", fluidBlock.getRegistryName());
+
+		ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluidBlock), new ItemMeshDefinition() {
+			@Override
+			public ModelResourceLocation getModelLocation(ItemStack stack) {
+				return new ModelResourceLocation(fluidBlock.getRegistryName(), "fluid");
+			}
+		});
+		
+		ModelLoader.setCustomStateMapper(fluidBlock, new StateMapperBase() {
+			
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+				return new ModelResourceLocation(fluidBlock.getRegistryName(), "fluid");
+			}
+		});
 	}
 }

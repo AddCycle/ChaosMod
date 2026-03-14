@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.jobs;
+package net.chaos.chaosmod.jobs.ui;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.relauncher.Side;

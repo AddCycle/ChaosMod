@@ -5,15 +5,16 @@
 	"tasks": [
 		{
 			"id": "first_kill",
-			"name": "Kill a zombie/anything",
-			"description": "Kill any hostile Mob",
+			"name": "Kill 20 zombies",
+			"description": "Kill 20 Zombies",
 			"type": "kill",
 			"target": {
 				"entity": "minecraft:zombie",
 				"data": 0
 			},
 			"progress": 0,
-			"goal": 20
+			"goal": 20,
+			"rewardExp": 100
 		}
 	],
 	"maxLevel": 20
