@@ -673,9 +673,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
 		}
 
 		if (!this.world.isRemote) {
-			// FIXME : remove the modulo triggering too many times...
-			// should be only once per death
-			if (this.deathTicks > 150 && this.deathTicks % 5 == 0 && flag) {
+			if (this.deathTicks == 150 && flag) {
 				List<EntityPlayer> nearby_players = null;
 				int count = 0;
 				int radius = 50; // FIXME: boss island radius

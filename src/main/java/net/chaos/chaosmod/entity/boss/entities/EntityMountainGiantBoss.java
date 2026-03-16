@@ -280,4 +280,9 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
 	public boolean isSwingingArms() {
 	    return this.dataManager.get(SWINGING_ARMS);
 	}
+
+    @Override
+    protected boolean canDespawn() {
+    	return false;
+    }
 }

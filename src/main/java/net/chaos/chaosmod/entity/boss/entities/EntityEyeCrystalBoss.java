@@ -280,5 +280,4 @@ public class EntityEyeCrystalBoss extends EntityEnderCrystal {
 	public float getEyeHeight() {
 	    return 0.75f;
 	}	
-
 }
