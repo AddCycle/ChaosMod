@@ -87,7 +87,7 @@ public class EntityViking extends EntityMob implements ITalkable {
 	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote)
 		{
-			player.openGui(Main.instance, Reference.GUI_VIKING_ID, this.world, this.getEntityId(), 0, 0);
+			player.openGui(Main.instance, Reference.GUI_ACCESSORY_ID, this.world, this.getEntityId(), 0, 0);
 			// player.addPotionEffect(new PotionEffectVikingFriends(ModPotions.POTION_VIKING, 20 * 300));
 		}
 		return true;

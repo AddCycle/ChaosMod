@@ -64,7 +64,6 @@ public class PacketManager {
 	}
 
 	public static void init() {
-//		initMessages();
         NetworkRegistry.INSTANCE.registerGuiHandler(Main.instance, new GuiHandler());
 	}
 }

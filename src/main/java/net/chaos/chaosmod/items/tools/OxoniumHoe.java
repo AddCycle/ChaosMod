@@ -19,7 +19,6 @@ public class OxoniumHoe extends ToolHoe {
 		super(name, material);
 	}
 
-	@SuppressWarnings("incomplete-switch")
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -66,6 +65,8 @@ public class OxoniumHoe extends ToolHoe {
 	                                Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
 	                        success = true;
 	                        break;
+	                    default:
+	                    	break;
 	                }
 	            }
 	        }
@@ -73,42 +74,4 @@ public class OxoniumHoe extends ToolHoe {
 
 	    return success ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
 	}
-	
-	/*private void spreadTill(ItemStack stack, EntityPlayer player, World world, BlockPos start, EnumFacing facing) {
-	    Queue<BlockPos> toProcess = new ArrayDeque<>();
-	    Set<BlockPos> visited = new HashSet<>();
-	    toProcess.add(start);
-
-	    while (!toProcess.isEmpty()) {
-	        BlockPos pos = toProcess.poll();
-	        if (!visited.add(pos)) continue; // skip if already handled
-
-	        IBlockState state = world.getBlockState(pos);
-	        Block block = state.getBlock();
-
-	        if (world.isAirBlock(pos.up()) && (block == Blocks.GRASS || block == Blocks.GRASS_PATH)) {
-	            setBlock(stack, player, world, pos, Blocks.FARMLAND.getDefaultState());
-	            // add neighbors
-	            toProcess.add(pos.north());
-	            toProcess.add(pos.south());
-	            toProcess.add(pos.east());
-	            toProcess.add(pos.west());
-	        } else if (world.isAirBlock(pos.up()) && block == Blocks.DIRT) {
-	            BlockDirt.DirtType type = state.getValue(BlockDirt.VARIANT);
-	            if (type == BlockDirt.DirtType.DIRT) {
-	                setBlock(stack, player, world, pos, Blocks.FARMLAND.getDefaultState());
-	                toProcess.add(pos.north());
-	                toProcess.add(pos.south());
-	                toProcess.add(pos.east());
-	                toProcess.add(pos.west());
-	            } else if (type == BlockDirt.DirtType.COARSE_DIRT) {
-	                setBlock(stack, player, world, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
-	                toProcess.add(pos.north());
-	                toProcess.add(pos.south());
-	                toProcess.add(pos.east());
-	                toProcess.add(pos.west());
-	            }
-	        }
-	    }
-	}*/
 }

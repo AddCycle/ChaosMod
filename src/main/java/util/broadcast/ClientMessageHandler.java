@@ -30,7 +30,6 @@ public class ClientMessageHandler {
 		int height = res.getScaledHeight();
 
 		GlStateManager.pushMatrix();
-		GlStateManager.pushAttrib();
 
 		GlStateManager.enableBlend();
 		GlStateManager.disableDepth();
@@ -45,7 +44,6 @@ public class ClientMessageHandler {
 		GlStateManager.enableLighting();
 		GlStateManager.disableBlend();
 
-		GlStateManager.popAttrib();
 		GlStateManager.popMatrix();
 	}
 }

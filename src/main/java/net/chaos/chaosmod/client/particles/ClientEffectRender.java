@@ -8,6 +8,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class ClientEffectRender {
+
 	public static void spawnCustomParticle(String type, double x, double y, double z) {
         Minecraft mc = Minecraft.getMinecraft();
         World world = mc.world;

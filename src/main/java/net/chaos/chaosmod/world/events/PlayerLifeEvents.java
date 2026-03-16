@@ -1,22 +1,20 @@
 package net.chaos.chaosmod.world.events;
 
-import org.lwjgl.input.Keyboard;
-
+import net.chaos.chaosmod.client.gui.inventory.GuiInventoryExtended;
 import net.chaos.chaosmod.client.inventory.AccessoryImpl;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.client.inventory.shield.ShieldImpl;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModItems;
-import net.chaos.chaosmod.init.ModKeybinds;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
-import net.chaos.chaosmod.jobs.gui.GuiScreenJobs;
 import net.chaos.chaosmod.network.packets.PacketManager;
-import net.chaos.chaosmod.network.packets.PacketOpenAccessoryGui;
+import net.chaos.chaosmod.network.packets.PacketOpenGui;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,9 +27,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -40,7 +40,6 @@ import net.minecraftforge.event.world.BlockEvent.FarmlandTrampleEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -54,9 +53,7 @@ public class PlayerLifeEvents {
 
 	@SubscribeEvent
 	public static void onPlayerJoin(EntityJoinWorldEvent event) {
-		if (!(event.getEntity() instanceof EntityPlayer))
-			return;
-		if (event.getWorld().isRemote)
+		if (!(event.getEntity() instanceof EntityPlayer) || event.getWorld().isRemote)
 			return;
 
 		EntityPlayer player = (EntityPlayer) event.getEntity();
@@ -135,32 +132,18 @@ public class PlayerLifeEvents {
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
-	public static void onKeyInput(InputEvent.KeyInputEvent event) {
-		Minecraft mc = Minecraft.getMinecraft();
+	public static void onGuiOpened(GuiOpenEvent event) {
+		EntityPlayer player = Minecraft.getMinecraft().player;
 
-		if (mc.inGameHasFocus && mc.currentScreen == null && Keyboard.getEventKeyState()) {
-			if (Keyboard.getEventKey() == mc.gameSettings.keyBindInventory.getKeyCode()) {
-				PacketManager.network.sendToServer(new PacketOpenAccessoryGui());
-//			} else if (ModKeybinds.playMusicKey.isPressed()) {
-//				ClientSoundHandler.nextSound();
-//			} else if (ModKeybinds.pauseMusicKey.isPressed()) {
-//				if (ClientSoundHandler.isMusicPlaying() && !ClientSoundHandler.isMusicPaused()) ClientSoundHandler.pauseMusic();
-//				else ClientSoundHandler.resumeMusic();
-//			} else if (ModKeybinds.stopMusicKey.isPressed()) {
-//				ClientSoundHandler.stopMusic();
-//			} else if (ModKeybinds.nextMusicKey.isPressed()) {
-//				ClientSoundHandler.stopMusic();
-//				ClientSoundHandler.nextSound();
-//			} else if (ModKeybinds.previousMusicKey.isPressed()) {
-//				ClientSoundHandler.stopMusic();
-//				ClientSoundHandler.index-=2;
-//				ClientSoundHandler.nextSound();
-			} else if (ModKeybinds.displayJobsKey.isPressed()) {
-				mc.displayGuiScreen(new GuiScreenJobs());
+		if ((event.getGui() instanceof GuiInventory) && !(event.getGui() instanceof GuiInventoryExtended)) {
+			if (!player.isCreative()) {
+				event.setCanceled(true);
+				PacketManager.network.sendToServer(new PacketOpenGui(Reference.GUI_ACCESSORY_ID));
 			}
 		}
 	}
 
+	// TODO : move elsewhere accessory related
 	@SubscribeEvent
 	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityPlayer) {
@@ -193,7 +176,7 @@ public class PlayerLifeEvents {
 	}
 
 	@SubscribeEvent
-	// FIXME =?> verify this method
+	// FIXME =?> fix this method
 	public static void onPlayerChangeDimension(PlayerChangedDimensionEvent event) {
 		EntityPlayerMP player = (EntityPlayerMP) event.player;
 
@@ -223,29 +206,34 @@ public class PlayerLifeEvents {
 	}
 
 	@SubscribeEvent
+	// TODO : make the pitch change based on durability
 	public static void onCrafting(ItemCraftedEvent event) {
 		if (event.player.world.isRemote)
 			return;
+		
+		EntityPlayer player = event.player;
 
 		for (int i = 0; i < 9; i++) {
 			if (event.craftMatrix.getStackInSlot(i).getItem() == ModItems.TINKERERS_HAMMER) {
 				ItemStack item = event.craftMatrix.getStackInSlot(i);
 				if (item.getItemDamage() < item.getMaxDamage() - 1) {
-					event.player.playSound(SoundEvents.BLOCK_ANVIL_USE, 1.0f, 1.0f);
-					event.player.sendMessage(
+					player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ANVIL_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
+					player.sendMessage(
 							new TextComponentString("Recipe contains hammer, playing sound... based on damage : "
 									+ (item.getItemDamage() + 1) + "/" + item.getMaxDamage()));
 				} else {
-					event.player.playSound(SoundEvents.BLOCK_ANVIL_LAND, 1.0f, 1.0f);
+					player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 1.0f, 1.0f);
 				}
 			}
 		}
 	}
 
+	// TODO : move elsewhere shield related
 	@SubscribeEvent
 	public static void attachCapabilityShield(AttachCapabilitiesEvent<Entity> event) {
 		if (!(event.getObject() instanceof EntityPlayer))
 			return;
+
 		event.addCapability(new ResourceLocation(Reference.MODID, "shield"),
 				new ICapabilitySerializable<NBTTagCompound>() {
 					final ShieldImpl instance = new ShieldImpl();

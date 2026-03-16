@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.FlowerType;
 import net.chaos.chaosmod.entity.EntityViking;
@@ -32,8 +33,12 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import util.Reference;
 
+/**
+ * FIXME : viking gallions are generated in weird places (do ocean biomes only)
+ */
 public class ModWorldGen implements IWorldGenerator {
 	private static final Set<ChunkPos> alreadyGenerated = new HashSet<>();
+
 	/*
 	 * Overworld = 0
 	 * End = 1
@@ -87,10 +92,9 @@ public class ModWorldGen implements IWorldGenerator {
     		BlockPos surface = world.getPrecipitationHeight(new BlockPos(centerX, 255, centerZ)).down();
     		IBlockState state = world.getBlockState(surface);
 
-    		// Debug print
-    		System.out.println("Block at " + surface + " is " + state.getBlock() + " | Material: " + state.getMaterial());
+    		Main.getLogger().debug("Block at " + surface + " is " + state.getBlock() + " | Material: " + state.getMaterial());
 
-    		if (state.getMaterial() != Material.WATER) return; // not valid location
+    		if (state.getMaterial() != Material.WATER) return;
 
     		BlockPos pos = surface; // One block above water
 
@@ -174,16 +178,13 @@ public class ModWorldGen implements IWorldGenerator {
         BlockPos pos = new BlockPos(x + rand.nextInt(16), 0, z + rand.nextInt(16));
         BlockPos topPos = world.getHeight(pos);
 
-        for (int i = 0; i < 4; i++) { // number of tries for adding like variety as the loot-tables and everything... (thanks to the racist JeanRobertPerez)
+        for (int i = 0; i < 4; i++) {
             int offsetX = x + rand.nextInt(16);
             int offsetZ = z + rand.nextInt(16);
             int offsetY = topPos.getY();
 
             BlockPos flowerPos = new BlockPos(offsetX, offsetY, offsetZ);
-            /* Biome specific generation */
              Biome biome = world.getBiome(flowerPos);
-			 /* if (biome instanceof BiomePlains && world.isAirBlock(flowerPos) && ModBlocks.MY_FLOWER.canPlaceBlockAt(world, flowerPos))
-             */
              if (meta == 0) {
             	 ResourceLocation biomeId = Biome.REGISTRY.getNameForObject(biome);
             	 if (biomeId != null && biomeId.toString().equals("chaosmod:giant_mountains")) {

@@ -142,6 +142,7 @@ entity.viking.name=Viking
 entity.picsou.name=Picsou
 entity.little_big_giants.name=Little Big Giant
 entity.eye_of_truth.name=Eye Of Truth
+entity.chaos_master.name=Chaos Master
 
 //Gui
 itemGroup.chaosmodtab=Building blocks

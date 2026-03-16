@@ -18,6 +18,8 @@ public class CutsceneManager {
     private static final List<Runnable> actions = new ArrayList<>();
     private static EntityCamera camera = null;
 
+    // CLIENT side
+    // TODO, make a sendpacket to spawn boss for sync ticks ?
     public static void startCutscene(BlockPos pos) {
     	ticks = 0;
         playing = true;
@@ -30,14 +32,14 @@ public class CutsceneManager {
         cam.setPositionAndRotation(pos.getX(), pos.getY(), pos.getZ(), player.cameraYaw, player.cameraPitch);
         world.spawnEntity(cam);
 
-        camera = cam; // store it in a static field for access in tick/update
+        camera = cam;
 
         queue(() -> {
         }, 0);
 
         queue(() -> {
         	Minecraft.getMinecraft().setRenderViewEntity(cam);
-            Minecraft.getMinecraft().setIngameNotInFocus(); // optional
+            Minecraft.getMinecraft().setIngameNotInFocus();
             // lookAt(camera, bossSpawn.getX() + 0.5, bossSpawn.getY() + 0.5, bossSpawn.getZ() + 0.5);
         }, 30);
 
@@ -65,8 +67,6 @@ public class CutsceneManager {
         float pitch = (float)-Math.toDegrees(Math.atan2(dy, distXZ));
 
         entity.rotationYaw = yaw;
-        // entity.rotationYawHead = yaw;
-        // entity.renderYawOffset = yaw;
         entity.rotationPitch = pitch;
     }
 

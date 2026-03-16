@@ -49,7 +49,6 @@ public class RenderBlockOutlinesEvent {
 	    Color color = new Color(CLIENT.block_outline_color);
 
 	    GlStateManager.pushMatrix();
-	    GlStateManager.pushAttrib();
 	    GlStateManager.disableTexture2D();
 	    GlStateManager.enableBlend();
 	    GlStateManager.glLineWidth(20.0F);
@@ -58,7 +57,6 @@ public class RenderBlockOutlinesEvent {
 
 	    GlStateManager.disableBlend();
 	    GlStateManager.enableTexture2D();
-	    GlStateManager.popAttrib();
 	    GlStateManager.popMatrix();
 	}
 }
