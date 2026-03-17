@@ -26,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
@@ -33,7 +34,6 @@ import util.Reference;
 @SideOnly(Side.CLIENT)
 public class Renderer {
 	private static final ResourceLocation opaqueLogo = new ResourceLocation(Reference.MODID, "textures/gui/minimap/map256.png");
-	private static final ResourceLocation transparentBackground = new ResourceLocation(Reference.MODID, "textures/gui/minimap/map256.png");
 	private static final ResourceLocation transparentMap = new ResourceLocation(Reference.MODID, "textures/gui/minimap/frame.png");
     private static final int WIDTH = 256;
     private static final int HEIGHT = 256;
@@ -121,15 +121,18 @@ public class Renderer {
         if (minimapTexture == null || minimapTextureLocation == null) return;
 
         Minecraft mc = Minecraft.getMinecraft();
+
+        GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
+
         mc.getTextureManager().bindTexture(minimapTextureLocation);
 
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buffer = tess.getBuffer();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 
-        float x = 0; // offsetX
-        float y = 0; // offsetY
+        float x = 0;
+        float y = 0;
         float width = mapSize * pixelSize;
         float height = mapSize * pixelSize;
 
@@ -139,7 +142,8 @@ public class Renderer {
         buffer.pos(x, y, 0).tex(0, 0).endVertex();
 
         tess.draw();
-        GlStateManager.disableBlend();
+
+        GlStateManager.popMatrix();
     }
     
     public static void drawOpaqueSprite(ScaledResolution resolution) {
@@ -155,28 +159,10 @@ public class Renderer {
         buffer.pos(w,0,0).tex(1f, 0).color(1f, 1f, 1f, 1f).endVertex();
         tessellator.draw();
     }
- 
-    public static void drawTransparentBackground(ScaledResolution resolution) {
-    	GlStateManager.pushMatrix();
-    	GlStateManager.disableTexture2D();
-        Minecraft.getMinecraft().getTextureManager().bindTexture(transparentBackground);
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-        float offset = 40;
-        float w = WIDTH / ((float)resolution.getScaleFactor()) + offset;
-        float h = HEIGHT / ((float)resolution.getScaleFactor()) + offset;
-        buffer.pos(0,0,0).tex(0, 0).color(1f, 1f, 1f, 1f).endVertex();
-        buffer.pos(0,h,0).tex(0, 1f).color(1f, 1f, 1f, 1f).endVertex();
-        buffer.pos(w, h,0).tex(1f, 1f).color(1f, 1f, 1f, 1f).endVertex();
-        buffer.pos(w,0,0).tex(1f, 0).color(1f, 1f, 1f, 1f).endVertex();
-        tessellator.draw();
-        GlStateManager.enableTexture2D();
-        GlStateManager.popMatrix();
-    }
 
     public static void drawTransparentMap(ScaledResolution resolution, int pixelSize) {
     	GlStateManager.pushMatrix();
+
     	int sizeOverlayConfig = CLIENT.minimapSize;
         Minecraft.getMinecraft().getTextureManager().bindTexture(transparentMap);
         Tessellator tessellator = Tessellator.getInstance();
@@ -189,6 +175,7 @@ public class Renderer {
         buffer.pos(w, h,0).tex(1f, 1f).color(1f, 1f, 1f, 1f).endVertex();
         buffer.pos(w,0,0).tex(1f, 0).color(1f, 1f, 1f, 1f).endVertex();
         tessellator.draw();
+
         GlStateManager.popMatrix();
     }
  
@@ -346,6 +333,8 @@ public class Renderer {
                     if (!state.getBlock().isAir(state, world, checkPos) &&
                         mat != Material.PLANTS &&
                         mat != Material.VINE) {
+//                    	Biome biome = world.getBiome(checkPos);
+//                    	biome.getGrassColorAtPos(checkPos);
                         color = mat.getMaterialMapColor();
                         worldY = y;
                         break;
@@ -370,6 +359,7 @@ public class Renderer {
     
     public static void drawPlayerArrow(ScaledResolution resolution, int centerX, int centerY, float angleDegrees, int color, int mapSize) {
     	GlStateManager.pushMatrix();
+
     	Minecraft mc = Minecraft.getMinecraft();
     	EntityPlayerSP localPlayer = mc.player;
     	int posX = MathHelper.floor(localPlayer.posX);
@@ -382,9 +372,8 @@ public class Renderer {
     	int textY = centerY + mapSize / 4;
 
     	if (CLIENT.displayCoords) mc.fontRenderer.drawStringWithShadow(coords, textX, textY, 0xFFFFFF);
-        GlStateManager.disableTexture2D(); // Prevent texture bleed
+    	GlStateManager.disableTexture2D();
         GlStateManager.enableBlend();
-        GlStateManager.disableAlpha(); // Disable alpha to prevent fading
         GlStateManager.disableDepth();
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
         GlStateManager.shadeModel(GL11.GL_SMOOTH);
@@ -406,11 +395,12 @@ public class Renderer {
         buffer.pos(-size, -size, 0).color(r, g, b, 255).endVertex();  // Right
 
         tessellator.draw();
-
+        
         GlStateManager.shadeModel(GL11.GL_FLAT);
-        GlStateManager.enableAlpha();
-        GlStateManager.enableDepth();
         GlStateManager.enableTexture2D();
+        GlStateManager.enableDepth();
+        GlStateManager.disableBlend();
+
         GlStateManager.popMatrix();
     }
 }

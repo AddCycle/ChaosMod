@@ -35,12 +35,10 @@ public class ClientMessageHandler {
 		GlStateManager.enableBlend();
 		GlStateManager.disableDepth();
 		GlStateManager.disableLighting();
-		GlStateManager.disableAlpha();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F); // white
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.fontRenderer.drawStringWithShadow(currentMessage,
 				width / 2 - mc.fontRenderer.getStringWidth(currentMessage) / 2, height / 4, 0xFFFFFF);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F); // white
-		GlStateManager.enableAlpha();
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.enableDepth();
 		GlStateManager.enableLighting();
 		GlStateManager.disableBlend();

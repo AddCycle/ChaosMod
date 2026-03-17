@@ -27,7 +27,8 @@ import util.Reference;
 public class MinimapEventHandler {
 	public static Map<UUID, Integer> playerArrowColor = new HashMap<>();
 	private static int colorIndex = 0;
-	public static List<Integer> colors = Arrays.asList(0xff0000, 0x0000ff, 0x00ff00, 0xff8400, 0x8d00a3); // red, blue, green, orange, purple
+	/* red, blue, green, orange, purple */
+	public static List<Integer> colors = Arrays.asList(0xff0000, 0x0000ff, 0x00ff00, 0xff8400, 0x8d00a3);
 	private static final int UPDATE_INTERVAL = 5; // every 5 ticks
 	private static int updateTick = 0;
 	private static Renderer.MapData cachedMapData = null;
@@ -83,7 +84,7 @@ public class MinimapEventHandler {
 	        }
 		    double distanceX = getDistanceX(player, localPlayer);
 		    double distanceZ = getDistanceZ(player, localPlayer);
-		    double pythagorean = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
+		    double pythagorean = Math.hypot(distanceX, distanceZ);
 		    if (pythagorean > mapSize / 3) continue; // Skip distant players (example: map block range)
 		    drawArrowAt(resolution, mapSize, pixelSize, distanceX, distanceZ, player, playerArrowColor.get(playerId));
 		}
@@ -111,14 +112,9 @@ public class MinimapEventHandler {
         GlStateManager.pushMatrix();
         GlStateManager.disableDepth();
         GlStateManager.enableBlend();
-        GlStateManager.disableAlpha();
 
         Renderer.drawPlayerArrow(resolution, centerX, centerY, playerYaw, 0xFFFFFF, mapSize);
 
-        // Restore GL state
-        GlStateManager.enableDepth();
-        GlStateManager.enableAlpha();
-        GlStateManager.disableBlend();
         GlStateManager.popMatrix();
 	}
 
@@ -132,14 +128,9 @@ public class MinimapEventHandler {
         GlStateManager.pushMatrix();
         GlStateManager.disableDepth();
         GlStateManager.enableBlend();
-        GlStateManager.disableAlpha();
 
         Renderer.drawPlayerArrow(resolution, Math.min(centerX + (int)(distanceX), mapSize), Math.min(centerY + (int) (distanceZ), mapSize), playerYaw, color, mapSize);
 
-        // Restore GL state
-        GlStateManager.enableDepth();
-        GlStateManager.enableAlpha();
-        GlStateManager.disableBlend();
         GlStateManager.popMatrix();
 	}
 }

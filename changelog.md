@@ -3,7 +3,6 @@
 # Items
 
 TODO (current version):
-  - Store the visited biomes into a new capability
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement)
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DOING]
   - need to add a marker (job completed) #2
@@ -14,19 +13,22 @@ TODO (next version) ?:
   - Fix playlist and soundMgr system (need to reimplement everything)
   - Hunt
   - Market
+  - Minimap should render the correct color for the foliage, grass & water of the current biome
 
 ISSUES:
   - Edge case jobTasks can give an infinite amount of exp if completed (then going after threshold) #2
   - Fix: ModWorldGen viking gallions generated in weird places... #3
+  - weird gray opaque textures while drawing text with chat open
 
 REFACTOR (need):
   - entity package
 
 New:
-  - MainMenu custom `LOGO`
+  - MainMenu custom `LOGO` (overrides `minecraft.png`)
   - AllemaniteHoe: farms 3x3
   - OxoniumAxe: `sawmill mode` harvests the entire trunk
   - BiomeFinderCommand: `/biome [biome_id] [range]`
+  - added `visited biomes` capability
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
