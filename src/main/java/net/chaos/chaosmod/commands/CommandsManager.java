@@ -35,7 +35,8 @@ public class CommandsManager {
 		new AddOfferCommand(),
 		new HuntCommand(),
 		new BackCommand(),
-		new BiomeCommand());
+		new BiomeCommand(),
+		new BiomesCommand());
 
 		if (!Loader.isModLoaded(Reference.MATHSMOD)) {
 			register(event,

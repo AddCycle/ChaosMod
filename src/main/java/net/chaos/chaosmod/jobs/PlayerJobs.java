@@ -55,7 +55,7 @@ public class PlayerJobs implements ICapabilitySerializable<NBTTagCompound> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		return capability == CapabilityPlayerJobs.PLAYER_JOBS ? (T) this : null;
+		return hasCapability(capability, facing) ? (T) this : null;
 	}
 
 	@Override

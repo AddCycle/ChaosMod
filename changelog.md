@@ -2,11 +2,13 @@
 
 # Items
 
-TODO (next version):
+TODO (current version):
   - Store the visited biomes into a new capability
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement)
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DOING]
   - need to add a marker (job completed) #2
+
+TODO (next version) ?:
   - only generate gallions in `watery` biomes (oceans, copraveg...) #3
   - Dungeon & custom structures with a bit of stuff for exploration in the overworld too
   - Fix playlist and soundMgr system (need to reimplement everything)
@@ -16,9 +18,6 @@ TODO (next version):
 ISSUES:
   - Edge case jobTasks can give an infinite amount of exp if completed (then going after threshold) #2
   - Fix: ModWorldGen viking gallions generated in weird places... #3
-  - ChaosMaster dropping too many items on SP (maybe too on MP) **FIXED**
-  - Credits aren't displaying **FIXED**
-  - Bosses like `mountain_giant` can despawn if the spawn is too far from the death place **FIXED**
 
 REFACTOR (need):
   - entity package

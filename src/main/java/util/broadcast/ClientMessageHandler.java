@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
+// FIXME : leading to render issues gray things...
 public class ClientMessageHandler {
 	private static String currentMessage = "";
 	private static long displayUntil = 0;
