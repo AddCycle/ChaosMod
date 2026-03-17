@@ -82,4 +82,8 @@ public class CustomBiomeChaosLand extends Biome {
 		return 0x54d65c; // green
 	}
 
+	@Override
+	public int getFoliageColorAtPos(BlockPos pos) {
+		return 0x54d65c; // TODO : tweak
+	}
 }

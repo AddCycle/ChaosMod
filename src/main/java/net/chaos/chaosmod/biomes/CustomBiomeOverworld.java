@@ -82,4 +82,9 @@ public class CustomBiomeOverworld extends Biome {
 	public int getGrassColorAtPos(BlockPos pos) {
 		return 0x07bdf5;
 	}
+	
+	@Override
+	public int getFoliageColorAtPos(BlockPos pos) {
+		return 0x07bdf5;//TODO:tweak
+	}
 }

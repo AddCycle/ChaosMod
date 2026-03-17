@@ -80,10 +80,11 @@ public class CustomBiomeEnderGarden extends Biome {
 	
 	@Override
 	public int getGrassColorAtPos(BlockPos pos) {
-		// return 0x7ca4f7;
-		// return 0x1a60f0;
 		return 0x5f08a6;
-		// return 0x07bdf5;
-		// return ColorizerGrass.getGrassColor(0.0F, 0.5F);
+	}
+	
+	@Override
+	public int getFoliageColorAtPos(BlockPos pos) {
+		return 0x5f08a6;// TODO : tweak
 	}
 }

@@ -13,12 +13,12 @@ TODO (next version) ?:
   - Fix playlist and soundMgr system (need to reimplement everything)
   - Hunt
   - Market
-  - Minimap should render the correct color for the foliage, grass & water of the current biome
+  - Minimap should render the correct color for the foliage, grass & water of the current biome **DONE**
 
 ISSUES:
   - Edge case jobTasks can give an infinite amount of exp if completed (then going after threshold) #2
   - Fix: ModWorldGen viking gallions generated in weird places... #3
-  - weird gray opaque textures while drawing text with chat open
+  - weird gray opaque textures while drawing text with chat open (minimap related)
 
 REFACTOR (need):
   - entity package

@@ -48,6 +48,7 @@ public class Renderer {
         minimapTextureLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("minimap", minimapTexture);
     }
     
+    // FIXME : choose between comments
     public static void updateMinimapTexture(EntityPlayer player) {
         int mapSize = CLIENT.minimapSize;
         
@@ -84,6 +85,19 @@ public class Renderer {
                 int shadedColor = applyBrightness(baseColor, brightness);
 
                 pixels[i + j * mapSize] = 0xFF000000 | shadedColor; // Ensure alpha = 255
+//            	int height = heights[i][j];
+//            	int baseColor = colors[i][j];
+//
+//            	int heightLeft = heights[Math.max(0, i - 1)][j];
+//            	int heightUp   = heights[i][Math.max(0, j - 1)];
+//
+//            	int diff = (height - heightLeft) + (height - heightUp);
+//            	float brightness = 1.0f + (diff * 0.05f);
+//
+//            	brightness = Math.max(0.7f, Math.min(1.3f, brightness));
+//
+//            	int shadedColor = applyBrightness(baseColor, brightness);
+//            	pixels[i + j * mapSize] = 0xFF000000 | shadedColor;
             }
         }
 
@@ -299,6 +313,7 @@ public class Renderer {
         }
     }
 
+    // FIXME : water being white
     public static MapData getMapBlockColorsAndHeights(BlockPos playerPos, int mapSize) {
         Minecraft mc = Minecraft.getMinecraft();
         World world = mc.world;
@@ -321,28 +336,38 @@ public class Renderer {
                     colors[x][z] = 0; // Or a default color like 0x000000
                     continue;
                 }
-
-                MapColor color = MapColor.AIR;
+                
+                int finalColor = 0;
                 int worldY = 0;
 
                 for (int y = world.getActualHeight() - 1; y > 0; y--) {
-                    BlockPos checkPos = new BlockPos(worldX, y, worldZ);
-                    IBlockState state = world.getBlockState(checkPos);
-                    Material mat = state.getMaterial();
+                    BlockPos pos = new BlockPos(worldX, y, worldZ);
+                    IBlockState state = world.getBlockState(pos);
 
-                    if (!state.getBlock().isAir(state, world, checkPos) &&
-                        mat != Material.PLANTS &&
-                        mat != Material.VINE) {
-//                    	Biome biome = world.getBiome(checkPos);
-//                    	biome.getGrassColorAtPos(checkPos);
-                        color = mat.getMaterialMapColor();
-                        worldY = y;
-                        break;
+                    Material mat = state.getMaterial();
+                    if (state.getBlock().isAir(state, world, pos) || mat == Material.PLANTS || mat == Material.VINE) continue;
+
+                    Biome biome = world.getBiome(pos);
+
+                    // --- COLOR LOGIC ---
+                    if (mat == Material.GRASS || mat == Material.GROUND) {
+                        finalColor = biome.getGrassColorAtPos(pos);
+                    } else if (mat == Material.LEAVES || mat == Material.PLANTS || mat == Material.VINE) {
+                        finalColor = biome.getFoliageColorAtPos(pos);
+                    } else if (mat == Material.WATER) {
+                        MapColor mapColor = state.getMapColor(world, pos);
+                        finalColor = (mapColor != null) ? mapColor.colorValue : biome.getWaterColor();
+                    } else {
+                        MapColor mapColor = state.getMapColor(world, pos);
+                        finalColor = (mapColor != null) ? mapColor.colorValue : 0;
                     }
+
+                    worldY = y;
+                    break;
                 }
 
                 heights[x][z] = worldY;
-                colors[x][z] = color != null ? color.colorValue : 0;
+                colors[x][z] = finalColor;
             }
         }
 
