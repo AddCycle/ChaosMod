@@ -3,9 +3,9 @@
 # Items
 
 TODO (current version):
-  - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DOING]
-  - need to add a marker (job completed) #2
-  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement)
+  - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add much more tasks and item/money reward system]
+  - Add many jobs and items/blocks rewards
+  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward)
 
 TODO (next version) ?:
   - only generate gallions in `watery` biomes (oceans, copraveg...) #3
@@ -15,9 +15,8 @@ TODO (next version) ?:
   - Fix playlist and soundMgr system (need to reimplement everything)
 
 ISSUES:
-  - Edge case jobTasks can give an infinite amount of exp if completed (then going after threshold) #2
+  - weird gray opaque textures while drawing text with chat open (mostly chat & minimap related)
   - Fix: ModWorldGen viking gallions generated in weird places... #3
-  - weird gray opaque textures while drawing text with chat open (minimap related)
 
 REFACTOR (need):
   - entity package

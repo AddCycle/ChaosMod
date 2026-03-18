@@ -1,0 +1,21 @@
+{
+	"id": "fisherman",
+	"name": "Fisherman",
+	"description": "Je m'en fish !",	
+	"tasks": [
+		{
+			"id": "first_catch",
+			"name": "Catch Any Fish",
+			"description": "Grab your fishing rod and try catch something...",
+			"type": "harvest",
+			"target": {
+				"item": "minecraft:cod",
+				"data": 0
+			},
+			"goal": 1,
+			"rewardExp": 40,
+			"_comment": "TODO : add a rewards object with items/blocks"
+		}
+	],
+	"maxLevel": 20
+}

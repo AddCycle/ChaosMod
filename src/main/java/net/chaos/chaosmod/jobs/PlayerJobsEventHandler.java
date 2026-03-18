@@ -2,6 +2,7 @@ package net.chaos.chaosmod.jobs;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
+import net.chaos.chaosmod.entity.EntityPicsou;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,15 +30,40 @@ public class PlayerJobsEventHandler {
 		EntityPlayerMP player = (EntityPlayerMP) event.getSource().getTrueSource();
 		Entity entityKilled = event.getEntity();
 		
-		if (!(entityKilled instanceof EntityZombie)) return;
-		
-		String jobId = Reference.PREFIX + "fighter";
-		String taskId = Reference.PREFIX + "first_kill";
+		processZombieKills(player, entityKilled);
+		processPicsouKills(player, entityKilled);
+	}
 
-//		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
+	private static void processPicsouKills(EntityPlayerMP player, Entity entityKilled) {
+		if (!(entityKilled instanceof EntityPicsou)) return;
+		
+		String jobId = prefixId("fighter");
+		String taskId = prefixId("second_kill");
+
 		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+		if (jobs == null) return;
+
 		jobs.getProgress(jobId).incrementTask(player, jobId, taskId);
 		
+		Main.getLogger().info("Killed picsou, incrementing task");
+	}
+	
+	private static void processZombieKills(EntityPlayerMP player, Entity entityKilled) {
+		if (!(entityKilled instanceof EntityZombie)) return;
+		
+		String jobId = prefixId("fighter");
+		String taskId = prefixId("first_kill");
+
+		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+		if (jobs == null) return;
+
+		JobProgress progress = jobs.getProgress(jobId);
+		progress.incrementTask(player, jobId, taskId);
+		
 		Main.getLogger().info("Killed one zombie, incrementing task");
+	}
+	
+	private static String prefixId(String id) {
+		return Reference.PREFIX + id;
 	}
 }

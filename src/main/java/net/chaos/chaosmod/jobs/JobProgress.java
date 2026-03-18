@@ -32,15 +32,15 @@ public class JobProgress {
 	}
 
 	public void incrementTask(EntityPlayerMP player, String jobId, String taskId) {
-		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
-
 		incrementTaskProgress(jobId, taskId);
 
+		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
 		int progress = getTaskProgress(taskId);
 
-		Main.getLogger().info("incremented task: {}, {}/{}", taskId, progress + 1, task.goal);
+		Main.getLogger().info("incremented task: {}, {}/{}", taskId, progress, task.goal);
 
 		if (progress >= task.goal) {
+			Main.getLogger().info("invoking completeTask");
 			completeTask(player, jobId, taskId);
 		}
 		
@@ -71,9 +71,9 @@ public class JobProgress {
 		if (task == null)
 			return;
 
-		if (getTaskProgress(taskId) >= task.goal) return;
+		if (getTaskProgress(taskId) > task.goal) return; // this was the issue it was >=
 
-		setTaskProgress(taskId, task.goal);
+		setTaskProgress(taskId, task.goal + 1); // to be sure to not trigger it again
 
 		addExp(player, jobId, task.rewardExp);
 	}
@@ -84,6 +84,7 @@ public class JobProgress {
 	}
 
 	public void addExp(int amount) {
+		int oldExp = getExp();
 		int exp = getExp() + amount;
 		int level = getLevel();
 
@@ -94,6 +95,8 @@ public class JobProgress {
 
 		setExp(exp);
 		setLevel(level);
+
+		Main.getLogger().info("Job EXP added: {} -> {}, Level now: {}", oldExp, exp, level);
 	}
 
 	public int getExpToNextLevel(int currentLevel) {

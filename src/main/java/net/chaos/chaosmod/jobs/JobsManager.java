@@ -36,6 +36,7 @@ public class JobsManager {
         ALCHEMIST = loadJob("origins/alchemist");
         TAMER = loadJob("origins/tamer");
         MINER = loadJob("origins/miner");
+        FISHERMAN = loadJob("origins/fisherman");
 		displayAll();
     }
 
@@ -59,6 +60,7 @@ public class JobsManager {
         if (ALCHEMIST != null) arr.add(ALCHEMIST.toJson());
         if (TAMER != null) arr.add(TAMER.toJson());
         if (MINER != null) arr.add(MINER.toJson());
+        if (FISHERMAN != null) arr.add(FISHERMAN.toJson());
         return GSON.toJson(arr);
     }
 
@@ -79,6 +81,7 @@ public class JobsManager {
         ALCHEMIST = Job.fromJson(arr.get(id++).getAsJsonObject());
         TAMER   = Job.fromJson(arr.get(id++).getAsJsonObject());
         MINER   = Job.fromJson(arr.get(id++).getAsJsonObject());
+        FISHERMAN   = Job.fromJson(arr.get(id++).getAsJsonObject());
         displayAll();
     }
 

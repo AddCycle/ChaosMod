@@ -55,9 +55,9 @@ public class GuiScreenJob extends GuiScreen {
         for (JobTask task : job.tasks) {
         	int progress = jobs.getProgress(job.id).getTaskProgress(task.id);
         	if (progress >= task.goal) {
-        		drawString(this.fontRenderer, String.format("%d - %s :" + TextFormatting.GREEN + "[COMPLETED]" + TextFormatting.RESET + " exp = %d", index++, task.name, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
+        		drawString(this.fontRenderer, String.format("%d - %s " + TextFormatting.GREEN + "[COMPLETED]" + TextFormatting.RESET + " %d EXP", index++, task.name, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
         	} else {
-        		drawString(this.fontRenderer, String.format("%d - %s : (%d/%d) exp = %d", index++, task.name, progress, task.goal, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
+        		drawString(this.fontRenderer, String.format("%d - %s : (%d/%d) %d EXP", index++, task.name, progress, task.goal, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
         	}
             y += this.fontRenderer.FONT_HEIGHT + 4;
         }

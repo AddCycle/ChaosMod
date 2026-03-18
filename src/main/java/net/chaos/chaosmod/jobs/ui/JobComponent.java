@@ -80,6 +80,7 @@ public class JobComponent extends UIComponent {
             int exp = progress != null ? progress.getExp() : 0;
             int totalExp = progress != null ? progress.getExpToNextLevel(level) : 0;
             screen.drawCenteredString(fr, String.format("Level : %d/%d", level, job.maxLevel), x + this.width / 2, y + (fr.FONT_HEIGHT * 3), 0xffffff);
+            screen.drawCenteredString(fr, String.format("Exp : %d/%d", exp, totalExp), x + this.width / 2, y + (fr.FONT_HEIGHT * 4), 0xffffff);
         }
 	}
 

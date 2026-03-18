@@ -14,6 +14,18 @@
 			},
 			"goal": 20,
 			"rewardExp": 100
+		},
+		{
+			"id": "second_kill",
+			"name": "Pixous Killer",
+			"description": "Kill 5 Pixous",
+			"type": "kill",
+			"target": {
+				"entity": "chaosmod:picsou",
+				"data": 0
+			},
+			"goal": 5,
+			"rewardExp": 100
 		}
 	],
 	"maxLevel": 20
