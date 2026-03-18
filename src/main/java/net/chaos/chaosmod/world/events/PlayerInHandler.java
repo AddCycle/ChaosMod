@@ -3,8 +3,8 @@ package net.chaos.chaosmod.world.events;
 import java.util.Set;
 
 import net.chaos.chaosmod.client.inventory.IAccessory;
+import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.init.ModCapabilities;
-import net.chaos.chaosmod.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.jobs.PlayerJobs;
 import net.chaos.chaosmod.network.packets.PacketAccessorySync;

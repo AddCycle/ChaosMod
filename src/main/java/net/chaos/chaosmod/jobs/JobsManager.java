@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.jobs.task.JobTaskManager;
 import util.handlers.DataLoader;
+
 public class JobsManager {
 	public static final Map<String, Job> REGISTRY = new LinkedHashMap<>();
 	public static final JobTaskManager TASK_MANAGER = new JobTaskManager();

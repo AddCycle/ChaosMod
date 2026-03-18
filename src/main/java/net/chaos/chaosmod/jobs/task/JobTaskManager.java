@@ -10,8 +10,7 @@ import net.chaos.chaosmod.jobs.JobsManager;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class JobTaskManager {
-	// jobId, (activeTasksList = TaskId, Task)
-	private static Map<String, Map<String, JobTask>> tasks = new HashMap<>();
+	private static Map<String, Map<String, JobTask>> tasks = new HashMap<>(); // jobId: <taskId, task>
 	
 	public static void initTasks() {
 		Main.getLogger().info("initializing tasks for JobTaskManager");
@@ -44,28 +43,6 @@ public class JobTaskManager {
         tasks.computeIfAbsent(jobId, k -> new HashMap<>()).put(task.id, task);
     }
 	
-	public void incrementProgress(String jobId, String taskId, int amount) {
-        JobTask task = getTask(jobId, taskId);
-        if (task != null) {
-            task.progress += amount;
-            if (task.progress > task.goal) {
-                task.progress = task.goal;
-            }
-        }
-    }
-
-	public void resetTask(String jobId, String taskId) {
-        JobTask task = getTask(jobId, taskId);
-        if (task != null) {
-            task.progress = 0;
-        }
-    }
-	
-	public boolean isTaskComplete(String jobId, String taskId) {
-        JobTask task = getTask(jobId, taskId);
-        return task != null && task.progress >= task.goal;
-    }
-	
 	public NBTTagCompound toNBT() {
 	    NBTTagCompound tag = new NBTTagCompound();
 	    for (Map.Entry<String, Map<String, JobTask>> jobEntry : tasks.entrySet()) {
@@ -80,7 +57,6 @@ public class JobTaskManager {
 	            if (task.target != null) {
 	                taskTag.setTag("target", task.target.toNBT());
 	            }
-	            taskTag.setInteger("progress", task.progress);
 	            taskTag.setInteger("goal", task.goal);
 	            taskTag.setInteger("rewardExp", task.rewardExp);
 
@@ -105,7 +81,6 @@ public class JobTaskManager {
 	                taskTag.getString("description"),
 	                TaskType.valueOf(taskTag.getString("type")),
 	                taskTag.hasKey("target") ? JobTaskTarget.fromNBT(taskTag.getCompoundTag("target")) : null,
-	                taskTag.getInteger("progress"),
 	                taskTag.getInteger("goal"),
 	                taskTag.getInteger("rewardExp")
 	            );

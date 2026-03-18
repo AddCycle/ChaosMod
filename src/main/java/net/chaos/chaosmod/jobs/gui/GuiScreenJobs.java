@@ -125,7 +125,7 @@ public class GuiScreenJobs extends GuiScreen {
 	}
 	
 	public void drawForeground() {
-		this.drawCenteredString(fontRenderer, "Jobs les amis j'en ai marre de cette histoire", this.width / 2, fontRenderer.FONT_HEIGHT, 0xffffff); // title
+		this.drawCenteredString(fontRenderer, "ChaosMod Jobs", this.width / 2, fontRenderer.FONT_HEIGHT, 0xffffff);
 		components.forEach(jobComponent -> {
 			jobComponent.render();
 		});

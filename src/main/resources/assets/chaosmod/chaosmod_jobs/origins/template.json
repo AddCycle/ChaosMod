@@ -12,7 +12,6 @@
 				"item": "chaosmod:custom_log",
 				"data": 1
 			},
-			"progress": 0,
 			"goal": 0,
 			"_comment": "TODO : add a rewards object with items/blocks"
 		}

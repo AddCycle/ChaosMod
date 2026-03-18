@@ -1,6 +1,11 @@
 package net.chaos.chaosmod.jobs;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.task.JobTask;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.network.packets.PacketSyncPlayerJobs;
@@ -10,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 public class JobProgress {
 	private int level;
 	private int exp;
+	private Map<String, Integer> taskProgressMap = new HashMap<>();
 
 	public JobProgress(int level, int exp) {
 		this.level = level;
@@ -27,30 +33,49 @@ public class JobProgress {
 
 	public void incrementTask(EntityPlayerMP player, String jobId, String taskId) {
 		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
-		if (task == null) {
-			Main.getLogger().error("Task not found: {}", taskId);
-			return;
-		}
 
-		if (task.progress >= task.goal) {
+		incrementTaskProgress(jobId, taskId);
+
+		int progress = getTaskProgress(taskId);
+
+		Main.getLogger().info("incremented task: {}, {}/{}", taskId, progress + 1, task.goal);
+
+		if (progress >= task.goal) {
 			completeTask(player, jobId, taskId);
-		} else {
-			task.progress++;
-			Main.getLogger().info("incremented task: {}, {}/{}", taskId, task.progress, task.goal);
 		}
 		
 		syncJobs(player);
 	}
+	
+	public void incrementTaskProgress(String jobId, String taskId) {
+		incrementTaskProgress(jobId, taskId, 1);
+	}
 
+	public void incrementTaskProgress(String jobId, String taskId, int amount) {
+		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
+
+		int current = getTaskProgress(taskId);
+		taskProgressMap.put(taskId, Math.min(current + amount, task.goal));
+	}
+
+	public int getTaskProgress(String taskId) {
+		return taskProgressMap.getOrDefault(taskId, 0);
+	}
+
+	public void setTaskProgress(String taskId, int value) {
+	    taskProgressMap.put(taskId, value);
+	}
+	
 	public void completeTask(EntityPlayerMP player, String jobId, String taskId) {
 		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
 		if (task == null)
 			return;
 
-		task.progress = task.goal; // mark complete
-		if (task.progress >= task.goal) {
-			addExp(player, jobId, task.rewardExp);
-		}
+		if (getTaskProgress(taskId) >= task.goal) return;
+
+		setTaskProgress(taskId, task.goal);
+
+		addExp(player, jobId, task.rewardExp);
 	}
 	
 	public static void syncJobs(EntityPlayerMP player) {
@@ -79,12 +104,29 @@ public class JobProgress {
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setInteger("level", getLevel());
 		tag.setInteger("exp", getExp());
+
+		NBTTagCompound tasksTag = new NBTTagCompound();
+
+		for (Entry<String, Integer> entry : taskProgressMap.entrySet()) {
+		    tasksTag.setInteger(entry.getKey(), entry.getValue());
+		}
+
+		tag.setTag("tasks", tasksTag);
+
 		return tag;
 	}
 
 	public void fromNBT(NBTTagCompound tag) {
 		this.setLevel(tag.getInteger("level"));
 		this.setExp(tag.getInteger("exp"));
+		
+		if (tag.hasKey("tasks")) {
+		    NBTTagCompound tasksTag = tag.getCompoundTag("tasks");
+
+		    for (String key : tasksTag.getKeySet()) {
+		        taskProgressMap.put(key, tasksTag.getInteger(key));
+		    }
+		}
 	}
 
 	public int getLevel() {

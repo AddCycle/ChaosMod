@@ -18,6 +18,7 @@ public class PacketSyncJobs implements IMessage {
 	public String jsonData;
 	
 	public PacketSyncJobs() {}
+
 	public PacketSyncJobs(String jsonData) {
 		this.jsonData = jsonData;
 	}
@@ -37,10 +38,12 @@ public class PacketSyncJobs implements IMessage {
 		@Override
 		public IMessage onMessage(PacketSyncJobs message, MessageContext ctx) {
 			Main.getLogger().info("PACKET JOBS LOADING SENT...");
+
 			Minecraft.getMinecraft().addScheduledTask(() -> {
 				JobsManager.loadFromJson(message.jsonData);
 				JobTaskManager.initTasks();
 			});
+
 			return null;
 		}
 		

@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.common.capabilities.jobs;
 
-import net.chaos.chaosmod.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.PlayerJobs;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;

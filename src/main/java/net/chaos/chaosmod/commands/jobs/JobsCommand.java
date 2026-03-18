@@ -9,8 +9,9 @@ import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.commands.AbstractPermissionFreeCommand;
+import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.init.ModItems;
-import net.chaos.chaosmod.jobs.CapabilityPlayerJobs;
+import net.chaos.chaosmod.jobs.Job;
 import net.chaos.chaosmod.jobs.JobProgress;
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.jobs.PlayerJobs;
@@ -27,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
 // TODO : needs refactor
+// FIXME : the second part is broken, nothing is working because of the huge fix of jobs
 public class JobsCommand extends AbstractPermissionFreeCommand implements ICommand {
 	public List<String> completion = new ArrayList<String>();
 
@@ -84,9 +86,11 @@ public class JobsCommand extends AbstractPermissionFreeCommand implements IComma
 					if (taskList.isEmpty()) {
 						player.sendMessage(new TextComponentString("No tasks registered for job " + args[0]));
 					} else {
+						PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+						Job job = JobsManager.REGISTRY.get(args[0]);
 						taskList.forEach(task ->
 						{
-							int progress = task.progress;
+							int progress = jobs.getProgress(job.id).getTaskProgress(task.id);
 							player.sendMessage(new TextComponentString(String.format("%s: %d/%d (reward %d exp)",
 									task.id, progress, task.goal, task.rewardExp)));
 						});
@@ -119,14 +123,14 @@ public class JobsCommand extends AbstractPermissionFreeCommand implements IComma
 						// Mark task as complete via JobProgress, which handles XP
 						jobs.getProgress(args[0]).completeTask(player, args[0], args[2]);
 						player.sendMessage(new TextComponentString("Task '" + args[2] + "' marked complete."));
-						player.sendMessage(new TextComponentString(
-								"isTaskComplete: " + JobsManager.TASK_MANAGER.isTaskComplete(args[0], args[2])));
+//						player.sendMessage(new TextComponentString(
+//								"isTaskComplete: " + JobsManager.TASK_MANAGER.isTaskComplete(args[0], args[2])));
 					} else if (args[3].equalsIgnoreCase("reset")) {
 						// Reset task progress
-						JobsManager.TASK_MANAGER.resetTask(args[0], args[2]);
-						player.sendMessage(new TextComponentString("Task '" + args[2] + "' reset."));
-						player.sendMessage(new TextComponentString(
-								"isTaskComplete: " + JobsManager.TASK_MANAGER.isTaskComplete(args[0], args[2])));
+//						JobsManager.TASK_MANAGER.resetTask(args[0], args[2]);
+//						player.sendMessage(new TextComponentString("Task '" + args[2] + "' reset."));
+//						player.sendMessage(new TextComponentString(
+//								"isTaskComplete: " + JobsManager.TASK_MANAGER.isTaskComplete(args[0], args[2])));
 					}
 
 					player.sendMessage(new TextComponentString("commands.task.success"));

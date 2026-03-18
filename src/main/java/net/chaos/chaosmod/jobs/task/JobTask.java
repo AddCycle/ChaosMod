@@ -13,17 +13,15 @@ public class JobTask {
 	public String description;
 	public TaskType type;
 	public JobTaskTarget target;
-	public int progress;
 	public int goal;
 	public int rewardExp;
 
-	public JobTask(String id, String name, String description, TaskType type, JobTaskTarget target, int progress, int goal, int rewardExp) {
+	public JobTask(String id, String name, String description, TaskType type, JobTaskTarget target, int goal, int rewardExp) {
 		this.id = id.contains(":") ? id : Reference.PREFIX + id;
 		this.name = name;
 		this.description = description;
 		this.type = type;
 		this.target = target;
-		this.progress = progress;
 		this.goal = goal;
 		this.rewardExp = rewardExp;
 	}
@@ -39,7 +37,6 @@ public class JobTask {
         } else {
             obj.add("target", new JsonObject());
         }
-        obj.addProperty("progress", progress);
         obj.addProperty("goal", goal);
         obj.addProperty("rewardExp", rewardExp);
 
@@ -53,7 +50,6 @@ public class JobTask {
             json.get("description").getAsString(),
             fromName(json.get("type").getAsString()),
             convert(json.get("target").getAsJsonObject()),
-            json.get("progress").getAsInt(),
             json.get("goal").getAsInt(),
             json.has("rewardExp") ? json.get("rewardExp").getAsInt() : 0
         );
@@ -62,5 +58,4 @@ public class JobTask {
     public static JobTaskTarget convert(JsonObject json) {
         return JobTaskTarget.fromJson(json);
     }
-
 }

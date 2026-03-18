@@ -3,7 +3,7 @@ package net.chaos.chaosmod.jobs.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.chaos.chaosmod.jobs.CapabilityPlayerJobs;
+import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.Job;
 import net.chaos.chaosmod.jobs.JobProgress;
 import net.chaos.chaosmod.jobs.PlayerJobs;

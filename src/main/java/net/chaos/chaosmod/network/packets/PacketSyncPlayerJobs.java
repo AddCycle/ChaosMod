@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.chaos.chaosmod.jobs.CapabilityPlayerJobs;
+import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.PlayerJobs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

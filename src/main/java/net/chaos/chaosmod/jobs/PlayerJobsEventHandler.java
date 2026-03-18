@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.jobs;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;

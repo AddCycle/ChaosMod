@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.jobs;
 
+import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.network.packets.PacketSyncPlayerJobs;
 import net.minecraft.entity.player.EntityPlayerMP;

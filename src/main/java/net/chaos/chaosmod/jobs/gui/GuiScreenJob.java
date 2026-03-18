@@ -1,12 +1,13 @@
 package net.chaos.chaosmod.jobs.gui;
 
-import net.chaos.chaosmod.jobs.CapabilityPlayerJobs;
+import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.Job;
 import net.chaos.chaosmod.jobs.JobProgress;
 import net.chaos.chaosmod.jobs.PlayerJobs;
 import net.chaos.chaosmod.jobs.task.JobTask;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -52,10 +53,11 @@ public class GuiScreenJob extends GuiScreen {
         int y = 90;
         int index = 1;
         for (JobTask task : job.tasks) {
-        	if (task.progress >= task.goal) {
-        		drawString(this.fontRenderer, String.format("%d - %s : [COMPLETED] exp = %d", index++, task.name, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
+        	int progress = jobs.getProgress(job.id).getTaskProgress(task.id);
+        	if (progress >= task.goal) {
+        		drawString(this.fontRenderer, String.format("%d - %s :" + TextFormatting.GREEN + "[COMPLETED]" + TextFormatting.RESET + " exp = %d", index++, task.name, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
         	} else {
-        		drawString(this.fontRenderer, String.format("%d - %s : (%d/%d) exp = %d", index++, task.name, task.progress, task.goal, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
+        		drawString(this.fontRenderer, String.format("%d - %s : (%d/%d) exp = %d", index++, task.name, progress, task.goal, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
         	}
             y += this.fontRenderer.FONT_HEIGHT + 4;
         }
