@@ -85,6 +85,6 @@ public class CustomBiomeEnderGarden extends Biome {
 	
 	@Override
 	public int getFoliageColorAtPos(BlockPos pos) {
-		return 0x5f08a6;// TODO : tweak
+		return 0x5f08a6; // TODO : tweak
 	}
 }

@@ -16,8 +16,7 @@ import util.annotations.ModPacket;
 public class MessageDisplayBiomeName implements IMessage {
 	private String text;
 
-	public MessageDisplayBiomeName() {
-	}
+	public MessageDisplayBiomeName() {}
 
 	public MessageDisplayBiomeName(String text) {
 		this.text = text;

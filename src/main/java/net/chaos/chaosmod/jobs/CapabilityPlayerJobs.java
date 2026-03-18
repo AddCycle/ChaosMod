@@ -3,18 +3,15 @@ package net.chaos.chaosmod.jobs;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import util.Reference;
 
 /**
- * This class stores the PlayerJobs completion client-side
+ * This class stores the PlayerJobs completion
  * You should see the PlayerJobs class for more infos
  */
 public class CapabilityPlayerJobs {
-	public static final ResourceLocation JOBS_CAPABILITY_ID = new ResourceLocation(Reference.MODID, "player_jobs");
 
 	@CapabilityInject(PlayerJobs.class)
 	public static final Capability<PlayerJobs> PLAYER_JOBS = null;

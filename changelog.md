@@ -3,17 +3,16 @@
 # Items
 
 TODO (current version):
-  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement)
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DOING]
   - need to add a marker (job completed) #2
+  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement)
 
 TODO (next version) ?:
   - only generate gallions in `watery` biomes (oceans, copraveg...) #3
   - Dungeon & custom structures with a bit of stuff for exploration in the overworld too
-  - Fix playlist and soundMgr system (need to reimplement everything)
   - Hunt
   - Market
-  - Minimap should render the correct color for the foliage, grass & water of the current biome **DONE**
+  - Fix playlist and soundMgr system (need to reimplement everything)
 
 ISSUES:
   - Edge case jobTasks can give an infinite amount of exp if completed (then going after threshold) #2
@@ -28,7 +27,7 @@ New:
   - AllemaniteHoe: farms 3x3
   - OxoniumAxe: `sawmill mode` harvests the entire trunk
   - BiomeFinderCommand: `/biome [biome_id] [range]`
-  - added `visited biomes` capability
+  - added `visited biomes` capability && `/biomes` command
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
@@ -40,3 +39,4 @@ Changes:
   - fix: custom flowers drops the correct variant when the block below is broken
   - feat: every player is able to see the summoning boss `cutscene`
   - feat: `final credits` displayed after beating `ChaosMaster Boss`
+  - feat: `Minimap` should render the correct biome color for : foliage, grass or (water: prioritizes the mapcolor over it so it's not working)

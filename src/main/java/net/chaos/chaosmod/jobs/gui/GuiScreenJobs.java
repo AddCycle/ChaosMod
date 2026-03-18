@@ -131,7 +131,6 @@ public class GuiScreenJobs extends GuiScreen {
 		});
 	}
 	
-	// @Override
 	public void drawDefaultBackground(int scrollX) {
 		this.drawGradientRect(0, 0, this.width, this.height, light_dark, dark);
 	}

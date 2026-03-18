@@ -18,15 +18,10 @@ public class JobProgress {
 
 	public static void addExp(EntityPlayerMP player, String jobId, int amount) {
 		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
-		Main.getLogger().info("Jobs(JobProgress.addExp): player has capability jobs ? {}",
-				jobs.hasCapability(CapabilityPlayerJobs.PLAYER_JOBS, null));
 		if (jobs != null) {
-			Main.getLogger().info("Jobs : Adding exp method call for job = {} : {}", jobId, amount);
 			jobs.addExp(jobId, amount);
 
-			// Send updated data to client
-			PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), player);
-			Main.getLogger().info("Packets sent SyncPlayerJobs(jobs) capabilities");
+			syncJobs(player);
 		}
 	}
 
@@ -66,11 +61,8 @@ public class JobProgress {
 	public void addExp(int amount) {
 		int exp = getExp() + amount;
 		int level = getLevel();
-		Main.getLogger().info("level : {}", getLevel());
-		Main.getLogger().info("exp : {}", getExp());
-		Main.getLogger().info("next level xp requirement : {}", getExpToNextLevel(level));
 
-		while (exp >= getExpToNextLevel(level)) { // pass level, not call getLevel()
+		while (exp >= getExpToNextLevel(level)) {
 			exp -= getExpToNextLevel(level);
 			level++;
 		}
@@ -79,9 +71,8 @@ public class JobProgress {
 		setLevel(level);
 	}
 
-	private int getExpToNextLevel(int level) {
-		Main.getLogger().info("Job : exp to next level : {}", 100 + (level * 50));
-		return 100 + (level * 50);
+	public int getExpToNextLevel(int currentLevel) {
+		return 100 + (currentLevel * 50);
 	}
 
 	public NBTTagCompound toNBT() {

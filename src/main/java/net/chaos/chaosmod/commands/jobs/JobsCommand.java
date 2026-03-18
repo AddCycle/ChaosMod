@@ -26,6 +26,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
+// TODO : needs refactor
 public class JobsCommand extends AbstractPermissionFreeCommand implements ICommand {
 	public List<String> completion = new ArrayList<String>();
 
