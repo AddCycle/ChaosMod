@@ -46,4 +46,5 @@ public class Reference {
 	public static final int LIGHT_ENTITY = entityId++;
 	public static final int CHAOS_MASTER = entityId++;
 	public static final int ENTITY_BIPED_BASIC = entityId++;
+	public static final int ENTITY_SPHERE = entityId++;
 }

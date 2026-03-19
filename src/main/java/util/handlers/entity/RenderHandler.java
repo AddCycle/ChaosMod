@@ -12,6 +12,7 @@ import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.entity.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
+import net.chaos.chaosmod.entity.EntitySphere;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
@@ -31,6 +32,7 @@ import net.chaos.chaosmod.entity.projectile.render.EntitySmallBlueFireballRender
 import net.chaos.chaosmod.entity.render.EntityBipedBasicRenderer;
 import net.chaos.chaosmod.entity.render.EntityEyeCrystalRenderer;
 import net.chaos.chaosmod.entity.render.EntityPicsouRenderer;
+import net.chaos.chaosmod.entity.render.EntitySphereRenderer;
 import net.chaos.chaosmod.entity.render.EntityVikingRenderer;
 import net.chaos.chaosmod.entity.render.LittleGiantRenderer;
 import net.chaos.chaosmod.entity.render.RenderChaosSage;
@@ -83,6 +85,7 @@ public class RenderHandler {
 		registerEntityRenderer(EntityEyeCrystal.class, EntityEyeCrystalRenderer::new);
 		registerEntityRenderer(ChaosMasterBoss.class, CMRenderer::new);
 		registerEntityRenderer(EntityBipedBasic.class, EntityBipedBasicRenderer::new);
+		registerEntityRenderer(EntitySphere.class, EntitySphereRenderer::new);
 	}
 	
 	public static void bindTESRs() {

@@ -6,6 +6,7 @@ import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.entity.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
+import net.chaos.chaosmod.entity.EntitySphere;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
@@ -47,7 +48,9 @@ public class ModEntities {
 				new EntityFactory("chaos_master", ChaosMasterBoss.class, Reference.CHAOS_MASTER, Colors.CYAN,
 						Colors.WHITE),
 				new EntityFactory("entity_biped_base", EntityBipedBasic.class, Reference.ENTITY_BIPED_BASIC,
-						Colors.CYAN, Colors.GREEN));
+						Colors.CYAN, Colors.GREEN),
+				new EntityFactory("entity_sphere", EntitySphere.class, Reference.ENTITY_SPHERE,
+						Colors.BLACK, Colors.WHITE));
 	}
 
 	private static void registerEntities(EntityFactory... factories) {
