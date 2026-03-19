@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class EntitySphereRenderer extends Render<EntitySphere> {
+    private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("textures/entity/end_portal.png");
 
 	public EntitySphereRenderer(RenderManager renderManager) {
 		super(renderManager);
@@ -33,6 +34,7 @@ public class EntitySphereRenderer extends Render<EntitySphere> {
 		GlStateManager.translate(x, y, z);
 		
 		GlStateManager.disableCull();
+		GlStateManager.disableLighting();
 //		GlStateManager.color(1F, 1F, 1F, 1F);
 		
 		Tessellator tessellator = Tessellator.getInstance();

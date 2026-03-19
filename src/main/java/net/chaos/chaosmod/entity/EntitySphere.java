@@ -8,7 +8,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class EntitySphere extends Entity {
+public class EntitySphere extends Entity implements IRightClickableEntity {
 
 	public EntitySphere(World worldIn) {
 		super(worldIn);
@@ -34,7 +34,6 @@ public class EntitySphere extends Entity {
 	@Override
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
-	        System.out.println("Sphere clicked by " + player.getName());
 	        Main.getLogger().info("Sphere interaction");
 	    }
 	    return true;
@@ -47,6 +46,14 @@ public class EntitySphere extends Entity {
 	
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
-		return super.getRenderBoundingBox();
+		return new AxisAlignedBB(
+            posX, posY, posZ,
+            posX - 1, posY + 3, posZ + 1
+        );
+	}
+	
+	@Override
+	public boolean canBeCollidedWith() {
+	    return true;
 	}
 }

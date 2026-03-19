@@ -7,6 +7,17 @@ TODO (current version):
   - Add many jobs and items/blocks rewards
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward)
 
+REWORK(funnier to grind):
+  1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
+  Instead, I can do some `missions/challenges` like `mine 10 iron without placing torches` ==> more engaging ### needs player restriction implementation (capability) ###
+  2- Add random `events` like rare fish appeared to fight and then when killed grants more EXP or treasure spot nearby
+  3- Let's player choose : pick tasks like a easy/hard one : risky job, or safe one
+  4- Add progression effect : for example when lvl 5 -> faster fishing, chance to double ores, lifesteal chance/crits... in each job
+  5- Add combo/streak system : catch fish in a row, mine ores without dying -> bonus (encourages skill)
+  6- Mini-goals inside tasks: `mine 50 iron` becomes `find cave`, `mine iron`, ...
+  7- Special contracts (limited-events): legendary fish appeared at night (making him glow at night)
+  8- Add `visual world` effects:
+
 TODO (next version) ?:
   - only generate gallions in `watery` biomes (oceans, copraveg...) #3
   - Dungeon & custom structures with a bit of stuff for exploration in the overworld too
