@@ -15,7 +15,6 @@ TODO (next version) ?:
   - Fix playlist and soundMgr system (need to reimplement everything)
 
 ISSUES:
-  - weird gray opaque textures while drawing text with chat open (mostly chat & minimap related)
   - Fix: ModWorldGen viking gallions generated in weird places... #3
 
 REFACTOR (need):

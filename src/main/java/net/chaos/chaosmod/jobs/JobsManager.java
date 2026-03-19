@@ -27,7 +27,7 @@ public class JobsManager {
     private static final Gson GSON = new Gson();
 
     /**
-     * init the jobs (server-side only) loading
+     * load the jobs data (server-side only)
      */
     public static void init() {
         FIGHTER = loadJob("origins/fighter");

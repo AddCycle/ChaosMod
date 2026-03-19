@@ -32,16 +32,10 @@ public class ClientMessageHandler {
 
 		GlStateManager.pushMatrix();
 
-		GlStateManager.enableBlend();
-		GlStateManager.disableDepth();
-		GlStateManager.disableLighting();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.fontRenderer.drawStringWithShadow(currentMessage,
 				width / 2 - mc.fontRenderer.getStringWidth(currentMessage) / 2, height / 4, 0xFFFFFF);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.enableDepth();
-		GlStateManager.enableLighting();
-		GlStateManager.disableBlend();
 
 		GlStateManager.popMatrix();
 	}

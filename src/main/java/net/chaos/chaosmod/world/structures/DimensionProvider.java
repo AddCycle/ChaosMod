@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
@@ -92,16 +93,28 @@ public class DimensionProvider extends WorldProvider {
     	// float r = 0.85F; // red channel
         // float g = 0.3F;  // green channel (low = more magenta)
         // float b = 0.85F; // blue channel
-    	float r = 1.0f;
-    	float g = 1.0f;
-    	float b = 1.0f;
-        return new Vec3d(r, g, b);
+//    	float r = 1.0f;
+//    	float g = 1.0f;
+//    	float b = 1.0f;
+//        return new Vec3d(r, g, b);
+        int i = 10518688;
+        float f = MathHelper.cos(p_76562_1_ * ((float)Math.PI * 2F)) * 2.0F + 0.5F;
+        f = MathHelper.clamp(f, 0.0F, 1.0F);
+        float f1 = 0.627451F;
+        float f2 = 0.5019608F;
+        float f3 = 0.627451F;
+        f1 = f1 * (f * 0.0F + 0.15F);
+        f2 = f2 * (f * 0.0F + 0.15F);
+        f3 = f3 * (f * 0.0F + 0.15F);
+        return new Vec3d((double)f1, (double)f2, (double)f3);
+
     }
 
     @SideOnly(Side.CLIENT)
     public boolean isSkyColored()
     {
-        return false;
+//        return false;
+        return true;
     }
 
     /**
