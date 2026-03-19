@@ -113,8 +113,7 @@ public class DimensionProvider extends WorldProvider {
     @SideOnly(Side.CLIENT)
     public boolean isSkyColored()
     {
-//        return false;
-        return true;
+        return false;
     }
 
     /**

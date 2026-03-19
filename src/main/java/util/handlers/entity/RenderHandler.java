@@ -53,10 +53,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -70,130 +68,21 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderHandler {
 
-	public static void registerEntityRenders() {
-		RenderingRegistry.registerEntityRenderingHandler(EntityForgeGuardian.class, new IRenderFactory<EntityForgeGuardian>() {
-
-			@Override
-			public Render<? super EntityForgeGuardian> createRenderFor(RenderManager manager) {
-				return new RenderForgeGuardian(manager);
-			}
-
-		});
-		
-		RenderingRegistry.registerEntityRenderingHandler(EntityRevengeBlazeBoss.class, new IRenderFactory<EntityRevengeBlazeBoss>() {
-			@Override
-			public Render<? super EntityRevengeBlazeBoss> createRenderFor(RenderManager manager) {
-				return new EntityRevengeBlazeRenderer(manager);
-			}
-		});
-		
-		RenderingRegistry.registerEntityRenderingHandler(EntitySmallBlueFireball.class, new IRenderFactory<EntitySmallBlueFireball>() {
-
-			@Override
-			public Render<? super EntitySmallBlueFireball> createRenderFor(RenderManager manager) {
-				return new EntitySmallBlueFireballRenderer(manager);
-			}
-			
-		});
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityRock.class, new IRenderFactory<EntityRock>() {
-
-			@Override
-			public Render<? super EntityRock> createRenderFor(RenderManager manager) {
-				return new EntityRockRenderer(manager);
-			}
-			
-		});
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityMenhir.class, new IRenderFactory<EntityMenhir>() {
-
-			@Override
-			public Render<? super EntityMenhir> createRenderFor(RenderManager manager) {
-				return new EntityMenhirRenderer(manager);
-			}
-			
-		});
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityMountainGiantBoss.class, new IRenderFactory<EntityMountainGiantBoss>() {
-
-			@Override
-			public Render<? super EntityMountainGiantBoss> createRenderFor(RenderManager manager) {
-				return new EntityMountainGiantBossRenderer(manager);
-			}
-			
-		});
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityChaosSage.class, new IRenderFactory<EntityChaosSage>() {
-
-			@Override
-			public Render<? super EntityChaosSage> createRenderFor(RenderManager manager) {
-				return new RenderChaosSage(manager);
-			}
-			
-		});
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityViking.class, new IRenderFactory<EntityViking>() {
-
-			@Override
-			public Render<? super EntityViking> createRenderFor(RenderManager manager) {
-				return new EntityVikingRenderer(manager);
-			}
-			
-		});
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityPicsou.class, new IRenderFactory<EntityPicsou>() {
-
-			@Override
-			public Render<? super EntityPicsou> createRenderFor(RenderManager manager) {
-				return new EntityPicsouRenderer(manager);
-			}
-			
-		});
-
-		RenderingRegistry.registerEntityRenderingHandler(LittleGiantEntity.class, new IRenderFactory<LittleGiantEntity>() {
-
-			@Override
-			public Render<? super LittleGiantEntity> createRenderFor(RenderManager manager) {
-				return new LittleGiantRenderer(manager);
-			}
-			
-		});
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityEyeCrystalBoss.class, new IRenderFactory<EntityEyeCrystalBoss>() {
-
-			@Override
-			public Render<? super EntityEyeCrystalBoss> createRenderFor(RenderManager manager) {
-				return new EntityEyeCrystalBossRenderer(manager);
-			}
-			
-		});
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityEyeCrystal.class, new IRenderFactory<EntityEyeCrystal>() {
-
-			@Override
-			public Render<? super EntityEyeCrystal> createRenderFor(RenderManager manager) {
-				return new EntityEyeCrystalRenderer(manager);
-			}
-			
-		});
-		
-		RenderingRegistry.registerEntityRenderingHandler(ChaosMasterBoss.class, new IRenderFactory<ChaosMasterBoss>() {
-
-			@Override
-			public Render<? super ChaosMasterBoss> createRenderFor(RenderManager manager) {
-				return new CMRenderer(manager);
-			}
-			
-		});
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityBipedBasic.class, new IRenderFactory<EntityBipedBasic>() {
-
-			@Override
-			public RenderLiving<? super EntityBipedBasic> createRenderFor(RenderManager manager) {
-				return new EntityBipedBasicRenderer(manager);
-			}
-			
-		});
+	public static void registerEntityRenderers() {
+		registerEntityRenderer(EntityForgeGuardian.class, RenderForgeGuardian::new);
+		registerEntityRenderer(EntityRevengeBlazeBoss.class, EntityRevengeBlazeRenderer::new);
+		registerEntityRenderer(EntitySmallBlueFireball.class, EntitySmallBlueFireballRenderer::new);
+		registerEntityRenderer(EntityRock.class, EntityRockRenderer::new);
+		registerEntityRenderer(EntityMenhir.class, EntityMenhirRenderer::new);
+		registerEntityRenderer(EntityMountainGiantBoss.class, EntityMountainGiantBossRenderer::new);
+		registerEntityRenderer(EntityChaosSage.class, RenderChaosSage::new);
+		registerEntityRenderer(EntityViking.class, EntityVikingRenderer::new);
+		registerEntityRenderer(EntityPicsou.class, EntityPicsouRenderer::new);
+		registerEntityRenderer(LittleGiantEntity.class, LittleGiantRenderer::new);
+		registerEntityRenderer(EntityEyeCrystalBoss.class, EntityEyeCrystalBossRenderer::new);
+		registerEntityRenderer(EntityEyeCrystal.class, EntityEyeCrystalRenderer::new);
+		registerEntityRenderer(ChaosMasterBoss.class, CMRenderer::new);
+		registerEntityRenderer(EntityBipedBasic.class, EntityBipedBasicRenderer::new);
 	}
 	
 	public static void bindTESRs() {
@@ -242,5 +131,9 @@ public class RenderHandler {
 				return new ModelResourceLocation(fluidBlock.getRegistryName(), "fluid");
 			}
 		});
+	}
+	
+	private static <T extends Entity> void registerEntityRenderer(Class<T> entityClass, IRenderFactory<T> factory) {
+		RenderingRegistry.registerEntityRenderingHandler(entityClass, factory);
 	}
 }

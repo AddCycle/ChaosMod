@@ -30,7 +30,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-        RenderHandler.registerEntityRenders();
+        RenderHandler.registerEntityRenderers();
         ModKeybinds.init();
         MimicStartupClient.preInitClientOnly();
 	}
