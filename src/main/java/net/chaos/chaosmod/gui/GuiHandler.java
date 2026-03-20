@@ -39,8 +39,8 @@ public class GuiHandler implements IGuiHandler {
 			return null;
 		case Reference.GUI_FURNACE_ID:
 			return new OxoniumFurnaceContainer(inventory, (TileEntityOxoniumFurnace) te);
-		case 2: 
-			return null;
+		case Reference.GUI_CREDITS_ID:
+			return emptyContainer();
 		case 3:
 			return new ForgeInterfaceContainer(inventory, (TileEntityForge) te);
 		case 4:
@@ -116,5 +116,14 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerChaosSage();
         }
 		return null;
+	}
+	
+	private Container emptyContainer() {
+		return new Container() {
+			@Override
+			public boolean canInteractWith(EntityPlayer playerIn) {
+				return true;
+			}
+		};
 	}
 }

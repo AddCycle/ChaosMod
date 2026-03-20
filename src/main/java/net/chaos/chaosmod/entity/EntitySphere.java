@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 public class EntitySphere extends Entity implements IRightClickableEntity {
@@ -35,6 +36,8 @@ public class EntitySphere extends Entity implements IRightClickableEntity {
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
 	        Main.getLogger().info("Sphere interaction");
+	        player.sendMessage(new TextComponentString("Destroyed Black Hole catalyst"));
+	        this.setDead();
 	    }
 	    return true;
 	}

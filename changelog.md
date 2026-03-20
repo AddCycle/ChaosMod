@@ -7,6 +7,9 @@ TODO (current version):
   - Add many jobs and items/blocks rewards
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward)
 
+IDEAS:
+  - make the fishing get an interface and an interaction with the mouse or keyboard timing to catch something
+
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
   Instead, I can do some `missions/challenges` like `mine 10 iron without placing torches` ==> more engaging ### needs player restriction implementation (capability) ###
@@ -27,6 +30,7 @@ TODO (next version) ?:
 
 ISSUES:
   - Fix: ModWorldGen viking gallions generated in weird places... #3
+  - EntityViking clearing inventory on right-click and kills you...
 
 REFACTOR (need):
   - entity package

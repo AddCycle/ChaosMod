@@ -34,8 +34,6 @@ public class EntitySphereRenderer extends Render<EntitySphere> {
 		GlStateManager.translate(x, y, z);
 		
 		GlStateManager.disableCull();
-		GlStateManager.disableLighting();
-//		GlStateManager.color(1F, 1F, 1F, 1F);
 		
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder buffer = tessellator.getBuffer();
