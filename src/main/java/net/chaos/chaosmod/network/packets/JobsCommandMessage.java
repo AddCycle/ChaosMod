@@ -13,20 +13,14 @@ import util.annotations.ModPacket;
 
 @ModPacket(modid = Reference.MODID, side = Side.CLIENT)
 public class JobsCommandMessage implements IMessage {
-	private int toSend;
 
-	public JobsCommandMessage() {
-	}
+	public JobsCommandMessage() {}
 
 	@Override
-	public void fromBytes(ByteBuf buf) {
-		toSend = buf.readInt();
-	}
+	public void fromBytes(ByteBuf buf) {}
 
 	@Override
-	public void toBytes(ByteBuf buf) {
-		buf.writeInt(toSend);
-	}
+	public void toBytes(ByteBuf buf) {}
 
 	public static class JobsMessageHandler implements IMessageHandler<JobsCommandMessage, IMessage> {
 
@@ -35,7 +29,6 @@ public class JobsCommandMessage implements IMessage {
 			Minecraft.getMinecraft().addScheduledTask(JobsCommandMessage::openJobsGui);
 			return null;
 		}
-
 	}
 
 	@SideOnly(Side.CLIENT)

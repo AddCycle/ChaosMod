@@ -1,31 +1,27 @@
 package net.chaos.chaosmod.lore.dialogs;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.scoreboard.Team;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
-import util.annotations.ClientBus;
 
 @EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
-@ClientBus(comment = "This is a chaosmod comment")
 public class DialogEventHandler {
 
 	@SubscribeEvent
-	public static void onRenderLivingSpecials(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
+	public static void onRenderLivingSpecials(RenderLivingEvent.Specials.Post<EntityLivingBase> event) {
 	    Entity entity = event.getEntity();
 	    String dialog = null;
 	    EntityPlayer player = Minecraft.getMinecraft().player;
@@ -37,8 +33,6 @@ public class DialogEventHandler {
 	    	} else if (entity instanceof EntityZombie) {
 	    		dialog = "Brains...";
 	    	}
-	    } else {
-	    	dialog = "";
 	    }
 
 	    if (dialog == null || dialog.isEmpty()) return;
@@ -47,48 +41,65 @@ public class DialogEventHandler {
 	}
 	
 	public static void renderDialogBox(double x, double y, double z, String text, Entity entity, float partialTicks) {
+		GlStateManager.pushMatrix();
 		
+        GlStateManager.alphaFunc(516, 0.1F);
+        
+        renderLivingLabel(entity, text, x, y, z, 10);
+
+		GlStateManager.popMatrix();
+	}
+
+    private static <T extends Entity> void renderLivingLabel(T entityIn, String str, double x, double y, double z, int maxDistance)
+    {
 		Minecraft mc = Minecraft.getMinecraft();
 	    RenderManager renderManager = mc.getRenderManager();
+	    
+	    if (!canRenderName(entityIn)) return;
 
-	    GlStateManager.pushMatrix();
+        double d0 = entityIn.getDistanceSq(renderManager.renderViewEntity);
+        if (d0 <= (double)(maxDistance * maxDistance))
+        {
+            boolean flag = entityIn.isSneaking();
+            float f = renderManager.playerViewY;
+            float f1 = renderManager.playerViewX;
+            boolean flag1 = renderManager.options.thirdPersonView == 2;
+            float f2 = entityIn.height + 0.5F - (flag ? 0.25F : 0.0F);
+            int i = "deadmau5".equals(str) ? -10 : 0;
+            EntityRenderer.drawNameplate(renderManager.getFontRenderer(), str, (float)x, (float)y + f2, (float)z, i, f, f1, flag1, flag);
+        }
+    }
+    
+    private static <T extends Entity> boolean canRenderName(T entity)
+    {
+        EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
+        boolean flag = !entity.isInvisibleToPlayer(entityplayersp);
 
-	    // Translate to entity position
-	    GlStateManager.translate(x, y + entity.height + 0.5, z);
-	    // Rotate so it faces the player
-	    GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-	    GlStateManager.rotate(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-	    GlStateManager.scale(-0.025F, -0.025F, 0.025F); // scale to readable size
+        if (entity != entityplayersp)
+        {
+            Team team = entity.getTeam();
+            Team team1 = entityplayersp.getTeam();
 
-	    // Disable depth and lighting so it renders over everything
-	    GlStateManager.disableLighting();
-	    GlStateManager.disableDepth();
-	    GlStateManager.disableTexture2D();
-	    GlStateManager.enableBlend();
+            if (team != null)
+            {
+                Team.EnumVisible team$enumvisible = team.getNameTagVisibility();
 
-	    int boxWidth = mc.fontRenderer.getStringWidth(text) + 10;
-	    int boxHeight = 10;
-
-	    // Draw white background box
-	    Tessellator tess = Tessellator.getInstance();
-	    BufferBuilder buffer = tess.getBuffer();
-	    buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-	    buffer.pos(-boxWidth / 2, -boxHeight / 2, 0.0).color(255, 255, 255, 200).endVertex();
-	    buffer.pos(-boxWidth / 2, boxHeight / 2, 0.0).color(255, 255, 255, 200).endVertex();
-	    buffer.pos(boxWidth / 2, boxHeight / 2, 0.0).color(255, 255, 255, 200).endVertex();
-	    buffer.pos(boxWidth / 2, -boxHeight / 2, 0.0).color(255, 255, 255, 200).endVertex();
-	    tess.draw();
-
-	    GlStateManager.enableTexture2D();
-
-	    // Draw text centered
-	    mc.fontRenderer.drawString(text, -mc.fontRenderer.getStringWidth(text) / 2, -4, 0x000000);
-
-	    // Restore state
-	    GlStateManager.enableDepth();
-	    GlStateManager.enableLighting();
-	    GlStateManager.disableBlend();
-
-	    GlStateManager.popMatrix();
-	}
+                switch (team$enumvisible)
+                {
+                    case ALWAYS:
+                        return flag;
+                    case NEVER:
+                        return false;
+                    case HIDE_FOR_OTHER_TEAMS:
+                        return team1 == null ? flag : team.isSameTeam(team1) && (team.getSeeFriendlyInvisiblesEnabled() || flag);
+                    case HIDE_FOR_OWN_TEAM:
+                        return team1 == null ? flag : !team.isSameTeam(team1) && flag;
+                    default:
+                        return true;
+                }
+            }
+        }
+        
+        return flag;
+    }
 }

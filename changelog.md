@@ -29,6 +29,7 @@ TODO (next version) ?:
   - Fix playlist and soundMgr system (need to reimplement everything)
 
 ISSUES:
+  - Fix: `oxonium_slab` order bottom/top order
   - Fix: ModWorldGen viking gallions generated in weird places... #3
   - EntityViking clearing inventory on right-click and kills you...
 
