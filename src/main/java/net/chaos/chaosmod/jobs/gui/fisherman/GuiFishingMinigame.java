@@ -18,6 +18,7 @@ import util.Reference;
 import util.ui.components.GuiUtils;
 
 @SideOnly(Side.CLIENT)
+// TODO : handle fishingSpeedBonus to reduce the speed of the caret
 public class GuiFishingMinigame extends GuiScreen {
 	private ItemStack icon;
 	private Random rand;
@@ -106,7 +107,7 @@ public class GuiFishingMinigame extends GuiScreen {
 		caretHeight = rectY + rectHeight;
 		caretColor = 0xff0000ff;
 
-		caretSpeed = 5;
+		caretSpeed = 2 + rand.nextInt(5); // 2-6
 	}
 
 	private void updateCaret() {

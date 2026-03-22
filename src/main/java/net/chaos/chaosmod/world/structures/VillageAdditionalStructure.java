@@ -164,8 +164,6 @@ public class VillageAdditionalStructure extends StructureVillagePieces.Village {
 
 		@Override
 		public PieceWeight getVillagePieceWeight(Random random, int i) {
-			System.out.println("Getting village house cloud piece weight");
-	        
 	        return new PieceWeight(getComponentClass(), 5, MathHelper.getInt(random, 1, 1));
 		}
 
@@ -177,7 +175,6 @@ public class VillageAdditionalStructure extends StructureVillagePieces.Village {
 		@Override
 		public Village buildComponent(PieceWeight villagePiece, Start startPiece, List<StructureComponent> pieces,
 				Random random, int parMinX, int parMinY, int parMinZ, EnumFacing facing, int parType) {
-			System.out.println("Village House Cloud buildComponent() at "+parMinX+", "+parMinY+", "+parMinZ);
 	        
 	        StructureBoundingBox structBB = StructureBoundingBox.getComponentToAddBoundingBox(parMinX, parMinY, parMinZ, 0, 0, 0, 9, 7, 12, facing);
 	        return new VillageAdditionalStructure(startPiece, parType, random, structBB, facing);
