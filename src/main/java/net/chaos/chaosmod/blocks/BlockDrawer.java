@@ -61,9 +61,9 @@ public class BlockDrawer extends BlockContainerBase {
 	
 	@Override
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-		if (!worldIn.isRemote) { // server side only
+		if (!worldIn.isRemote) {
 	        TileEntity te = worldIn.getTileEntity(pos);
-	        if (te instanceof TileEntityDrawer) { // if your TileEntity stores items
+	        if (te instanceof TileEntityDrawer) {
 	            TileEntityDrawer tile = (TileEntityDrawer) te;
 
 	            ItemStack stack = tile.getStack();

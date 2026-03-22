@@ -101,27 +101,6 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
         return out;
     }
 
-    // Shift-left: drops everything on the ground
-    /*public void dropAll(EntityPlayer player) {
-        if (!stack.isEmpty()) {
-            player.entityDropItem(stack, 0);
-            stack = ItemStack.EMPTY;
-            markDirty();
-        }
-    }
-
-    public void giveAllToPlayer(EntityPlayer player) {
-        if (!stack.isEmpty()) {
-            boolean allAdded = player.inventory.addItemStackToInventory(stack);
-            if (!allAdded) {
-                // drop remaining items on the ground
-                player.entityDropItem(stack, 0);
-            }
-            stack = ItemStack.EMPTY;
-            markDirty();
-        }
-    }*/
-
     // Right-click: puts items from hand into drawer
     public void addFromHand(EntityPlayer player) {
         ItemStack hand = player.getHeldItemMainhand();
@@ -140,27 +119,6 @@ public class TileEntityDrawer extends TileEntity implements ITickable, IInventor
             player.setHeldItem(EnumHand.MAIN_HAND, hand);
         }
     }
-    
-    // ############# FIXME : verify if it is allowed to have the same name for tag multiple drawer types ###################
-    
-//    @Override
-//    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-//    	super.writeToNBT(compound);
-//    	ItemStack copyWithoutCount = new ItemStack(stack.getItem(), 1);
-//    	compound.setTag("Stack", copyWithoutCount.writeToNBT(new NBTTagCompound()));
-//    	compound.setInteger("totalCount", totalCount);
-//    	compound.setTag("dummy", dummy.writeToNBT(new NBTTagCompound()));
-//    	return compound;
-//    }
-//
-//    @Override
-//    public void readFromNBT(NBTTagCompound compound) {
-//    	super.readFromNBT(compound);
-//    	totalCount = compound.getInteger("totalCount");
-//    	stack = new ItemStack(compound.getCompoundTag("Stack"));
-//    	stack.setCount(totalCount);
-//    	compound.getTag("dummy");
-//    }
     
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {

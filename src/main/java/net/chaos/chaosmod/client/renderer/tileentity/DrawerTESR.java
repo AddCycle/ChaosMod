@@ -19,14 +19,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 // FIXME : flowers & saplings (cross) are not rendering correctly now invis
+// FIXME : bright in the dark lighting issues
 public class DrawerTESR extends TileEntitySpecialRenderer<TileEntityDrawer> {
 
 	@Override
 	public void render(TileEntityDrawer te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		int count = te.getTotalCount();
-		// System.out.println("count : " + count);
 		ItemStack stack = te.getDummy();
-		// System.out.println("stack" + stack.getDisplayName());
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5, y + 0.5, z); // center on the block
@@ -55,19 +54,9 @@ public class DrawerTESR extends TileEntitySpecialRenderer<TileEntityDrawer> {
 
 		if(count >= 0) {
 			String text = String.valueOf(count);
-			// String item = stack.getItem().getRegistryName().toString();
 
 			// Get tooltip
 			List<String> tooltip = stack.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
-
-			/*String nbtText = "";
-		    if (stack.hasTagCompound()) {
-		        nbtText = stack.getTagCompound().toString();
-		        // Optional: truncate if too long
-		        if (nbtText.length() > 50) {
-		            nbtText = nbtText.substring(0, 47) + "...";
-		        }
-		    }*/
 
 			FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
 			GlStateManager.pushMatrix();
@@ -141,13 +130,6 @@ public class DrawerTESR extends TileEntitySpecialRenderer<TileEntityDrawer> {
 			fontRenderer.drawString(text, -fontRenderer.getStringWidth(text) / 2, 0, 0xFFFFFF);
 			GlStateManager.popMatrix();
 
-			// REGISTRY NAME
-			/*GlStateManager.pushMatrix();
-			GlStateManager.translate(0, 0, -zOffset);
-			GlStateManager.scale(0.01, 0.01, 0.02);
-			if (count > 0) fontRenderer.drawString(item, -fontRenderer.getStringWidth(item) / 2, 15 + fontRenderer.FONT_HEIGHT, 0xFFFFFF);
-			GlStateManager.popMatrix();*/
-
 			// Render tooltip lines
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(0, 0, -zOffset);
@@ -160,15 +142,6 @@ public class DrawerTESR extends TileEntitySpecialRenderer<TileEntityDrawer> {
 				}
 			}
 			GlStateManager.popMatrix();
-
-			// Render NBT
-			/*if (!nbtText.isEmpty()) {
-		        GlStateManager.pushMatrix();
-		        GlStateManager.translate(0, 0, -zOffset);
-		        GlStateManager.scale(0.008, 0.008, 0.02); // smaller so it fits
-		        fontRenderer.drawString(nbtText, -fontRenderer.getStringWidth(nbtText) / 2, 35 + fontRenderer.FONT_HEIGHT, 0xFFFFFF);
-		        GlStateManager.popMatrix();
-		    }*/
 
 			GlStateManager.enableDepth();
 			GlStateManager.popMatrix();

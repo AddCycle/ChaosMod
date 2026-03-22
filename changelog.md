@@ -31,6 +31,7 @@ ISSUES:
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions)
   - Fix: ModWorldGen viking gallions generated in weird places... #3
   - EntityViking clearing inventory on right-click and kills you...
+  - DrawerTESR: item icon lights even in the dark
 
 REFACTOR (need):
   - entity package
