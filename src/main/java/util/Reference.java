@@ -23,11 +23,11 @@ public class Reference {
     public static final int GUI_FORGE_ID = 3;
     public static final int GUI_BACKPACK_ID = 4;
     public static final int GUI_DOCS_ID = 5;
-    // 6 is for the extended player gui
-    public static final int GUI_ACCESSORY_ID = 6;
+    public static final int GUI_ACCESSORY_ID = 6; // extended player gui
     public static final int GUI_TROPHY = 7;
 	public static final int GUI_ATM_ID = 8;
 	public static final int GUI_MARKET_ID = 9;
+	public static final int GUI_FISHINGGAME_ID = 10;
 
     // Entities ids
     private static int entityId = 120;

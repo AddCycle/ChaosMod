@@ -8,7 +8,6 @@ TODO (current version):
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward)
 
 IDEAS:
-  - make the fishing get an interface and an interaction with the mouse or keyboard timing to catch something
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -29,7 +28,7 @@ TODO (next version) ?:
   - Fix playlist and soundMgr system (need to reimplement everything)
 
 ISSUES:
-  - Fix: `oxonium_slab` order bottom/top order
+  - Fix: `oxonium_slab` order bottom/top order (on compiled versions)
   - Fix: ModWorldGen viking gallions generated in weird places... #3
   - EntityViking clearing inventory on right-click and kills you...
 
@@ -42,6 +41,7 @@ New:
   - OxoniumAxe: `sawmill mode` harvests the entire trunk
   - BiomeFinderCommand: `/biome [biome_id] [range]`
   - added `visited biomes` capability && `/biomes` command
+  - Fishing Mechanic where timing is the key to catch something (Undertale inspired thx `Toby Fox`)
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

@@ -8,11 +8,11 @@ import net.chaos.chaosmod.client.inventory.ContainerAccessory;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.inventory.ATMContainer;
 import net.chaos.chaosmod.inventory.BackpackContainer;
-import net.chaos.chaosmod.inventory.ContainerChaosSage;
 import net.chaos.chaosmod.inventory.ForgeInterfaceContainer;
 import net.chaos.chaosmod.inventory.OxoniumFurnaceContainer;
 import net.chaos.chaosmod.inventory.TrophyContainerBase;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
+import net.chaos.chaosmod.jobs.gui.fisherman.GuiFishingMinigame;
 import net.chaos.chaosmod.tileentity.TileEntityATM;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
@@ -50,12 +50,7 @@ public class GuiHandler implements IGuiHandler {
 		    }
 		    return null;
 		case 5:
-			return new Container() {
-				@Override
-				public boolean canInteractWith(EntityPlayer playerIn) {
-					return true;
-				}
-			};
+			return emptyContainer();
 		case 6:
 			return new ContainerAccessory(inventory, world.isRemote, player);
 		case 7:
@@ -65,12 +60,9 @@ public class GuiHandler implements IGuiHandler {
 		case Reference.GUI_MARKET_ID:
 			// return new MarketContainer(inventory, );
 			// FIXME : add a container with the slots
-			return new Container() {
-				@Override
-				public boolean canInteractWith(EntityPlayer playerIn) {
-					return true;
-				}
-			};
+			return emptyContainer();
+		case Reference.GUI_FISHINGGAME_ID:
+			return emptyContainer();
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -79,7 +71,6 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
-//		Container container = EntityContains(player, world, x);
 		
 		switch (ID) {
 		case 0:
@@ -102,6 +93,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiATM(player.inventory, (TileEntityATM) te, player);
 		case Reference.GUI_MARKET_ID:
 			return new GuiMarket();
+		case Reference.GUI_FISHINGGAME_ID:
+			return new GuiFishingMinigame();
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -113,7 +106,7 @@ public class GuiHandler implements IGuiHandler {
 		if (entity instanceof EntityChaosSage && !entity.isDead)
         {
 			System.out.println("CONTAINER(entityID) : " + entityId);
-			return new ContainerChaosSage();
+			return emptyContainer();
         }
 		return null;
 	}
