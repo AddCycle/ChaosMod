@@ -11,15 +11,13 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MODID)
+@EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class PlayerFireRenderHandler {
 
 	private static final ResourceLocation BLUE_FIRE_LAYER_0 = new ResourceLocation(Reference.MODID, "textures/entity/boss/blue_fire_layer_0.png");
@@ -45,7 +43,6 @@ public class PlayerFireRenderHandler {
 		GlStateManager.translate(x, y, z);
 		GlStateManager.depthMask(false);
 		renderCustomFire(player, event.getPartialRenderTick());
-		// renderFireInFirstPerson(mc);
 		GlStateManager.depthMask(true);
 
 		GlStateManager.disableBlend();
@@ -53,7 +50,7 @@ public class PlayerFireRenderHandler {
 		GlStateManager.popMatrix();
 	}
 	
-	
+	// DO NOT REMOVE Seems to be useful
 	private static void renderCustomFire(Entity entity, float partialTicks) {
 	    GlStateManager.disableLighting();
 	    GlStateManager.pushMatrix();
@@ -107,69 +104,4 @@ public class PlayerFireRenderHandler {
 	    GlStateManager.popMatrix();
 	    GlStateManager.enableLighting();
 	}
-	
-	@SubscribeEvent
-	public static void onRenderOverlay(RenderGameOverlayEvent.Post event) {
-	    if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) return;
-
-	    Minecraft mc = Minecraft.getMinecraft();
-	    EntityPlayer player = mc.player;
-	    if (player == null) return;
-
-	    if (!player.getEntityData().getBoolean("ShowCustomFireOverlay") || player.isPlayerSleeping())
-	        return;
-
-	    renderFireInFirstPerson(mc, player);
-	}
-
-	private static void renderFireInFirstPerson(Minecraft mc, EntityPlayer player) {
-	    Tessellator tessellator = Tessellator.getInstance();
-	    BufferBuilder buffer = tessellator.getBuffer();
-
-	    GlStateManager.disableDepth();
-	    GlStateManager.depthMask(false);
-	    GlStateManager.enableBlend();
-	    GlStateManager.tryBlendFuncSeparate(
-	            GlStateManager.SourceFactor.SRC_ALPHA,
-	            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-	            GlStateManager.SourceFactor.ONE,
-	            GlStateManager.DestFactor.ZERO
-	    );
-	    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-
-	    // Two layers (like vanilla flickering fire)
-	    for (int i = 0; i < 2; ++i) {
-	        GlStateManager.pushMatrix();
-
-	        ResourceLocation tex = (i % 2 == 0) ? BLUE_FIRE_LAYER_0 : BLUE_FIRE_LAYER_1;
-	        mc.getTextureManager().bindTexture(tex);
-
-	        float f = (i % 2) * 0.5F; // offset
-	        float w = mc.displayWidth;
-	        float h = mc.displayHeight;
-
-	        // Translate/rotate like vanilla
-	        GlStateManager.translate((float)(-(i * 2 - 1)) * 0.24F, -0.3F, 0.0F);
-	        GlStateManager.rotate((i * 2 - 1) * 10.0F, 0.0F, 1.0F, 0.0F);
-
-	        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-	        buffer.pos(-1.0D, -1.0D, -0.5D).tex(0.0D, 1.0D).endVertex();
-	        buffer.pos( 1.0D, -1.0D, -0.5D).tex(1.0D, 1.0D).endVertex();
-	        buffer.pos( 1.0D,  1.0D, -0.5D).tex(1.0D, 0.0D).endVertex();
-	        buffer.pos(-1.0D,  1.0D, -0.5D).tex(0.0D, 0.0D).endVertex();
-	        tessellator.draw();
-
-	        GlStateManager.popMatrix();
-	    }
-
-	    GlStateManager.disableBlend();
-	    GlStateManager.depthMask(true);
-	    GlStateManager.enableDepth();
-	}
-    
-    @SubscribeEvent
-    public static void onTextureStitch(TextureStitchEvent.Pre event) {
-        event.getMap().registerSprite(new ResourceLocation(Reference.MODID, "gui/blue_fire_layer_0"));
-    }
-
 }

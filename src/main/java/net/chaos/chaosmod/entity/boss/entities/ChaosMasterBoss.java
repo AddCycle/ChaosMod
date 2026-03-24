@@ -493,9 +493,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
 
 				if (!this.phaseManager.getCurrentPhase().getIsStationary()
 						&& ((EntityLivingBase) entity).getRevengeTimer() < entity.ticksExisted - 2) {
-					entity.attackEntityFrom(ModDamageSources.BLUE_FIRE, 4.0F); // FIXME : setting the blue fire burning
-																				// flag
-					entity.setFire(6); // BURN IT
+					entity.attackEntityFrom(ModDamageSources.BLUE_FIRE, 4.0F);
 					this.applyEnchantments(this, entity);
 				}
 			}
@@ -1072,7 +1070,7 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
 		}
 
 		if (crystal == this.healingEnderCrystal) {
-			this.attackEntityFromPart(this.dragonPartHead, ModDamageSources.BLUE_FIRE, 10.0F); // FIXME also
+			this.attackEntityFromPart(this.dragonPartHead, DamageSource.causeExplosionDamage(entityplayer), 10.0F);
 		}
 
 		this.phaseManager.getCurrentPhase().onCrystalDestroyed(crystal, pos, dmgSrc, entityplayer);

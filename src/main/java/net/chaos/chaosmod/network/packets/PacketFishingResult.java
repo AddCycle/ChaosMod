@@ -12,10 +12,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityFishHook;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
@@ -24,6 +22,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.items.ItemHandlerHelper;
 import util.Reference;
 import util.annotations.ModPacket;
 
@@ -89,16 +88,13 @@ public class PacketFishingResult implements IMessage {
 				}
 
 				for (ItemStack stack : loots) {
-					stack.setCount(stack.getCount() * Math.max(1, rand.nextInt(score)));
-					if (!player.inventory.addItemStackToInventory(stack)) {
-						player.dropItem(stack, false);
-					}
+					int multiplier = Math.max(1, rand.nextInt(Math.max(1, score)));
+					stack.setCount(stack.getCount() * multiplier);
 
-					player.world.playSound(null, player.getPosition(), SoundEvents.ENTITY_ITEM_PICKUP,
-							SoundCategory.PLAYERS, 1.0f, 1.0f);
+					ItemHandlerHelper.giveItemToPlayer(player, stack);
+					player.inventoryContainer.detectAndSendChanges();
 				}
 
-				player.inventoryContainer.detectAndSendChanges();
 				hook.setDead();
 			});
 
@@ -117,8 +113,6 @@ public class PacketFishingResult implements IMessage {
 		}
 
 		jobs.getProgress(jobId).incrementTask(player, jobId, taskId);
-
-		Main.getLogger().info("Caught fish, incrementing task");
 	}
 
 	private static String prefixId(String id) {

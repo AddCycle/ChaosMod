@@ -8,6 +8,11 @@ TODO (current version):
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward)
 
 IDEAS:
+  - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
+  - Sword that kinds of follows you around if you cast it and hits mobs (should be an endgame item tho...)
+  - Also make the items have a rarity/tier so that you can basically reforge everything.
+  - Rework the current bosses and entities models (add effects)
+  - Skill tree
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -28,6 +33,7 @@ TODO (next version) ?:
   - Fix playlist and soundMgr system (need to reimplement everything)
 
 ISSUES:
+  - blueFireOverlay of the ChaosMasterBoss in the `custom_dim`
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions)
   - Fix: ModWorldGen viking gallions generated in weird places... #3
   - EntityViking clearing inventory on right-click and kills you...

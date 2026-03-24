@@ -18,7 +18,7 @@ import util.Reference;
 import util.ui.components.GuiUtils;
 
 @SideOnly(Side.CLIENT)
-// TODO : handle fishingSpeedBonus to reduce the speed of the caret
+// TODO : handle fishingSpeedBonus to reduce the speed of the caret rn it's random
 public class GuiFishingMinigame extends GuiScreen {
 	private ItemStack icon;
 	private Random rand;
@@ -52,7 +52,7 @@ public class GuiFishingMinigame extends GuiScreen {
 		Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Reference.MATHSMOD, "kurayum_rod"));
 		icon = new ItemStack(item);
 		totalTargetRange = 40;
-		targetRectRandomPos = getRandomPosOnRange(rectX, rectWidth - totalTargetRange);
+		targetRectRandomPos = getRandomPosOnRange(rectX + totalTargetRange, rectWidth - totalTargetRange);
 
 		closingTime = 60; // 3 sec
 	}

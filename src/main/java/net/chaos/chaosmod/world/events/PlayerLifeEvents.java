@@ -7,10 +7,12 @@ import net.chaos.chaosmod.client.inventory.shield.ShieldImpl;
 import net.chaos.chaosmod.entity.EntityChaosSage;
 import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.init.ModKeybinds;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
+import net.chaos.chaosmod.jobs.gui.GuiScreenJobs;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.network.packets.PacketOpenGui;
 import net.minecraft.client.Minecraft;
@@ -40,6 +42,7 @@ import net.minecraftforge.event.world.BlockEvent.FarmlandTrampleEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -139,6 +142,17 @@ public class PlayerLifeEvents {
 			if (!player.isCreative()) {
 				event.setCanceled(true);
 				PacketManager.network.sendToServer(new PacketOpenGui(Reference.GUI_ACCESSORY_ID));
+			}
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public static void onKeyPressed(KeyInputEvent event) {
+		if (ModKeybinds.displayJobsKey.isPressed()) {
+			Minecraft mc = Minecraft.getMinecraft();
+			if (mc.currentScreen == null) {
+				mc.displayGuiScreen(new GuiScreenJobs());
 			}
 		}
 	}

@@ -32,17 +32,20 @@ public class JobProgress {
 	}
 
 	public void incrementTask(EntityPlayerMP player, String jobId, String taskId) {
+		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
+
+		int before = getTaskProgress(taskId);
+
 		incrementTaskProgress(jobId, taskId);
 
-		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
-		int progress = getTaskProgress(taskId);
+		int after = getTaskProgress(taskId);
 
-		Main.getLogger().info("incremented task: {}, {}/{}", taskId, progress, task.goal);
+		Main.getLogger().info("incremented task: {}, {}/{}", taskId, after, task.goal);
 
-		if (progress >= task.goal) {
-			Main.getLogger().info("invoking completeTask");
-			completeTask(player, jobId, taskId);
-		}
+		if (before < task.goal && after >= task.goal) {
+	        Main.getLogger().info("invoking completeTask");
+	        completeTask(player, jobId, taskId);
+	    }
 		
 		syncJobs(player);
 	}
@@ -70,10 +73,6 @@ public class JobProgress {
 		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
 		if (task == null)
 			return;
-
-		if (getTaskProgress(taskId) > task.goal) return; // this was the issue it was >=
-
-		setTaskProgress(taskId, task.goal + 1); // to be sure to not trigger it again
 
 		addExp(player, jobId, task.rewardExp);
 	}
