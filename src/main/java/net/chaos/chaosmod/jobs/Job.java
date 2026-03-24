@@ -77,7 +77,6 @@ public class Job {
 		Job job = build(json);
 
 		Main.getLogger().info("job fromJson : {}", job.id);
-		Main.getLogger().info("TASKS are null ? {} ", job.tasks == null);
 		return job;
 	}
 
@@ -98,9 +97,6 @@ public class Job {
 				list.add(JobReward.fromJson(el.getAsJsonObject()));
 			}
 		}
-		list.forEach((reward) -> {
-			Main.getLogger().info("reward is : {} ({})", reward.getName(), reward.getAmount());
-		});
 		return list;
 	}
 

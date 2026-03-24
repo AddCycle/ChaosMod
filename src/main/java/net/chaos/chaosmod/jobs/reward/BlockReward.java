@@ -2,6 +2,7 @@ package net.chaos.chaosmod.jobs.reward;
 
 import com.google.gson.JsonObject;
 
+import net.chaos.chaosmod.Main;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,8 @@ public class BlockReward extends JobReward {
 	@Override
 	public void give(EntityPlayer player) {
 		if (player.world.isRemote) return;
+
+        Main.getLogger().debug("Giving {} x{} to {}", this.getName(), this.amount, player.getName());
 		player.addItemStackToInventory(new ItemStack(block, amount));
 	}
 

@@ -17,11 +17,9 @@ public class ItemReward extends JobReward {
 
     @Override
     public void give(EntityPlayer player) {
-        if (player.world.isRemote) {
-            Main.getLogger().warn("Trying to give reward client-side, won't work");
-            return;
-        }
-        Main.getLogger().info("Giving {} x{} to {}", this.item.getRegistryName(), this.amount, player.getName());
+        if (player.world.isRemote) return;
+
+        Main.getLogger().debug("Giving {} x{} to {}", this.getName(), this.amount, player.getName());
         player.addItemStackToInventory(new ItemStack(this.item, this.amount));
     }
 

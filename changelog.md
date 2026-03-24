@@ -3,9 +3,9 @@
 # Items
 
 TODO (current version):
-  - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add much more tasks and item/money reward system]
-  - Add many jobs and items/blocks rewards
-  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward)
+  - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market]
+  - Make all the jobs tasks & rewards from level 1 -> 5 (make content), then tweak or change to make it fun according to `REWORK` section
+  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
 
 IDEAS:
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
@@ -49,6 +49,7 @@ New:
   - added `visited biomes` capability && `/biomes` command
   - Fishing Mechanic where timing is the key to catch something (Undertale inspired thx `Toby Fox`)
   - ChaosMasterBoss in the `custom_dim` deals `blue_fire_damage` with a new overlay effect
+  - feat: `jobs` grants you `block/item` reward leveling up
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

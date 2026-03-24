@@ -110,15 +110,13 @@ public class JobProgress {
 
 		if (job.rewards != null) {
 			Main.getLogger().info("job.rewards != null");
-			if (job.rewards.size() != 0) {
-				JobReward reward = job.rewards.get(level - 1);
-				if (reward == null) {
-					Main.getLogger().error("reward is null cannot grant it for level: {} and job: {}", level, jobId);
-					return;
-				}
+			JobReward reward = job.rewards.stream().filter(r -> r.getLevel() == level).findFirst().orElse(null);
 
+			if (reward != null) {
 				reward.give(player);
 				Main.getLogger().info("reward given to player");
+			} else {
+				Main.getLogger().error("reward is null cannot grant it for level: {} and job: {}", level, jobId);
 			}
 		}
 	}

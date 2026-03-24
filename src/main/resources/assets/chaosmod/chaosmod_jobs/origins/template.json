@@ -17,5 +17,21 @@
 			"_comment": "TODO : add a rewards object with items/blocks"
 		}
 	],
+	"levels": [
+		{
+			"level": 1,
+			"reward": {
+				"item": "chaosmod:oxonium_sword",
+				"amount": 1
+			}
+		},
+		{
+			"level": 2,
+			"reward": {
+				"block": "mathsmod:kurayum_block",
+				"amount": 1
+			}
+		}
+	],
 	"maxLevel": 20
 }
