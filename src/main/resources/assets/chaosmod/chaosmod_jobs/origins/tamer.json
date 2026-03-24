@@ -1,4 +1,36 @@
 {
 	"id": "tamer",
-	"name": "Tamer"
+	"name": "Tamer",
+	"description": "Get all the pets that you want",	
+	"tasks": [
+		{
+			"id": "tame_wolf",
+			"name": "Tame a Wolf",
+			"description": "Give wolf a certain amount of bones, they will like you...",
+			"type": "tame",
+			"target": {
+				"entity": "minecraft:wolf",
+				"data": 0
+			},
+			"goal": 1,
+			"rewardExp": 100
+		}
+	],
+	"levels": [
+		{
+			"level": 1,
+			"reward": {
+				"item": "mathsmod:iron_wolf_chestplate",
+				"amount": 1
+			}
+		},
+		{
+			"level": 2,
+			"reward": {
+				"block": "mathsmod:kurayum_block",
+				"amount": 1
+			}
+		}
+	],
+	"maxLevel": 5
 }

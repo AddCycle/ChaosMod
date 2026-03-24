@@ -13,8 +13,7 @@
 				"data": 1
 			},
 			"goal": 4,
-			"rewardExp": 90,
-			"_comment": "TODO : add a rewards object with items/blocks"
+			"rewardExp": 90
 		}
 	],
 	"levels": [

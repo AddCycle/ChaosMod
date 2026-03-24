@@ -1,9 +1,13 @@
 package net.chaos.chaosmod.jobs.task;
 
 public enum TaskType {
-    HARVEST("harvest"),
-    KILL("kill"),
-    CRAFT("craft");
+    HARVEST("harvest"), // explorer
+    KILL("kill"), // hunter/fighter
+    CRAFT("craft"),
+	TAME("tame"), // tamer
+	CATCH("catch"), // fisherman
+	BREW("brew"), // alchemist
+	MINE("mine"); // miner
     
     public String name;
 

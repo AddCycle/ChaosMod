@@ -5,6 +5,7 @@
 TODO (current version):
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market]
   - Make all the jobs tasks & rewards from level 1 -> 5 (make content), then tweak or change to make it fun according to `REWORK` section
+  - Make jobs support multiple rewards (Later)
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
 
 IDEAS:
