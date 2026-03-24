@@ -3,11 +3,12 @@ package net.chaos.chaosmod.jobs;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 /**
- * Per-player job capabilities storage client-side
+ * Per-player job capabilities storage client-side (unless sync-system made by the user (which I did))
  */
 public class PlayerJobs {
 	private final Map<String, JobProgress> progressMap = new HashMap<>();
@@ -17,10 +18,10 @@ public class PlayerJobs {
 	 * @param jobId
 	 * @param amount
 	 */
-	public void addExp(String jobId, int amount) {
+	public void addExp(EntityPlayerMP player, String jobId, int amount) {
         JobProgress progress = progressMap.computeIfAbsent(jobId, id -> new JobProgress(0, 0));
         if (progress != null) {
-            progress.addExp(amount);
+            progress.addExp(player, jobId, amount);
         }
     }
 

@@ -64,6 +64,12 @@ public class Job {
 		}
 		obj.add("tasks", tasksArr);
 
+		JsonArray rewardsArr = new JsonArray();
+		for (JobReward reward : rewards) {
+			rewardsArr.add(reward.toJson());
+		}
+		obj.add("levels", rewardsArr);
+
 		return obj;
 	}
 

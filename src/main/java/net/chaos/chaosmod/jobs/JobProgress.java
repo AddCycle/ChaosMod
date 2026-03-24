@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
+import net.chaos.chaosmod.jobs.reward.JobReward;
 import net.chaos.chaosmod.jobs.task.JobTask;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.network.packets.PacketSyncPlayerJobs;
@@ -22,14 +23,8 @@ public class JobProgress {
 		this.exp = exp;
 	}
 
-	public static void addExp(EntityPlayerMP player, String jobId, int amount) {
-		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
-		if (jobs != null) {
-			jobs.addExp(jobId, amount);
-
-			syncJobs(player);
-		}
-	}
+//	public static void addExp(EntityPlayerMP player, String jobId, int amount) {
+//	}
 
 	public void incrementTask(EntityPlayerMP player, String jobId, String taskId) {
 		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
@@ -43,13 +38,13 @@ public class JobProgress {
 		Main.getLogger().info("incremented task: {}, {}/{}", taskId, after, task.goal);
 
 		if (before < task.goal && after >= task.goal) {
-	        Main.getLogger().info("invoking completeTask");
-	        completeTask(player, jobId, taskId);
-	    }
-		
+			Main.getLogger().info("invoking completeTask");
+			completeTask(player, jobId, taskId);
+		}
+
 		syncJobs(player);
 	}
-	
+
 	public void incrementTaskProgress(String jobId, String taskId) {
 		incrementTaskProgress(jobId, taskId, 1);
 	}
@@ -66,9 +61,9 @@ public class JobProgress {
 	}
 
 	public void setTaskProgress(String taskId, int value) {
-	    taskProgressMap.put(taskId, value);
+		taskProgressMap.put(taskId, value);
 	}
-	
+
 	public void completeTask(EntityPlayerMP player, String jobId, String taskId) {
 		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
 		if (task == null)
@@ -76,26 +71,56 @@ public class JobProgress {
 
 		addExp(player, jobId, task.rewardExp);
 	}
-	
+
 	public static void syncJobs(EntityPlayerMP player) {
-	    PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
 		PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), player);
 	}
 
-	public void addExp(int amount) {
-		int oldExp = getExp();
-		int exp = getExp() + amount;
-		int level = getLevel();
+	public void addExp(EntityPlayerMP player, String jobId, int amount) {
+		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
 
-		while (exp >= getExpToNextLevel(level)) {
-			exp -= getExpToNextLevel(level);
-			level++;
+		if (jobs != null) {
+			int oldExp = getExp();
+			int exp = getExp() + amount;
+			int level = getLevel();
+
+			while (exp >= getExpToNextLevel(level)) {
+				exp -= getExpToNextLevel(level);
+				level++;
+				onLevelUp(player, jobId, level);
+			}
+
+			setExp(exp);
+			setLevel(level);
+
+			Main.getLogger().info("Job EXP added: {} -> {}, Level now: {}", oldExp, exp, level);
 		}
 
-		setExp(exp);
-		setLevel(level);
+		syncJobs(player);
+	}
 
-		Main.getLogger().info("Job EXP added: {} -> {}, Level now: {}", oldExp, exp, level);
+	private void onLevelUp(EntityPlayerMP player, String jobId, int level) {
+		Main.getLogger().info("onLevelUp trigger for job : {}, level: {}", jobId, level);
+		Job job = JobsManager.REGISTRY.get(jobId);
+		if (job == null) {
+			Main.getLogger().error("Job is null cannot invoke levelUp: {}", jobId);
+			return;
+		}
+
+		if (job.rewards != null) {
+			Main.getLogger().info("job.rewards != null");
+			if (job.rewards.size() != 0) {
+				JobReward reward = job.rewards.get(level - 1);
+				if (reward == null) {
+					Main.getLogger().error("reward is null cannot grant it for level: {} and job: {}", level, jobId);
+					return;
+				}
+
+				reward.give(player);
+				Main.getLogger().info("reward given to player");
+			}
+		}
 	}
 
 	public int getExpToNextLevel(int currentLevel) {
@@ -110,7 +135,7 @@ public class JobProgress {
 		NBTTagCompound tasksTag = new NBTTagCompound();
 
 		for (Entry<String, Integer> entry : taskProgressMap.entrySet()) {
-		    tasksTag.setInteger(entry.getKey(), entry.getValue());
+			tasksTag.setInteger(entry.getKey(), entry.getValue());
 		}
 
 		tag.setTag("tasks", tasksTag);
@@ -121,29 +146,21 @@ public class JobProgress {
 	public void fromNBT(NBTTagCompound tag) {
 		this.setLevel(tag.getInteger("level"));
 		this.setExp(tag.getInteger("exp"));
-		
-		if (tag.hasKey("tasks")) {
-		    NBTTagCompound tasksTag = tag.getCompoundTag("tasks");
 
-		    for (String key : tasksTag.getKeySet()) {
-		        taskProgressMap.put(key, tasksTag.getInteger(key));
-		    }
+		if (tag.hasKey("tasks")) {
+			NBTTagCompound tasksTag = tag.getCompoundTag("tasks");
+
+			for (String key : tasksTag.getKeySet()) {
+				taskProgressMap.put(key, tasksTag.getInteger(key));
+			}
 		}
 	}
 
-	public int getLevel() {
-		return level;
-	}
+	public int getLevel() { return level; }
 
-	public void setLevel(int level) {
-		this.level = level;
-	}
+	public void setLevel(int level) { this.level = level; }
 
-	public int getExp() {
-		return exp;
-	}
+	public int getExp() { return exp; }
 
-	public void setExp(int exp) {
-		this.exp = exp;
-	}
+	public void setExp(int exp) { this.exp = exp; }
 }

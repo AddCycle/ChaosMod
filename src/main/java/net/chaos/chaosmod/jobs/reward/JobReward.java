@@ -17,6 +17,8 @@ public abstract class JobReward {
 		this.amount = amount;
 	}
 
+	public abstract JsonObject toJson();
+
 	public static JobReward fromJson(JsonObject json) {
 		int level = json.get("level").getAsInt();
 		JsonObject reward = json.get("reward").getAsJsonObject();

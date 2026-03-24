@@ -33,9 +33,7 @@ public class JobsCommand extends AbstractPermissionFreeCommand implements IComma
 	public List<String> completion = new ArrayList<String>();
 
 	@Override
-	public String getName() {
-		return "jobs";
-	}
+	public String getName() { return "jobs"; }
 
 	@Override
 	public String getUsage(ICommandSender sender) {
@@ -43,9 +41,7 @@ public class JobsCommand extends AbstractPermissionFreeCommand implements IComma
 	}
 
 	@Override
-	public List<String> getAliases() {
-		return Arrays.asList("job", "jbos", "bojs", "sojb");
-	}
+	public List<String> getAliases() { return Arrays.asList("job", "jbos", "bojs", "sojb"); }
 
 	@Override
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args,
@@ -99,8 +95,15 @@ public class JobsCommand extends AbstractPermissionFreeCommand implements IComma
 			case 3:
 				if (args[1].equalsIgnoreCase("xp")) {
 					Main.getLogger().info("Jobs : Command sent increase exp");
-					JobProgress.addExp(player, args[0], parseInt(args[2]));
-					player.sendMessage(new TextComponentString("success"));
+					PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+					Job job = JobsManager.REGISTRY.get(args[0]);
+					if (job != null) {
+						JobProgress progress = jobs.getProgress(job.id);
+						progress.addExp(player, args[0], parseInt(args[2]));
+						player.sendMessage(new TextComponentString("success"));
+					} else {
+						player.sendMessage(new TextComponentString("error job is null"));
+					}
 				}
 				break;
 			case 4:
