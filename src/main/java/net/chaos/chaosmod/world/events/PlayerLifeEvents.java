@@ -145,7 +145,7 @@ public class PlayerLifeEvents {
 			}
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void onKeyPressed(KeyInputEvent event) {
@@ -160,37 +160,38 @@ public class PlayerLifeEvents {
 	// TODO : move elsewhere accessory related
 	@SubscribeEvent
 	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
-		if (event.getObject() instanceof EntityPlayer) {
-			event.addCapability(new ResourceLocation(Reference.MODID, "accessory"),
-					new ICapabilitySerializable<NBTTagCompound>() {
-						final AccessoryImpl instance = new AccessoryImpl();
+		if (!(event.getObject() instanceof EntityPlayer))
+			return;
 
-						@Override
-						public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-							return capability == ModCapabilities.ACCESSORY;
-						}
+		event.addCapability(new ResourceLocation(Reference.MODID, "accessory"),
+				new ICapabilitySerializable<NBTTagCompound>() {
+					final AccessoryImpl instance = new AccessoryImpl();
 
-						@Override
-						public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-							return capability == ModCapabilities.ACCESSORY ? ModCapabilities.ACCESSORY.cast(instance)
-									: null;
-						}
+					@Override
+					public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+						return capability == ModCapabilities.ACCESSORY;
+					}
 
-						@Override
-						public NBTTagCompound serializeNBT() {
-							return instance.serializeNBT(); // very important!
-						}
+					@Override
+					public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+						return capability == ModCapabilities.ACCESSORY ? ModCapabilities.ACCESSORY.cast(instance)
+								: null;
+					}
 
-						@Override
-						public void deserializeNBT(NBTTagCompound nbt) {
-							instance.deserializeNBT(nbt);
-						}
-					});
-		}
+					@Override
+					public NBTTagCompound serializeNBT() {
+						return instance.serializeNBT(); // very important!
+					}
+
+					@Override
+					public void deserializeNBT(NBTTagCompound nbt) {
+						instance.deserializeNBT(nbt);
+					}
+				});
 	}
 
 	@SubscribeEvent
-	// FIXME =?> fix this method
+	// FIXME =?> fix this method or remove completely since Mod direction hasChanged
 	public static void onPlayerChangeDimension(PlayerChangedDimensionEvent event) {
 		EntityPlayerMP player = (EntityPlayerMP) event.player;
 
@@ -224,25 +225,28 @@ public class PlayerLifeEvents {
 	public static void onCrafting(ItemCraftedEvent event) {
 		if (event.player.world.isRemote)
 			return;
-		
+
 		EntityPlayer player = event.player;
 
 		for (int i = 0; i < 9; i++) {
 			if (event.craftMatrix.getStackInSlot(i).getItem() == ModItems.TINKERERS_HAMMER) {
 				ItemStack item = event.craftMatrix.getStackInSlot(i);
 				if (item.getItemDamage() < item.getMaxDamage() - 1) {
-					player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ANVIL_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
+					player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ANVIL_USE,
+							SoundCategory.PLAYERS, 1.0f, 1.0f);
 					player.sendMessage(
 							new TextComponentString("Recipe contains hammer, playing sound... based on damage : "
 									+ (item.getItemDamage() + 1) + "/" + item.getMaxDamage()));
 				} else {
-					player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 1.0f, 1.0f);
+					player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ANVIL_LAND,
+							SoundCategory.PLAYERS, 1.0f, 1.0f);
 				}
 			}
 		}
 	}
 
 	// TODO : move elsewhere shield related
+	// TODO : needs to do more of a active-blocking player action than a passive one (boring)
 	@SubscribeEvent
 	public static void attachCapabilityShield(AttachCapabilitiesEvent<Entity> event) {
 		if (!(event.getObject() instanceof EntityPlayer))

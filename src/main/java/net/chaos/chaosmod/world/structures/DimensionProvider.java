@@ -59,6 +59,8 @@ public class DimensionProvider extends WorldProvider {
 	}
 	
 	@Override
+	// in order to have a custom name & custom biomes...
+	// FIXME : make a custom ChunkGenerator... for the dimension to make my own biomes and the TrueChaosGarden/EnderGarden
 	public IChunkGenerator createChunkGenerator() {
 		return new ChunkGeneratorEnd(this.world, this.world.getWorldInfo().isMapFeaturesEnabled(), this.world.getSeed(), this.getSpawnCoordinate());
 	}
@@ -93,10 +95,7 @@ public class DimensionProvider extends WorldProvider {
     	// float r = 0.85F; // red channel
         // float g = 0.3F;  // green channel (low = more magenta)
         // float b = 0.85F; // blue channel
-//    	float r = 1.0f;
-//    	float g = 1.0f;
-//    	float b = 1.0f;
-//        return new Vec3d(r, g, b);
+//      return new Vec3d(r, g, b);
         int i = 10518688;
         float f = MathHelper.cos(p_76562_1_ * ((float)Math.PI * 2F)) * 2.0F + 0.5F;
         f = MathHelper.clamp(f, 0.0F, 1.0F);

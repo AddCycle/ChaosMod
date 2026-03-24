@@ -33,7 +33,6 @@ TODO (next version) ?:
   - Fix playlist and soundMgr system (need to reimplement everything)
 
 ISSUES:
-  - blueFireOverlay of the ChaosMasterBoss in the `custom_dim`
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions)
   - Fix: ModWorldGen viking gallions generated in weird places... #3
   - EntityViking clearing inventory on right-click and kills you...
@@ -49,6 +48,7 @@ New:
   - BiomeFinderCommand: `/biome [biome_id] [range]`
   - added `visited biomes` capability && `/biomes` command
   - Fishing Mechanic where timing is the key to catch something (Undertale inspired thx `Toby Fox`)
+  - ChaosMasterBoss in the `custom_dim` deals `blue_fire_damage` with a new overlay effect
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.jobs.reward.JobReward;
 import net.chaos.chaosmod.jobs.task.JobTask;
 import util.Reference;
 
@@ -18,9 +19,9 @@ public class Job {
 	public String description;
 	public int maxLevel;
 	public List<JobTask> tasks;
-//	public List<JobReward> rewards = new ArrayList<JobReward>();
+	public List<JobReward> rewards = new ArrayList<>(); // i'm not sure of this
 
-	public Job(String id, String name, List<JobTask> tasks, String description, int maxLevel) {
+	public Job(String id, String name, List<JobTask> tasks, List<JobReward> rewards, String description, int maxLevel) {
 		this.id = id.contains(":") ? id : Reference.PREFIX + id;
 		this.name = name;
 		Job existing = JobsManager.REGISTRY.get(this.id);
@@ -30,6 +31,7 @@ public class Job {
 			this.index = JobsManager.nextId(); // new index on init
 		}
 		this.tasks = tasks != null ? tasks : new ArrayList<>();
+		this.rewards = rewards != null ? rewards : new ArrayList<>();
 		this.description = description;
 		this.maxLevel = maxLevel;
 
@@ -73,10 +75,9 @@ public class Job {
 		return job;
 	}
 
-	@SuppressWarnings("null")
-	private static List<JobTask> convert(JsonArray array) {
+	private static List<JobTask> convertTask(JsonArray array) {
 		List<JobTask> list = new ArrayList<>();
-		if (array != null || !array.isJsonNull()) {
+		if (array != null && !array.isJsonNull()) {
 			for (JsonElement el : array) {
 				list.add(JobTask.fromJson(el.getAsJsonObject()));
 			}
@@ -84,9 +85,23 @@ public class Job {
 		return list;
 	}
 
+	private static List<JobReward> convertRewards(JsonArray array) {
+		List<JobReward> list = new ArrayList<>();
+		if (array != null && !array.isJsonNull()) {
+			for (JsonElement el : array) {
+				list.add(JobReward.fromJson(el.getAsJsonObject()));
+			}
+		}
+		list.forEach((reward) -> {
+			Main.getLogger().info("reward is : {} ({})", reward.getName(), reward.getAmount());
+		});
+		return list;
+	}
+
 	private static Job build(JsonObject json) {
 		return new Job(json.get("id").getAsString(), json.get("name").getAsString(),
-				json.has("tasks") ? convert(json.getAsJsonArray("tasks")) : new ArrayList<JobTask>(),
+				json.has("tasks") ? convertTask(json.getAsJsonArray("tasks")) : new ArrayList<JobTask>(),
+				json.has("levels") ? convertRewards(json.getAsJsonArray("levels")) : new ArrayList<JobReward>(),
 				json.has("description") ? json.get("description").getAsString() : "default_description",
 				json.has("maxLevel") ? json.get("maxLevel").getAsInt() : 20);
 	}

@@ -51,7 +51,7 @@ public class GuiHandler implements IGuiHandler {
 		    return null;
 		case 5:
 			return emptyContainer();
-		case 6:
+		case Reference.GUI_ACCESSORY_ID:
 			return new ContainerAccessory(inventory, world.isRemote, player);
 		case 7:
 			return new TrophyContainerBase(inventory, (TileEntityTrophyBase) te);
@@ -85,7 +85,7 @@ public class GuiHandler implements IGuiHandler {
 			return new BackpackGui(new BackpackContainer(player.inventory, player.getHeldItemMainhand()));
 		case 5:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
-		case 6:
+		case Reference.GUI_ACCESSORY_ID:
 			return new GuiInventoryExtended(player);
 		case Reference.GUI_TROPHY:
 			return new TrophyGui(player.inventory, (TileEntityTrophyBase) te);

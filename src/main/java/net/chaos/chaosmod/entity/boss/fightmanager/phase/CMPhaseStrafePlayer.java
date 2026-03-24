@@ -7,10 +7,10 @@ import org.apache.logging.log4j.Logger;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
+import net.chaos.chaosmod.entity.projectile.ChaosMasterFireball;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityDragonFireball;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.pathfinding.Path;
@@ -94,7 +94,7 @@ public class CMPhaseStrafePlayer extends CMPhaseBase
                         double d11 = this.attackTarget.posZ - d8;
                         this.dragon.world.playEvent((EntityPlayer)null, 1017, new BlockPos(this.dragon), 0);
                         double accelFactor = 2;
-                        EntityDragonFireball entitydragonfireball = new EntityDragonFireball(this.dragon.world, this.dragon, d9 * accelFactor, d10 * accelFactor, d11 * accelFactor) {
+                        ChaosMasterFireball entityChaosMasterFireball = new ChaosMasterFireball(this.dragon.world, this.dragon, d9 * accelFactor, d10 * accelFactor, d11 * accelFactor) {
                         	@Override
                         	public boolean attackEntityFrom(DamageSource source, float amount) {
                         	    this.markVelocityChanged();
@@ -143,8 +143,8 @@ public class CMPhaseStrafePlayer extends CMPhaseBase
                         	    return false;
                         	}
                         };
-                        entitydragonfireball.setLocationAndAngles(d6, d7, d8, 0.0F, 0.0F);
-                        this.dragon.world.spawnEntity(entitydragonfireball);
+                        entityChaosMasterFireball.setLocationAndAngles(d6, d7, d8, 0.0F, 0.0F);
+                        this.dragon.world.spawnEntity(entityChaosMasterFireball);
                         this.fireballCharge = 0;
 
                         if (this.currentPath != null)

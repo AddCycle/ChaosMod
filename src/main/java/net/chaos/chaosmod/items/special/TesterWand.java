@@ -8,7 +8,6 @@ import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.chaos.chaosmod.init.ModDamageSources;
 import net.chaos.chaosmod.items.ItemBase;
 import net.chaos.chaosmod.network.packets.PacketManager;
-import net.chaos.chaosmod.network.packets.PacketShowFireOverlay;
 import net.chaos.chaosmod.network.packets.PacketSpawnCustomParticle;
 import net.chaos.chaosmod.particle.CustomParticleSpawnManager;
 import net.minecraft.entity.Entity;
@@ -110,7 +109,6 @@ public class TesterWand extends ItemBase {
 	    		if (!worldIn.isRemote) {
 	    			playerIn.sendMessage(new TextComponentString("blue fire test"));
 	    			playerIn.attackEntityFrom(ModDamageSources.BLUE_FIRE, 4.0f);
-//	    			 PacketManager.network.sendToAll(new PacketShowFireOverlay(true, 10));
 	    		}
 	    		break;
 	    	default:

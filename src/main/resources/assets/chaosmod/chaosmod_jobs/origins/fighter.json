@@ -28,5 +28,14 @@
 			"rewardExp": 100
 		}
 	],
+	"levels": [
+		{
+			"level": 1,
+			"reward": {
+				"item": "chaosmod:oxonium_sword",
+				"amount": 1
+			}
+		}
+	],
 	"maxLevel": 20
 }

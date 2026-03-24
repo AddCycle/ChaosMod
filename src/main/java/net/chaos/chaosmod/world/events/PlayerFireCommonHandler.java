@@ -48,19 +48,14 @@ public class PlayerFireCommonHandler {
 	        if (ticks > 0 && !player.isInWater()) {
 	            if (ticks % 20 == 0) {
 	                player.attackEntityFrom(ModDamageSources.BLUE_FIRE_DAMAGE, 1.0F);
+	                player.world.playSound(null, player.getPosition(),
+	                		SoundEvents.BLOCK_NOTE_BELL, SoundCategory.PLAYERS, 1.0f, 1.0f);
 	            }
 	            player.getEntityData().setInteger("CustomFireOverlayTicks", ticks - 1);
-	        } else if (ticks <= 0) {
+	        } else if (ticks <= 0 || player.isInWater()) {
 	            // stop overlay
 	            player.getEntityData().setInteger("CustomFireOverlayTicks", 0);
 	            PacketManager.network.sendTo(new PacketShowFireOverlay(false, 0), (EntityPlayerMP) player);
-	        }
-		}
-
-		if (player.world.isRemote) {
-			if (player.getEntityData().getBoolean("ShowCustomFireOverlay")) {
-	            player.world.playSound(null, player.getPosition(),
-	                SoundEvents.BLOCK_NOTE_BELL, SoundCategory.PLAYERS, 1.0f, 1.0f);
 	        }
 		}
 	}
