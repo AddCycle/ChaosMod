@@ -85,15 +85,22 @@ public class PacketFishingResult implements IMessage {
 
 				if (loots.stream().anyMatch(stack -> stack.getItem() instanceof ItemFishFood)) {
 				    incrementFirstCatchTask((EntityPlayerMP) player);
-				}
+				}				
 
 				for (ItemStack stack : loots) {
+					if (score == 0) break;
 					int multiplier = Math.max(1, rand.nextInt(Math.max(1, score)));
 					stack.setCount(stack.getCount() * multiplier);
 
 					ItemHandlerHelper.giveItemToPlayer(player, stack);
 					player.inventoryContainer.detectAndSendChanges();
+
+					PacketManager.network.sendTo(
+					    new PacketFishingLoot(stack),
+					    (EntityPlayerMP) player
+					);
 				}
+
 
 				hook.setDead();
 			});

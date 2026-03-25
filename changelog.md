@@ -34,6 +34,7 @@ TODO (next version) ?:
   - Fix playlist and soundMgr system (need to reimplement everything)
 
 ISSUES:
+  - Fix: When `mathsmod` not loaded, job reward for `tamer` is null
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions)
   - Fix: ModWorldGen viking gallions generated in weird places... #3
   - EntityViking clearing inventory on right-click and kills you...

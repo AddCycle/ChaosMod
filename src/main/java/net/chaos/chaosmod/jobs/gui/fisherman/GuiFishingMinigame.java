@@ -1,6 +1,10 @@
 package net.chaos.chaosmod.jobs.gui.fisherman;
 
+import java.awt.Point;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.input.Keyboard;
@@ -8,6 +12,8 @@ import org.lwjgl.input.Keyboard;
 import net.chaos.chaosmod.network.packets.PacketFishingResult;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -20,7 +26,8 @@ import util.ui.components.GuiUtils;
 @SideOnly(Side.CLIENT)
 // TODO : handle fishingSpeedBonus to reduce the speed of the caret rn it's random
 public class GuiFishingMinigame extends GuiScreen {
-	private ItemStack icon;
+	private List<ItemStack> icons = new ArrayList<>();
+	private List<Point> points = new ArrayList<>();
 	private Random rand;
 
 	public int dark = 0xff24292f;
@@ -47,14 +54,14 @@ public class GuiFishingMinigame extends GuiScreen {
 	@Override
 	public void initGui() {
 		rand = mc.world.rand;
+		initIcons();
 		initRect();
 		initCaret();
-		Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Reference.MATHSMOD, "kurayum_rod"));
-		icon = new ItemStack(item);
+
 		totalTargetRange = 40;
 		targetRectRandomPos = getRandomPosOnRange(rectX + totalTargetRange, rectWidth - totalTargetRange);
 
-		closingTime = 60; // 3 sec
+		closingTime = 40; // 2 sec
 	}
 
 	@Override
@@ -69,7 +76,13 @@ public class GuiFishingMinigame extends GuiScreen {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		drawBackground(0);
 
-		itemRender.renderItemIntoGUI(icon, width / 2, 40);
+		int scale = 2;
+		int i = 0;
+		for (ItemStack stack : icons) {
+			Point pt = points.get(i);
+			itemRender.renderItemIntoGUI(stack, pt.x, pt.y);
+			i++;
+		}
 
 		drawCenteredString(fontRenderer, "Are you a good fisherman ?", width / 2, 20, 0xffffffff);
 
@@ -82,8 +95,8 @@ public class GuiFishingMinigame extends GuiScreen {
 		renderScore();
 
 		if (closingTicks >= 1) {
-			drawCenteredString(fontRenderer, String.format("You got a [%s]", icon.getDisplayName()), width / 2, 50,
-					0xff00ff00);
+			if (score <= 0) drawCenteredString(fontRenderer, "You got [NOTHING]", width / 2, 50, 0xffff0000);
+			if (score > 0) drawCenteredString(fontRenderer, "You got [SOMETHING]", width / 2, 50, 0xff00ff00);
 		}
 	}
 
@@ -101,13 +114,13 @@ public class GuiFishingMinigame extends GuiScreen {
 	}
 
 	private void initCaret() {
-		caretX = rectX;
+		caretX = rectX + rectWidth / 2;
 		caretY = rectY;
-		caretWidth = 10;
+		caretWidth = 2;
 		caretHeight = rectY + rectHeight;
 		caretColor = 0xff0000ff;
 
-		caretSpeed = 2 + rand.nextInt(5); // 2-6
+		caretSpeed = 4 + rand.nextInt(3); // 4-6
 	}
 
 	private void updateCaret() {
@@ -187,16 +200,18 @@ public class GuiFishingMinigame extends GuiScreen {
 
 		closingTicks++;
 		if (closingTicks == 1) {
+			if (calculateScore() > 0) mc.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
+			else mc.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0f, 0.1f);
+
 		}
 
 		if (closingTicks >= closingTime) {
 			GuiUtils.closeCurrentScreen(mc);
 		}
 	}
-
+	
 	@Override
 	public void onGuiClosed() {
-		if (!stoppedCaret) return;
 		PacketManager.network.sendToServer(new PacketFishingResult(score, mc.player.fishEntity.getEntityId()));
 	}
 
@@ -208,5 +223,27 @@ public class GuiFishingMinigame extends GuiScreen {
 	private boolean isInsideTarget(int range) {
 		int caretCenter = caretX + caretWidth / 2;
 		return targetRectRandomPos - range <= caretCenter && caretCenter <= targetRectRandomPos + range;
+	}
+
+	private void initIcons() {
+		Item fishing_rod = Items.FISHING_ROD;
+		Item tfosium_rod = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Reference.MATHSMOD, "tfosium_rod"));
+		Item kurayum_rod = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Reference.MATHSMOD, "kurayum_rod"));
+		addItemToIcons(fishing_rod, tfosium_rod, kurayum_rod);
+		
+		int right = width - 16 - 10;
+		int bottom = height - 16 - 10;
+		points = Arrays.asList(
+			new Point(10, 10),
+			new Point(right, 10),
+			new Point(10, bottom),
+			new Point(right, bottom)
+		);
+	}
+	
+	private void addItemToIcons(Item ...items) {
+		for (Item item : items) {
+			if (item != null) icons.add(new ItemStack(item));
+		}
 	}
 }
