@@ -18,11 +18,11 @@ public class ModBiomes {
 	public static final List<Biome> BIOMES = new ArrayList<Biome>();
 	public static final int CUSTOM_BIOME_WEIGHT = 50;
 
-	public static final Biome GIANT_MOUNTAIN = new CustomBiomeOverworld().setRegistryName(new ResourceLocation(Reference.MODID, "giant_mountains"));;
-	public static final Biome NETHER_CAVES = new CustomBiomeNether().setRegistryName(new ResourceLocation(Reference.MODID, "nether_caves"));;
-	public static final Biome ENDER_GARDEN = new CustomBiomeEnderGarden().setRegistryName(new ResourceLocation(Reference.MODID, "ender_garden"));;
-	public static final Biome CHAOS_LAND_BIOME = new CustomBiomeChaosLand().setRegistryName(new ResourceLocation(Reference.MODID, "chaos_land_biome"));;
-	public static final Biome CUSTOM_HELL = new CustomBiomeHell().setRegistryName(new ResourceLocation(Reference.MODID, "custom_hell"));
+	public static Biome GIANT_MOUNTAIN = new CustomBiomeOverworld().setRegistryName(new ResourceLocation(Reference.MODID, "giant_mountains"));
+	public static Biome NETHER_CAVES = new CustomBiomeNether().setRegistryName(new ResourceLocation(Reference.MODID, "nether_caves"));
+	public static Biome ENDER_GARDEN = new CustomBiomeEnderGarden().setRegistryName(new ResourceLocation(Reference.MODID, "ender_garden"));
+	public static Biome CHAOS_LAND_BIOME = new CustomBiomeChaosLand().setRegistryName(new ResourceLocation(Reference.MODID, "chaos_land_biome"));
+	public static Biome CUSTOM_HELL = new CustomBiomeHell().setRegistryName(new ResourceLocation(Reference.MODID, "custom_hell"));
 
     public static void registerBiomes() {
     	BIOMES.add(GIANT_MOUNTAIN);

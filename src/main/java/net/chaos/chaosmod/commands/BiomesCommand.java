@@ -29,7 +29,9 @@ public class BiomesCommand extends AbstractPermissionFreeCommand {
 		if (cap == null) return;
 		
 		for (Biome b : cap.getVisitedBiomes()) {
-			player.sendMessage(new TextComponentString(b.getRegistryName().toString()));
+			if (b.getRegistryName() != null) {
+				player.sendMessage(new TextComponentString(b.getRegistryName().toString()));
+			}
 		}
 	}
 }
