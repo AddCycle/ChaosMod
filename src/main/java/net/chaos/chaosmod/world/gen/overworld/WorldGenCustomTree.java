@@ -3,7 +3,7 @@ package net.chaos.chaosmod.world.gen.overworld;
 import java.util.Random;
 
 import net.chaos.chaosmod.init.ModBlocks;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -32,12 +32,21 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
         // Check if we can generate here
         for (int y = 0; y <= height + 1; y++) {
             BlockPos checkPos = position.up(y);
-            Block block = world.getBlockState(position).getBlock();
-            if (!world.isAirBlock(checkPos) && !world.getBlockState(checkPos).getMaterial().isReplaceable() && 
-            	block != Blocks.GRASS) {
+            if (!world.isAirBlock(checkPos) && !world.getBlockState(checkPos).getMaterial().isReplaceable()) {
                 canGenerate = false;
                 break;
             }
+        }        
+
+        BlockPos blockBelowPos = world.getHeight(position).down();
+
+        // Cancel if the block below is one of the custom leaves
+        IBlockState stateBelow = world.getBlockState(blockBelowPos);
+        if (stateBelow.getBlock() instanceof BlockLeaves
+        		|| stateBelow.getBlock() == Blocks.WATER
+        		|| stateBelow.getBlock() == Blocks.FLOWING_WATER) {
+        	// Skip this tree
+        	canGenerate = false;
         }
 
         if (!canGenerate) return false;
@@ -54,7 +63,8 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
         	world.setBlockState(light_pos, ModBlocks.PINK_LANTERN.getStateForPlacement(world, light_pos, facing_light, light_pos.getX(), light_pos.getY(), light_pos.getZ(), 0, null, EnumHand.MAIN_HAND));
         }
 
-        if (rand.nextInt(100) == 0) world.setBlockState(position.up(height + 1), altar, 2); // boss altar on top of it 1/100 chance
+        // boss altar on top of it 1/100 chance per tree
+        if (rand.nextInt(100) == 0) world.setBlockState(position.up(height + 1), altar, 2);
 
         // Set leaves
         for (int y = height - 2; y <= height; y++) {

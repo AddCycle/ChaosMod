@@ -55,6 +55,10 @@ public class ModConfig {
 		@Config.Name("Additional Block/Entity infos background")
 		@Config.Comment("Maybe you can see read it more clearly")
 		public boolean isAdditionalInfosBackgroundEnabled = false;
+
+		@Config.Name("Show ping")
+		@Config.Comment("Shows your ping on top right of the screen")
+		public boolean showPing = true;
 	}
 
 	public static class Server {

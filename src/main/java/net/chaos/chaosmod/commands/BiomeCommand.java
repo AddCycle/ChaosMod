@@ -2,7 +2,6 @@ package net.chaos.chaosmod.commands;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -93,10 +92,7 @@ public class BiomeCommand extends CommandBase {
 	@Override
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args,
 			BlockPos targetPos) {
-		if (args.length != 1) 
-			return Collections.<String>emptyList();
-
-		return ForgeRegistries.BIOMES.getKeys().stream().map(rl -> rl.toString()).collect(Collectors.toList());
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, ForgeRegistries.BIOMES.getKeys()) : Collections.emptyList();
 	}
 
 	private ResourceLocation getRLFromBiomeId(String id) {

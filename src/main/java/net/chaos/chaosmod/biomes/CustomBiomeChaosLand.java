@@ -3,22 +3,22 @@ package net.chaos.chaosmod.biomes;
 import java.util.Random;
 
 import net.chaos.chaosmod.blocks.CustomLog;
+import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.world.gen.overworld.WorldGenCustomTree;
 import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
-public class CustomBiomeChaosLand extends Biome {
+public class CustomBiomeChaosLand extends AbstractBiome {
 	public static final WorldGenCustomTree TREE_GEN = new WorldGenCustomTree(
 	        ((CustomLog) ModBlocks.CUSTOM_LOG).getStateFromMeta(3),
 	        ((CustomLeaves) ModBlocks.CUSTOM_LEAVES).getStateFromMeta(3)
@@ -36,46 +36,24 @@ public class CustomBiomeChaosLand extends Biome {
             .setWaterColor(65535)
             .setRainDisabled());
 
-        this.decorator.treesPerChunk = 0;
-        this.flowers.clear();
-        this.decorator.flowersPerChunk = 8;
+        this.decorator.treesPerChunk = 5;
+
         this.topBlock = Blocks.GRASS.getDefaultState();
         this.fillerBlock = Blocks.DIRT.getDefaultState();
+
+        this.decorator.generateFalls = false; // lava/water lakes
+
         this.spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
-        this.decorator.generateFalls = false;
-        this.decorator.extraTreeChance = 0.0F;
-
         this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 4, 8, 30));
         this.spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 5, 7, 20));
         this.spawnableCreatureList.add(new SpawnListEntry(EntityPicsou.class, 4, 8, 10));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityCreeper.class, 2, 5, 5));
-        // this.spawnableCreatureList.add(new SpawnListEntry(EntityMountainGiantBoss.class, 75, 1, 1));
-        this.addFlower(ModBlocks.CUSTOM_FLOWER.getDefaultState(), 10);
+
+        this.flowers.clear();
+        this.addFlower(((BlockCustomFlower) ModBlocks.CUSTOM_FLOWER).getStateFromMeta(3), 10);
         
     }
-	
-	@Override
-	public void decorate(World worldIn, Random rand, BlockPos pos) {
-	    super.decorate(worldIn, rand, pos);
-
-	    int trees = 5;
-	    for (int i = 0; i < trees; i++) {
-	        BlockPos genPos = pos.add(rand.nextInt(16) + 8, 0, rand.nextInt(16) + 8);
-	        genPos = worldIn.getHeight(genPos);
-
-	        BlockPos checkPos = genPos.down();
-
-	        // Cancel if the block below is one of the custom leaves
-	        IBlockState stateBelow = worldIn.getBlockState(checkPos);
-	        if (stateBelow.getBlock() instanceof BlockLeaves
-	        	|| stateBelow.getBlock() == Blocks.WATER
-	        	|| stateBelow.getBlock() == Blocks.FLOWING_WATER) {
-	        	return; // Skip this tree
-	        }
-	        TREE_GEN.generate(worldIn, rand, genPos);
-	    }
-	}
 	
 	@Override
 	public int getGrassColorAtPos(BlockPos pos) {
@@ -85,5 +63,10 @@ public class CustomBiomeChaosLand extends Biome {
 	@Override
 	public int getFoliageColorAtPos(BlockPos pos) {
 		return 0x54d65c; // TODO : tweak
+	}
+
+	@Override
+	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
+		return TREE_GEN;
 	}
 }

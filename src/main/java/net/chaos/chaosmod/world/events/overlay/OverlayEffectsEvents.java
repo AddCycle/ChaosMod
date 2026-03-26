@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.lwjgl.opengl.GL11;
 
+import net.chaos.chaosmod.config.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.network.NetHandlerPlayClient;
@@ -26,35 +27,39 @@ import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 // TODO : a frozen overlay to make all sorts of effects based on mob attacks, priority to fix
-// FIXME : blue fire of the ChaosMasterBoss
 public class OverlayEffectsEvents {
 	private static final String BLUE_FIRE_TEXTURE = "gui/blue_fire_layer_0";
 	private static final ResourceLocation ICONS = new ResourceLocation("textures/gui/icons.png");
 
 	@SubscribeEvent
 	public static void onRenderOverlay(RenderGameOverlayEvent.Pre event) {
-//		if (true) return;
 		if (event.getType() != ElementType.ALL)
 			return;
 
 		Minecraft mc = Minecraft.getMinecraft();
+		ScaledResolution res = event.getResolution();
+
 		NetHandlerPlayClient nethandlerplayclient = mc.player.connection;
 		Collection<NetworkPlayerInfo> list = nethandlerplayclient.getPlayerInfoMap();
 		NetworkPlayerInfo info = list.stream().filter(npi -> npi.getGameProfile().getId() == mc.player.getUniqueID())
 				.findFirst().orElse(null);
 
-		ScaledResolution res = event.getResolution();
-
 		EntityPlayer player = Minecraft.getMinecraft().player;
 
 		if (player.getEntityData().getBoolean("ShowCustomFireOverlay")) {
+			GlStateManager.pushMatrix();
 			renderBlueFire(res, 0.7F);
+			GlStateManager.popMatrix();
 		}
 
-		renderPingIcon(res, info);
+		if (ModConfig.CLIENT.showPing)
+			renderPingIcon(res, info);
 	}
 
 	private static void renderPingIcon(ScaledResolution res, NetworkPlayerInfo info) {
+		if (info == null)
+			return;
+
 		GlStateManager.pushMatrix();
 		GlStateManager.enableAlpha();
 

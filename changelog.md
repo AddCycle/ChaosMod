@@ -7,6 +7,7 @@ TODO (current version):
   - Make all the jobs tasks & rewards from level 1 -> 5 (make content), then tweak or change to make it fun according to `REWORK` section
   - Make jobs support multiple rewards (Later)
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
+  - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
 
 IDEAS:
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
@@ -14,6 +15,9 @@ IDEAS:
   - Also make the items have a rarity/tier so that you can basically reforge everything.
   - Rework the current bosses and entities models (add effects)
   - Skill tree
+  - Add `traveler` job with `discovered biomes` along with `structures` later...
+  - Custom totem that triggers even when isn't held in hands
+  - Add `Magnet item` (right-click to activate/deactivate) then make a slot to equip and run (passive ability)
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -33,7 +37,11 @@ TODO (next version) ?:
   - Market
   - Fix playlist and soundMgr system (need to reimplement everything)
 
+OPTIMIZATION:
+  - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
+
 ISSUES:
+  - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tamable animals, each one being exclusive to the biome to match the color/style of each 4 biomes
   - Fix: When `mathsmod` not loaded, job reward for `tamer` is null
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions)
   - Fix: ModWorldGen viking gallions generated in weird places... #3
