@@ -160,6 +160,8 @@ public class ModItems {
 	public static final Item CHAOSLAND_CRYSTAL_ITEM = new ItemChaosLandCrystal("chaosland_crystal_item");
 	public static final Item COBBLESTONE_VOID = new CobbleStoneVoid("cobblestone_void");
 	
+	public static final Item MAGNET = new ItemMagnet("magnet");
+	
 	// Money
 	public static final Item MONEY_WAD = new ItemMoneyWad("wad");
 	

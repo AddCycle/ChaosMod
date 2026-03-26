@@ -18,6 +18,8 @@ IDEAS:
   - Add `traveler` job with `discovered biomes` along with `structures` later...
   - Custom totem that triggers even when isn't held in hands
   - Add `Magnet item` (right-click to activate/deactivate) then make a slot to equip and run (passive ability)
+  - Herobrine boss
+  - Poutine boss
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough

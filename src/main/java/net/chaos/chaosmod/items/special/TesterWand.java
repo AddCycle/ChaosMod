@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.items.special;
 
+import net.chaos.chaosmod.client.util.ClientHelper;
 import net.chaos.chaosmod.cutscene.CutsceneManager;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
@@ -12,18 +13,22 @@ import net.chaos.chaosmod.network.packets.PacketSpawnCustomParticle;
 import net.chaos.chaosmod.particle.CustomParticleSpawnManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import util.Reference;
 
 public class TesterWand extends ItemBase {
 	public int projectile;
@@ -33,7 +38,7 @@ public class TesterWand extends ItemBase {
 		super(name);
 		this.setMaxStackSize(1);
 		projectile = 0;
-		max = 6;
+		max = 7;
 	}
 	
 	@Override
@@ -111,12 +116,25 @@ public class TesterWand extends ItemBase {
 	    			playerIn.attackEntityFrom(ModDamageSources.BLUE_FIRE, 4.0f);
 	    		}
 	    		break;
+	    	case 7:
+	    		if (worldIn.isRemote) {
+//	    			Item item = Item.getItemFromBlock(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Reference.MATHSMOD, "")));
+	    			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Reference.MATHSMOD, "tatanator"));
+	    			if (item != null)
+	    			makeClientEffectTotemLike(item);
+	    		}
+	    		break;
 	    	default:
 	    		break;
 	    	}
 	    }
 	    
 	    return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void makeClientEffectTotemLike(Item item) {
+		ClientHelper.playTotemEffect(item);
 	}
 
 }

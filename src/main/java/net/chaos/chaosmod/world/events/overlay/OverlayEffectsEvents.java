@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -73,7 +74,6 @@ public class OverlayEffectsEvents {
 	private static void drawPing(int x, int y, NetworkPlayerInfo networkPlayerInfoIn) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(ICONS);
-		int i = 0;
 		int j;
 
 		if (networkPlayerInfoIn.getResponseTime() < 0) {
@@ -94,8 +94,6 @@ public class OverlayEffectsEvents {
 	}
 
 	public static void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
-		float f = 0.00390625F;
-		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -153,6 +151,9 @@ public class OverlayEffectsEvents {
 
 	private static void renderBlueFire(ScaledResolution res, float alpha) {
 		Minecraft mc = Minecraft.getMinecraft();
+
+		boolean flag = mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase)mc.getRenderViewEntity()).isPlayerSleeping();
+		if (mc.gameSettings.thirdPersonView != 0 || flag) return;
 
 		mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite sprite = mc.getTextureMapBlocks().getAtlasSprite(Reference.PREFIX + BLUE_FIRE_TEXTURE);
