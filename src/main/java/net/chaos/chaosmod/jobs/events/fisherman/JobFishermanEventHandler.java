@@ -56,9 +56,5 @@ public class JobFishermanEventHandler {
 	public static void onPlayerFishing(ItemFishedEvent event) {
 		if (event.getEntityPlayer().getEntityWorld().isRemote)
 			return;
-
-//		if (event.getDrops().stream().anyMatch(i -> i.getItem() instanceof ItemFishFood)) {
-//			JobEventUtils.incrementTask((EntityPlayerMP) event.getEntityPlayer(), "fisherman", "first_catch");
-//		}
 	}
 }

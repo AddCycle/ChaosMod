@@ -30,7 +30,6 @@ public class IconButtonBase extends GuiButton {
             } else {
             	this.drawTexturedModalRect(this.x, this.y, 182, 24, this.width, this.height);
             }
-            // this.drawTexturedModalRect(this.x + this.width / 2, this.y, 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
             this.mouseDragged(mc, mouseX, mouseY);
         }
 	}

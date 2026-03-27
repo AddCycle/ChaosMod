@@ -26,6 +26,18 @@
 			},
 			"goal": 5,
 			"rewardExp": 150
+		},
+		{
+			"id": "farm_oxonium_carrots",
+			"name": "Farming Oxonium Carrots",
+			"description": "You can find them inside custom villages crops or by crafting them but you will have to harvest them",
+			"type": "harvest",
+			"target": {
+				"item": "chaosmod:oxonium_carrots",
+				"data": 0
+			},
+			"goal": 10,
+			"rewardExp": 200
 		}
 	],
 	"levels": [

@@ -17,10 +17,15 @@ import util.Reference;
 public class JobFarmerEventHandler {
 	private static final ResourceLocation DIAMONA = new ResourceLocation(Reference.MATHSMOD, "diamona");
 	private static final ResourceLocation HELL_FLOWER = new ResourceLocation(Reference.MATHSMOD, "hell_flower");
+	private static final ResourceLocation OXONIUM_CARROTS = new ResourceLocation(Reference.MODID, "oxonium_carrots");
 	
 	@SubscribeEvent
 	public static void onHarvestBlockHandler(BlockEvent.BreakEvent event) {
 		if (event.getWorld().isRemote) return;
+		
+		onHarvestBlock(event, OXONIUM_CARROTS, block -> {
+			incrementTask(event.getPlayer(), "farm_oxonium_carrots");
+		});
 		
 		onHarvestBlock(event, DIAMONA, (block) -> {
 			incrementTask(event.getPlayer(), "gather_diamona");

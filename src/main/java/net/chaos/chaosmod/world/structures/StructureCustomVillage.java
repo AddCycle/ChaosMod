@@ -496,13 +496,14 @@ public class StructureCustomVillage {
 
 		private Block getRandomCropType(Random rand)
 		{
-			switch (rand.nextInt(10))
+			switch (rand.nextInt(5))
 			{
 			case 0:
 				return Blocks.WHEAT;
 			case 1:
 				return Blocks.CARROTS;
 			case 2:
+				return Blocks.BEETROOTS;
 			case 3:
 				return ModBlocks.OXONIUM_CARROT_BLOCK;
 			case 4:

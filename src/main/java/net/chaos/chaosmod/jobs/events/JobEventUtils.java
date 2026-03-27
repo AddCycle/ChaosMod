@@ -8,6 +8,12 @@ import util.Reference;
 
 public class JobEventUtils {
 
+	/**
+	 * The system is done a way that the task progress is incremented by 1, capping at goal and syncs capability jobs
+	 * @param player
+	 * @param jobid
+	 * @param taskId
+	 */
 	public static void incrementTask(EntityPlayerMP player, String jobid, String taskId) {
 		String jobId = prefixId(jobid);
 

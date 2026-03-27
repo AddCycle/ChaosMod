@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
 import util.ui.components.JobsButtonBase;
+import util.ui.components.UIScrollbar;
 
 @SideOnly(Side.CLIENT)
 public class GuiScreenJobs extends GuiScreen {
@@ -25,6 +26,7 @@ public class GuiScreenJobs extends GuiScreen {
 	public static final ResourceLocation WIDGETS = new ResourceLocation(Reference.MODID, "textures/jobs/widgets.png");
 	public static final ResourceLocation FINAL_VER = new ResourceLocation(Reference.MODID, "textures/jobs/final_ver.png");
 	public List<JobComponent> components = new ArrayList<>();
+	public UIScrollbar scrollbar;
 	public int dark = 0xff24292f;
 	public int light_dark = 0xff24292f;
 
@@ -43,10 +45,10 @@ public class GuiScreenJobs extends GuiScreen {
 
 	@Override
 	public void initGui() {
+		scrollbar = new UIScrollbar(this, 10, height - 10, 100, 10);
 		JobsManager.REGISTRY.forEach((jobId, job) -> {
 			int componentWidth = 80;
 			int componentHeight = 160;
-			// int centerX = this.width / 2 - componentWidth / 2;
 			int centerY = this.height / 2 - componentHeight / 2;
 			int rightOffset = 20;
 			int offsetX = job.index * (componentWidth + 20) + rightOffset;
@@ -81,6 +83,7 @@ public class GuiScreenJobs extends GuiScreen {
 	    int contentWidth = maxX - minX;
 
 	    this.scrollX = MathHelper.clamp(this.scrollX + deltaX, 0, Math.max(0, contentWidth - visibleWidth));
+	    scrollbar.x = 10 + scrollX;
 	}
 	
 	@Override
@@ -120,6 +123,7 @@ public class GuiScreenJobs extends GuiScreen {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
+		scrollbar.update();
 	}
 	
 	public void drawForeground() {
@@ -127,6 +131,7 @@ public class GuiScreenJobs extends GuiScreen {
 		components.forEach(jobComponent -> {
 			jobComponent.render();
 		});
+		scrollbar.render();
 	}
 	
 	public void drawDefaultBackground(int scrollX) {
