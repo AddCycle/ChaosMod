@@ -85,8 +85,6 @@ public class GuiScreenJobs extends GuiScreen {
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        int i = (this.width - 252) / 2;
-        int j = (this.height - 140) / 2;
 
         if (Mouse.isButtonDown(0)) {
             if (scrollStartMouseX == -1) {

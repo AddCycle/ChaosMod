@@ -6,6 +6,7 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.biome.Biome;
 
@@ -29,8 +30,9 @@ public class BiomesCommand extends AbstractPermissionFreeCommand {
 		if (cap == null) return;
 		
 		for (Biome b : cap.getVisitedBiomes()) {
-			if (b.getRegistryName() != null) {
-				player.sendMessage(new TextComponentString(b.getRegistryName().toString()));
+			ResourceLocation name = b.getRegistryName();
+			if (name != null) {
+				player.sendMessage(new TextComponentString(name.toString()));
 			}
 		}
 	}

@@ -1,8 +1,6 @@
 package net.chaos.chaosmod.jobs.events.tamer;
 
-import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
-import net.chaos.chaosmod.jobs.PlayerJobs;
+import net.chaos.chaosmod.jobs.events.JobEventUtils;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -20,23 +18,7 @@ public class JobTamerEventHandler {
 		if (player.world.isRemote) return;
 
 		if (event.getAnimal() instanceof EntityWolf) {
-			incrementTask((EntityPlayerMP) player, "tame_wolf");
+			JobEventUtils.incrementTask((EntityPlayerMP) player, "tamer", "tame_wolf");
 		}
-	}
-
-	private static void incrementTask(EntityPlayerMP player, String taskId) {
-		String jobId = prefixId("tamer");
-
-		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
-		if (jobs == null)
-			return;
-
-		jobs.getProgress(jobId).incrementTask(player, jobId, prefixId(taskId));
-
-		Main.getLogger().info("Caught fish, incrementing task");
-	}
-
-	private static String prefixId(String id) {
-		return Reference.PREFIX + id;
 	}
 }

@@ -1,4 +1,48 @@
 {
 	"id": "farmer",
-	"name": "Farmer"
+	"name": "Farmer",
+	"description": "Stardew Valley is your favorite game, don't wait, start now...",	
+	"tasks": [
+		{
+			"id": "gather_diamona",
+			"name": "Farming Diamona Flowers",
+			"description": "Travel around, find a diamona flower (with shears) and then plant it on farmland and wait for it to spread...",
+			"type": "harvest",
+			"target": {
+				"item": "mathsmod:diamona",
+				"data": 0
+			},
+			"goal": 100,
+			"rewardExp": 100
+		},
+		{
+			"id": "gather_hell_flowers",
+			"name": "Harvesting Hell Flowers",
+			"description": "Travel around in the Nether, and again gather 5 Hell Flowers...",
+			"type": "harvest",
+			"target": {
+				"item": "mathsmod:hell_flower",
+				"data": 0
+			},
+			"goal": 5,
+			"rewardExp": 150
+		}
+	],
+	"levels": [
+		{
+			"level": 1,
+			"reward": {
+				"item": "mathsmod:denanium",
+				"amount": 5
+			}
+		},
+		{
+			"level": 2,
+			"reward": {
+				"block": "mathsmod:tfosium_block",
+				"amount": 1
+			}
+		}
+	],
+	"maxLevel": 5
 }

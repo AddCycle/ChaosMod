@@ -3,6 +3,8 @@
 # Items
 
 TODO (current version):
+  - add a horizontal scollbar to the jobsGui
+  - Add variants to gallions and random loots
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market]
   - Make all the jobs tasks & rewards from level 1 -> 5 (make content), then tweak or change to make it fun according to `REWORK` section
   - Make jobs support multiple rewards (Later)
@@ -38,11 +40,14 @@ TODO (next version) ?:
   - Hunt
   - Market
   - Fix playlist and soundMgr system (need to reimplement everything)
+  - add `magnet` to structures loots
 
 OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
 
 ISSUES:
+  - Fix: bosses loots can burn in the lava
+  - Fix: `/jobs` command not working properly (needs code fix)
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tamable animals, each one being exclusive to the biome to match the color/style of each 4 biomes
   - Fix: When `mathsmod` not loaded, job reward for `tamer` is null
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions)
@@ -62,6 +67,7 @@ New:
   - Fishing Mechanic where timing is the key to catch something (Undertale inspired thx `Toby Fox`)
   - ChaosMasterBoss in the `custom_dim` deals `blue_fire_damage` with a new overlay effect
   - feat: `jobs` grants you `block/item` reward leveling up
+  - feat: added `magnet` item that pickups nearby loot (CREATIVEONLY until exploration features)
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
