@@ -48,9 +48,7 @@ public class OverlayEffectsEvents {
 		EntityPlayer player = Minecraft.getMinecraft().player;
 
 		if (player.getEntityData().getBoolean("ShowCustomFireOverlay")) {
-			GlStateManager.pushMatrix();
 			renderBlueFire(res, 0.7F);
-			GlStateManager.popMatrix();
 		}
 
 		if (ModConfig.CLIENT.showPing)
@@ -155,6 +153,7 @@ public class OverlayEffectsEvents {
 		boolean flag = mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase)mc.getRenderViewEntity()).isPlayerSleeping();
 		if (mc.gameSettings.thirdPersonView != 0 || flag) return;
 
+		GlStateManager.pushMatrix();
 		mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite sprite = mc.getTextureMapBlocks().getAtlasSprite(Reference.PREFIX + BLUE_FIRE_TEXTURE);
 
@@ -184,6 +183,7 @@ public class OverlayEffectsEvents {
 
 		GlStateManager.enableDepth();
 		GlStateManager.disableBlend();
+		GlStateManager.popMatrix();
 	}
 
 	@SubscribeEvent

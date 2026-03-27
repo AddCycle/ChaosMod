@@ -4,7 +4,6 @@
 
 TODO (current version):
   - add a quick gamemode changer F3+F4
-  - add a horizontal scollbar to the jobsGui
   - Add variants to gallions and random loots
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market] [DOING]
   - Make all the jobs tasks & rewards from level 1 -> 5 (make content), then tweak or change to make it funnier according to `REWORK` section
@@ -16,7 +15,7 @@ IDEAS:
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
   - Sword that kinds of follows you around if you cast it and hits mobs (should be an endgame item tho...)
   - Also make the items have a rarity/tier so that you can basically reforge everything.
-  - Rework the current bosses and entities models (add effects)
+  - Rework the current bosses and entities models (add effects + animations)
   - Skill tree
   - Add `traveler` job with `discovered biomes` along with `structures` later...
   - add buried treasure
