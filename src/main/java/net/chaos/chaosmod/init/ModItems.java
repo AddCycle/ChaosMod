@@ -31,6 +31,7 @@ import net.chaos.chaosmod.items.special.MarketRemote;
 import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.items.special.PortalKey;
+import net.chaos.chaosmod.items.special.SuperTotem;
 import net.chaos.chaosmod.items.special.TesterWand;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.items.tools.AllInOneSword;
@@ -161,6 +162,7 @@ public class ModItems {
 	public static final Item COBBLESTONE_VOID = new CobbleStoneVoid("cobblestone_void");
 	
 	public static final Item MAGNET = new ItemMagnet("magnet");
+	public static final Item SUPER_TOTEM = new SuperTotem("super_totem");
 	
 	// Money
 	public static final Item MONEY_WAD = new ItemMoneyWad("wad");

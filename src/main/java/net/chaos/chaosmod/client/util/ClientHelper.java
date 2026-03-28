@@ -14,4 +14,8 @@ public class ClientHelper {
 			Minecraft.getMinecraft().entityRenderer.displayItemActivation(new ItemStack(item));
 		});
 	}
+
+	public static void playTotemEffect(ItemStack stack) {
+		playTotemEffect(stack.getItem());
+	}
 }

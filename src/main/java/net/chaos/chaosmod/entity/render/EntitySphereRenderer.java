@@ -43,7 +43,7 @@ public class EntitySphereRenderer extends Render<EntitySphere> {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder buffer = tessellator.getBuffer();
 
-		buffer.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION_TEX);
+		buffer.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION_TEX_COLOR);
 
 		renderSphere(buffer, radius, stacks, slices);
 
@@ -74,13 +74,14 @@ public class EntitySphereRenderer extends Render<EntitySphere> {
 	            double v_ = (double) i / stacks;
 	            double v2_ = (double) (i + 1) / stacks;
 
-	            buffer.pos(v1.x, v1.y, v1.z).tex(u_, v_).endVertex();
-	            buffer.pos(v2.x, v2.y, v2.z).tex(u_, v2_).endVertex();
-	            buffer.pos(v3.x, v3.y, v3.z).tex(u2, v2_).endVertex();
+	            int r = 255, g = 255, b = 255, a = 255;
+	            buffer.pos(v1.x, v1.y, v1.z).tex(u_, v_).color(r,g,b,a).endVertex();
+	            buffer.pos(v2.x, v2.y, v2.z).tex(u_, v2_).color(r,g,b,a).endVertex();
+	            buffer.pos(v3.x, v3.y, v3.z).tex(u2, v2_).color(r,g,b,a).endVertex();
 
-	            buffer.pos(v1.x, v1.y, v1.z).tex(u_, v_).endVertex();
-	            buffer.pos(v3.x, v3.y, v3.z).tex(u2, v2_).endVertex();
-	            buffer.pos(v4.x, v4.y, v4.z).tex(u2, v_).endVertex();
+	            buffer.pos(v1.x, v1.y, v1.z).tex(u_, v_).color(r,g,b,a).endVertex();
+	            buffer.pos(v3.x, v3.y, v3.z).tex(u2, v2_).color(r,g,b,a).endVertex();
+	            buffer.pos(v4.x, v4.y, v4.z).tex(u2, v_).color(r,g,b,a).endVertex();
 	        }
 	    }
 	}
