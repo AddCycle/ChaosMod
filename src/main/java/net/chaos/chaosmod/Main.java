@@ -2,7 +2,6 @@ package net.chaos.chaosmod;
 
 import org.apache.logging.log4j.Logger;
 
-import net.chaos.chaosmod.blocks.complex.mimic.StartupCommon;
 import net.chaos.chaosmod.commands.CommandsManager;
 import net.chaos.chaosmod.common.capabilities.CapabilityEventHandler;
 import net.chaos.chaosmod.init.ModBiomes;
@@ -50,13 +49,11 @@ public class Main
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-		StartupCommon.preInitCommon(); // TODO : refactor remove (shape_shifting_block)
         proxy.preInit(event);
         logger = event.getModLog();
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
     	ClientBusHandler.init();
         ModSounds.registerSounds();
-//        ModCapabilities.register();
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         ModEntities.registerEntities();
         ModFluids.registerFluids();

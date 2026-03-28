@@ -10,7 +10,7 @@ public class Reference {
     public static final String CLIENT_PROXY_CLASS = "proxy.ClientProxy";
     public static final String COMMON_PROXY_CLASS = "proxy.CommonProxy";
     public static final String GUI_FACTORY_CLASS = "net.chaos.chaosmod.config.ModGuiFactory";
-    public static final String OPTIONAL_DEPENDENCIES = "after:jei;after:patchouli;after:mathsmod";
+    public static final String OPTIONAL_DEPENDENCIES = "after:jei;after:patchouli;after:mathsmod;";
 	public static final String JEI = "jei";
 	public static final String MATHSMOD = "mathsmod";
 	public static final String PATCHOULI = "patchouli";

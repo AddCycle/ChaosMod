@@ -36,6 +36,7 @@ public class VillageAdditionalStructure extends StructureVillagePieces.Village {
         super(start, type);
         this.setCoordBaseMode(facing);
         this.boundingBox = boundingBox;
+        this.chooseForgeProfession(3, CustomProfessions.CUSTOM_VIKING_TRADER);
     }
 
     public static StructureVillagePieces.House2 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175855_1_, Random rand, int p_175855_3_, int p_175855_4_, int p_175855_5_, EnumFacing facing, int p_175855_7_)
@@ -179,6 +180,5 @@ public class VillageAdditionalStructure extends StructureVillagePieces.Village {
 	        StructureBoundingBox structBB = StructureBoundingBox.getComponentToAddBoundingBox(parMinX, parMinY, parMinZ, 0, 0, 0, 9, 7, 12, facing);
 	        return new VillageAdditionalStructure(startPiece, parType, random, structBB, facing);
 		}
-    	
     }
 }

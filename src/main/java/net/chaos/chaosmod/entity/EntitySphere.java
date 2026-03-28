@@ -13,13 +13,12 @@ public class EntitySphere extends Entity implements IRightClickableEntity {
 
 	public EntitySphere(World worldIn) {
 		super(worldIn);
-		this.setSize(4f, 4f);
+		this.setSize(2f, 2f);
 	}
 
 	@Override
 	protected void entityInit() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

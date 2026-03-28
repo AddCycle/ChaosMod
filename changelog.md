@@ -3,7 +3,6 @@
 # Items
 
 TODO (current version):
-  - add a quick gamemode changer F3+F4
   - Add variants to gallions and random loots
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market] [DOING]
   - Make all the jobs tasks & rewards from level 1 -> 5 (make content), then tweak or change to make it funnier according to `REWORK` section
@@ -22,6 +21,8 @@ IDEAS:
   - Custom `super_totem` that triggers even when isn't held in hands
   - Herobrine boss
   - Poutine boss
+MINOR:
+  - add a visual effect to gamemode switch with hotkeys F3+F4
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -68,6 +69,7 @@ New:
   - ChaosMasterBoss in the `custom_dim` deals `blue_fire_damage` with a new overlay effect
   - feat: `jobs` grants you `block/item` reward leveling up
   - feat: added `magnet` item that pickups nearby loot
+  - feat: added a quick way to change gamemode [hotkey F3+F4]
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

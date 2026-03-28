@@ -30,15 +30,20 @@ public class EntitySphereRenderer extends Render<EntitySphere> {
 		float radius = 1f;
 		
 		GlStateManager.pushMatrix();
-
-		GlStateManager.translate(x, y, z);
 		
+		this.bindEntityTexture(entity);
+
+		GlStateManager.translate(x, y+1, z);
+		
+		GlStateManager.enableBlend();
+		GlStateManager.disableLighting();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.disableCull();
 		
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder buffer = tessellator.getBuffer();
 
-		buffer.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION_COLOR);
+		buffer.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION_TEX);
 
 		renderSphere(buffer, radius, stacks, slices);
 
@@ -64,23 +69,25 @@ public class EntitySphereRenderer extends Render<EntitySphere> {
 	            Vec3d v3 = getPoint(radius, phi2, theta2);
 	            Vec3d v4 = getPoint(radius, phi1, theta2);
 
-//	            int r = 255, g = 255, b = 255, a = 255;
-	            int r = 255, g = 255, b = 0, a = 255;
-	            buffer.pos(v1.x, v1.y, v1.z).color(r, g, b, a).endVertex();
-	            buffer.pos(v2.x, v2.y, v2.z).color(r, g, b, a).endVertex();
-	            buffer.pos(v3.x, v3.y, v3.z).color(r, g, b, a).endVertex();
+	            double u_ = (double) j / slices;
+	            double u2 = (double) (j + 1) / slices;
+	            double v_ = (double) i / stacks;
+	            double v2_ = (double) (i + 1) / stacks;
 
-	            buffer.pos(v1.x, v1.y, v1.z).color(r, g, b, a).endVertex();
-	            buffer.pos(v3.x, v3.y, v3.z).color(r, g, b, a).endVertex();
-	            buffer.pos(v4.x, v4.y, v4.z).color(r, g, b, a).endVertex();
+	            buffer.pos(v1.x, v1.y, v1.z).tex(u_, v_).endVertex();
+	            buffer.pos(v2.x, v2.y, v2.z).tex(u_, v2_).endVertex();
+	            buffer.pos(v3.x, v3.y, v3.z).tex(u2, v2_).endVertex();
+
+	            buffer.pos(v1.x, v1.y, v1.z).tex(u_, v_).endVertex();
+	            buffer.pos(v3.x, v3.y, v3.z).tex(u2, v2_).endVertex();
+	            buffer.pos(v4.x, v4.y, v4.z).tex(u2, v_).endVertex();
 	        }
 	    }
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntitySphere entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return END_PORTAL_TEXTURE;
 	}
 	
 	private static Vec3d getPoint(float r, float phi, float theta) {

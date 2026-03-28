@@ -66,7 +66,6 @@ public class OverlayEffectsEvents {
 		drawPing(x, 10, info);
 
 		GlStateManager.popMatrix();
-
 	}
 
 	private static void drawPing(int x, int y, NetworkPlayerInfo networkPlayerInfoIn) {

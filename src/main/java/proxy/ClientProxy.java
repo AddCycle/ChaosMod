@@ -1,6 +1,5 @@
 package proxy;
 
-import net.chaos.chaosmod.blocks.complex.mimic.MimicStartupClient;
 import net.chaos.chaosmod.client.inventory.render.LayerNecklace;
 import net.chaos.chaosmod.client.inventory.render.LayerShield;
 import net.chaos.chaosmod.init.ModKeybinds;
@@ -32,7 +31,6 @@ public class ClientProxy extends CommonProxy {
 	public void preInit(FMLPreInitializationEvent event) {
         RenderHandler.registerEntityRenderers();
         ModKeybinds.init();
-        MimicStartupClient.preInitClientOnly();
 	}
 
 	@Override

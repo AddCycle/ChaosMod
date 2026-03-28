@@ -17,8 +17,9 @@ import util.Reference;
 public class PlayerGatheringEvents {
 	
 	@SubscribeEvent
-	// INFO : EventBusSubscriber requires static methods
 	public static void onBlockHarvest(HarvestDropsEvent event) {
+		if (event.getWorld().isRemote) return;
+
 		EntityPlayer player = event.getHarvester();
 		if (player == null) return;
 		

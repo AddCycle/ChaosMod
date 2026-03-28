@@ -20,6 +20,8 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 /**
  * This class create an entirely customizable with my removal of most of the
  * default vanilla features :
+ * TODO : needs optimization on flower and other things gen might reconsider and move it on forge events
+ * or inside a WorldGenerator
  */
 public abstract class AbstractBiome extends Biome {
 	private CustomWorldGenFlowers customFlowerGen = new CustomWorldGenFlowers(

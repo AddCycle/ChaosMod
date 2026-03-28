@@ -1,7 +1,6 @@
 package net.chaos.chaosmod.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.jobs.events.fisherman.ClientFishingData;
 import net.chaos.chaosmod.jobs.gui.fisherman.GuiFishingResult;
 import net.minecraft.client.Minecraft;

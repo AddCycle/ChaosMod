@@ -20,9 +20,9 @@ import util.Reference;
 
 public class ForgeInterfaceGui extends GuiContainer {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/container/forge_interface.png");
-	private static final ResourceLocation ALL_IN_ONE_BOW = new ResourceLocation(Reference.MODID, "textures/items/all_in_one_bow.png");
-	private static final ResourceLocation OXONIUM_BOW = new ResourceLocation(Reference.MODID, "textures/items/oxonium_bow_standby.png");
-	private static final ResourceLocation ALL_IN_ONE_SWORD = new ResourceLocation(Reference.MODID, "textures/items/all_in_one_sword.png");
+//	private static final ResourceLocation ALL_IN_ONE_BOW = new ResourceLocation(Reference.MODID, "textures/items/all_in_one_bow.png");
+//	private static final ResourceLocation OXONIUM_BOW = new ResourceLocation(Reference.MODID, "textures/items/oxonium_bow_standby.png");
+//	private static final ResourceLocation ALL_IN_ONE_SWORD = new ResourceLocation(Reference.MODID, "textures/items/all_in_one_sword.png");
 	private static final ResourceLocation UNKNOWN = new ResourceLocation("minecraft", "textures/gui/world_selection.png");
     private final InventoryPlayer playerInventory;
     private final IInventory tileEntity;
@@ -45,8 +45,8 @@ public class ForgeInterfaceGui extends GuiContainer {
 
 	@Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		Minecraft mc = Minecraft.getMinecraft();
-		int initial = 4210752; // color text gui
+//		Minecraft mc = Minecraft.getMinecraft();
+//		int initial = 4210752; // color text gui
 		int color1 = 0x0f0f01;
         this.fontRenderer.drawString(this.tileEntity.getDisplayName().getUnformattedText(), 8, 6, color1);
         this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, color1);
@@ -82,7 +82,7 @@ public class ForgeInterfaceGui extends GuiContainer {
         int arrowHeight = 16;
         
         // hammer parts
-        int hammerWidth = 18;
+//        int hammerWidth = 18;
         int hammerHeight = 17;
 
         // arrow position on GUI screen
@@ -97,7 +97,7 @@ public class ForgeInterfaceGui extends GuiContainer {
         int hammerV = 31;
 
         int progress = ((TileEntityForge) tileEntity).getProgressScaled(arrowWidth);
-        int progress_ = ((TileEntityForge) tileEntity).getProgressScaled(hammerWidth);
+//        int progress_ = ((TileEntityForge) tileEntity).getProgressScaled(hammerWidth);
 
         this.drawTexturedModalRect(arrowX, arrowY, textureU, textureV, progress, arrowHeight);
         this.drawTexturedModalRect(hammerX, hammerY, textureU, hammerV, progress, hammerHeight);
@@ -105,6 +105,7 @@ public class ForgeInterfaceGui extends GuiContainer {
         this.drawTexturedModalRect(hammerX + 18 * 2, hammerY, textureU, hammerV, progress, hammerHeight);
     }
 
+    @SuppressWarnings("unused")
     private int getFabricationProcess(int pixels)
     {
         int i = this.tileEntity.getField(0);
