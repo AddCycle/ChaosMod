@@ -18,7 +18,6 @@ IDEAS:
   - Skill tree
   - Add `traveler` job with `discovered biomes` along with `structures` later...
   - add buried treasure
-  - Custom `super_totem` that triggers even when isn't held in hands
   - Herobrine boss
   - Poutine boss
 MINOR:
@@ -70,6 +69,7 @@ New:
   - feat: `jobs` grants you `block/item` reward leveling up
   - feat: added `magnet` item that pickups nearby loot
   - feat: added a quick way to change gamemode [hotkey F3+F4]
+  - feat: add `super_totem` item that triggers even when isn't held in hands
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

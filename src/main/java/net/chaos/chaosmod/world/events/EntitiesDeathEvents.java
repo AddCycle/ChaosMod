@@ -23,13 +23,14 @@ import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID)
 public class EntitiesDeathEvents {
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	/*
 	 * This event is related to the entities deaths
 	 */
@@ -55,14 +56,7 @@ public class EntitiesDeathEvents {
 
 			event.setCanceled(true);
 
-			for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-				ItemStack stack = player.inventory.getStackInSlot(i);
-
-				if (!stack.isEmpty() && stack.getItem() == ModItems.SUPER_TOTEM) {
-					stack.shrink(1);
-					break;
-				}
-			}
+			player.inventory.clearMatchingItems(ModItems.SUPER_TOTEM, -1, 1, null);
 
 			player.setHealth(1.0f);
 			player.clearActivePotions();
