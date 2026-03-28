@@ -3,6 +3,8 @@ package net.chaos.chaosmod.common.capabilities;
 import java.util.function.BiConsumer;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.common.capabilities.accessory.AccessoryProvider;
+import net.chaos.chaosmod.common.capabilities.accessory.CapabilityAccessory;
 import net.chaos.chaosmod.common.capabilities.biome.CapabilityVisitedBiomes;
 import net.chaos.chaosmod.common.capabilities.biome.VisitedBiomesProvider;
 import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
@@ -10,6 +12,8 @@ import net.chaos.chaosmod.common.capabilities.jobs.PlayerJobsProvider;
 import net.chaos.chaosmod.common.capabilities.money.IMoney;
 import net.chaos.chaosmod.common.capabilities.money.MoneyProvider;
 import net.chaos.chaosmod.common.capabilities.money.MoneyStorage;
+import net.chaos.chaosmod.common.capabilities.shield.CapabilityShield;
+import net.chaos.chaosmod.common.capabilities.shield.ShieldProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +32,8 @@ public class CapabilityEventHandler {
 	public static final ResourceLocation VISITED_BIOMES_CAPABILITY_ID = new ResourceLocation(Reference.MODID, "visited_biomes");
 
 	public static final ResourceLocation JOBS_CAPABILITY_ID = new ResourceLocation(Reference.MODID, "player_jobs");
+	public static final ResourceLocation ACCESSORY_CAPABILITY_ID = new ResourceLocation(Reference.MODID, "accessory");
+	public static final ResourceLocation SHIELD_CAPABILITY_ID = new ResourceLocation(Reference.MODID, "shield");
 
 	@SubscribeEvent
 	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
@@ -55,6 +61,14 @@ public class CapabilityEventHandler {
 		syncCapability(CapabilityPlayerJobs.PLAYER_JOBS, event, (oldCap, newCap) -> {
 			newCap.copyFrom(oldCap);
 		});
+
+		syncCapability(CapabilityAccessory.ACCESSORY, event, (oldCap, newCap) -> {
+			newCap.deserializeNBT(oldCap.serializeNBT());
+		});
+
+		syncCapability(CapabilityShield.SHIELD, event, (oldCap, newCap) -> {
+			newCap.deserializeNBT(oldCap.serializeNBT());
+		});
 	}
 
 	@SubscribeEvent
@@ -67,12 +81,16 @@ public class CapabilityEventHandler {
 		MoneyStorage.register();
 		CapabilityPlayerJobs.register();
 		CapabilityVisitedBiomes.register();
+		CapabilityAccessory.register();
+		CapabilityShield.register();
 	}
 
 	private static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
 	    event.addCapability(MONEY_CAPABILITY_ID, new MoneyProvider());
 	    event.addCapability(VISITED_BIOMES_CAPABILITY_ID, new VisitedBiomesProvider());
 	    event.addCapability(JOBS_CAPABILITY_ID, new PlayerJobsProvider());
+	    event.addCapability(ACCESSORY_CAPABILITY_ID, new AccessoryProvider());
+	    event.addCapability(SHIELD_CAPABILITY_ID, new ShieldProvider());
 	}
 	
 	private static <T> void syncCapability(Capability<T> capability, PlayerEvent.Clone event, BiConsumer<T, T> callback) {

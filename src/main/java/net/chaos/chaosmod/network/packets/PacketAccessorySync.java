@@ -17,7 +17,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
 import util.annotations.ModPacket;
 
+
 @ModPacket(modid = Reference.MODID, side = Side.CLIENT)
+// TODO : review this class as it might causes duplication on Mathsmod...
 public class PacketAccessorySync implements IMessage {
     private int playerID;
     private ItemStack necklaceStack;

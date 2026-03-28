@@ -4,7 +4,8 @@ import java.util.UUID;
 
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.client.inventory.shield.IShield;
-import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.common.capabilities.accessory.CapabilityAccessory;
+import net.chaos.chaosmod.common.capabilities.shield.CapabilityShield;
 import net.chaos.chaosmod.init.ModDamageSources;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModPotions;
@@ -55,7 +56,7 @@ public class PlayerFightEvents {
 		/*
 		 * Shield based damage eye_boss protection
 		 */
-		IShield capable = player.getCapability(ModCapabilities.SHIELD, null);
+		IShield capable = player.getCapability(CapabilityShield.SHIELD, null);
 	    if (capable != null) {
 	    	ItemStack shield = capable.getShieldItem();
 	    	if (!shield.isEmpty()) {
@@ -98,7 +99,7 @@ public class PlayerFightEvents {
 		 */
 		if (!(event.getEntity() instanceof EntityPlayer)) return;
 		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-		IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
+		IAccessory cap = player.getCapability(CapabilityAccessory.ACCESSORY, null);
 	    if (cap != null) {
 	    	ItemStack accessory = cap.getAccessoryItem();
 	    	if (!accessory.isEmpty()) {

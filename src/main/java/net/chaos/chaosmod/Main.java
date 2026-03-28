@@ -6,7 +6,6 @@ import net.chaos.chaosmod.blocks.complex.mimic.StartupCommon;
 import net.chaos.chaosmod.commands.CommandsManager;
 import net.chaos.chaosmod.common.capabilities.CapabilityEventHandler;
 import net.chaos.chaosmod.init.ModBiomes;
-import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModDimensions;
 import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.init.ModFluids;
@@ -57,7 +56,7 @@ public class Main
     	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
     	ClientBusHandler.init();
         ModSounds.registerSounds();
-        ModCapabilities.register();
+//        ModCapabilities.register();
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         ModEntities.registerEntities();
         ModFluids.registerFluids();

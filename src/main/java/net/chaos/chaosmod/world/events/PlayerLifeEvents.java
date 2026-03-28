@@ -1,11 +1,9 @@
 package net.chaos.chaosmod.world.events;
 
 import net.chaos.chaosmod.client.gui.inventory.GuiInventoryExtended;
-import net.chaos.chaosmod.client.inventory.AccessoryImpl;
 import net.chaos.chaosmod.client.inventory.IAccessory;
-import net.chaos.chaosmod.client.inventory.shield.ShieldImpl;
+import net.chaos.chaosmod.common.capabilities.accessory.CapabilityAccessory;
 import net.chaos.chaosmod.entity.EntityChaosSage;
-import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
@@ -25,16 +23,12 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.BlockEvent.FarmlandTrampleEvent;
 import net.minecraftforge.fml.common.Loader;
@@ -112,7 +106,7 @@ public class PlayerLifeEvents {
 			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 1, false, false));
 		}
 
-		IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
+		IAccessory cap = player.getCapability(CapabilityAccessory.ACCESSORY, null);
 		if (cap != null) {
 			ItemStack accessory = cap.getAccessoryItem();
 			if (!accessory.isEmpty()) {
@@ -141,39 +135,6 @@ public class PlayerLifeEvents {
 				PacketManager.network.sendToServer(new PacketOpenGui(Reference.GUI_ACCESSORY_ID));
 			}
 		}
-	}
-
-	// TODO : move elsewhere accessory related
-	@SubscribeEvent
-	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
-		if (!(event.getObject() instanceof EntityPlayer))
-			return;
-
-		event.addCapability(new ResourceLocation(Reference.MODID, "accessory"),
-				new ICapabilitySerializable<NBTTagCompound>() {
-					final AccessoryImpl instance = new AccessoryImpl();
-
-					@Override
-					public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-						return capability == ModCapabilities.ACCESSORY;
-					}
-
-					@Override
-					public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-						return capability == ModCapabilities.ACCESSORY ? ModCapabilities.ACCESSORY.cast(instance)
-								: null;
-					}
-
-					@Override
-					public NBTTagCompound serializeNBT() {
-						return instance.serializeNBT(); // very important!
-					}
-
-					@Override
-					public void deserializeNBT(NBTTagCompound nbt) {
-						instance.deserializeNBT(nbt);
-					}
-				});
 	}
 
 	@SubscribeEvent
@@ -229,39 +190,6 @@ public class PlayerLifeEvents {
 				}
 			}
 		}
-	}
-
-	// TODO : move elsewhere shield related
-	// TODO : needs to do more of a active-blocking player action than a passive one (boring)
-	@SubscribeEvent
-	public static void attachCapabilityShield(AttachCapabilitiesEvent<Entity> event) {
-		if (!(event.getObject() instanceof EntityPlayer))
-			return;
-
-		event.addCapability(new ResourceLocation(Reference.MODID, "shield"),
-				new ICapabilitySerializable<NBTTagCompound>() {
-					final ShieldImpl instance = new ShieldImpl();
-
-					@Override
-					public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-						return capability == ModCapabilities.SHIELD;
-					}
-
-					@Override
-					public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-						return capability == ModCapabilities.SHIELD ? ModCapabilities.SHIELD.cast(instance) : null;
-					}
-
-					@Override
-					public NBTTagCompound serializeNBT() {
-						return instance.serializeNBT();
-					}
-
-					@Override
-					public void deserializeNBT(NBTTagCompound nbt) {
-						instance.deserializeNBT(nbt);
-					}
-				});
 	}
 
 	public static void givePlayerInstructionBook(EntityPlayer player) {

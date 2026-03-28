@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.client.inventory;
 
 import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.common.capabilities.accessory.CapabilityAccessory;
 import net.chaos.chaosmod.items.necklace.ItemNecklace;
 import net.chaos.chaosmod.network.packets.PacketAccessorySync;
 import net.chaos.chaosmod.network.packets.PacketManager;
@@ -19,7 +19,7 @@ public class AccessoryInventory implements IInventory {
 	}
 
 	public IAccessory getCap() {
-		return player.getCapability(ModCapabilities.ACCESSORY, null);
+		return player.getCapability(CapabilityAccessory.ACCESSORY, null);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.client.inventory.shield;
 
 import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.common.capabilities.shield.CapabilityShield;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -18,7 +18,7 @@ public class ShieldInventory implements IInventory {
 	}
 
 	public IShield getCap() {
-		return player.getCapability(ModCapabilities.SHIELD, null);
+		return player.getCapability(CapabilityShield.SHIELD, null);
 	}
 
 	@Override

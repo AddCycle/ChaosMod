@@ -1,6 +1,6 @@
 package net.chaos.chaosmod.client.inventory.shield;
 
-import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.common.capabilities.shield.CapabilityShield;
 import net.chaos.chaosmod.items.shield.CustomItemShield;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,13 +25,13 @@ public class SlotShield extends Slot {
     
     @Override
     public ItemStack getStack() {
-        IShield cap = player.getCapability(ModCapabilities.SHIELD, null);
+        IShield cap = player.getCapability(CapabilityShield.SHIELD, null);
         return cap != null ? cap.getShieldItem() : ItemStack.EMPTY;
     }
 
     @Override
     public void putStack(ItemStack stack) {
-    	IShield cap = player.getCapability(ModCapabilities.SHIELD, null);
+    	IShield cap = player.getCapability(CapabilityShield.SHIELD, null);
         if (cap != null) {
             cap.setShieldItem(stack);
 

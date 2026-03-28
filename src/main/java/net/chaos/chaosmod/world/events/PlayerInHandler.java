@@ -3,8 +3,8 @@ package net.chaos.chaosmod.world.events;
 import java.util.Set;
 
 import net.chaos.chaosmod.client.inventory.IAccessory;
+import net.chaos.chaosmod.common.capabilities.accessory.CapabilityAccessory;
 import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
-import net.chaos.chaosmod.init.ModCapabilities;
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.jobs.PlayerJobs;
 import net.chaos.chaosmod.network.packets.PacketAccessorySync;
@@ -39,7 +39,7 @@ public class PlayerInHandler {
 		if (player.world.isRemote)
 			return;
 
-		IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
+		IAccessory cap = player.getCapability(CapabilityAccessory.ACCESSORY, null);
 		if (cap != null) {
 			ItemStack stack = cap.getAccessoryItem();
 			PacketManager.network.sendTo(new PacketAccessorySync(player, stack), (EntityPlayerMP) player);
@@ -114,8 +114,8 @@ public class PlayerInHandler {
 
 	private static void syncAccessories(Clone event) {
 		// prevents issues with necklaces items
-		IAccessory oldCap = event.getOriginal().getCapability(ModCapabilities.ACCESSORY, null);
-		IAccessory newCap = event.getEntityPlayer().getCapability(ModCapabilities.ACCESSORY, null);
+		IAccessory oldCap = event.getOriginal().getCapability(CapabilityAccessory.ACCESSORY, null);
+		IAccessory newCap = event.getEntityPlayer().getCapability(CapabilityAccessory.ACCESSORY, null);
 
 		if (oldCap != null && newCap != null) {
 			newCap.setAccessoryItem(oldCap.getAccessoryItem().copy());

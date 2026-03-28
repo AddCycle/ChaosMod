@@ -1,6 +1,6 @@
 package net.chaos.chaosmod.client.inventory;
 
-import net.chaos.chaosmod.init.ModCapabilities;
+import net.chaos.chaosmod.common.capabilities.accessory.CapabilityAccessory;
 import net.chaos.chaosmod.items.necklace.ItemNecklace;
 import net.chaos.chaosmod.network.packets.PacketAccessorySync;
 import net.chaos.chaosmod.network.packets.PacketManager;
@@ -26,13 +26,13 @@ public class SlotAccessory extends Slot {
     
     @Override
     public ItemStack getStack() {
-        IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
+        IAccessory cap = player.getCapability(CapabilityAccessory.ACCESSORY, null);
         return cap != null ? cap.getAccessoryItem() : ItemStack.EMPTY;
     }
 
     @Override
     public void putStack(ItemStack stack) {
-    	IAccessory cap = player.getCapability(ModCapabilities.ACCESSORY, null);
+    	IAccessory cap = player.getCapability(CapabilityAccessory.ACCESSORY, null);
         if (cap != null) {
             cap.setAccessoryItem(stack);
 
