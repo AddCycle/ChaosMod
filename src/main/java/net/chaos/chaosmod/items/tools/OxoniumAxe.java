@@ -1,11 +1,14 @@
 package net.chaos.chaosmod.items.tools;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
+import net.chaos.chaosmod.world.events.tree.TreeTask;
+import net.chaos.chaosmod.world.events.tree.TreeTaskManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -30,7 +33,7 @@ public class OxoniumAxe extends ToolAxe {
 
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		String tip = String.format("%s[SAWMILL] %sHarvests the entire trunk", TextFormatting.GREEN,
+		String tip = String.format("%s[SAWMILL] %sHarvests the entire trunk (right-click to toggle)", TextFormatting.GREEN,
 				TextFormatting.RESET);
 		tooltip.add(tip);
 		super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -68,6 +71,7 @@ public class OxoniumAxe extends ToolAxe {
 			ItemStack stack) {
 		Queue<BlockPos> toCheck = new LinkedList<>();
 		Set<BlockPos> visited = new HashSet<>();
+		Set<BlockPos> logs = new LinkedHashSet<>();
 
 		toCheck.add(origin);
 
@@ -84,11 +88,7 @@ public class OxoniumAxe extends ToolAxe {
 			Block target = targetState.getBlock();
 
 			if (current == target) {
-				Block block = state.getBlock();
-				block.onBlockDestroyedByPlayer(world, pos, state);
-				block.harvestBlock(world, player, pos, state, world.getTileEntity(pos), stack);
-
-				world.setBlockToAir(pos);
+				logs.add(pos);
 
 				for (EnumFacing facing : EnumFacing.values()) {
 					BlockPos neighbor = pos.offset(facing);
@@ -101,6 +101,9 @@ public class OxoniumAxe extends ToolAxe {
 				}
 			}
 		}
+		
+		TreeTask task = new TreeTask(new LinkedList<>(logs), player, stack);
+		TreeTaskManager.addTask(world, task);
 	}
 
 	private boolean isLog(IBlockState state) {
