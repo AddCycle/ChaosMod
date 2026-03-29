@@ -40,6 +40,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import proxy.IBlockModel;
 import proxy.IItemModel;
+import util.Reference;
 import util.handlers.entity.RenderHandler;
 
 @EventBusSubscriber
@@ -125,7 +126,7 @@ public class RegistryHandler {
 	        );
 
 	        // Unique registry name per damage value
-	        ResourceLocation recipeID = new ResourceLocation("chaosmod", "forge_wall_recipe_" + dmg);
+	        ResourceLocation recipeID = new ResourceLocation(Reference.MODID, "forge_wall_recipe_" + dmg);
 	        recipe.setRegistryName(recipeID);
 	        registry.register(recipe);
 	    }

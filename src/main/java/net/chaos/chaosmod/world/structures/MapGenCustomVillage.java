@@ -96,10 +96,10 @@ public class MapGenCustomVillage extends MapGenVillage {
 
 	protected StructureStart getStructureStart(int chunkX, int chunkZ)
 	{
-		// 50% chance vanilla or custom per village
-        boolean useVanilla = this.world.rand.nextBoolean();
+        int useVanilla = this.world.rand.nextInt(10);
 
-        if (useVanilla) {
+        // 40% chance to use custom village
+        if (useVanilla <= 5) {
             // Let vanilla generate the village
         	return new MapGenVillage.Start(this.world, this.rand, chunkX, chunkZ, this.size);
         } else {

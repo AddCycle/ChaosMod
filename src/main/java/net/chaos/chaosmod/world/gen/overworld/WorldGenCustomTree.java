@@ -42,9 +42,7 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
 
         // Cancel if the block below is one of the custom leaves
         IBlockState stateBelow = world.getBlockState(blockBelowPos);
-        if (stateBelow.getBlock() instanceof BlockLeaves
-        		|| stateBelow.getBlock() == Blocks.WATER
-        		|| stateBelow.getBlock() == Blocks.FLOWING_WATER) {
+        if (stateBelow.getBlock() != Blocks.GRASS) {
         	// Skip this tree
         	canGenerate = false;
         }

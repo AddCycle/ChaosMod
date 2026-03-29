@@ -80,10 +80,9 @@ public class PlayerLifeEvents {
 
 	@SubscribeEvent
 	public static void onPlayerStepsOnCrops(FarmlandTrampleEvent event) {
-		if (!(event.getEntity() instanceof EntityPlayer))
+		if (!(event.getEntity() instanceof EntityPlayer) || event.getWorld().isRemote)
 			return;
-		if (event.getWorld().isRemote)
-			return;
+
 		EntityPlayer player = (EntityPlayer) event.getEntity();
 		if (player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == ModItems.OXONIUM_BOOTS) {
 			event.setCanceled(true);

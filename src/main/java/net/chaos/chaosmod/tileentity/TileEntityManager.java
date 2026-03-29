@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.tileentity;
 
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import util.Reference;
@@ -7,17 +8,20 @@ import util.Reference;
 public class TileEntityManager {
 
 	public static void registerTileEntities() {
-    	GameRegistry.registerTileEntity(TileEntityOxoniumFurnace.class, new ResourceLocation(Reference.MODID, "oxonium_furnace"));
-    	GameRegistry.registerTileEntity(TileEntityOxoniumChest.class, new ResourceLocation(Reference.MODID, "oxonium_chest"));
-    	GameRegistry.registerTileEntity(TileEntityBossAltar.class, new ResourceLocation(Reference.MODID, "boss_altar"));
-    	GameRegistry.registerTileEntity(TileEntityForge.class, new ResourceLocation(Reference.MODID, "forge_interface"));
-    	GameRegistry.registerTileEntity(TileEntityLantern.class, new ResourceLocation(Reference.MODID, "lantern"));
-    	GameRegistry.registerTileEntity(TileEntityCookieJar.class, new ResourceLocation(Reference.MODID, "cookie_jar"));
-    	GameRegistry.registerTileEntity(TileEntityBeam.class, new ResourceLocation(Reference.MODID, "beam_block"));
-    	GameRegistry.registerTileEntity(TileEntityTrophyBase.class, new ResourceLocation(Reference.MODID, "trophy_base"));
-    	GameRegistry.registerTileEntity(TileEntityChaosGateway.class, new ResourceLocation(Reference.MODID, "chaos_gateway"));
-    	GameRegistry.registerTileEntity(TileEntityDrawer.class, new ResourceLocation(Reference.MODID, "drawer"));
-    	GameRegistry.registerTileEntity(TileEntityATM.class, new ResourceLocation(Reference.MODID, "atm_machine"));
+		registerTE(TileEntityOxoniumFurnace.class, "oxonium_furnace");
+		registerTE(TileEntityOxoniumChest.class, "oxonium_chest");
+		registerTE(TileEntityBossAltar.class, "boss_altar");
+		registerTE(TileEntityForge.class, "forge_interface");
+		registerTE(TileEntityLantern.class, "lantern");
+		registerTE(TileEntityCookieJar.class, "cookie_jar");
+		registerTE(TileEntityBeam.class, "beam_block");
+		registerTE(TileEntityTrophyBase.class, "trophy_base");
+		registerTE(TileEntityChaosGateway.class, "chaos_gateway");
+		registerTE(TileEntityDrawer.class, "drawer");
+		registerTE(TileEntityATM.class, "atm_machine");
 	}
-
+	
+	private static void registerTE(Class<? extends TileEntity> clazz, String id) {
+    	GameRegistry.registerTileEntity(clazz, new ResourceLocation(Reference.MODID, id));
+	}
 }
