@@ -2,6 +2,7 @@ package net.chaos.chaosmod.items.special;
 
 import net.chaos.chaosmod.client.util.ClientHelper;
 import net.chaos.chaosmod.cutscene.CutsceneManager;
+import net.chaos.chaosmod.entity.EntitySwordOfWrath;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
@@ -38,7 +39,7 @@ public class TesterWand extends ItemBase {
 		super(name);
 		this.setMaxStackSize(1);
 		projectile = 0;
-		max = 7;
+		max = 8;
 	}
 	
 	@Override
@@ -118,10 +119,17 @@ public class TesterWand extends ItemBase {
 	    		break;
 	    	case 7:
 	    		if (worldIn.isRemote) {
-//	    			Item item = Item.getItemFromBlock(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Reference.MATHSMOD, "")));
 	    			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Reference.MATHSMOD, "tatanator"));
 	    			if (item != null)
 	    			makeClientEffectTotemLike(item);
+	    		}
+	    		break;
+	    	case 8:
+	    		if (!worldIn.isRemote) {
+	    			EntitySwordOfWrath sword = new EntitySwordOfWrath(worldIn);
+	    			sword.setPosition(playerIn.posX, playerIn.posY, playerIn.posZ);
+	    			sword.setOwnerId(playerIn.getUniqueID());
+	    			worldIn.spawnEntity(sword);
 	    		}
 	    		break;
 	    	default:

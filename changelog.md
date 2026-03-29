@@ -83,6 +83,7 @@ Changes:
   - feat: `final credits` displayed after beating `ChaosMaster Boss`
   - feat: `Minimap` should render the correct biome color for : foliage, grass or (water: prioritizes the mapcolor over it so it's not working)
   - style: tree logs are breaking sequentially with `oxonium_axe`
+  - tweak: `OxoniumVillages` have only 40% to generate over vanilla `Village`
 
 MODEL-ISSUES:
 [18:49:56] [Client thread/ERROR] [FML]: Exception loading model for variant chaosmod:atm_block#inventory for item "chaosmod:atm_block", normal location exception: 

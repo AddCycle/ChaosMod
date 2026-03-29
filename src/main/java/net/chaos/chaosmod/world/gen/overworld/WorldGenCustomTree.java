@@ -3,7 +3,6 @@ package net.chaos.chaosmod.world.gen.overworld;
 import java.util.Random;
 
 import net.chaos.chaosmod.init.ModBlocks;
-import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;

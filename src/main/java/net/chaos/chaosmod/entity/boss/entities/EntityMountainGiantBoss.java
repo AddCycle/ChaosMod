@@ -88,7 +88,7 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        // this.tasks.addTask(8, new EntityAILookIdle(this));
+
         this.applyEntityAI();
     }
 
@@ -185,6 +185,7 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
 
         if (!world.isRemote) {
         	this.motionY = 0.02D; // Constant upward motion
+        	setRotation(prevRotationYaw + 0.2f, prevRotationPitch);
         	this.posY += this.motionY;
         }
         
@@ -233,8 +234,15 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
             }
             
             if (!world.isRemote) {
-            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.GIANT_HEART, count == 0 ? 1 : count)));
-            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModBlocks.BRAVE_TROPHY, count == 0 ? 1 : count)));
+            	// FIXME : loots can be burnt (make an entity subclass that is immune to fire)
+            	EntityItem heart = new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.GIANT_HEART, count == 0 ? 1 : count));
+            	EntityItem trophy = new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModBlocks.BRAVE_TROPHY, count == 0 ? 1 : count));
+            	
+            	heart.setNoDespawn();
+            	trophy.setNoDespawn();
+
+            	world.spawnEntity(heart);
+            	world.spawnEntity(trophy);
             }
         }
         else

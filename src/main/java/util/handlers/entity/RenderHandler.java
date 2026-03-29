@@ -13,6 +13,7 @@ import net.chaos.chaosmod.entity.EntityEyeCrystal;
 import net.chaos.chaosmod.entity.EntityForgeGuardian;
 import net.chaos.chaosmod.entity.EntityPicsou;
 import net.chaos.chaosmod.entity.EntitySphere;
+import net.chaos.chaosmod.entity.EntitySwordOfWrath;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
@@ -33,6 +34,7 @@ import net.chaos.chaosmod.entity.render.EntityBipedBasicRenderer;
 import net.chaos.chaosmod.entity.render.EntityEyeCrystalRenderer;
 import net.chaos.chaosmod.entity.render.EntityPicsouRenderer;
 import net.chaos.chaosmod.entity.render.EntitySphereRenderer;
+import net.chaos.chaosmod.entity.render.EntitySwordOfWrathRenderer;
 import net.chaos.chaosmod.entity.render.EntityVikingRenderer;
 import net.chaos.chaosmod.entity.render.LittleGiantRenderer;
 import net.chaos.chaosmod.entity.render.RenderChaosSage;
@@ -86,6 +88,7 @@ public class RenderHandler {
 		registerEntityRenderer(ChaosMasterBoss.class, CMRenderer::new);
 		registerEntityRenderer(EntityBipedBasic.class, EntityBipedBasicRenderer::new);
 		registerEntityRenderer(EntitySphere.class, EntitySphereRenderer::new);
+		registerEntityRenderer(EntitySwordOfWrath.class, EntitySwordOfWrathRenderer::new);
 	}
 	
 	public static void bindTESRs() {
