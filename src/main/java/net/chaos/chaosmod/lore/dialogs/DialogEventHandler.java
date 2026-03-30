@@ -25,6 +25,8 @@ public class DialogEventHandler {
 	    Entity entity = event.getEntity();
 	    String dialog = null;
 	    EntityPlayer player = Minecraft.getMinecraft().player;
+	    if (entity.hasCustomName() || entity.getAlwaysRenderNameTag()) return;
+
 	    if (entity.getDistanceSq(player) < 60) {
 	    	if (entity instanceof ITalkable) {
 	    		dialog = ((ITalkable) entity).getDialogText();
