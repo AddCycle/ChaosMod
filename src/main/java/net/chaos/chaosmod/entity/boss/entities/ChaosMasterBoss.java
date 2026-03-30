@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.chaos.chaosmod.common.CommonUtils;
 import net.chaos.chaosmod.entity.boss.fightmanager.CMFightManager;
 import net.chaos.chaosmod.entity.boss.fightmanager.phase.CMPhaseList;
 import net.chaos.chaosmod.entity.boss.fightmanager.phase.CMPhaseManager;
@@ -25,7 +26,6 @@ import net.minecraft.entity.MoverType;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -684,11 +684,11 @@ public class ChaosMasterBoss extends EntityLiving implements IMob, IEntityMultiP
 				}
 
 				this.dropExperience(MathHelper.floor((float) i * 0.08F));
-				world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ,
+				world.spawnEntity(CommonUtils.createBossLoot(world, this.posX, this.posY, this.posZ,
 						new ItemStack(ModItems.ALL_IN_ONE_SWORD, count == 0 ? 1 : count)));
-				world.spawnEntity(new EntityItem(world, this.posX, this.posY + 1, this.posZ,
+				world.spawnEntity(CommonUtils.createBossLoot(world, this.posX, this.posY + 1, this.posZ,
 						new ItemStack(ModItems.ALL_IN_ONE_BOW, count == 0 ? 1 : count)));
-				world.spawnEntity(new EntityItem(world, this.posX, this.posY + 2, this.posZ,
+				world.spawnEntity(CommonUtils.createBossLoot(world, this.posX, this.posY + 2, this.posZ,
 						new ItemStack(ModBlocks.TALENT_TROPHY, count == 0 ? 1 : count)));
 			}
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.chaos.chaosmod.common.CommonUtils;
 import net.chaos.chaosmod.entity.ai.EntityAIEscapeWater;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.chaos.chaosmod.init.ModBlocks;
@@ -21,7 +22,6 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityMob;
@@ -561,8 +561,8 @@ public class EntityRevengeBlazeBoss extends EntityMob {
             }
             
             if (!world.isRemote) {
-            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.BLAZING_HEART, count == 0 ? 1 : count)));
-            	world.spawnEntity(new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModBlocks.FIREFIGHTER_TROPHY, count == 0 ? 1 : count)));
+            	world.spawnEntity(CommonUtils.createBossLoot(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.BLAZING_HEART, count == 0 ? 1 : count)));
+            	world.spawnEntity(CommonUtils.createBossLoot(world, this.posX, this.posY, this.posZ, new ItemStack(ModBlocks.FIREFIGHTER_TROPHY, count == 0 ? 1 : count)));
             }
         }
         else

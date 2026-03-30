@@ -32,6 +32,7 @@ import net.chaos.chaosmod.items.special.OxoniumBow;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.items.special.PortalKey;
 import net.chaos.chaosmod.items.special.SuperTotem;
+import net.chaos.chaosmod.items.special.SwordOfWrathCaster;
 import net.chaos.chaosmod.items.special.TesterWand;
 import net.chaos.chaosmod.items.special.TinkerersHammer;
 import net.chaos.chaosmod.items.tools.AllInOneSword;
@@ -163,6 +164,7 @@ public class ModItems {
 	
 	public static final Item MAGNET = new ItemMagnet("magnet");
 	public static final Item SUPER_TOTEM = new SuperTotem("super_totem");
+	public static final Item SWORD_OF_WRATH_CASTER = new SwordOfWrathCaster("sword_of_wrath_caster");
 	
 	// Money
 	public static final Item MONEY_WAD = new ItemMoneyWad("wad");

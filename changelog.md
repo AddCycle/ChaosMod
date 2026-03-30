@@ -9,7 +9,7 @@ TODO (current version):
   - Make jobs support multiple rewards (Later)
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
-  - Sword that kinds of follows you around if you cast it and hits mobs (should be an endgame item tho...) [DOING]
+  - Sword Of Wrath orientation towards monster attacked (fix animations)
 
 IDEAS:
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
@@ -47,7 +47,6 @@ OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
 
 ISSUES:
-  - Fix: bosses loots can burn in the lava
   - Fix: `/jobs` command not working properly (needs code fix)
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tamable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different
   - Fix: When `mathsmod` not loaded, job reward for `tamer` is null (might cause crash)
@@ -85,6 +84,8 @@ Changes:
   - feat: `Minimap` should render the correct biome color for : foliage, grass or (water: prioritizes the mapcolor over it so it's not working)
   - style: tree logs are breaking sequentially with `oxonium_axe`
   - tweak: `OxoniumVillages` have only 40% to generate over vanilla `Village`
+  - fix: bosses loots cannot burn
+  - feat(endgame): `sword_of_wrath` entity/item -> follows the owner around and kills mobs for him
 
 MODEL-ISSUES:
 Caused by: java.io.FileNotFoundException: chaosmod:models/item/atm_block.json

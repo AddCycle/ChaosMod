@@ -5,6 +5,7 @@ import java.util.Set;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.common.capabilities.accessory.CapabilityAccessory;
 import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
+import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.jobs.PlayerJobs;
 import net.chaos.chaosmod.network.packets.PacketAccessorySync;
@@ -21,6 +22,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.Clone;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import util.Reference;
 import util.blockstates.BlockHelper;
 
@@ -49,6 +51,17 @@ public class PlayerInHandler {
 		String jsonData = JobsManager.toJsonString(); // serialize all jobs
 		PacketManager.network.sendTo(new PacketSyncJobs(jsonData), (EntityPlayerMP) event.player);
 		syncJobCapabilities((EntityPlayerMP) event.player);
+	}
+	
+	@SubscribeEvent
+	public static void onPlayerDisconnect(PlayerLoggedOutEvent event) {
+		if (event.player.world.isRemote) return;
+
+		EntityPlayerMP player = (EntityPlayerMP) event.player;
+		if (player.getEntityData().hasKey("sword_of_wrath_cast") && player.getEntityData().getBoolean("sword_of_wrath_cast")) {
+			player.addItemStackToInventory(new ItemStack(ModItems.SWORD_OF_WRATH_CASTER));
+			player.getEntityData().setBoolean("sword_of_wrath_cast", false);
+		}
 	}
 
 	@SubscribeEvent

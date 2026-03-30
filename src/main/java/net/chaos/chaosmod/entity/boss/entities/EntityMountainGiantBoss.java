@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.chaos.chaosmod.common.CommonUtils;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.ai.EntityAICustomRangedAttack;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
@@ -46,13 +47,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackMob {
-    public final BossInfoServer bossInfo;
-    public boolean attacking = false;
-    private int attackTimer = 0;
-    private int minionsMax = 10;
-    private List<LittleGiantEntity> entity_pool = new ArrayList<LittleGiantEntity>();
-    private static final AxisAlignedBB ENTITY_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 20.0D, 20.0D, 20.0D);
-    private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(EntityMountainGiantBoss.class, DataSerializers.BOOLEAN);
+	public final BossInfoServer bossInfo;
+	public boolean attacking = false;
+	private int attackTimer = 0;
+	private int minionsMax = 10;
+	private List<LittleGiantEntity> entity_pool = new ArrayList<LittleGiantEntity>();
+	private static final AxisAlignedBB ENTITY_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 20.0D, 20.0D, 20.0D);
+	private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager
+			.createKey(EntityMountainGiantBoss.class, DataSerializers.BOOLEAN);
 
 	public EntityMountainGiantBoss(World worldIn) {
 		super(worldIn);
@@ -63,234 +65,218 @@ public class EntityMountainGiantBoss extends EntityMob implements IRangedAttackM
 		bossInfo = new BossInfoServer(this.getDisplayName(), Color.BLUE, Overlay.PROGRESS);
 		this.setSize(1.5f, 3);
 	}
-	
+
 	@Override
 	protected void applyEntityAttributes() {
-	    super.applyEntityAttributes();
-	    int difficulty = world.getDifficulty().getDifficultyId();
-	    this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(difficulty * 200.0D); // easy, normal | hard | >
-	    this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(difficulty * 0.25D);
-	    this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(difficulty * 2.0D);
+		super.applyEntityAttributes();
+		int difficulty = world.getDifficulty().getDifficultyId();
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(difficulty * 200.0D); // easy, normal |
+																										// hard | >
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(difficulty * 0.25D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(difficulty * 2.0D);
 	}
-	
+
 	@Override
 	protected void entityInit() {
 		super.entityInit();
 		this.dataManager.register(SWINGING_ARMS, false);
 	}
-	
+
 	@Override
-    protected void initEntityAI()
-    {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAICustomRangedAttack(this, 1.0D, 20 * 2, 15.0F));
-        this.tasks.addTask(1, new EntityAIAttackMelee(this, 0.75D, false));
-        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+	protected void initEntityAI() {
+		this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(1, new EntityAICustomRangedAttack(this, 1.0D, 20 * 2, 15.0F));
+		this.tasks.addTask(1, new EntityAIAttackMelee(this, 0.75D, false));
+		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
+		this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 
-        this.applyEntityAI();
-    }
+		this.applyEntityAI();
+	}
 
-    protected void applyEntityAI()
-    {
-        this.tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0D, false));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPigZombie.class}));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPlayer.class}));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, false));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, true));
-    }
+	protected void applyEntityAI() {
+		this.tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0D, false));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] { EntityPigZombie.class }));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] { EntityPlayer.class }));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, false));
+		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, true));
+	}
 
-    public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
-    {
-        EntityRock rock = new EntityRock(this.world, this);
-        double d0 = target.posY + (double)target.getEyeHeight() - 1.100000023841858D;
-        double d1 = target.posX - this.posX;
-        double d2 = d0 - rock.posY;
-        double d3 = target.posZ - this.posZ;
-        float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
-        rock.shoot(d1, d2 + (double)f, d3, 1.6F, 12.0F);
-        this.playSound(SoundEvents.ENTITY_SNOWMAN_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-        this.world.spawnEntity(rock);
-    }
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+		EntityRock rock = new EntityRock(this.world, this);
+		double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
+		double d1 = target.posX - this.posX;
+		double d2 = d0 - rock.posY;
+		double d3 = target.posZ - this.posZ;
+		float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
+		rock.shoot(d1, d2 + (double) f, d3, 1.6F, 12.0F);
+		this.playSound(SoundEvents.ENTITY_SNOWMAN_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+		this.world.spawnEntity(rock);
+	}
 
-    public void startAttack() {
-    	this.attacking = true;
-    	this.attackTimer = 20;
-    	this.setSwingingArms(true);
-    	if (!world.isRemote) {
-    		if (this.getMaxHealth() / 2 >= this.getHealth()) {
-    			if (!entity_pool.isEmpty()) {
-    				Iterator<LittleGiantEntity> iter = entity_pool.iterator();
-    				while (iter.hasNext()) {
-    				    LittleGiantEntity e = iter.next();
-    				    if (e.isDead) {
-    				        iter.remove();
-    				    }
-    				}
-    			}
+	public void startAttack() {
+		this.attacking = true;
+		this.attackTimer = 20;
+		this.setSwingingArms(true);
+		if (!world.isRemote) {
+			if (this.getMaxHealth() / 2 >= this.getHealth()) {
+				if (!entity_pool.isEmpty()) {
+					Iterator<LittleGiantEntity> iter = entity_pool.iterator();
+					while (iter.hasNext()) {
+						LittleGiantEntity e = iter.next();
+						if (e.isDead) {
+							iter.remove();
+						}
+					}
+				}
 
-    			if (entity_pool.size() >= this.minionsMax) return;
+				if (entity_pool.size() >= this.minionsMax)
+					return;
 
-    			LittleGiantEntity little = new LittleGiantEntity(world);
-    			little.setPosition(this.posX + 0.5, this.posY, this.posZ + 0.5);
-    			entity_pool.add(little);
-    			world.spawnEntity(little);
-    		}
-    	}
-    }
+				LittleGiantEntity little = new LittleGiantEntity(world);
+				little.setPosition(this.posX + 0.5, this.posY, this.posZ + 0.5);
+				entity_pool.add(little);
+				world.spawnEntity(little);
+			}
+		}
+	}
 
-    public boolean isAttacking() {
-        return attacking;
-    }
-	
+	public boolean isAttacking() { return attacking; }
+
 	@Override
 	protected void updateAITasks() {
 		super.updateAITasks();
 	}
-	
+
 	@Override
 	public void onLivingUpdate() {
-		if (this.deathTime <= 0) { 
+		if (this.deathTime <= 0) {
 			this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
-        }
-		
+		}
+
 		super.onLivingUpdate();
-		
+
 		if (attacking) {
-		    attackTimer--;
-		    if (attackTimer <= 0) {
-		        attacking = false;
-		        setSwingingArms(false);
-		    }
+			attackTimer--;
+			if (attackTimer <= 0) {
+				attacking = false;
+				setSwingingArms(false);
+			}
 		}
 	}
-	
+
 	@Override
 	public void addTrackingPlayer(EntityPlayerMP player) {
 		super.addTrackingPlayer(player);
 		this.bossInfo.addPlayer(player);
 	}
-	
+
 	@Override
 	public void removeTrackingPlayer(EntityPlayerMP player) {
 		super.removeTrackingPlayer(player);
 		this.bossInfo.removePlayer(player);
 	}
-	
+
 	@Override
 	protected void onDeathUpdate() {
-        ++this.deathTime;
+		++this.deathTime;
 
-        if (!world.isRemote) {
-        	this.motionY = 0.02D; // Constant upward motion
-        	setRotation(prevRotationYaw + 0.2f, prevRotationPitch);
-        	this.posY += this.motionY;
-        }
-        
-        if (this.deathTime == 1) {
-        	this.noClip = true;
-        	this.setNoGravity(true);
-        }
+		if (!world.isRemote) {
+			this.motionY = 0.02D; // Constant upward motion
+			setRotation(prevRotationYaw + 0.2f, prevRotationPitch);
+			this.posY += this.motionY;
+		}
 
-        if (this.deathTime >= 200)
-        {
-            if (!this.world.isRemote && (this.isPlayer() || this.recentlyHit > 0 && this.canDropLoot() && this.world.getGameRules().getBoolean("doMobLoot")))
-            {
-                int i = this.getExperiencePoints(this.attackingPlayer);
-                i = net.minecraftforge.event.ForgeEventFactory.getExperienceDrop(this, this.attackingPlayer, i);
-                while (i > 0)
-                {
-                    int j = EntityXPOrb.getXPSplit(i);
-                    i -= j;
-                    this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY, this.posZ, j));
-                }
-            }
+		if (this.deathTime == 1) {
+			this.noClip = true;
+			this.setNoGravity(true);
+		}
 
+		if (this.deathTime >= 200) {
+			if (!this.world.isRemote && (this.isPlayer() || this.recentlyHit > 0 && this.canDropLoot()
+					&& this.world.getGameRules().getBoolean("doMobLoot"))) {
+				int i = this.getExperiencePoints(this.attackingPlayer);
+				i = net.minecraftforge.event.ForgeEventFactory.getExperienceDrop(this, this.attackingPlayer, i);
+				while (i > 0) {
+					int j = EntityXPOrb.getXPSplit(i);
+					i -= j;
+					this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY, this.posZ, j));
+				}
+			}
 
-            List<EntityPlayer> nearby_players = null;
-            int count = 0;
-            if (!world.isRemote) {
-            	int radius = 50; // FIXME: boss chamber radius
-            	 nearby_players = world.getEntitiesWithinAABB(EntityPlayer.class, this.getEntityBoundingBox().grow(radius));
-            	 count = nearby_players.size();
-            }
+			List<EntityPlayer> nearby_players = null;
+			int count = 0;
+			if (!world.isRemote) {
+				int radius = 50; // FIXME: boss chamber radius
+				nearby_players = world.getEntitiesWithinAABB(EntityPlayer.class,
+						this.getEntityBoundingBox().grow(radius));
+				count = nearby_players.size();
+			}
 
-            if (!world.isRemote) {
-            	for (EntityPlayerMP pl : world.getMinecraftServer().getPlayerList().getPlayers()) {
-            		pl.sendMessage(new TextComponentTranslation("entity.mountain_giant_boss.death_message"));
-            	}
-            }
+			if (!world.isRemote) {
+				for (EntityPlayerMP pl : world.getMinecraftServer().getPlayerList().getPlayers()) {
+					pl.sendMessage(new TextComponentTranslation("entity.mountain_giant_boss.death_message"));
+				}
+			}
 
-            this.setDead();
+			this.setDead();
 
-            for (int k = 0; k < 20; ++k)
-            {
-                double d2 = this.rand.nextGaussian() * 0.02D;
-                double d0 = this.rand.nextGaussian() * 0.02D;
-                double d1 = this.rand.nextGaussian() * 0.02D;
-                this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d2, d0, d1);
-            }
-            
-            if (!world.isRemote) {
-            	// FIXME : loots can be burnt (make an entity subclass that is immune to fire)
-            	EntityItem heart = new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.GIANT_HEART, count == 0 ? 1 : count));
-            	EntityItem trophy = new EntityItem(world, this.posX, this.posY, this.posZ, new ItemStack(ModBlocks.BRAVE_TROPHY, count == 0 ? 1 : count));
-            	
-            	heart.setNoDespawn();
-            	trophy.setNoDespawn();
+			for (int k = 0; k < 20; ++k) {
+				double d2 = this.rand.nextGaussian() * 0.02D;
+				double d0 = this.rand.nextGaussian() * 0.02D;
+				double d1 = this.rand.nextGaussian() * 0.02D;
+				this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+						this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width,
+						this.posY + (double) (this.rand.nextFloat() * this.height),
+						this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d2, d0,
+						d1);
+			}
 
-            	world.spawnEntity(heart);
-            	world.spawnEntity(trophy);
-            }
-        }
-        else
-        {
-        	float progress = 1.0F - (float) this.deathTime / 200.0F;
-            this.bossInfo.setPercent(Math.max(progress, 0.0F));
-            this.bossInfo.setColor(BossInfo.Color.GREEN);
-            this.bossInfo.setName(new TextComponentTranslation("boss.mountain_giant.death"));
-        }
+			if (!world.isRemote) {
+				EntityItem heart = CommonUtils.createBossLoot(world, this.posX, this.posY, this.posZ,
+						new ItemStack(ModItems.GIANT_HEART, count == 0 ? 1 : count));
+				EntityItem trophy = CommonUtils.createBossLoot(world, this.posX, this.posY, this.posZ,
+						new ItemStack(ModBlocks.BRAVE_TROPHY, count == 0 ? 1 : count));
+
+				world.spawnEntity(heart);
+				world.spawnEntity(trophy);
+			}
+		} else {
+			float progress = 1.0F - (float) this.deathTime / 200.0F;
+			this.bossInfo.setPercent(Math.max(progress, 0.0F));
+			this.bossInfo.setColor(BossInfo.Color.GREEN);
+			this.bossInfo.setName(new TextComponentTranslation("boss.mountain_giant.death"));
+		}
 	}
-	
+
 	@Override
-	public boolean isImmuneToExplosions() {
-		return true;
-	}
-	
+	public boolean isImmuneToExplosions() { return true; }
+
 	@Override
 	public boolean canBePushed() {
 		return false;
 	}
 
 	@Override
-	public AxisAlignedBB getEntityBoundingBox() {
-		return super.getEntityBoundingBox();
-	}
-	
+	public AxisAlignedBB getEntityBoundingBox() { return super.getEntityBoundingBox(); }
+
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox() {
-		return ENTITY_AABB;
-	}
-	
+	public AxisAlignedBB getCollisionBoundingBox() { return ENTITY_AABB; }
+
 	@Override
-    @SideOnly(Side.CLIENT)
-	public AxisAlignedBB getRenderBoundingBox() {
-		return getEntityBoundingBox();
-	}
-	
+	@SideOnly(Side.CLIENT)
+	public AxisAlignedBB getRenderBoundingBox() { return getEntityBoundingBox(); }
+
 	@Override
 	public void setSwingingArms(boolean swingingArms) {
-	    this.dataManager.set(SWINGING_ARMS, swingingArms);
+		this.dataManager.set(SWINGING_ARMS, swingingArms);
 	}
 
-	public boolean isSwingingArms() {
-	    return this.dataManager.get(SWINGING_ARMS);
-	}
+	public boolean isSwingingArms() { return this.dataManager.get(SWINGING_ARMS); }
 
-    @Override
-    protected boolean canDespawn() {
-    	return false;
-    }
+	@Override
+	protected boolean canDespawn() {
+		return false;
+	}
 }
