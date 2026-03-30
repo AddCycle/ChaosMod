@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.FoodStats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -31,6 +32,62 @@ import util.Reference;
 public class OverlayEffectsEvents {
 	private static final String BLUE_FIRE_TEXTURE = "gui/blue_fire_layer_0";
 	private static final ResourceLocation ICONS = new ResourceLocation("textures/gui/icons.png");
+	public static final ResourceLocation CUSTOM_ICONS = new ResourceLocation(Reference.MODID,
+			"textures/gui/custom_icons.png");
+
+	@SubscribeEvent
+	public static void postRenderOverlay(RenderGameOverlayEvent.Post event) {
+		if (event.getType() != ElementType.FOOD)
+			return;
+
+		ScaledResolution res = event.getResolution();
+		int width = res.getScaledWidth();
+		int height = res.getScaledHeight();
+		renderSaturation(event, width, height);
+	}
+
+	private static void renderSaturation(RenderGameOverlayEvent event, int width, int height) {
+		if (event.getType() != ElementType.FOOD)
+			return;
+
+		Minecraft mc = Minecraft.getMinecraft();
+		GlStateManager.pushMatrix();
+
+		GlStateManager.color(1.0f, 1.0f, 0.0f); // yellow/gold
+		GlStateManager.enableBlend();
+
+		bind(CUSTOM_ICONS);
+
+		int left = width / 2 + 91;
+		int top = height - 39;
+
+		FoodStats stats = mc.player.getFoodStats();
+		int level = stats.getFoodLevel();
+		float saturation = stats.getSaturationLevel(); // max 5.0f
+
+		for (int i = 0; i < 10; ++i) {
+			int idx = i * 2 + 1;
+			int x = left - i * 8 - 9;
+			int y = top;
+			int iconX = 142;
+			int iconY = 27;
+
+//			EntityPlayer player = (EntityPlayer) mc.getRenderViewEntity();
+
+//            if (player.getFoodStats().getSaturationLevel() <= 0.0F && updateCounter % (level * 3 + 1) == 0)
+//            {
+//                y = top + (rand.nextInt(3) - 1);
+//            }
+
+			// saturation
+			if (idx < saturation)
+				drawTexturedModalRect(x, y, iconX, iconY, 9, 9);
+		}
+
+		GlStateManager.disableBlend();
+
+		GlStateManager.popMatrix();
+	}
 
 	@SubscribeEvent
 	public static void onRenderOverlay(RenderGameOverlayEvent.Pre event) {
@@ -70,7 +127,7 @@ public class OverlayEffectsEvents {
 
 	private static void drawPing(int x, int y, NetworkPlayerInfo networkPlayerInfoIn) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		Minecraft.getMinecraft().getTextureManager().bindTexture(ICONS);
+		bind(ICONS);
 		int j;
 
 		if (networkPlayerInfoIn.getResponseTime() < 0) {
@@ -115,7 +172,7 @@ public class OverlayEffectsEvents {
 	private static void renderFireOverlay2D(ScaledResolution res, float alpha) {
 		Minecraft mc = Minecraft.getMinecraft();
 
-		mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		bind(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite sprite = mc.getTextureMapBlocks().getAtlasSprite("minecraft:blocks/fire_layer_0");
 
 		float u1 = sprite.getMinU();
@@ -149,11 +206,13 @@ public class OverlayEffectsEvents {
 	private static void renderBlueFire(ScaledResolution res, float alpha) {
 		Minecraft mc = Minecraft.getMinecraft();
 
-		boolean flag = mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase)mc.getRenderViewEntity()).isPlayerSleeping();
-		if (mc.gameSettings.thirdPersonView != 0 || flag) return;
+		boolean flag = mc.getRenderViewEntity() instanceof EntityLivingBase
+				&& ((EntityLivingBase) mc.getRenderViewEntity()).isPlayerSleeping();
+		if (mc.gameSettings.thirdPersonView != 0 || flag)
+			return;
 
 		GlStateManager.pushMatrix();
-		mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		bind(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite sprite = mc.getTextureMapBlocks().getAtlasSprite(Reference.PREFIX + BLUE_FIRE_TEXTURE);
 
 		float u1 = sprite.getMinU();
@@ -183,6 +242,10 @@ public class OverlayEffectsEvents {
 		GlStateManager.enableDepth();
 		GlStateManager.disableBlend();
 		GlStateManager.popMatrix();
+	}
+
+	private static void bind(ResourceLocation res) {
+		Minecraft.getMinecraft().getTextureManager().bindTexture(res);
 	}
 
 	@SubscribeEvent

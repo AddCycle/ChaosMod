@@ -9,7 +9,6 @@ TODO (current version):
   - Make jobs support multiple rewards (Later)
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
-  - Sword Of Wrath orientation towards monster attacked (fix animations)
 
 IDEAS:
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
@@ -54,6 +53,7 @@ ISSUES:
   - Fix: ModWorldGen viking gallions generated in weird places... #3
   - EntityViking clearing inventory on right-click and kills you...
   - DrawerTESR: item icon lights even in the dark
+  - Sword Of Wrath orientation towards monster attacked (fix animations)
 
 REFACTOR (need):
   - entity package
