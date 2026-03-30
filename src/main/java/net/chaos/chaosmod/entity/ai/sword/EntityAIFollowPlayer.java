@@ -40,7 +40,22 @@ public class EntityAIFollowPlayer extends EntityAIBase {
 
 		double dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
 
-		if (dist > 0.1) {
+		if (dist > 1) {
+
+		    dx /= dist;
+		    dy /= dist;
+		    dz /= dist;
+
+		    entity.motionX = dx * speed;
+		    entity.motionY = dy * speed;
+		    entity.motionZ = dz * speed;
+		} else {
+		    entity.motionX *= 0.5;
+		    entity.motionY *= 0.5;
+		    entity.motionZ *= 0.5;
+		}
+
+		if (dist <= 1 && dist > 0.1) {
 		    double speed = 0.15;
 
 		    dx /= dist;
