@@ -17,6 +17,7 @@ public class CommonUtils {
 	 */
 	public static EntityItem createBossLoot(World world, double x, double y, double z, ItemStack stack) {
 		EntityItem e = new EntityItem(world, x, y, z, stack) {
+
 			@Override
 			protected void entityInit() {
 				super.entityInit();
@@ -26,6 +27,7 @@ public class CommonUtils {
 
 		e.setNoDespawn();
 		e.setNoPickupDelay();
+		e.setGlowing(true);
 
 		return e;
 	}

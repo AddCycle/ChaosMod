@@ -46,6 +46,7 @@ public class OverlayEffectsEvents {
 		renderSaturation(event, width, height);
 	}
 
+	// FIXME : issue with random jump of food bar, TODO : make the entire thing in Pre
 	private static void renderSaturation(RenderGameOverlayEvent event, int width, int height) {
 		if (event.getType() != ElementType.FOOD)
 			return;
@@ -71,13 +72,6 @@ public class OverlayEffectsEvents {
 			int y = top;
 			int iconX = 142;
 			int iconY = 27;
-
-//			EntityPlayer player = (EntityPlayer) mc.getRenderViewEntity();
-
-//            if (player.getFoodStats().getSaturationLevel() <= 0.0F && updateCounter % (level * 3 + 1) == 0)
-//            {
-//                y = top + (rand.nextInt(3) - 1);
-//            }
 
 			// saturation
 			if (idx < saturation)

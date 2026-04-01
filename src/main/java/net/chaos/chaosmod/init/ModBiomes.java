@@ -16,7 +16,7 @@ import util.Reference;
 
 public class ModBiomes {
 	public static final List<Biome> BIOMES = new ArrayList<Biome>();
-	public static final int CUSTOM_BIOME_WEIGHT = 50;
+	public static final int CUSTOM_BIOME_WEIGHT = 5;
 
 	public static Biome GIANT_MOUNTAIN = new CustomBiomeOverworld().setRegistryName(new ResourceLocation(Reference.MODID, "giant_mountains"));
 	public static Biome NETHER_CAVES = new CustomBiomeNether().setRegistryName(new ResourceLocation(Reference.MODID, "nether_caves"));
@@ -37,8 +37,6 @@ public class ModBiomes {
         addBiome(ModBiomes.NETHER_CAVES);
         addBiome(ModBiomes.ENDER_GARDEN);
         addBiome(ModBiomes.CHAOS_LAND_BIOME);
-//        BiomeManager.removeBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(Biomes.PLAINS, 10));
-        // BiomeDictionary.addTypes(ModBiomes.CUSTOM_HELL, BiomeDictionary.Type.NETHER);
     }
     
     public static void addBiome(Biome biome, BiomeDictionary.Type ...types) {

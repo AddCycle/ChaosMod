@@ -2,6 +2,7 @@ package net.chaos.chaosmod;
 
 import org.apache.logging.log4j.Logger;
 
+import net.chaos.chaosmod.biomes.gen.events.BiomeGenEventHandler;
 import net.chaos.chaosmod.commands.CommandsManager;
 import net.chaos.chaosmod.common.capabilities.CapabilityEventHandler;
 import net.chaos.chaosmod.init.ModBiomes;
@@ -88,6 +89,7 @@ public class Main
     	logger.info("CHAOSMOD POST-INIT PHASE {}", event.getModState());
     	// VillagerTradeHandler.onRegisterTrades();
         TileEntityManager.registerTileEntities();
+        BiomeGenEventHandler.addAdditionalBiomesFromMod(Reference.MATHSMOD, "pink_forest", "unusual_forest", "desolate_lands");
     }
     
     @EventHandler

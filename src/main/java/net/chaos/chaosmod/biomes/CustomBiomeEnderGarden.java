@@ -29,7 +29,7 @@ public class CustomBiomeEnderGarden extends AbstractBiome {
 	
 	public CustomBiomeEnderGarden() {
         super(new Biome.BiomeProperties("Ender Garden")
-            .setBaseHeight(Biomes.MUTATED_EXTREME_HILLS_WITH_TREES.getBaseHeight())
+            .setBaseHeight(Biomes.FOREST.getBaseHeight())
             .setHeightVariation(0.1F)
             .setTemperature(0.4F)
             .setSnowEnabled()

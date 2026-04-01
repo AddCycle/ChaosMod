@@ -33,7 +33,28 @@
 		{
 			"level": 1,
 			"reward": {
-				"item": "mathsmod:iron_wolf_chestplate",
+				"item": "mathsmod:diamond_wolf_helmet",
+				"amount": 1
+			}
+		},
+		{
+			"level": 1,
+			"reward": {
+				"item": "mathsmod:diamond_wolf_chestplate",
+				"amount": 1
+			}
+		},
+		{
+			"level": 1,
+			"reward": {
+				"item": "mathsmod:diamond_wolf_leggings",
+				"amount": 1
+			}
+		},
+		{
+			"level": 1,
+			"reward": {
+				"item": "mathsmod:diamond_wolf_boots",
 				"amount": 1
 			}
 		},

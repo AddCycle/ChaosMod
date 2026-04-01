@@ -1,17 +1,19 @@
 package net.chaos.chaosmod.world;
 import static net.chaos.chaosmod.config.ModConfig.SERVER;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Mirror;
@@ -20,6 +22,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -30,11 +33,9 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import util.Reference;
 
-/**
- * FIXME : viking gallions are generated in weird places (do ocean biomes only)
- */
 public class ModWorldGen implements IWorldGenerator {
 	private static final Set<ChunkPos> alreadyGenerated = new HashSet<>();
+	private static final List<Biome> allowedBiomes = Arrays.asList(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.FROZEN_OCEAN);
 
 	/*
 	 * Overworld = 0
@@ -79,7 +80,13 @@ public class ModWorldGen implements IWorldGenerator {
     	if (!world.getWorldInfo().isMapFeaturesEnabled()) {
     		return;
     	}
+    	
+    	processVikingGallionSpawn(world, random, chunkX, chunkZ);
 
+    }
+
+    // FIXME : fix gallion spawn + TODO : add variations to the blocks & (lootables from the structure setblock command)
+    private void processVikingGallionSpawn(World world, Random random, int chunkX, int chunkZ) {
     	if (random.nextInt(100 - SERVER.boat_spawn_rate) == 0) {
     		// trying to center that in the chunk
     		int centerX = chunkX * 16 + 8;
@@ -88,9 +95,10 @@ public class ModWorldGen implements IWorldGenerator {
     		// Start from top and go down to find real surface
     		BlockPos surface = world.getPrecipitationHeight(new BlockPos(centerX, 255, centerZ)).down();
     		IBlockState state = world.getBlockState(surface);
-
-    		Main.getLogger().debug("Block at " + surface + " is " + state.getBlock() + " | Material: " + state.getMaterial());
-
+    		
+    		Biome biome = world.getBiome(surface);
+    		if (biome == null) return;
+    		if (!allowedBiomes.contains(biome)) return;
     		if (state.getMaterial() != Material.WATER) return;
 
     		BlockPos pos = surface; // One block above water
@@ -101,11 +109,9 @@ public class ModWorldGen implements IWorldGenerator {
     		if (!alreadyGenerated.add(cp)) return;
 
     		generateVikingGallion(world, pos, random, new ResourceLocation(Reference.MODID, "viking_gallion"));
-    		System.out.println("Generating : " + pos);
     	}
-    }
+	}
 
-    // FIXME : populating chunks, causing cascading world gen lag
     public void generateVikingGallion(World world, BlockPos pos, Random random, ResourceLocation rl) {
         MinecraftServer server = world.getMinecraftServer();
         if (server == null) return;
@@ -122,7 +128,6 @@ public class ModWorldGen implements IWorldGenerator {
             .setMirror(Mirror.NONE)
             .setRotation(Rotation.values()[random.nextInt(Rotation.values().length)])
             .setChunk((ChunkPos) null)
-            .setReplacedBlock(null)
             .setIgnoreStructureBlock(true)
             .setReplacedBlock(Blocks.LAPIS_BLOCK);
 

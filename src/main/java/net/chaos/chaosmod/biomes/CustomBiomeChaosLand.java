@@ -29,7 +29,7 @@ public class CustomBiomeChaosLand extends AbstractBiome {
 	
 	public CustomBiomeChaosLand() {
         super(new Biome.BiomeProperties("Chaos Land")
-            .setBaseHeight(Biomes.MUTATED_EXTREME_HILLS_WITH_TREES.getBaseHeight())
+            .setBaseHeight(Biomes.PLAINS.getBaseHeight())
             .setHeightVariation(0.1F)
             .setTemperature(0.4F)
             .setSnowEnabled()

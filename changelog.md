@@ -9,6 +9,9 @@ TODO (current version):
   - Make jobs support multiple rewards (Later)
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
+  - Add a scoreboard of the most leveled up players per job ranking gui
+  - Decoration: flowers patches on the ground (biome deco), [DOING]
+  - Decoration: barks + mathsmod ones [DONE] (needs cascading worldgen lag fix: staying in the same chunk and don't try if overflows)
 
 IDEAS:
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
@@ -19,9 +22,17 @@ IDEAS:
   - add buried treasure
   - Herobrine boss
   - Poutine boss
+  - Technoblade boss
+  - Deaquavis boss
+  - Dream boss
   - Structure loot chest that when opened summons entities that will fight to protect the chest
+  - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = 
+  - Cook (like with stats increasing if you have a good alimentation)
 MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
+  - add a custom cursor while ingame menus
+  - additionaloverlayinfos : add remaining health, armor of the hovered entities
+  - add a delayed effect to vein miner too (like destroy trunk part)
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -35,7 +46,6 @@ REWORK(funnier to grind):
   8- Add `visual world` effects:
 
 TODO (next version) ?:
-  - only generate gallions in `watery` biomes (oceans, copraveg...) #3
   - Dungeon & custom structures with a bit of stuff for exploration in the overworld too
   - Hunt
   - Market
@@ -50,7 +60,6 @@ ISSUES:
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tamable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different
   - Fix: When `mathsmod` not loaded, job reward for `tamer` is null (might cause crash)
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too))
-  - Fix: ModWorldGen viking gallions generated in weird places... #3
   - EntityViking clearing inventory on right-click and kills you...
   - DrawerTESR: item icon lights even in the dark
   - Sword Of Wrath orientation towards monster attacked (fix animations)
@@ -70,6 +79,7 @@ New:
   - feat: added `magnet` item that pickups nearby loot
   - feat: added a quick way to change gamemode [hotkey F3+F4]
   - feat: add `super_totem` item that triggers even when isn't held in hands
+  - style: rendering saturation in HUD
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
@@ -86,6 +96,7 @@ Changes:
   - tweak: `OxoniumVillages` have only 40% to generate over vanilla `Village`
   - fix: bosses loots cannot burn
   - feat(endgame): `sword_of_wrath` entity/item -> follows the owner around and kills mobs for him
+  - fix: `viking_gallions` are now only generated in watery-biomes like `ocean`
 
 MODEL-ISSUES:
 Caused by: java.io.FileNotFoundException: chaosmod:models/item/atm_block.json

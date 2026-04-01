@@ -28,7 +28,7 @@ public class CustomBiomeNether extends AbstractBiome {
 	
 	public CustomBiomeNether() {
         super(new Biome.BiomeProperties("Nether Caves")
-            .setBaseHeight(Biomes.MUTATED_EXTREME_HILLS_WITH_TREES.getBaseHeight())
+            .setBaseHeight(Biomes.MESA.getBaseHeight())
             .setHeightVariation(0.1F)
             .setTemperature(1.0F)
             .setWaterColor(65535)

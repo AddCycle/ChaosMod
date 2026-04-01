@@ -25,7 +25,7 @@ public class WorldGenCustomTree extends WorldGenAbstractTree {
 
     @Override
     public boolean generate(World world, Random rand, BlockPos position) {
-        int height = rand.nextInt(3) + 4; // Tree height
+        int height = rand.nextInt(3) + 4; // Tree height (trunk between 2 & 4)
         boolean canGenerate = true;
 
         // Check if we can generate here

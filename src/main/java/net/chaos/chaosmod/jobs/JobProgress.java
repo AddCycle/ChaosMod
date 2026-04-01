@@ -1,8 +1,10 @@
 package net.chaos.chaosmod.jobs;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
@@ -22,9 +24,6 @@ public class JobProgress {
 		this.level = level;
 		this.exp = exp;
 	}
-
-//	public static void addExp(EntityPlayerMP player, String jobId, int amount) {
-//	}
 
 	public void incrementTask(EntityPlayerMP player, String jobId, String taskId) {
 		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
@@ -110,13 +109,13 @@ public class JobProgress {
 
 		if (job.rewards != null) {
 			Main.getLogger().info("job.rewards != null");
-			JobReward reward = job.rewards.stream().filter(r -> r.getLevel() == level).findFirst().orElse(null);
+			List<JobReward> reward = job.rewards.stream().filter(r -> r.getLevel() == level).collect(Collectors.toList());
 
 			if (reward != null) {
-				reward.give(player);
-				Main.getLogger().info("reward given to player");
+				reward.forEach(r -> r.give(player));
+				Main.getLogger().info("rewards given to player");
 			} else {
-				Main.getLogger().error("reward is null cannot grant it for level: {} and job: {}", level, jobId);
+				Main.getLogger().error("rewards are null cannot grant it for level: {} and job: {}", level, jobId);
 			}
 		}
 	}

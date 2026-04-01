@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID)
+// TODO : rn never using the target item/type here
 public class JobFarmerEventHandler {
 	private static final ResourceLocation DIAMONA = new ResourceLocation(Reference.MATHSMOD, "diamona");
 	private static final ResourceLocation HELL_FLOWER = new ResourceLocation(Reference.MATHSMOD, "hell_flower");

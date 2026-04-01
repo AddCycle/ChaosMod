@@ -20,6 +20,6 @@ public class ItemBase extends Item implements IItemModel {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.ITEMS };
+        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.ITEMS, CreativeTabs.SEARCH };
     }
 }
