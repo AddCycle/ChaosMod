@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -29,7 +30,7 @@ public class BiomeCommand extends CommandBase {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/biome [biome_id] [range] (default 1000)";
+		return "/biome [biome_id] [range] (default 1000 max: 10000)";
 	}
 
 	@Override
@@ -58,7 +59,7 @@ public class BiomeCommand extends CommandBase {
 
 		int range = 1000;
 		if (args.length > 1) {
-			range = parseInt(args[1]);
+			range = MathHelper.clamp(parseInt(args[1]), 1000, 10000);
 		}
 
 		BlockPos biomePos = world.getBiomeProvider().findBiomePosition(

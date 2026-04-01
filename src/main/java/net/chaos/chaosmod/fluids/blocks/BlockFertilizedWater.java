@@ -17,6 +17,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 
+/**
+ * FIXME : too efficient needs balance
+ */
 public class BlockFertilizedWater extends BlockFluidClassicBase {
 	private List<BlockPos> growables = new ArrayList<>();
 

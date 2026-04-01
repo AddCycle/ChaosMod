@@ -57,7 +57,7 @@ public class MarketData extends WorldSavedData {
 
 		compound.setTag("Offers", list);
 
-        Main.getLogger().info("[MarketData] Saved " + offers.size() + " offers from disk");
+        Main.getLogger().info("[MarketData] Saved " + offers.size() + " offers to disk");
         return compound;
 	}
 }

@@ -120,7 +120,7 @@ public class GuiFishingMinigame extends GuiScreen {
 		caretHeight = rectY + rectHeight;
 		caretColor = 0xff0000ff;
 
-		caretSpeed = 4 + rand.nextInt(3); // 4-6
+		caretSpeed = 10 + rand.nextInt(5); // 10-14
 	}
 
 	private void updateCaret() {

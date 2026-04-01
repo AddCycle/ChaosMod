@@ -10,7 +10,7 @@ TODO (current version):
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
   - Add a scoreboard of the most leveled up players per job ranking gui
-  - Decoration: flowers patches on the ground (biome deco), [DOING]
+  - Decoration: flowers patches on the ground (biome deco), [DOING: model done, remains: generation]
   - Decoration: barks + mathsmod ones [DONE] (needs cascading worldgen lag fix: staying in the same chunk and don't try if overflows)
 
 IDEAS:

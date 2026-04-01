@@ -34,7 +34,7 @@ public class WorldGenTreeBark extends WorldGenerator {
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
 
-		for (int i = 0; i < 32; ++i) {
+		for (int i = 0; i < 16; ++i) {
         	if (rand.nextInt(20) != 0) continue;
 
 			BlockPos blockpos = position.add(rand.nextInt(16), 0, rand.nextInt(16));

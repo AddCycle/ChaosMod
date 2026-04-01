@@ -1,0 +1,7 @@
+{
+    "parent": "block/carpet",
+    "textures": {
+        "particle": "chaosmod:blocks/flower_patch_block",
+        "wool": "chaosmod:blocks/flower_patch_block"
+    }
+}

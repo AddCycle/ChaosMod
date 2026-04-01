@@ -58,15 +58,17 @@ public class Job {
 		obj.addProperty("description", this.description);
 		obj.addProperty("maxLevel", this.maxLevel);
 
+		// tasks
 		JsonArray tasksArr = new JsonArray();
 		for (JobTask task : tasks) {
 			tasksArr.add(task.toJson());
 		}
 		obj.add("tasks", tasksArr);
 
+		// rewards
 		JsonArray rewardsArr = new JsonArray();
 		for (JobReward reward : rewards) {
-			rewardsArr.add(reward.toJson());
+			if (reward != null) rewardsArr.add(reward.toJson());
 		}
 		obj.add("levels", rewardsArr);
 
@@ -94,7 +96,8 @@ public class Job {
 		List<JobReward> list = new ArrayList<>();
 		if (array != null && !array.isJsonNull()) {
 			for (JsonElement el : array) {
-				list.add(JobReward.fromJson(el.getAsJsonObject()));
+				JobReward r = JobReward.fromJson(el.getAsJsonObject());
+				if (r != null) list.add(r);
 			}
 		}
 		return list;
@@ -105,6 +108,6 @@ public class Job {
 				json.has("tasks") ? convertTask(json.getAsJsonArray("tasks")) : new ArrayList<JobTask>(),
 				json.has("levels") ? convertRewards(json.getAsJsonArray("levels")) : new ArrayList<JobReward>(),
 				json.has("description") ? json.get("description").getAsString() : "default_description",
-				json.has("maxLevel") ? json.get("maxLevel").getAsInt() : 20);
+				json.has("maxLevel") ? json.get("maxLevel").getAsInt() : 5);
 	}
 }

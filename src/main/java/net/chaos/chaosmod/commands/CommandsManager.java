@@ -36,11 +36,12 @@ public class CommandsManager {
 		new HuntCommand(),
 		new BackCommand(),
 		new BiomeCommand(),
-		new BiomesCommand());
+		new BiomesCommand(),
+		new TopCommand()
+		);
 
 		if (!Loader.isModLoaded(Reference.MATHSMOD)) {
 			register(event,
-			new TopCommand(),
 			new DimensionWarpCommand(),
 			new HealCommand(),
 			new FeedCommand());

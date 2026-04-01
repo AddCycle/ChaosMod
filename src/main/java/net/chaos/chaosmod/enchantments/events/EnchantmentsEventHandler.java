@@ -36,8 +36,6 @@ public class EnchantmentsEventHandler {
 		BlockPos pos = event.getPos();
 		IBlockState state = world.getBlockState(pos);
 		
-		System.out.println("condition: " + (held.isItemEnchanted() && EnchantmentHelper.getEnchantmentLevel(ModEnchants.VEIN_MINER, held) > 0));
-
 		if (held.isItemEnchanted() && EnchantmentHelper.getEnchantmentLevel(ModEnchants.VEIN_MINER, held) > 0) {
 			if (BlockHelper.isOreBlock(state)) {
 				BlockHelper.progressiveDestroyConnectedBlocks(world, pos, state, player, held);
