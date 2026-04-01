@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.items.tools;
 
-import static util.blockstates.BlockHelper.destroyConnectedBlocks;
 import static util.blockstates.BlockHelper.isOreBlock;
 
 import java.util.List;
@@ -21,6 +20,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import proxy.IItemModel;
+import util.blockstates.BlockHelper;
 
 public class OxoniumPickaxe extends ItemPickaxe implements IItemModel {
 	private int mode = 0;
@@ -48,7 +48,7 @@ public class OxoniumPickaxe extends ItemPickaxe implements IItemModel {
 
 		if (entityLiving instanceof EntityPlayer && mode == 1) {
 			if (isOreBlock(state)) {
-				destroyConnectedBlocks(world, pos, state, (EntityPlayer) entityLiving, stack);
+				BlockHelper.progressiveDestroyConnectedBlocks(world, pos, state, (EntityPlayer) entityLiving, stack);
 			}
 		}
 

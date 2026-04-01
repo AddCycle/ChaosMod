@@ -32,7 +32,6 @@ MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus
   - additionaloverlayinfos : add remaining health, armor of the hovered entities
-  - add a delayed effect to vein miner too (like destroy trunk part)
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -63,6 +62,7 @@ ISSUES:
   - EntityViking clearing inventory on right-click and kills you...
   - DrawerTESR: item icon lights even in the dark
   - Sword Of Wrath orientation towards monster attacked (fix animations)
+  - Fix: `fertilized_water` too efficient
 
 REFACTOR (need):
   - entity package
@@ -93,6 +93,7 @@ Changes:
   - feat: `final credits` displayed after beating `ChaosMaster Boss`
   - feat: `Minimap` should render the correct biome color for : foliage, grass or (water: prioritizes the mapcolor over it so it's not working)
   - style: tree logs are breaking sequentially with `oxonium_axe`
+  - style: vein miner progressive destroy blocks too
   - tweak: `OxoniumVillages` have only 40% to generate over vanilla `Village`
   - fix: bosses loots cannot burn
   - feat(endgame): `sword_of_wrath` entity/item -> follows the owner around and kills mobs for him

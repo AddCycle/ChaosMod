@@ -19,29 +19,28 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
-import net.minecraftforge.fml.relauncher.Side;
 import util.Reference;
 import util.blockstates.BlockHelper;
 
-@EventBusSubscriber(modid = Reference.MODID, value = Side.SERVER)
-/**
- * Events are fired only on SERVER Side
- */
+@EventBusSubscriber(modid = Reference.MODID)
 public class EnchantmentsEventHandler {
 
 	@SubscribeEvent
 	public static void onBlockBreak(BlockEvent.BreakEvent event) {
 		EntityPlayer player = event.getPlayer();
 		World world = event.getWorld();
+		if (world.isRemote) return;
 
 		ItemStack held = player.getHeldItemMainhand();
 
 		BlockPos pos = event.getPos();
 		IBlockState state = world.getBlockState(pos);
+		
+		System.out.println("condition: " + (held.isItemEnchanted() && EnchantmentHelper.getEnchantmentLevel(ModEnchants.VEIN_MINER, held) > 0));
 
 		if (held.isItemEnchanted() && EnchantmentHelper.getEnchantmentLevel(ModEnchants.VEIN_MINER, held) > 0) {
 			if (BlockHelper.isOreBlock(state)) {
-				BlockHelper.destroyConnectedBlocks(world, pos, state, player, held);
+				BlockHelper.progressiveDestroyConnectedBlocks(world, pos, state, player, held);
 			}
 		}
 	}
@@ -50,6 +49,7 @@ public class EnchantmentsEventHandler {
 	public static void onPlayerTick(PlayerTickEvent event) {
 		EntityPlayer player = event.player;
 		World world = player.getEntityWorld();
+		if (world.isRemote) return;
 
 		lavaWalk(player, world);
 	}
