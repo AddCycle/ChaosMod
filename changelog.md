@@ -3,15 +3,12 @@
 # Items
 
 TODO (current version):
-  - Add variants to gallions and random loots
+  - Add variants to gallions and random loots (exemple a wood bark, then a bigger ship, then a gallion with loots and pirates enemies) (good to start structures)
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market] [DOING]
   - Make all the jobs tasks & rewards from level 1 -> 5 (make content), then tweak or change to make it funnier according to `REWORK` section
-  - Make jobs support multiple rewards (Later)
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
   - Add a scoreboard of the most leveled up players per job ranking gui
-  - Decoration: flowers patches on the ground (biome deco), [DOING: model done, remains: generation]
-  - Decoration: barks + mathsmod ones [DONE] (needs cascading worldgen lag fix: staying in the same chunk and don't try if overflows)
 
 IDEAS:
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
@@ -19,7 +16,7 @@ IDEAS:
   - Rework the current bosses and entities models (add effects + animations)
   - Skill tree
   - Add `traveler` job with `discovered biomes` along with `structures` later...
-  - add buried treasure
+  - add buried treasure with a minimap
   - Herobrine boss
   - Poutine boss
   - Technoblade boss
@@ -32,6 +29,7 @@ MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus
   - additionaloverlayinfos : add remaining health, armor of the hovered entities
+  - Make jobs support multiple rewards in the same jsonArray
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -49,7 +47,7 @@ TODO (next version) ?:
   - Hunt
   - Market
   - Fix playlist and soundMgr system (need to reimplement everything)
-  - add `magnet` to structures loots
+  - add `magnet` + `sword_of_wrath` to structures loots
 
 OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
@@ -63,6 +61,7 @@ ISSUES:
   - DrawerTESR: item icon lights even in the dark
   - Sword Of Wrath orientation towards monster attacked (fix animations)
   - Fix: `fertilized_water` too efficient
+  - Cascading worldgen lag for generated structures...
 
 REFACTOR (need):
   - entity package
@@ -80,6 +79,7 @@ New:
   - feat: added a quick way to change gamemode [hotkey F3+F4]
   - feat: add `super_totem` item that triggers even when isn't held in hands
   - style: rendering saturation in HUD
+  - decoration: added `tree barks`, `flower_patches`
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

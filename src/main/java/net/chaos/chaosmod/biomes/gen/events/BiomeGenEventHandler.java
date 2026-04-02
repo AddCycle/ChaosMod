@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.chaos.chaosmod.biomes.gen.WorldGenFlowerPatch;
 import net.chaos.chaosmod.biomes.gen.WorldGenTreeBark;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomLog.CustomLogVariant;
@@ -58,6 +59,7 @@ public class BiomeGenEventHandler {
 		if (biome == null || !ALLOWED_BIOMES.contains(biome)) return;
 
 		getBarkGenForBiome(biome).generate(event.getWorld(), event.getRand(), event.getPos());
+		(new WorldGenFlowerPatch(ModBlocks.FLOWER_PATCH)).generate(event.getWorld(), event.getRand(), event.getPos()); // cascading worldgenlag
 	}
 	
 	private static WorldGenTreeBark getBarkGenForBiome(Biome biome) {
