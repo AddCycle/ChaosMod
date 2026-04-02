@@ -89,7 +89,7 @@ public class Main
     	logger.info("CHAOSMOD POST-INIT PHASE {}", event.getModState());
     	// VillagerTradeHandler.onRegisterTrades();
         TileEntityManager.registerTileEntities();
-        BiomeGenEventHandler.addAdditionalBiomesFromMod(Reference.MATHSMOD, "pink_forest", "unusual_forest", "desolate_lands");
+        BiomeGenEventHandler.addAdditionalBiomesFromMod(Reference.MATHSMOD, "pink_forest", "unusual_forest", "desolate_lands", "green_plain");
     }
     
     @EventHandler

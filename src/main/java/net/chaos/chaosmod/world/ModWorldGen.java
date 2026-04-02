@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -86,6 +85,7 @@ public class ModWorldGen implements IWorldGenerator {
     }
 
     // FIXME : fix gallion spawn + TODO : add variations to the blocks & (lootables from the structure setblock command)
+    // FIXME : populating chunk need to go inside a populate chunk event or biome
     private void processVikingGallionSpawn(World world, Random random, int chunkX, int chunkZ) {
     	if (random.nextInt(100 - SERVER.boat_spawn_rate) == 0) {
     		// trying to center that in the chunk
@@ -112,7 +112,7 @@ public class ModWorldGen implements IWorldGenerator {
     	}
 	}
 
-    public void generateVikingGallion(World world, BlockPos pos, Random random, ResourceLocation rl) {
+    private void generateVikingGallion(World world, BlockPos pos, Random random, ResourceLocation rl) {
         MinecraftServer server = world.getMinecraftServer();
         if (server == null) return;
         if (world.isRemote) return;
@@ -145,9 +145,9 @@ public class ModWorldGen implements IWorldGenerator {
             world.markAndNotifyBlock(p, world.getChunkFromBlockCoords(p), state, state, 1);
         });
         
-        EntityViking viking = new EntityViking(world);
-        viking.setPositionAndUpdate(pos.getX(), pos.getY() + 10, pos.getZ());
-        world.spawnEntity(viking);
+//        EntityViking viking = new EntityViking(world);
+//        viking.setPositionAndUpdate(pos.getX(), pos.getY() + 10, pos.getZ());
+//        world.spawnEntity(viking);
     }
 
 

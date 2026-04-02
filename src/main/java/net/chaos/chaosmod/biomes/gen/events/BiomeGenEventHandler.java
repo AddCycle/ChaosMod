@@ -30,6 +30,7 @@ public class BiomeGenEventHandler {
 	public static final ResourceLocation PINK_FOREST = new ResourceLocation(Reference.MATHSMOD, "pink_forest");
 	public static final ResourceLocation DESOLATE_LANDS = new ResourceLocation(Reference.MATHSMOD, "desolate_lands");
 	public static final ResourceLocation UNUSUAL_FOREST = new ResourceLocation(Reference.MATHSMOD, "unusual_forest");
+	public static final ResourceLocation GREEN_PLAIN = new ResourceLocation(Reference.MATHSMOD, "green_plain");
 	private static List<Biome> ALLOWED_BIOMES = new ArrayList<>(Arrays.asList(
 		Biomes.PLAINS,
 		Biomes.FOREST,
@@ -101,12 +102,13 @@ public class BiomeGenEventHandler {
 			}
 		}
 		if (matchNames(biome.getRegistryName(), DESOLATE_LANDS)) {
-			Block burned_log = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Reference.MATHSMOD, "burned_log"));
+			Block burned_log = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Reference.MATHSMOD, "burnt_log"));
 			if (burned_log != null) {
 				return new WorldGenTreeBark(burned_log, burned_log.getDefaultState());
 			}
 		}
 		if (matchNames(biome.getRegistryName(), UNUSUAL_FOREST)) return new WorldGenTreeBark(Blocks.LOG);
+		if (matchNames(biome.getRegistryName(), GREEN_PLAIN)) return new WorldGenTreeBark(Blocks.LOG);
 		// END MODDED BIOMES //
 
 		return new WorldGenTreeBark(Blocks.LOG);

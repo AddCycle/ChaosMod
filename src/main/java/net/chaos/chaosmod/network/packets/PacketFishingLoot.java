@@ -9,11 +9,8 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
-import util.Reference;
-import util.annotations.ModPacket;
 
-@ModPacket(modid = Reference.MODID, side = Side.CLIENT)
+//@ModPacket(modid = Reference.MODID, side = Side.CLIENT)
 // INFO : there should be only one itemstack usually (TODO : make it support later a List<ItemStack>)
 public class PacketFishingLoot implements IMessage {
 	public ItemStack loot;
@@ -27,7 +24,6 @@ public class PacketFishingLoot implements IMessage {
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		loot = ByteBufUtils.readItemStack(buf);
-		
 	}
 
 	@Override

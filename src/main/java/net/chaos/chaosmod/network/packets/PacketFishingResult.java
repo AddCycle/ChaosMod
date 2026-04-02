@@ -51,7 +51,6 @@ public class PacketFishingResult implements IMessage {
 	}
 
 	public static class PacketFishingResultHandler implements IMessageHandler<PacketFishingResult, IMessage> {
-
 		@Override
 		public IMessage onMessage(PacketFishingResult message, MessageContext ctx) {
 
@@ -95,12 +94,11 @@ public class PacketFishingResult implements IMessage {
 					ItemHandlerHelper.giveItemToPlayer(player, stack);
 					player.inventoryContainer.detectAndSendChanges();
 
-					PacketManager.network.sendTo(
-					    new PacketFishingLoot(stack),
-					    (EntityPlayerMP) player
-					);
+//					PacketManager.network.sendTo(
+//					    new PacketFishingLoot(stack),
+//					    (EntityPlayerMP) player
+//					);
 				}
-
 
 				hook.setDead();
 			});

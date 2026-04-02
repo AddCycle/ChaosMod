@@ -13,6 +13,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Plane;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -33,21 +34,32 @@ public class WorldGenTreeBark extends WorldGenerator {
 
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
+		ChunkPos chunkPos = new ChunkPos(position);
 
 		for (int i = 0; i < 16; ++i) {
         	if (rand.nextInt(20) != 0) continue;
 
 			BlockPos blockpos = position.add(rand.nextInt(16), 0, rand.nextInt(16));
+
+			if (!worldIn.isBlockLoaded(blockpos)) continue; // try fixing cascading worldgen lag
+
 			blockpos = worldIn.getHeight(blockpos);
 
 			List<BlockPos> validBlocks = new ArrayList<>();
 
-			EnumFacing randomFacing = Plane.HORIZONTAL.random(rand); // north, south = z; east, west = x;
+			EnumFacing randomFacing = Plane.HORIZONTAL.random(rand);
 
 			int barkLength = rand.nextInt(3) + 3; // min 3, max 5
 
+			if (!worldIn.isBlockLoaded(blockpos.offset(randomFacing, barkLength - 1))) continue; // try
 			for (int j = 0; j < barkLength; j++) {
 				BlockPos triedPos = blockpos.offset(randomFacing, j);
+
+				// try again
+				if (new ChunkPos(triedPos).x != chunkPos.x || new ChunkPos(triedPos).z != chunkPos.z) {
+					break;
+				}
+
 				BlockPos triedDown = triedPos.down();
 
 				IBlockState groundState = worldIn.getBlockState(triedDown);
