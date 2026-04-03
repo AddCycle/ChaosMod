@@ -3,61 +3,54 @@ package net.chaos.chaosmod.biomes.gen;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.chunk.Chunk;
 
-public class WorldGenFlowerPatch extends WorldGenerator {
-	public Block flower;
-	public IBlockState state;
+public class WorldGenFlowerPatch extends AbstractSafeWorldGenerator {
 
 	public WorldGenFlowerPatch(Block flowerIn) {
-        this.setGeneratedBlock(flowerIn, flowerIn.getDefaultState());
-	}
-
-	public void setGeneratedBlock(Block flowerIn) {
-		this.setGeneratedBlock(flowerIn, flowerIn.getDefaultState());
-	}
-
-	public void setGeneratedBlock(Block flowerIn, IBlockState state) {
-		this.flower = flowerIn;
-		this.state = state;
+        this.setGeneratedBlock(flowerIn.getDefaultState());
 	}
 
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-		ChunkPos chunk = new ChunkPos(position);
+		int startX = chunkPos.getXStart();
+		int endX = chunkPos.getXEnd();
+
+		int startZ = chunkPos.getZStart();
+		int endZ = chunkPos.getZEnd();
+		
+		Chunk chunk = worldIn.getChunkFromChunkCoords(chunkPos.x, chunkPos.z);
+
 		for (int i = 0; i < 32; ++i) {
 			if (rand.nextInt(20) != 0) continue;
-			BlockPos blockpos = position.add(rand.nextInt(16), 0, rand.nextInt(16));
+
+			int x = startX + rand.nextInt(16);
+			int z = startZ + rand.nextInt(16);
+			if (x > endX || z > endZ) continue;
 			
-			if (new ChunkPos(blockpos).x != chunk.x || new ChunkPos(blockpos).z != chunk.z) {
-			    break;
-			}
+			int localX = x & 15;
+		    int localZ = z & 15;
 
-			if (!worldIn.isBlockLoaded(blockpos)) continue; // try fixing cascading worldgen lag
+		    int y = chunk.getHeightValue(localX, localZ);
+		    if (y <= 0) continue;
 
-			blockpos = worldIn.getHeight(blockpos);
+			BlockPos blockpos = new BlockPos(x, y, z);
 
 			BlockPos down = blockpos.down();
-			if (!worldIn.isBlockLoaded(down)) continue; // try
+			IBlockState downState = chunk.getBlockState(localX, y - 1, localZ);
 
-			IBlockState downState = worldIn.getBlockState(down);
+			IBlockState stateAt = chunk.getBlockState(localX, y, localZ);
+			boolean isAir = stateAt.getBlock() == Blocks.AIR;
 
-			if (worldIn.isAirBlock(blockpos) && canSustainPlant(downState, worldIn, down)) {
-				worldIn.setBlockState(blockpos, this.state, 2);
+			if (isAir && canSustainPlant(downState, worldIn, down)) {
+			    worldIn.setBlockState(blockpos, this.state, 2 | 16);
 			}
 		}
 
 		return true;
-	}
-
-	private boolean canSustainPlant(IBlockState state, World worldIn, BlockPos downPos) {
-		return state.getBlock().canSustainPlant(state, worldIn, downPos, EnumFacing.UP, (BlockSapling) Blocks.SAPLING) && state.getBlock() != Blocks.GRASS_PATH;
 	}
 }

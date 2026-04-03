@@ -32,6 +32,7 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import util.Reference;
 
+// FIXME : flowers cascading worldgen + viking gallion in a separate worldgen ?
 public class ModWorldGen implements IWorldGenerator {
 	private static final Set<ChunkPos> alreadyGenerated = new HashSet<>();
 	private static final List<Biome> allowedBiomes = Arrays.asList(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.FROZEN_OCEAN);
@@ -80,7 +81,7 @@ public class ModWorldGen implements IWorldGenerator {
     		return;
     	}
     	
-    	processVikingGallionSpawn(world, random, chunkX, chunkZ);
+//    	processVikingGallionSpawn(world, random, chunkX, chunkZ);
 
     }
 

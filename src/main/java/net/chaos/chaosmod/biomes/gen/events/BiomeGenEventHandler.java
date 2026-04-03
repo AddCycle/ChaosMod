@@ -58,10 +58,16 @@ public class BiomeGenEventHandler {
 		Biome biome = event.getWorld().getBiome(event.getPos());
 		if (biome == null || !ALLOWED_BIOMES.contains(biome)) return;
 
-		getBarkGenForBiome(biome).generate(event.getWorld(), event.getRand(), event.getPos());
-		(new WorldGenFlowerPatch(ModBlocks.FLOWER_PATCH)).generate(event.getWorld(), event.getRand(), event.getPos()); // cascading worldgenlag
+		WorldGenTreeBark treeBarkGenerator = getBarkGenForBiome(biome);
+		treeBarkGenerator.setGeneratedChunk(event.getChunkPos());
+		treeBarkGenerator.generate(event.getWorld(), event.getRand(), event.getPos());
+
+		WorldGenFlowerPatch worldGenFlowerPatch = new WorldGenFlowerPatch(ModBlocks.FLOWER_PATCH);
+		worldGenFlowerPatch.setGeneratedChunk(event.getChunkPos());
+		worldGenFlowerPatch.generate(event.getWorld(), event.getRand(), event.getPos()); // cascading worldgenlag
 	}
 	
+	// TODO : refactor, let only the blockstate because LOG, LOG2 are useless for the gen
 	private static WorldGenTreeBark getBarkGenForBiome(Biome biome) {
 		IBlockState log = Blocks.LOG.getDefaultState();
 		IBlockState log2 = Blocks.LOG2.getDefaultState();

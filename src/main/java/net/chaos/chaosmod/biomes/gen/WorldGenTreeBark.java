@@ -13,15 +13,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Plane;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.chunk.Chunk;
 
-// FIXME : add this to a pre or decorate event just after generating trees
-// FIXME : cascading worldgenlag, consider using chunkPos instead of just getPos in the forge event
-public class WorldGenTreeBark extends WorldGenerator {
+public class WorldGenTreeBark extends AbstractSafeWorldGenerator {
 	private final Block log;
-	private final IBlockState state;
 
 	public WorldGenTreeBark(Block log) {
 		this(log, log.getDefaultState());
@@ -29,21 +25,33 @@ public class WorldGenTreeBark extends WorldGenerator {
 
 	public WorldGenTreeBark(Block log, IBlockState state) {
 		this.log = log;
-		this.state = state;
+		this.setGeneratedBlock(state);
 	}
 
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-		ChunkPos chunkPos = new ChunkPos(position);
+		int startX = chunkPos.getXStart();
+		int endX = chunkPos.getXEnd();
+
+		int startZ = chunkPos.getZStart();
+		int endZ = chunkPos.getZEnd();
+
+		Chunk chunk = worldIn.getChunkFromChunkCoords(chunkPos.x, chunkPos.z);
 
 		for (int i = 0; i < 16; ++i) {
         	if (rand.nextInt(20) != 0) continue;
 
-			BlockPos blockpos = position.add(rand.nextInt(16), 0, rand.nextInt(16));
+			int x = (startX + 1) + rand.nextInt(15);
+			int z = (startZ + 1) + rand.nextInt(15);
+			if (x > endX || z > endZ) continue;
 
-			if (!worldIn.isBlockLoaded(blockpos)) continue; // try fixing cascading worldgen lag
+			int localX = x & 15;
+		    int localZ = z & 15;
 
-			blockpos = worldIn.getHeight(blockpos);
+		    int y = chunk.getHeightValue(localX, localZ);
+		    if (y <= 0) continue;
+
+			BlockPos blockpos = new BlockPos(x, y, z);
 
 			List<BlockPos> validBlocks = new ArrayList<>();
 
@@ -51,29 +59,28 @@ public class WorldGenTreeBark extends WorldGenerator {
 
 			int barkLength = rand.nextInt(3) + 3; // min 3, max 5
 
-			if (!worldIn.isBlockLoaded(blockpos.offset(randomFacing, barkLength - 1))) continue; // try
 			for (int j = 0; j < barkLength; j++) {
 				BlockPos triedPos = blockpos.offset(randomFacing, j);
-
-				// try again
-				if (new ChunkPos(triedPos).x != chunkPos.x || new ChunkPos(triedPos).z != chunkPos.z) {
-					break;
-				}
-
 				BlockPos triedDown = triedPos.down();
+				
+				// If the strip walks outside the loaded chunk, abort the whole strip
+			    if (!worldIn.isBlockLoaded(triedPos, false)) break;
 
-				IBlockState groundState = worldIn.getBlockState(triedDown);
+				IBlockState groundState = chunk.getBlockState(triedDown);
+				IBlockState triedState = chunk.getBlockState(triedPos);
 
-				if (worldIn.isAirBlock(triedPos) && canSustainLog(groundState, worldIn, triedDown)) {
+				boolean isAir = triedState.getBlock() == Blocks.AIR;
+
+				if (isAir && canSustainLog(groundState, worldIn, triedDown)) {
 				    validBlocks.add(triedPos);
 				}
 			}
 
 			if (validBlocks.size() != barkLength)
-				continue; // retry another pos
+				continue;
 
 			for (BlockPos pos : validBlocks) {
-				worldIn.setBlockState(pos, this.getLogOrientation(randomFacing), 2);
+				worldIn.setBlockState(pos, this.getLogOrientation(randomFacing), 2 | 16);
 			}
 		}
 
