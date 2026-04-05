@@ -4,7 +4,7 @@
 	"description": "Crawl in the mines with your pickaxe",
 	"tasks": [
 		{
-			"id": "gather_cobblestone",
+			"id": "mine_cobblestone",
 			"name": "Gathering Cobblestone",
 			"description": "Start mining",
 			"type": "harvest",
@@ -12,8 +12,93 @@
 				"item": "minecraft:cobblestone",
 				"data": 0
 			},
+			"goal": 128,
+			"rewardExp": 100
+		},
+		{
+			"id": "mine_iron",
+			"name": "Advanced Miner",
+			"description": "Mine 32 Iron Ore",
+			"type": "harvest",
+			"target": {
+				"item": "minecraft:iron_ore",
+				"data": 0
+			},
 			"goal": 32,
-			"rewardExp": 90
+			"rewardExp": 150
+		},
+		{
+			"id": "mine_silver",
+			"name": "Enjoying Caves",
+			"description": "Mine 10 Silver Ore",
+			"type": "harvest",
+			"target": {
+				"item": "mathsmod:silver_ore",
+				"data": 0
+			},
+			"goal": 10,
+			"rewardExp": 200
+		},
+		{
+			"id": "mine_allemanite",
+			"name": "Gotta travel around",
+			"description": "Go to Nether and mine 20 Allemanite",
+			"type": "harvest",
+			"target": {
+				"item": "chaosmod:allemanite_ore",
+				"data": 0
+			},
+			"goal": 20,
+			"rewardExp": 250
+		},
+		{
+			"id": "mine_kurayum",
+			"name": "Need to Go very very deep inside...",
+			"description": "Go to The End and mine 100 Kurayum (or Enderite (TO IMPLEMENT))",
+			"type": "harvest",
+			"target": {
+				"item": "mathsmod:kurayum",
+				"data": 0
+			},
+			"goal": 100,
+			"rewardExp": 300
+		}
+	],
+	"levels": [
+		{
+			"level": 1,
+			"reward": {
+				"item": "minecraft:iron_pickaxe",
+				"amount": 2
+			}
+		},
+		{
+			"level": 2,
+			"reward": {
+				"item": "mathsmod:silver_pickaxe",
+				"amount": 1
+			}
+		},
+		{
+			"level": 3,
+			"reward": {
+				"item": "chaosmod:oxonium_pickaxe",
+				"amount": 1
+			}
+		},
+		{
+			"level": 4,
+			"reward": {
+				"block": "chaosmod:allemanite_pickaxe",
+				"amount": 1
+			}
+		},
+		{
+			"level": 5,
+			"reward": {
+				"block": "mathsmod:kurayum_block",
+				"amount": 1
+			}
 		}
 	],
 	"maxLevel": 5

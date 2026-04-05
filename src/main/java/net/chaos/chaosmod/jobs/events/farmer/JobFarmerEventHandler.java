@@ -1,6 +1,6 @@
 package net.chaos.chaosmod.jobs.events.farmer;
 
-import java.util.function.Consumer;
+import static net.chaos.chaosmod.jobs.events.JobEventUtils.onHarvestBlock;
 
 import net.chaos.chaosmod.jobs.events.JobEventUtils;
 import net.minecraft.block.Block;
@@ -19,7 +19,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBloc
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID)
@@ -28,6 +27,8 @@ public class JobFarmerEventHandler {
 	private static final ResourceLocation DIAMONA = new ResourceLocation(Reference.MATHSMOD, "diamona");
 	private static final ResourceLocation HELL_FLOWER = new ResourceLocation(Reference.MATHSMOD, "hell_flower");
 	private static final ResourceLocation OXONIUM_CARROTS = new ResourceLocation(Reference.MODID, "oxonium_carrots");
+	private static final ResourceLocation WHEAT = new ResourceLocation("wheat");
+	private static final ResourceLocation CUSTOM_FLOWERS = new ResourceLocation(Reference.MODID, "custom_flower");
 
 	@SubscribeEvent
 	public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
@@ -55,9 +56,14 @@ public class JobFarmerEventHandler {
 			crop.dropBlockAsItem(world, pos, state, fortune);
 			world.setBlockState(pos, crop.withAge(0));
 
-			onHarvestBlock(event, OXONIUM_CARROTS, blk ->
+			JobEventUtils.onRightClickBlock(event, OXONIUM_CARROTS, blk ->
 			{
 				incrementTask(event.getEntityPlayer(), "farm_oxonium_carrots");
+			});
+
+			JobEventUtils.onRightClickBlock(event, WHEAT, blk ->
+			{
+				incrementTask(event.getEntityPlayer(), "wheat_addict");
 			});
 		}
 	}
@@ -82,27 +88,17 @@ public class JobFarmerEventHandler {
 		{
 			incrementTask(event.getPlayer(), "gather_hell_flower");
 		});
-	}
 
-	private static void onHarvestBlock(BlockEvent.BreakEvent event, ResourceLocation blockId,
-			Consumer<Block> callback) {
-		Block block = ForgeRegistries.BLOCKS.getValue(blockId);
-		if (block == null || block != event.getState().getBlock())
-			return;
+		// be careful on custom_flowers as all the variants are allowed here
+		onHarvestBlock(event, CUSTOM_FLOWERS, (block) ->
+		{
+			incrementTask(event.getPlayer(), "gather_any_custom_flower_chaosmod");
+		});
 
-		callback.accept(block);
-	}
-
-	private static void onHarvestBlock(PlayerInteractEvent.RightClickBlock event, ResourceLocation blockId,
-			Consumer<Block> callback) {
-		if (event.getWorld().isRemote)
-			return;
-
-		Block block = ForgeRegistries.BLOCKS.getValue(blockId);
-		if (block == null || block != event.getWorld().getBlockState(event.getPos()).getBlock())
-			return;
-
-		callback.accept(block);
+		onHarvestBlock(event, WHEAT, (block) ->
+		{
+			incrementTask(event.getPlayer(), "wheat_addict");
+		});
 	}
 
 	private static void incrementTask(EntityPlayer player, String taskId) {

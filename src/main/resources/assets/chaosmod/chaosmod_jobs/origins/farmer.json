@@ -38,20 +38,65 @@
 			},
 			"goal": 50,
 			"rewardExp": 200
+		},
+		{
+			"id": "gather_any_custom_flower_chaosmod",
+			"name": "ChaosMod Priviledge",
+			"description": "Gather 10 flowers only from ChaosMod inside custom biomes",
+			"type": "harvest",
+			"target": {
+				"item": "chaosmod:custom_flower",
+				"data": 0
+			},
+			"goal": 10,
+			"rewardExp": 250
+		},
+		{
+			"id": "wheat_addict",
+			"name": "Final Task for level5",
+			"description": "Harvest 1000 wheat (you are addicted to farming)",
+			"type": "harvest",
+			"target": {
+				"item": "minecraft:wheat",
+				"data": 0
+			},
+			"goal": 2304,
+			"rewardExp": 300
 		}
 	],
 	"levels": [
 		{
 			"level": 1,
 			"reward": {
-				"item": "mathsmod:denanium",
-				"amount": 5
+				"block": "mathsmod:tfosium_block",
+				"amount": 1
 			}
 		},
 		{
 			"level": 2,
 			"reward": {
-				"block": "mathsmod:tfosium_block",
+				"item": "chaosmod:allemanite_hoe",
+				"amount": 4
+			}
+		},
+		{
+			"level": 3,
+			"reward": {
+				"item": "mathsmod:denanium",
+				"amount": 32
+			}
+		},
+		{
+			"level": 4,
+			"reward": {
+				"item": "chaosmod:oxonium_block",
+				"amount": 4
+			}
+		},
+		{
+			"level": 5,
+			"reward": {
+				"item": "chaosmod:magnet",
 				"amount": 1
 			}
 		}

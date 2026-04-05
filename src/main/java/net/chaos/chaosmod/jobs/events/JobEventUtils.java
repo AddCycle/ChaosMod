@@ -1,9 +1,16 @@
 package net.chaos.chaosmod.jobs.events;
 
+import java.util.function.Consumer;
+
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.PlayerJobs;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import util.Reference;
 
 public class JobEventUtils {
@@ -41,6 +48,27 @@ public class JobEventUtils {
 
 		int level = jobs.getProgress(jobId).getLevel();
 		return level;
+	}
+
+	public static void onHarvestBlock(BlockEvent.BreakEvent event, ResourceLocation blockId,
+			Consumer<Block> callback) {
+		Block block = ForgeRegistries.BLOCKS.getValue(blockId);
+		if (block == null || block != event.getState().getBlock())
+			return;
+
+		callback.accept(block);
+	}
+
+	public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event, ResourceLocation blockId,
+			Consumer<Block> callback) {
+		if (event.getWorld().isRemote)
+			return;
+
+		Block block = ForgeRegistries.BLOCKS.getValue(blockId);
+		if (block == null || block != event.getWorld().getBlockState(event.getPos()).getBlock())
+			return;
+
+		callback.accept(block);
 	}
 
 	public static String prefixId(String id) {
