@@ -225,14 +225,14 @@ public class RegistryHandler {
 		registerPotion(item, type, 0);
 	}
 
+	public static void registerPotion(Block block, PotionType type) {
+		registerPotion(block, type, 0);
+	}
+
 	public static void registerPotion(Item item, PotionType type, int data) {
 		BrewingRecipeRegistry.addRecipe(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD), new ItemStack(item, 1, data), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), type));
 		BrewingRecipeRegistry.addRecipe(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), type), new ItemStack(Items.GUNPOWDER), PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), type));
 		BrewingRecipeRegistry.addRecipe(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), type), new ItemStack(Items.DRAGON_BREATH), PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), type));
-	}
-
-	public static void registerPotion(Block block, PotionType type) {
-		registerPotion(block, type, 0);
 	}
 
 	public static void registerPotion(Block block, PotionType type, int data) {

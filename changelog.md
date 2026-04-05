@@ -25,11 +25,16 @@ IDEAS:
   - Structure loot chest that when opened summons entities that will fight to protect the chest
   - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = 
   - Cook (like with stats increasing if you have a good alimentation)
+  - Add new fish custom types inside biomes: igloo fish, liane fish, dead fish inside the desert maybe in structures, lava fish inside the nether with a custom fishing rod too
+  - Sheepwars
 MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus
   - additionaloverlayinfos : add remaining health, armor of the hovered entities
   - Make jobs support multiple rewards in the same jsonArray
+
+THINK:
+  - Maybe let the crops being replanted only by level2 or 3 farmer... (TO MAKE AN UTILITY TO GRIND)
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -48,6 +53,7 @@ TODO (next version) ?:
   - Market
   - Fix playlist and soundMgr system (need to reimplement everything)
   - add `magnet` + `sword_of_wrath` to structures loots
+  - SwordOfWrath needs to target the entity if the player hits it
 
 OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
@@ -61,7 +67,7 @@ ISSUES:
   - DrawerTESR: item icon lights even in the dark
   - Sword Of Wrath orientation towards monster attacked (fix animations)
   - Fix: `fertilized_water` too efficient
-  - Cascading worldgen lag for generated structures...
+  - Cascading worldgen lag for generated structures... (seems fixed for now I will let it here as I will add more huge structures later)
 
 REFACTOR (need):
   - entity package
@@ -74,12 +80,14 @@ New:
   - added `visited biomes` capability && `/biomes` command
   - Fishing Mechanic where timing is the key to catch something (Undertale inspired thx `Toby Fox`)
   - ChaosMasterBoss in the `custom_dim` deals `blue_fire_damage` with a new overlay effect
+  - feat: fishing gui minigame instead of boring vanilla fishing
   - feat: `jobs` grants you `block/item` reward leveling up
   - feat: added `magnet` item that pickups nearby loot
   - feat: added a quick way to change gamemode [hotkey F3+F4]
   - feat: add `super_totem` item that triggers even when isn't held in hands
   - style: rendering saturation in HUD
   - decoration: added `tree barks`, `flower_patches`
+  - feat: `right-click` crops to harvest instead of destroying them
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

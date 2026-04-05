@@ -26,6 +26,23 @@ public class JobEventUtils {
 		Main.getLogger().info("Job done, incrementing task: [{}:{}]", jobid, taskId);
 	}
 
+	/**
+	 * Gets the player level in the jobId for instance : getPlayerLevel(player, "farmer");
+	 * @param player
+	 * @param jobid
+	 * @return -1 on error
+	 */
+	public static int getPlayerLevel(EntityPlayerMP player, String jobid) {
+		String jobId = prefixId(jobid);
+
+		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+		if (jobs == null)
+			return -1;
+
+		int level = jobs.getProgress(jobId).getLevel();
+		return level;
+	}
+
 	public static String prefixId(String id) {
 		return Reference.PREFIX + id;
 	}

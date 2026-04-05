@@ -58,7 +58,7 @@ public class EntitySwordOfWrath extends EntityCreature implements ITalkable {
 		this.tasks.addTask(1, new EntityAIFollowPlayer(this, 1.0D));
 
 		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10,
-				false, true, new Predicate<EntityLiving>() {
+				false, false, new Predicate<EntityLiving>() {
 					public boolean apply(@Nullable EntityLiving entityLiving) {
 						return entityLiving != null && entityLiving instanceof IMob;
 					}

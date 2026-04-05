@@ -76,7 +76,6 @@ public class GuiFishingMinigame extends GuiScreen {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		drawBackground(0);
 
-		int scale = 2;
 		int i = 0;
 		for (ItemStack stack : icons) {
 			Point pt = points.get(i);
