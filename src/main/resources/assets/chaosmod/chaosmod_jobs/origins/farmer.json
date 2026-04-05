@@ -41,7 +41,7 @@
 		},
 		{
 			"id": "gather_any_custom_flower_chaosmod",
-			"name": "ChaosMod Priviledge",
+			"name": "ChaosMod Privilege",
 			"description": "Gather 10 flowers only from ChaosMod inside custom biomes",
 			"type": "harvest",
 			"target": {

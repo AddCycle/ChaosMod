@@ -10,6 +10,7 @@ import net.chaos.chaosmod.items.armor.ArmorBase;
 import net.chaos.chaosmod.items.armor.EnderiteArmor;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.food.MineralFood;
+import net.chaos.chaosmod.items.food.fish.CustomFishFood;
 import net.chaos.chaosmod.items.materials.AllemaniteIngot;
 import net.chaos.chaosmod.items.materials.EnderiteShard;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
@@ -170,6 +171,8 @@ public class ModItems {
 	public static final Item MONEY_WAD = new ItemMoneyWad("wad");
 	
 	//Food
+	public static final Item IGLOO_FISH = new CustomFishFood("igloo_fish", 10);
+	public static final Item VINE_FISH = new CustomFishFood("vine_fish", 4);
 	public static Item OXONIUM_CARROT;
 	
 	// Slab items

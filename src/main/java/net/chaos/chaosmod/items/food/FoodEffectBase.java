@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class FoodEffectBase extends FoodBase {
+public class FoodEffectBase extends FoodSeedBase {
 	
 	PotionEffect effect;
 

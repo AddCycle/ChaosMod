@@ -7,9 +7,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemSeedFood;
 import proxy.IItemModel;
 
-public class FoodBase extends ItemSeedFood implements IItemModel {
+public class FoodSeedBase extends ItemSeedFood implements IItemModel {
 
-	public FoodBase(String name, int amount, float saturation, Block crops, Block soil) {
+	public FoodSeedBase(String name, int amount, float saturation, Block crops, Block soil) {
 		super(amount, saturation, crops, soil);
 		setUnlocalizedName(name);
 		setRegistryName(name);
