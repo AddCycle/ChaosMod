@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID)
-// TODO : rn never using the target item/type here
+// TODO : rn never using the target item/type here inside the jsons
 public class JobFarmerEventHandler {
 	private static final ResourceLocation DIAMONA = new ResourceLocation(Reference.MATHSMOD, "diamona");
 	private static final ResourceLocation HELL_FLOWER = new ResourceLocation(Reference.MATHSMOD, "hell_flower");
@@ -54,6 +54,11 @@ public class JobFarmerEventHandler {
 			event.setCancellationResult(EnumActionResult.SUCCESS);
 			crop.dropBlockAsItem(world, pos, state, fortune);
 			world.setBlockState(pos, crop.withAge(0));
+
+			onHarvestBlock(event, OXONIUM_CARROTS, blk ->
+			{
+				incrementTask(event.getEntityPlayer(), "farm_oxonium_carrots");
+			});
 		}
 	}
 
@@ -61,9 +66,10 @@ public class JobFarmerEventHandler {
 	public static void onHarvestBlockHandler(BlockEvent.BreakEvent event) {
 		if (event.getWorld().isRemote)
 			return;
-
+		
 		onHarvestBlock(event, OXONIUM_CARROTS, block ->
 		{
+			if (!((BlockCrops) block).isMaxAge(event.getState())) return;
 			incrementTask(event.getPlayer(), "farm_oxonium_carrots");
 		});
 
@@ -82,6 +88,18 @@ public class JobFarmerEventHandler {
 			Consumer<Block> callback) {
 		Block block = ForgeRegistries.BLOCKS.getValue(blockId);
 		if (block == null || block != event.getState().getBlock())
+			return;
+
+		callback.accept(block);
+	}
+
+	private static void onHarvestBlock(PlayerInteractEvent.RightClickBlock event, ResourceLocation blockId,
+			Consumer<Block> callback) {
+		if (event.getWorld().isRemote)
+			return;
+
+		Block block = ForgeRegistries.BLOCKS.getValue(blockId);
+		if (block == null || block != event.getWorld().getBlockState(event.getPos()).getBlock())
 			return;
 
 		callback.accept(block);

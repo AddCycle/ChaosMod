@@ -79,6 +79,7 @@ public class OverlayEffectsEvents {
 		}
 
 		GlStateManager.disableBlend();
+		GlStateManager.color(1.0f, 1.0f, 1.0f); // white
 
 		GlStateManager.popMatrix();
 	}

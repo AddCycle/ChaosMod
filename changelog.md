@@ -61,7 +61,6 @@ OPTIMIZATION:
 ISSUES:
   - Fix: `/jobs` command not working properly (needs code fix)
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tamable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different
-  - Fix: When `mathsmod` not loaded, job reward for `tamer` is null (might cause crash)
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too))
   - EntityViking clearing inventory on right-click and kills you...
   - DrawerTESR: item icon lights even in the dark

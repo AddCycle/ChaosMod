@@ -2,6 +2,7 @@ package net.chaos.chaosmod.common;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class CommonUtils {
@@ -30,5 +31,9 @@ public class CommonUtils {
 		e.setGlowing(true);
 
 		return e;
+	}
+	
+	public static boolean isFireArmDamageSource(DamageSource damageSource) {
+		return damageSource.getDamageType().equalsIgnoreCase("thrown");
 	}
 }

@@ -29,7 +29,7 @@ public class MapGenCustomCaves extends MapGenBase {
 			double originZ) {
 		float yaw = 0.0f, pitch = 0.0f;
 		double verticalScale = 0.8D;
-		float radius = 4.0F + this.rand.nextFloat() * 6.0F;
+		float radius = 3.0F + this.rand.nextFloat() * 6.0F;
 		this.addTunnel(seed, chunkX, chunkZ, primer, originX, originY, originZ, radius,
 				yaw, pitch, -1, -1, verticalScale);
 	}
