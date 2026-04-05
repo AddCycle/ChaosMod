@@ -65,6 +65,8 @@ public class BiomeGenEventHandler {
 		WorldGenFlowerPatch worldGenFlowerPatch = new WorldGenFlowerPatch(ModBlocks.FLOWER_PATCH);
 		worldGenFlowerPatch.setGeneratedChunk(event.getChunkPos());
 		worldGenFlowerPatch.generate(event.getWorld(), event.getRand(), event.getPos()); // cascading worldgenlag
+		
+		// TODO : generate a petroleum lake or dirty lake (make dirty water & petroleum)
 	}
 	
 	// TODO : refactor, let only the blockstate because LOG, LOG2 are useless for the gen

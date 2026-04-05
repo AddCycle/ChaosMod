@@ -1,15 +1,19 @@
 package net.chaos.chaosmod.init;
 
+import net.chaos.chaosmod.fluids.DirtyWaterFluid;
 import net.chaos.chaosmod.fluids.FertilizedWaterFluid;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import util.Reference;
 
 public class ModFluids {
 	public static final Fluid FERTILIZED_WATER = new FertilizedWaterFluid("fertilized_water", new ResourceLocation("blocks/water_still"), new ResourceLocation("blocks/water_flow"), new ResourceLocation("blocks/water_overlay"));
+	public static final Fluid DIRTY_WATER = new DirtyWaterFluid("dirty_water", new ResourceLocation(Reference.MODID, "fluids/dirty_water_still"), new ResourceLocation(Reference.MODID, "fluids/dirty_water_flow"), new ResourceLocation(Reference.MODID, "fluids/dirty_water_overlay"));
 
 	public static void registerFluids() {
 		registerFluid(FERTILIZED_WATER);
+		registerFluid(DIRTY_WATER);
 	}
 
 	public static void registerFluid(Fluid fluid) {

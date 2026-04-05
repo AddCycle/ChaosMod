@@ -117,26 +117,7 @@ public class RenderHandler {
 	 * Add fluids here also
 	 */
 	public static void registerCustomMeshesAndStates() {
-		registerFluidRendering(ModFluidBlocks.FERTILIZED_WATER_BLOCK);
-	}
-	
-	public static void registerFluidRendering(Block fluidBlock) {
-		Main.getLogger().info("Registering mesh definition & state mapper for : {}", fluidBlock.getRegistryName());
-
-		ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluidBlock), new ItemMeshDefinition() {
-			@Override
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-				return new ModelResourceLocation(fluidBlock.getRegistryName(), "fluid");
-			}
-		});
-		
-		ModelLoader.setCustomStateMapper(fluidBlock, new StateMapperBase() {
-			
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				return new ModelResourceLocation(fluidBlock.getRegistryName(), "fluid");
-			}
-		});
+		ModFluidBlocks.registerCustomMeshesAndStates();
 	}
 	
 	private static <T extends Entity> void registerEntityRenderer(Class<T> entityClass, IRenderFactory<T> factory) {

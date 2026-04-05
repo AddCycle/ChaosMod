@@ -25,7 +25,8 @@ IDEAS:
   - Structure loot chest that when opened summons entities that will fight to protect the chest
   - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = 
   - Cook (like with stats increasing if you have a good alimentation)
-  - Add new fish custom types inside biomes: igloo fish, liane fish, dead fish inside the desert maybe in structures, lava fish inside the nether with a custom fishing rod too
+  - Add new fish custom types inside biomes: dead fish inside the desert dead pool poizoned water, maybe in structures, lava fish inside the nether with a custom fishing rod too
+  (added `dirty_water` in order to catch TODO: dead fish inside desert only)
   - Sheepwars
 MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
@@ -87,6 +88,7 @@ New:
   - style: rendering saturation in HUD
   - decoration: added `tree barks`, `flower_patches`
   - feat: `right-click` crops to harvest instead of destroying them
+  - feat: custom `igloo_fish`, `vine_fish` added to cold and jungle biomes respectively
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
