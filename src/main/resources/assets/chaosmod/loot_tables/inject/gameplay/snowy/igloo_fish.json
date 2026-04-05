@@ -1,0 +1,19 @@
+{
+    "pools": [
+        {
+        	"name": "igloo_pool",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "chaosmod:igloo_fish",
+                    "weight": 10
+                },
+                {
+                    "type": "empty",
+                    "weight": 90
+                }
+            ]
+        }
+    ]
+}

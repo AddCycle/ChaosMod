@@ -1,0 +1,19 @@
+{
+    "pools": [
+        {
+        	"name": "vine_pool",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "chaosmod:vine_fish",
+                    "weight": 10
+                },
+                {
+                    "type": "empty",
+                    "weight": 90
+                }
+            ]
+        }
+    ]
+}

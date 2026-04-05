@@ -9,6 +9,7 @@ import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModDimensions;
 import net.chaos.chaosmod.init.ModEntities;
 import net.chaos.chaosmod.init.ModFluids;
+import net.chaos.chaosmod.init.ModLootTableList;
 import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.init.ModStructures;
 import net.chaos.chaosmod.jobs.JobsManager;
@@ -67,6 +68,7 @@ public class Main
     {
         proxy.init(event);
     	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
+        ModLootTableList.registerLootTables();
         PacketManager.init();
         VillagerRegistry.instance().registerVillageCreationHandler(new VillageAdditionalStructure.CreationHandler());
         MinecraftForge.ORE_GEN_BUS.register(new OreGenOverrideEvents());

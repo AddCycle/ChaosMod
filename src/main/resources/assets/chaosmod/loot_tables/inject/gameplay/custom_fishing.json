@@ -1,0 +1,22 @@
+{
+    "pools": [
+        {
+        	"name": "custom_main",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "loot_table",
+                    "name": "chaosmod:inject/gameplay/snowy/igloo_fish",
+                    "weight": 50,
+                    "quality": 1
+                },
+                {
+                    "type": "loot_table",
+                    "name": "chaosmod:inject/gameplay/jungle/vine_fish",
+                    "weight": 50,
+                    "quality": 1
+                }
+            ]
+        }
+    ]
+}
