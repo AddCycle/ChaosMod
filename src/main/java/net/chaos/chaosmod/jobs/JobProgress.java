@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
+import net.chaos.chaosmod.init.ModSounds;
 import net.chaos.chaosmod.jobs.reward.JobReward;
 import net.chaos.chaosmod.jobs.task.JobTask;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.network.packets.PacketSyncPlayerJobs;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
 
 public class JobProgress {
 	private int level;
@@ -73,6 +75,8 @@ public class JobProgress {
 			return;
 
 		addExp(player, jobId, task.rewardExp);
+
+		player.getEntityWorld().playSound(null, player.getPosition(), ModSounds.JOBTASK_COMPLETE, SoundCategory.NEUTRAL, 1.0f, 1.0f);
 	}
 
 	public static void syncJobs(EntityPlayerMP player) {

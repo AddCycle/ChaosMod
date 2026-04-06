@@ -1,10 +1,12 @@
 package net.chaos.chaosmod.init;
 
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import util.Reference;
 public class ModSounds {
+	// MUSICS
 	public static final SoundEvent PUTIN_WIDE_WALK = createSound("wide_walk");
 	public static final SoundEvent HIGHEST_OP = createSound("highest");
 	public static final SoundEvent FIRE_FORCE_OP = createSound("fire_force");
@@ -14,6 +16,9 @@ public class ModSounds {
 	public static final SoundEvent BLACK_CATCHER = createSound("black_catcher");
 	public static final SoundEvent GRANDEUR = createSound("grandeur");
 	public static final SoundEvent HOLLOW_PURPLE = createSound("hollow_purple");
+
+	// SFX
+	public static final SoundEvent JOBTASK_COMPLETE = SoundEvents.UI_TOAST_CHALLENGE_COMPLETE;
 	
 	private static SoundEvent createSound(String name) {
         ResourceLocation rl = new ResourceLocation(Reference.MODID, name);

@@ -11,6 +11,7 @@ TODO (current version):
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
   - Add a scoreboard of the most leveled up players per job ranking gui
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
+  - Add SFX to jobs upon task completion + level up
 
 IDEAS:
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
