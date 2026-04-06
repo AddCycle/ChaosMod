@@ -28,6 +28,7 @@ IDEAS:
   - Add new fish custom types inside biomes: dead fish inside the desert dead pool poizoned water, maybe in structures, lava fish inside the nether with a custom fishing rod too
   (added `dirty_water` in order to catch TODO: dead fish inside desert only)
   - Sheepwars
+  - Ne pas oublier les structures aeriennes surtout qu'on a jetpack + elytras (fireworks (TODO : en faire un quete de metier))
 MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus
@@ -53,7 +54,7 @@ TODO (next version) ?:
   - Hunt
   - Market
   - Fix playlist and soundMgr system (need to reimplement everything)
-  - add `magnet` + `sword_of_wrath` to structures loots
+  - add `magnet` + `sword_of_wrath` to structures loots or jobs exclusive rewards
   - SwordOfWrath needs to target the entity if the player hits it
 
 OPTIMIZATION:
@@ -88,7 +89,8 @@ New:
   - style: rendering saturation in HUD
   - decoration: added `tree barks`, `flower_patches`
   - feat: `right-click` crops to harvest instead of destroying them
-  - feat: custom `igloo_fish`, `vine_fish` added to cold and jungle biomes respectively
+  - feat: add `igloo_fish`, `vine_fish`, `desert_fish` exclusive to cold, jungle, desert biomes respectively
+  - feat: add `dirty_water` fluid in `desert` biome
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

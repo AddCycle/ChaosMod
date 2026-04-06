@@ -247,8 +247,8 @@ public class MapGenCustomCaves extends MapGenBase {
 			int k = 1;
 
 			if (this.rand.nextInt(4) == 0) {
-//				this.addRoom(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2);
-				this.addHugeRoom(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2);
+				this.addRoom(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2);
+//				this.addHugeRoom(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2);
 				k += this.rand.nextInt(4);
 			}
 

@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
@@ -93,6 +94,9 @@ public class Main
         TileEntityManager.registerTileEntities();
         BiomeGenEventHandler.addAdditionalBiomesFromMod(Reference.MATHSMOD, "pink_forest", "unusual_forest", "desolate_lands", "green_plain");
     }
+    
+    @EventHandler
+    public void interModCommunication(FMLInterModComms event) {}
     
     @EventHandler
     public void ServerInit(FMLServerStartingEvent event) {

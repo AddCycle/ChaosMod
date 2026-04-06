@@ -7,13 +7,19 @@
                 {
                     "type": "loot_table",
                     "name": "chaosmod:inject/gameplay/snowy/igloo_fish",
-                    "weight": 50,
+                    "weight": 35,
                     "quality": 1
                 },
                 {
                     "type": "loot_table",
                     "name": "chaosmod:inject/gameplay/jungle/vine_fish",
-                    "weight": 50,
+                    "weight": 30,
+                    "quality": 1
+                },
+                {
+                    "type": "loot_table",
+                    "name": "chaosmod:inject/gameplay/desert/desert_fish",
+                    "weight": 35,
                     "quality": 1
                 }
             ]

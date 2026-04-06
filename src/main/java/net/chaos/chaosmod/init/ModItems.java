@@ -173,6 +173,7 @@ public class ModItems {
 	//Food
 	public static final Item IGLOO_FISH = new CustomFishFood("igloo_fish", 10);
 	public static final Item VINE_FISH = new CustomFishFood("vine_fish", 4);
+	public static final Item DESERT_FISH = new CustomFishFood("desert_fish", 2);
 	public static Item OXONIUM_CARROT;
 	
 	// Slab items

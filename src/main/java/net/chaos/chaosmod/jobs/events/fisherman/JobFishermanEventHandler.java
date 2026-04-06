@@ -97,22 +97,42 @@ public class JobFishermanEventHandler {
 	        }
 	    };
 
+	    LootCondition desertCondition = new LootCondition() {
+	        @Override
+	        public boolean testCondition(Random rand, LootContext context) {
+	        	EntityPlayer player = getPlayerFromContext(context);
+	            if (player == null) return false;
+	            Biome biome = context.getWorld().getBiome(player.getPosition());
+
+	            boolean result = biome == Biomes.DESERT;
+	            Main.getLogger().info("[ChaosMod] desertCondition checked — biome: {}, result: {}", biome.getBiomeName(), result);
+	            return result;
+	        }
+	    };
+
 	    LootEntry vineEntry = new LootEntryTable(
 	        new ResourceLocation(Reference.MODID, "inject/gameplay/jungle/vine_fish"),
-	        50, 1,
+	        30, 1,
 	        new LootCondition[]{ jungleCondition },
 	        "chaosmod:vine_fish"
 	    );
 
 	    LootEntry iglooEntry = new LootEntryTable(
 	        new ResourceLocation(Reference.MODID, "inject/gameplay/snowy/igloo_fish"),
-	        50, 1,
+	        35, 1,
 	        new LootCondition[]{ iglooCondition },
 	        "chaosmod:igloo_fish"
 	    );
 
+	    LootEntry desertEntry = new LootEntryTable(
+	        new ResourceLocation(Reference.MODID, "inject/gameplay/desert/desert_fish"),
+	        35, 1,
+	        new LootCondition[]{ desertCondition },
+	        "chaosmod:desert_fish"
+	    );
+
 	    LootPool fishingPool = new LootPool(
-	        new LootEntry[]{ vineEntry, iglooEntry },
+	        new LootEntry[]{ vineEntry, iglooEntry, desertEntry },
 	        new LootCondition[0],       // no pool-level condition
 	        new RandomValueRange(2f, 4f),
 	        new RandomValueRange(0f),

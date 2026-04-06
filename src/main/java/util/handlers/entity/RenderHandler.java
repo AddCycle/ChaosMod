@@ -1,6 +1,5 @@
 package util.handlers.entity;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.client.renderer.tileentity.AtmTESR;
 import net.chaos.chaosmod.client.renderer.tileentity.DrawerTESR;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBeamRenderer;
@@ -52,17 +51,9 @@ import net.chaos.chaosmod.tileentity.TileEntityLantern;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumChest;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.tileentity.TileEntityTrophyBase;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;

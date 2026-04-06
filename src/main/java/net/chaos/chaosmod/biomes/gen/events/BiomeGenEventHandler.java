@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.chaos.chaosmod.biomes.gen.WorldGenCustomLakes;
 import net.chaos.chaosmod.biomes.gen.WorldGenFlowerPatch;
 import net.chaos.chaosmod.biomes.gen.WorldGenTreeBark;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomLog.CustomLogVariant;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.chaos.chaosmod.init.ModFluidBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.block.BlockOldLog;
@@ -56,7 +58,14 @@ public class BiomeGenEventHandler {
 		if (event.getWorld().isRemote) return;
 
 		Biome biome = event.getWorld().getBiome(event.getPos());
-		if (biome == null || !ALLOWED_BIOMES.contains(biome)) return;
+		if (biome == null) return;
+		
+		// FIXME : make it more like the vanilla generator (no leak in order to fish inside)
+		WorldGenCustomLakes worldGenLakes = new WorldGenCustomLakes(ModFluidBlocks.DIRTY_WATER_BLOCK);
+		worldGenLakes.setGeneratedChunk(event.getChunkPos());
+		if (biome == Biomes.DESERT) worldGenLakes.generate(event.getWorld(), event.getRand(), event.getPos());
+
+		if (!ALLOWED_BIOMES.contains(biome)) return;
 
 		WorldGenTreeBark treeBarkGenerator = getBarkGenForBiome(biome);
 		treeBarkGenerator.setGeneratedChunk(event.getChunkPos());
@@ -65,8 +74,6 @@ public class BiomeGenEventHandler {
 		WorldGenFlowerPatch worldGenFlowerPatch = new WorldGenFlowerPatch(ModBlocks.FLOWER_PATCH);
 		worldGenFlowerPatch.setGeneratedChunk(event.getChunkPos());
 		worldGenFlowerPatch.generate(event.getWorld(), event.getRand(), event.getPos()); // cascading worldgenlag
-		
-		// TODO : generate a petroleum lake or dirty lake (make dirty water & petroleum)
 	}
 	
 	// TODO : refactor, let only the blockstate because LOG, LOG2 are useless for the gen

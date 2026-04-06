@@ -21,7 +21,7 @@ public class ModFluidBlocks {
 	public static final List<Block> FLUID_BLOCKS = new ArrayList<Block>();
 	
 	public static final Block FERTILIZED_WATER_BLOCK = new BlockFertilizedWater("fertilized_water", ModFluids.FERTILIZED_WATER, Material.WATER, MapColor.GREEN);
-	public static final Block DIRTY_WATER_BLOCK = new BlockDirtyWater("dirty_water", ModFluids.DIRTY_WATER, Material.LAVA, MapColor.DIRT);
+	public static final Block DIRTY_WATER_BLOCK = new BlockDirtyWater("dirty_water", ModFluids.DIRTY_WATER, Material.WATER, MapColor.DIRT);
 
 
 	public static void registerCustomMeshesAndStates() {

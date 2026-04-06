@@ -1,0 +1,19 @@
+{
+    "pools": [
+        {
+        	"name": "desert_pool",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "chaosmod:desert_fish",
+                    "weight": 10
+                },
+                {
+                    "type": "empty",
+                    "weight": 90
+                }
+            ]
+        }
+    ]
+}

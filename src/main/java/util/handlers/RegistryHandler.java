@@ -83,7 +83,6 @@ public class RegistryHandler {
 			}
 		}
 		
-		// For now registering fluids rendering
         RenderHandler.registerCustomMeshesAndStates();
 	}
 	

@@ -2,6 +2,7 @@ package net.chaos.chaosmod.jobs.events.miner;
 
 import static net.chaos.chaosmod.jobs.events.JobEventUtils.onHarvestBlock;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.jobs.events.JobEventUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -11,10 +12,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import util.Reference;
 
-// TODO : do the rest of miner jobs
 @EventBusSubscriber(modid = Reference.MODID)
 public class JobMinerEventHandler {
-	private static final ResourceLocation COBBLESTONE = new ResourceLocation("cobblestone");
+	private static final ResourceLocation STONE = new ResourceLocation("stone");
 	private static final ResourceLocation IRON_ORE = new ResourceLocation("iron_ore");
 	private static final ResourceLocation SILVER_ORE = new ResourceLocation(Reference.MATHSMOD, "silver_ore");
 	private static final ResourceLocation ALLEMANITE_ORE = new ResourceLocation(Reference.MODID, "allemanite_ore");
@@ -24,7 +24,8 @@ public class JobMinerEventHandler {
 	public static void onBlockMined(BlockEvent.BreakEvent event) {
 		if (event.getWorld().isRemote) return;
 		
-		onHarvestBlock(event, COBBLESTONE, block -> {
+		onHarvestBlock(event, STONE, block -> {
+			Main.getLogger().info("miner event trigger");
 			incrementTask(event.getPlayer(), "mine_cobblestone");
 		});
 
