@@ -10,7 +10,6 @@ public class CustomFishFood extends ItemFood implements IItemModel {
 
 	public CustomFishFood(String name, int amount) {
 		super(amount, true);
-		this.setHasSubtypes(true);
 
 		setUnlocalizedName(name);
 		setRegistryName(name);

@@ -5,16 +5,100 @@
 	"tasks": [
 		{
 			"id": "first_catch",
-			"name": "Catch Any Fish",
-			"description": "Grab your fishing rod and try catch something...",
+			"name": "Catch 20 fish",
+			"description": "Grab your fishing rod and see what you might catch...",
 			"type": "harvest",
 			"target": {
 				"item": "minecraft:cod",
 				"data": 0
 			},
-			"goal": 1,
-			"rewardExp": 40,
-			"_comment": "TODO : add a rewards object with items/blocks"
+			"goal": 20,
+			"rewardExp": 100
+		},
+		{
+			"id": "cold_catch",
+			"name": "Catch 10 Igloo Fish",
+			"description": "Go fish inside the exclusive Giant Mountains!",
+			"type": "harvest",
+			"target": {
+				"item": "chaosmod:igloo_fish",
+				"data": 0
+			},
+			"goal": 10,
+			"rewardExp": 150
+		},
+		{
+			"id": "desert_catch",
+			"name": "Catch 10 Desert Fish",
+			"description": "Exclusive to Desert Biome",
+			"type": "harvest",
+			"target": {
+				"item": "chaosmod:desert_fish",
+				"data": 0
+			},
+			"goal": 10,
+			"rewardExp": 200
+		},
+		{
+			"id": "ender_catch",
+			"name": "Catch 10 Ender Fish",
+			"description": "See MathsMod requirements to catch it",
+			"type": "harvest",
+			"target": {
+				"item": "mathsmod:ender_fish",
+				"data": 0
+			},
+			"goal": 10,
+			"rewardExp": 250
+		},
+		{
+			"id": "jungle_catch",
+			"name": "Catch 20 Vine Fish",
+			"description": "Exclusive to Jungle Biome",
+			"type": "harvest",
+			"target": {
+				"item": "chaosmod:vine_fish",
+				"data": 0
+			},
+			"goal": 10,
+			"rewardExp": 300
+		}
+	],
+	"levels": [
+		{
+			"level": 1,
+			"reward": {
+				"item": "mathsmod:silver_rod",
+				"amount": 1
+			}
+		},
+		{
+			"level": 2,
+			"reward": {
+				"item": "mathsmod:tfosium_rod",
+				"amount": 1
+			}
+		},
+		{
+			"level": 3,
+			"reward": {
+				"item": "chaosmod:wad",
+				"amount": 64
+			}
+		},
+		{
+			"level": 4,
+			"reward": {
+				"block": "mathsmod:tfosium_rod",
+				"amount": 1
+			}
+		},
+		{
+			"level": 5,
+			"reward": {
+				"block": "mathsmod:kurayum_rod",
+				"amount": 1
+			}
 		}
 	],
 	"maxLevel": 5

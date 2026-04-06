@@ -4,20 +4,18 @@ import java.util.List;
 import java.util.Random;
 
 import io.netty.buffer.ByteBuf;
-import net.chaos.chaosmod.Main;
-import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
-import net.chaos.chaosmod.jobs.PlayerJobs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityFishHook;
-import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -75,24 +73,34 @@ public class PacketFishingResult implements IMessage {
 				// player luck (-1024)-0-1024
 
 				LootContext.Builder builder = new LootContext.Builder((WorldServer) player.world);
-				builder.withLuck(player.getLuck() + k + Math.max(0, score - 1))
-						.withPlayer(player).withLootedEntity(hook);
+				builder.withLuck(player.getLuck() + k + Math.max(0, score - 1)).withPlayer(player)
+						.withLootedEntity(hook);
 
 				List<ItemStack> loots = player.world.getLootTableManager()
 						.getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING)
 						.generateLootForPools(rand, builder.build());
 
-				if (loots.stream().anyMatch(stack -> stack.getItem() instanceof ItemFishFood)) {
-				    incrementFirstCatchTask((EntityPlayerMP) player);
-				}				
+				int notInGround = 1; // damage taken
+				int inGround = 2; // damage taken
+				ItemFishedEvent event = new ItemFishedEvent(loots, notInGround, hook);
+				MinecraftForge.EVENT_BUS.post(event);
+				if (event.isCanceled()) {
+					hook.setDead();
+					if ((held.getMaxDamage() - held.getItemDamage()) - event.getRodDamage() <= 0) {
+						held.shrink(1);
+					} else {
+						held.attemptDamageItem(event.getRodDamage(), rand, (EntityPlayerMP) player);
+					}
+					return;
+				}
 
 				for (ItemStack stack : loots) {
-					if (score == 0) break;
+					if (score == 0)
+						break;
 					int multiplier = Math.max(1, rand.nextInt(Math.max(1, score)));
 					stack.setCount(stack.getCount() * multiplier);
 
 					ItemHandlerHelper.giveItemToPlayer(player, stack);
-					player.inventoryContainer.detectAndSendChanges();
 
 //					PacketManager.network.sendTo(
 //					    new PacketFishingLoot(stack),
@@ -101,26 +109,16 @@ public class PacketFishingResult implements IMessage {
 				}
 
 				hook.setDead();
+				if ((held.getMaxDamage() - held.getItemDamage()) - event.getRodDamage() <= 0) {
+					held.shrink(1);
+				} else {
+					held.attemptDamageItem(event.getRodDamage(), rand, (EntityPlayerMP) player);
+				}
+
+				player.inventoryContainer.detectAndSendChanges();
 			});
 
 			return null;
 		}
-	}
-
-	private static void incrementFirstCatchTask(EntityPlayerMP player) {
-		String jobId = prefixId("fisherman");
-		String taskId = prefixId("first_catch");
-
-		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
-		if (jobs == null) {
-		    Main.getLogger().warn("PlayerJobs capability is null for player " + player.getName());
-		    return;
-		}
-
-		jobs.getProgress(jobId).incrementTask(player, jobId, taskId);
-	}
-
-	private static String prefixId(String id) {
-		return Reference.PREFIX + id;
 	}
 }

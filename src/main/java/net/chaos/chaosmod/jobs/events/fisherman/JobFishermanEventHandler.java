@@ -1,17 +1,25 @@
 package net.chaos.chaosmod.jobs.events.fisherman;
 
+import static net.chaos.chaosmod.jobs.events.JobEventUtils.onItemFished;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModBiomes;
+import net.chaos.chaosmod.items.food.fish.CustomFishFood;
+import net.chaos.chaosmod.jobs.events.JobEventUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.init.Biomes;
+import net.minecraft.item.ItemFishFood;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootContext;
@@ -153,9 +161,42 @@ public class JobFishermanEventHandler {
 	    return null;
 	}
 
+	private static final ResourceLocation IGLOO_FISH = new ResourceLocation(Reference.MODID, "igloo_fish");
+	private static final ResourceLocation VINE_FISH = new ResourceLocation(Reference.MODID, "vine_fish");
+	private static final ResourceLocation DESERT_FISH = new ResourceLocation(Reference.MODID, "desert_fish");
+	private static final ResourceLocation ENDER_FISH = new ResourceLocation(Reference.MATHSMOD, "ender_fish");
+
 	@SubscribeEvent
 	public static void onPlayerFishing(ItemFishedEvent event) {
 		if (event.getEntityPlayer().getEntityWorld().isRemote)
 			return;
+		
+		Predicate<ItemStack> vanillaFish = stack -> stack.getItem() instanceof ItemFishFood;
+		Predicate<ItemStack> customFish = stack -> stack.getItem() instanceof CustomFishFood;
+		Predicate<ItemStack> anyFish = stack -> vanillaFish.or(customFish).test(stack);
+
+		onItemFished(event, anyFish, (items, count) -> {
+			incrementTask("first_catch", event.getEntityPlayer(), count);
+		});
+
+		onItemFished(event, IGLOO_FISH , (items, count) -> {
+			incrementTask("cold_catch", event.getEntityPlayer(), count);
+		});
+
+		onItemFished(event, VINE_FISH, (items, count) -> {
+			incrementTask("jungle_catch", event.getEntityPlayer(), count);
+		});
+
+		onItemFished(event, DESERT_FISH, (items, count) -> {
+			incrementTask("desert_catch", event.getEntityPlayer(), count);
+		});
+
+		onItemFished(event, ENDER_FISH, (items, count) -> {
+			incrementTask("ender_catch", event.getEntityPlayer(), count);
+		});
+	}
+
+	private static void incrementTask(String taskId, EntityPlayer player, int amount) {
+		JobEventUtils.incrementTask((EntityPlayerMP) player, "fisherman", taskId, amount);
 	}
 }

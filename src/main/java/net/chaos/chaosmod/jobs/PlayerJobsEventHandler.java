@@ -13,13 +13,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID)
+// TODO : split the class into fighter/hunter jobs handler (LATER make the json handle types like the criterions in achievements)
+// for example "entity": "entity_id", "type": "tame/hunt/kill"...
 public class PlayerJobsEventHandler {
 
-	@SubscribeEvent
 	/**
 	 * Jobs using it : fighter, ...
 	 * @param event
 	 */
+	@SubscribeEvent
 	public static void onPlayerKillsEntity(LivingDeathEvent event) {
 		if (event.getEntity().getEntityWorld().isRemote)
 			return;

@@ -26,11 +26,15 @@ public class JobProgress {
 	}
 
 	public void incrementTask(EntityPlayerMP player, String jobId, String taskId) {
+		incrementTask(player, jobId, taskId, 1);
+	}
+
+	public void incrementTask(EntityPlayerMP player, String jobId, String taskId, int amount) {
 		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
 
 		int before = getTaskProgress(taskId);
 
-		incrementTaskProgress(jobId, taskId);
+		incrementTaskProgress(jobId, taskId, amount);
 
 		int after = getTaskProgress(taskId);
 
