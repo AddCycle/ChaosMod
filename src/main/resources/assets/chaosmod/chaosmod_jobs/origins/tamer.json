@@ -31,7 +31,7 @@
 		{
 			"id": "tame_ocelot",
 			"name": "Tame an Ocelot",
-			"description": "Ocelots are located in the Jungle, good luck!",
+			"description": "Ocelots are located in the Jungle, good luck! (Survival Only)",
 			"type": "tame",
 			"target": {
 				"entity": "minecraft:ocelot",
@@ -58,28 +58,23 @@
 			"level": 1,
 			"rewards": [
 				{
-					"item": "mathsmod:diamond_wolf_helmet",
-					"amount": 1
+					"item": "mathsmod:diamond_wolf_helmet"
 				},
 				{
-					"item": "mathsmod:diamond_wolf_chestplate",
-					"amount": 1
+					"item": "mathsmod:diamond_wolf_chestplate"
 				},
 				{
-					"item": "mathsmod:diamond_wolf_leggings",
-					"amount": 1
+					"item": "mathsmod:diamond_wolf_leggings"
 				},
 				{
-					"item": "mathsmod:diamond_wolf_boots",
-					"amount": 1
+					"item": "mathsmod:diamond_wolf_boots"
 				}
 			]
 		},
 		{
 			"level": 2,
 			"reward": {
-				"block": "mathsmod:kurayum_block",
-				"amount": 1
+				"block": "mathsmod:kurayum_block"
 			}
 		},
 		{

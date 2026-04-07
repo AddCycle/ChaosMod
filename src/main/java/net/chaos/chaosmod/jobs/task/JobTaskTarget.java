@@ -4,16 +4,14 @@ import com.google.gson.JsonObject;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.jobs.TargetType;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class JobTaskTarget {
-	public Object target;
-	public int data;
+	public String target;
+	public int data; // meta of the block
 	public TargetType type;
 
-	public JobTaskTarget(Object target, int data, TargetType type) {
+	public JobTaskTarget(String target, int data, TargetType type) {
 		this.target = target;
 		this.data = data;
 		this.type = type;
@@ -25,13 +23,13 @@ public class JobTaskTarget {
         // Save by type
         switch (type) {
             case BLOCK:
-                obj.addProperty("block", Block.REGISTRY.getNameForObject((Block) target).toString());
+                obj.addProperty("block", this.target);
                 break;
             case ITEM:
-                obj.addProperty("item", Item.REGISTRY.getNameForObject((Item) target).toString());
+                obj.addProperty("item", this.target);
                 break;
             case ENTITY:
-                obj.addProperty("entity", target.toString()); // Store as string ID
+                obj.addProperty("entity", this.target);
                 break;
         }
 
@@ -40,29 +38,27 @@ public class JobTaskTarget {
     }
 
 	public static JobTaskTarget fromJson(JsonObject json) {
-		JsonObject targetJson = json.getAsJsonObject("target");
-		
-		if (targetJson == null) {
+		if (json == null) {
 			Main.getLogger().info("JobTaskTarget is null returning null");
 			return null;
 		}
 
-        if (targetJson.has("block")) {
-            Block block = Block.getBlockFromName(targetJson.get("block").getAsString());
-            int data = targetJson.has("data") ? targetJson.get("data").getAsInt() : 0;
+        if (json.has("block")) {
+            String block = json.get("block").getAsString();
+            int data = json.has("data") ? json.get("data").getAsInt() : 0;
             return new JobTaskTarget(block, data, TargetType.BLOCK);
 
-        } else if (targetJson.has("item")) {
-            Item item = Item.getByNameOrId(targetJson.get("item").getAsString());
-            int data = targetJson.has("data") ? targetJson.get("data").getAsInt() : 0;
+        } else if (json.has("item")) {
+            String item = json.get("item").getAsString();
+            int data = json.has("data") ? json.get("data").getAsInt() : 0;
             return new JobTaskTarget(item, data, TargetType.ITEM);
 
-        } else if (targetJson.has("entity")) {
-            String entityId = targetJson.get("entity").getAsString();
+        } else if (json.has("entity")) {
+            String entityId = json.get("entity").getAsString();
             return new JobTaskTarget(entityId, 0, TargetType.ENTITY);
         }
 
-        throw new IllegalArgumentException("Unknown target type in JSON: " + targetJson);
+        throw new IllegalArgumentException("Unknown target type in JSON: " + json);
     }
 	
 	public NBTTagCompound toNBT() {
@@ -72,36 +68,35 @@ public class JobTaskTarget {
 
         switch (type) {
             case BLOCK:
-                tag.setString("block", Block.REGISTRY.getNameForObject((Block) target).toString());
+                tag.setString("block", this.target);
                 break;
             case ITEM:
-                tag.setString("item", Item.REGISTRY.getNameForObject((Item) target).toString());
+                tag.setString("item", this.target);
                 break;
             case ENTITY:
-                tag.setString("entity", target.toString()); // store entity as string ID
+                tag.setString("entity", this.target);
                 break;
         }
 
         return tag;
     }
 
-    // Load from NBT
     public static JobTaskTarget fromNBT(NBTTagCompound tag) {
         TargetType type = TargetType.values()[tag.getInteger("type")];
         int data = tag.getInteger("data");
 
         switch (type) {
             case BLOCK:
-                Block block = Block.getBlockFromName(tag.getString("block"));
+                String block = tag.getString("block");
                 return new JobTaskTarget(block, data, TargetType.BLOCK);
 
             case ITEM:
-                Item item = Item.getByNameOrId(tag.getString("item"));
+                String item = tag.getString("item");
                 return new JobTaskTarget(item, data, TargetType.ITEM);
 
             case ENTITY:
-                String entityId = tag.getString("entity");
-                return new JobTaskTarget(entityId, 0, TargetType.ENTITY);
+                String entity = tag.getString("entity");
+                return new JobTaskTarget(entity, 0, TargetType.ENTITY);
         }
 
         throw new IllegalArgumentException("Unknown TargetType in NBT: " + type);

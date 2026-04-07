@@ -37,7 +37,6 @@ MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus
   - additionaloverlayinfos : add remaining health, armor of the hovered entities
-  - Make jobs support multiple rewards in the same jsonArray
 
 THINK:
   - Maybe let the crops being replanted only by level2 or 3 farmer... (TO MAKE AN UTILITY TO GRIND)

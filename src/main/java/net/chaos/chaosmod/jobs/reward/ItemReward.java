@@ -36,60 +36,32 @@ public class ItemReward extends JobReward {
 		stacks.forEach(stack ->
 		{
 			player.addItemStackToInventory(stack);
-			Main.getLogger().debug("Giving {} x{} to {}", stack.getItem().getRegistryName().toString(),
+			Main.getLogger().debug("Given {} x{} to {}", stack.getItem().getRegistryName().toString(),
 					stack.getCount(), player.getName());
 		});
 	}
 
-	// FIXME : refactor hard reuse of existing code
 	public static JobReward fromJson(JsonObject json) {
-		int level = json.get("level").getAsInt();
-		List<ItemStack> stacksList = new ArrayList<>();
+	    int level = json.get("level").getAsInt();
 
-		if (json.has("reward")) {
-			JsonObject singleReward = json.get("reward").getAsJsonObject();
-			int lvl = json.get("level").getAsInt();
-		    int mnt = singleReward.get("amount").getAsInt();
+	    if (json.has("reward")) {
+	        JsonObject reward = json.get("reward").getAsJsonObject();
+	        int amount = reward.has("amount") ? reward.get("amount").getAsInt() : 1;
 
-			if (singleReward.has("item")) {
-				Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(singleReward.get("item").getAsString()));
-				if (item == null) item = ModItems.MONEY_WAD; // defaults to money_wad
-				return new ItemReward(lvl, new ItemStack(item, mnt));
-			}
+	        return new ItemReward(level, createStack(reward, amount));
+	    }
 
-			if (singleReward.has("block")) {
-				Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(singleReward.get("block").getAsString()));
-				if (block == null) {
-					return new ItemReward(lvl, new ItemStack(ModItems.MONEY_WAD, mnt)); // idem
-				}
-				return new ItemReward(lvl, new ItemStack(block, mnt));
-			}
+	    List<ItemStack> stacksList = new ArrayList<>();
+	    JsonArray rewards = json.get("rewards").getAsJsonArray();
 
-			return new ItemReward(lvl, new ItemStack(ModItems.MONEY_WAD, mnt));
-		}
-		
-		JsonArray rewards = json.get("rewards").getAsJsonArray();
-		for (JsonElement r : rewards) {
-			JsonObject reward = r.getAsJsonObject();
-			int amount = reward.has("amount") ? reward.get("amount").getAsInt() : 1;
+	    for (JsonElement r : rewards) {
+	        JsonObject reward = r.getAsJsonObject();
+	        int amount = reward.has("amount") ? reward.get("amount").getAsInt() : 1;
 
-			if (reward.has("item")) {
-				Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(reward.get("item").getAsString()));
-				if (item == null) item = ModItems.MONEY_WAD; // defaults to money_wad
-				stacksList.add(new ItemStack(item, amount));
-			}
+	        stacksList.add(createStack(reward, amount));
+	    }
 
-			if (reward.has("block")) {
-				Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(reward.get("block").getAsString()));
-				if (block == null) {
-					stacksList.add(new ItemStack(ModItems.MONEY_WAD, amount)); // idem
-				} else {
-					stacksList.add(new ItemStack(block, amount));
-				}
-			}
-		}
-		
-		return new ItemReward(level, stacksList);
+	    return new ItemReward(level, stacksList);
 	}
 
 	@Override
@@ -109,5 +81,27 @@ public class ItemReward extends JobReward {
 
 		rewardObj.add("rewards", rewards);
 		return rewardObj; // rewards: []
+	}
+	
+	private static ItemStack createStack(JsonObject reward, int amount) {
+	    if (reward.has("item")) {
+	        Item item = ForgeRegistries.ITEMS.getValue(
+	            new ResourceLocation(reward.get("item").getAsString())
+	        );
+	        if (item == null) item = ModItems.MONEY_WAD;
+	        return new ItemStack(item, amount);
+	    }
+
+	    if (reward.has("block")) {
+	        Block block = ForgeRegistries.BLOCKS.getValue(
+	            new ResourceLocation(reward.get("block").getAsString())
+	        );
+	        if (block != null) {
+	            return new ItemStack(block, amount);
+	        }
+	    }
+
+	    // default fallback
+	    return new ItemStack(ModItems.MONEY_WAD, amount);
 	}
 }
