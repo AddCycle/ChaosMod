@@ -3,6 +3,7 @@ package net.chaos.chaosmod.world.events;
 import net.chaos.chaosmod.client.gui.inventory.GuiInventoryExtended;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.common.capabilities.accessory.CapabilityAccessory;
+import net.chaos.chaosmod.compatibility.patchouli.PatchouliPlugin;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
@@ -32,7 +33,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
-import vazkii.patchouli.api.PatchouliAPI;
 
 @EventBusSubscriber(modid = Reference.MODID)
 public class PlayerLifeEvents {
@@ -62,7 +62,7 @@ public class PlayerLifeEvents {
 			entityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistentData);
 
 			if (Loader.isModLoaded(Reference.PATCHOULI)) {
-				givePlayerInstructionBook(player);
+				PatchouliPlugin.giveBook(player);
 			}
 
 			// sets his first home on join
@@ -181,10 +181,5 @@ public class PlayerLifeEvents {
 				}
 			}
 		}
-	}
-
-	public static void givePlayerInstructionBook(EntityPlayer player) {
-		ItemStack book = PatchouliAPI.instance.getBookStack(Reference.PREFIX + "chaos_almanac");
-		player.addItemStackToInventory(book);
 	}
 }

@@ -12,6 +12,7 @@ TODO (current version):
   - Add a scoreboard of the most leveled up players per job ranking gui
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
   - Add SFX to jobs upon task completion + level up
+  - Add UI upon task completion
 
 IDEAS:
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
@@ -23,7 +24,7 @@ IDEAS:
   - Herobrine boss
   - Poutine boss
   - Technoblade boss
-  - Deaquavis boss
+  - DaquavisMC boss
   - Dream boss
   - Structure loot chest that when opened summons entities that will fight to protect the chest
   - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = 

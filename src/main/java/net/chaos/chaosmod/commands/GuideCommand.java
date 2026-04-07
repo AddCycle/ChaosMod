@@ -1,15 +1,12 @@
 package net.chaos.chaosmod.commands;
 
+import net.chaos.chaosmod.compatibility.patchouli.PatchouliPlugin;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
-import util.Reference;
-import vazkii.patchouli.api.PatchouliAPI;
 
 public class GuideCommand extends AbstractPermissionFreeCommand {
 
@@ -26,15 +23,12 @@ public class GuideCommand extends AbstractPermissionFreeCommand {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayer player = getCommandSenderAsPlayer(sender);
-		World world = player.getEntityWorld();
 
-		if (world.isRemote)
-			return;
-
-		if (!Loader.isModLoaded("patchouli"))
+		if (!Loader.isModLoaded("patchouli")) {
 			player.sendMessage(new TextComponentString("Patchouli isn't installed!"));
+			return;
+		}
 
-		ItemStack book = PatchouliAPI.instance.getBookStack(Reference.PREFIX + "chaos_almanac");
-		player.addItemStackToInventory(book);
+		PatchouliPlugin.giveBook(player);
 	}
 }

@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLInterModComms.IMCEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
@@ -96,7 +96,7 @@ public class Main
     }
     
     @EventHandler
-    public void interModCommunication(FMLInterModComms event) {}
+    public void interModCommunication(IMCEvent event) {}
     
     @EventHandler
     public void ServerInit(FMLServerStartingEvent event) {
