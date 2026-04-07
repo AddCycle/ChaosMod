@@ -1,7 +1,7 @@
 {
 	"id": "tamer",
 	"name": "Tamer",
-	"description": "Get all the pets that you want",	
+	"description": "Get all the pets that you want",
 	"tasks": [
 		{
 			"id": "tame_wolf",
@@ -27,42 +27,73 @@
 			"goal": 1,
 			"rewardExp": 150,
 			"_TODO": "make a custom EntityAnimal that can be tamed via ForgeEventFactory.onAnimalTame"
+		},
+		{
+			"id": "tame_ocelot",
+			"name": "Tame an Ocelot",
+			"description": "Ocelots are located in the Jungle, good luck!",
+			"type": "tame",
+			"target": {
+				"entity": "minecraft:ocelot",
+				"data": 0
+			},
+			"goal": 1,
+			"rewardExp": 200
+		},
+		{
+			"id": "tame_parrot",
+			"name": "Tame a Parrot",
+			"description": "Very hard good luck! (No further info)",
+			"type": "tame",
+			"target": {
+				"entity": "minecraft:parrot",
+				"data": 0
+			},
+			"goal": 1,
+			"rewardExp": 250
 		}
 	],
 	"levels": [
 		{
 			"level": 1,
-			"reward": {
-				"item": "mathsmod:diamond_wolf_helmet",
-				"amount": 1
-			}
-		},
-		{
-			"level": 1,
-			"reward": {
-				"item": "mathsmod:diamond_wolf_chestplate",
-				"amount": 1
-			}
-		},
-		{
-			"level": 1,
-			"reward": {
-				"item": "mathsmod:diamond_wolf_leggings",
-				"amount": 1
-			}
-		},
-		{
-			"level": 1,
-			"reward": {
-				"item": "mathsmod:diamond_wolf_boots",
-				"amount": 1
-			}
+			"rewards": [
+				{
+					"item": "mathsmod:diamond_wolf_helmet",
+					"amount": 1
+				},
+				{
+					"item": "mathsmod:diamond_wolf_chestplate",
+					"amount": 1
+				},
+				{
+					"item": "mathsmod:diamond_wolf_leggings",
+					"amount": 1
+				},
+				{
+					"item": "mathsmod:diamond_wolf_boots",
+					"amount": 1
+				}
+			]
 		},
 		{
 			"level": 2,
 			"reward": {
 				"block": "mathsmod:kurayum_block",
 				"amount": 1
+			}
+		},
+		{
+			"level": 3,
+			"reward": {
+				"block": "minecraft:gold_block",
+				"amount": 64
+			}
+		},
+		{
+			"level": 4,
+			"reward": {
+				"block": "chaosmod:enderite_block",
+				"amount": 10
 			}
 		}
 	],

@@ -42,12 +42,13 @@ public class GuiScreenJob extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
+        int startX = this.width / 2 - 150;
         
         // Job name
         drawCenteredString(this.fontRenderer, job.name, this.width / 2, 20, 0xFFFFFF);
 
         // Description
-        drawSplitString(job.description, this.width / 2 - 100, 50, 200, 0xAAAAAA);
+        drawSplitString(job.description, startX, 50, 200, 0xAAAAAA);
         
         // Tasks
         int y = 90;
@@ -55,9 +56,9 @@ public class GuiScreenJob extends GuiScreen {
         for (JobTask task : job.tasks) {
         	int progress = jobs.getProgress(job.id).getTaskProgress(task.id);
         	if (progress >= task.goal) {
-        		drawString(this.fontRenderer, String.format("%d - %s " + TextFormatting.GREEN + "[COMPLETED]" + TextFormatting.RESET + " %d EXP", index++, task.name, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
+        		drawString(this.fontRenderer, String.format("%d - %s " + TextFormatting.GREEN + "[COMPLETED]" + TextFormatting.RESET + " %d EXP", index++, task.name, task.rewardExp), startX, y, 0xFFFFFF);
         	} else {
-        		drawString(this.fontRenderer, String.format("%d - %s : (%d/%d) %d EXP", index++, task.name, progress, task.goal, task.rewardExp), this.width / 2 - 100, y, 0xFFFFFF);
+        		drawString(this.fontRenderer, String.format("%d - %s : (%d/%d) | %d EXP | %s", index++, task.name, progress, task.goal, task.rewardExp, task.type.name), startX, y, 0xFFFFFF);
         	}
             y += this.fontRenderer.FONT_HEIGHT + 4;
         }

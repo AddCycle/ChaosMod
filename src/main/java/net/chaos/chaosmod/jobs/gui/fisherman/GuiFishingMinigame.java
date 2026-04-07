@@ -211,7 +211,7 @@ public class GuiFishingMinigame extends GuiScreen {
 	
 	@Override
 	public void onGuiClosed() {
-		if (this != null)
+		if (this != null && mc.currentScreen != null)
 			PacketManager.network.sendToServer(new PacketFishingResult(score, mc.player.fishEntity.getEntityId()));
 	}
 

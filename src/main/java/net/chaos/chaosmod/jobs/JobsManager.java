@@ -65,7 +65,7 @@ public class JobsManager {
     }
 
     /**
-     * Load jobs from JSON string (client-side)
+     * Load jobs from JSON string (client-side) (used in packetSyncJobs)
      * @param jsonString
      */
     public static void loadFromJson(String jsonString) {
@@ -74,6 +74,7 @@ public class JobsManager {
         JsonArray arr = GSON.fromJson(jsonString, JsonArray.class);
         if (arr == null) {
         	Main.getLogger().trace("ARRAY NULL not loading from json");
+        	return;
         }
         FIGHTER = Job.fromJson(arr.get(id++).getAsJsonObject());
         FARMER  = Job.fromJson(arr.get(id++).getAsJsonObject());

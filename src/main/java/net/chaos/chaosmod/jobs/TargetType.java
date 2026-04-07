@@ -1,9 +1,9 @@
 package net.chaos.chaosmod.jobs;
 
 public enum TargetType {
-	BLOCK(0), // harvest
-	ENTITY(1), // kill
-	ITEM(2); // craft
+	BLOCK(0),
+	ENTITY(1),
+	ITEM(2);
 	
 	public int id;
 

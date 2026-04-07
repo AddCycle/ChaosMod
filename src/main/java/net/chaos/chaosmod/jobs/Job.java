@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.jobs.reward.ItemReward;
 import net.chaos.chaosmod.jobs.reward.JobReward;
 import net.chaos.chaosmod.jobs.task.JobTask;
 import util.Reference;
@@ -91,12 +92,18 @@ public class Job {
 		}
 		return list;
 	}
+	
+	private static JobReward dispatchFromJson(JsonObject json) {
+	    // e.g. check a "type" field, or infer from content
+	    // for now, everything is an ItemReward
+	    return ItemReward.fromJson(json);
+	}
 
 	private static List<JobReward> convertRewards(JsonArray array) {
 		List<JobReward> list = new ArrayList<>();
 		if (array != null && !array.isJsonNull()) {
 			for (JsonElement el : array) {
-				JobReward r = JobReward.fromJson(el.getAsJsonObject());
+				JobReward r = dispatchFromJson(el.getAsJsonObject());
 				if (r != null) list.add(r);
 			}
 		}

@@ -1,7 +1,7 @@
 {
 	"id": "template_job",
 	"name": "job_name",
-	"description": "job_description",	
+	"description": "job_description",
 	"tasks": [
 		{
 			"id": "gather_wood",
@@ -19,17 +19,29 @@
 	"levels": [
 		{
 			"level": 1,
-			"reward": {
+			"reward": { // choose
 				"item": "chaosmod:oxonium_sword",
 				"amount": 1
-			}
+			},
+			"rewards": [
+				{
+					"item": "chaosmod:oxonium_sword",
+					"amount": 1
+				},
+				{
+					"item": "chaosmod:oxonium_sword",
+					"amount": 1
+				}
+			]
 		},
 		{
 			"level": 2,
-			"reward": {
-				"block": "mathsmod:kurayum_block",
-				"amount": 1
-			}
+			"rewards": [
+				{
+					"block": "mathsmod:kurayum_block",
+					"amount": 1
+				}
+			]
 		}
 	],
 	"maxLevel": 20
