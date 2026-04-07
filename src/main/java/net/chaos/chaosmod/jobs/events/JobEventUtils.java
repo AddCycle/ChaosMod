@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.jobs.events;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -7,8 +8,13 @@ import java.util.function.Predicate;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
+import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.jobs.PlayerJobs;
+import net.chaos.chaosmod.jobs.TargetType;
+import net.chaos.chaosmod.jobs.task.JobTask;
+import net.chaos.chaosmod.jobs.task.TaskType;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -22,18 +28,19 @@ public class JobEventUtils {
 
 	/**
 	 * The system is done a way that the task progress is incremented by amount, capping at goal and syncs capability jobs
+	 * example : incrementTask(player, "chaosmod:tamer", "chaosmod:tame_wolf", amount);
 	 * @param player
 	 * @param jobid
 	 * @param taskId
 	 */
 	public static void incrementTask(EntityPlayerMP player, String jobid, String taskId, int amount) {
-		String jobId = prefixId(jobid);
+		String jobId = jobid;
 
 		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
 		if (jobs == null)
 			return;
 
-		jobs.getProgress(jobId).incrementTask(player, jobId, prefixId(taskId), amount);
+		jobs.getProgress(jobId).incrementTask(player, jobId, taskId, amount);
 
 		Main.getLogger().info("Job done, incrementing task: [{}:{}]", jobid, taskId);
 	}
@@ -102,8 +109,32 @@ public class JobEventUtils {
 			callback.accept(event.getDrops(), count);
 	}
 
+	/**
+	 * If the target == id, then increment task
+	 * @param id			registryName
+	 * @param taskType
+	 * @param targetType
+	 * @param jobId			ex: "chaosmod:tamer"
+	 * @param player
+	 */
+	public static void incrementRelatedMatchingTasks(ResourceLocation id, TaskType taskType, TargetType targetType, String jobId, EntityPlayer player) {
+		if (player.getEntityWorld().isRemote) return;
+
+		Collection<JobTask> tasks = JobsManager.TASK_MANAGER.getTasks(jobId);
+		for (JobTask task : tasks) {
+			if (task == null) continue;
+			if (task.target == null) continue;
+
+			if (task.type != taskType || task.target.type != targetType)
+				continue;
+
+			if (id.toString().equals(task.target.target)) {
+				JobEventUtils.incrementTask((EntityPlayerMP) player, jobId, task.id);
+			}
+		}
+	}
+
 	public static String prefixId(String id) {
 		return Reference.PREFIX + id;
 	}
-
 }

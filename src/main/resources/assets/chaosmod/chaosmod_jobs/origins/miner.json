@@ -7,9 +7,9 @@
 			"id": "mine_cobblestone",
 			"name": "Gathering Cobblestone",
 			"description": "Start mining",
-			"type": "harvest",
+			"type": "mine",
 			"target": {
-				"item": "minecraft:cobblestone",
+				"block": "minecraft:cobblestone",
 				"data": 0
 			},
 			"goal": 128,
@@ -19,9 +19,9 @@
 			"id": "mine_iron",
 			"name": "Advanced Miner",
 			"description": "Mine 32 Iron Ore",
-			"type": "harvest",
+			"type": "mine",
 			"target": {
-				"item": "minecraft:iron_ore",
+				"block": "minecraft:iron_ore",
 				"data": 0
 			},
 			"goal": 32,
@@ -31,9 +31,9 @@
 			"id": "mine_silver",
 			"name": "Enjoying Caves",
 			"description": "Mine 10 Silver Ore",
-			"type": "harvest",
+			"type": "mine",
 			"target": {
-				"item": "mathsmod:silver_ore",
+				"block": "mathsmod:silver_ore",
 				"data": 0
 			},
 			"goal": 10,
@@ -43,9 +43,9 @@
 			"id": "mine_allemanite",
 			"name": "Gotta travel around",
 			"description": "Go to Nether and mine 20 Allemanite",
-			"type": "harvest",
+			"type": "mine",
 			"target": {
-				"item": "chaosmod:allemanite_ore",
+				"block": "chaosmod:allemanite_ore",
 				"data": 0
 			},
 			"goal": 20,
@@ -55,9 +55,9 @@
 			"id": "mine_kurayum",
 			"name": "Need to Go very very deep inside...",
 			"description": "Go to The End and mine 100 Kurayum (or Enderite (TO IMPLEMENT))",
-			"type": "harvest",
+			"type": "mine",
 			"target": {
-				"item": "mathsmod:kurayum",
+				"block": "mathsmod:kurayum",
 				"data": 0
 			},
 			"goal": 100,

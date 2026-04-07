@@ -1,11 +1,9 @@
 package net.chaos.chaosmod.jobs.events.miner;
 
-import static net.chaos.chaosmod.jobs.events.JobEventUtils.onHarvestBlock;
-
-import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.jobs.TargetType;
 import net.chaos.chaosmod.jobs.events.JobEventUtils;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.chaos.chaosmod.jobs.task.TaskType;
+import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -14,39 +12,18 @@ import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID)
 public class JobMinerEventHandler {
-	private static final ResourceLocation STONE = new ResourceLocation("stone");
-	private static final ResourceLocation IRON_ORE = new ResourceLocation("iron_ore");
-	private static final ResourceLocation SILVER_ORE = new ResourceLocation(Reference.MATHSMOD, "silver_ore");
-	private static final ResourceLocation ALLEMANITE_ORE = new ResourceLocation(Reference.MODID, "allemanite_ore");
-	private static final ResourceLocation KURAYUM_ORE = new ResourceLocation(Reference.MATHSMOD, "kurayum_ore");
+	private static final String JOB_ID = Reference.PREFIX + "miner";
 
 	@SubscribeEvent
 	public static void onBlockMined(BlockEvent.BreakEvent event) {
 		if (event.getWorld().isRemote) return;
 		
-		onHarvestBlock(event, STONE, block -> {
-			Main.getLogger().info("miner event trigger");
-			incrementTask(event.getPlayer(), "mine_cobblestone");
-		});
-
-		onHarvestBlock(event, IRON_ORE, block -> {
-			incrementTask(event.getPlayer(), "mine_iron");
-		});
-
-		onHarvestBlock(event, SILVER_ORE, block -> {
-			incrementTask(event.getPlayer(), "mine_silver");
-		});
-
-		onHarvestBlock(event, ALLEMANITE_ORE, block -> {
-			incrementTask(event.getPlayer(), "mine_allemanite");
-		});
-
-		onHarvestBlock(event, KURAYUM_ORE, block -> {
-			incrementTask(event.getPlayer(), "mine_kurayum");
-		});
+		Block block = event.getState().getBlock();
+		ResourceLocation id = block.getRegistryName();
+		if (id == null)
+			return;
+		
+		JobEventUtils.incrementRelatedMatchingTasks(id, TaskType.MINE, TargetType.BLOCK, JOB_ID, event.getPlayer());
 	}
 
-	private static void incrementTask(EntityPlayer player, String taskId) {
-		JobEventUtils.incrementTask((EntityPlayerMP) player, "miner", taskId);
-	}
 }

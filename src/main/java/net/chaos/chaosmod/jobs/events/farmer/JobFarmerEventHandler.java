@@ -1,14 +1,14 @@
 package net.chaos.chaosmod.jobs.events.farmer;
 
-import static net.chaos.chaosmod.jobs.events.JobEventUtils.onHarvestBlock;
+import static net.chaos.chaosmod.jobs.events.JobEventUtils.incrementRelatedMatchingTasks;
 
-import net.chaos.chaosmod.jobs.events.JobEventUtils;
+import net.chaos.chaosmod.jobs.TargetType;
+import net.chaos.chaosmod.jobs.task.TaskType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.ResourceLocation;
@@ -22,13 +22,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID)
-// TODO : rn never using the target item/type here inside the jsons
 public class JobFarmerEventHandler {
-	private static final ResourceLocation DIAMONA = new ResourceLocation(Reference.MATHSMOD, "diamona");
-	private static final ResourceLocation HELL_FLOWER = new ResourceLocation(Reference.MATHSMOD, "hell_flower");
-	private static final ResourceLocation OXONIUM_CARROTS = new ResourceLocation(Reference.MODID, "oxonium_carrots");
-	private static final ResourceLocation WHEAT = new ResourceLocation("wheat");
-	private static final ResourceLocation CUSTOM_FLOWERS = new ResourceLocation(Reference.MODID, "custom_flower");
+	private static final String JOB_ID = Reference.PREFIX + "farmer";
 
 	@SubscribeEvent
 	public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
@@ -56,15 +51,11 @@ public class JobFarmerEventHandler {
 			crop.dropBlockAsItem(world, pos, state, fortune);
 			world.setBlockState(pos, crop.withAge(0));
 
-			JobEventUtils.onRightClickBlock(event, OXONIUM_CARROTS, blk ->
-			{
-				incrementTask(event.getEntityPlayer(), "farm_oxonium_carrots");
-			});
+			ResourceLocation id = block.getRegistryName();
+			if (id == null)
+				return;
 
-			JobEventUtils.onRightClickBlock(event, WHEAT, blk ->
-			{
-				incrementTask(event.getEntityPlayer(), "wheat_addict");
-			});
+			incrementRelatedMatchingTasks(id, TaskType.HARVEST, TargetType.BLOCK, JOB_ID, event.getEntityPlayer());
 		}
 	}
 
@@ -73,35 +64,12 @@ public class JobFarmerEventHandler {
 		if (event.getWorld().isRemote)
 			return;
 		
-		onHarvestBlock(event, OXONIUM_CARROTS, block ->
-		{
-			if (!((BlockCrops) block).isMaxAge(event.getState())) return;
-			incrementTask(event.getPlayer(), "farm_oxonium_carrots");
-		});
+		Block block = event.getState().getBlock();
 
-		onHarvestBlock(event, DIAMONA, (block) ->
-		{
-			incrementTask(event.getPlayer(), "gather_diamona");
-		});
+		ResourceLocation id = block.getRegistryName();
+			if (id == null)
+				return;
 
-		onHarvestBlock(event, HELL_FLOWER, (block) ->
-		{
-			incrementTask(event.getPlayer(), "gather_hell_flower");
-		});
-
-		// be careful on custom_flowers as all the variants are allowed here
-		onHarvestBlock(event, CUSTOM_FLOWERS, (block) ->
-		{
-			incrementTask(event.getPlayer(), "gather_any_custom_flower_chaosmod");
-		});
-
-		onHarvestBlock(event, WHEAT, (block) ->
-		{
-			incrementTask(event.getPlayer(), "wheat_addict");
-		});
-	}
-
-	private static void incrementTask(EntityPlayer player, String taskId) {
-		JobEventUtils.incrementTask((EntityPlayerMP) player, "farmer", taskId);
+		incrementRelatedMatchingTasks(id, TaskType.HARVEST, TargetType.BLOCK, JOB_ID, event.getPlayer());
 	}
 }

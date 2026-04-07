@@ -9,7 +9,7 @@
 			"description": "Travel around, find a diamona flower (with shears) and then plant it on farmland and wait for it to spread...",
 			"type": "harvest",
 			"target": {
-				"item": "mathsmod:diamona",
+				"block": "mathsmod:diamona",
 				"data": 0
 			},
 			"goal": 100,
@@ -21,7 +21,7 @@
 			"description": "Travel around in the Nether, and again gather 5 Hell Flowers...",
 			"type": "harvest",
 			"target": {
-				"item": "mathsmod:hell_flower",
+				"block": "mathsmod:hell_flower",
 				"data": 0
 			},
 			"goal": 5,
@@ -33,7 +33,7 @@
 			"description": "You can find them inside custom villages crops or by crafting them but you will have to harvest them",
 			"type": "harvest",
 			"target": {
-				"item": "chaosmod:oxonium_carrots",
+				"block": "chaosmod:oxonium_carrots",
 				"data": 0
 			},
 			"goal": 50,
@@ -45,7 +45,7 @@
 			"description": "Gather 10 flowers only from ChaosMod inside custom biomes",
 			"type": "harvest",
 			"target": {
-				"item": "chaosmod:custom_flower",
+				"block": "chaosmod:custom_flower",
 				"data": 0
 			},
 			"goal": 10,
@@ -57,7 +57,7 @@
 			"description": "Harvest 1000 wheat (you are addicted to farming)",
 			"type": "harvest",
 			"target": {
-				"item": "minecraft:wheat",
+				"block": "minecraft:wheat",
 				"data": 0
 			},
 			"goal": 2304,

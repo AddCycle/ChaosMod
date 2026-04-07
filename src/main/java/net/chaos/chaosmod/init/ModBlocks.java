@@ -88,7 +88,7 @@ public class ModBlocks {
 	public static final Block CUSTOM_SAPLINGS = new CustomBlockSapling("custom_sapling", Material.PLANTS);
 	public static final Block PINK_LANTERN = new BlockLantern("lantern", MapColor.PINK);
 	public static final Block FLOWER_PATCH = new FlowerPatch("flower_patch_block");
-	// public static final Block CONNECTED_BLOCK = new ConnectedBlock("connected_block", Material.IRON);
+
 	public static final Block COOKIE_JAR = new CookieJarBlock("cookie_jar");
 	public static final Block BEAM_BLOCK = new BlockBeam("block_beam");
 	public static final Block TROPHY_BLOCK = new BlockTrophy("trophy_block", 0);
@@ -103,5 +103,4 @@ public class ModBlocks {
 	
 	public static final Block DRAWER = new BlockDrawer("drawer", Material.WOOD);
 	public static final Block ATM_BLOCK = new ATMBlock("atm_block", Material.IRON);
-	// public static final Block SHAPE_SHIFTER_BLOCK = new ShapeShifterBlock();
 }

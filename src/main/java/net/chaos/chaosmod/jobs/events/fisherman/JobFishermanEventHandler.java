@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.jobs.events.fisherman;
 
 import static net.chaos.chaosmod.jobs.events.JobEventUtils.onItemFished;
+import static net.chaos.chaosmod.jobs.events.JobEventUtils.prefixId;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,6 +37,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import util.Reference;
 
+// FIXME : fix data
+// FIXME : fix the jsons conditions
 @EventBusSubscriber(modid = Reference.MODID)
 public class JobFishermanEventHandler {
 	private static Set<EntityPlayer> guiOpen = new HashSet<>();
@@ -161,6 +164,7 @@ public class JobFishermanEventHandler {
 	    return null;
 	}
 
+	// FIXME : use json fields instead
 	private static final ResourceLocation IGLOO_FISH = new ResourceLocation(Reference.MODID, "igloo_fish");
 	private static final ResourceLocation VINE_FISH = new ResourceLocation(Reference.MODID, "vine_fish");
 	private static final ResourceLocation DESERT_FISH = new ResourceLocation(Reference.MODID, "desert_fish");
@@ -197,6 +201,6 @@ public class JobFishermanEventHandler {
 	}
 
 	private static void incrementTask(String taskId, EntityPlayer player, int amount) {
-		JobEventUtils.incrementTask((EntityPlayerMP) player, "fisherman", taskId, amount);
+		JobEventUtils.incrementTask((EntityPlayerMP) player, prefixId("fisherman"), prefixId(taskId), amount);
 	}
 }

@@ -68,15 +68,13 @@
 		{
 			"level": 1,
 			"reward": {
-				"item": "mathsmod:silver_rod",
-				"amount": 1
+				"item": "mathsmod:silver_rod"
 			}
 		},
 		{
 			"level": 2,
 			"reward": {
-				"item": "mathsmod:tfosium_rod",
-				"amount": 1
+				"item": "mathsmod:tfosium_rod"
 			}
 		},
 		{
@@ -89,8 +87,7 @@
 		{
 			"level": 4,
 			"reward": {
-				"block": "mathsmod:tfosium_rod",
-				"amount": 1
+				"block": "mathsmod:tfosium_block"
 			}
 		},
 		{
