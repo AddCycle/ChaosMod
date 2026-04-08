@@ -3,7 +3,8 @@ package net.chaos.chaosmod.jobs;
 public enum TargetType {
 	BLOCK(0),
 	ENTITY(1),
-	ITEM(2);
+	ITEM(2),
+	BIOME(3);
 	
 	public int id;
 
@@ -16,6 +17,7 @@ public enum TargetType {
 			case 0: return BLOCK;
 			case 1: return ENTITY;
 			case 2: return ITEM;
+			case 3: return BIOME;
 			default: throw new IllegalArgumentException("Unknown TargetType");
 		}
 	}

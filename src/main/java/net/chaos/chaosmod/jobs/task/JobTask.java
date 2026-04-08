@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 
 import util.Reference;
 
-// TODO: wire to the forge hooks/events in order to detect all the changes with block broken/harvested more accurately
 public class JobTask {
 	public String id;
 	public String name;
@@ -50,7 +49,7 @@ public class JobTask {
             json.get("description").getAsString(),
             fromName(json.get("type").getAsString()),
             convert(json.get("target").getAsJsonObject()),
-            json.get("goal").getAsInt(),
+            json.has("goal") ? json.get("goal").getAsInt() : 1,
             json.has("rewardExp") ? json.get("rewardExp").getAsInt() : 0
         );
     }

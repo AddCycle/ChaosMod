@@ -1,5 +1,42 @@
 {
 	"id": "traveler",
 	"name": "Traveler",
-	"description": "Explore the world !"
+	"description": "Explore the world !",
+	"tasks": [
+		{
+			"id": "desolate_discovery",
+			"name": "Find Desolate Lands Biome",
+			"description": "Find MathsMod Desolate Lands Biome",
+			"type": "travel",
+			"target": {
+				"biome": "mathsmod:desolate_lands"
+			},
+			"rewardExp": 100
+		},
+		{
+			"id": "such_mountains",
+			"name": "Find Giant Mountains Biome",
+			"description": "Find ChaosMod Giant Mountains Biome",
+			"type": "travel",
+			"target": {
+				"biome": "chaosmod:giant_mountains"
+			},
+			"rewardExp": 150
+		}
+	],
+	"levels": [
+		{
+			"level": 1,
+			"reward": {
+				"item": "minecraft:compass"
+			}
+		},
+		{
+			"level": 2,
+			"reward": {
+				"item": "minecraft:map"
+			}
+		}
+	],
+	"maxLevel": 2
 }

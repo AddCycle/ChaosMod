@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class JobTaskTarget {
 	public String target;
-	public int data; // meta of the block
+	public int data; // meta of the item/block
 	public TargetType type;
 
 	public JobTaskTarget(String target, int data, TargetType type) {
@@ -30,6 +30,9 @@ public class JobTaskTarget {
                 break;
             case ENTITY:
                 obj.addProperty("entity", this.target);
+                break;
+            case BIOME:
+                obj.addProperty("biome", this.target);
                 break;
         }
 
@@ -56,6 +59,10 @@ public class JobTaskTarget {
         } else if (json.has("entity")) {
             String entityId = json.get("entity").getAsString();
             return new JobTaskTarget(entityId, 0, TargetType.ENTITY);
+
+        } else if (json.has("biome")) {
+            String biome = json.get("biome").getAsString();
+            return new JobTaskTarget(biome, 0, TargetType.BIOME);
         }
 
         throw new IllegalArgumentException("Unknown target type in JSON: " + json);
@@ -75,6 +82,9 @@ public class JobTaskTarget {
                 break;
             case ENTITY:
                 tag.setString("entity", this.target);
+                break;
+            case BIOME:
+                tag.setString("biome", this.target);
                 break;
         }
 
@@ -97,6 +107,10 @@ public class JobTaskTarget {
             case ENTITY:
                 String entity = tag.getString("entity");
                 return new JobTaskTarget(entity, 0, TargetType.ENTITY);
+
+            case BIOME:
+                String biome = tag.getString("biome");
+                return new JobTaskTarget(biome, 0, TargetType.BIOME);
         }
 
         throw new IllegalArgumentException("Unknown TargetType in NBT: " + type);

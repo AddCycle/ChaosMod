@@ -3,10 +3,12 @@ package net.chaos.chaosmod.commands;
 import java.util.Collections;
 import java.util.List;
 
+import net.chaos.chaosmod.network.packets.PacketManager;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -20,6 +22,7 @@ import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import util.broadcast.MessageDisplayBiomeName;
 
 public class BiomeCommand extends CommandBase {
 
@@ -42,6 +45,9 @@ public class BiomeCommand extends CommandBase {
 		if (args.length == 0) {
 			Biome biome = world.getBiome(playerPos);
 			if (biome != null) {
+				String data = biome.getRegistryName().toString();
+				PacketManager.network.sendTo(new MessageDisplayBiomeName(data), (EntityPlayerMP) player);
+
 				String msg = String.format("The biome is %s", biome.getRegistryName());
 				player.sendMessage(new TextComponentString(msg));
 			}

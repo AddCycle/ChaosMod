@@ -16,7 +16,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import util.Reference;
 
-// FIXME : add kill_with_tipped_damage_arrow in fighter job
 @EventBusSubscriber(modid = Reference.MODID)
 public class JobFighterEventHandler {
 	private static final String JOB_ID = Reference.PREFIX + "fighter";

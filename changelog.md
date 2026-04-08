@@ -15,6 +15,7 @@ TODO (current version):
   - Add UI upon task completion
 
 IDEAS:
+  - Add an exclusive item, player tracking compass or biome tracking compass (for the hunt or exclusive to jobs)
   - Wheat boss like a scarecrow
   - Fighter job makes you use tipped arrows (custom event only-arrows allowed)
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
