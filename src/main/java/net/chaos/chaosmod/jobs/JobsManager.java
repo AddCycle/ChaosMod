@@ -17,12 +17,12 @@ public class JobsManager {
 
 	public static Job FIGHTER;
 	public static Job FARMER;
-	public static Job HUNTER;
 	public static Job ALCHEMIST;
 	public static Job TAMER;
 	public static Job MINER;
 	public static Job FISHERMAN;
 	public static Job TRAVELER;
+//	public static Job HUNTER;
 
     private static final Gson GSON = new Gson();
 
@@ -32,11 +32,12 @@ public class JobsManager {
     public static void init() {
         FIGHTER = loadJob("origins/fighter");
         FARMER = loadJob("origins/farmer");
-        HUNTER = loadJob("origins/hunter");
         ALCHEMIST = loadJob("origins/alchemist");
         TAMER = loadJob("origins/tamer");
         MINER = loadJob("origins/miner");
         FISHERMAN = loadJob("origins/fisherman");
+        TRAVELER = loadJob("origins/traveler");
+//        HUNTER = loadJob("origins/hunter");
 		displayAll();
     }
 
@@ -56,11 +57,12 @@ public class JobsManager {
         JsonArray arr = new JsonArray();
         if (FIGHTER != null) arr.add(FIGHTER.toJson());
         if (FARMER != null) arr.add(FARMER.toJson());
-        if (HUNTER != null) arr.add(HUNTER.toJson());
         if (ALCHEMIST != null) arr.add(ALCHEMIST.toJson());
         if (TAMER != null) arr.add(TAMER.toJson());
         if (MINER != null) arr.add(MINER.toJson());
         if (FISHERMAN != null) arr.add(FISHERMAN.toJson());
+        if (TRAVELER != null) arr.add(TRAVELER.toJson());
+//        if (HUNTER != null) arr.add(HUNTER.toJson());
         return GSON.toJson(arr);
     }
 
@@ -78,11 +80,12 @@ public class JobsManager {
         }
         FIGHTER = Job.fromJson(arr.get(id++).getAsJsonObject());
         FARMER  = Job.fromJson(arr.get(id++).getAsJsonObject());
-        HUNTER  = Job.fromJson(arr.get(id++).getAsJsonObject());
         ALCHEMIST = Job.fromJson(arr.get(id++).getAsJsonObject());
         TAMER   = Job.fromJson(arr.get(id++).getAsJsonObject());
         MINER   = Job.fromJson(arr.get(id++).getAsJsonObject());
         FISHERMAN   = Job.fromJson(arr.get(id++).getAsJsonObject());
+        TRAVELER   = Job.fromJson(arr.get(id++).getAsJsonObject());
+//        HUNTER  = Job.fromJson(arr.get(id++).getAsJsonObject());
         displayAll();
     }
 
