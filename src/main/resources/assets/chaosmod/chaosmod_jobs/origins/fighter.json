@@ -40,7 +40,19 @@
 			"rewardExp": 200
 		},
 		{
-			"id": "fourth_kill",
+			"id": "kill_with_tipped_arrow",
+			"name": "No ones uses tipped arrows",
+			"description": "Kill Any enemy with a tipped arrow",
+			"type": "kill",
+			"target": {
+				"entity": "any",
+				"data": 0
+			},
+			"goal": 1,
+			"rewardExp": 250
+		},
+		{
+			"id": "fifth_kill",
 			"name": "A really engaging challenge",
 			"description": "Kill Poulopop boss",
 			"type": "kill",
@@ -49,10 +61,10 @@
 				"data": 0
 			},
 			"goal": 1,
-			"rewardExp": 250
+			"rewardExp": 300
 		},
 		{
-			"id": "fifth_kill",
+			"id": "sixth_kill",
 			"name": "Ultimate Kill",
 			"description": "Kill Pub (The most powerful boss in the universe)",
 			"type": "kill",
@@ -61,21 +73,21 @@
 				"data": 0
 			},
 			"goal": 1,
-			"rewardExp": 300
+			"rewardExp": 350
 		}
 	],
 	"levels": [
 		{
 			"level": 1,
 			"reward": {
-				"item": "chaosmod:gold_block",
+				"item": "minecraft:gold_block",
 				"amount": 10
 			}
 		},
 		{
 			"level": 2,
 			"reward": {
-				"item": "chaosmod:silver_block",
+				"item": "mathsmod:silver_block",
 				"amount": 5
 			}
 		},
@@ -89,17 +101,22 @@
 		{
 			"level": 4,
 			"reward": {
-				"item": "chaosmod:kurayum_block",
+				"item": "mathsmod:kurayum_block",
 				"amount": 10
 			}
 		},
 		{
 			"level": 5,
 			"reward": {
-				"item": "chaosmod:sword_of_wrath_caster",
-				"amount": 1
+				"item": "mathsmod:polarite_sword"
+			}
+		},
+		{
+			"level": 6,
+			"reward": {
+				"item": "chaosmod:sword_of_wrath_caster"
 			}
 		}
 	],
-	"maxLevel": 5
+	"maxLevel": 6
 }

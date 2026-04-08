@@ -5,8 +5,8 @@
 TODO (current version):
   - Add variants to gallions and random loots (exemple a wood bark, then a bigger ship, then a gallion with loots and pirates enemies) (good to start structures)
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market] [DOING]
-  - Make all the jobs tasks & rewards from level 1 -> 5 : FIGHTER, FARMER, MINER, FISHERMAN, TAMER remains: HUNTER/TRAVELER then tweak or change to make it funnier according to `REWORK` section
-  - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER/HUNTER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
+  - Make all the jobs tasks & rewards from level 1 -> 5 : FIGHTER, FARMER, MINER, FISHERMAN, TAMER remains: TRAVELER then tweak or change to make it funnier according to `REWORK` section
+  - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
   - Add a scoreboard of the most leveled up players per job ranking gui
@@ -15,6 +15,7 @@ TODO (current version):
   - Add UI upon task completion
 
 IDEAS:
+  - Wheat boss like a scarecrow
   - Fighter job makes you use tipped arrows (custom event only-arrows allowed)
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
   - Also make the items have a rarity/tier so that you can basically reforge everything.

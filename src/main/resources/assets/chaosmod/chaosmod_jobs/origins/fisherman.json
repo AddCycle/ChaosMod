@@ -81,7 +81,7 @@
 			"level": 3,
 			"reward": {
 				"item": "chaosmod:wad",
-				"amount": 64
+				"amount": 16
 			}
 		},
 		{
@@ -93,8 +93,7 @@
 		{
 			"level": 5,
 			"reward": {
-				"block": "mathsmod:kurayum_rod",
-				"amount": 1
+				"block": "mathsmod:kurayum_rod"
 			}
 		}
 	],

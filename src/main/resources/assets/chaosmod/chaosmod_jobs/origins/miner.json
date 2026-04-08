@@ -75,29 +75,25 @@
 		{
 			"level": 2,
 			"reward": {
-				"item": "mathsmod:silver_pickaxe",
-				"amount": 1
+				"item": "mathsmod:silver_pickaxe"
 			}
 		},
 		{
 			"level": 3,
 			"reward": {
-				"item": "chaosmod:oxonium_pickaxe",
-				"amount": 1
+				"item": "chaosmod:oxonium_pickaxe"
 			}
 		},
 		{
 			"level": 4,
 			"reward": {
-				"block": "chaosmod:allemanite_pickaxe",
-				"amount": 1
+				"block": "chaosmod:allemanite_pickaxe"
 			}
 		},
 		{
 			"level": 5,
 			"reward": {
-				"block": "mathsmod:kurayum_block",
-				"amount": 1
+				"block": "mathsmod:kurayum_block"
 			}
 		}
 	],

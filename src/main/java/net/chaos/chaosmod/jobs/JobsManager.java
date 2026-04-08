@@ -78,6 +78,7 @@ public class JobsManager {
         	Main.getLogger().trace("ARRAY NULL not loading from json");
         	return;
         }
+
         FIGHTER = Job.fromJson(arr.get(id++).getAsJsonObject());
         FARMER  = Job.fromJson(arr.get(id++).getAsJsonObject());
         ALCHEMIST = Job.fromJson(arr.get(id++).getAsJsonObject());
