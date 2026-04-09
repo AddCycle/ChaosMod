@@ -122,8 +122,12 @@ public class JobEventUtils {
 
 		Collection<JobTask> tasks = JobsManager.TASK_MANAGER.getTasks(jobId);
 		for (JobTask task : tasks) {
-			if (task == null) continue;
-			if (task.target == null) continue;
+			if (task == null) {
+				continue;
+			}
+			if (task.target == null) {
+				continue;
+			}
 
 			if (task.type != taskType || task.target.type != targetType)
 				continue;

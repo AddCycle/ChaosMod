@@ -15,7 +15,7 @@ import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID)
 public class JobAlchemistEventHandler {
-	private static final String JOB_ID = Reference.MODID + "alchemist";
+	private static final String JOB_ID = Reference.PREFIX + "alchemist";
 
 	/**
 	 * The event is fired server-side by forge so no need to check sides

@@ -66,6 +66,7 @@ OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
 
 ISSUES:
+  - Fix: custom trees dropping too many golden_apple
   - Fix: `/jobs` command not working properly (needs code fix)
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tamable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too))
