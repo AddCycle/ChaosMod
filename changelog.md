@@ -5,7 +5,7 @@
 TODO (current version):
   - Add variants to gallions and random loots (exemple a wood bark, then a bigger ship, then a gallion with loots and pirates enemies) (good to start structures)
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market] [DOING]
-  - Make all the jobs tasks & rewards from level 1 -> 5 : FIGHTER, FARMER, MINER, FISHERMAN, TAMER remains: TRAVELER then tweak or change to make it funnier according to `REWORK` section
+  - Make all the jobs tasks & rewards from level 1 -> 5 : FIGHTER, FARMER, ALCHEMIST, MINER, TAMER, FISHERMAN, TRAVELER
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
@@ -15,6 +15,7 @@ TODO (current version):
   - Add UI upon task completion
 
 IDEAS:
+  - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly
   - Add an exclusive item, player tracking compass or biome tracking compass (for the hunt or exclusive to jobs)
   - Wheat boss like a scarecrow
   - Fighter job makes you use tipped arrows (custom event only-arrows allowed)
@@ -41,9 +42,6 @@ MINOR:
   - add a custom cursor while ingame menus
   - additionaloverlayinfos : add remaining health, armor of the hovered entities
 
-THINK:
-  - Maybe let the crops being replanted only by level2 or 3 farmer... (TO MAKE AN UTILITY TO GRIND)
-
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
   Instead, I can do some `missions/challenges` like `mine 10 iron without placing torches` ==> more engaging ### needs player restriction implementation (capability) ###
@@ -56,6 +54,7 @@ REWORK(funnier to grind):
   8- Add `visual world` effects:
 
 TODO (next version) ?:
+  - Jobs: tweak or change to make it funnier according to `REWORK` section
   - Dungeon & custom structures with a bit of stuff for exploration in the overworld too
   - Hunt
   - Market

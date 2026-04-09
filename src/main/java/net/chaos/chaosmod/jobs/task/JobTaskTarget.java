@@ -34,6 +34,9 @@ public class JobTaskTarget {
             case BIOME:
                 obj.addProperty("biome", this.target);
                 break;
+            case POTION:
+                obj.addProperty("potion", this.target);
+                break;
         }
 
         obj.addProperty("data", data);
@@ -46,23 +49,26 @@ public class JobTaskTarget {
 			return null;
 		}
 
+		int data = json.has("data") ? json.get("data").getAsInt() : 0;
         if (json.has("block")) {
             String block = json.get("block").getAsString();
-            int data = json.has("data") ? json.get("data").getAsInt() : 0;
             return new JobTaskTarget(block, data, TargetType.BLOCK);
 
         } else if (json.has("item")) {
             String item = json.get("item").getAsString();
-            int data = json.has("data") ? json.get("data").getAsInt() : 0;
             return new JobTaskTarget(item, data, TargetType.ITEM);
 
         } else if (json.has("entity")) {
             String entityId = json.get("entity").getAsString();
-            return new JobTaskTarget(entityId, 0, TargetType.ENTITY);
+            return new JobTaskTarget(entityId, data, TargetType.ENTITY);
 
         } else if (json.has("biome")) {
             String biome = json.get("biome").getAsString();
-            return new JobTaskTarget(biome, 0, TargetType.BIOME);
+            return new JobTaskTarget(biome, data, TargetType.BIOME);
+
+        } else if (json.has("potion")) {
+            String potion = json.get("potion").getAsString();
+            return new JobTaskTarget(potion, data, TargetType.POTION);
         }
 
         throw new IllegalArgumentException("Unknown target type in JSON: " + json);
@@ -85,6 +91,9 @@ public class JobTaskTarget {
                 break;
             case BIOME:
                 tag.setString("biome", this.target);
+                break;
+            case POTION:
+                tag.setString("potion", this.target);
                 break;
         }
 
@@ -111,6 +120,10 @@ public class JobTaskTarget {
             case BIOME:
                 String biome = tag.getString("biome");
                 return new JobTaskTarget(biome, 0, TargetType.BIOME);
+
+            case POTION:
+                String potion = tag.getString("potion");
+                return new JobTaskTarget(potion, data, TargetType.POTION);
         }
 
         throw new IllegalArgumentException("Unknown TargetType in NBT: " + type);

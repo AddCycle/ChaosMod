@@ -1,4 +1,28 @@
 {
 	"id": "alchemist",
-	"name": "Alchemist"
+	"name": "Alchemist",
+	"description": "The Witch is gonna hate you!",
+	"tasks": [
+		{
+			"id": "brew_fire_regeneration",
+			"name": "Make Fire Regeneration Potion",
+			"description": "Gather MathsMod's Denanium Flower",
+			"type": "brew",
+			"target": {
+				"potion": "mathsmod:fire_regeneration"
+			},
+			"goal": 3,
+			"rewardExp": 100
+		}
+	],
+	"levels": [
+		{
+			"level": 1,
+			"reward": {
+				"item": "minecraft:nether_wart",
+				"amount": 64
+			}
+		}
+	],
+	"maxLevel": 5
 }

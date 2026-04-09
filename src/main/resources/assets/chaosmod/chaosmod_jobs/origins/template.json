@@ -19,7 +19,7 @@
 	"levels": [
 		{
 			"level": 1,
-			"reward": { // choose
+			"reward": { // choose between reward or rewards
 				"item": "chaosmod:oxonium_sword",
 				"amount": 1
 			},

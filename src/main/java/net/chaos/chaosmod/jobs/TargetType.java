@@ -4,7 +4,8 @@ public enum TargetType {
 	BLOCK(0),
 	ENTITY(1),
 	ITEM(2),
-	BIOME(3);
+	BIOME(3),
+	POTION(4);
 	
 	public int id;
 
@@ -18,6 +19,7 @@ public enum TargetType {
 			case 1: return ENTITY;
 			case 2: return ITEM;
 			case 3: return BIOME;
+			case 4: return POTION;
 			default: throw new IllegalArgumentException("Unknown TargetType");
 		}
 	}
