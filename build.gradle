@@ -23,6 +23,7 @@ minecraft {
  	version = "1.12.2-14.23.5.2847"
     runDir = "run"
     mappings = "snapshot_20171003"
+	useDepAts = true
 }
 
 repositories {
@@ -42,10 +43,6 @@ dependencies {
 
 	// patchouli api
     compile "vazkii.patchouli:Patchouli:${patchouli_version}"
-    
-    deobfCompile name: 'worldedit-forge-mc1.12.2-6.1.10-dist'
-
-    deobfCompile name: 'mathsmod-2.3.3'
 }
 
 processResources {
@@ -60,13 +57,15 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+
+    rename '(.+_at.cfg)', 'META-INF/$1'
 }
+
 
 jar {
     manifest {
         attributes([
-            "FMLCorePluginContainsMod": "true",
-            "FMLAT": "accesstransformer.cfg"
+            "FMLAT": "chaosmod_at.cfg"
         ])
     }
 }

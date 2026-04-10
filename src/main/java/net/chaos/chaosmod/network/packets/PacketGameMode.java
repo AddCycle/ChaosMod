@@ -63,7 +63,7 @@ public class PacketGameMode implements IMessage {
 				return null;
 
 			player.setGameType(nextType);
-			player.sendMessage(new TextComponentString("[SERVER] set game mode: " + nextType.getName()));
+			player.sendStatusMessage(new TextComponentString("GameMode: " + nextType.getName()), true);
 
 			return null;
 		}

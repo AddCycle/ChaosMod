@@ -173,3 +173,30 @@ Caused by: java.io.FileNotFoundException: chaosmod:blockstates/chaosland_portal.
 	at net.minecraftforge.client.model.ModelLoader.getModelBlockDefinition(ModelLoader.java:265) ~[ModelLoader.class:?]
 	... 20 more
 [18:49:56] [Client thread/FATAL] [FML]: Suppressed additional 3 model loading errors for domain chaosmod
+
+Test without AT classes then show to Louis maybe not use coremod : useless
+Yep no need for it test it then :
+
+Rename AT file to mathsmod_at.cfg in src/main/resources/
+Add rename '(.+_at.cfg)', 'META-INF/$1' to processResources
+Add useDepAts = true to the minecraft {} block
+Correct FMLAT in the jar manifest
+Run setupDecompWorkspace to reprocess everything
+Or clean tasks cleanCacheTasks eclipse task bref (everything...)
+STEPS : accesstransformers :
+
+1 : build.gradle
+
+Inside processResources put : 
+
+Inside jar : modid_at.cfg
+jar {
+    manifest {
+        attributes([
+            "FMLAT": "chaosmod_at.cfg"
+        ])
+    }
+}
+
+Inside minecraft :
+useDepAts = true

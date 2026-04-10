@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.jobs.events.alchemist;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.jobs.TargetType;
 import net.chaos.chaosmod.jobs.events.JobEventUtils;
 import net.chaos.chaosmod.jobs.task.TaskType;
@@ -27,8 +26,6 @@ public class JobAlchemistEventHandler {
 		ResourceLocation rl = ForgeRegistries.POTION_TYPES.getKey(type);
 		
 		if (rl == null) return;
-		
-		Main.getLogger().info("PotionType : {}", rl.toString());
 
 		JobEventUtils.incrementRelatedMatchingTasks(rl, TaskType.BREW, TargetType.POTION, JOB_ID, event.getEntityPlayer());
 	}

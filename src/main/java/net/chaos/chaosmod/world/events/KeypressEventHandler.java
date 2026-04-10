@@ -7,7 +7,6 @@ import net.chaos.chaosmod.jobs.gui.GuiScreenJobs;
 import net.chaos.chaosmod.network.packets.PacketGameMode;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.GameType;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -27,15 +26,15 @@ public class KeypressEventHandler {
 			if (mc.currentScreen == null) {
 				mc.displayGuiScreen(new GuiScreenJobs());
 			}
+			ModKeybinds.displayJobsKey.unpressKey();
 		}
-		
-		if (Keyboard.isKeyDown(Keyboard.KEY_F3)) {
-			if (Keyboard.isKeyDown(Keyboard.KEY_F4)) {
-				clientMode++;
-				clientMode %= GameType.values().length - 1;
-				PacketManager.network.sendToServer(new PacketGameMode(clientMode));
-				mc.player.sendMessage(new TextComponentString("gameMode: " + GameType.getByID(clientMode).getName()));
-			}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_F3) && Keyboard.getEventKey() == Keyboard.KEY_F4 && Keyboard.getEventKeyState()) {
+			clientMode++;
+			clientMode %= GameType.values().length - 1;
+			PacketManager.network.sendToServer(new PacketGameMode(clientMode));
+
+			mc.actionKeyF3 = true;
 		}
 	}
 }
