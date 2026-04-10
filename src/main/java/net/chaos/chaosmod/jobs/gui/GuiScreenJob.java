@@ -43,7 +43,7 @@ public class GuiScreenJob extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         int startX = this.width / 2 - 150;
-        
+
         // Job name
         drawCenteredString(this.fontRenderer, job.name, this.width / 2, 20, 0xFFFFFF);
 

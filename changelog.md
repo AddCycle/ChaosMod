@@ -3,13 +3,14 @@
 # Items
 
 TODO (current version):
-  - Add variants to gallions and random loots (exemple a wood bark, then a bigger ship, then a gallion with loots and pirates enemies) (good to start structures)
+  - Jobs tasks gui improvement : need to see task id(debug), name, description, rewardExp
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market] [DOING]
+  - Add variants to gallions and random loots (exemple a wood bark, then a bigger ship, then a gallion with loots and pirates enemies) (good to start structures)
   - Make all the jobs tasks & rewards from level 1 -> 5 : FIGHTER, FARMER, ALCHEMIST, MINER, TAMER, FISHERMAN, TRAVELER
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
-  - Add a scoreboard of the most leveled up players per job ranking gui
+  - Add a scoreboard of the most leveled up players per job ranking gui (individual+for common tasks)
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
   - Add SFX to jobs upon task completion + level up
   - Add UI upon task completion
@@ -18,7 +19,7 @@ IDEAS:
   - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly
   - Add an exclusive item, player tracking compass or biome tracking compass (for the hunt or exclusive to jobs)
   - Wheat boss like a scarecrow
-  - Fighter job makes you use tipped arrows (custom event only-arrows allowed)
+  - Custom event only-tipped-arrows allowed
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
   - Also make the items have a rarity/tier so that you can basically reforge everything.
   - Rework the current bosses and entities models (add effects + animations)
@@ -36,7 +37,7 @@ IDEAS:
   - Add new fish custom types inside biomes: dead fish inside the desert dead pool poizoned water, maybe in structures, lava fish inside the nether with a custom fishing rod too
   (added `dirty_water` in order to catch TODO: dead fish inside desert only)
   - Sheepwars
-  - Ne pas oublier les structures aeriennes surtout qu'on a jetpack + elytras (fireworks (TODO : en faire un quete de metier))
+  - Ne pas oublier les structures aeriennes surtout qu'on a jetpack + elytras (fireworks (TODO : en faire un quete de metier (traveler)))
 MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus

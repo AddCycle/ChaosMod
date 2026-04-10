@@ -38,7 +38,6 @@ public class CommandsManager {
 		new BackCommand(),
 		new BiomeCommand(),
 		new BiomesCommand(),
-		new TopCommand(),
 		new CommandTestFishing()
 		);
 
@@ -46,7 +45,8 @@ public class CommandsManager {
 			register(event,
 			new DimensionWarpCommand(),
 			new HealCommand(),
-			new FeedCommand());
+			new FeedCommand(),
+			new TopCommand());
 		}
 	}
 

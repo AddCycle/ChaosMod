@@ -12,6 +12,8 @@ import org.lwjgl.input.Keyboard;
 import net.chaos.chaosmod.network.packets.PacketFishingResult;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -33,7 +35,8 @@ public class GuiFishingMinigame extends GuiScreen {
 	public int dark = 0xff24292f;
 	public int light_dark = 0xff24292f;
 
-	private int caretX, caretY, caretWidth, caretHeight, caretColor;
+	private int caretX, caretPrevX;
+	private int caretY, caretWidth, caretHeight, caretColor;
 	private int rectX, rectY, rectWidth, rectHeight, rectColor;
 
 	private int targetRectRandomPos;
@@ -89,7 +92,7 @@ public class GuiFishingMinigame extends GuiScreen {
 		drawThirdTargetRect();
 		drawSecondaryTargetRect();
 		drawPrimaryTargetRect();
-		drawCaret();
+		drawCaret(partialTicks);
 
 		renderScore();
 
@@ -114,6 +117,7 @@ public class GuiFishingMinigame extends GuiScreen {
 
 	private void initCaret() {
 		caretX = rectX + rectWidth / 2;
+		caretPrevX = caretX;
 		caretY = rectY;
 		caretWidth = 2;
 		caretHeight = rectY + rectHeight;
@@ -126,6 +130,7 @@ public class GuiFishingMinigame extends GuiScreen {
 		caretTicks++;
 		if (caretTicks >= tickSpeed) {
 			caretTicks = 0;
+			caretPrevX = caretX;
 			caretX += caretSpeed * caretDir;
 			if (caretX <= rectX) {
 				caretX = rectX;
@@ -137,8 +142,9 @@ public class GuiFishingMinigame extends GuiScreen {
 		}
 	}
 
-	private void drawCaret() {
-		drawRect(caretX, caretY, caretX + caretWidth, caretHeight, caretColor);
+	private void drawCaret(float partialTicks) {
+		int renderX = (int)(caretPrevX + (caretX - caretPrevX) * partialTicks);
+	    drawRect(renderX, caretY, renderX + caretWidth, caretHeight, caretColor);
 	}
 
 	private void drawPrimaryTargetRect() {
@@ -170,6 +176,7 @@ public class GuiFishingMinigame extends GuiScreen {
 	}
 
 	private void stopCaret() {
+		caretPrevX = caretX;
 		stoppedCaret = true;
 	}
 
@@ -211,8 +218,12 @@ public class GuiFishingMinigame extends GuiScreen {
 	
 	@Override
 	public void onGuiClosed() {
-		if (this != null && mc.currentScreen != null)
-			PacketManager.network.sendToServer(new PacketFishingResult(score, mc.player.fishEntity.getEntityId()));
+		EntityPlayer player = mc.player;
+	    if (player == null) return;
+	    EntityFishHook fishEntity = player.fishEntity;
+	    if (fishEntity != null) {
+	        PacketManager.network.sendToServer(new PacketFishingResult(score, fishEntity.getEntityId()));
+	    }
 	}
 
 	@Override

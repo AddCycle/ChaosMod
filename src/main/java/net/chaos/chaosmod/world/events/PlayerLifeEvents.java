@@ -120,6 +120,7 @@ public class PlayerLifeEvents {
 	public static void onGuiOpened(GuiOpenEvent event) {
 		EntityPlayer player = Minecraft.getMinecraft().player;
 
+		// FIXME fix container sync ? or check if it's a mathsmod issue
 		if ((event.getGui() instanceof GuiInventory) && !(event.getGui() instanceof GuiInventoryExtended)) {
 			if (!player.isCreative()) {
 				event.setCanceled(true);
@@ -127,6 +128,13 @@ public class PlayerLifeEvents {
 			}
 		}
 	}
+
+//	private static void syncAccessory(EntityPlayerMP player) {
+//		IAccessory cap = player.getCapability(CapabilityAccessory.ACCESSORY, null);
+//		if (cap != null) {
+////			PacketManager.network.sendTo(new PacketAccessorySync(), player);
+//		}
+//	}
 
 //	@SubscribeEvent
 //	// FIXME =?> fix this method or remove completely since Mod direction hasChanged

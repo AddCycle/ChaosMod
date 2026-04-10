@@ -6,7 +6,6 @@ import java.util.Random;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.item.ItemStack;
@@ -52,7 +51,7 @@ public class PacketFishingResult implements IMessage {
 		@Override
 		public IMessage onMessage(PacketFishingResult message, MessageContext ctx) {
 
-			EntityPlayer player = ctx.getServerHandler().player;
+			EntityPlayerMP player = ctx.getServerHandler().player;
 
 			player.getServer().addScheduledTask(() ->
 			{
@@ -86,11 +85,7 @@ public class PacketFishingResult implements IMessage {
 				MinecraftForge.EVENT_BUS.post(event);
 				if (event.isCanceled()) {
 					hook.setDead();
-					if ((held.getMaxDamage() - held.getItemDamage()) - event.getRodDamage() <= 0) {
-						held.shrink(1);
-					} else {
-						held.attemptDamageItem(event.getRodDamage(), rand, (EntityPlayerMP) player);
-					}
+					damageRod(held, notInGround, rand, player);
 					return;
 				}
 
@@ -101,24 +96,28 @@ public class PacketFishingResult implements IMessage {
 					stack.setCount(stack.getCount() * multiplier);
 
 					ItemHandlerHelper.giveItemToPlayer(player, stack);
-
-//					PacketManager.network.sendTo(
-//					    new PacketFishingLoot(stack),
-//					    (EntityPlayerMP) player
-//					);
 				}
 
 				hook.setDead();
-				if ((held.getMaxDamage() - held.getItemDamage()) - event.getRodDamage() <= 0) {
-					held.shrink(1);
-				} else {
-					held.attemptDamageItem(event.getRodDamage(), rand, (EntityPlayerMP) player);
-				}
+				damageRod(held, notInGround, rand, player);
 
 				player.inventoryContainer.detectAndSendChanges();
 			});
 
 			return null;
 		}
+	}
+	
+	private static void damageRod(ItemStack held, int rodDamage, Random rand, EntityPlayerMP player) {
+	    if (held.isEmpty()) return;
+
+	    // unbreaking/unbreakable
+	    if (!held.isItemStackDamageable()) return;
+
+	    if ((held.getMaxDamage() - held.getItemDamage()) - rodDamage <= 0) {
+	        held.shrink(1);
+	    } else {
+	        held.attemptDamageItem(rodDamage, rand, player);
+	    }
 	}
 }

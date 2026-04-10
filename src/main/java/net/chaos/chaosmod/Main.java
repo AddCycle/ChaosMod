@@ -59,6 +59,7 @@ public class Main
         ModSounds.registerSounds();
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         ModEntities.registerEntities();
+        ModFluids.enableUniversalBucket();
         ModFluids.registerFluids();
         CapabilityEventHandler.registerAllCapabilities(event);
         PacketManager.registerPackets(event);

@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 
@@ -49,9 +50,11 @@ public class ModTabs extends GeneralTab {
 		@Override
 		public void displayAllRelevantItems(NonNullList<ItemStack> list) {
 			super.displayAllRelevantItems(list);
-			FluidStack fluidStack = new FluidStack(ModFluids.FERTILIZED_WATER, 1);
-			ItemStack bucket = FluidUtil.getFilledBucket(fluidStack);
-			list.add(bucket);
+			for (Fluid f : ModFluids.FLUIDS) {
+				if (f == null) continue;
+				ItemStack bucket = FluidUtil.getFilledBucket(new FluidStack(f, 1));
+				list.add(bucket);
+			}
 		}
 		
 		@Override
