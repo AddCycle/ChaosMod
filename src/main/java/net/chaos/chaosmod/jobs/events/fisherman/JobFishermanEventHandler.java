@@ -170,11 +170,12 @@ public class JobFishermanEventHandler {
 	private static final ResourceLocation DESERT_FISH = new ResourceLocation(Reference.MODID, "desert_fish");
 	private static final ResourceLocation ENDER_FISH = new ResourceLocation(Reference.MATHSMOD, "ender_fish");
 
+	/**
+	 * Event fired server-side only no need to check sides
+	 * @param event
+	 */
 	@SubscribeEvent
 	public static void onPlayerFishing(ItemFishedEvent event) {
-		if (event.getEntityPlayer().getEntityWorld().isRemote)
-			return;
-		
 		Predicate<ItemStack> vanillaFish = stack -> stack.getItem() instanceof ItemFishFood;
 		Predicate<ItemStack> customFish = stack -> stack.getItem() instanceof CustomFishFood;
 		Predicate<ItemStack> anyFish = stack -> vanillaFish.or(customFish).test(stack);

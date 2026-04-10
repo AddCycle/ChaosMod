@@ -3,20 +3,21 @@
 # Items
 
 TODO (current version):
-  - Jobs tasks gui improvement : need to see task id(debug), name, description, rewardExp
+  - Jobs tasks gui : need to see task id(debug), name, description, rewardExp in a vertical scrollable list
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market] [DOING]
-  - Add variants to gallions and random loots (exemple a wood bark, then a bigger ship, then a gallion with loots and pirates enemies) (good to start structures)
+  - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals
+  - Add variants to gallions and random loots (exemple a wood bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
   - Make all the jobs tasks & rewards from level 1 -> 5 : FIGHTER, FARMER, ALCHEMIST, MINER, TAMER, FISHERMAN, TRAVELER
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` (more like a separate mod/api)
   - Add a scoreboard of the most leveled up players per job ranking gui (individual+for common tasks)
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
-  - Add SFX to jobs upon task completion + level up
-  - Add UI upon task completion
+  - Add SFX to jobs upon task completion (DONE) + level up (TODO)
+  - Add UI toast upon task completion
 
 IDEAS:
-  - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly
+  - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
   - Add an exclusive item, player tracking compass or biome tracking compass (for the hunt or exclusive to jobs)
   - Wheat boss like a scarecrow
   - Custom event only-tipped-arrows allowed
@@ -26,22 +27,18 @@ IDEAS:
   - Skill tree
   - Add `traveler` job with `discovered biomes` along with `structures` later...
   - add buried treasure with a minimap
-  - Herobrine boss
-  - Poutine boss
-  - Technoblade boss
-  - DaquavisMC boss
-  - Dream boss
+  - Herobrine, Poutine, Technoblade, DaquavisMC, Dream boss
   - Structure loot chest that when opened summons entities that will fight to protect the chest
   - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = 
   - Cook (like with stats increasing if you have a good alimentation)
-  - Add new fish custom types inside biomes: dead fish inside the desert dead pool poizoned water, maybe in structures, lava fish inside the nether with a custom fishing rod too
-  (added `dirty_water` in order to catch TODO: dead fish inside desert only)
+  - Add new lava fish inside the nether with a custom fishing rod too
   - Sheepwars
   - Ne pas oublier les structures aeriennes surtout qu'on a jetpack + elytras (fireworks (TODO : en faire un quete de metier (traveler)))
+  - additionaloverlayinfos : add remaining health, armor of the hovered entities
 MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus
-  - additionaloverlayinfos : add remaining health, armor of the hovered entities
+  - add an entirely customizable gui notes (armor equipped and durability on screen like a custom client would do (config disabling feature))
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -56,9 +53,9 @@ REWORK(funnier to grind):
 
 TODO (next version) ?:
   - Jobs: tweak or change to make it funnier according to `REWORK` section
-  - Dungeon & custom structures with a bit of stuff for exploration in the overworld too
-  - Hunt
-  - Market
+  - Dungeon & custom structures with a bit of stuff for exploration in the overworld too (inspire from end cities jigsaw model)
+  - Hunt (or custom pvp events which can be started with commands too but saves everything the player was doing before (position+dimension, stuff))
+  - Market (let players sell and buy items and see the evolution of the price inside the market with some graphs)
   - Fix playlist and soundMgr system (need to reimplement everything)
   - add `magnet` + `sword_of_wrath` to structures loots or jobs exclusive rewards
   - SwordOfWrath needs to target the entity if the player hits it
