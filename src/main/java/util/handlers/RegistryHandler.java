@@ -4,6 +4,7 @@ import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.CustomLog;
 import net.chaos.chaosmod.blocks.CustomPlanks;
 import net.chaos.chaosmod.compatibility.mathsmod.MathsModCompatibility;
+import net.chaos.chaosmod.enchantments.EnchantmentLavaWalker;
 import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModEnchants;
@@ -43,7 +44,7 @@ import proxy.IItemModel;
 import util.Reference;
 import util.handlers.entity.RenderHandler;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = Reference.MODID)
 public class RegistryHandler {
 	// Blocks before items corrects issue of : oxonium_carrots requires blocks at init
 	static {
@@ -53,6 +54,7 @@ public class RegistryHandler {
 
 	@SubscribeEvent
 	public static void onBlockRegister(RegistryEvent.Register<Block> event) {
+		event.getRegistry().register(EnchantmentLavaWalker.getCompatibleMagmaBlock());
 		event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
 		event.getRegistry().registerAll(ModFluidBlocks.FLUID_BLOCKS.toArray(new Block[0]));
 	}
@@ -174,7 +176,7 @@ public class RegistryHandler {
 			item == Item.getItemFromBlock(ModBlocks.ENDER_FENCE) ||
 			item == Item.getItemFromBlock(ModBlocks.OLIVE_FENCE)) {
 			event.setBurnTime(300);
-		}
+		} else
 		if (item == Item.getItemFromBlock(ModBlocks.CUSTOM_PRESSURE_PLATE)) {
 			event.setBurnTime(300);
 		}
