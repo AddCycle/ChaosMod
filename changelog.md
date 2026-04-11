@@ -6,7 +6,7 @@ TODO (current version):
   - Jobs tasks gui : need to see task id(debug), name, description, rewardExp in a vertical scrollable list
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market] [DOING]
   - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals
-  - Add variants to gallions and random loots (exemple a wood bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
+  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
   - Make all the jobs tasks & rewards from level 1 -> 5 : FIGHTER, FARMER, ALCHEMIST, MINER, TAMER, FISHERMAN, TRAVELER
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
@@ -15,6 +15,9 @@ TODO (current version):
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
   - Add SFX to jobs upon task completion (DONE) + level up (TODO)
   - Add UI toast upon task completion
+  - Override `/locate` command to add new structures and be able to locate them + tab completion maybe remove vanilla and add mine (accesstransformers)
+  - Look at structurecomponentendtemplate
+  - Add bedrock bridging feature [TODO] or bridge placer (DONE)
 
 IDEAS:
   - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
@@ -25,7 +28,7 @@ IDEAS:
   - Also make the items have a rarity/tier so that you can basically reforge everything.
   - Rework the current bosses and entities models (add effects + animations)
   - Skill tree
-  - Add `traveler` job with `discovered biomes` along with `structures` later...
+  - Add `traveler` job task `structures` discovery later...
   - add buried treasure with a minimap
   - Herobrine, Poutine, Technoblade, DaquavisMC, Dream boss
   - Structure loot chest that when opened summons entities that will fight to protect the chest

@@ -20,6 +20,7 @@ import net.chaos.chaosmod.items.shield.AllemaniteShield;
 import net.chaos.chaosmod.items.shield.OxoniumShield;
 import net.chaos.chaosmod.items.special.AllInOneBow;
 import net.chaos.chaosmod.items.special.AllemaniteExtinguisher;
+import net.chaos.chaosmod.items.special.BridgePlacer;
 import net.chaos.chaosmod.items.special.ChestUpgradeBase;
 import net.chaos.chaosmod.items.special.CobbleStoneVoid;
 import net.chaos.chaosmod.items.special.CraftingWand;
@@ -166,6 +167,7 @@ public class ModItems {
 	public static final Item MAGNET = new ItemMagnet("magnet");
 	public static final Item SUPER_TOTEM = new SuperTotem("super_totem");
 	public static final Item SWORD_OF_WRATH_CASTER = new SwordOfWrathCaster("sword_of_wrath_caster");
+	public static final Item BRIDGE_PLACER = new BridgePlacer("bridge_placer");
 	
 	// Money
 	public static final Item MONEY_WAD = new ItemMoneyWad("wad");
