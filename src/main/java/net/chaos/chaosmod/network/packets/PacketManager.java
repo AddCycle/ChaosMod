@@ -31,6 +31,14 @@ public class PacketManager {
 		
 		for (ASMData entry : packets) {
 			try {
+//				Map<String, Object> annotationInfo = entry.getAnnotationInfo();
+//		        String side = annotationInfo.get("side") != null 
+//		            ? annotationInfo.get("side").toString() 
+//		            : "";
+//
+//				if (side.contains("CLIENT") && FMLCommonHandler.instance().getSide().isServer()) {
+//		            continue;
+//		        }
 
 	            Class<?> clazz = Class.forName(entry.getClassName());
 	            ModPacket annotation = clazz.getAnnotation(ModPacket.class);
@@ -46,6 +54,9 @@ public class PacketManager {
 
 	            Class<? extends IMessage> messageClass = (Class<? extends IMessage>) clazz;
 	            Class<? extends IMessageHandler<IMessage, IMessage>> handlerClass = (Class<? extends IMessageHandler<IMessage, IMessage>>) handler;
+
+	            Main.getLogger().info("Attempting to instantiate handler for: {} | handler: {}", 
+	            	    clazz.getSimpleName(), handler != null ? handler.getName() : "null");
 
 	            IMessageHandler<IMessage, IMessage> handlerInstance = handlerClass.newInstance();
 

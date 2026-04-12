@@ -16,6 +16,8 @@ import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModFluidBlocks {
 	public static final List<Block> FLUID_BLOCKS = new ArrayList<Block>();
@@ -24,11 +26,13 @@ public class ModFluidBlocks {
 	public static final Block DIRTY_WATER_BLOCK = new BlockDirtyWater("dirty_water", ModFluids.DIRTY_WATER, Material.WATER, MapColor.DIRT);
 
 
+	@SideOnly(Side.CLIENT)
 	public static void registerCustomMeshesAndStates() {
 		registerFluidRendering(ModFluidBlocks.FERTILIZED_WATER_BLOCK);
 		registerFluidRendering(ModFluidBlocks.DIRTY_WATER_BLOCK);
 	}
 
+	@SideOnly(Side.CLIENT)
 	private static void registerFluidRendering(Block fluidBlock) {
 		Main.getLogger().info("Registering mesh definition & state mapper for : {}", fluidBlock.getRegistryName());
 

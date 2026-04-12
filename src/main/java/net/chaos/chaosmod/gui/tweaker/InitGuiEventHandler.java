@@ -1,17 +1,12 @@
 package net.chaos.chaosmod.gui.tweaker;
 
-import net.chaos.chaosmod.sound.ClientSoundHandler;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
-import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -50,20 +45,5 @@ public class InitGuiEventHandler {
 				 event.getGui().mc.displayGuiScreen(new GuiConfig(gui, Reference.MODID, "ChaosMod Config Screen"));
 			}
 		}
-	}
-	
-	// FIXME : playlist issue
-	@SubscribeEvent
-	public static void onSoundPlayed(PlaySoundEvent event) {
-		if (event.getName().equalsIgnoreCase(ClientSoundHandler.getSoundName())) {
-	        if (ClientSoundHandler.isMusicPaused()) {
-	            ClientSoundHandler.forcePauseMusic();
-	        }
-	    }
-	}
-	
-	@SuppressWarnings("unused")
-	private static void playSound(SoundEvent sound, float pitch) {
-			Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(sound, pitch));
 	}
 }

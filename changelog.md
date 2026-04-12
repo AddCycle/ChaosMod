@@ -2,12 +2,12 @@
 
 # Items
 
-TODO (current version):
+TODO (JOBS):
+  - Add the common tasks together along with gui (perfectly working then implement next thing after polishing) almost done just implementing [TODO use the debugger and find out why isn't it incrementing and sent to other clients the common tasks]
   - Jobs tasks gui (additional = per task) : need to see task id(debug), name, description, rewardExp in a vertical scrollable list
-  - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 need to add more tasks & some money rewards to later make the market] [DOING]
-  - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals
+  - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST, TRAVELER
+  - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 just make the remaining tasks upwards] [DOING]
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
-  - Make all the jobs tasks & rewards from level 1 -> 5 : FIGHTER, FARMER, ALCHEMIST, MINER, TAMER, FISHERMAN, TRAVELER
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
@@ -55,6 +55,7 @@ REWORK(funnier to grind):
   8- Add `visual world` effects:
 
 TODO (next version) ?:
+  - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals (later when more tasks like on 10 tasks make 5 only)
   - Jobs: tweak or change to make it funnier according to `REWORK` section
   - Dungeon & custom structures with a bit of stuff for exploration in the overworld too (inspire from end cities jigsaw model)
   - Hunt (or custom pvp events which can be started with commands too but saves everything the player was doing before (position+dimension, stuff))

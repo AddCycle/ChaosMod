@@ -11,13 +11,17 @@ import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.jobs.PlayerJobs;
 import net.chaos.chaosmod.jobs.TargetType;
+import net.chaos.chaosmod.jobs.data.SharedTaskProgressData;
 import net.chaos.chaosmod.jobs.task.JobTask;
+import net.chaos.chaosmod.jobs.task.SharedTaskProgress;
 import net.chaos.chaosmod.jobs.task.TaskType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -36,13 +40,32 @@ public class JobEventUtils {
 	public static void incrementTask(EntityPlayerMP player, String jobid, String taskId, int amount) {
 		String jobId = jobid;
 
+		World world = player.getServerWorld();
+		MinecraftServer server = player.getServer();
+
 		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
 		if (jobs == null)
 			return;
+		
+		JobTask task = getTask(jobId, taskId);
 
-		jobs.getProgress(jobId).incrementTask(player, jobId, taskId, amount);
+		if (task.shared) {
+		    SharedTaskProgress sharedProgress = SharedTaskProgress.get(world);
+		    if (sharedProgress != null) {
+		        sharedProgress.incrementTask(server, player.getServerWorld(), jobId, taskId, amount);
+		        // marks WorldSavedData dirty so it saves
+		        world.getMapStorage().getOrLoadData(SharedTaskProgressData.class, SharedTaskProgressData.NAME).markDirty();
+		    }
+		} else {
+			jobs.getProgress(jobId).incrementTask(player, jobId, taskId, amount);
+		}
 
 		Main.getLogger().info("Job done, incrementing task: [{}:{}]", jobid, taskId);
+	}
+	
+	public static JobTask getTask(String jobId, String taskId) {
+		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
+		return task;
 	}
 
 	/**
@@ -133,7 +156,7 @@ public class JobEventUtils {
 				continue;
 
 			if (id.toString().equals(task.target.target)) {
-				JobEventUtils.incrementTask((EntityPlayerMP) player, jobId, task.id);
+				incrementTask((EntityPlayerMP) player, jobId, task.id);
 			}
 		}
 	}

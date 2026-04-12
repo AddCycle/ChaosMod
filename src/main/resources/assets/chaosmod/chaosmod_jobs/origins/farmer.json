@@ -60,8 +60,9 @@
 				"block": "minecraft:wheat",
 				"data": 0
 			},
-			"goal": 2304,
-			"rewardExp": 300
+			"goal": 10000,
+			"rewardExp": 300,
+			"shared": true
 		}
 	],
 	"levels": [

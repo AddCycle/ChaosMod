@@ -59,6 +59,7 @@ public class JobTaskManager {
 	            }
 	            taskTag.setInteger("goal", task.goal);
 	            taskTag.setInteger("rewardExp", task.rewardExp);
+	            taskTag.setBoolean("shared", task.shared);
 
 	            jobTag.setTag(task.id, taskTag);
 	        }
@@ -82,7 +83,8 @@ public class JobTaskManager {
 	                TaskType.valueOf(taskTag.getString("type")),
 	                taskTag.hasKey("target") ? JobTaskTarget.fromNBT(taskTag.getCompoundTag("target")) : null,
 	                taskTag.getInteger("goal"),
-	                taskTag.getInteger("rewardExp")
+	                taskTag.getInteger("rewardExp"),
+	                taskTag.getBoolean("shared")
 	            );
 	            jobTasks.put(task.id, task);
 	        }

@@ -8,6 +8,7 @@ import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.Job;
 import net.chaos.chaosmod.jobs.JobProgress;
 import net.chaos.chaosmod.jobs.PlayerJobs;
+import net.chaos.chaosmod.jobs.data.ClientSharedTaskCache;
 import net.chaos.chaosmod.jobs.task.JobTask;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -71,7 +72,11 @@ public class GuiScreenJob extends GuiScreen {
         int taskIndex = 1;
         int taskSpacing = 10;
         for (JobTask task : job.tasks) {
-        	drawTask(task, taskIndex, startX, y);
+        	if (task.shared) {
+        		drawSharedTask(task, taskIndex, startX, y);
+        	} else {
+        		drawTask(task, taskIndex, startX, y);
+        	}
             y += this.fontRenderer.FONT_HEIGHT + taskSpacing;
             taskIndex++;
         }
@@ -93,6 +98,19 @@ public class GuiScreenJob extends GuiScreen {
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
+    }
+
+    private void drawSharedTask(JobTask task, int taskIndex, int startX, int y) {
+    	int progress = ClientSharedTaskCache.getProgress(job.id, task.id);
+//        int progress = jobs.getProgress(job.id).getTaskProgress(task.id);
+        int rectWidth = 300;
+        drawRect(startX - 5, y - 5, startX + rectWidth, y + 15, -0x5f6f6f70);
+        boolean isComplete = progress >= task.goal;
+        if (isComplete) {
+        	drawString(fontRenderer, String.format("%d - %s " + TextFormatting.GREEN + "[COMPLETED]" + TextFormatting.RESET + " %d EXP (shared)", taskIndex, task.name, task.rewardExp), startX, y, 0xFFFFFF);
+        	return;
+        }
+        drawString(fontRenderer, String.format("%d - %s : (%d/%d) | %d EXP | %s (shared)", taskIndex, task.name, progress, task.goal, task.rewardExp, task.type.name), startX, y, 0xFFFFFF);
     }
 
     private void drawTask(JobTask task, int taskIndex, int startX, int y) {

@@ -16,17 +16,16 @@
 			"rewardExp": 100
 		},
 		{
-			"id": "tame_picsou",
-			"name": "Tame a Picsou [DISABLED for now]",
-			"description": "When picsou gathers 10 blocks of gold, he becomes your friend",
+			"id": "tame_crab",
+			"name": "Tame a Crab [JRP wins over picsou]",
+			"description": "Give him dye#0 he'll be happy",
 			"type": "tame",
 			"target": {
-				"entity": "chaosmod:picsou",
-				"data": 0
+				"entity": "mathsmod:crab"
 			},
 			"goal": 1,
 			"rewardExp": 150,
-			"_TODO": "make a custom EntityAnimal that can be tamed via ForgeEventFactory.onAnimalTame"
+			"_TODO": "make custom plenty of EntityAnimal that can be tamed via ForgeEventFactory.onAnimalTame"
 		},
 		{
 			"id": "tame_ocelot",
@@ -88,6 +87,13 @@
 			"level": 4,
 			"reward": {
 				"block": "chaosmod:enderite_block",
+				"amount": 10
+			}
+		},
+		{
+			"level": 5,
+			"reward": {
+				"block": "chaosmod:wad",
 				"amount": 10
 			}
 		}

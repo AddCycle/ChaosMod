@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.world.data.jobs;
+package net.chaos.chaosmod.jobs.data;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.storage.WorldSavedData;

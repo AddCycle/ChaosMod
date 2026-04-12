@@ -6,7 +6,6 @@ import java.util.Collection;
 import net.chaos.chaosmod.client.inventory.ContainerAccessory;
 import net.chaos.chaosmod.client.inventory.SlotAccessory;
 import net.chaos.chaosmod.client.inventory.shield.SlotShield;
-import net.chaos.chaosmod.sound.ClientSoundHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -22,9 +21,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiInventoryExtended extends GuiInventory {
 	private static final int SHOW_EXTENDED_SLOTS_BUTTON = 99;
-	private static final int PLAY_SOUND_BUTTON = 100;
-	private static final int PAUSE_RESUME_BUTTON = 101;
-	private static final int STOP_MUSIC_BUTTON = 102;
 
 	public static final ResourceLocation INV_TEXTURE = new ResourceLocation("chaosmod:textures/gui/slot_icon2.png");
 	public static final ResourceLocation BUTTON_TEXTURE_ = new ResourceLocation(
@@ -81,12 +77,6 @@ public class GuiInventoryExtended extends GuiInventory {
 
 			}
 		});
-		int o = 20; // offset
-		int margin = 30;
-		// TODO : texture buttons
-		this.addButton(new GuiButton(PLAY_SOUND_BUTTON, this.guiLeft + 70, this.guiTop - o, 30, 20, "|>"));
-		this.addButton(new GuiButton(PAUSE_RESUME_BUTTON, this.guiLeft + 70 + 30, this.guiTop - o, 30, 20, "P"));
-		this.addButton(new GuiButton(STOP_MUSIC_BUTTON, this.guiLeft + 70 + 60, this.guiTop - o, 30, 20, "S"));
 	}
 
 	private void resetGuiLeft() {
@@ -183,26 +173,6 @@ public class GuiInventoryExtended extends GuiInventory {
 			case SHOW_EXTENDED_SLOTS_BUTTON: {
 				showAccessorySlot = !showAccessorySlot;
 				showShieldSlot = !showShieldSlot;
-				break;
-			}
-			case PLAY_SOUND_BUTTON: {
-				ClientSoundHandler.nextSound();
-				System.out.println("next sound");
-				break;
-			}
-			case PAUSE_RESUME_BUTTON: {
-				if (ClientSoundHandler.isMusicPlaying()) {
-					ClientSoundHandler.pauseMusic();
-					System.out.println("paused");
-				} else {
-					ClientSoundHandler.resumeMusic();
-					System.out.println("resumed");
-				}
-				break;
-			}
-			case STOP_MUSIC_BUTTON: {
-				ClientSoundHandler.stopMusic();
-				System.out.println("stopped sound");
 				break;
 			}
 			default:

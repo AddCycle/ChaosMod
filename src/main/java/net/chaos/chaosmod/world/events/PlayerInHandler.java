@@ -8,10 +8,12 @@ import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.jobs.PlayerJobs;
+import net.chaos.chaosmod.jobs.task.SharedTaskProgress;
 import net.chaos.chaosmod.network.packets.PacketAccessorySync;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.network.packets.PacketSyncJobs;
 import net.chaos.chaosmod.network.packets.PacketSyncPlayerJobs;
+import net.chaos.chaosmod.network.packets.PacketSyncSharedTasks;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -26,13 +28,14 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import util.Reference;
 import util.blockstates.BlockHelper;
 
-// TODO: REFACTOR & move this class inside the world.events package
+// TODO: REFACTOR this class
 @EventBusSubscriber(modid = Reference.MODID)
 public class PlayerInHandler {
 
 	@SubscribeEvent
 	/**
 	 * Sync players accessories on joining server
+	 * 
 	 * @param event
 	 */
 	public static void onPlayerJoin(PlayerLoggedInEvent event) {
@@ -51,14 +54,18 @@ public class PlayerInHandler {
 		String jsonData = JobsManager.toJsonString(); // serialize all jobs
 		PacketManager.network.sendTo(new PacketSyncJobs(jsonData), (EntityPlayerMP) event.player);
 		syncJobCapabilities((EntityPlayerMP) event.player);
+
+		syncJobsWorldData(event);
 	}
-	
+
 	@SubscribeEvent
 	public static void onPlayerDisconnect(PlayerLoggedOutEvent event) {
-		if (event.player.world.isRemote) return;
+		if (event.player.world.isRemote)
+			return;
 
 		EntityPlayerMP player = (EntityPlayerMP) event.player;
-		if (player.getEntityData().hasKey("sword_of_wrath_cast") && player.getEntityData().getBoolean("sword_of_wrath_cast")) {
+		if (player.getEntityData().hasKey("sword_of_wrath_cast")
+				&& player.getEntityData().getBoolean("sword_of_wrath_cast")) {
 			player.addItemStackToInventory(new ItemStack(ModItems.SWORD_OF_WRATH_CASTER));
 			player.getEntityData().setBoolean("sword_of_wrath_cast", false);
 		}
@@ -123,6 +130,16 @@ public class PlayerInHandler {
 	public static void syncJobCapabilities(EntityPlayerMP player) {
 		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
 		PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), player);
+	}
+
+	private static void syncJobsWorldData(PlayerLoggedInEvent event) {
+		if (!(event.player instanceof EntityPlayerMP)) return;
+
+		EntityPlayerMP player = (EntityPlayerMP) event.player;
+		SharedTaskProgress sharedProgress = SharedTaskProgress.get(player.getEntityWorld());
+		if (sharedProgress != null) {
+			PacketManager.network.sendTo(new PacketSyncSharedTasks(sharedProgress), player);
+		}
 	}
 
 	private static void syncAccessories(Clone event) {
