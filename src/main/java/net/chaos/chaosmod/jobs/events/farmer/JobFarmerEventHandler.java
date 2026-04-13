@@ -27,6 +27,8 @@ public class JobFarmerEventHandler {
 
 	@SubscribeEvent
 	public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+		if (event.getWorld().isRemote) return;
+
 		if (!(event.getEntity() instanceof EntityPlayer))
 			return;
 

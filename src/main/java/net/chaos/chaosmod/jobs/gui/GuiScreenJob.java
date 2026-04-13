@@ -102,7 +102,7 @@ public class GuiScreenJob extends GuiScreen {
 
     private void drawSharedTask(JobTask task, int taskIndex, int startX, int y) {
     	int progress = ClientSharedTaskCache.getProgress(job.id, task.id);
-//        int progress = jobs.getProgress(job.id).getTaskProgress(task.id);
+
         int rectWidth = 300;
         drawRect(startX - 5, y - 5, startX + rectWidth, y + 15, -0x5f6f6f70);
         boolean isComplete = progress >= task.goal;

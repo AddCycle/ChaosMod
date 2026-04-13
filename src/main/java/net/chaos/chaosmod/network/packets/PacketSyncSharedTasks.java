@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
 import util.annotations.ModPacket;
 
@@ -37,15 +36,10 @@ public class PacketSyncSharedTasks implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketSyncSharedTasks message, MessageContext ctx) {
-			loadCache(message);
+			Minecraft.getMinecraft().addScheduledTask(() -> {
+                ClientSharedTaskCache.load(message.progressJson);
+            });
 			return null;
 		}
-	}
-	
-	@SideOnly(Side.CLIENT)
-	private static void loadCache(PacketSyncSharedTasks message) {
-		Minecraft.getMinecraft().addScheduledTask(() -> {
-			ClientSharedTaskCache.load(message.progressJson); // client-side cache for rendering
-		});
 	}
 }

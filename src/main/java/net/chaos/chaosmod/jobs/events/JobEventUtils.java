@@ -44,10 +44,16 @@ public class JobEventUtils {
 		MinecraftServer server = player.getServer();
 
 		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
-		if (jobs == null)
+		if (jobs == null) {
+			Main.getLogger().info("jobs capability is null never incrementing shared task");
 			return;
+		}
 		
 		JobTask task = getTask(jobId, taskId);
+		if (task == null) {
+			Main.getLogger().info("task is null never incrementing shared task");
+			return;
+		}
 
 		if (task.shared) {
 		    SharedTaskProgress sharedProgress = SharedTaskProgress.get(world);

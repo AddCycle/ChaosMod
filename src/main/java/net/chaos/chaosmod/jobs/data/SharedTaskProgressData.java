@@ -25,6 +25,10 @@ public class SharedTaskProgressData extends WorldSavedData {
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		return progress.toNBT();
+		NBTTagCompound data = progress.toNBT();
+	    for (String key : data.getKeySet()) {
+	        compound.setTag(key, data.getTag(key));
+	    }
+	    return compound;
 	}
 }

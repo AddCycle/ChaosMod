@@ -39,6 +39,8 @@ public class JobsManager {
         TRAVELER = loadJob("origins/traveler");
 //        HUNTER = loadJob("origins/hunter");
 		displayAll();
+		JobTaskManager.initTasks(); // FIXING : shared tasks not being updated server-side
+		// TEST : see if singleplayer still works and essentialmod should be working also fine
     }
 
     private static Job loadJob(String path) {

@@ -25,12 +25,11 @@ import net.minecraft.world.storage.MapStorage;
 
 public class SharedTaskProgress {
 	private final Map<String, Map<String, Integer>> progress = new HashMap<>(); // jobId -> taskId -> current progress
-	private static SharedTaskProgress INSTANCE;
 	private static final Gson GSON = new Gson();
 
 	public static SharedTaskProgress get(World world) {
-		if (world.isRemote)
-			return null;
+		if (world.isRemote) return null;
+
 		MapStorage storage = world.getMapStorage();
 		SharedTaskProgressData data = (SharedTaskProgressData) storage.getOrLoadData(SharedTaskProgressData.class,
 				SharedTaskProgressData.NAME);
@@ -59,8 +58,6 @@ public class SharedTaskProgress {
 	    SharedTaskProgressData data = (SharedTaskProgressData) storage.getOrLoadData(
 	        SharedTaskProgressData.class, SharedTaskProgressData.NAME);
 	    if (data != null) data.markDirty();
-
-	    syncToAll(server, this);
 
 		// Broadcast to all players
 		syncToAll(server, this);
