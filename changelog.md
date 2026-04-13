@@ -3,6 +3,7 @@
 # Items
 
 TODO (JOBS):
+  - additionaloverlayinfos : add remaining health, armor of the hovered entities (TODO : make the icons and polish rendering to be small & on the side of screen & transparent background integrated) + make it can be disabled in the config of the mod too
   - Add the common tasks together along with gui (perfectly working then implement next thing after polishing) almost done just implementing [TODO use the debugger and find out why isn't it incrementing and sent to other clients the common tasks]
   - Make a button the claim global task reward so if players are offline they still gets the reward
   - Jobs tasks gui (additional = per task) : need to see task id(debug), name, description, rewardExp in a vertical scrollable list
@@ -21,7 +22,6 @@ TODO (JOBS):
   - Look at structurecomponentendtemplate
   - Add bedrock bridging feature [TODO] or bridge placer (DONE)
   - Add `traveler` job task `structures` discovery later...
-  - additionaloverlayinfos : add remaining health, armor of the hovered entities
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)

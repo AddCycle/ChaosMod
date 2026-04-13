@@ -17,7 +17,8 @@ public class JobsCommand extends CommandTreeBase {
 	public JobsCommand() {
 		super.addSubcommand(new JobsListCommand());
 		super.addSubcommand(new JobsResetCommand());
-        super.addSubcommand(new CommandTreeHelp(this));
+		super.addSubcommand(new JobsCompleteCommand());
+		super.addSubcommand(new CommandTreeHelp(this));
 	}
 
 	@Override

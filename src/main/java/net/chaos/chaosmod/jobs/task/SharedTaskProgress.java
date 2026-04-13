@@ -71,7 +71,11 @@ public class SharedTaskProgress {
 		JobTask task = JobsManager.TASK_MANAGER.getTask(jobId, taskId);
 
 		// FIXME : make a system in the interface to click a button to redeem the common
-		// task rewards
+		// task rewards or add the exp for the player
+		// but I think a global reward will be better than just increasing one level
+		// and receiving little rewards for job tasks before anyone
+		// and also messing up the leveling system because you just got 3 rewards instead
+		// of doing the tasks along
 		// Reward every online player (you see the issue if the player is offline, no
 		// rewards)
 		for (EntityPlayerMP player : server.getPlayerList().getPlayers()) {

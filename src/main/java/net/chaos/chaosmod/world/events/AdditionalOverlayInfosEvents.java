@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -137,9 +138,17 @@ public class AdditionalOverlayInfosEvents {
 
             } else if (finalResult.typeOfHit == RayTraceResult.Type.ENTITY) {
             	Entity entity = finalResult.entityHit;
-
+            	
                 // Display name
                 String info = entity.getDisplayName().getFormattedText();
+
+            	// Health
+                float health = 0f;
+                float armor = 0f;
+                if (entity instanceof EntityLivingBase) {
+                	health = ((EntityLivingBase) entity).getHealth();
+                	armor = ((EntityLivingBase) entity).getTotalArmorValue();
+                }
 
                 // Registry name lookup
                 ResourceLocation rl = EntityList.getKey(entity);
@@ -168,6 +177,14 @@ public class AdditionalOverlayInfosEvents {
                 GlStateManager.color(1, 1, 1, 1);
 
                 mc.fontRenderer.drawStringWithShadow(modName, x - modWidth / 2, y + 10, Colors.BLUE.getRGB());
+
+                if (health >= 0) {
+                mc.fontRenderer.drawStringWithShadow("health:" + health, x - infoWidth / 2, y + 20, 0xFFFFFF);
+                }
+                
+                if (armor >= 0) {
+                	mc.fontRenderer.drawStringWithShadow("armor:" + armor, x - infoWidth / 2, y + 30, 0xFFFFFF);
+                }
                 GlStateManager.color(1, 1, 1, 1);
             }
         }
