@@ -20,6 +20,9 @@ import util.Reference;
 import util.ui.components.JobsButtonBase;
 import util.ui.components.UIScrollbar;
 
+/**
+ * TODO : Refactor the entire jobComponent system and make a jobEntry or something that will be drawn easily like the TaskListEntry class
+ */
 @SideOnly(Side.CLIENT)
 public class GuiScreenJobs extends GuiScreen {
 	public boolean DEBUG = false;
@@ -128,8 +131,8 @@ public class GuiScreenJobs extends GuiScreen {
 	
 	public void drawForeground() {
 		this.drawCenteredString(fontRenderer, "ChaosMod Jobs", this.width / 2, fontRenderer.FONT_HEIGHT, 0xffffff);
-		components.forEach(jobComponent -> {
-			jobComponent.render();
+		components.forEach(c -> {
+			c.render();
 		});
 		scrollbar.render();
 	}
@@ -159,4 +162,19 @@ public class GuiScreenJobs extends GuiScreen {
 		this.mc.displayGuiScreen(new GuiScreenJob(this, selected));
 		super.actionPerformed(button);
 	}
+
+    /**
+     * Draws jobs level progress bar until next level
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param percentage 		between 0f and 1f
+     * @param color1 			startColor (ARGB)
+     * @param color2 			endColor (ARGB)
+     */
+    public void drawProgressBar(int x, int y, int width, int height, float percentage, int color1, int color2) {
+    	drawRect(x, y, x + width, y + height, 0xffffffff);
+    	drawGradientRect(x, y, x + (int) (percentage * width), y + height, color1, color2);
+    }
 }

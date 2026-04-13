@@ -4,6 +4,7 @@
 
 TODO (JOBS):
   - Add the common tasks together along with gui (perfectly working then implement next thing after polishing) almost done just implementing [TODO use the debugger and find out why isn't it incrementing and sent to other clients the common tasks]
+  - Make a button the claim global task reward so if players are offline they still gets the reward
   - Jobs tasks gui (additional = per task) : need to see task id(debug), name, description, rewardExp in a vertical scrollable list
   - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST, TRAVELER
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 just make the remaining tasks upwards] [DOING]
@@ -18,6 +19,9 @@ TODO (JOBS):
   - Override `/locate` command to add new structures and be able to locate them + tab completion maybe remove vanilla and add mine (accesstransformers)
   - Look at structurecomponentendtemplate
   - Add bedrock bridging feature [TODO] or bridge placer (DONE)
+
+PLAYTEST:
+  - All jobs task completion + granting rewards correctly (client+server)
 
 IDEAS:
   - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
@@ -64,9 +68,6 @@ TODO (next version) ?:
   - add `magnet` + `sword_of_wrath` to structures loots or jobs exclusive rewards
   - SwordOfWrath needs to target the entity if the player hits it
 
-OPTIMIZATION:
-  - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
-
 ISSUES:
   - Fix: custom trees dropping too many golden_apple
   - Fix: `/jobs` command not working properly (needs code fix)
@@ -80,6 +81,9 @@ ISSUES:
 
 REFACTOR (need):
   - entity package
+
+OPTIMIZATION:
+  - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
 
 New:
   - MainMenu custom `LOGO` (overrides `minecraft.png`)

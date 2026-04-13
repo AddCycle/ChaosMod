@@ -13,6 +13,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
@@ -59,7 +60,6 @@ public class JobComponent extends UIComponent {
 		int calculatedX = x - ((GuiScreenJobs) screen).scrollX;
 		drawJobComponent(calculatedX, y);
 		drawJobInfos(calculatedX, y);
-		// drawButtons();
 	}
 
 	public void drawJobComponent(int x, int y) {
@@ -79,7 +79,8 @@ public class JobComponent extends UIComponent {
             int level = progress != null ? progress.getLevel() : 0;
             int exp = progress != null ? progress.getExp() : 0;
             int totalExp = progress != null ? progress.getExpToNextLevel(level) : 0;
-            screen.drawCenteredString(fr, String.format("Level : %d/%d", level, job.maxLevel), x + this.width / 2, y + (fr.FONT_HEIGHT * 3), 0xffffff);
+            TextFormatting color = (level == job.maxLevel ? TextFormatting.GREEN : TextFormatting.RESET);
+            screen.drawCenteredString(fr, String.format("Level : %s%d/%d", color, level, job.maxLevel), x + this.width / 2, y + (fr.FONT_HEIGHT * 3), 0xffffff);
             screen.drawCenteredString(fr, String.format("Exp : %d/%d", exp, totalExp), x + this.width / 2, y + (fr.FONT_HEIGHT * 4), 0xffffff);
         }
 	}
@@ -116,5 +117,19 @@ public class JobComponent extends UIComponent {
 	
 	private void drawString(FontRenderer fr, String text, int x, int y, int color) {
 		fr.drawStringWithShadow(text, (float)(x), (float)y, color);
+	}
+	
+	/**
+	 * Progressbar between 0.0f and 1.0f
+	 * @return
+	 */
+	public float getProgress() {
+		if (jobs == null) return 0.0f;
+
+		JobProgress progressManager = jobs.getProgress(job.id);
+		if (progressManager == null) return 0.0f;
+
+		float progress = (float) progressManager.getLevel() / (float) job.maxLevel;
+		return progress;
 	}
 }

@@ -1,6 +1,8 @@
 package net.chaos.chaosmod.jobs.gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
@@ -8,11 +10,10 @@ import net.chaos.chaosmod.common.capabilities.jobs.CapabilityPlayerJobs;
 import net.chaos.chaosmod.jobs.Job;
 import net.chaos.chaosmod.jobs.JobProgress;
 import net.chaos.chaosmod.jobs.PlayerJobs;
-import net.chaos.chaosmod.jobs.data.ClientSharedTaskCache;
+import net.chaos.chaosmod.jobs.gui.task.TaskListEntry;
 import net.chaos.chaosmod.jobs.task.JobTask;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -21,6 +22,8 @@ public class GuiScreenJob extends GuiScreen {
 	private final GuiScreen parent;
     private final Job job;
     private PlayerJobs jobs;
+    private List<TaskListEntry> entries = new ArrayList<>();
+    private int startX, taskSpacing = 10;
 
     public GuiScreenJob(GuiScreen parent, Job job) {
         this.parent = parent;
@@ -35,7 +38,21 @@ public class GuiScreenJob extends GuiScreen {
 
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, "Back"));
+
+        startX = this.width / 2 - 150;
+        initTaskEntries();
     }
+    
+    private void initTaskEntries() {
+    	entries.clear();
+    	int y = 80;
+    	for (JobTask task : job.tasks) {
+    	    TaskListEntry entry = new TaskListEntry(job, task, jobs);
+    	    entry.setPosition(startX, y, 300);
+    	    entries.add(entry);
+    	    y += entry.getHeight() + taskSpacing;
+    	}
+	}
 
     @Override
     protected void actionPerformed(GuiButton button) {
@@ -59,7 +76,6 @@ public class GuiScreenJob extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        int startX = this.width / 2 - 150;
 
         // Job name
         drawCenteredString(this.fontRenderer, job.name, this.width / 2, 20, 0xFFFFFF);
@@ -70,15 +86,9 @@ public class GuiScreenJob extends GuiScreen {
         // Tasks
         int y = 80;
         int taskIndex = 1;
-        int taskSpacing = 10;
-        for (JobTask task : job.tasks) {
-        	if (task.shared) {
-        		drawSharedTask(task, taskIndex, startX, y);
-        	} else {
-        		drawTask(task, taskIndex, startX, y);
-        	}
+        for (TaskListEntry entry : entries) {
+        	entry.draw(fontRenderer, taskIndex++);
             y += this.fontRenderer.FONT_HEIGHT + taskSpacing;
-            taskIndex++;
         }
 
         if (jobs != null) {
@@ -88,41 +98,28 @@ public class GuiScreenJob extends GuiScreen {
             int totalExp = progress != null ? progress.getExpToNextLevel(level) : 0;
             int lineWidth = 40;
             int off = (this.width - lineWidth) / 2;
-            drawHorizontalLine(off, this.width - off, y + 10, -0x5f6f6f70);
+            drawHorizontalLine(off, this.width - off, y + 24, -0x5f6f6f70);
 
             float percentage = (float) level / (float)job.maxLevel;
             drawProgressBar(startX, y, 300, 20, percentage, 0xff5f0000, 0xff9f0000);
 
+            // FIXME : put everything below inside progressbar and make the exp act as the progressbar fill when it won't be a fixed amount for each task leading to almost not see the progressbar filled
             drawCenteredString(fontRenderer, "Level: " + level + "/" + job.maxLevel, this.width / 2, y + 6, 0xffffff);
-            drawCenteredString(fontRenderer, "Exp: " + exp + "/" + totalExp, this.width / 2, y + 35, 0xffffff);
+            drawCenteredString(fontRenderer, "Exp: " + exp + "/" + totalExp, this.width / 2, y + 30, 0xffffff);
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
+    
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    	super.mouseClicked(mouseX, mouseY, mouseButton);
 
-    private void drawSharedTask(JobTask task, int taskIndex, int startX, int y) {
-    	int progress = ClientSharedTaskCache.getProgress(job.id, task.id);
-
-        int rectWidth = 300;
-        drawRect(startX - 5, y - 5, startX + rectWidth, y + 15, -0x5f6f6f70);
-        boolean isComplete = progress >= task.goal;
-        if (isComplete) {
-        	drawString(fontRenderer, String.format("%d - %s " + TextFormatting.GREEN + "[COMPLETED]" + TextFormatting.RESET + " %d EXP (shared)", taskIndex, task.name, task.rewardExp), startX, y, 0xFFFFFF);
-        	return;
-        }
-        drawString(fontRenderer, String.format("%d - %s : (%d/%d) | %d EXP | %s (shared)", taskIndex, task.name, progress, task.goal, task.rewardExp, task.type.name), startX, y, 0xFFFFFF);
-    }
-
-    private void drawTask(JobTask task, int taskIndex, int startX, int y) {
-        int progress = jobs.getProgress(job.id).getTaskProgress(task.id);
-        int rectWidth = 300;
-        drawRect(startX - 5, y - 5, startX + rectWidth, y + 15, -0x5f6f6f70);
-        boolean isComplete = progress >= task.goal;
-        if (isComplete) {
-        	drawString(fontRenderer, String.format("%d - %s " + TextFormatting.GREEN + "[COMPLETED]" + TextFormatting.RESET + " %d EXP", taskIndex, task.name, task.rewardExp), startX, y, 0xFFFFFF);
-        	return;
-        }
-        drawString(fontRenderer, String.format("%d - %s : (%d/%d) | %d EXP | %s", taskIndex, task.name, progress, task.goal, task.rewardExp, task.type.name), startX, y, 0xFFFFFF);
+    	for (TaskListEntry entry : entries) {
+    	    if (entry.isMouseOver(mouseX, mouseY)) {
+    	        mc.displayGuiScreen(new GuiScreenTask(this, entry.getTask()));
+    	    }
+    	}
     }
 
     /**
