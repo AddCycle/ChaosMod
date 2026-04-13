@@ -7,6 +7,7 @@ TODO (JOBS):
   - Make a button the claim global task reward so if players are offline they still gets the reward
   - Jobs tasks gui (additional = per task) : need to see task id(debug), name, description, rewardExp in a vertical scrollable list
   - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST, TRAVELER
+  - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 just make the remaining tasks upwards] [DOING]
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
@@ -19,6 +20,8 @@ TODO (JOBS):
   - Override `/locate` command to add new structures and be able to locate them + tab completion maybe remove vanilla and add mine (accesstransformers)
   - Look at structurecomponentendtemplate
   - Add bedrock bridging feature [TODO] or bridge placer (DONE)
+  - Add `traveler` job task `structures` discovery later...
+  - additionaloverlayinfos : add remaining health, armor of the hovered entities
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
@@ -32,7 +35,6 @@ IDEAS:
   - Also make the items have a rarity/tier so that you can basically reforge everything.
   - Rework the current bosses and entities models (add effects + animations)
   - Skill tree
-  - Add `traveler` job task `structures` discovery later...
   - add buried treasure with a minimap
   - Herobrine, Poutine, Technoblade, DaquavisMC, Dream boss
   - Structure loot chest that when opened summons entities that will fight to protect the chest
@@ -41,7 +43,6 @@ IDEAS:
   - Add new lava fish inside the nether with a custom fishing rod too
   - Sheepwars
   - Ne pas oublier les structures aeriennes surtout qu'on a jetpack + elytras (fireworks (TODO : en faire un quete de metier (traveler)))
-  - additionaloverlayinfos : add remaining health, armor of the hovered entities
 MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus
@@ -70,7 +71,6 @@ TODO (next version) ?:
 
 ISSUES:
   - Fix: custom trees dropping too many golden_apple
-  - Fix: `/jobs` command not working properly (needs code fix)
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tamable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too))
   - EntityViking clearing inventory on right-click and kills you...

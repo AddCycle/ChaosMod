@@ -18,7 +18,7 @@ public class JobsListCommand extends AbstractPermissionFreeCommand {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/jobs list";
+		return "Use /jobs list";
 	}
 
 	@Override
