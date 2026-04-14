@@ -104,7 +104,7 @@ New:
   - feat: add `igloo_fish`, `vine_fish`, `desert_fish` exclusive to cold, jungle, desert biomes respectively
   - feat: add `dirty_water` fluid in `desert` biome
   - feat: add `shared_tasks` with common progress (communism)
-  - feat: `fertilized_wwater` works with mathsmod flowers
+  - feat: `fertilized_water` works with mathsmod flowers & colorized with green
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
@@ -120,7 +120,7 @@ Changes:
   - style: tree logs are breaking sequentially with `oxonium_axe`
   - style: vein miner progressive destroy blocks too
   - tweak: `OxoniumVillages` have only 40% to generate over vanilla `Village`
-  - fix: bosses loots cannot burn
+  - fix: bosses loots cannot burn anymore
   - feat(endgame): `sword_of_wrath` entity/item -> follows the owner around and kills mobs for him
   - fix: `viking_gallions` are now only generated in watery-biomes like `ocean`
   - fix: `fertilized_water` now waits 20secs to start fertilize crops (making it unspammable)

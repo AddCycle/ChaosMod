@@ -15,6 +15,7 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -37,6 +38,11 @@ public class BlockFertilizedWater extends BlockFluidClassicBase {
 		addedTime = world.getTotalWorldTime();
 
 		super.onBlockAdded(world, pos, state);
+	}
+	
+	@Override
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+		super.onEntityCollidedWithBlock(worldIn, pos, state, entityIn);
 	}
 
 	@Override

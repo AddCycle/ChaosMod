@@ -13,7 +13,7 @@ import util.Reference;
 public class ModFluids {
 	public static final List<Fluid> FLUIDS = new ArrayList<>();
 	
-	public static final Fluid FERTILIZED_WATER = new FertilizedWaterFluid("fertilized_water", new ResourceLocation("blocks/water_still"), new ResourceLocation("blocks/water_flow"), new ResourceLocation("blocks/water_overlay"));
+	public static final Fluid FERTILIZED_WATER = new FertilizedWaterFluid("fertilized_water", new ResourceLocation(Reference.MODID, "fluids/fertilized_water_still"), new ResourceLocation(Reference.MODID, "fluids/fertilized_water_flow"), new ResourceLocation(Reference.MODID, "fluids/fertilized_water_overlay"));
 	public static final Fluid DIRTY_WATER = new DirtyWaterFluid("dirty_water", new ResourceLocation(Reference.MODID, "fluids/dirty_water_still"), new ResourceLocation(Reference.MODID, "fluids/dirty_water_flow"), new ResourceLocation(Reference.MODID, "fluids/dirty_water_overlay"));
 
 	public static void registerFluids() {
@@ -30,5 +30,4 @@ public class ModFluids {
 	public static void enableUniversalBucket() {
 		FluidRegistry.enableUniversalBucket();
 	}
-
 }
