@@ -81,6 +81,7 @@ ISSUES:
 
 REFACTOR (need):
   - entity package
+  - DimensionWarpCommand
 
 OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)

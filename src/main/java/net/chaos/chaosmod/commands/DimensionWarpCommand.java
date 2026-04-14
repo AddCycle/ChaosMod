@@ -14,6 +14,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.ITeleporter;
 import util.dimensions.DimensionUtil;
 
+// FIXME : refactor + add tab completion
 public class DimensionWarpCommand extends CommandBase {
 	private int dimension_id;
 	private String dimension_name;

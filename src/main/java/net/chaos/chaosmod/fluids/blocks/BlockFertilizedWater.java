@@ -18,30 +18,36 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 
 /**
- * FIXME : too efficient needs balance
+ * PLAYTEST : too efficient needs balance INFO : precision, it's like every time
+ * you put a new fertilized water source so I need to delay the time it starts
+ * to act as a fertilizer, maybe after 5 minutes or check it's neighbors if
+ * there's already one source
+ * Should be better balanced now test if still working
  */
 public class BlockFertilizedWater extends BlockFluidClassicBase {
 	private List<BlockPos> growables = new ArrayList<>();
+	/* totalWorldTime in ticks */
+	private long addedTime;
 
 	public BlockFertilizedWater(String name, Fluid fluid, Material material, MapColor mapColor) {
 		super(name, fluid, material, mapColor);
 	}
-	
+
 	@Override
 	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
-		if (world.isRemote) return;
+		addedTime = world.getTotalWorldTime();
 
-		world.scheduleUpdate(pos, this, tickRate);
+		super.onBlockAdded(world, pos, state);
 	}
-	
+
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+		// 2 min
+		if (world.getTotalWorldTime() - addedTime > 2400) {
+			fertilizeNearby(world, pos, rand);
+		}
 
-		fertilizeNearby(world, pos, rand);
-		
 		super.updateTick(world, pos, state, rand);
-
-		world.scheduleUpdate(pos, this, tickRate);
 	}
 
 	private void fertilizeNearby(World world, BlockPos pos, Random rand) {
@@ -57,8 +63,9 @@ public class BlockFertilizedWater extends BlockFluidClassicBase {
 			if (block instanceof IGrowable) {
 				IGrowable growable = (IGrowable) block;
 
-				if (growable.canGrow(world, targetPos, state, false) && growable.canUseBonemeal(world, rand, pos, state) && !(growable instanceof BlockGrass)
-						&& !(growable instanceof BlockTallGrass) && !(growable instanceof BlockFlower))
+				if (growable.canGrow(world, targetPos, state, false) && growable.canUseBonemeal(world, rand, pos, state)
+						&& !(growable instanceof BlockGrass) && !(growable instanceof BlockTallGrass)
+						&& !(growable instanceof BlockFlower))
 					growables.add(targetPos.toImmutable());
 			}
 		}
@@ -72,7 +79,7 @@ public class BlockFertilizedWater extends BlockFluidClassicBase {
 						rand);
 			}
 		}
-		
+
 		growables.clear();
 	}
 
@@ -80,6 +87,8 @@ public class BlockFertilizedWater extends BlockFluidClassicBase {
 		if (world.isRemote)
 			return;
 
+		if (rand.nextInt(5) != 0)
+			return;
 		growable.grow(world, rand, targetPos, state);
 		world.playEvent(2005, targetPos, 0); // bonemeal particles packet
 	}
