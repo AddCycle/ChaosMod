@@ -1,10 +1,7 @@
 # Changelog 1.0.16
 
-# Items
-
 TODO (JOBS):
-  - additionaloverlayinfos : add remaining health, armor of the hovered entities (TODO : make the icons and polish rendering to be small & on the side of screen & transparent background integrated) + make it can be disabled in the config of the mod too
-  - Add the common tasks together along with gui (perfectly working then implement next thing after polishing) almost done just implementing [TODO use the debugger and find out why isn't it incrementing and sent to other clients the common tasks]
+  - additionaloverlayinfos : remaining health,armor of entities icons (TODO : polish rendering to be small & on the side of screen & transparent background integrated) + make it can be disabled in the config of the mod too
   - Make a button the claim global task reward so if players are offline they still gets the reward
   - Jobs tasks gui (additional = per task) : need to see task id(debug), name, description, rewardExp in a vertical scrollable list
   - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST, TRAVELER
@@ -42,11 +39,11 @@ IDEAS:
   - Cook (like with stats increasing if you have a good alimentation)
   - Add new lava fish inside the nether with a custom fishing rod too
   - Sheepwars
-  - Ne pas oublier les structures aeriennes surtout qu'on a jetpack + elytras (fireworks (TODO : en faire un quete de metier (traveler)))
+  - Don't forget aerial structures as long as we have the jetpack + elytras(fireworks) (TODO : make it a task like use elytras with tier3 fireworks (traveler)))
 MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus
-  - add an entirely customizable gui notes (armor equipped and durability on screen like a custom client would do (config disabling feature))
+  - add an entirely customizable gui notes (armor equipped and durability on screen (position, scale, ... everything customizable) like a custom client would do (config disabling feature))
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -58,6 +55,9 @@ REWORK(funnier to grind):
   6- Mini-goals inside tasks: `mine 50 iron` becomes `find cave`, `mine iron`, ...
   7- Special contracts (limited-events): legendary fish appeared at night (making him glow at night)
   8- Add `visual world` effects:
+
+POLISH:
+  - Shared tasks gui make it in the scoreboard pinnable maybe or just make a visual indicator in the gui
 
 TODO (next version) ?:
   - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals (later when more tasks like on 10 tasks make 5 only)
@@ -76,7 +76,6 @@ ISSUES:
   - EntityViking clearing inventory on right-click and kills you...
   - DrawerTESR: item icon lights even in the dark
   - Sword Of Wrath orientation towards monster attacked (fix animations)
-  - Fix: `fertilized_water` too efficient
   - Cascading worldgen lag for generated structures... (seems fixed for now I will let it here as I will add more huge structures later)
 
 REFACTOR (need):
@@ -104,6 +103,8 @@ New:
   - feat: `right-click` crops to harvest instead of destroying them
   - feat: add `igloo_fish`, `vine_fish`, `desert_fish` exclusive to cold, jungle, desert biomes respectively
   - feat: add `dirty_water` fluid in `desert` biome
+  - feat: add `shared_tasks` with common progress (communism)
+  - feat: `fertilized_wwater` works with mathsmod flowers
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
@@ -122,6 +123,7 @@ Changes:
   - fix: bosses loots cannot burn
   - feat(endgame): `sword_of_wrath` entity/item -> follows the owner around and kills mobs for him
   - fix: `viking_gallions` are now only generated in watery-biomes like `ocean`
+  - fix: `fertilized_water` now waits 20secs to start fertilize crops (making it unspammable)
 
 MODEL-ISSUES:
 Caused by: java.io.FileNotFoundException: chaosmod:models/item/atm_block.json

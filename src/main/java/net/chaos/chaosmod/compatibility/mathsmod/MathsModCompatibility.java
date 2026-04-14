@@ -10,6 +10,10 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import util.Reference;
 
 public class MathsModCompatibility {
+	public static final ResourceLocation DIAMONA = new ResourceLocation(Reference.MATHSMOD, "diamona");
+	public static final ResourceLocation HELL_FLOWER = new ResourceLocation(Reference.MATHSMOD, "hell_flower");
+	public static final ResourceLocation DENANIUM = new ResourceLocation(Reference.MATHSMOD, "denanium");
+
 	// Look at util.RegistryHandler
 	public static void registerSampleRecipe() {
 	    if (Loader.isModLoaded(Reference.MATHSMOD)) {
