@@ -62,13 +62,18 @@ public class GuiScreenTask extends GuiScreen {
         drawCenteredString(this.fontRenderer, task.name, this.width / 2, 20, 0xFFFFFF);
 
         // taskId
-        drawCenteredString(this.fontRenderer, "id: " + task.id, this.width / 2, 50, 0xAAAAAA);
+        drawCenteredString(this.fontRenderer, "id: " + task.id, this.width / 2, 30, 0x888888);
 
         // RewardExp
-        drawCenteredString(this.fontRenderer, "rewardExp: " + task.rewardExp, this.width / 2, 80, 0xAAAAAA);
+        drawCenteredString(this.fontRenderer, "rewardExp: " + task.rewardExp, this.width / 2, 60, 0xCCCCCC);
+
+        if (task.shared) {
+        	// isShared ?
+        	drawCenteredString(this.fontRenderer, "(shared)", this.width / 2, 40, 0xCCCCCC);
+        }
 
         // Task Description
-        drawSplitString(task.description, startX, 80, 200, 0xDDDDDD);
+        drawSplitString(task.description, startX, 100, 200, 0xDDDDDD);
 
     	super.drawScreen(mouseX, mouseY, partialTicks);
     }

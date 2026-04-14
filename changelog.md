@@ -9,13 +9,13 @@ TODO (JOBS):
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
-  - Add a scoreboard of the most leveled up players per job ranking gui (individual+for common tasks)
+  - Add a scoreboard of the most leveled up players per job ranking gui (individual + for common tasks)
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
-  - Add SFX to jobs upon task completion (DONE) + level up (TODO)
+  - Add SFX to jobs upon level up (TODO)
   - Add UI toast upon task completion
   - Look at structurecomponentendtemplate
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
-  - Add bedrock bridging feature [TODO] or bridge placer (DONE)
+  - Add bedrock bridging feature [TODO] or bridge placer (DONE) (for travelers I think)
   - Add `traveler` job task `structures` discovery later...
   - allow `/locate` to find custom structures added by mathsmod & chaosmod
 
@@ -69,11 +69,10 @@ TODO (next version) ?:
   - SwordOfWrath needs to target the entity if the player hits it
 
 ISSUES:
-  - Fix: custom trees dropping too many golden_apple
-  - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tamable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different
+  - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tameable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too))
   - EntityViking clearing inventory on right-click and kills you...
-  - DrawerTESR: item icon lights even in the dark
+  - DrawerTESR: item icon lights even in the dark + container overflow issues (code issue)
   - Sword Of Wrath orientation towards monster attacked (fix animations)
   - Cascading worldgen lag for generated structures... (seems fixed for now I will let it here as I will add more huge structures later)
 
@@ -124,6 +123,7 @@ Changes:
   - feat(endgame): `sword_of_wrath` entity/item -> follows the owner around and kills mobs for him
   - fix: `viking_gallions` are now only generated in watery-biomes like `ocean`
   - fix: `fertilized_water` now waits 20secs to start fertilize crops (making it unspammable)
+  - balance: `custom_leaves` dropping too many `golden_apple` on decay
 
 MODEL-ISSUES:
 Caused by: java.io.FileNotFoundException: chaosmod:models/item/atm_block.json
