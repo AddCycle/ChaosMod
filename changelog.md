@@ -3,11 +3,9 @@
 TODO (JOBS):
   - additionaloverlayinfos : remaining health,armor of entities icons (TODO : polish rendering to be small & on the side of screen & transparent background integrated) + make it can be disabled in the config of the mod too
   - Make a button the claim global task reward so if players are offline they still gets the reward
-  - Jobs tasks gui (additional = per task) : need to see task id(debug), name, description, rewardExp in a vertical scrollable list
   - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST, TRAVELER
   - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 just make the remaining tasks upwards] [DOING]
-  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
   - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
@@ -15,10 +13,11 @@ TODO (JOBS):
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
   - Add SFX to jobs upon task completion (DONE) + level up (TODO)
   - Add UI toast upon task completion
-  - Override `/locate` command to add new structures and be able to locate them + tab completion maybe remove vanilla and add mine (accesstransformers)
   - Look at structurecomponentendtemplate
+  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
   - Add bedrock bridging feature [TODO] or bridge placer (DONE)
   - Add `traveler` job task `structures` discovery later...
+  - allow `/locate` to find custom structures added by mathsmod & chaosmod
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
@@ -105,6 +104,7 @@ New:
   - feat: add `dirty_water` fluid in `desert` biome
   - feat: add `shared_tasks` with common progress (communism)
   - feat: `fertilized_water` works with mathsmod flowers & colorized with green
+  - feat: `/locate` command replaced sending a TELEPORT message to the structure location
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
