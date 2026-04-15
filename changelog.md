@@ -1,7 +1,6 @@
 # Changelog 1.0.16
 
 TODO (JOBS):
-  - additionaloverlayinfos : remaining health,armor of entities icons (TODO : polish rendering to be small & on the side of screen & transparent background integrated) + make it can be disabled in the config of the mod too
   - Make a button the claim global task reward so if players are offline they still gets the reward
   - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST, TRAVELER
   - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins
@@ -59,6 +58,7 @@ REWORK(funnier to grind):
 
 POLISH:
   - Shared tasks gui make it in the scoreboard pinnable maybe or just make a visual indicator in the gui
+  - additionaloverlayinfos : health+armor icons drawing instead of raw values
 
 TODO (next version) ?:
   - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals (later when more tasks like on 10 tasks make 5 only)

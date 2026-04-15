@@ -16,11 +16,6 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.event.ClickEvent;
-import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
 import proxy.IBlockModel;
 
@@ -98,23 +93,6 @@ public class BossAltar extends Block implements ITileEntityProvider, IBlockModel
 			}
 		}
 		return true;
-	}
-
-	@Override
-	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-		if (!worldIn.isRemote)
-			player.sendMessage(new TextComponentTranslation("chaosmod.boss_altar.message"));
-		for (EntityPlayer pl : worldIn.playerEntities) {
-			if (!worldIn.isRemote)
-				pl.sendMessage(new TextComponentTranslation("chaosmod.boss_altar.message2")
-						.setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)
-								.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-										new TextComponentTranslation("chaosmod.boss_altar.show_text")
-												.setStyle(new Style().setColor(TextFormatting.DARK_RED))))
-								.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,
-										"chaosmod.boss_altar.suggested_command"))));
-		}
-		super.onBlockHarvested(worldIn, pos, state, player);
 	}
 
 	@Override

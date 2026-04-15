@@ -118,14 +118,16 @@ public class AdditionalOverlayInfosEvents {
 			String info = entity.getDisplayName().getFormattedText();
 
 			// Health + armor
-			float health = 0f;
-			float armor = 0f;
+			float health = 0, maxHealth = 0;
+			float armor = 0;
 			if (entity instanceof EntityLivingBase) {
+				maxHealth = ((EntityLivingBase) entity).getMaxHealth();
 				health = ((EntityLivingBase) entity).getHealth();
 				armor = ((EntityLivingBase) entity).getTotalArmorValue();
 			}
 			
-			String healthStr = "health: " + health;
+			TextFormatting healthColor = health == maxHealth ? TextFormatting.GREEN : TextFormatting.RED;
+			String healthStr = "health: " + healthColor + health;
 			String armorStr = "armor: " + armor;
 
 			// Registry name lookup
