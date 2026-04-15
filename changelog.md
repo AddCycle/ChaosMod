@@ -2,15 +2,14 @@
 
 TODO (JOBS):
   - Make a button the claim global task reward so if players are offline they still gets the reward
-  - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST, TRAVELER
+  - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST
   - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 just make the remaining tasks upwards] [DOING]
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
-  - Drop the ChaosMod `advancements` for a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
+  - Make a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
   - Add a scoreboard of the most leveled up players per job ranking gui (individual + for common tasks)
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
-  - Add SFX to jobs upon level up (TODO)
   - Add UI toast upon task completion
   - Look at structurecomponentendtemplate
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
@@ -24,6 +23,7 @@ PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
 
 IDEAS:
+  - make the end or nether disabled until a specific accomplishement is reached
   - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
   - Add an exclusive item, player tracking compass or biome tracking compass (for the hunt or exclusive to jobs)
   - Wheat boss like a scarecrow
@@ -59,6 +59,7 @@ REWORK(funnier to grind):
 POLISH:
   - Shared tasks gui make it in the scoreboard pinnable maybe or just make a visual indicator in the gui
   - additionaloverlayinfos : health+armor icons drawing instead of raw values
+  - Add SFX to jobs upon level up (TODO) (useless right now as long as every task completed is a level up
 
 TODO (next version) ?:
   - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals (later when more tasks like on 10 tasks make 5 only)
@@ -71,6 +72,7 @@ TODO (next version) ?:
   - SwordOfWrath needs to target the entity if the player hits it
 
 ISSUES:
+  - MAJOR: blocks can be replaced an harvested again granting exp continuously for associated JOB (solution: make them smelt the items (miner big issue))
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tameable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too))
   - EntityViking clearing inventory on right-click and kills you...
@@ -126,6 +128,7 @@ Changes:
   - fix: `viking_gallions` are now only generated in watery-biomes like `ocean`
   - fix: `fertilized_water` now waits 20secs to start fertilize crops (making it unspammable)
   - balance: `custom_leaves` dropping too many `golden_apple` on decay
+  - fix: `jobs` progress cleared when traveling between dimensions
 
 MODEL-ISSUES:
 Caused by: java.io.FileNotFoundException: chaosmod:models/item/atm_block.json

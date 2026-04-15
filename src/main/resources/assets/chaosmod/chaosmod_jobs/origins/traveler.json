@@ -4,6 +4,26 @@
 	"description": "Explore the world !",
 	"tasks": [
 		{
+			"id": "such_mountains",
+			"name": "Huge mountains...",
+			"description": "Find ChaosMod Giant Mountains Biome",
+			"type": "travel",
+			"target": {
+				"biome": "chaosmod:giant_mountains"
+			},
+			"rewardExp": 100
+		},
+		{
+			"id": "japanese_discovery",
+			"name": "Japanese Discovery",
+			"description": "Find MathsMod Pink Forest Biome",
+			"type": "travel",
+			"target": {
+				"biome": "mathsmod:pink_forest"
+			},
+			"rewardExp": 150
+		},
+		{
 			"id": "desolate_discovery",
 			"name": "Find Desolate Lands Biome",
 			"description": "Find MathsMod Desolate Lands Biome",
@@ -11,17 +31,27 @@
 			"target": {
 				"biome": "mathsmod:desolate_lands"
 			},
-			"rewardExp": 100
+			"rewardExp": 200
 		},
 		{
-			"id": "such_mountains",
-			"name": "Find Giant Mountains Biome",
-			"description": "Find ChaosMod Giant Mountains Biome",
+			"id": "deep_desolation",
+			"name": "Deeper Desolation",
+			"description": "Go to 'The Nether' Dimension",
 			"type": "travel",
 			"target": {
-				"biome": "chaosmod:giant_mountains"
+				"dimension": "dim:the_nether"
 			},
-			"rewardExp": 150
+			"rewardExp": 250
+		},
+		{
+			"id": "frozen_discovery",
+			"name": "Frozen Discovery",
+			"description": "Go to The Sirojus Dimension",
+			"type": "travel",
+			"target": {
+				"dimension": "dim:sirojus"
+			},
+			"rewardExp": 300
 		}
 	],
 	"levels": [
@@ -34,9 +64,31 @@
 		{
 			"level": 2,
 			"reward": {
-				"item": "minecraft:map"
+				"item": "minecraft:map",
+				"amount": 3
+			}
+		},
+		{
+			"level": 3,
+			"reward": {
+				"item": "minecraft:ender_pearl",
+				"amount": 16
+			}
+		},
+		{
+			"level": 4,
+			"reward": {
+				"item": "minecraft:blaze_rod",
+				"amount": 64
+			}
+		},
+		{
+			"level": 5,
+			"reward": {
+				"item": "mathsmod:frozen_gem",
+				"amount": 10
 			}
 		}
 	],
-	"maxLevel": 2
+	"maxLevel": 5
 }

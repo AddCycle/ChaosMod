@@ -14,8 +14,12 @@ import net.chaos.chaosmod.common.capabilities.money.MoneyProvider;
 import net.chaos.chaosmod.common.capabilities.money.MoneyStorage;
 import net.chaos.chaosmod.common.capabilities.shield.CapabilityShield;
 import net.chaos.chaosmod.common.capabilities.shield.ShieldProvider;
+import net.chaos.chaosmod.jobs.PlayerJobs;
+import net.chaos.chaosmod.network.packets.PacketManager;
+import net.chaos.chaosmod.network.packets.PacketSyncPlayerJobs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -23,6 +27,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import util.Reference;
 
@@ -46,9 +51,11 @@ public class CapabilityEventHandler {
 
 	@SubscribeEvent
 	public static void clonePlayer(PlayerEvent.Clone event) {
-		if (!event.isWasDeath()) return;
-
-		Main.getLogger().debug("syncing capabilities reason => [onDeath]");
+		if (event.isWasDeath()) {
+			Main.getLogger().debug("syncing capabilities reason => [onDeath]");
+		} else {
+			Main.getLogger().debug("syncing capabilities reason => [changedDimension]");
+		}
 
 		syncCapability(MoneyProvider.MONEY_CAPABILITY, event, (oldMoney, newMoney) -> {
 			newMoney.set(oldMoney.get());
@@ -71,6 +78,15 @@ public class CapabilityEventHandler {
 		});
 	}
 
+	@SubscribeEvent
+	public static void onDimensionChange(PlayerChangedDimensionEvent event) {
+	    if (event.player instanceof EntityPlayerMP) {
+	        EntityPlayerMP player = (EntityPlayerMP) event.player;
+	        syncJobCapability(player);
+	    }
+	}
+
+	// TODO : move all the PlayerInHandler events for syncing capabilities here
 	@SubscribeEvent
 	public static void onPlayerLoggedIn(PlayerLoggedInEvent event) {
 		IMoney money = event.player.getCapability(MoneyProvider.MONEY_CAPABILITY, null);
@@ -96,8 +112,14 @@ public class CapabilityEventHandler {
 	private static <T> void syncCapability(Capability<T> capability, PlayerEvent.Clone event, BiConsumer<T, T> callback) {
 		T oldOne = event.getOriginal().getCapability(capability, null);
 		T newOne = event.getEntityPlayer().getCapability(capability, null);
-		if (oldOne != null && newOne != null) {
-			callback.accept(oldOne, newOne);
-		}
+
+	    if (oldOne != null && newOne != null) {
+	    	callback.accept(oldOne, newOne);
+	    }
+	}
+
+	private static void syncJobCapability(EntityPlayer player) {
+		PlayerJobs jobs = player.getCapability(CapabilityPlayerJobs.PLAYER_JOBS, null);
+		PacketManager.network.sendTo(new PacketSyncPlayerJobs(jobs), (EntityPlayerMP) player);
 	}
 }

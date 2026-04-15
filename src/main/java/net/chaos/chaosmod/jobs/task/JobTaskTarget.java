@@ -34,6 +34,9 @@ public class JobTaskTarget {
             case BIOME:
                 obj.addProperty("biome", this.target);
                 break;
+            case DIMENSION:
+                obj.addProperty("dimension", this.target);
+                break;
             case POTION:
                 obj.addProperty("potion", this.target);
                 break;
@@ -65,6 +68,9 @@ public class JobTaskTarget {
         } else if (json.has("biome")) {
             String biome = json.get("biome").getAsString();
             return new JobTaskTarget(biome, data, TargetType.BIOME);
+        } else if (json.has("dimension")) {
+            String dimension = json.get("dimension").getAsString();
+            return new JobTaskTarget(dimension, data, TargetType.DIMENSION);
 
         } else if (json.has("potion")) {
             String potion = json.get("potion").getAsString();
@@ -86,15 +92,24 @@ public class JobTaskTarget {
             case ITEM:
                 tag.setString("item", this.target);
                 break;
+
             case ENTITY:
                 tag.setString("entity", this.target);
                 break;
+
             case BIOME:
                 tag.setString("biome", this.target);
                 break;
+			case DIMENSION:
+				tag.setString("dimension", this.target);
+				break;
+
             case POTION:
                 tag.setString("potion", this.target);
                 break;
+
+			default:
+				break;
         }
 
         return tag;
@@ -120,10 +135,16 @@ public class JobTaskTarget {
             case BIOME:
                 String biome = tag.getString("biome");
                 return new JobTaskTarget(biome, 0, TargetType.BIOME);
+			case DIMENSION:
+                String dimension = tag.getString("dimension");
+                return new JobTaskTarget(dimension, data, TargetType.DIMENSION);
 
             case POTION:
                 String potion = tag.getString("potion");
                 return new JobTaskTarget(potion, data, TargetType.POTION);
+
+			default:
+				break;
         }
 
         throw new IllegalArgumentException("Unknown TargetType in NBT: " + type);
