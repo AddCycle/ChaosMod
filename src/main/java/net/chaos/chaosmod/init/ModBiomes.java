@@ -8,6 +8,7 @@ import net.chaos.chaosmod.biomes.CustomBiomeEnderGarden;
 import net.chaos.chaosmod.biomes.CustomBiomeHell;
 import net.chaos.chaosmod.biomes.CustomBiomeNether;
 import net.chaos.chaosmod.biomes.CustomBiomeOverworld;
+import net.chaos.chaosmod.world.gen.experimental.biomes.ExperimentalBiome;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -23,6 +24,7 @@ public class ModBiomes {
 	public static Biome ENDER_GARDEN = new CustomBiomeEnderGarden().setRegistryName(new ResourceLocation(Reference.MODID, "ender_garden"));
 	public static Biome CHAOS_LAND_BIOME = new CustomBiomeChaosLand().setRegistryName(new ResourceLocation(Reference.MODID, "chaos_land_biome"));
 	public static Biome CUSTOM_HELL = new CustomBiomeHell().setRegistryName(new ResourceLocation(Reference.MODID, "custom_hell"));
+	public static Biome EXPERIMENTAL = new ExperimentalBiome().setRegistryName(new ResourceLocation(Reference.MODID, "experimental_biome"));
 
     public static void registerBiomes() {
     	BIOMES.add(GIANT_MOUNTAIN);
@@ -30,6 +32,7 @@ public class ModBiomes {
         BIOMES.add(ENDER_GARDEN);
         BIOMES.add(CHAOS_LAND_BIOME);
         BIOMES.add(CUSTOM_HELL);
+        BIOMES.add(EXPERIMENTAL);
     }
     
     public static void init() {
@@ -37,6 +40,7 @@ public class ModBiomes {
         addBiome(ModBiomes.NETHER_CAVES);
         addBiome(ModBiomes.ENDER_GARDEN);
         addBiome(ModBiomes.CHAOS_LAND_BIOME);
+        addBiome(ModBiomes.EXPERIMENTAL);
     }
     
     public static void addBiome(Biome biome, BiomeDictionary.Type ...types) {

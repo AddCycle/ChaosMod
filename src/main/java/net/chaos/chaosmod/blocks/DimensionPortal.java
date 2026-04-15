@@ -241,7 +241,7 @@ public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacin
     {
         if (entityIn instanceof EntityPlayer && !entityIn.isRiding() && !entityIn.isBeingRidden() && entityIn.isNonBoss())
         {
-        	int dimension = worldIn.provider.getDimension() == 0 ? ModDimensions.customId : 0;
+        	int dimension = worldIn.provider.getDimension() == 0 ? ModDimensions.CUSTOM.getId() : 0;
         	TeleportUtil.teleport((EntityPlayer) entityIn, dimension, 0, 70, 0);
         }
     }

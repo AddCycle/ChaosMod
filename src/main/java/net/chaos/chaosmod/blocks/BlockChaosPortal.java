@@ -33,7 +33,7 @@ public class BlockChaosPortal extends BlockEndPortal {
             if (server != null && player.timeUntilPortal <= 0) {
                 player.timeUntilPortal = 100;
 
-                int customDimId = world.provider.getDimension() == 0 ? ModDimensions.customId : 0;
+                int customDimId = world.provider.getDimension() == 0 ? ModDimensions.CUSTOM.getId() : 0;
                 WorldServer targetWorld = server.getWorld(customDimId);
 
                 if (targetWorld != null) {
