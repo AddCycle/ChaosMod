@@ -18,6 +18,8 @@ TODO (JOBS):
   - Add bedrock bridging feature [TODO] or bridge placer (DONE) (for travelers I think)
   - Add `traveler` job task `structures` discovery later...
   - allow `/locate` to find custom structures added by mathsmod & chaosmod
+  - Attack world generation in a dimension to train then the overworld, first try to make advanced trees then we'll talk...
+  - Get rid of patchouli API to make my own information book (might take some time but more reliable since it doesn't require any dependencies)
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
