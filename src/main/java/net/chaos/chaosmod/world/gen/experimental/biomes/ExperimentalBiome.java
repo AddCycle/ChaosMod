@@ -6,7 +6,10 @@ import net.minecraft.world.biome.BiomeDecorator;
 public class ExperimentalBiome extends Biome {
 
 	public ExperimentalBiome() {
-		super(new BiomeProperties("Experimental Biome"));
+		super(new BiomeProperties("Experimental Biome")
+				.setHeightVariation(0.01f)
+				.setBaseHeight(0.125F)
+				.setRainDisabled());
 	}
 
 	@Override

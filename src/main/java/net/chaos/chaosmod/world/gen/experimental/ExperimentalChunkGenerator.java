@@ -59,7 +59,7 @@ public class ExperimentalChunkGenerator implements IChunkGenerator {
         this.scaleNoise = new NoiseGeneratorOctaves(this.rand, 10);
         this.depthNoise = new NoiseGeneratorOctaves(this.rand, 16);
         this.forestNoise = new NoiseGeneratorOctaves(this.rand, 8);
-        this.heightMap = new double[825]; // TODO: understand why 825
+        this.heightMap = new double[825]; // 5 * 5 * 33 = 825
         this.biomeWeights = new float[25];
 
         for (int i = -2; i <= 2; ++i)
@@ -74,7 +74,7 @@ public class ExperimentalChunkGenerator implements IChunkGenerator {
         this.settings = ChunkGeneratorSettings.Factory.jsonToFactory("").build();
         world.setSeaLevel(this.settings.seaLevel);
 
-		initLayers();
+//		initLayers();
 	}
 	
 	private void initLayers() {
