@@ -4,6 +4,8 @@ import net.chaos.chaosmod.jobs.TargetType;
 import net.chaos.chaosmod.jobs.events.JobEventUtils;
 import net.chaos.chaosmod.jobs.task.TaskType;
 import net.minecraft.block.Block;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -29,14 +31,14 @@ public class JobMinerEventHandler {
 	
 	@SubscribeEvent
 	public static void onItemSmelt(ItemSmeltedEvent event) {
-		Block block = Block.getBlockFromItem(event.smelting.getItem());
-		if (block == null) return;
+		Item item = event.smelting.getItem();
+		if (item == Items.AIR) return;
 
-		ResourceLocation id = block.getRegistryName();
+		ResourceLocation id = item.getRegistryName();
 		if (id == null)
 			return;
 		
-		JobEventUtils.incrementRelatedMatchingTasks(id, TaskType.SMELT, TargetType.BLOCK, JOB_ID, event.player);
+		JobEventUtils.incrementRelatedMatchingTasks(id, TaskType.SMELT, TargetType.ITEM, JOB_ID, event.player);
 	}
 
 }

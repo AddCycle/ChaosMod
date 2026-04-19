@@ -21,7 +21,7 @@
 			"description": "Smelt 32 Iron Ore",
 			"type": "smelt",
 			"target": {
-				"block": "minecraft:iron_ingot",
+				"item": "minecraft:iron_ingot",
 				"data": 0
 			},
 			"goal": 32,
@@ -33,7 +33,7 @@
 			"description": "Smelt 10 Silver Ore",
 			"type": "smelt",
 			"target": {
-				"block": "mathsmod:silver_ingot",
+				"item": "mathsmod:silver_ingot",
 				"data": 0
 			},
 			"goal": 10,
@@ -45,7 +45,7 @@
 			"description": "Go to Nether and smelt 20 Allemanite",
 			"type": "smelt",
 			"target": {
-				"block": "chaosmod:allemanite_ingot",
+				"item": "chaosmod:allemanite_ingot",
 				"data": 0
 			},
 			"goal": 20,
@@ -57,7 +57,7 @@
 			"description": "Go to The End and smelt 100 Kurayum",
 			"type": "smelt",
 			"target": {
-				"block": "mathsmod:kurayum_ingot",
+				"item": "mathsmod:kurayum_ingot",
 				"data": 0
 			},
 			"goal": 100,
