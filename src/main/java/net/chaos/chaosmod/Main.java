@@ -49,6 +49,10 @@ public class Main
 
     private static Logger logger;
     
+    static {
+        ModFluids.enableUniversalBucket();
+    }
+    
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -59,7 +63,6 @@ public class Main
         ModSounds.registerSounds();
         GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
         ModEntities.registerEntities();
-        ModFluids.enableUniversalBucket();
         ModFluids.registerFluids();
         CapabilityEventHandler.registerAllCapabilities(event);
         PacketManager.registerPackets(event);

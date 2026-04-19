@@ -1,5 +1,12 @@
 # Changelog 1.0.16
 
+TODO (WorldGen):
+  - rename: dense forest (it's the natural biome (make it generate cobblestone spikes and only 1 type of tree but very dense or high))
+  - Rework biomes (giant_mountains, ender_garden, chaosland_biome, hell_biome)
+  - Removed the boss altars in order to put them inside the later-made structures (do not forget before release)
+  - (advanced) add underground biomes with vines and decoration
+  - (advanced) make a sky island biome
+
 TODO (JOBS):
   - Make a button the claim global task reward so if players are offline they still gets the reward
   - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST
@@ -14,15 +21,24 @@ TODO (JOBS):
   - Look at structurecomponentendtemplate
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
   - Add bedrock bridging feature [TODO] or bridge placer (DONE) (for travelers I think)
-  - Add `traveler` job task `structures` discovery later...
+  - Add `traveler` job task `structures` discovery later... (using isInsideStructure method inside the generation)
   - allow `/locate` to find custom structures added by mathsmod & chaosmod
   - Attack world generation in a dimension to train then the overworld, first try to make advanced trees then we'll talk...
   - Get rid of patchouli API to make my own information book (might take some time but more reliable since it doesn't require any dependencies)
+  - add a spelunkery table which requires translation like (alex's cave mod)
+
+TODO (Bosses):
+  - 1: add a biome
+  - 2: add a mob (ex: magma biome with magma_bears) that has special loot
+  - 3: add a boss that spawns requires the special loot
+  - 4: replicate and add variety
+  - 5: they loot a good weapon or an armor piece that does something more (or just quest reward (every player gets it))
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
 
 IDEAS:
+  - add taunts (need to know how to swap the player model or just setRotationAngles modification of the basic model (to animate taunts))
   - make the end or nether disabled until a specific accomplishement is reached
   - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
   - Add an exclusive item, player tracking compass or biome tracking compass (for the hunt or exclusive to jobs)
@@ -40,6 +56,7 @@ IDEAS:
   - Add new lava fish inside the nether with a custom fishing rod too
   - Sheepwars
   - Don't forget aerial structures as long as we have the jetpack + elytras(fireworks) (TODO : make it a task like use elytras with tier3 fireworks (traveler)))
+  - add variants to animals like skins and other models, no behavior, just reskin variety
 MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus

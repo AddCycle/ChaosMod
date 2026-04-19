@@ -25,8 +25,8 @@ public class ExperimentalWorldProvider extends WorldProvider {
 
 	@Override
 	public IChunkGenerator createChunkGenerator() {
-//		return new ExperimentalChunkGenerator(world, getSeed(), 20);
-		return new SimpleChunkGenerator(world, getSeed());
+		return new ExperimentalChunkGenerator(world, getSeed());
+//		return new SimpleChunkGenerator(world, getSeed());
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.chunk.Chunk;
@@ -19,15 +20,19 @@ public class SimpleChunkGenerator implements IChunkGenerator {
 	private final World world;
 	private final Random rand;
 	private NoiseGeneratorPerlin noise;
+	private NoiseGeneratorPerlin waterDepthNoise;
 
 	private static final double NOISE_SCALE = 0.01;
-	private static final int BASE_HEIGHT = 64;
-	private static final int HEIGHT_RANGE = 5;
+	private static final double NOISE_WATER_SCALE = 0.9;
+	private static final int SEA_LEVEL = 32;
+	private static final int HEIGHT_RANGE = 4;
+	private static final int WATER_DEPTH_RANGE = 10;
 
 	public SimpleChunkGenerator(World world, long seed) {
 		this.world = world;
 		this.rand = new Random(seed);
-		this.noise = new NoiseGeneratorPerlin(this.rand, 4); // 4 octaves
+		this.noise = new NoiseGeneratorPerlin(this.rand, 4);
+		this.waterDepthNoise = new NoiseGeneratorPerlin(rand, 4);
 	}
 
 	@Override
@@ -40,11 +45,30 @@ public class SimpleChunkGenerator implements IChunkGenerator {
 				int worldX = x * 16 + lx;
 				int worldZ = z * 16 + lz;
 
-				double sample = noise.getValue(worldX * NOISE_SCALE, worldZ * NOISE_SCALE);
-				int height = (int) (BASE_HEIGHT + sample * HEIGHT_RANGE);
+				double surfaceValue = noise.getValue(worldX * NOISE_SCALE, worldZ * NOISE_SCALE);
+				double waterDepthValue = waterDepthNoise.getValue(worldX * NOISE_WATER_SCALE, worldZ * NOISE_WATER_SCALE);
 
-				for (int y = 0; y < height; y++) {
+				// compressing values preventing them from going too deep in the ground
+				if (waterDepthValue < 0) {
+					waterDepthValue *= 0.2;
+				}
+
+				int surfaceHeight = (int) (SEA_LEVEL + surfaceValue * HEIGHT_RANGE);
+				int waterDepth = (int) (SEA_LEVEL + waterDepthValue * WATER_DEPTH_RANGE);
+
+				surfaceHeight = MathHelper.clamp(surfaceHeight, 1, 255);
+				waterDepth = MathHelper.clamp(surfaceHeight, 1, 255);
+
+				primer.setBlockState(lx, 0, lz, Blocks.BEDROCK.getDefaultState());
+
+				for (int y = 1; y < surfaceHeight; y++) {
 					primer.setBlockState(lx, y, lz, Blocks.STONE.getDefaultState());
+				}
+
+				if (surfaceHeight >= SEA_LEVEL) primer.setBlockState(lx, surfaceHeight - 1, lz, Blocks.GRASS.getDefaultState());
+
+				for (int y = waterDepth; y < SEA_LEVEL; y++) {
+					primer.setBlockState(lx, y, lz, Blocks.WATER.getDefaultState());
 				}
 			}
 		}

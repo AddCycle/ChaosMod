@@ -21,7 +21,7 @@ import util.ui.components.JobsButtonBase;
 import util.ui.components.UIScrollbar;
 
 /**
- * TODO : Refactor the entire jobComponent system and make a jobEntry or something that will be drawn easily like the TaskListEntry class
+ * TODO : Refactor the entire jobComponent system and make a jobEntry or JobEntryList<JobEntry> or something that will be drawn easily like the TaskListEntry class
  */
 @SideOnly(Side.CLIENT)
 public class GuiScreenJobs extends GuiScreen {

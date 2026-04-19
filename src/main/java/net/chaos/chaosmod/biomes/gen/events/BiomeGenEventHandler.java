@@ -47,10 +47,10 @@ public class BiomeGenEventHandler {
 		Biomes.SWAMPLAND,
 		Biomes.MUSHROOM_ISLAND,
 		Biomes.JUNGLE,
-		ModBiomes.GIANT_MOUNTAIN,
-		ModBiomes.NETHER_CAVES,
-		ModBiomes.CHAOS_LAND_BIOME,
-		ModBiomes.ENDER_GARDEN
+		ModBiomes.DENSE_FOREST
+//		ModBiomes.NETHER_CAVES,
+//		ModBiomes.CHAOS_LAND_BIOME,
+//		ModBiomes.ENDER_GARDEN
 	));
 
 	@SubscribeEvent
@@ -103,13 +103,13 @@ public class BiomeGenEventHandler {
 		
 		// MODDED BIOMES //
 		IBlockState snowy_log = ModBlocks.CUSTOM_LOG.getDefaultState().withProperty(CustomLog.VARIANT, CustomLogVariant.SNOWY);
-		IBlockState maple_log = ModBlocks.CUSTOM_LOG.getDefaultState().withProperty(CustomLog.VARIANT, CustomLogVariant.MAPLE);
-		IBlockState ender_log = ModBlocks.CUSTOM_LOG.getDefaultState().withProperty(CustomLog.VARIANT, CustomLogVariant.ENDER);
-		IBlockState olive_log = ModBlocks.CUSTOM_LOG.getDefaultState().withProperty(CustomLog.VARIANT, CustomLogVariant.OLIVE);
-		if (biome == ModBiomes.GIANT_MOUNTAIN) return new WorldGenTreeBark(ModBlocks.CUSTOM_LOG, snowy_log);
-		if (biome == ModBiomes.NETHER_CAVES) return new WorldGenTreeBark(ModBlocks.CUSTOM_LOG, maple_log);
-		if (biome == ModBiomes.ENDER_GARDEN) return new WorldGenTreeBark(ModBlocks.CUSTOM_LOG, ender_log);
-		if (biome == ModBiomes.CHAOS_LAND_BIOME) return new WorldGenTreeBark(ModBlocks.CUSTOM_LOG, olive_log);
+//		IBlockState maple_log = ModBlocks.CUSTOM_LOG.getDefaultState().withProperty(CustomLog.VARIANT, CustomLogVariant.MAPLE);
+//		IBlockState ender_log = ModBlocks.CUSTOM_LOG.getDefaultState().withProperty(CustomLog.VARIANT, CustomLogVariant.ENDER);
+//		IBlockState olive_log = ModBlocks.CUSTOM_LOG.getDefaultState().withProperty(CustomLog.VARIANT, CustomLogVariant.OLIVE);
+		if (biome == ModBiomes.DENSE_FOREST) return new WorldGenTreeBark(Blocks.LOG, birch);
+//		if (biome == ModBiomes.NETHER_CAVES) return new WorldGenTreeBark(ModBlocks.CUSTOM_LOG, maple_log);
+//		if (biome == ModBiomes.ENDER_GARDEN) return new WorldGenTreeBark(ModBlocks.CUSTOM_LOG, ender_log);
+//		if (biome == ModBiomes.CHAOS_LAND_BIOME) return new WorldGenTreeBark(ModBlocks.CUSTOM_LOG, olive_log);
 
 		if (matchNames(biome.getRegistryName(), PINK_FOREST)) {
 			Block cherry_log = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Reference.MATHSMOD, "cherry_log"));

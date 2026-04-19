@@ -1,6 +1,8 @@
 package net.chaos.chaosmod.commands;
 
 import net.chaos.chaosmod.commands.debug.CommandTestFishing;
+import net.chaos.chaosmod.commands.debug.SpeedCommand;
+import net.chaos.chaosmod.commands.debug.TpDimCommand;
 import net.chaos.chaosmod.commands.generation.LoadStructCommand;
 import net.chaos.chaosmod.commands.hunt.HuntCommand;
 import net.chaos.chaosmod.commands.jobs.JobsCommand;
@@ -38,8 +40,10 @@ public class CommandsManager {
 		new BackCommand(),
 		new BiomeCommand(),
 		new BiomesCommand(),
-		new CommandTestFishing()
-		);
+		new CommandTestFishing(),
+		new TpDimCommand(),
+		new SpeedCommand()
+	);
 
 		if (!Loader.isModLoaded(Reference.MATHSMOD)) {
 			register(event,

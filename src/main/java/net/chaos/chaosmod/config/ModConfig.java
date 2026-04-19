@@ -3,7 +3,6 @@ package net.chaos.chaosmod.config;
 import net.minecraftforge.common.config.Config;
 import util.Reference;
 
-// Not working must fix
 @Config(modid = Reference.MODID)
 public class ModConfig {
 	
@@ -55,6 +54,10 @@ public class ModConfig {
 		@Config.Name("Show ping")
 		@Config.Comment("Shows your ping on top right of the screen")
 		public boolean showPing = true;
+
+		@Config.Name("Player taunts")
+		@Config.Comment("Enable/Disable player taunts")
+		public boolean areTauntsEnabled = true;
 	}
 
 	public static class Server {

@@ -1,6 +1,6 @@
 package net.chaos.chaosmod.world.gen.nether;
 
-import net.chaos.chaosmod.init.ModBiomes;
+import net.minecraft.init.Biomes;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.biome.BiomeProviderSingle;
@@ -23,8 +23,7 @@ public class CustomHellProvider extends WorldProviderHell {
 
 	@Override
     public BiomeProvider getBiomeProvider() {
-        return new BiomeProviderSingle(ModBiomes.NETHER_CAVES); // for full replacement
-        // OR use your own BiomeProvider that returns multiple biomes based on x/z
+        return new BiomeProviderSingle(Biomes.HELL);
     }
 	
 	@Override
@@ -32,6 +31,4 @@ public class CustomHellProvider extends WorldProviderHell {
 		// TODO Auto-generated method stub
         return new CustomChunkGeneratorHell(this.world, this.world.getWorldInfo().isMapFeaturesEnabled(), this.world.getSeed());
 	}
-    // Optional: Add custom sky, fog, etc.
-
 }

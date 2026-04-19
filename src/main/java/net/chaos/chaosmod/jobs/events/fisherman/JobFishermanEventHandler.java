@@ -102,7 +102,7 @@ public class JobFishermanEventHandler {
 	            if (player == null) return false;
 	            Biome biome = context.getWorld().getBiome(player.getPosition());
 
-	            boolean result = biome == ModBiomes.GIANT_MOUNTAIN;
+	            boolean result = biome == ModBiomes.DENSE_FOREST;
 	            Main.getLogger().info("[ChaosMod] iglooCondition checked — biome: {}, result: {}", biome.getBiomeName(), result);
 	            return result;
 	        }

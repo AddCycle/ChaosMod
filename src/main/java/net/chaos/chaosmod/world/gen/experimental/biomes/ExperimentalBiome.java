@@ -7,7 +7,7 @@ public class ExperimentalBiome extends Biome {
 
 	public ExperimentalBiome() {
 		super(new BiomeProperties("Experimental Biome")
-				.setHeightVariation(0.01f)
+				.setHeightVariation(0.05f)
 				.setBaseHeight(0.125F)
 				.setRainDisabled());
 	}

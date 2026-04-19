@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import net.chaos.chaosmod.init.ModBiomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
@@ -18,7 +17,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 
 public class MapGenCustomVillage extends MapGenVillage {
-    public static final List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.COLD_TAIGA, Biomes.MUTATED_ICE_FLATS, Biomes.TAIGA, ModBiomes.GIANT_MOUNTAIN, ModBiomes.NETHER_CAVES, ModBiomes.ENDER_GARDEN, ModBiomes.CHAOS_LAND_BIOME);
+    public static final List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.COLD_TAIGA, Biomes.MUTATED_ICE_FLATS, Biomes.TAIGA);
 	/** None **/
 	private int size;
 	private int distance;

@@ -26,8 +26,6 @@ public class ExperimentalChunkGenerator implements IChunkGenerator {
 
     private final World world;
     private final Random rand;
-    private final int height;
-    private final IBlockState layers[] = new IBlockState[256];
     private NoiseGeneratorOctaves minLimitPerlinNoise;
     private NoiseGeneratorOctaves maxLimitPerlinNoise;
     private NoiseGeneratorOctaves mainPerlinNoise;
@@ -48,10 +46,9 @@ public class ExperimentalChunkGenerator implements IChunkGenerator {
     double[] maxLimitRegion;
     double[] depthRegion;
 
-	public ExperimentalChunkGenerator(World world, long seed, int height) {
+	public ExperimentalChunkGenerator(World world, long seed) {
 		this.world = world;
         this.rand = new Random(seed);
-		this.height = height;
         this.minLimitPerlinNoise = new NoiseGeneratorOctaves(this.rand, 16);
         this.maxLimitPerlinNoise = new NoiseGeneratorOctaves(this.rand, 16);
         this.mainPerlinNoise = new NoiseGeneratorOctaves(this.rand, 8);
@@ -74,16 +71,6 @@ public class ExperimentalChunkGenerator implements IChunkGenerator {
         this.settings = ChunkGeneratorSettings.Factory.jsonToFactory("").build();
         world.setSeaLevel(this.settings.seaLevel);
 
-//		initLayers();
-	}
-	
-	private void initLayers() {
-		int i = 0;
-		layers[i++] = Blocks.BEDROCK.getDefaultState();
-		while (i < height - 1) {
-			layers[i++] = Blocks.STONE.getDefaultState();
-		}
-		layers[i] = Blocks.GRASS.getDefaultState();
 	}
 
 	@Override

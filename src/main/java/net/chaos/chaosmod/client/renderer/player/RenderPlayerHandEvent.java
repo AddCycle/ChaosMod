@@ -1,50 +1,68 @@
 package net.chaos.chaosmod.client.renderer.player;
 
-import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.config.ModConfig;
 import net.chaos.chaosmod.init.ModKeybinds;
-import net.chaos.chaosmod.network.packets.PacketManager;
-import net.chaos.chaosmod.network.packets.PacketTaunt;
-import net.minecraft.client.model.ModelPlayer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent.Pre;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
+import util.Reference;
 
-// FIXME : Not working rn
-//@EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
+@EventBusSubscriber(modid = Reference.MODID)
 public class RenderPlayerHandEvent {
-	
+	private static boolean rendering = false;
+
 	@SubscribeEvent
 	public static void onKeyInput(KeyInputEvent event) {
+		pollTauntKeys();
+	}
 
+	private static void pollTauntKeys() {
+		if (!ModConfig.CLIENT.areTauntsEnabled) return;
+
+		int s = 20;
 		if (ModKeybinds.tauntX.isPressed()) {
-			PacketManager.network.sendToServer(new PacketTaunt(0));
+			ClientTauntManager.start(0, 5 * s);
 		} else if (ModKeybinds.tauntY.isPressed()) {
-			PacketManager.network.sendToServer(new PacketTaunt(1));
+			ClientTauntManager.start(1, 5 * s);
 		} else if (ModKeybinds.tauntZ.isPressed()) {
-			PacketManager.network.sendToServer(new PacketTaunt(2));
+			ClientTauntManager.start(2, 5 * s);
 		}
 	}
 
 	@SubscribeEvent
-	public static void onRenderHand(RenderPlayerEvent.Pre event) {
+	public static void onRenderPlayer(RenderPlayerEvent.Pre event) {
+		if (!ModConfig.CLIENT.areTauntsEnabled) return;
 
-		EntityPlayer player = event.getEntityPlayer();
+		if (rendering)
+			return;
 
-		int taunt = player.getEntityData().getInteger("taunt");
-		if (taunt < 0) return;
+		rendering = true;
+		renderCustomTaunts(event);
 
-		ModelPlayer model = event.getRenderer().getMainModel();
+		rendering = false;
+	}
 
-		if (taunt == 0) {
-			Main.getLogger().info("tauntx");
-	        model.bipedRightArm.rotateAngleX = (float) Math.toRadians(60);
-		} else if (taunt == 1) {
-			Main.getLogger().info("taunty");
-	        model.bipedRightArm.rotateAngleY = (float) Math.toRadians(60);
-	 	} else if (taunt == 2) {
-			Main.getLogger().info("tauntz");
-	        model.bipedRightArm.rotateAngleZ = (float) Math.toRadians(60);
-	 	}
+	private static void renderCustomTaunts(Pre event) {
+		event.setCanceled(true);
+
+		RenderManager manager = event.getRenderer().getRenderManager();
+
+		boolean useSmallArmsIn = event.getRenderer().smallArms;
+
+		CustomRenderPlayer custom = new CustomRenderPlayer(manager, useSmallArmsIn);
+
+		AbstractClientPlayer player = (AbstractClientPlayer) event.getEntityPlayer();
+
+		double x = event.getX();
+		double y = event.getY();
+		double z = event.getZ();
+		float yaw = player.rotationYaw;
+		float partialTicks = event.getPartialRenderTick();
+
+		custom.doRender(player, x, y, z, yaw, partialTicks);
 	}
 }
