@@ -40,6 +40,18 @@
 			"rewardExp": 200
 		},
 		{
+			"id": "tame_horse",
+			"name": "Tired of traveling ?",
+			"description": "Tame any Horse",
+			"type": "tame",
+			"target": {
+				"entity": "minecraft:horse",
+				"data": 0
+			},
+			"goal": 1,
+			"rewardExp": 250
+		},
+		{
 			"id": "tame_parrot",
 			"name": "Tame a Parrot",
 			"description": "Very hard good luck! (No further info)",
@@ -49,7 +61,7 @@
 				"data": 0
 			},
 			"goal": 1,
-			"rewardExp": 250
+			"rewardExp": 300
 		}
 	],
 	"levels": [
@@ -86,8 +98,8 @@
 		{
 			"level": 4,
 			"reward": {
-				"block": "chaosmod:enderite_block",
-				"amount": 10
+				"block": "minecraft:diamond_horse_armor",
+				"amount": 2
 			}
 		},
 		{

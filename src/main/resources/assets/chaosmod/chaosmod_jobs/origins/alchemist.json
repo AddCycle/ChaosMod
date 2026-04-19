@@ -1,11 +1,11 @@
 {
 	"id": "alchemist",
 	"name": "Alchemist",
-	"description": "The Witch is gonna hate you!",
+	"description": "The Witch is gonna hate you! [UNFINISHED]",
 	"tasks": [
 		{
 			"id": "brew_fire_regeneration",
-			"name": "Make Fire Regeneration Potion",
+			"name": "Make Fire Regeneration Potion (more tasks soon)",
 			"description": "Gather MathsMod's Denanium Flower",
 			"type": "brew",
 			"target": {

@@ -6,58 +6,58 @@
 		{
 			"id": "mine_cobblestone",
 			"name": "Gathering Cobblestone",
-			"description": "Start mining",
+			"description": "First mining some stone... (Boring !)",
 			"type": "mine",
 			"target": {
-				"block": "minecraft:cobblestone",
+				"block": "minecraft:stone",
 				"data": 0
 			},
 			"goal": 128,
 			"rewardExp": 100
 		},
 		{
-			"id": "mine_iron",
+			"id": "smelt_iron",
 			"name": "Advanced Miner",
-			"description": "Mine 32 Iron Ore",
-			"type": "mine",
+			"description": "Smelt 32 Iron Ore",
+			"type": "smelt",
 			"target": {
-				"block": "minecraft:iron_ore",
+				"block": "minecraft:iron_ingot",
 				"data": 0
 			},
 			"goal": 32,
 			"rewardExp": 150
 		},
 		{
-			"id": "mine_silver",
+			"id": "smelt_silver",
 			"name": "Enjoying Caves",
-			"description": "Mine 10 Silver Ore",
-			"type": "mine",
+			"description": "Smelt 10 Silver Ore",
+			"type": "smelt",
 			"target": {
-				"block": "mathsmod:silver_ore",
+				"block": "mathsmod:silver_ingot",
 				"data": 0
 			},
 			"goal": 10,
 			"rewardExp": 200
 		},
 		{
-			"id": "mine_allemanite",
+			"id": "smelt_allemanite",
 			"name": "Gotta travel around",
-			"description": "Go to Nether and mine 20 Allemanite",
-			"type": "mine",
+			"description": "Go to Nether and smelt 20 Allemanite",
+			"type": "smelt",
 			"target": {
-				"block": "chaosmod:allemanite_ore",
+				"block": "chaosmod:allemanite_ingot",
 				"data": 0
 			},
 			"goal": 20,
 			"rewardExp": 250
 		},
 		{
-			"id": "mine_kurayum",
+			"id": "smelt_kurayum",
 			"name": "Need to Go very very deep inside...",
-			"description": "Go to The End and mine 100 Kurayum (or Enderite (TO IMPLEMENT))",
-			"type": "mine",
+			"description": "Go to The End and smelt 100 Kurayum",
+			"type": "smelt",
 			"target": {
-				"block": "mathsmod:kurayum",
+				"block": "mathsmod:kurayum_ingot",
 				"data": 0
 			},
 			"goal": 100,

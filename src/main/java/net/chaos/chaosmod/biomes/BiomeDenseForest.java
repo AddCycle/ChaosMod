@@ -54,7 +54,7 @@ public class BiomeDenseForest extends Biome {
 		this.decorator.extraTreeChance = 2.0f;
 		
 		this.decorator.mushroomsPerChunk = 1;
-//		this.decorator.waterlilyPerChunk = 3; TODO : set waterlilys manually in replaceBiomeBlocks()
+//		this.decorator.waterlilyPerChunk = 3; TODO : set waterlilys manually in replaceBiomeBlocks() in like a custom pond/lake with pink big flowers around
 
 		this.topBlock = Blocks.GRASS.getDefaultState();
 		this.fillerBlock = Blocks.DIRT.getDefaultState();
@@ -147,7 +147,7 @@ public class BiomeDenseForest extends Biome {
 	public int getFoliageColorAtPos(BlockPos pos) {
 		double scale = 0.01;
 		double noise = (1 + GRASS_COLOR_NOISE.getValue(pos.getX() * scale, pos.getZ() * scale)) / 2;
-		int green = (int) MathHelper.clamp(noise * 255, 100, 200);
+		int green = (int) MathHelper.clamp(noise * 255, 125, 200);
 		return green << 8;
 	}
 	

@@ -8,6 +8,7 @@ public enum TaskType {
 	CATCH("catch"), // fisherman
 	BREW("brew"), // alchemist
 	MINE("mine"), // miner
+	SMELT("smelt"),
 	TRAVEL("travel");
     
     public String name;

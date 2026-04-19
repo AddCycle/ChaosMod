@@ -1,14 +1,14 @@
 # Changelog 1.0.16
 
 TODO (WorldGen):
-  - rename: dense forest (it's the natural biome (make it generate cobblestone spikes and only 1 type of tree but very dense or high))
-  - Rework biomes (giant_mountains, ender_garden, chaosland_biome, hell_biome)
+  - priority: add animals & mobs inside the `dense_forest` biome
+  - Rework biomes (ender_garden, chaosland_biome, hell_biome) or completely remove them for other biome types
   - Removed the boss altars in order to put them inside the later-made structures (do not forget before release)
-  - (advanced) add underground biomes with vines and decoration
+  - (advanced) add underground (biomes or caves) with vines and decoration
   - (advanced) make a sky island biome
 
 TODO (JOBS):
-  - Make a button the claim global task reward so if players are offline they still gets the reward
+  - Make a button the claim global task reward so if players are offline they still get the reward [!!!! REALLY NEEDED !!!!]
   - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST
   - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 just make the remaining tasks upwards] [DOING]
@@ -38,7 +38,6 @@ PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
 
 IDEAS:
-  - add taunts (need to know how to swap the player model or just setRotationAngles modification of the basic model (to animate taunts))
   - make the end or nether disabled until a specific accomplishement is reached
   - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
   - Add an exclusive item, player tracking compass or biome tracking compass (for the hunt or exclusive to jobs)
@@ -89,7 +88,6 @@ TODO (next version) ?:
   - SwordOfWrath needs to target the entity if the player hits it
 
 ISSUES:
-  - MAJOR: blocks can be replaced an harvested again granting exp continuously for associated JOB (solution: make them smelt the items (miner big issue))
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tameable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too))
   - EntityViking clearing inventory on right-click and kills you...
@@ -97,7 +95,7 @@ ISSUES:
   - Sword Of Wrath orientation towards monster attacked (fix animations)
   - Cascading worldgen lag for generated structures... (seems fixed for now I will let it here as I will add more huge structures later)
 
-REFACTOR (need):
+REFACTOR (when needed):
   - entity package
   - DimensionWarpCommand
 
@@ -125,6 +123,7 @@ New:
   - feat: add `shared_tasks` with common progress (communism)
   - feat: `fertilized_water` works with mathsmod flowers & colorized with green
   - feat: `/locate` command replaced sending a TELEPORT message to the structure location
+  - feat: added 3 `taunts`
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
