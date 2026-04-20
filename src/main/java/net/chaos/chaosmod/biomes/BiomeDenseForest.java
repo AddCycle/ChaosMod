@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.chaos.chaosmod.biomes.gen.treegen.WorldGenRootTree;
 import net.chaos.chaosmod.biomes.gen.treegen.WorldGenTallBirchTree;
+import net.chaos.chaosmod.entity.animal.EntityBear;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;
@@ -44,7 +45,7 @@ public class BiomeDenseForest extends Biome {
 	public static final IBlockState COARSE_DIRT = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
 
 	public BiomeDenseForest() {
-		super(new Biome.BiomeProperties("Density Forest")
+		super(new Biome.BiomeProperties("Dense Forest")
 			.setBaseHeight(Biomes.PLAINS.getBaseHeight())
 			.setHeightVariation(0.1F)
 			.setTemperature(0.4F)
@@ -62,6 +63,7 @@ public class BiomeDenseForest extends Biome {
 		this.spawnableMonsterList.clear();
 		this.spawnableCreatureList.clear();
 
+        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityBear.class, 4, 1, 2));
 		this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 2, 2, 4));
 
 		this.flowers.clear();

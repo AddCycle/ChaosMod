@@ -38,7 +38,7 @@ public class JobMinerEventHandler {
 		if (id == null)
 			return;
 		
-		JobEventUtils.incrementRelatedMatchingTasks(id, TaskType.SMELT, TargetType.ITEM, JOB_ID, event.player);
+		JobEventUtils.incrementRelatedMatchingTasksByCount(id, TaskType.SMELT, TargetType.ITEM, JOB_ID, event.player, event.smelting.getCount());
 	}
 
 }

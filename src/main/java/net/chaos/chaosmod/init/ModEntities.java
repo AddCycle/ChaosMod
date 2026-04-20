@@ -10,6 +10,7 @@ import net.chaos.chaosmod.entity.EntitySphere;
 import net.chaos.chaosmod.entity.EntitySwordOfWrath;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
+import net.chaos.chaosmod.entity.animal.EntityBear;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
@@ -53,7 +54,10 @@ public class ModEntities {
 				new EntityFactory("entity_sphere", EntitySphere.class, Reference.ENTITY_SPHERE,
 						Colors.BLACK, Colors.WHITE),
 				new EntityFactory("sword_of_wrath", EntitySwordOfWrath.class, Reference.ENTITY_SWORD_OF_WRATH,
-						Colors.RED, Colors.ORANGE));
+						Colors.RED, Colors.ORANGE),
+				new EntityFactory("bear", EntityBear.class, Reference.ENTITY_BEAR,
+						Colors.BROWN, Colors.ORANGE)
+				);
 	}
 
 	private static void registerEntities(EntityFactory... factories) {

@@ -147,6 +147,19 @@ public class JobEventUtils {
 	 * @param player
 	 */
 	public static void incrementRelatedMatchingTasks(ResourceLocation id, TaskType taskType, TargetType targetType, String jobId, EntityPlayer player) {
+		incrementRelatedMatchingTasksByCount(id, taskType, targetType, jobId, player, 1);
+	}
+
+	/**
+	 * If the target == id, then increment task
+	 * @param id			registryName
+	 * @param taskType
+	 * @param targetType
+	 * @param jobId			ex: "chaosmod:tamer"
+	 * @param player
+	 * @param amount
+	 */
+	public static void incrementRelatedMatchingTasksByCount(ResourceLocation id, TaskType taskType, TargetType targetType, String jobId, EntityPlayer player, int amount) {
 		if (player.getEntityWorld().isRemote) return;
 
 		Collection<JobTask> tasks = JobsManager.TASK_MANAGER.getTasks(jobId);
@@ -162,7 +175,7 @@ public class JobEventUtils {
 				continue;
 
 			if (id.toString().equals(task.target.target)) {
-				incrementTask((EntityPlayerMP) player, jobId, task.id);
+				incrementTask((EntityPlayerMP) player, jobId, task.id, amount);
 			}
 		}
 	}

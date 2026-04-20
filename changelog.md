@@ -1,15 +1,15 @@
 # Changelog 1.0.16
 
 TODO (WorldGen):
-  - priority: add animals & mobs inside the `dense_forest` biome
+  - priority: add animals & mobs inside the `dense_forest` biome (idea: parrots maybe with like 2/3 variants too & make them wear armors & attack for you like wolfs would do + if they wear an armor make the hurt sound a bit changed)
   - Rework biomes (ender_garden, chaosland_biome, hell_biome) or completely remove them for other biome types
   - Removed the boss altars in order to put them inside the later-made structures (do not forget before release)
-  - (advanced) add underground (biomes or caves) with vines and decoration
+  - (advanced) add underground (biomes or caves) with vines and decoration and more minerals
   - (advanced) make a sky island biome
+  - animals ideas: kangaroos (magma cube jump animations to look for, monkey, castor, vautour(desert), pheonix, hog)
 
 TODO (JOBS):
   - Make a button the claim global task reward so if players are offline they still get the reward [!!!! REALLY NEEDED !!!!]
-  - Make all the jobs tasks & rewards from level 1 -> 5 : ALCHEMIST
   - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 just make the remaining tasks upwards] [DOING]
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
@@ -23,7 +23,6 @@ TODO (JOBS):
   - Add bedrock bridging feature [TODO] or bridge placer (DONE) (for travelers I think)
   - Add `traveler` job task `structures` discovery later... (using isInsideStructure method inside the generation)
   - allow `/locate` to find custom structures added by mathsmod & chaosmod
-  - Attack world generation in a dimension to train then the overworld, first try to make advanced trees then we'll talk...
   - Get rid of patchouli API to make my own information book (might take some time but more reliable since it doesn't require any dependencies)
   - add a spelunkery table which requires translation like (alex's cave mod)
 
@@ -33,6 +32,10 @@ TODO (Bosses):
   - 3: add a boss that spawns requires the special loot
   - 4: replicate and add variety
   - 5: they loot a good weapon or an armor piece that does something more (or just quest reward (every player gets it))
+
+TODO (rework):
+  - make the items upgrades instead of crafting others: oxonium -> forge -> allemanite -> forge -> enderite -> forge -> solarite and so on...
+  - make the swords block attacks by right-clicking holding them (pre-1.9 pvp)
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
@@ -124,6 +127,8 @@ New:
   - feat: `fertilized_water` works with mathsmod flowers & colorized with green
   - feat: `/locate` command replaced sending a TELEPORT message to the structure location
   - feat: added 3 `taunts`
+  - feat: added `dense_forest` biome
+  - feat: added `bear` spawn with variants
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
