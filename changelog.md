@@ -1,12 +1,13 @@
 # Changelog 1.0.16
 
 TODO (WorldGen):
+  - add vulture (todo: animations & ai)
   - priority: add animals & mobs inside the `dense_forest` biome (idea: parrots maybe with like 2/3 variants too & make them wear armors & attack for you like wolfs would do + if they wear an armor make the hurt sound a bit changed)
   - Rework biomes (ender_garden, chaosland_biome, hell_biome) or completely remove them for other biome types
   - Removed the boss altars in order to put them inside the later-made structures (do not forget before release)
   - (advanced) add underground (biomes or caves) with vines and decoration and more minerals
   - (advanced) make a sky island biome
-  - animals ideas: kangaroos (magma cube jump animations to look for, monkey, castor, vautour(desert), pheonix, hog)
+  - animals ideas: kangaroos (magma cube jump animations to look for, monkey, castor, vautours(desert), pheonix, hog)
 
 TODO (JOBS):
   - Make a button the claim global task reward so if players are offline they still get the reward [!!!! REALLY NEEDED !!!!]

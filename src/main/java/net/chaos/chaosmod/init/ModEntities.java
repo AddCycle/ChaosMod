@@ -11,6 +11,7 @@ import net.chaos.chaosmod.entity.EntitySwordOfWrath;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.animal.EntityBear;
+import net.chaos.chaosmod.entity.animal.EntityVulture;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
@@ -19,12 +20,18 @@ import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import util.Colors;
 import util.Reference;
 
 public class ModEntities {
+	
+	public static void registerEntitySpawn() {
+		EntityRegistry.addSpawn(EntityVulture.class, 10, 3, 5, EnumCreatureType.CREATURE, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.MESA, Biomes.MESA_CLEAR_ROCK, Biomes.MESA_ROCK, Biomes.MUTATED_MESA, Biomes.MUTATED_MESA_CLEAR_ROCK, Biomes.MUTATED_MESA_ROCK);
+	}
 
 	public static void registerEntities() {
 		registerEntities(
@@ -56,8 +63,12 @@ public class ModEntities {
 				new EntityFactory("sword_of_wrath", EntitySwordOfWrath.class, Reference.ENTITY_SWORD_OF_WRATH,
 						Colors.RED, Colors.ORANGE),
 				new EntityFactory("bear", EntityBear.class, Reference.ENTITY_BEAR,
-						Colors.BROWN, Colors.ORANGE)
+						Colors.BROWN, Colors.ORANGE),
+				new EntityFactory("vulture", EntityVulture.class, Reference.ENTITY_VULTURE,
+						Colors.BROWN, Colors.RED)
 				);
+		
+		registerEntitySpawn();
 	}
 
 	private static void registerEntities(EntityFactory... factories) {

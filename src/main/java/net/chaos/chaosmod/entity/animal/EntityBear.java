@@ -2,6 +2,7 @@ package net.chaos.chaosmod.entity.animal;
 
 import javax.annotation.Nullable;
 
+import net.chaos.chaosmod.items.food.fish.CustomFishFood;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -21,6 +22,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -36,6 +38,12 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * TODO : implement tame (with honey or fish) (extends EntityTameable implements IEntityOwnable)
+ * TODO : implement sit & follow_player (ai)
+ * TODO : implement attack (ai)
+ * TODO : implement wear an armor (layer)
+ */
 public class EntityBear extends EntityAnimal {
     private static final DataParameter<Boolean> IS_STANDING = EntityDataManager.<Boolean>createKey(EntityBear.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> VARIANT = EntityDataManager.<Integer>createKey(EntityBear.class, DataSerializers.VARINT);
@@ -47,11 +55,21 @@ public class EntityBear extends EntityAnimal {
     {
         super(world);
         this.setSize(1.3F, 1.4F);
+        this.setVariant(EnumVariant.values()[rand.nextInt(EnumVariant.values().length)]);
+    }
+
+    public EntityBear(World world, int fatherVariant)
+    {
+        super(world);
+        this.setSize(1.3F, 1.4F);
+        this.setVariant(EnumVariant.values()[fatherVariant]);
     }
 
     public EntityAgeable createChild(EntityAgeable ageable)
     {
-        return new EntityBear(this.world);
+    	boolean mutation = rand.nextInt(20) == 0;
+    	int variant = mutation ? EnumVariant.getOtherVariant(this.getVariant()) : this.getVariant();
+        return new EntityBear(this.world, variant);
     }
 
     /**
@@ -60,7 +78,8 @@ public class EntityBear extends EntityAnimal {
      */
     public boolean isBreedingItem(ItemStack stack)
     {
-        return false;
+        return (stack.getItem() instanceof CustomFishFood)
+        	|| (stack.getItem() instanceof ItemFishFood);
     }
 
     protected void initEntityAI()
@@ -379,5 +398,10 @@ public class EntityBear extends EntityAnimal {
     	EnumVariant(int id) {
     		this.id = id;
 		}
+    	
+    	// TODO : if more variants are added, needs to change otherwise might cause issues
+    	public static int getOtherVariant(int variant) {
+    		return 1 - variant;
+    	}
     }
 }
