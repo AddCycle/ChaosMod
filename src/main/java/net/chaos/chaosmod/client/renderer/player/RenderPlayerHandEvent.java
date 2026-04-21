@@ -9,9 +9,11 @@ import net.minecraftforge.client.event.RenderPlayerEvent.Pre;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
 
-@EventBusSubscriber(modid = Reference.MODID)
+@EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class RenderPlayerHandEvent {
 	private static boolean rendering = false;
 
@@ -20,6 +22,7 @@ public class RenderPlayerHandEvent {
 		pollTauntKeys();
 	}
 
+	@SideOnly(Side.CLIENT)
 	private static void pollTauntKeys() {
 		if (!ModConfig.CLIENT.areTauntsEnabled) return;
 
@@ -46,6 +49,7 @@ public class RenderPlayerHandEvent {
 		rendering = false;
 	}
 
+	@SideOnly(Side.CLIENT)
 	private static void renderCustomTaunts(Pre event) {
 		event.setCanceled(true);
 

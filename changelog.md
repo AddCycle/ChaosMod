@@ -7,16 +7,17 @@ TODO (WorldGen):
   - Removed the boss altars in order to put them inside the later-made structures (do not forget before release)
   - (advanced) add underground (biomes or caves) with vines and decoration and more minerals
   - (advanced) make a sky island biome
-  - animals ideas: kangaroos (magma cube jump animations to look for, monkey, castor, vautours(desert), pheonix, hog)
+  - (advanced) make a magma/fire biome with fire creatures
+  - animals ideas: kangaroos (magma cube jump animations to look for, monkey, castor, pheonix, hog)
 
 TODO (JOBS):
+  - add scoreboard of current shared task (polish the design of the gui)
   - Make a button the claim global task reward so if players are offline they still get the reward [!!!! REALLY NEEDED !!!!]
   - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 just make the remaining tasks upwards] [DOING]
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
-  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market)
+  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market) or cut picsou entity for a better one
   - Make a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
-  - Add a scoreboard of the most leveled up players per job ranking gui (individual + for common tasks)
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
   - Add UI toast upon task completion
   - Look at structurecomponentendtemplate
@@ -130,6 +131,7 @@ New:
   - feat: added 3 `taunts`
   - feat: added `dense_forest` biome
   - feat: added `bear` spawn with variants
+  - feat: jobs `tasks_progress` are now shared between players for competition
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

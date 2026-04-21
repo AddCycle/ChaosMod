@@ -76,7 +76,7 @@ public class TaskListEntry {
 
     private int resolveProgress() {
         if (task.shared) {
-            return ClientSharedTaskCache.getProgress(job.id, task.id);
+            return ClientSharedTaskCache.getTaskProgress(job.id, task.id);
         }
         if (jobs == null) return 0;
         JobProgress progress = jobs.getProgress(job.id);

@@ -58,7 +58,7 @@ public class JobEventUtils {
 		if (task.shared) {
 		    SharedTaskProgress sharedProgress = SharedTaskProgress.get(world);
 		    if (sharedProgress != null) {
-		        sharedProgress.incrementTask(server, player.getServerWorld(), jobId, taskId, amount);
+		    	sharedProgress.incrementTask(server, world, jobId, taskId, amount, player.getPersistentID()); // pass uuid
 		        // marks WorldSavedData dirty so it saves
 		        world.getMapStorage().getOrLoadData(SharedTaskProgressData.class, SharedTaskProgressData.NAME).markDirty();
 		    }
@@ -67,6 +67,9 @@ public class JobEventUtils {
 		}
 
 		Main.getLogger().info("Job done, incrementing task: [{}:{}]", jobid, taskId);
+
+		/* Players ranking relative to each other (sync to world disk) */
+		PlayerJobsSyncEvents.onJobProgressChanged(player);
 	}
 	
 	public static JobTask getTask(String jobId, String taskId) {

@@ -1,5 +1,9 @@
 package net.chaos.chaosmod.client.renderer.player;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public class ClientTauntManager {
 	public static int taunt = -1;
 	public static int tauntTicks;

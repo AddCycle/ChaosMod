@@ -117,7 +117,7 @@ public class GuiScreenJob extends GuiScreen {
 
     	for (TaskListEntry entry : entries) {
     	    if (entry.isMouseOver(mouseX, mouseY)) {
-    	        mc.displayGuiScreen(new GuiScreenTask(this, entry.getTask()));
+    	        mc.displayGuiScreen(new GuiScreenTask(this, entry.getTask(), job.id));
     	    }
     	}
     }
