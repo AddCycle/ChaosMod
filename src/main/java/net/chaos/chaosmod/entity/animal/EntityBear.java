@@ -157,7 +157,7 @@ public class EntityBear extends EntityTameable {
         super.entityInit();
         this.dataManager.register(IS_STANDING, Boolean.valueOf(false));
         this.dataManager.register(VARIANT, rand.nextInt(EnumVariant.values().length));
-        this.dataManager.register(SIT_POSE, 0);
+        this.dataManager.register(SIT_POSE, rand.nextInt(3));
     }
     
     @Override
@@ -289,7 +289,7 @@ public class EntityBear extends EntityTameable {
     }
 
     private void setSittingWithAnimation(boolean b) {
-    	this.dataManager.set(SIT_POSE, rand.nextInt(2)); // 0 or 1
+    	this.dataManager.set(SIT_POSE, rand.nextInt(3)); // 0 or 1
     	this.aiSit.setSitting(b);
     }
 

@@ -55,16 +55,41 @@ public class ModelBear extends ModelPolarBear {
 
 		if (entitybear.isSitting()) {
 
-			if (entitybear.getSitPose() == 0) {
+			int pose = entitybear.getSitPose();
+			if (pose == 0) {
 				layDownLegsStretching();
-			} else {
+			} else if (pose == 1){
 				sitLegsCrossedLying();
+			} else {
+				sitOnGroundStraight();
 			}
 		} else {
 			resetBody();
 			resetHead();
 			resetLegs();
 		}
+	}
+
+	private void sitOnGroundStraight() {
+		float offsetY = 0.5F;
+		this.body.offsetY = offsetY;
+		this.head.offsetY = offsetY;
+
+		this.leg1.rotateAngleZ = (float) Math.PI / 2;
+		this.leg1.rotateAngleX = (float) Math.PI / 3;
+		this.leg1.offsetY = offsetY;
+
+		this.leg2.rotateAngleZ = -(float) Math.PI / 2;
+		this.leg2.rotateAngleX = (float) Math.PI / 3;
+		this.leg2.offsetY = offsetY;
+
+		this.leg3.rotateAngleZ = (float) Math.PI / 2;
+		this.leg3.rotateAngleX = -(float) Math.PI / 3;
+		this.leg3.offsetY = offsetY;
+
+		this.leg4.rotateAngleZ = -(float) Math.PI / 2;
+		this.leg4.rotateAngleX = -(float) Math.PI / 3;
+		this.leg4.offsetY = offsetY;
 	}
 
 	private void layDownLegsStretching() {
