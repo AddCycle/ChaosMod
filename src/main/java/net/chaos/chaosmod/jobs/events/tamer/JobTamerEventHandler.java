@@ -1,5 +1,6 @@
 package net.chaos.chaosmod.jobs.events.tamer;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.jobs.TargetType;
 import net.chaos.chaosmod.jobs.events.JobEventUtils;
 import net.chaos.chaosmod.jobs.task.TaskType;
@@ -27,5 +28,7 @@ public class JobTamerEventHandler {
 			return;
 
 		JobEventUtils.incrementRelatedMatchingTasks(id, TaskType.TAME, TargetType.ENTITY, JOB_ID, player);
+		
+		Main.getLogger().info("player tamed : {}", id.toString());
 	}	
 }

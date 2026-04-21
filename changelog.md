@@ -16,17 +16,18 @@ TODO (JOBS):
   - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins
   - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 just make the remaining tasks upwards] [DOING]
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
-  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market) or cut picsou entity for a better one
+  - Look at structurecomponentendtemplate
+  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
+
+  - Add bedrock bridging feature [TODO] or bridge placer (DONE) (for travelers I think)
+  - add a spelunkery table which requires translation like (alex's cave mod)
+  - Add `traveler` job task `structures` discovery later... (using isInsideStructure method inside the generation)
+  - allow `/locate` to find custom structures added by mathsmod & chaosmod
   - Make a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
   - Add UI toast upon task completion
-  - Look at structurecomponentendtemplate
-  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
-  - Add bedrock bridging feature [TODO] or bridge placer (DONE) (for travelers I think)
-  - Add `traveler` job task `structures` discovery later... (using isInsideStructure method inside the generation)
-  - allow `/locate` to find custom structures added by mathsmod & chaosmod
   - Get rid of patchouli API to make my own information book (might take some time but more reliable since it doesn't require any dependencies)
-  - add a spelunkery table which requires translation like (alex's cave mod)
+  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market) or cut picsou entity for a better one
 
 TODO (Bosses):
   - 1: add a biome
@@ -130,7 +131,7 @@ New:
   - feat: `/locate` command replaced sending a TELEPORT message to the structure location
   - feat: added 3 `taunts`
   - feat: added `dense_forest` biome
-  - feat: added `bear` spawn with variants
+  - feat: added `bear` spawn with variants (tameable with various `sitting_poses`)
   - feat: jobs `tasks_progress` are now shared between players for competition
 
 Changes:

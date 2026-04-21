@@ -2,7 +2,6 @@ package net.chaos.chaosmod.client.model;
 
 import net.chaos.chaosmod.client.renderer.player.ClientTauntManager;
 import net.minecraft.client.model.ModelPlayer;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.fml.relauncher.Side;
@@ -61,11 +60,5 @@ public class CustomPlayerModel extends ModelPlayer {
 		this.bipedRightArm.rotateAngleZ = (float) Math.toRadians(30);
 		this.bipedLeftArm.rotateAngleX = (float) Math.toRadians(-30);
 		this.bipedLeftArm.rotateAngleZ = (float) Math.toRadians(30);
-	}
-
-	private static void copyModelAnglesOnly(ModelRenderer source, ModelRenderer dest) {
-		dest.rotateAngleX = source.rotateAngleX;
-		dest.rotateAngleY = source.rotateAngleY;
-		dest.rotateAngleZ = source.rotateAngleZ;
 	}
 }

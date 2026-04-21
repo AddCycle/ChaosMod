@@ -2,7 +2,6 @@ package net.chaos.chaosmod.entity.animal;
 
 import javax.annotation.Nullable;
 
-import net.chaos.chaosmod.items.food.fish.CustomFishFood;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -16,18 +15,21 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIPanic;
+import net.minecraft.entity.ai.EntityAISit;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -35,6 +37,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -44,25 +47,28 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * TODO : implement attack (ai)
  * TODO : implement wear an armor (layer)
  */
-public class EntityBear extends EntityAnimal {
+public class EntityBear extends EntityTameable {
     private static final DataParameter<Boolean> IS_STANDING = EntityDataManager.<Boolean>createKey(EntityBear.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> VARIANT = EntityDataManager.<Integer>createKey(EntityBear.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> SIT_POSE = EntityDataManager
+    	    .<Integer>createKey(EntityBear.class, DataSerializers.VARINT);
     private float clientSideStandAnimation0;
     private float clientSideStandAnimation;
     private int warningSoundTicks;
+	private EntityAITempt aiTempt;
 
     public EntityBear(World world)
     {
         super(world);
         this.setSize(1.3F, 1.4F);
-        this.setVariant(EnumVariant.values()[rand.nextInt(EnumVariant.values().length)]);
+        this.setVariant(EnumVariant.get(rand.nextInt(EnumVariant.values().length)));
     }
 
     public EntityBear(World world, int fatherVariant)
     {
         super(world);
         this.setSize(1.3F, 1.4F);
-        this.setVariant(EnumVariant.values()[fatherVariant]);
+        this.setVariant(EnumVariant.get(fatherVariant));
     }
 
     public EntityAgeable createChild(EntityAgeable ageable)
@@ -78,16 +84,21 @@ public class EntityBear extends EntityAnimal {
      */
     public boolean isBreedingItem(ItemStack stack)
     {
-        return (stack.getItem() instanceof CustomFishFood)
-        	|| (stack.getItem() instanceof ItemFishFood);
+//        return (stack.getItem() instanceof CustomFishFood)
+//        	|| (stack.getItem() instanceof ItemFishFood);
+    	return false;
     }
 
     protected void initEntityAI()
     {
         super.initEntityAI();
+        this.aiSit = new EntityAISit(this);
+        this.aiTempt = new EntityAITempt(this, 1.0D, Items.FISH, false);
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityBear.AIMeleeAttack());
         this.tasks.addTask(1, new EntityBear.AIPanic());
+        this.tasks.addTask(2, this.aiSit);
+        this.tasks.addTask(3, this.aiTempt);
         this.tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
         this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
@@ -146,6 +157,48 @@ public class EntityBear extends EntityAnimal {
         super.entityInit();
         this.dataManager.register(IS_STANDING, Boolean.valueOf(false));
         this.dataManager.register(VARIANT, rand.nextInt(EnumVariant.values().length));
+        this.dataManager.register(SIT_POSE, 0);
+    }
+    
+    @Override
+    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+
+        if (this.isTamed())
+        {
+            if (this.isOwner(player) && !this.world.isRemote && !this.isBreedingItem(itemstack))
+            {
+            	setSittingWithAnimation(!this.isSitting());
+            }
+        }
+        else if ((this.aiTempt == null || this.aiTempt.isRunning()) && itemstack.getItem() == Items.FISH && player.getDistanceSq(this) < 9.0D)
+        {
+            if (!player.capabilities.isCreativeMode)
+            {
+                itemstack.shrink(1);
+            }
+
+            if (!this.world.isRemote)
+            {
+                if (this.rand.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, player))
+                {
+                    this.setTamedBy(player);
+//                    this.setTameSkin(1 + this.world.rand.nextInt(3));
+                    this.playTameEffect(true);
+                    setSittingWithAnimation(true);
+                    this.world.setEntityState(this, (byte)7);
+                }
+                else
+                {
+                    this.playTameEffect(false);
+                    this.world.setEntityState(this, (byte)6);
+                }
+            }
+
+            return true;
+        }
+
+    	return super.processInteract(player, hand);
     }
 
     /**
@@ -172,6 +225,24 @@ public class EntityBear extends EntityAnimal {
         if (this.warningSoundTicks > 0)
         {
             --this.warningSoundTicks;
+        }
+    }
+    
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+
+        if (this.isEntityInvulnerable(source))
+        {
+            return false;
+        }
+        else
+        {
+            if (this.aiSit != null)
+            {
+                this.aiSit.setSitting(false);
+            }
+
+            return super.attackEntityFrom(source, amount);
         }
     }
 
@@ -211,6 +282,15 @@ public class EntityBear extends EntityAnimal {
     public float getStandingAnimationScale(float p_189795_1_)
     {
         return (this.clientSideStandAnimation0 + (this.clientSideStandAnimation - this.clientSideStandAnimation0) * p_189795_1_) / 6.0F;
+    }
+    
+    public int getSitPose() {
+    	return this.dataManager.get(SIT_POSE);
+    }
+
+    private void setSittingWithAnimation(boolean b) {
+    	this.dataManager.set(SIT_POSE, rand.nextInt(2)); // 0 or 1
+    	this.aiSit.setSitting(b);
     }
 
     protected float getWaterSlowDown()
@@ -402,6 +482,11 @@ public class EntityBear extends EntityAnimal {
     	// TODO : if more variants are added, needs to change otherwise might cause issues
     	public static int getOtherVariant(int variant) {
     		return 1 - variant;
+    	}
+    	
+    	public static EnumVariant get(int variant) {
+    		if (variant == 0) return BROWN;
+    		return BROWN;
     	}
     }
 }

@@ -101,26 +101,40 @@ public class GuiScreenTask extends GuiScreen {
             for (Map.Entry<UUID, Integer> entry : contributions.entrySet()) {
                 String name = ClientJobsCache.INSTANCE.getName(entry.getKey()); // reuse name cache
                 this.fontRenderer.drawString(name + ": " + entry.getValue(), startX, yOffset, 0xAAAAAA);
+
+//                float percentage = (float) entry.getValue() / (float) task.goal;
+                float percentage = (float) Math.log(entry.getValue() + 1) / (float) Math.log(task.goal + 1);
+                drawProgressBar(startX + 100, yOffset, 100, 30, percentage, 0xff00cf00, 0xff001f00);
                 yOffset += 10;
             }
+            
         } else {
             for (Map.Entry<UUID, PlayerJobs> entry : ClientJobsCache.INSTANCE.getAll().entrySet()) {
                 String name = ClientJobsCache.INSTANCE.getName(entry.getKey());
                 int progress = entry.getValue().getProgress(jobId).getTaskProgress(task.id);
                 this.fontRenderer.drawString(name + ": " + progress + "/" + task.goal, startX, yOffset, 0xAAAAAA);
+                float percentage = (float) progress / (float) task.goal;
+                drawProgressBar(startX + 100, yOffset, 100, 30, percentage, 0xff00cf00, 0xff001f00);
                 yOffset += 10;
             }
         }
-//        Map<UUID, PlayerJobs> allJobs = ClientJobsCache.INSTANCE.getAll();
-//        for (Map.Entry<UUID, PlayerJobs> entry : allJobs.entrySet()) {
-//            String playerName = ClientJobsCache.INSTANCE.getName(entry.getKey());
-//            int progress = entry.getValue().getProgress(jobId).getTaskProgress(task.id);
-//            String line = playerName + ": " + progress;
-//            this.fontRenderer.drawString(line, startX, yOffset, 0xAAAAAA);
-//            yOffset += 10;
-//        }
 
     	super.drawScreen(mouseX, mouseY, partialTicks);
+    }
+
+    /**
+     * Draws jobs level progress bar until next level
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param percentage 		between 0f and 1f
+     * @param color1 			startColor (ARGB)
+     * @param color2 			endColor (ARGB)
+     */
+    private void drawProgressBar(int x, int y, int width, int height, float percentage, int color1, int color2) {
+    	drawRect(x, y, x + width, y + height, 0xff000000);
+    	drawGradientRect(x, y, x + (int) (percentage * width), y + height, color1, color2);
     }
 
     private void drawSplitString(String text, int x, int y, int width, int color) {
