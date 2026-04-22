@@ -1,33 +1,35 @@
 # Changelog 1.0.16
 
 TODO (WorldGen):
+  - priority: add animals & mobs inside the `dense_forest` biome (bears: todo wear armors & attack for you like wolfs would do + detail: have something in their mouth sometimes)
   - add vulture (todo: animations & ai)
-  - priority: add animals & mobs inside the `dense_forest` biome (idea: parrots maybe with like 2/3 variants too & make them wear armors & attack for you like wolfs would do + if they wear an armor make the hurt sound a bit changed)
   - Rework biomes (ender_garden, chaosland_biome, hell_biome) or completely remove them for other biome types
   - Removed the boss altars in order to put them inside the later-made structures (do not forget before release)
   - (advanced) add underground (biomes or caves) with vines and decoration and more minerals
   - (advanced) make a sky island biome
   - (advanced) make a magma/fire biome with fire creatures
-  - animals ideas: kangaroos (magma cube jump animations to look for, monkey, castor, pheonix, hog)
+  - animals ideas: kangaroos (magma cube jump animations to look for), monkey, beaver, pheonix, hog
 
 TODO (JOBS):
+  - Make a separate button that leads to the sharedTasks display with ranking & other things inchaa'Allah
+  (POLISH)
   - add scoreboard of current shared task (polish the design of the gui)
   - Make a button the claim global task reward so if players are offline they still get the reward [!!!! REALLY NEEDED !!!!]
-  - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins
-  - Jobs & Task (Quest) systems (1: refactor, 2: planning, 3: implement, 4: test, 5: polish) [DONE 3 just make the remaining tasks upwards] [DOING]
+
+  - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins + testing
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
   - Look at structurecomponentendtemplate
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
 
-  - Add bedrock bridging feature [TODO] or bridge placer (DONE) (for travelers I think)
-  - add a spelunkery table which requires translation like (alex's cave mod)
+  - Add bedrock bridging feature [TODO] (for travelers I think)
+  - add a spelunkery table which requires translation like (alex's cave mod) (travelers I think to find coords of the structures or buried treasures (traveler job))
   - Add `traveler` job task `structures` discovery later... (using isInsideStructure method inside the generation)
   - allow `/locate` to find custom structures added by mathsmod & chaosmod
   - Make a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
   - Add UI toast upon task completion
   - Get rid of patchouli API to make my own information book (might take some time but more reliable since it doesn't require any dependencies)
-  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market) or cut picsou entity for a better one
+  - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market) or cut picsou entity for a better one (idea: racoon that sneaks into bases & steals from players chests)
 
 TODO (Bosses):
   - 1: add a biome
@@ -39,6 +41,7 @@ TODO (Bosses):
 TODO (rework):
   - make the items upgrades instead of crafting others: oxonium -> forge -> allemanite -> forge -> enderite -> forge -> solarite and so on...
   - make the swords block attacks by right-clicking holding them (pre-1.9 pvp)
+  - remake armors (enderite_texture: more like a crying obsidian or maybe just remove it and go crying_obsidian_armor) + give them effects unique (variety)
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
@@ -56,9 +59,9 @@ IDEAS:
   - add buried treasure with a minimap
   - Herobrine, Poutine, Technoblade, DaquavisMC, Dream boss
   - Structure loot chest that when opened summons entities that will fight to protect the chest
-  - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = 
+  - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = pillagerTower
   - Cook (like with stats increasing if you have a good alimentation)
-  - Add new lava fish inside the nether with a custom fishing rod too
+  - Add new lava fish inside the nether with a custom fishing rod too (bober entity fireResistant)
   - Sheepwars
   - Don't forget aerial structures as long as we have the jetpack + elytras(fireworks) (TODO : make it a task like use elytras with tier3 fireworks (traveler)))
   - add variants to animals like skins and other models, no behavior, just reskin variety
@@ -107,6 +110,10 @@ REFACTOR (when needed):
 
 OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
+
+TODO:
+  - Make a tool for making easier animations in blockbench directly (plugin or else)
+  - Make another tool for DjoCaillou to mod without coding
 
 New:
   - MainMenu custom `LOGO` (overrides `minecraft.png`)

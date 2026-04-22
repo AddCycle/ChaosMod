@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.jobs.events.tamer;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.jobs.TargetType;
 import net.chaos.chaosmod.jobs.events.JobEventUtils;
 import net.chaos.chaosmod.jobs.task.TaskType;
@@ -12,7 +11,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import util.Reference;
 
-// FIXME
 @EventBusSubscriber(modid = Reference.MODID)
 public class JobTamerEventHandler {
 	public static final String JOB_ID = Reference.PREFIX + "tamer";
@@ -28,7 +26,5 @@ public class JobTamerEventHandler {
 			return;
 
 		JobEventUtils.incrementRelatedMatchingTasks(id, TaskType.TAME, TargetType.ENTITY, JOB_ID, player);
-		
-		Main.getLogger().info("player tamed : {}", id.toString());
 	}	
 }

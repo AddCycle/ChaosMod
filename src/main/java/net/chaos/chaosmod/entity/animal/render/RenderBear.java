@@ -18,6 +18,8 @@ public class RenderBear extends RenderLiving<EntityBear> {
 
 	public RenderBear(RenderManager renderManager) {
 		super(renderManager, new ModelBear(), 0.7F);
+//		this.addLayer(new LayerBipedArmor)
+//		this.addLayer(new LayerHeldItem(this)); TODO : make a custom layer renderer
 	}
 
     /**

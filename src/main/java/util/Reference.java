@@ -28,6 +28,7 @@ public class Reference {
 	public static final int GUI_ATM_ID = 8;
 	public static final int GUI_MARKET_ID = 9;
 	public static final int GUI_FISHINGGAME_ID = 10;
+	public static final int GUI_BEAR_ID = 11;
 
     // Entities ids
     private static int entityId = 120;

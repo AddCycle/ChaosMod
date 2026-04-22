@@ -58,9 +58,9 @@ public class ModelBear extends ModelPolarBear {
 			int pose = entitybear.getSitPose();
 			if (pose == 0) {
 				layDownLegsStretching();
-			} else if (pose == 1){
+			} else if (pose == 1) {
 				sitLegsCrossedLying();
-			} else {
+			} else if (pose == 2) {
 				sitOnGroundStraight();
 			}
 		} else {

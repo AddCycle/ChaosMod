@@ -6,6 +6,8 @@ import net.chaos.chaosmod.client.gui.inventory.GuiInventoryExtended;
 import net.chaos.chaosmod.client.gui.inventory.OxoniumFurnaceGui;
 import net.chaos.chaosmod.client.inventory.ContainerAccessory;
 import net.chaos.chaosmod.entity.EntityChaosSage;
+import net.chaos.chaosmod.entity.animal.container.ContainerBear;
+import net.chaos.chaosmod.entity.animal.gui.GuiBear;
 import net.chaos.chaosmod.inventory.ATMContainer;
 import net.chaos.chaosmod.inventory.BackpackContainer;
 import net.chaos.chaosmod.inventory.ForgeInterfaceContainer;
@@ -18,6 +20,7 @@ import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.tileentity.TileEntityTrophyBase;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -33,7 +36,10 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
+		Entity entity = world.getEntityByID(x);
+
 		InventoryPlayer inventory = player.inventory;
+
 		switch (ID) {
 		case 0:
 			return null;
@@ -63,6 +69,8 @@ public class GuiHandler implements IGuiHandler {
 			return emptyContainer();
 		case Reference.GUI_FISHINGGAME_ID:
 			return emptyContainer();
+		case Reference.GUI_BEAR_ID:
+			return new ContainerBear(player, (EntityLiving) entity);
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -71,6 +79,7 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
+		Entity entity = world.getEntityByID(x);
 		
 		switch (ID) {
 		case 0:
@@ -95,6 +104,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiMarket();
 		case Reference.GUI_FISHINGGAME_ID:
 			return new GuiFishingMinigame();
+		case Reference.GUI_BEAR_ID:
+			return new GuiBear(player, (EntityLiving) entity);
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
