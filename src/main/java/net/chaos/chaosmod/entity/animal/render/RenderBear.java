@@ -2,6 +2,7 @@ package net.chaos.chaosmod.entity.animal.render;
 
 import net.chaos.chaosmod.entity.animal.EntityBear;
 import net.chaos.chaosmod.entity.animal.EntityBear.EnumVariant;
+import net.chaos.chaosmod.entity.animal.layers.LayerBearArmor;
 import net.chaos.chaosmod.entity.animal.model.ModelBear;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -18,7 +19,7 @@ public class RenderBear extends RenderLiving<EntityBear> {
 
 	public RenderBear(RenderManager renderManager) {
 		super(renderManager, new ModelBear(), 0.7F);
-//		this.addLayer(new LayerBipedArmor)
+		this.addLayer(new LayerBearArmor(this));
 //		this.addLayer(new LayerHeldItem(this)); TODO : make a custom layer renderer
 	}
 

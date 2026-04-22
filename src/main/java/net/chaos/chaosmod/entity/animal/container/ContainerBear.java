@@ -15,7 +15,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,7 +26,7 @@ public class ContainerBear extends Container {
     private static final EntityEquipmentSlot[] VALID_EQUIPMENT_SLOTS = new EntityEquipmentSlot[] {EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
 	private final EntityPlayer player;
 	private final EntityLiving entityBear;
-	
+
 	public ContainerBear(EntityPlayer player, EntityLiving entityBear) {
 		this.player = player;
 		this.entityBear = entityBear;
@@ -54,9 +56,11 @@ public class ContainerBear extends Container {
                  * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace
                  * fuel.
                  */
+                // ArmorMaterial.IRON only for now, as I go, add more textures
                 public boolean isItemValid(ItemStack stack)
                 {
-                    return stack.getItem().isValidArmor(stack, entityequipmentslot, entityBear);
+                	Item item = stack.getItem();
+                    return item.isValidArmor(stack, entityequipmentslot, entityBear) && (item instanceof ItemArmor) && ((ItemArmor) item).getArmorMaterial() == ArmorMaterial.IRON;
                 }
                 /**
                  * Return whether this slot's stack can be taken from this slot.

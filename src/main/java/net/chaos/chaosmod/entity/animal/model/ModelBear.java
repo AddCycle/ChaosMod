@@ -168,4 +168,15 @@ public class ModelBear extends ModelPolarBear {
 		modelRenderer.offsetY = 0.0f;
 		modelRenderer.offsetZ = 0.0f;
 	}
+
+    public void setVisible(boolean visible)
+    {
+        this.head.showModel = visible;
+//        this.bipedHeadwear.showModel = visible;
+        this.body.showModel = visible;
+        this.leg1.showModel = visible;
+        this.leg2.showModel = visible;
+        this.leg3.showModel = visible;
+        this.leg4.showModel = visible;
+    }
 }

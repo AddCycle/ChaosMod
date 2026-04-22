@@ -7,11 +7,14 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import util.Reference;
 
 @SideOnly(Side.CLIENT)
 public class GuiBear extends GuiContainer {
+	private static final ResourceLocation BACKGROUND_INVENTORY = new ResourceLocation(Reference.MODID, "textures/gui/entity/inventory/inventory_armor.png");
     /** The old x position of the mouse pointer */
     private float oldMouseX;
     /** The old y position of the mouse pointer */
@@ -40,7 +43,7 @@ public class GuiBear extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
+        this.mc.getTextureManager().bindTexture(BACKGROUND_INVENTORY);
         int i = this.guiLeft;
         int j = this.guiTop;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
