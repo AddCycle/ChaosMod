@@ -1,7 +1,7 @@
 # Changelog 1.0.16
 
 TODO (WorldGen):
-  - priority: add animals & mobs inside the `dense_forest` biome (bears: todo wear armors & attack for you like wolfs would do + detail: have something in their mouth sometimes)
+  - priority: add animals & mobs inside the `dense_forest` biome (bears - detail: have something in their mouth sometimes)
   - bear: armors support (todo: placeholder(done) iron, gold, leather, diamond)
   - add vulture (todo: animations & ai)
   - Rework biomes (ender_garden, chaosland_biome, hell_biome) or completely remove them for other biome types

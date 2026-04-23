@@ -3,6 +3,7 @@ package net.chaos.chaosmod.entity.animal;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.items.food.fish.CustomFishFood;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -11,10 +12,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIFollowOwner;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIOwnerHurtByTarget;
+import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAISit;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -25,6 +29,7 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -44,9 +49,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
 
 /**
- * TODO : implement tame (with honey or fish) (extends EntityTameable implements
- * IEntityOwnable) TODO : implement sit & follow_player (ai) TODO : implement
- * attack (ai) TODO : implement wear an armor (layer)
+ * TODO : tame with honey, more precious than fish
  */
 public class EntityBear extends EntityTameable {
 	private static final DataParameter<Boolean> IS_STANDING = EntityDataManager.<Boolean>createKey(EntityBear.class,
@@ -98,11 +101,15 @@ public class EntityBear extends EntityTameable {
 		this.tasks.addTask(2, this.aiSit);
 		this.tasks.addTask(3, this.aiTempt);
 		this.tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
+        this.tasks.addTask(5, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
 		this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(7, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityBear.AIHurtByTarget());
-		this.targetTasks.addTask(2, new EntityBear.AIAttackPlayer());
+
+        this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
+        this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
+		this.targetTasks.addTask(3, new EntityBear.AIHurtByTarget());
+		this.targetTasks.addTask(4, new EntityBear.AIAttackPlayer());
 	}
 
 	protected void applyEntityAttributes() {
@@ -151,11 +158,15 @@ public class EntityBear extends EntityTameable {
 
 		if (this.isTamed() && player.isSneaking()) {
 			this.openGUI(player);
-//			processInventoryInteract();
 		} else {
 			if (this.isTamed()) {
 				if (this.isOwner(player) && !this.world.isRemote && !this.isBreedingItem(itemstack)) {
-					setSittingWithAnimation(!this.isSitting());
+					if (itemstack == ItemStack.EMPTY || getHealth() >= getMaxHealth()) {
+						setSittingWithAnimation(!this.isSitting());
+					} else if (itemstack.getItem() instanceof ItemFishFood || itemstack.getItem() instanceof CustomFishFood) {
+						heal(getMaxHealth() / 10);
+						itemstack.shrink(1);
+					}
 				}
 			} else if ((this.aiTempt == null || this.aiTempt.isRunning()) && itemstack.getItem() == Items.FISH
 					&& player.getDistanceSq(this) < 9.0D) {
@@ -188,10 +199,9 @@ public class EntityBear extends EntityTameable {
 		return super.getTotalArmorValue();
 	}
 
+	// FIXME : duplication if holding an armor piece mainHand while right-clicking on the entity (equipped + inventory)
 	public void openGUI(EntityPlayer player) {
 		if (!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(player)) && this.isTamed()) {
-//            this.horseChest.setCustomName(this.getName());
-//            playerEntity.openGuiHorseInventory(this, this.horseChest);
 			player.openGui(Main.instance, Reference.GUI_BEAR_ID, this.world, this.getEntityId(), (int) player.posY,
 					(int) player.posZ);
 		}
@@ -281,9 +291,9 @@ public class EntityBear extends EntityTameable {
 				this.setGrowingAge(-24000);
 			}
 		} else {
-			EntityBear.GroupData entitypolarbear$groupdata = new EntityBear.GroupData();
-			entitypolarbear$groupdata.madeParent = true;
-			livingdata = entitypolarbear$groupdata;
+			EntityBear.GroupData entitybear$groupdata = new EntityBear.GroupData();
+			entitybear$groupdata.madeParent = true;
+			livingdata = entitybear$groupdata;
 		}
 
 		return livingdata;
