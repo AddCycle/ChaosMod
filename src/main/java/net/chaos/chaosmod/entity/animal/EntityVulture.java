@@ -135,7 +135,7 @@ public class EntityVulture extends EntityFlying implements net.minecraft.entity.
         private double centerX, centerY, centerZ;
         private float angle = 0;
         private float radius = 20.0f;
-        private float angleStep = 3.0F; // degrees per tick, higher = faster circles
+        private float angleStep; // degrees per tick, higher = faster circles
         private boolean initialized = false;
 
         public AICircleFly(EntityVulture vulture, float minRadius, float maxRadius) {
@@ -145,6 +145,7 @@ public class EntityVulture extends EntityFlying implements net.minecraft.entity.
             else {
             	this.radius = minRadius;
             }
+            this.angleStep = 3.0f + vulture.rand.nextFloat() * 10.0f;
             this.setMutexBits(Constants.AiMutexBits.MOVE);
         }
 

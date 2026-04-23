@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.init;
+package net.chaos.chaosmod.items.special;
 
 import javax.annotation.Nullable;
 

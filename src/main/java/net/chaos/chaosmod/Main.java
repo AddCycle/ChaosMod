@@ -22,6 +22,7 @@ import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
 import net.chaos.chaosmod.world.events.terraingen.OreGenOverrideEvents;
 import net.chaos.chaosmod.world.structures.VillageAdditionalStructure;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -39,74 +40,75 @@ import util.annotations.ClientBusHandler;
 import util.handlers.RegistryHandler;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY_CLASS, dependencies = Reference.OPTIONAL_DEPENDENCIES)
-public class Main
-{
+public class Main {
 	@Instance
 	public static Main instance;
-	
+
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
 
-    private static Logger logger;
-    
-    static {
-        ModFluids.enableUniversalBucket();
-    }
-    
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
-        proxy.preInit(event);
-        logger = event.getModLog();
-    	logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
-    	ClientBusHandler.init();
-        ModSounds.registerSounds();
-        GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
-        ModEntities.registerEntities();
-        ModFluids.registerFluids();
-        CapabilityEventHandler.registerAllCapabilities(event);
-        PacketManager.registerPackets(event);
-    }
+	private static Logger logger;
 
-    @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-        proxy.init(event);
-    	logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
-        ModLootTableList.registerLootTables();
-        PacketManager.init();
-        VillagerRegistry.instance().registerVillageCreationHandler(new VillageAdditionalStructure.CreationHandler());
-        MinecraftForge.ORE_GEN_BUS.register(new OreGenOverrideEvents());
-    	MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenerationOverrideEvents());
-        CustomProfessions.registerCustomProfessions();
-        RegistryHandler.onSmeltingRegister();
-        RegistryHandler.onBrewingRecipeRegister();
-        MachineRecipeRegistry.init();
-        ModBiomes.init();
-        ModDimensions.init();
-        RegistryHandler.onTagsRegister();
+	static {
+		ModFluids.enableUniversalBucket();
+	}
 
-        ModStructures.registerStructures();
-    }
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
+		proxy.preInit(event);
+		logger = event.getModLog();
+		logger.info("CHAOSMOD PRE-INIT PHASE {}", event.getModState());
+		ClientBusHandler.init();
+		ModSounds.registerSounds();
+		GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
+		ModEntities.registerEntities();
+		ModFluids.registerFluids();
+		CapabilityEventHandler.registerAllCapabilities(event);
+		PacketManager.registerPackets(event);
+	}
 
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
-    	proxy.postInit(event);
-    	logger.info("CHAOSMOD POST-INIT PHASE {}", event.getModState());
-    	// VillagerTradeHandler.onRegisterTrades();
-        TileEntityManager.registerTileEntities();
-        BiomeGenEventHandler.addAdditionalBiomesFromMod(Reference.MATHSMOD, "pink_forest", "unusual_forest", "desolate_lands", "green_plain");
-    }
-    
-    @EventHandler
-    public void interModCommunication(IMCEvent event) {}
-    
-    @EventHandler
-    public void ServerInit(FMLServerStartingEvent event) {
-    	JobsManager.init();
-    	CommandsManager.registerCommands(event);
-    }
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
+		proxy.init(event);
+		logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
+		ModLootTableList.registerLootTables();
+		PacketManager.init();
+		VillagerRegistry.instance().registerVillageCreationHandler(new VillageAdditionalStructure.CreationHandler());
+		MinecraftForge.ORE_GEN_BUS.register(new OreGenOverrideEvents());
+		MinecraftForge.TERRAIN_GEN_BUS.register(new WorldGenerationOverrideEvents());
+		CustomProfessions.registerCustomProfessions();
+		RegistryHandler.onSmeltingRegister();
+		RegistryHandler.onBrewingRecipeRegister();
+		MachineRecipeRegistry.init();
+		ModBiomes.init();
+		ModDimensions.init();
+		RegistryHandler.onTagsRegister();
 
-    public static Logger getLogger() { return logger; }
+		ModStructures.registerStructures();
+	}
+
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		proxy.postInit(event);
+		logger.info("CHAOSMOD POST-INIT PHASE {}", event.getModState());
+		// VillagerTradeHandler.onRegisterTrades();
+		TileEntityManager.registerTileEntities();
+		BiomeGenEventHandler.addAdditionalBiomesFromMod(Reference.MATHSMOD, "pink_forest", "unusual_forest",
+				"desolate_lands", "green_plain");
+
+		Loader.instance().getModList().forEach((container) -> {
+			Main.getLogger().info("mods loaded : {}", container.getModId());
+		});
+	}
+
+	@EventHandler
+	public void interModCommunication(IMCEvent event) {}
+
+	@EventHandler
+	public void ServerInit(FMLServerStartingEvent event) {
+		JobsManager.init();
+		CommandsManager.registerCommands(event);
+	}
+
+	public static Logger getLogger() { return logger; }
 }

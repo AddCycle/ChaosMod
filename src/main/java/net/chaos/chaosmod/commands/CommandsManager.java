@@ -1,9 +1,11 @@
 package net.chaos.chaosmod.commands;
 
+import net.chaos.chaosmod.commands.build.CommandFill;
+import net.chaos.chaosmod.commands.build.CommandWand;
 import net.chaos.chaosmod.commands.debug.CommandTestFishing;
 import net.chaos.chaosmod.commands.debug.SpeedCommand;
 import net.chaos.chaosmod.commands.debug.TpDimCommand;
-import net.chaos.chaosmod.commands.generation.LoadStructCommand;
+import net.chaos.chaosmod.commands.generation.CommandPlace;
 import net.chaos.chaosmod.commands.hunt.HuntCommand;
 import net.chaos.chaosmod.commands.jobs.JobsCommand;
 import net.chaos.chaosmod.commands.market.AddOfferCommand;
@@ -30,7 +32,7 @@ public class CommandsManager {
 		new HomeListCommand(),
 		new DelHomeCommand(),
 		new FireCommand(),
-		new LoadStructCommand(),
+		new CommandPlace(),
 		new MoneyCommand(),
 		new MarketCommand(),
 		new BuyCommand(),
@@ -42,7 +44,10 @@ public class CommandsManager {
 		new BiomesCommand(),
 		new CommandTestFishing(),
 		new TpDimCommand(),
-		new SpeedCommand()
+		new SpeedCommand(),
+		// build
+		new CommandWand(),
+		new CommandFill()
 	);
 
 		if (!Loader.isModLoaded(Reference.MATHSMOD)) {

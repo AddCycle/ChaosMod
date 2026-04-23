@@ -1,9 +1,12 @@
 # Changelog 1.0.16
 
+TODO (Build):
+  - make a way to percentage + random on the blocks filled (maybe the wand make it have modes)
+
 TODO (WorldGen):
   - priority: add animals & mobs inside the `dense_forest` biome (bears - detail: have something in their mouth sometimes)
   - bear: armors support (todo: gold, leather, diamond)
-  - vulture (done), detail: make it hybrid, ground (like chicken) + flying
+  - vulture (done), detail: make it hybrid -> ground also (like chicken)
   - Rework biomes (ender_garden, chaosland_biome, hell_biome) or completely remove them for other biome types
   - Removed the boss altars in order to put them inside the later-made structures (do not forget before release)
   - (advanced) add underground (biomes or caves) with vines and decoration and more minerals
@@ -141,6 +144,7 @@ New:
   - feat: added `dense_forest` biome
   - feat: added `bear` spawn with variants (tameable with various `sitting_poses`)
   - feat: jobs `tasks_progress` are now shared between players for competition
+  - feat: `/wand`, `//fill <block>` commands to help build structures (creative only)
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

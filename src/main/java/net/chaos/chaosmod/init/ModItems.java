@@ -28,6 +28,7 @@ import net.chaos.chaosmod.items.special.CustomFireball;
 import net.chaos.chaosmod.items.special.EnderiteThunder;
 import net.chaos.chaosmod.items.special.ItemChaosLandCrystal;
 import net.chaos.chaosmod.items.special.ItemHeart;
+import net.chaos.chaosmod.items.special.ItemMagnet;
 import net.chaos.chaosmod.items.special.ItemMoneyWad;
 import net.chaos.chaosmod.items.special.MarketRemote;
 import net.chaos.chaosmod.items.special.OxoniumBow;
@@ -177,6 +178,8 @@ public class ModItems {
 	public static final Item VINE_FISH = new CustomFishFood("vine_fish", 4);
 	public static final Item DESERT_FISH = new CustomFishFood("desert_fish", 2);
 	public static Item OXONIUM_CARROT;
+	
+	// DEBUG
 	
 	// Slab items
 	// public static Item ABSTRACT_SLAB;
