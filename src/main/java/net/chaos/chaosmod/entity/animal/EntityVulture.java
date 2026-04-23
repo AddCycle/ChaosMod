@@ -2,27 +2,27 @@ package net.chaos.chaosmod.entity.animal;
 
 import java.util.Random;
 
+import net.chaos.chaosmod.entity.ai.EntityAdvancedFlyHelper;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAIFollow;
 import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityFlyHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
+/**
+ * TODO : later make this entity hybrid, walking & flying
+ */
 public class EntityVulture extends EntityFlying implements net.minecraft.entity.passive.EntityFlying {
 
 	public EntityVulture(World worldIn) {
 		super(worldIn);
-        this.moveHelper = new EntityFlyHelper(this);
+        this.moveHelper = new EntityAdvancedFlyHelper(this);
         this.setSize(1f, 0.5f);
 	}
 	
@@ -47,14 +47,15 @@ public class EntityVulture extends EntityFlying implements net.minecraft.entity.
 	protected void initEntityAI() {
 //        this.tasks.addTask(0, new EntityAIPanic(this, 1.25D));
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(1, new AICircleFly(this, 20.0f, 60.0f));
 //        this.tasks.addTask(2, new EntityAIWanderAvoidWaterFlying(this, 1.0f));
 //        this.tasks.addTask(2, this.aiSit);
 //        this.tasks.addTask(2, new EntityAIFollowOwnerFlying(this, 1.0D, 5.0F, 1.0F));
 //        this.tasks.addTask(2, new EntityAIWanderAvoidWaterFlying(this, 1.0D));
 //        this.tasks.addTask(3, new EntityAILandOnOwnersShoulder(this));
-        this.tasks.addTask(2, new AIRandomFly(this));
-        this.tasks.addTask(3, new EntityAIFollow(this, 1.0D, 3.0F, 7.0F)); // follow same species
+//        this.tasks.addTask(2, new AIRandomFly(this));
+//        this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+//        this.tasks.addTask(3, new EntityAIFollow(this, 1.0D, 3.0F, 7.0F)); // follow same species
 	}
 	
 	@Override
@@ -126,4 +127,62 @@ public class EntityVulture extends EntityFlying implements net.minecraft.entity.
                 this.parentEntity.getMoveHelper().setMoveTo(d0, d1, d2, speed);
             }
         }
+    
+    // TODO : if animations are done later and behavior,
+    // note that this AI never stops once started
+    static class AICircleFly extends EntityAIBase {
+        private final EntityVulture parentEntity;
+        private double centerX, centerY, centerZ;
+        private float angle = 0;
+        private float radius = 20.0f;
+        private float angleStep = 3.0F; // degrees per tick, higher = faster circles
+        private boolean initialized = false;
+
+        public AICircleFly(EntityVulture vulture, float minRadius, float maxRadius) {
+            this.parentEntity = vulture;
+            if (minRadius < maxRadius)
+            	this.radius = minRadius + vulture.rand.nextFloat() * (maxRadius - minRadius);
+            else {
+            	this.radius = minRadius;
+            }
+            this.setMutexBits(Constants.AiMutexBits.MOVE);
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            return true;
+        }
+
+        @Override
+        public boolean shouldContinueExecuting() {
+            return true;
+        }
+
+        @Override
+        public void startExecuting() {
+            // Lock the center point when the AI first kicks in
+            this.centerX = this.parentEntity.posX;
+            this.centerY = this.parentEntity.posY;
+            this.centerZ = this.parentEntity.posZ;
+            this.initialized = true;
+        }
+
+        @Override
+        public void updateTask() {
+            if (!initialized) return;
+
+            angle += angleStep;
+            if (angle >= 360) angle -= 360;
+
+            double rad = Math.toRadians(angle);
+
+            double bob = Math.sin(Math.toRadians(angle * 2)) * 1.0;
+
+            double targetX = centerX + Math.cos(rad) * radius;
+            double targetY = centerY + bob;
+            double targetZ = centerZ + Math.sin(rad) * radius;
+
+            this.parentEntity.getMoveHelper().setMoveTo(targetX, targetY, targetZ, 1.0D);
+        }
+    }
 }
