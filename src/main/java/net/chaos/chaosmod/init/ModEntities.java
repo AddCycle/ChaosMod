@@ -20,6 +20,8 @@ import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving.SpawnPlacementType;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +30,10 @@ import util.Colors;
 import util.Reference;
 
 public class ModEntities {
+	
+	public static void registerEntityPlacements() {
+		EntitySpawnPlacementRegistry.setPlacementType(EntityVulture.class, SpawnPlacementType.IN_AIR);
+	}
 	
 	public static void registerEntitySpawn() {
 		EntityRegistry.addSpawn(EntityVulture.class, 10, 3, 5, EnumCreatureType.CREATURE, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.MESA, Biomes.MESA_CLEAR_ROCK, Biomes.MESA_ROCK, Biomes.MUTATED_MESA, Biomes.MUTATED_MESA_CLEAR_ROCK, Biomes.MUTATED_MESA_ROCK);
@@ -69,6 +75,7 @@ public class ModEntities {
 				);
 		
 		registerEntitySpawn();
+		registerEntityPlacements();
 	}
 
 	private static void registerEntities(EntityFactory... factories) {

@@ -1,16 +1,20 @@
+// Made with Blockbench 5.1.3
+// Exported for Minecraft version 1.7 - 1.12
+// Paste this class into your mod and generate all required imports
 package net.chaos.chaosmod.entity.animal.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.math.MathHelper;
 
 public class ModelVulture extends ModelBase {
 	private final ModelRenderer right_leg;
 	private final ModelRenderer left_leg;
 	private final ModelRenderer chest;
 	private final ModelRenderer cube_r1;
-	private final ModelRenderer nose;
 	private final ModelRenderer right_wing;
 	private final ModelRenderer cube_r2;
 	private final ModelRenderer tail;
@@ -21,6 +25,7 @@ public class ModelVulture extends ModelBase {
 	private final ModelRenderer cube_r5;
 	private final ModelRenderer cube_r6;
 	private final ModelRenderer head;
+	private final ModelRenderer nose;
 
 	public ModelVulture() {
 		textureWidth = 64;
@@ -43,10 +48,6 @@ public class ModelVulture extends ModelBase {
 		chest.addChild(cube_r1);
 		setRotationAngle(cube_r1, -0.1745F, 0.0F, 0.0F);
 		cube_r1.cubeList.add(new ModelBox(cube_r1, 0, 0, -3.0F, -2.0F, -4.5F, 6, 4, 9, 0.0F, false));
-
-		nose = new ModelRenderer(this);
-		nose.setRotationPoint(0.0F, 15.0F, -9.0F);
-		nose.cubeList.add(new ModelBox(nose, 30, 5, -1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F, false));
 
 		right_wing = new ModelRenderer(this);
 		right_wing.setRotationPoint(-3.5F, 18.2757F, -2.3491F);
@@ -97,6 +98,11 @@ public class ModelVulture extends ModelBase {
 		head = new ModelRenderer(this);
 		head.setRotationPoint(0.0F, 17.5F, -6.0F);
 		head.cubeList.add(new ModelBox(head, 0, 26, -2.0F, -4.5F, -2.0F, 4, 5, 4, 0.0F, false));
+
+		nose = new ModelRenderer(this);
+		nose.setRotationPoint(0.0F, -2.5F, -3.0F);
+		head.addChild(nose);
+		nose.cubeList.add(new ModelBox(nose, 30, 5, -1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F, false));
 	}
 
 	@Override
@@ -104,13 +110,59 @@ public class ModelVulture extends ModelBase {
 		right_leg.render(f5);
 		left_leg.render(f5);
 		chest.render(f5);
-		nose.render(f5);
 		right_wing.render(f5);
 		tail.render(f5);
 		left_wing.render(f5);
 		neck.render(f5);
 		head.render(f5);
 	}
+	
+	@Override
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
+			float headPitch, float scaleFactor, Entity entityIn) {
+		setRotationAngle(right_wing, 0, 0, 0);
+		setRotationAngle(left_wing, 0, 0, 0);
+//		this.right_wing.rotateAngleY = 0;
+		this.right_wing.rotateAngleX = -(float) (Math.PI / 2); // right arm 90degrees
+		this.left_wing.rotateAngleX = -(float) (Math.PI / 2); // left arm 90degrees
+//		this.right_wing.rotateAngleZ = 0;
+		float initAngleWings = (float) Math.PI / 2;
+		float flapSpeed = 0.6662F;
+		float flapAmount = 1.2F;
+
+//		this.right_wing.rotateAngleZ = initAngleWings;
+//		this.right_wing.rotateAngleZ += (float) (Math.cos(limbSwing * flapSpeed) * limbSwingAmount * flapAmount); // horizontal (for floating)
+//
+//		this.left_wing.rotateAngleZ = -initAngleWings;
+//		this.left_wing.rotateAngleZ += (float) (Math.cos(limbSwing * flapSpeed) * limbSwingAmount * flapAmount); // horizontal (for floating)
+
+		float flapSpeed2 = 0.2F;
+		float flapAmount2 = 0.8F;
+		this.right_wing.rotateAngleZ = initAngleWings + MathHelper.cos(ageInTicks * flapSpeed2) * flapAmount2;
+		this.left_wing.rotateAngleZ  = -initAngleWings - MathHelper.cos(ageInTicks * flapSpeed2) * flapAmount2;
+		
+		float initAngleTail = 0.3491F;
+		this.tail.rotateAngleX = initAngleTail + MathHelper.cos(headPitch) * 0.5F;
+
+        this.head.rotateAngleX = headPitch * 0.017453292F;
+        this.head.rotateAngleY = netHeadYaw * 0.017453292F;
+	}
+	
+	@Override
+	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount,
+			float partialTickTime) {
+		// hurt
+		// flying
+	}
+
+    static enum State
+    {
+    	WALKING,
+        FLYING,
+        STANDING,
+        SITTING;
+//        PARTY;
+    }
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
 		modelRenderer.rotateAngleX = x;

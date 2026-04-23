@@ -2,8 +2,8 @@
 
 TODO (WorldGen):
   - priority: add animals & mobs inside the `dense_forest` biome (bears - detail: have something in their mouth sometimes)
-  - bear: armors support (todo: placeholder(done) iron, gold, leather, diamond)
-  - add vulture (todo: animations & ai)
+  - bear: armors support (todo: gold, leather, diamond)
+  - vulture (done), detail: make it hybrid, ground (like chicken) + flying
   - Rework biomes (ender_garden, chaosland_biome, hell_biome) or completely remove them for other biome types
   - Removed the boss altars in order to put them inside the later-made structures (do not forget before release)
   - (advanced) add underground (biomes or caves) with vines and decoration and more minerals

@@ -43,6 +43,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -166,6 +167,7 @@ public class EntityBear extends EntityTameable {
 					} else if (itemstack.getItem() instanceof ItemFishFood || itemstack.getItem() instanceof CustomFishFood) {
 						heal(getMaxHealth() / 10);
 						itemstack.shrink(1);
+						this.playTameEffect(true);
 					}
 				}
 			} else if ((this.aiTempt == null || this.aiTempt.isRunning()) && itemstack.getItem() == Items.FISH
