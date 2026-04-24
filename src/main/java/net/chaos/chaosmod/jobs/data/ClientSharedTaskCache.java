@@ -1,13 +1,9 @@
 package net.chaos.chaosmod.jobs.data;
 
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import net.chaos.chaosmod.jobs.JobsManager;
 import net.chaos.chaosmod.jobs.task.JobTask;
