@@ -1,6 +1,8 @@
 package net.chaos.chaosmod.commands;
 
 import net.chaos.chaosmod.commands.build.CommandFill;
+import net.chaos.chaosmod.commands.build.CommandRedo;
+import net.chaos.chaosmod.commands.build.CommandUndo;
 import net.chaos.chaosmod.commands.build.CommandWand;
 import net.chaos.chaosmod.commands.debug.CommandTestFishing;
 import net.chaos.chaosmod.commands.debug.SpeedCommand;
@@ -47,7 +49,9 @@ public class CommandsManager {
 		new SpeedCommand(),
 		// build
 		new CommandWand(),
-		new CommandFill()
+		new CommandFill(),
+		new CommandUndo(),
+		new CommandRedo()
 	);
 
 		if (!Loader.isModLoaded(Reference.MATHSMOD)) {

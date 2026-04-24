@@ -2,6 +2,7 @@
 
 TODO (Build):
   - make a way to percentage + random on the blocks filled (maybe the wand make it have modes)
+  - make it cancelable, store the previous state of the blocks (with //undo + //redo) [BuildManager to complete]
 
 TODO (WorldGen):
   - priority: add animals & mobs inside the `dense_forest` biome (bears - detail: have something in their mouth sometimes)
@@ -144,7 +145,7 @@ New:
   - feat: added `dense_forest` biome
   - feat: added `bear` spawn with variants (tameable with various `sitting_poses`)
   - feat: jobs `tasks_progress` are now shared between players for competition
-  - feat: `/wand`, `//fill <block>` commands to help build structures (creative only)
+  - feat: `/wand`, `//fill <block>` commands to help build structures (creative only) + visuals
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
