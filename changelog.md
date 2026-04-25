@@ -1,6 +1,11 @@
 # Changelog 1.0.16
 
+TODO (Structures):
+  - Look at MapGenStructuresIO and MapGenEndShips
+  - Look and see if it's relevant to add a jigsaw_block and make a mod about it (maybe an API)
+
 TODO (Build):
+  - make them upgrade
   - make noise values
 
 TODO (WorldGen):
@@ -13,6 +18,7 @@ TODO (WorldGen):
   - (advanced) make a sky island biome
   - (advanced) make a magma/fire biome with fire creatures
   - animals ideas: kangaroos (magma cube jump animations to look for), monkey, beaver, pheonix, hog
+  - make a prehistorical biome with dinosaurs
 
 TODO (JOBS):
   - Make a separate button that leads to the sharedTasks display with ranking & other things inchaa'Allah
@@ -166,6 +172,7 @@ Changes:
   - fix: `fertilized_water` now waits 20secs to start fertilize crops (making it unspammable)
   - balance: `custom_leaves` dropping too many `golden_apple` on decay
   - fix: `jobs` progress cleared when traveling between dimensions
+  - style: `oxonium_sword` texture back to normal (short_sword)
 
 MODEL-ISSUES:
 Caused by: java.io.FileNotFoundException: chaosmod:models/item/atm_block.json

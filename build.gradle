@@ -19,11 +19,9 @@ archivesBaseName = "ChaosMod"
 sourceCompatibility = targetCompatibility = "1.8" // Java 8 for MC 1.12.2
 
 minecraft {
- 	// version = "1.12.2-14.23.5.2847"
  	version = "1.12.2-14.23.5.2847"
     runDir = "run"
     mappings = "snapshot_20171003"
-    // mappings = "stable_39"
 	useDepAts = true
 }
 
@@ -44,21 +42,7 @@ dependencies {
 
 	// patchouli api
     compile "vazkii.patchouli:Patchouli:${patchouli_version}"
-    
-    // testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-    // testImplementation 'org.mockito:mockito-core:5.11.0'
 }
-
-// test {
-// useJUnitPlatform()
-// }
-
-// configurations {
-	// testImplementation.extendsFrom implementation	
-
-    // implementation.exclude group: 'org.junit.jupiter'
-    // implementation.exclude group: 'org.junit.platform'
-// }
 
 processResources {
     inputs.property "version", project.version
