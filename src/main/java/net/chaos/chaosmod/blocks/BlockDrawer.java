@@ -3,6 +3,7 @@ package net.chaos.chaosmod.blocks;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.tileentity.TileEntityDrawer;
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -33,6 +34,9 @@ public class BlockDrawer extends BlockContainerBase {
 		super(name, materialIn);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHarvestLevel("axe", 0);
+		setSoundType(SoundType.WOOD);
+		setHardness(2.0F);
+		setResistance(5.0F);
 		this.capacity = Math.abs(capacity);
 	}	
 	

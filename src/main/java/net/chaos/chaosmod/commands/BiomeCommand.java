@@ -2,6 +2,7 @@ package net.chaos.chaosmod.commands;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.minecraft.command.CommandBase;
@@ -17,10 +18,10 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.ClickEvent;
-import net.minecraft.util.text.event.ClickEvent.Action;
 import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeProvider;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import util.broadcast.MessageDisplayBiomeName;
 
@@ -67,33 +68,76 @@ public class BiomeCommand extends CommandBase {
 		if (args.length > 1) {
 			range = MathHelper.clamp(parseInt(args[1]), 1000, 10000);
 		}
-
-		BlockPos biomePos = world.getBiomeProvider().findBiomePosition(
-			    playerPos.getX(), playerPos.getZ(), range,
-			    Collections.singletonList(biome),
-			    world.rand);
-
-		if (biomePos == null) {
-			player.sendMessage(new TextComponentString("Biome not found within range " + range));
-			return;
-		}
-
-		int top = world.getTopSolidOrLiquidBlock(biomePos).getY(); // forces the chunk to load
-		String coords = String.format("%d %d %d", biomePos.getX(),
-				top, biomePos.getZ());
-		String msg = String.format("The biome %s is located at: %s ", biome.getRegistryName(), coords);
-		TextComponentString text = new TextComponentString(msg);
-		TextComponentString teleport = new TextComponentString("TELEPORT");
 		
-		Style style = teleport.getStyle();
+		final int finalRange = range;
+	    final Biome finalBiome = biome;
 
-		style.setColor(TextFormatting.RED).setBold(true);
-		
-		style.setClickEvent(new ClickEvent(Action.RUN_COMMAND, String.format("/tp %s %s", player.getName(), coords)));
-		
-		style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Teleport to biome")));
+	    // Capture what we need — never access World from off-thread directly
+	    final int playerX = playerPos.getX();
+	    final int playerZ = playerPos.getZ();
+	    final BiomeProvider biomeProvider = world.getBiomeProvider();
+	    final String playerName = player.getName();
 
-		player.sendMessage(text.appendSibling(teleport));
+	    CompletableFuture.supplyAsync(() -> {
+	        // Heavy work runs off the main thread
+	        return biomeProvider.findBiomePosition(
+	            playerX, playerZ, finalRange,
+	            Collections.singletonList(finalBiome),
+	            world.rand);
+
+	    }).thenAcceptAsync(biomePos -> {
+	        // Result is sent back on the server main thread
+	        if (biomePos == null) {
+	            player.sendMessage(new TextComponentString(
+	                "Biome not found within range " + finalRange));
+	            return;
+	        }
+
+	        int top = world.getTopSolidOrLiquidBlock(biomePos).getY();
+	        String coords = String.format("%d %d %d", biomePos.getX(), top, biomePos.getZ());
+	        String msg = String.format("The biome %s is located at: %s ",
+	            finalBiome.getRegistryName(), coords);
+
+	        TextComponentString text = new TextComponentString(msg);
+	        TextComponentString teleport = new TextComponentString("TELEPORT");
+
+	        Style style = teleport.getStyle();
+	        style.setColor(TextFormatting.RED).setBold(true);
+	        style.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+	            String.format("/tp %s %s", playerName, coords)));
+	        style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+	            new TextComponentString("Teleport to biome")));
+
+	        player.sendMessage(text.appendSibling(teleport));
+
+	    }, server::addScheduledTask);
+
+//		BlockPos biomePos = world.getBiomeProvider().findBiomePosition(
+//			    playerPos.getX(), playerPos.getZ(), range,
+//			    Collections.singletonList(biome),
+//			    world.rand);
+//
+//		if (biomePos == null) {
+//			player.sendMessage(new TextComponentString("Biome not found within range " + range));
+//			return;
+//		}
+//
+//		int top = world.getTopSolidOrLiquidBlock(biomePos).getY(); // forces the chunk to load
+//		String coords = String.format("%d %d %d", biomePos.getX(),
+//				top, biomePos.getZ());
+//		String msg = String.format("The biome %s is located at: %s ", biome.getRegistryName(), coords);
+//		TextComponentString text = new TextComponentString(msg);
+//		TextComponentString teleport = new TextComponentString("TELEPORT");
+//		
+//		Style style = teleport.getStyle();
+//
+//		style.setColor(TextFormatting.RED).setBold(true);
+//		
+//		style.setClickEvent(new ClickEvent(Action.RUN_COMMAND, String.format("/tp %s %s", player.getName(), coords)));
+//		
+//		style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Teleport to biome")));
+//
+//		player.sendMessage(text.appendSibling(teleport));
 	}
 	
 	@Override

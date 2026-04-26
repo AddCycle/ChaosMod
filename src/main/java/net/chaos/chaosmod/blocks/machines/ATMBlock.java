@@ -17,8 +17,11 @@ import net.minecraft.world.World;
 import util.Reference;
 
 public class ATMBlock extends BlockContainerBase {
+
 	public ATMBlock(String name, Material materialIn) {
 		super(name, materialIn);
+		setHardness(2.0F);
+		setResistance(5.0F);
 	}
 
 	@Override

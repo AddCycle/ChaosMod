@@ -30,6 +30,8 @@ public class BlockTrophy extends BlockContainerBase implements ITileEntityProvid
 	public BlockTrophy(String name, int variant) {
 		super(name, new MaterialTransparent(MapColor.ADOBE));
 		setSoundType(SoundType.GLASS);
+		setHardness(2.0F);
+		setResistance(5.0F);
 		this.variant = variant;
 	}
 	

@@ -117,10 +117,10 @@ public class BiomeDenseForest extends Biome {
 	
 	@SubscribeEvent
 	public static void additionalDecorations(DecorateBiomeEvent.Decorate event) {
-		if (event.getType() == EventType.PUMPKIN) {
+		if (event.getType() == EventType.GRASS) {
 			int chance = 8;
 			generatePumpkinWithChance(event.getWorld(), event.getRand(), event.getPlacementPos(), chance);	
-		}
+	    }
 	}
 
 	@Override

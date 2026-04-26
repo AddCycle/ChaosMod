@@ -5,7 +5,6 @@ TODO (Structures):
   - Look and see if it's relevant to add a jigsaw_block and make a mod about it (maybe an API)
 
 TODO (Build):
-  - make them upgrade
   - make noise values
 
 TODO (WorldGen):
@@ -19,6 +18,7 @@ TODO (WorldGen):
   - (advanced) make a magma/fire biome with fire creatures
   - animals ideas: kangaroos (magma cube jump animations to look for), monkey, beaver, pheonix, hog
   - make a prehistorical biome with dinosaurs
+  - make like a `spring/summer` biome with yellowish-colors [in_progress...]
 
 TODO (JOBS):
   - Make a separate button that leads to the sharedTasks display with ranking & other things inchaa'Allah
