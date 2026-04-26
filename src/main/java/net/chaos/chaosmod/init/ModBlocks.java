@@ -39,6 +39,7 @@ import net.chaos.chaosmod.blocks.machines.ATMBlock;
 import net.chaos.chaosmod.blocks.ores.AllemaniteOre;
 import net.chaos.chaosmod.blocks.ores.EnderiteOre;
 import net.chaos.chaosmod.blocks.ores.OxoniumOre;
+import net.chaos.chaosmod.blocks.structures.JigsawBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -103,4 +104,5 @@ public class ModBlocks {
 	
 	public static final Block DRAWER = new BlockDrawer("drawer", Material.WOOD);
 	public static final Block ATM_BLOCK = new ATMBlock("atm_block", Material.IRON);
+	public static final Block JIGSAW_BLOCK = new JigsawBlock();
 }

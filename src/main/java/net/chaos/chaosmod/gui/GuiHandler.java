@@ -71,6 +71,8 @@ public class GuiHandler implements IGuiHandler {
 			return emptyContainer();
 		case Reference.GUI_BEAR_ID:
 			return new ContainerBear(player, (EntityLiving) entity);
+//		case Reference.GUI_JIGSAW_ID:
+//			return new ContainerJigsaw(player);
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -106,6 +108,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiFishingMinigame();
 		case Reference.GUI_BEAR_ID:
 			return new GuiBear(player, (EntityLiving) entity);
+//		case Reference.GUI_JIGSAW_ID:
+//			return new GuiJigsawBlock();
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}

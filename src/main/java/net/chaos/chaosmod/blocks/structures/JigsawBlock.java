@@ -28,7 +28,7 @@ public class JigsawBlock extends BlockContainerBase {
 
 	public JigsawBlock() {
 		super("jigsaw_block", Material.IRON);
-        this.setDefaultState(this.blockState.getBaseState());
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}
 
 	@Override

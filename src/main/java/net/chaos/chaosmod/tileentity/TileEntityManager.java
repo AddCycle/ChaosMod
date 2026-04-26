@@ -19,6 +19,7 @@ public class TileEntityManager {
 		registerTE(TileEntityChaosGateway.class, "chaos_gateway");
 		registerTE(TileEntityDrawer.class, "drawer");
 		registerTE(TileEntityATM.class, "atm_machine");
+		registerTE(TileEntityJigsaw.class, "jigsaw_block");
 	}
 	
 	private static void registerTE(Class<? extends TileEntity> clazz, String id) {
