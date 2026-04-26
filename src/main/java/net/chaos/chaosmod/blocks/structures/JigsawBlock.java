@@ -27,7 +27,7 @@ public class JigsawBlock extends BlockContainerBase {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
 	public JigsawBlock() {
-		super("jigsaw_block", Material.IRON);
+		super("jigsaw", Material.IRON);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}
 

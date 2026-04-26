@@ -17,6 +17,7 @@ import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.jobs.gui.fisherman.GuiFishingMinigame;
 import net.chaos.chaosmod.tileentity.TileEntityATM;
 import net.chaos.chaosmod.tileentity.TileEntityForge;
+import net.chaos.chaosmod.tileentity.TileEntityJigsaw;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.tileentity.TileEntityTrophyBase;
 import net.minecraft.entity.Entity;
@@ -71,8 +72,8 @@ public class GuiHandler implements IGuiHandler {
 			return emptyContainer();
 		case Reference.GUI_BEAR_ID:
 			return new ContainerBear(player, (EntityLiving) entity);
-//		case Reference.GUI_JIGSAW_ID:
-//			return new ContainerJigsaw(player);
+		case Reference.GUI_JIGSAW_ID:
+			return emptyContainer();
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -108,8 +109,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiFishingMinigame();
 		case Reference.GUI_BEAR_ID:
 			return new GuiBear(player, (EntityLiving) entity);
-//		case Reference.GUI_JIGSAW_ID:
-//			return new GuiJigsawBlock();
+		case Reference.GUI_JIGSAW_ID:
+			return new GuiJigsaw((TileEntityJigsaw) world.getTileEntity(new BlockPos(x, y, z)));
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}

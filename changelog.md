@@ -2,7 +2,8 @@
 
 TODO (Structures):
   - Look at MapGenStructuresIO and MapGenEndShips
-  - Look and see if it's relevant to add a jigsaw_block and make a mod about it (maybe an API)
+  - jigsaw_block textures + interface [done] (todo: make behavior now)
+  - Make an API or an additional mod with only the jigsaw_block in 1.12.2
 
 TODO (Build):
   - make noise values
@@ -113,6 +114,7 @@ ISSUES:
   - DrawerTESR: item icon lights even in the dark + container overflow issues (code issue)
   - Sword Of Wrath orientation towards monster attacked (fix animations)
   - Cascading worldgen lag for generated structures... (seems fixed for now I will let it here as I will add more huge structures later)
+  - Fix: bear canSpawnHere needs to check the AABB before (just override method)
 
 REFACTOR (when needed):
   - entity package
@@ -151,6 +153,7 @@ New:
   - feat: added `bear` spawn with variants (tameable with various `sitting_poses`)
   - feat: jobs `tasks_progress` are now shared between players for competition
   - feat: `//wand`, `//fill <block> <meta> [parameters]`, `//undo`, `//redo`, `//randomize <block>:<meta>:<weight> ...` commands to help build structures (creative only) + visuals
+  - feat: added overlay infos with icons & fixed the blocks displayName
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

@@ -23,7 +23,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -36,7 +35,6 @@ import util.Colors;
 import util.Reference;
 import util.math.MathUtils;
 
-// FIXME : might have to wrap some GlStateManager.push/popMatrix();
 @EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class AdditionalOverlayInfosEvents {
 	private static int vSpacing = 1;
@@ -73,8 +71,9 @@ public class AdditionalOverlayInfosEvents {
 			BlockPos pos = finalResult.getBlockPos();
 			IBlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
+			ItemStack infostack = new ItemStack(block, 1, block.getMetaFromState(state));
 
-			String info = new TextComponentTranslation(block.getLocalizedName()).getFormattedText();
+			String info = infostack.getDisplayName();
 			ResourceLocation rl = block.getRegistryName();
 
 			String modId = "unknown";
