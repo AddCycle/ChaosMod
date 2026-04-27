@@ -52,7 +52,8 @@ public class CommandsManager {
 		new CommandFill(),
 		new CommandUndo(),
 		new CommandRedo(),
-		new CommandRandomize()
+		new CommandRandomize(),
+		new CommandJigsaw()
 	);
 
 		if (!Loader.isModLoaded(Reference.MATHSMOD)) {

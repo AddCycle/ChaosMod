@@ -21,6 +21,7 @@ import net.chaos.chaosmod.world.ModWorldGen;
 import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
 import net.chaos.chaosmod.world.events.terraingen.OreGenOverrideEvents;
 import net.chaos.chaosmod.world.structures.VillageAdditionalStructure;
+import net.chaos.chaosmod.world.structures.jigsaw.JigsawPoolRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -71,6 +72,7 @@ public class Main {
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
 		logger.info("CHAOSMOD INIT PHASE {}", event.getModState());
+		JigsawPoolRegistry.registerTestPools();
 		ModLootTableList.registerLootTables();
 		PacketManager.init();
 		VillagerRegistry.instance().registerVillageCreationHandler(new VillageAdditionalStructure.CreationHandler());

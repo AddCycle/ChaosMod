@@ -1,0 +1,9 @@
+{
+  "name": "modid:village/houses",
+  "fallback": "minecraft:empty",
+  "elements": [
+    { "weight": 5, "element": "modid:village/house1" },
+    { "weight": 3, "element": "modid:village/house2" },
+    { "weight": 1, "element": "modid:village/rare_house" }
+  ]
+}

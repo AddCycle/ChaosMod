@@ -1,9 +1,8 @@
 # Changelog 1.0.16
 
 TODO (Structures):
-  - Look at MapGenStructuresIO and MapGenEndShips
-  - jigsaw_block textures + interface [done] (todo: make behavior now)
-  - Make an API or an additional mod with only the jigsaw_block in 1.12.2
+  - I think everything is done except avoiding the vanilla generated structures (TODO)
+  - Also add a button/mode to the jigsaw to generate along with maxDepth levels
 
 TODO (Build):
   - make noise values
@@ -154,6 +153,7 @@ New:
   - feat: jobs `tasks_progress` are now shared between players for competition
   - feat: `//wand`, `//fill <block> <meta> [parameters]`, `//undo`, `//redo`, `//randomize <block>:<meta>:<weight> ...` commands to help build structures (creative only) + visuals
   - feat: added overlay infos with icons & fixed the blocks displayName
+  - feat: added `jigsaw_block` from 1.14 ported to 1.12.2 (the superior version)
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

@@ -62,8 +62,6 @@ public class GuiJigsaw extends GuiScreen implements ITabCompleter {
 			this.tileJigsaw.setAttachementType(this.attachementTypeField.getText());
 			this.tileJigsaw.setTurnsInto(this.turnsIntoField.getText());
 
-			this.tileJigsaw.setMirror(this.mirror);
-			this.tileJigsaw.setRotation(this.rotation);
 			this.sendToServer(1);
 			this.mc.displayGuiScreen(null);
 		}

@@ -19,11 +19,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class JigsawBlock extends BlockContainerBase {
-	// maybe add a mode later
+	// TODO : maybe add a mode later
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
 	public JigsawBlock() {
@@ -75,6 +77,16 @@ public class JigsawBlock extends BlockContainerBase {
 		return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
 	}
 	
+	@Override
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
+		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+	}
+	
+	@Override
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+		return state.withProperty(FACING, mirrorIn.mirror(state.getValue(FACING)));
+	}
+	
 	/** REWRITE THEM if you add properties or modes **/
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
@@ -97,38 +109,8 @@ public class JigsawBlock extends BlockContainerBase {
             {
                 TileEntityJigsaw tileentityjigsaw = (TileEntityJigsaw)tileentity;
                 boolean flag = worldIn.isBlockPowered(pos);
-                /**
-                boolean flag1 = tileentityjigsaw.isPowered();
-
-                if (flag && !flag1)
-                {
-//                    tileentityjigsaw.setPowered(true);
-                    this.trigger(tileentityjigsaw);
-                }
-                else if (!flag && flag1)
-                {
-                    tileentityjigsaw.setPowered(false);
-                }
-                **/
             }
 	}
-	
-	/**
-	private void trigger(TileEntityJigsaw tileentity) {
-        switch (tileentity.getMode())
-        {
-            case SAVE:
-                tileentity.save(false);
-                break;
-            case LOAD:
-                tileentity.load(false);
-                break;
-            case CORNER:
-                tileentity.unloadStructure();
-            case DATA:
-        }
-	}
-	**/
 
     @Nullable
     public static EnumFacing getFacing(int meta)

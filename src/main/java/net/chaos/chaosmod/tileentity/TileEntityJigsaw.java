@@ -5,15 +5,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
 import net.minecraft.util.StringUtils;
 import util.Reference;
 
 public class TileEntityJigsaw extends TileEntity {
 	private String author = "";
-	private Mirror mirror = Mirror.NONE;
-	private Rotation rotation = Rotation.NONE;
 	private String pool = "minecraft:empty";
 	private String attachementType = "minecraft:empty";
 	private String turnsInto = "minecraft:air";
@@ -25,8 +21,6 @@ public class TileEntityJigsaw extends TileEntity {
 		compound.setString("pool", this.pool);
 		compound.setString("attachementType", this.attachementType);
 		compound.setString("turnsInto", this.turnsInto);
-		compound.setString("mirror", this.mirror.name());
-		compound.setString("rotation", this.rotation.name());
 		return compound;
 	}
 
@@ -37,16 +31,6 @@ public class TileEntityJigsaw extends TileEntity {
 		this.pool = compound.getString("pool");
 		this.attachementType = compound.getString("attachementType");
 		this.turnsInto = compound.getString("turnsInto");
-		try {
-			this.mirror = Mirror.valueOf(compound.getString("mirror"));
-		} catch (IllegalArgumentException e) {
-			this.mirror = Mirror.NONE;
-		}
-		try {
-			this.rotation = Rotation.valueOf(compound.getString("rotation"));
-		} catch (IllegalArgumentException e) {
-			this.rotation = Rotation.NONE;
-		}
 	}
 
 	@Override
@@ -70,10 +54,6 @@ public class TileEntityJigsaw extends TileEntity {
 			this.author = placer.getName();
 		}
 	}
-
-	public void setMirror(Mirror mirror) { this.mirror = mirror; }
-
-	public void setRotation(Rotation rotation) { this.rotation = rotation; }
 
 	public void setTurnsInto(String turnsInto) { this.turnsInto = turnsInto; }
 
