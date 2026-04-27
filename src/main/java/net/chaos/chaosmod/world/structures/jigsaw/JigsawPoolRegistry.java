@@ -26,6 +26,6 @@ public class JigsawPoolRegistry {
 
 	public static void registerTestPools() {
 		register(JigsawPool.EMPTY);
-		register(JigsawPool.TEST_POOL);
+		register(JigsawPool.DUNGEON_POOL);
 	}
 }

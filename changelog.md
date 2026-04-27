@@ -3,9 +3,11 @@
 TODO (Structures):
   - I think everything is done except avoiding the vanilla generated structures (TODO)
   - Also add a button/mode to the jigsaw to generate along with maxDepth levels
+  - make them generate naturally underground postforgeeventpopulate
 
 TODO (Build):
   - make noise values
+  - make `//randomize` support hollow, outline, ...
 
 TODO (WorldGen):
   - priority: add animals & mobs inside the `dense_forest` biome (bears - detail: have something in their mouth sometimes)
@@ -154,6 +156,7 @@ New:
   - feat: `//wand`, `//fill <block> <meta> [parameters]`, `//undo`, `//redo`, `//randomize <block>:<meta>:<weight> ...` commands to help build structures (creative only) + visuals
   - feat: added overlay infos with icons & fixed the blocks displayName
   - feat: added `jigsaw_block` from 1.14 ported to 1.12.2 (the superior version)
+  - feat: added `/jigsaw `
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

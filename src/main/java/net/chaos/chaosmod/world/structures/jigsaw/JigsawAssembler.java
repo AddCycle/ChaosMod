@@ -1,7 +1,6 @@
 package net.chaos.chaosmod.world.structures.jigsaw;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import net.chaos.chaosmod.Main;
@@ -46,65 +45,6 @@ public class JigsawAssembler {
 		this.startSettings = startSettings;
 	}
 	
-	public void assemble(MinecraftServer server, BlockPos start) {
-		WorldServer world = (WorldServer) server.getEntityWorld();
-		TemplateManager manager = world.getStructureTemplateManager();
-
-		Template startingTemplate = manager.getTemplate(server, startStructure);
-		
-		startingTemplate.addBlocksToWorld(world, start, startSettings);
-		List<JigsawConnector> firstconnections = TemplateUtils.getJigsawConnectors(startingTemplate, start, startSettings);
-
-		for (JigsawConnector c : firstconnections) {
-			JigsawPool pool = JigsawPoolRegistry.get(c.targetPool);
-			ResourceLocation pickedTemplate = pool.getRandomTemplate(world.rand);
-			Template secondTemplate = manager.getTemplate(server, pickedTemplate);
-//			PendingConnection pc = new PendingConnection();
-//			pc.jigsawPos = c.worldPos;
-//			pc.facing = c.facing;
-//			pc.targetPool = c.targetPool;
-//			pc.depth = 1;
-			// FIXME : later add to a queue instead of building right now
-//			pc.parentBounds = startingTemplate.getBoundingBox(settings, start);
-			JigsawConnector match = null;
-	        PlacementSettings matchSettings = null;
-
-	        // try all 4 rotations until we find a connector that opposes ours
-	        outer:
-	        for (Rotation rot : Rotation.values()) {
-	        	PlacementSettings secondSettings = new PlacementSettings().setRotation(rot);
-	        	List<JigsawConnector> secondconnections = TemplateUtils.getJigsawConnectors(secondTemplate, BlockPos.ORIGIN, secondSettings);
-
-	            for (JigsawConnector c2 : secondconnections) {
-	                if (c2.facing == c.facing.getOpposite()) {
-	                    match = c2;
-	                    matchSettings = secondSettings;
-	                    break outer;
-	                }
-	            }
-	        }
-
-	        if (match == null) {
-	            System.out.println("No matching connector found for facing: " + c.facing);
-	            replaceJigsaw(world, c.worldPos, c.turnsInto);
-	            continue;
-	        }
-
-	        // one block in front of the open connector
-	        BlockPos attachPoint = c.worldPos.offset(c.facing);
-
-	        // match.localPos is already rotated by getJigsawConnectors, so this is correct
-	        BlockPos secondOrigin = attachPoint.subtract(match.localPos);
-
-	        secondTemplate.addBlocksToWorld(world, secondOrigin, matchSettings);
-	        
-	        // replace the jigsaws
-	        replaceJigsaw(world, c.worldPos, c.turnsInto);
-	        // the one from the second template (match)
-	        replaceJigsaw(world, secondOrigin.add(match.localPos), match.turnsInto);
-		}
-	}
-	
 	public void assemble(MinecraftServer server, BlockPos start, int maxDepth) {
 	    WorldServer world = (WorldServer) server.getEntityWorld();
 	    TemplateManager manager = world.getStructureTemplateManager();
@@ -137,11 +77,32 @@ public class JigsawAssembler {
 	        }
 
 	        JigsawPool pool = JigsawPoolRegistry.get(pending.targetPool);
+//	        List<ResourceLocation> candidates = pool.getShuffled(world.rand);
 	        ResourceLocation pickedTemplate = pool.getRandomTemplate(world.rand);
 	        Template nextTemplate = manager.getTemplate(server, pickedTemplate);
 
 	        JigsawConnector match = null;
 	        PlacementSettings matchSettings = null;
+//	        Template nextTemplate = null;
+//	        JigsawConnector match = null;
+//	        PlacementSettings matchSettings = null;
+	        
+//	        outerCandidate:
+//	        	for (ResourceLocation candidateRes : candidates) {
+//	        	    Template candidate = manager.getTemplate(server, candidateRes);
+//
+//	        	    for (Rotation rot : Rotation.values()) {
+//	        	        PlacementSettings candidateSettings = new PlacementSettings().setRotation(rot);
+//	        	        for (JigsawConnector c2 : TemplateUtils.getJigsawConnectors(candidate, BlockPos.ORIGIN, candidateSettings)) {
+//	        	            if (c2.facing == pending.facing.getOpposite()) {
+//	        	                match = c2;
+//	        	                matchSettings = candidateSettings;
+//	        	                nextTemplate = candidate;
+//	        	                break outerCandidate;
+//	        	            }
+//	        	        }
+//	        	    }
+//	        	}
 
 	        outer:
 	        for (Rotation rot : Rotation.values()) {

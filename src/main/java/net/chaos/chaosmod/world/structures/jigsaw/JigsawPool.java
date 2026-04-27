@@ -2,8 +2,10 @@ package net.chaos.chaosmod.world.structures.jigsaw;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -14,8 +16,11 @@ public class JigsawPool {
 	public static final JigsawPool EMPTY = new JigsawPool(new ResourceLocation("minecraft:empty"),
 			new ResourceLocation("minecraft:empty"), Collections.emptyList());
 
-	public static final JigsawPool TEST_POOL = new JigsawPool(new ResourceLocation(Reference.MODID, "test_pool"),
-			EMPTY.getName(), testPool());
+//	public static final JigsawPool TEST_POOL = new JigsawPool(new ResourceLocation(Reference.MODID, "test_pool"),
+//			EMPTY.getName(), testPool());
+
+	public static final JigsawPool DUNGEON_POOL = new JigsawPool(new ResourceLocation(Reference.MODID, "dungeon"),
+			EMPTY.getName(), dungeonPool());
 
 	private final ResourceLocation name;
 	private final ResourceLocation fallback;
@@ -30,6 +35,25 @@ public class JigsawPool {
 		this.elements = elements;
 		this.totalWeight = elements.stream().mapToInt(Pair::getRight).sum();
 	}
+	
+	public List<ResourceLocation> getShuffled(Random rand) {
+	    List<Pair<ResourceLocation, Integer>> copy = new ArrayList<>(elements);
+	    // weighted shuffle: just collect all keys, weight times, then shuffle
+	    List<ResourceLocation> weighted = new ArrayList<>();
+	    for (Pair<ResourceLocation, Integer> entry : copy) {
+	        for (int i = 0; i < entry.getRight(); i++) {
+	            weighted.add(entry.getLeft());
+	        }
+	    }
+	    Collections.shuffle(weighted, rand);
+	    // deduplicate while preserving shuffle order
+	    List<ResourceLocation> result = new ArrayList<>();
+	    Set<ResourceLocation> seen = new LinkedHashSet<>();
+	    for (ResourceLocation rl : weighted) {
+	        if (seen.add(rl)) result.add(rl);
+	    }
+	    return result;
+	}
 
 	public ResourceLocation getRandomTemplate(Random rand) {
 		if (elements.isEmpty())
@@ -43,10 +67,11 @@ public class JigsawPool {
 		return elements.get(0).getLeft();
 	}
 
-	public static List<Pair<ResourceLocation, Integer>> testPool() {
+	public static List<Pair<ResourceLocation, Integer>> dungeonPool() {
 		List<Pair<ResourceLocation, Integer>> elt = new ArrayList<>();
 		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "corridor1"), 50));
-		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "test_room1"), 50));
+		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "main_room"), 20));
+		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "corner1"), 30));
 		return elt;
 	}
 	public ResourceLocation getName() { return name; }
