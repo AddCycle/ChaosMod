@@ -15,6 +15,7 @@ public class Reference {
 	public static final String MATHSMOD = "mathsmod";
 	public static final String PATCHOULI = "patchouli";
 	public static final String BIOMESOPLENTY = "biomesoplenty";
+	public static final String WORLDEDIT = "worldedit";
     
     // GUI ids
     public static final int GUI_GUIDE_ID = 0;

@@ -67,13 +67,14 @@ public class JigsawPool {
 		return elements.get(0).getLeft();
 	}
 
-	// command /setblock ~ ~ ~ minecraft:chest 2 replace {LootTable:"chaosmod:chests/dungeon_chest"}
+	// command /setblock ~ ~ ~ minecraft:chest 2 replace {LootTable:"chaosmod:dungeon_chest"}
 	public static List<Pair<ResourceLocation, Integer>> dungeonPool() {
 		List<Pair<ResourceLocation, Integer>> elt = new ArrayList<>();
-		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "corridor1"), 40));
+		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "corridor1"), 30));
 		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "main_room"), 20));
 		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "corner1"), 30));
 		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "chest1"), 10));
+		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "stairs1"), 10));
 		return elt;
 	}
 	public ResourceLocation getName() { return name; }

@@ -7,6 +7,7 @@ import net.chaos.chaosmod.commands.build.CommandWand;
 import net.chaos.chaosmod.commands.debug.CommandTestFishing;
 import net.chaos.chaosmod.commands.debug.SpeedCommand;
 import net.chaos.chaosmod.commands.debug.TpDimCommand;
+import net.chaos.chaosmod.commands.generation.CommandLocateJigsaw;
 import net.chaos.chaosmod.commands.generation.CommandPlace;
 import net.chaos.chaosmod.commands.hunt.HuntCommand;
 import net.chaos.chaosmod.commands.jobs.JobsCommand;
@@ -48,13 +49,18 @@ public class CommandsManager {
 		new TpDimCommand(),
 		new SpeedCommand(),
 		// build
-		new CommandWand(),
-		new CommandFill(),
-		new CommandUndo(),
-		new CommandRedo(),
-		new CommandRandomize(),
-		new CommandJigsaw()
+		new CommandJigsaw(),
+		new CommandLocateJigsaw()
 	);
+		
+		if (!Loader.isModLoaded(Reference.WORLDEDIT)) {
+			register(event, 
+				new CommandWand(),
+				new CommandFill(),
+				new CommandUndo(),
+				new CommandRedo(),
+				new CommandRandomize());
+		}
 
 		if (!Loader.isModLoaded(Reference.MATHSMOD)) {
 			register(event,

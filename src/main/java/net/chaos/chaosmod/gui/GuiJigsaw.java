@@ -12,16 +12,14 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ITabCompleter;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiJigsaw extends GuiScreen implements ITabCompleter {
-    private Mirror mirror = Mirror.NONE;
-    private Rotation rotation = Rotation.NONE;
+//    private Mirror mirror = Mirror.NONE;
+//    private Rotation rotation = Rotation.NONE;
     private GuiTextField poolField;
     private GuiTextField attachementTypeField;
     private GuiTextField turnsIntoField;

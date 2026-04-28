@@ -20,6 +20,7 @@ import net.chaos.chaosmod.villagers.CustomProfessions;
 import net.chaos.chaosmod.world.ModWorldGen;
 import net.chaos.chaosmod.world.events.WorldGenerationOverrideEvents;
 import net.chaos.chaosmod.world.events.terraingen.OreGenOverrideEvents;
+import net.chaos.chaosmod.world.structures.DungeonGenerator;
 import net.chaos.chaosmod.world.structures.VillageAdditionalStructure;
 import net.chaos.chaosmod.world.structures.jigsaw.JigsawPoolRegistry;
 import net.minecraftforge.common.MinecraftForge;
@@ -62,6 +63,7 @@ public class Main {
 		ClientBusHandler.init();
 		ModSounds.registerSounds();
 		GameRegistry.registerWorldGenerator(new ModWorldGen(), 0);
+		GameRegistry.registerWorldGenerator(new DungeonGenerator(), 10); // vanilla features go first
 		ModEntities.registerEntities();
 		ModFluids.registerFluids();
 		CapabilityEventHandler.registerAllCapabilities(event);
