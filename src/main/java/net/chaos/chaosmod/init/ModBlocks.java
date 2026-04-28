@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.chaos.chaosmod.blocks.AllemaniteBlock;
+import net.chaos.chaosmod.blocks.BeehiveBlock;
 import net.chaos.chaosmod.blocks.BlockBase;
 import net.chaos.chaosmod.blocks.BlockBeam;
 import net.chaos.chaosmod.blocks.BlockChaosGateway;
@@ -105,4 +106,5 @@ public class ModBlocks {
 	public static final Block DRAWER = new BlockDrawer("drawer", Material.WOOD);
 	public static final Block ATM_BLOCK = new ATMBlock("atm_block", Material.IRON);
 	public static final Block JIGSAW_BLOCK = new JigsawBlock();
+	public static final Block BEEHIVE = new BeehiveBlock();
 }

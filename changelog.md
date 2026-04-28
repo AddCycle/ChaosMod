@@ -6,6 +6,7 @@ TODO (Structures):
   - make them generate naturally underground postforgeeventpopulate
   - make chests inside the structure (done) todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure
   - todo: add spawners and a boss room + showbossbar only when player is near him like really near him or inside the structure
+  - todo: rename the structure parts into a `structure_name/piece` format in order to add more structures later
 
 TODO (Build):
   - make noise values

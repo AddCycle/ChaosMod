@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"age=0,facing=north": { "model": "chaosmod:beehive0", "y": 0 },
+		"age=0,facing=south": { "model": "chaosmod:beehive0", "y": 180 },
+		"age=0,facing=east": { "model": "chaosmod:beehive0", "y": 90 },
+		"age=0,facing=west": { "model": "chaosmod:beehive0", "y": 270 },
+		"age=1,facing=north": { "model": "chaosmod:beehive1" },
+		"age=1,facing=south": { "model": "chaosmod:beehive1" },
+		"age=1,facing=east": { "model": "chaosmod:beehive1" },
+		"age=1,facing=west": { "model": "chaosmod:beehive1" },
+		"age=2,facing=north": { "model": "chaosmod:beehive2" },
+		"age=2,facing=south": { "model": "chaosmod:beehive2" },
+		"age=2,facing=east": { "model": "chaosmod:beehive2" },
+		"age=2,facing=west": { "model": "chaosmod:beehive2" }
+	}
+}
