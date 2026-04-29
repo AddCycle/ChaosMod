@@ -1,6 +1,9 @@
 package net.chaos.chaosmod.commands;
 
+import net.chaos.chaosmod.commands.build.CommandCopy;
 import net.chaos.chaosmod.commands.build.CommandFill;
+import net.chaos.chaosmod.commands.build.CommandPaste;
+import net.chaos.chaosmod.commands.build.CommandRandomize;
 import net.chaos.chaosmod.commands.build.CommandRedo;
 import net.chaos.chaosmod.commands.build.CommandUndo;
 import net.chaos.chaosmod.commands.build.CommandWand;
@@ -59,7 +62,9 @@ public class CommandsManager {
 				new CommandFill(),
 				new CommandUndo(),
 				new CommandRedo(),
-				new CommandRandomize());
+				new CommandRandomize(),
+				new CommandCopy(),
+				new CommandPaste());
 		}
 
 		if (!Loader.isModLoaded(Reference.MATHSMOD)) {

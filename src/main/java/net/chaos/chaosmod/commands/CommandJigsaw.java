@@ -24,7 +24,7 @@ public class CommandJigsaw extends CommandBase {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/jigsaw <structure_start> <x> <y> <z> <depth>";
+		return "/jigsaw <structure_start> <x> <y> <z> [depth] (max 20)";
 	}
 	
 	@Override
@@ -41,11 +41,10 @@ public class CommandJigsaw extends CommandBase {
 
 		String structureStart = args[0];
 		BlockPos pos = parseBlockPos(sender, args, 1, false);
-		int maxDepth = args.length >= 5 ? parseInt(args[4]) : 4;
+		int maxDepth = args.length >= 5 ? Math.max(parseInt(args[4]), 20) : 4;
 		String[] name = ResourceLocation.splitObjectName(structureStart);
 		ResourceLocation start = name == null ? new ResourceLocation(Reference.MODID, structureStart) : new ResourceLocation(structureStart);
 		JigsawAssembler assembler = new JigsawAssembler(start, DEFAULT_PLACEMENT);
-//		assembler.assembleWithRetry(server, pos, maxDepth, 5);
 		assembler.assemble(server, pos, maxDepth);
 	}
 }

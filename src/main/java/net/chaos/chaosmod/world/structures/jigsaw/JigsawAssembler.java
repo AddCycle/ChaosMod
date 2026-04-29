@@ -26,6 +26,7 @@ import util.Reference;
 public class JigsawAssembler {
 	private ResourceLocation startStructure;
 	private PlacementSettings startSettings;
+	private static final int flag = 2|16;
 
 	static class PendingConnection {
 		BlockPos jigsawPos; // worldPos
@@ -81,7 +82,7 @@ public class JigsawAssembler {
 	    BlockPos startSize = startingTemplate.getSize();
 	    StructureBoundingBox startBox = computeBoundingBox(start, startSize, startSettings.getRotation());
 
-	    startingTemplate.addBlocksToWorld(world, start, startSettings);
+	    startingTemplate.addBlocksToWorld(world, start, startSettings, flag);
 	    placedBoxes.add(startBox);
 
 	    // enqueue connectors from start
@@ -208,7 +209,7 @@ public class JigsawAssembler {
 
         BlockPos attachPoint = pending.jigsawPos.offset(pending.facing);
 
-        result.nextTemplate.addBlocksToWorld(world, result.nextOrigin, result.matchSettings);
+        result.nextTemplate.addBlocksToWorld(world, result.nextOrigin, result.matchSettings, flag);
         placedBoxes.add(result.nextBox);
 
         replaceJigsaw(world, pending.jigsawPos, pending.turnsInto);
@@ -259,6 +260,6 @@ public class JigsawAssembler {
 	        Main.getLogger().warn("turnsInto block not found: {}, replacing with air", turnsInto);
 	        block = Blocks.AIR;
 	    }
-	    world.setBlockState(pos, block.getDefaultState());
+	    world.setBlockState(pos, block.getDefaultState(), flag);
 	}
 }

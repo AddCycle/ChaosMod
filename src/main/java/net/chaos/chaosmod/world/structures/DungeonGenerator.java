@@ -23,9 +23,7 @@ public class DungeonGenerator implements IWorldGenerator {
     // How often to try spawning (1 attempt per N chunks)
     public static final int SPACING = 32;
     private static final int MAX_DEPTH = 15;
-	private static final int MAX_RETRIES = 5;
     private static final ResourceLocation STRUCTURE_START = new ResourceLocation(Reference.MODID, "main_room");
-
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world,
@@ -50,8 +48,6 @@ public class DungeonGenerator implements IWorldGenerator {
         if (server == null) return;
 
         JigsawAssembler assembler = new JigsawAssembler(STRUCTURE_START, DEFAULT_PLACEMENT);
-//        assembler.assemble(server, pos, MAX_DEPTH);
-//        assembler.assembleWithRetry(server, pos, MAX_DEPTH, MAX_RETRIES);
         assembler.assemble(server, pos, MAX_DEPTH);
     }
 }

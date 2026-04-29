@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.commands;
+package net.chaos.chaosmod.commands.build;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import net.chaos.chaosmod.commands.build.BuildManager;
+import net.chaos.chaosmod.commands.BlockEntry;
 import net.chaos.chaosmod.world.events.build.BuildEvents;
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
@@ -20,6 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -33,7 +34,7 @@ public class CommandRandomize extends CommandBase {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "//randomize [<block>:<weight> ... ] [<block>:<meta>:<weight> ... ]"; // later <noise_type (base,perlin,simplex)>
+		return "//randomize <type> [<block>:<weight> ... ] [<block>:<meta>:<weight> ... ]"; // later <noise_type (base,perlin,simplex)>
 	}
 
 	@Override
@@ -59,8 +60,44 @@ public class CommandRandomize extends CommandBase {
 		BlockPos pos1 = new BlockPos(p1[0], p1[1], p1[2]);
 		BlockPos pos2 = new BlockPos(p2[0], p2[1], p2[2]);
 		
+		String type = args[0];
+		List<BlockEntry> pool = getPool(sender, args);
+		
+		pool.forEach(entry -> player.sendMessage(new TextComponentString("block: " + entry.getBlock().getRegistryName() + ", weight: " + entry.getWeight())));
+		
+		List<BlockSnapshot> list = BuildManager.getBlockSnapshots(player, pos1, pos2);
+		
+		UUID playerId = player.getPersistentID();
+		BuildManager.pushUndoSnapshots(playerId, list);
+		BuildManager.clearRedoSnapshots(playerId);
+
+		StructureBoundingBox box = BuildManager.getBoundingBox(pos1, pos2);
+
+		switch (type) {
+			case "hollow":
+				BuildManager.hollowRandomly(server.getEntityWorld(), box, pool);
+				break;
+			case "outline":
+				BuildManager.outlineRandomly(server.getEntityWorld(), box, pool);
+				break;
+			default:
+				BuildManager.randomize(player.getEntityWorld(), pool, list);
+				break;
+		}
+	}
+	
+	@Override
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args,
+			BlockPos targetPos) {
+		if (args.length == 1) {
+			return getListOfStringsMatchingLastWord(args, new String[] {"base", "outline", "hollow"});
+		}
+		return args.length > 1 ? getListOfStringsMatchingLastWord(args, ForgeRegistries.BLOCKS.getKeys()) :  Collections.emptyList();
+	}
+	
+	private List<BlockEntry> getPool(ICommandSender sender, String[] args) throws CommandException {
 		List<BlockEntry> pool = new ArrayList<>();
-		for (int i = 0; i < args.length; i++) {
+		for (int i = 1; i < args.length; i++) {
 			String[] parts = args[i].split(":");
 
 		    if (parts.length < 2) throw new WrongUsageException(getUsage(sender));
@@ -82,20 +119,6 @@ public class CommandRandomize extends CommandBase {
             pool.add(new BlockEntry(block, weight, meta));
 		}
 		
-		pool.forEach(entry -> player.sendMessage(new TextComponentString("block: " + entry.getBlock().getRegistryName() + ", weight: " + entry.getWeight())));
-		
-		List<BlockSnapshot> list = BuildManager.getBlockSnapshots(player, pos1, pos2);
-		
-		UUID playerId = player.getPersistentID();
-		BuildManager.pushUndoSnapshots(playerId, list);
-		BuildManager.clearRedoSnapshots(playerId);
-
-		BuildManager.randomize(player.getEntityWorld(), pool, list);
-	}
-	
-	@Override
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args,
-			BlockPos targetPos) {
-		return args.length >= 1 ? getListOfStringsMatchingLastWord(args, ForgeRegistries.BLOCKS.getKeys()) :  Collections.emptyList();
+		return pool;
 	}
 }

@@ -3,19 +3,20 @@
 TODO (Structures):
   - I think everything is done except avoiding the vanilla generated structures (TODO: but I think it's already handled by forge salt system (maybe query other mods random in order to avoid them via intercommunicationevent ?))
   - Also add a button/mode to the jigsaw to generate along with maxDepth levels
-  - make them generate naturally underground postforgeeventpopulate
-  - make chests inside the structure (done) todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure
-  - todo: add spawners and a boss room + showbossbar only when player is near him like really near him or inside the structure
+  - make them generate naturally underground postforgeeventpopulate ?
+  - make chests inside the structure (done) todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure + make a minCount of chests and generate them via datablocks structureblock (below setLootTable)
+  - todo: add spawners (intermediate rooms with loot and spawners) and a boss room + showbossbar only when player is near him like really near him or inside the structure (just summon the boss through the altar fixes it)
+  - todo: rework the boss altar to like hold the NBT data of the boss
   - todo: rename the structure parts into a `structure_name/piece` format in order to add more structures later
   - todo: make a boss room and blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed
   - todo: add beehive behavior + tame bear with bucket content
-  - issue: minCount isn't met sometimes (also with the bossroom, fix the JigsawAssembler class) [seems fixed]
+  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
 
 TODO (Build):
-  - add a `//copy` & `//paste <x> <y> <z>` command with completions
+  - add a `//copy` based on vanilla `/clone` (maybe because I might recode it in order to be compatible with `//undo` & `//redo` commands) command with completions
+  - make the `//paste <x> <y> <z> [registry (int)]` take from it (works finally with //undo & //redo)
   - make a ruler item to measure distances between pos1 & pos2
   - make noise values
-  - make `//randomize` support hollow, outline, ...
   - add axis rendering x red, z blue, y green (like structure block does)
 
 TODO (WorldGen):
@@ -39,8 +40,6 @@ TODO (JOBS):
 
   - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins + testing
   - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
-  - Look at structurecomponentendtemplate
-  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
 
   - Add bedrock bridging feature [TODO] (for travelers I think)
   - add a spelunkery table which requires translation like (alex's cave mod) (travelers I think to find coords of the structures or buried treasures (traveler job))
@@ -61,8 +60,9 @@ TODO (Bosses):
 
 TODO (rework):
   - make the items upgrades instead of crafting others: oxonium -> forge -> allemanite -> forge -> enderite -> forge -> solarite and so on...
-  - make the swords block attacks by right-clicking holding them (pre-1.9 pvp)
+  - make the swords block attacks by holding right-click wielding them (pre-1.9 pvp)
   - remake armors (enderite_texture: more like a crying obsidian or maybe just remove it and go crying_obsidian_armor) + give them effects unique (variety)
+  - remake allemanite_backpack and make it upgradable with more storage and actually syncs to not loose loot (verify/re-implement)
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
@@ -75,10 +75,10 @@ IDEAS:
   - Custom event only-tipped-arrows allowed
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
   - Also make the items have a rarity/tier so that you can basically reforge everything.
-  - Rework the current bosses and entities models (add effects + animations)
+  - Rework the current bosses and entities models (add effects + animations) [DOING]
   - Skill tree
   - add buried treasure with a minimap
-  - Herobrine, Poutine, Technoblade, DaquavisMC, Dream boss
+  - Herobrine, Putin, Technoblade, DaquavisMC, Dream boss
   - Structure loot chest that when opened summons entities that will fight to protect the chest
   - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = pillagerTower
   - Cook (like with stats increasing if you have a good alimentation)
@@ -118,13 +118,14 @@ TODO (next version) ?:
   - SwordOfWrath needs to target the entity if the player hits it
 
 ISSUES:
-  - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tameable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different
-  - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too))
+  - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tameable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different [DOING]
+  - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too (most probable cause: flag 2|16 or mathsmod:hunter entity)))
   - EntityViking clearing inventory on right-click and kills you...
   - DrawerTESR: item icon lights even in the dark + container overflow issues (code issue)
   - Sword Of Wrath orientation towards monster attacked (fix animations)
   - Cascading worldgen lag for generated structures... (seems fixed for now I will let it here as I will add more huge structures later)
   - Fix: bear canSpawnHere needs to check the AABB before (just override method)
+  - make my own main menu gui in order to disable it from the mod's config
 
 REFACTOR (when needed):
   - entity package
@@ -135,7 +136,7 @@ OPTIMIZATION:
 
 TODO:
   - Make a tool for making easier animations in blockbench directly (plugin or else)
-  - Make another tool for DjoCaillou to mod without coding
+  - Make another tool for DjoCaillou to mod without coding (if not, make tutorials on MCreator for 1.12.2)
 
 New:
   - MainMenu custom `LOGO` (overrides `minecraft.png`)
@@ -162,7 +163,7 @@ New:
   - feat: added `dense_forest` biome
   - feat: added `bear` spawn with variants (tameable with various `sitting_poses`)
   - feat: jobs `tasks_progress` are now shared between players for competition
-  - feat: `//wand`, `//fill <block> <meta> [parameters]`, `//undo`, `//redo`, `//randomize <block>:<meta>:<weight> ...` commands to help build structures (creative only) + visuals
+  - feat: `//wand`, `//fill <block> <meta> [parameters]`, `//undo`, `//redo`, `//randomize <type> <block>:<meta>:<weight> ...`, `//paste <x> <y> <z>` commands to help build structures (creative only) + visuals
   - feat: added overlay infos with icons & fixed the blocks displayName
   - feat: added `jigsaw_block` from 1.14 ported to 1.12.2 (the superior version)
   - feat: added `/jigsaw <structure_start> <x> <y> <z> <depth>` command placing procedural structure
@@ -173,7 +174,7 @@ Changes:
   - fix: Pixou drops the stole `mineral` blocks (I think only gold works right now)
   - chore: Removed garbage blocks as andesite, diorite, granite from generation
   - perf: optimized `/find <block_id> [range]` command
-  - refactor: automatic packet registration with custom annotation @ModPackets(modid, side)
+  - refactor: automatic packet registration with custom annotation `@ModPackets(modid, side)`
   - fix: custom flowers drops the correct variant when the block below is broken
   - feat: every player is able to see the summoning boss `cutscene`
   - feat: `final credits` displayed after beating `ChaosMaster Boss`
