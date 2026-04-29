@@ -45,6 +45,7 @@ public class CommandJigsaw extends CommandBase {
 		String[] name = ResourceLocation.splitObjectName(structureStart);
 		ResourceLocation start = name == null ? new ResourceLocation(Reference.MODID, structureStart) : new ResourceLocation(structureStart);
 		JigsawAssembler assembler = new JigsawAssembler(start, DEFAULT_PLACEMENT);
+//		assembler.assembleWithRetry(server, pos, maxDepth, 5);
 		assembler.assemble(server, pos, maxDepth);
 	}
 }

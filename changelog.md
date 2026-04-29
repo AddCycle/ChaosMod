@@ -1,16 +1,22 @@
 # Changelog 1.0.16
 
 TODO (Structures):
-  - I think everything is done except avoiding the vanilla generated structures (TODO)
+  - I think everything is done except avoiding the vanilla generated structures (TODO: but I think it's already handled by forge salt system (maybe query other mods random in order to avoid them via intercommunicationevent ?))
   - Also add a button/mode to the jigsaw to generate along with maxDepth levels
   - make them generate naturally underground postforgeeventpopulate
   - make chests inside the structure (done) todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure
   - todo: add spawners and a boss room + showbossbar only when player is near him like really near him or inside the structure
   - todo: rename the structure parts into a `structure_name/piece` format in order to add more structures later
+  - todo: make a boss room and blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed
+  - todo: add beehive behavior + tame bear with bucket content
+  - issue: minCount isn't met sometimes (also with the bossroom, fix the JigsawAssembler class)
 
 TODO (Build):
+  - add a `//copy` & `//paste <x> <y> <z>` command with completions
+  - make a ruler item to measure distances between pos1 & pos2
   - make noise values
   - make `//randomize` support hollow, outline, ...
+  - add axis rendering x red, z blue, y green (like structure block does
 
 TODO (WorldGen):
   - priority: add animals & mobs inside the `dense_forest` biome (bears - detail: have something in their mouth sometimes)

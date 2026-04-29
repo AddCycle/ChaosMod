@@ -8,45 +8,55 @@ import java.util.Random;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 
 import net.minecraft.util.ResourceLocation;
 import util.Reference;
 
+/**
+ * TODO : add a maxCount on pieces in the assembler (ex: so the boss_room appears only-once)
+ * TODO : add a pieceLast flag to seal dead-ends of structures
+ */
 public class JigsawPool {
 	public static final JigsawPool EMPTY = new JigsawPool(new ResourceLocation("minecraft:empty"),
 			new ResourceLocation("minecraft:empty"), Collections.emptyList());
 
-//	public static final JigsawPool TEST_POOL = new JigsawPool(new ResourceLocation(Reference.MODID, "test_pool"),
-//			EMPTY.getName(), testPool());
-
-	public static final JigsawPool DUNGEON_POOL = new JigsawPool(new ResourceLocation(Reference.MODID, "dungeon"),
-			EMPTY.getName(), dungeonPool());
+	public static final JigsawPool DUNGEON_POOL = new JigsawPool(new ResourceLocation(Reference.MODID, "dungeon"), EMPTY.getName(), dungeonPool()); // working with depth 
 
 	private final ResourceLocation name;
 	private final ResourceLocation fallback;
-	// Pair of (template ResourceLocation, weight)
-	private final List<Pair<ResourceLocation, Integer>> elements;
+	private final List<Triple<ResourceLocation, Integer, PieceConstraint>> elements;
 	private final int totalWeight;
 
 	public JigsawPool(ResourceLocation name, ResourceLocation fallback,
-			List<Pair<ResourceLocation, Integer>> elements) {
+			List<Triple<ResourceLocation, Integer, PieceConstraint>> elements) {
 		this.name = name;
 		this.fallback = fallback;
 		this.elements = elements;
-		this.totalWeight = elements.stream().mapToInt(Pair::getRight).sum();
+		this.totalWeight = elements.stream().mapToInt(Triple::getMiddle).sum();
 	}
 	
-	public List<ResourceLocation> getShuffled(Random rand) {
-	    List<Pair<ResourceLocation, Integer>> copy = new ArrayList<>(elements);
-	    // weighted shuffle: just collect all keys, weight times, then shuffle
+	public static JigsawPool unconstrained(ResourceLocation name, ResourceLocation fallback,
+            List<Pair<ResourceLocation, Integer>> pairs) {
+        List<Triple<ResourceLocation, Integer, PieceConstraint>> elements = new ArrayList<>();
+        for (Pair<ResourceLocation, Integer> p : pairs) {
+            elements.add(Triple.of(p.getLeft(), p.getRight(), null));
+        }
+        return new JigsawPool(name, fallback, elements);
+    }
+	
+	public List<ResourceLocation> getShuffled(Random rand, int currentDepth) {
 	    List<ResourceLocation> weighted = new ArrayList<>();
-	    for (Pair<ResourceLocation, Integer> entry : copy) {
-	        for (int i = 0; i < entry.getRight(); i++) {
+	    for (Triple<ResourceLocation, Integer, PieceConstraint> entry : elements) {
+	    	PieceConstraint dc = entry.getRight();
+	    	if (dc != null && dc.placeLast) continue;
+	    	if (dc != null && !dc.allows(currentDepth)) continue;
+	        for (int i = 0; i < entry.getMiddle(); i++) {
 	            weighted.add(entry.getLeft());
 	        }
 	    }
+
 	    Collections.shuffle(weighted, rand);
-	    // deduplicate while preserving shuffle order
 	    List<ResourceLocation> result = new ArrayList<>();
 	    Set<ResourceLocation> seen = new LinkedHashSet<>();
 	    for (ResourceLocation rl : weighted) {
@@ -54,13 +64,43 @@ public class JigsawPool {
 	    }
 	    return result;
 	}
+	
+	public List<ResourceLocation> getShuffled(Random rand) {
+		return getShuffled(rand, -1); // no constraints
+	}
+	
+	public List<ResourceLocation> getPlaceLastCandidates(Random rand, int currentDepth) {
+	    List<ResourceLocation> weighted = new ArrayList<>();
+	    for (Triple<ResourceLocation, Integer, PieceConstraint> entry : elements) {
+	        PieceConstraint dc = entry.getRight();
+	        if (dc == null || !dc.placeLast) continue; // only placeLast entries
+	        if (!dc.allows(currentDepth)) continue;
+	        for (int i = 0; i < entry.getMiddle(); i++) {
+	            weighted.add(entry.getLeft());
+	        }
+	    }
+	    Collections.shuffle(weighted, rand);
+	    List<ResourceLocation> result = new ArrayList<>();
+	    Set<ResourceLocation> seen = new LinkedHashSet<>();
+	    for (ResourceLocation rl : weighted) {
+	        if (seen.add(rl)) result.add(rl);
+	    }
+	    return result;
+	}
+	
+	public PieceConstraint getConstraint(ResourceLocation res) {
+	    for (Triple<ResourceLocation, Integer, PieceConstraint> entry : elements) {
+	        if (entry.getLeft().equals(res)) return entry.getRight();
+	    }
+	    return null;
+	}
 
 	public ResourceLocation getRandomTemplate(Random rand) {
 		if (elements.isEmpty())
 			return fallback;
 		int roll = rand.nextInt(totalWeight);
-		for (Pair<ResourceLocation, Integer> entry : elements) {
-			roll -= entry.getRight();
+		for (Triple<ResourceLocation, Integer, PieceConstraint> entry : elements) {
+			roll -= entry.getMiddle();
 			if (roll < 0)
 				return entry.getLeft();
 		}
@@ -68,16 +108,68 @@ public class JigsawPool {
 	}
 
 	// command /setblock ~ ~ ~ minecraft:chest 2 replace {LootTable:"chaosmod:dungeon_chest"}
-	public static List<Pair<ResourceLocation, Integer>> dungeonPool() {
-		List<Pair<ResourceLocation, Integer>> elt = new ArrayList<>();
-		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "corridor1"), 30));
-		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "main_room"), 20));
-		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "corner1"), 30));
-		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "chest1"), 10));
-		elt.add(Pair.of(new ResourceLocation(Reference.MODID, "stairs1"), 10));
-		return elt;
+	public static List<Triple<ResourceLocation, Integer, PieceConstraint>> dungeonPool() {
+		List<Triple<ResourceLocation, Integer, PieceConstraint>> elts = new ArrayList<>();
+		addPiece(elts, "corridor1", 25, null);
+		addPiece(elts, "main_room", 10, new PieceConstraint(1, 1, 1, 1)); // only once next to the first one
+		addPiece(elts, "corner1", 25, null);
+		addPiece(elts, "chest1", 10, new PieceConstraint(4, -1, -1, -1, true)); // only at the end of a corridor
+		addPiece(elts, "stairs1", 10, new PieceConstraint(3, -1));
+		addPiece(elts, "boss_room", 20, new PieceConstraint(4, -1, 1, 1, true)); // only once
+		return elts;
 	}
+
+	private static void addPiece(List<Triple<ResourceLocation, Integer, PieceConstraint>> elts, String pieceName, int weight, PieceConstraint constraint) {
+		addPiece(elts, Reference.MODID, pieceName, weight, constraint);
+	}
+	
+	private static void addPiece(List<Triple<ResourceLocation, Integer, PieceConstraint>> elts, String namespace, String pieceName, int weight, PieceConstraint constraint) {
+		elts.add(Triple.of(new ResourceLocation(namespace, pieceName), weight, constraint));
+	}
+
 	public ResourceLocation getName() { return name; }
 
 	public ResourceLocation getFallback() { return fallback; }
+	
+	public List<Triple<ResourceLocation, Integer, PieceConstraint>> getElements() { return elements; }
+	
+	// TODO : rename PieceConstraint
+	public static class PieceConstraint {
+        public final int minDepth;
+        public final int maxDepth;
+        public final int minCount; // FIXME : absolutely not working (for now the fix is to put a high weight on the piece and when it's chose no more can be generated so you'd be sure one is present)
+        public final int maxCount;
+        public final boolean placeLast;
+        
+        public PieceConstraint() {
+        	this(-1, -1); // no constraints
+        }
+
+        public PieceConstraint(int minDepth, int maxDepth) {
+        	this(minDepth, maxDepth, -1, -1, false);
+        }
+
+        public PieceConstraint(int minDepth, int maxDepth, int minCount, int maxCount) {
+        	this(minDepth, maxDepth, minCount, maxCount, false);
+        }
+        
+        public PieceConstraint(int minDepth, int maxDepth, int minCount, int maxCount, boolean placeLast) {
+			this.minDepth = minDepth;
+			this.maxDepth = maxDepth;
+			this.minCount = minCount;
+			this.maxCount = maxCount;
+			this.placeLast = placeLast;
+		}
+
+		public boolean allows(int depth) {
+            if (minDepth >= 0 && depth < minDepth) return false;
+            if (maxDepth >= 0 && depth > maxDepth) return false;
+            return true;
+        }
+		
+		public boolean allowsCount(int currentCount) {
+	        if (maxCount >= 0 && currentCount >= maxCount) return false;
+	        return true;
+	    }
+    }
 }

@@ -18,8 +18,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
- * TODO : make tileentity to store data or content & render
- * TODO : make texture & blockstates + model
+ * TODO : make tileentity to store data or content honey buckets production & render
+ * TODO : make texture & blockstates + model (other states than base one)
  */
 public class BeehiveBlock extends BlockContainerBase {
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
