@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -86,6 +87,30 @@ public class JigsawPool {
 	        if (seen.add(rl)) result.add(rl);
 	    }
 	    return result;
+	}
+	
+	public List<ResourceLocation> getPriorityPieces(Random rand, int depth, Map<ResourceLocation, Integer> placementCounts) {
+	    List<ResourceLocation> list = new ArrayList<>();
+
+	    for (Triple<ResourceLocation, Integer, PieceConstraint> entry : elements) {
+	        ResourceLocation res = entry.getLeft();
+	        PieceConstraint dc = entry.getRight();
+
+	        if (dc == null) continue;
+	        if (dc.minCount < 0) continue;
+
+	        int count = placementCounts.getOrDefault(res, 0);
+
+	        // only include if minCount not reached
+	        if (count < dc.minCount && dc.allows(depth)) {
+	        	for (int i = 0; i < entry.getMiddle(); i++) {
+	        	    list.add(res);
+	        	}
+	        }
+	    }
+
+	    Collections.shuffle(list, rand);
+	    return list;
 	}
 	
 	public PieceConstraint getConstraint(ResourceLocation res) {

@@ -66,129 +66,8 @@ public class JigsawAssembler {
 		this.startStructure = startStructure;
 		this.startSettings = startSettings;
 	}
-	
-	/** FIXME : NEXT version not meeting requirements pieces almost all the time for 5 tries lagging server
-	public void assembleWithRetry(MinecraftServer server, BlockPos start, int maxDepth, int maxAttempts) {
-	    WorldServer world = (WorldServer) server.getEntityWorld();
 
-	    for (int attempt = 0; attempt < maxAttempts; attempt++) {
-	        // snapshot before attempting
-	        List<Pair<BlockPos, IBlockState>> snapshot = new ArrayList<>();
-	        Map<ResourceLocation, Integer> placementCounts = assemble(server, start, maxDepth, snapshot);
-
-	        if (minCountsSatisfied(JigsawPoolRegistry.get(JigsawPool.DUNGEON_POOL.getName().toString()), placementCounts)) {
-	            return; // success
-	        }
-
-	        // restore snapshot and retry
-	        Main.getLogger().info("minCount not satisfied, attempt {}/{}, restoring...", attempt + 1, maxAttempts);
-	        for (Pair<BlockPos, IBlockState> entry : snapshot) {
-	            world.setBlockState(entry.getLeft(), entry.getRight(), 2);
-	        }
-	    }
-
-	    Main.getLogger().warn("Could not satisfy minCounts after {} attempts, keeping last result", maxAttempts);
-	}
-
-	// assemble now returns placementCounts and fills the snapshot list
-	public Map<ResourceLocation, Integer> assemble(MinecraftServer server, BlockPos start, int maxDepth,
-	                                                List<Pair<BlockPos, IBlockState>> snapshot) {
-	    WorldServer world = (WorldServer) server.getEntityWorld();
-	    TemplateManager manager = world.getStructureTemplateManager();
-
-	    Queue<PendingConnection> queue = new LinkedList<>();
-	    List<StructureBoundingBox> placedBoxes = new ArrayList<>();
-	    Map<ResourceLocation, Integer> placementCounts = new HashMap<>();
-
-	    Template startingTemplate = manager.getTemplate(server, startStructure);
-	    BlockPos startSize = startingTemplate.getSize();
-	    StructureBoundingBox startBox = computeBoundingBox(start, startSize, startSettings.getRotation());
-
-	    snapshotArea(world, startBox, snapshot);
-	    startingTemplate.addBlocksToWorld(world, start, startSettings);
-	    placedBoxes.add(startBox);
-
-	    for (JigsawConnector c : TemplateUtils.getJigsawConnectors(startingTemplate, start, startSettings)) {
-	        PendingConnection pc = new PendingConnection();
-	        pc.jigsawPos = c.worldPos;
-	        pc.facing = c.facing;
-	        pc.targetPool = c.targetPool;
-	        pc.turnsInto = c.turnsInto;
-	        pc.depth = 1;
-	        queue.add(pc);
-	    }
-
-	    while (!queue.isEmpty()) {
-	        PendingConnection pending = queue.poll();
-
-	        if (pending.depth >= maxDepth) {
-	            replaceJigsaw(world, pending.jigsawPos, pending.turnsInto);
-	            continue;
-	        }
-
-	        JigsawPool pool = JigsawPoolRegistry.get(pending.targetPool);
-	        boolean placed = false;
-
-	        for (ResourceLocation candidateRes : pool.getShuffled(world.rand, pending.depth)) {
-	            PlaceResult result = tryPlace(manager, server, candidateRes, pending, placedBoxes, pool, placementCounts);
-	            if (result == null) continue;
-	            snapshotArea(world, result.nextBox, snapshot);
-	            commitPlace(world, manager, server, pending, result, placedBoxes, queue, candidateRes, placementCounts);
-	            placed = true;
-	            break;
-	        }
-
-	        if (!placed) {
-	            for (ResourceLocation candidateRes : pool.getPlaceLastCandidates(world.rand, pending.depth)) {
-	                PlaceResult result = tryPlace(manager, server, candidateRes, pending, placedBoxes, pool, placementCounts);
-	                if (result == null) continue;
-	                snapshotArea(world, result.nextBox, snapshot);
-	                commitPlace(world, manager, server, pending, result, placedBoxes, queue, candidateRes, placementCounts);
-	                placed = true;
-	                break;
-	            }
-	        }
-
-	        if (!placed) {
-	            replaceJigsaw(world, pending.jigsawPos, pending.turnsInto);
-	        }
-	    }
-
-	    return placementCounts;
-	}
-
-	// keep the old signature for convenience, just don't retry
-	public void assemble(MinecraftServer server, BlockPos start, int maxDepth) {
-	    assemble(server, start, maxDepth, new ArrayList<>());
-	}
-
-	private void snapshotArea(WorldServer world, StructureBoundingBox box, List<Pair<BlockPos, IBlockState>> snapshot) {
-	    for (int x = box.minX; x <= box.maxX; x++) {
-	        for (int y = box.minY; y <= box.maxY; y++) {
-	            for (int z = box.minZ; z <= box.maxZ; z++) {
-	                BlockPos pos = new BlockPos(x, y, z);
-	                snapshot.add(Pair.of(pos, world.getBlockState(pos)));
-	            }
-	        }
-	    }
-	}
-
-	private boolean minCountsSatisfied(JigsawPool pool, Map<ResourceLocation, Integer> placementCounts) {
-	    for (Triple<ResourceLocation, Integer, JigsawPool.PieceConstraint> entry : pool.getElements()) {
-	        JigsawPool.PieceConstraint dc = entry.getRight();
-	        if (dc == null || dc.minCount < 0) continue;
-	        int placed = placementCounts.getOrDefault(entry.getLeft(), 0);
-	        if (placed < dc.minCount) {
-	            Main.getLogger().info("minCount not met for {}: needed {}, got {}", entry.getLeft(), dc.minCount, placed);
-	            return false;
-	        }
-	    }
-	    return true;
-	}
-	**/
-
-	// TODO : try a fix so that it prioritizes minCount structures that haven't reached that amount yet
-	// WORKING VERSION restore if new impl fails
+	// UPDATE : seems good enough
 	public void assemble(MinecraftServer server, BlockPos start, int maxDepth) {
 	    WorldServer world = (WorldServer) server.getEntityWorld();
 	    TemplateManager manager = world.getStructureTemplateManager();
@@ -227,13 +106,25 @@ public class JigsawAssembler {
 	        JigsawPool pool = JigsawPoolRegistry.get(pending.targetPool);
 	        boolean placed = false;
 	        
-	        for (ResourceLocation candidateRes : pool.getShuffled(world.rand, pending.depth)) {
-                PlaceResult result = tryPlace(manager, server, candidateRes, pending, placedBoxes, pool, placementCounts);
-                if (result == null) continue;
-                commitPlace(world, manager, server, pending, result, placedBoxes, queue, candidateRes, placementCounts);
-                placed = true;
-                break;
-            }
+	        // 1. try priority pieces first (minCount not satisfied)
+	        for (ResourceLocation candidateRes : pool.getPriorityPieces(world.rand, pending.depth, placementCounts)) {
+	            PlaceResult result = tryPlace(manager, server, candidateRes, pending, placedBoxes, pool, placementCounts);
+	            if (result == null) continue;
+
+	            commitPlace(world, manager, server, pending, result, placedBoxes, queue, candidateRes, placementCounts);
+	            placed = true;
+	            break;
+	        }
+	        
+	        if (!placed) {
+	        	for (ResourceLocation candidateRes : pool.getShuffled(world.rand, pending.depth)) {
+	        		PlaceResult result = tryPlace(manager, server, candidateRes, pending, placedBoxes, pool, placementCounts);
+	        		if (result == null) continue;
+	        		commitPlace(world, manager, server, pending, result, placedBoxes, queue, candidateRes, placementCounts);
+	        		placed = true;
+	        		break;
+	        	}
+	        }
 	        
 	        // dead-ends
 	        if (!placed) {
