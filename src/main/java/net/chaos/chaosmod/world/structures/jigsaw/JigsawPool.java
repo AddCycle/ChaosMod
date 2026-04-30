@@ -18,7 +18,7 @@ public class JigsawPool {
 	public static final JigsawPool EMPTY = new JigsawPool(new ResourceLocation("minecraft:empty"),
 			new ResourceLocation("minecraft:empty"), Collections.emptyList());
 
-	public static final JigsawPool DUNGEON_POOL = new JigsawPool(new ResourceLocation(Reference.MODID, "dungeon"), EMPTY.getName(), dungeonPool()); // working with depth 
+	public static final JigsawPool DUNGEON_POOL = new JigsawPool(new ResourceLocation(Reference.MODID, "dungeon"), EMPTY.getName(), dungeonPool()); // working with depth
 
 	private final ResourceLocation name;
 	private final ResourceLocation fallback;
@@ -131,16 +131,16 @@ public class JigsawPool {
 	// command /setblock ~ ~ ~ minecraft:chest 2 replace {LootTable:"chaosmod:dungeon_chest"}
 	public static List<Triple<ResourceLocation, Integer, PieceConstraint>> dungeonPool() {
 		List<Triple<ResourceLocation, Integer, PieceConstraint>> elts = new ArrayList<>();
-		addPiece(elts, "corridor1", 15, null);
-		addPiece(elts, "main_room", 10, new PieceConstraint(1, 1, 1, 1)); // only once next to the first one
-		addPiece(elts, "corner1", 25, null);
-		addPiece(elts, "chest1", 10, new PieceConstraint(4, -1, 2, -1, true)); // only at the end of a corridor
-		addPiece(elts, "stairs1", 10, new PieceConstraint(3, -1));
-		addPiece(elts, "mob_room", 10, new PieceConstraint(3, -1, 2, -1));
-		addPiece(elts, "boss_room", 20, new PieceConstraint(4, -1, 1, 1, true)); // only once
+		addPiece(elts, "dungeon/corridor1", 15, null);
+		addPiece(elts, "dungeon/main_room", 10, new PieceConstraint(1, 1, 1, 1)); // only once next to the first one
+		addPiece(elts, "dungeon/corner1", 25, null);
+		addPiece(elts, "dungeon/chest1", 10, new PieceConstraint(4, -1, 2, -1, true)); // only at the end of a corridor
+		addPiece(elts, "dungeon/stairs1", 10, new PieceConstraint(3, -1));
+		addPiece(elts, "dungeon/mob_room", 10, new PieceConstraint(3, -1, 2, -1));
+		addPiece(elts, "dungeon/boss_room", 20, new PieceConstraint(4, -1, 1, 1, true)); // only once
 		return elts;
 	}
-
+	
 	private static void addPiece(List<Triple<ResourceLocation, Integer, PieceConstraint>> elts, String pieceName, int weight, PieceConstraint constraint) {
 		addPiece(elts, Reference.MODID, pieceName, weight, constraint);
 	}

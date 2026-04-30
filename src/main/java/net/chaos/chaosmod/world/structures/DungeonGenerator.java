@@ -23,7 +23,7 @@ public class DungeonGenerator implements IWorldGenerator {
     // How often to try spawning (1 attempt per N chunks)
     public static final int SPACING = 32;
     private static final int MAX_DEPTH = 15;
-    private static final ResourceLocation STRUCTURE_START = new ResourceLocation(Reference.MODID, "main_room");
+    private static final ResourceLocation STRUCTURE_START = new ResourceLocation(Reference.MODID, "dungeon/main_room");
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world,

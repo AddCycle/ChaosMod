@@ -1,13 +1,13 @@
 # Changelog 1.0.16
 
 TODO (Structures):
+  - fix: stairs part head hit
   - I think everything is done except avoiding the vanilla generated structures (TODO: but I think it's already handled by forge salt system (maybe query other mods random in order to avoid them via intercommunicationevent ?))
   - Also add a button/mode to the jigsaw to generate along with maxDepth levels
   - todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure (at boss death (more like a custom entity with animations + explosion))
   - todo: add a boss room + showbossbar only when player is near him like really near him or inside the structure (just summon the boss through the altar fixes it)
-  - todo: rework the boss altar to like hold the NBT data of the boss
-  - todo: rename the structure parts into a `structure_name/piece` format in order to add more structures later
-  - todo: make a boss room and blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed
+  - todo: rework the boss altar to like hold the NBT data of the boss/entity
+  - todo: make boss_room blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed or every player is dead (make them spectator (or just put a bedroom nearby the boss_room))
   - todo: add beehive behavior + tame bear with bucket content
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
 
@@ -63,11 +63,8 @@ TODO (rework):
   - remake armors (enderite_texture: more like a crying obsidian or maybe just remove it and go crying_obsidian_armor) + give them effects unique (variety)
   - remake allemanite_backpack and make it upgradable with more storage and actually syncs to not loose loot (verify/re-implement)
 
-PLAYTEST:
-  - All jobs task completion + granting rewards correctly (client+server)
-
 IDEAS:
-  - make the end or nether disabled until a specific accomplishement is reached
+  - make the end or nether disabled until a specific accomplishement is reached (I don't think it's a good idea because it means that mathsmod features in the nether won't be usable until then slowing progress)
   - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
   - Add an exclusive item, player tracking compass or biome tracking compass (for the hunt or exclusive to jobs)
   - Wheat boss like a scarecrow
@@ -105,6 +102,9 @@ POLISH:
   - Shared tasks gui make it in the scoreboard pinnable maybe or just make a visual indicator in the gui
   - additionaloverlayinfos : health+armor icons drawing instead of raw values
   - Add SFX to jobs upon level up (TODO) (useless right now as long as every task completed is a level up
+
+PLAYTEST:
+  - All jobs task completion + granting rewards correctly (client+server)
 
 TODO (next version) ?:
   - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals (later when more tasks like on 10 tasks make 5 only)
