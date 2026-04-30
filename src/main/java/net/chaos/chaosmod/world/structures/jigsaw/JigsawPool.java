@@ -14,10 +14,6 @@ import org.apache.commons.lang3.tuple.Triple;
 import net.minecraft.util.ResourceLocation;
 import util.Reference;
 
-/**
- * TODO : add a maxCount on pieces in the assembler (ex: so the boss_room appears only-once)
- * TODO : add a pieceLast flag to seal dead-ends of structures
- */
 public class JigsawPool {
 	public static final JigsawPool EMPTY = new JigsawPool(new ResourceLocation("minecraft:empty"),
 			new ResourceLocation("minecraft:empty"), Collections.emptyList());
@@ -158,11 +154,10 @@ public class JigsawPool {
 	
 	public List<Triple<ResourceLocation, Integer, PieceConstraint>> getElements() { return elements; }
 	
-	// TODO : rename PieceConstraint
 	public static class PieceConstraint {
         public final int minDepth;
         public final int maxDepth;
-        public final int minCount; // FIXME : absolutely not working (for now the fix is to put a high weight on the piece and when it's chose no more can be generated so you'd be sure one is present)
+        public final int minCount;
         public final int maxCount;
         public final boolean placeLast;
         

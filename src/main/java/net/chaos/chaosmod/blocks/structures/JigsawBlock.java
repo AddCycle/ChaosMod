@@ -74,7 +74,7 @@ public class JigsawBlock extends BlockContainerBase {
 	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 			float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
+		return this.getDefaultState().withProperty(FACING, getDirectionFromEntityLiving(pos, placer));
 	}
 	
 	@Override
@@ -111,6 +111,26 @@ public class JigsawBlock extends BlockContainerBase {
                 boolean flag = worldIn.isBlockPowered(pos);
             }
 	}
+
+    public static EnumFacing getDirectionFromEntityLiving(BlockPos pos, EntityLivingBase placer)
+    {
+        if (Math.abs(placer.posX - (double)((float)pos.getX() + 0.5F)) < 2.0D && Math.abs(placer.posZ - (double)((float)pos.getZ() + 0.5F)) < 2.0D)
+        {
+            double d0 = placer.posY + (double)placer.getEyeHeight();
+
+            if (d0 - (double)pos.getY() > 2.0D)
+            {
+                return EnumFacing.DOWN;
+            }
+
+            if ((double)pos.getY() - d0 > 0.0D)
+            {
+                return EnumFacing.UP;
+            }
+        }
+
+        return placer.getHorizontalFacing();
+    }
 
     @Nullable
     public static EnumFacing getFacing(int meta)
