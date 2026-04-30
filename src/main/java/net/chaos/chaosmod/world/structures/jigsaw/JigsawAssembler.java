@@ -5,12 +5,16 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.Random;
 
 import net.chaos.chaosmod.Main;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -20,6 +24,7 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import util.Reference;
 
@@ -81,9 +86,11 @@ public class JigsawAssembler {
 	    Template startingTemplate = manager.getTemplate(server, startStructure);
 	    BlockPos startSize = startingTemplate.getSize();
 	    StructureBoundingBox startBox = computeBoundingBox(start, startSize, startSettings.getRotation());
-
+	    
 	    startingTemplate.addBlocksToWorld(world, start, startSettings, flag);
 	    placedBoxes.add(startBox);
+
+	    populateChestsLootable(world, startingTemplate, start, world.rand, startSettings, LootTableList.CHESTS_SIMPLE_DUNGEON);
 
 	    // enqueue connectors from start
 	    for (JigsawConnector c : TemplateUtils.getJigsawConnectors(startingTemplate, start, startSettings)) {
@@ -211,6 +218,8 @@ public class JigsawAssembler {
 
         result.nextTemplate.addBlocksToWorld(world, result.nextOrigin, result.matchSettings, flag);
         placedBoxes.add(result.nextBox);
+        
+	    populateChestsLootable(world, result.nextTemplate, result.nextOrigin, world.rand, result.matchSettings, LootTableList.CHESTS_WOODLAND_MANSION);
 
         replaceJigsaw(world, pending.jigsawPos, pending.turnsInto);
         replaceJigsaw(world, result.nextOrigin.add(result.match.localPos), result.match.turnsInto);
@@ -261,5 +270,30 @@ public class JigsawAssembler {
 	        block = Blocks.AIR;
 	    }
 	    world.setBlockState(pos, block.getDefaultState(), flag);
+	}
+
+	private void populateChestsLootable(WorldServer world, Template template, BlockPos origin, Random rand, PlacementSettings placementSettings, ResourceLocation loot) {
+		Map<BlockPos, String> map = template.getDataBlocks(origin, placementSettings);
+
+		for (Entry<BlockPos, String> entry : map.entrySet())
+		{
+			if ("chest".equals(entry.getValue()))
+			{
+				BlockPos blockpos2 = entry.getKey();
+				world.setBlockState(blockpos2, Blocks.AIR.getDefaultState(), 3);
+				TileEntity tileentity = world.getTileEntity(blockpos2);
+				if (!(tileentity instanceof TileEntityChest)) {
+				    tileentity = world.getTileEntity(blockpos2.down());
+				}
+				if (tileentity instanceof TileEntityChest) {
+					long seed = blockpos2.getX() * 341873128712L 
+					          + blockpos2.getY() * 132897987541L 
+					          + blockpos2.getZ();
+				    ((TileEntityChest) tileentity).setLootTable(loot, seed);
+				} else {
+				    Main.getLogger().warn("No chest tile entity found at {} for loot population", blockpos2);
+				}
+			}
+		}
 	}
 }

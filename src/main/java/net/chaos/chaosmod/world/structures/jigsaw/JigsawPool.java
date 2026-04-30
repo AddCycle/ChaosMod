@@ -131,11 +131,12 @@ public class JigsawPool {
 	// command /setblock ~ ~ ~ minecraft:chest 2 replace {LootTable:"chaosmod:dungeon_chest"}
 	public static List<Triple<ResourceLocation, Integer, PieceConstraint>> dungeonPool() {
 		List<Triple<ResourceLocation, Integer, PieceConstraint>> elts = new ArrayList<>();
-		addPiece(elts, "corridor1", 25, null);
+		addPiece(elts, "corridor1", 15, null);
 		addPiece(elts, "main_room", 10, new PieceConstraint(1, 1, 1, 1)); // only once next to the first one
 		addPiece(elts, "corner1", 25, null);
-		addPiece(elts, "chest1", 10, new PieceConstraint(4, -1, -1, -1, true)); // only at the end of a corridor
+		addPiece(elts, "chest1", 10, new PieceConstraint(4, -1, 2, -1, true)); // only at the end of a corridor
 		addPiece(elts, "stairs1", 10, new PieceConstraint(3, -1));
+		addPiece(elts, "mob_room", 10, new PieceConstraint(3, -1, 2, -1));
 		addPiece(elts, "boss_room", 20, new PieceConstraint(4, -1, 1, 1, true)); // only once
 		return elts;
 	}

@@ -3,9 +3,8 @@
 TODO (Structures):
   - I think everything is done except avoiding the vanilla generated structures (TODO: but I think it's already handled by forge salt system (maybe query other mods random in order to avoid them via intercommunicationevent ?))
   - Also add a button/mode to the jigsaw to generate along with maxDepth levels
-  - make them generate naturally underground postforgeeventpopulate ?
-  - make chests inside the structure (done) todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure + make a minCount of chests and generate them via datablocks structureblock (below setLootTable)
-  - todo: add spawners (intermediate rooms with loot and spawners) and a boss room + showbossbar only when player is near him like really near him or inside the structure (just summon the boss through the altar fixes it)
+  - todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure (at boss death (more like a custom entity with animations + explosion))
+  - todo: add a boss room + showbossbar only when player is near him like really near him or inside the structure (just summon the boss through the altar fixes it)
   - todo: rework the boss altar to like hold the NBT data of the boss
   - todo: rename the structure parts into a `structure_name/piece` format in order to add more structures later
   - todo: make a boss room and blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed
