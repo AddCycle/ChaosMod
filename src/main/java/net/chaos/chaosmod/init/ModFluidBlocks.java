@@ -6,6 +6,7 @@ import java.util.List;
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.fluids.blocks.BlockDirtyWater;
 import net.chaos.chaosmod.fluids.blocks.BlockFertilizedWater;
+import net.chaos.chaosmod.fluids.blocks.BlockHoneyFluid;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -24,12 +25,13 @@ public class ModFluidBlocks {
 	
 	public static final Block FERTILIZED_WATER_BLOCK = new BlockFertilizedWater("fertilized_water", ModFluids.FERTILIZED_WATER, Material.WATER, MapColor.GREEN);
 	public static final Block DIRTY_WATER_BLOCK = new BlockDirtyWater("dirty_water", ModFluids.DIRTY_WATER, Material.WATER, MapColor.DIRT);
-
+	public static final Block HONEY_FLUID_BLOCK = new BlockHoneyFluid("honey", ModFluids.HONEY, ModMaterials.HONEY, MapColor.YELLOW);
 
 	@SideOnly(Side.CLIENT)
 	public static void registerCustomMeshesAndStates() {
-		registerFluidRendering(ModFluidBlocks.FERTILIZED_WATER_BLOCK);
-		registerFluidRendering(ModFluidBlocks.DIRTY_WATER_BLOCK);
+		registerFluidRendering(FERTILIZED_WATER_BLOCK);
+		registerFluidRendering(DIRTY_WATER_BLOCK);
+		registerFluidRendering(HONEY_FLUID_BLOCK);
 	}
 
 	@SideOnly(Side.CLIENT)

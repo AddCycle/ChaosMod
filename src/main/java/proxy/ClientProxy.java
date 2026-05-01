@@ -2,6 +2,7 @@ package proxy;
 
 import net.chaos.chaosmod.client.inventory.render.LayerNecklace;
 import net.chaos.chaosmod.client.inventory.render.LayerShield;
+import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.init.ModKeybinds;
 import net.chaos.chaosmod.minimap.Renderer;
 import net.minecraft.client.Minecraft;
@@ -47,6 +48,11 @@ public class ClientProxy extends CommonProxy {
 		});
 		
 		// ################################# END NECKLACE RENDERING ############################################
+		
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(
+			(stack, tintIndex) -> tintIndex == 0 ? 0xFFFFFF : 0xFFD700,
+		    ModItems.HONEY_BOTTLE
+		);
 	}
 
 	@Override

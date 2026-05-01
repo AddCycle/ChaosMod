@@ -5,6 +5,7 @@ import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.common.capabilities.accessory.CapabilityAccessory;
 import net.chaos.chaosmod.compatibility.patchouli.PatchouliPlugin;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.init.ModMaterials;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.necklace.AllemaniteNecklace;
 import net.chaos.chaosmod.items.necklace.OxoniumNecklace;
@@ -14,16 +15,24 @@ import net.chaos.chaosmod.network.packets.PacketOpenGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent.FarmlandTrampleEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -36,6 +45,53 @@ import util.Reference;
 
 @EventBusSubscriber(modid = Reference.MODID)
 public class PlayerLifeEvents {
+	
+	@SubscribeEvent
+	public static void onPlayerGatherLiquid(RightClickBlock event) {
+		World worldIn = event.getWorld();
+		EntityPlayer playerIn = event.getEntityPlayer();
+		ItemStack itemstack = event.getItemStack();
+        if (itemstack.getItem() != Items.GLASS_BOTTLE) {
+            return;
+        }
+
+        RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
+        /**worldIn.rayTraceBlocks(
+                playerIn.getPositionEyes(1.0F),
+                playerIn.getPositionEyes(1.0F).add(
+                    playerIn.getLookVec().scale(playerIn.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue())
+                ),
+                true
+            );*/
+        if (raytraceresult == null)
+        {
+        	return;
+        }
+        else
+        {
+            if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK)
+            {
+                BlockPos blockpos = raytraceresult.getBlockPos();
+
+                if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemstack))
+                {
+                	return;
+                }
+
+                if (worldIn.getBlockState(blockpos).getMaterial() == ModMaterials.HONEY)
+                {
+                    worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+
+                    event.setCancellationResult(EnumActionResult.SUCCESS);
+                    event.setCanceled(true);
+
+                    ItemStack filledbottle = turnBottleIntoItem(itemstack, playerIn, new ItemStack(ModItems.HONEY_BOTTLE));
+                    playerIn.setHeldItem(event.getHand(), filledbottle);
+                    return;
+                }
+            }
+        }
+	}
 
 	@SubscribeEvent
 	public static void onPlayerJoin(EntityJoinWorldEvent event) {
@@ -190,4 +246,42 @@ public class PlayerLifeEvents {
 			}
 		}
 	}
+	
+    public static RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids)
+    {
+        float f = playerIn.rotationPitch;
+        float f1 = playerIn.rotationYaw;
+        double d0 = playerIn.posX;
+        double d1 = playerIn.posY + (double)playerIn.getEyeHeight();
+        double d2 = playerIn.posZ;
+        Vec3d vec3d = new Vec3d(d0, d1, d2);
+        float f2 = MathHelper.cos(-f1 * 0.017453292F - (float)Math.PI);
+        float f3 = MathHelper.sin(-f1 * 0.017453292F - (float)Math.PI);
+        float f4 = -MathHelper.cos(-f * 0.017453292F);
+        float f5 = MathHelper.sin(-f * 0.017453292F);
+        float f6 = f3 * f4;
+        float f7 = f2 * f4;
+        double d3 = playerIn.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue();
+        Vec3d vec3d1 = vec3d.addVector((double)f6 * d3, (double)f5 * d3, (double)f7 * d3);
+        return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
+    }
+
+    public static ItemStack turnBottleIntoItem(ItemStack p_185061_1_, EntityPlayer player, ItemStack stack)
+    {
+        p_185061_1_.shrink(1);
+
+        if (p_185061_1_.isEmpty())
+        {
+            return stack;
+        }
+        else
+        {
+            if (!player.inventory.addItemStackToInventory(stack))
+            {
+                player.dropItem(stack, false);
+            }
+
+            return p_185061_1_;
+        }
+    }
 }

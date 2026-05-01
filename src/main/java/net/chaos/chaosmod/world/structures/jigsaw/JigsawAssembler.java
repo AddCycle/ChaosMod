@@ -73,16 +73,15 @@ public class JigsawAssembler {
 		this.startSettings = startSettings;
 	}
 
-	// UPDATE : seems good enough
 	public void assemble(MinecraftServer server, BlockPos start, int maxDepth) {
 	    WorldServer world = (WorldServer) server.getEntityWorld();
 	    TemplateManager manager = world.getStructureTemplateManager();
 
 	    Queue<PendingConnection> queue = new LinkedList<>();
-	    List<StructureBoundingBox> placedBoxes = new ArrayList<>(); // all placed pieces from the start
+	    List<StructureBoundingBox> placedBoxes = new ArrayList<>();
 	    Map<ResourceLocation, Integer> placementCounts = new HashMap<>();
 
-	    // place starting template
+	    // starting template
 	    Template startingTemplate = manager.getTemplate(server, startStructure);
 	    BlockPos startSize = startingTemplate.getSize();
 	    StructureBoundingBox startBox = computeBoundingBox(start, startSize, startSettings.getRotation());
@@ -114,7 +113,6 @@ public class JigsawAssembler {
 	        JigsawPool pool = JigsawPoolRegistry.get(pending.targetPool);
 	        boolean placed = false;
 	        
-	        // 1. try priority pieces first (minCount not satisfied)
 	        for (ResourceLocation candidateRes : pool.getPriorityPieces(world.rand, pending.depth, placementCounts)) {
 	            PlaceResult result = tryPlace(manager, server, candidateRes, pending, placedBoxes, pool, placementCounts);
 	            if (result == null) continue;
@@ -185,7 +183,7 @@ public class JigsawAssembler {
             }
         }
 
-        if (match == null) return null; // no connector fits this orientation
+        if (match == null) return null;
 
         // compute where the piece would land
         BlockPos attachPoint = pending.jigsawPos.offset(pending.facing);

@@ -1,19 +1,19 @@
 # Changelog 1.0.16
 
 TODO (Structures):
+  - make an abstract/reusable Iworldgenerator for generating structures
   - fix: stairs part head hit
   - I think everything is done except avoiding the vanilla generated structures (TODO: but I think it's already handled by forge salt system (maybe query other mods random in order to avoid them via intercommunicationevent ?))
   - Also add a button/mode to the jigsaw to generate along with maxDepth levels
   - todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure (at boss death (more like a custom entity with animations + explosion))
-  - todo: add a boss room + showbossbar only when player is near him like really near him or inside the structure (just summon the boss through the altar fixes it)
   - todo: rework the boss altar to like hold the NBT data of the boss/entity
   - todo: make boss_room blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed or every player is dead (make them spectator (or just put a bedroom nearby the boss_room))
   - todo: add beehive behavior + tame bear with bucket content
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
 
 TODO (Build):
-  - add a `//copy` based on vanilla `/clone` (maybe because I might recode it in order to be compatible with `//undo` & `//redo` commands) command with completions
-  - make the `//paste <x> <y> <z> [registry (int)]` take from it (works finally with //undo & //redo)
+  - (complex) add a `//copy` based on vanilla `/clone` (maybe because I might recode it in order to be compatible with `//undo` & `//redo` commands) command with completions
+  - (registry making it complex) make the `//paste <x> <y> <z> [registry (int)]` take from it (works finally with //undo & //redo)
   - make a ruler item to measure distances between pos1 & pos2
   - make noise values
   - add axis rendering x red, z blue, y green (like structure block does)
@@ -21,7 +21,7 @@ TODO (Build):
 TODO (WorldGen):
   - priority: add animals & mobs inside the `dense_forest` biome (bears - detail: have something in their mouth sometimes)
   - bear: armors support (todo: gold, leather, diamond)
-  - vulture (done), detail: make it hybrid -> ground also (like chicken) to make interaction
+  - vulture (done), detail: make it hybrid -> ground also (like chicken) to make interaction (later maybe)
   - Rework biomes (ender_garden, chaosland_biome, hell_biome) or completely remove them for other biome types
   - Removed the boss altars in order to put them inside the later-made structures (do not forget before release)
   - (advanced) add underground (biomes or caves) with vines and decoration and more minerals

@@ -9,6 +9,7 @@ import net.chaos.chaosmod.items.armor.AllemaniteArmor;
 import net.chaos.chaosmod.items.armor.ArmorBase;
 import net.chaos.chaosmod.items.armor.EnderiteArmor;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
+import net.chaos.chaosmod.items.bottles.ItemHoneyBottle;
 import net.chaos.chaosmod.items.food.MineralFood;
 import net.chaos.chaosmod.items.food.fish.CustomFishFood;
 import net.chaos.chaosmod.items.materials.AllemaniteIngot;
@@ -180,6 +181,9 @@ public class ModItems {
 	public static Item OXONIUM_CARROT;
 	
 	// DEBUG
+	
+	// BOTTLES
+	public static final Item HONEY_BOTTLE = new ItemHoneyBottle();
 	
 	// Slab items
 	// public static Item ABSTRACT_SLAB;

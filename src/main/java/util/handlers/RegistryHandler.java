@@ -90,12 +90,16 @@ public class RegistryHandler {
 	
 	@SubscribeEvent
 	public static void onPotionRegister(RegistryEvent.Register<Potion> event) {
-		event.getRegistry().registerAll(ModPotions.POTION_VIKING);
+		event.getRegistry().registerAll(
+			ModPotions.POTION_VIKING
+		);
 	}
 	
 	@SubscribeEvent
     public static void registerPotionTypes(RegistryEvent.Register<PotionType> event) {
-        event.getRegistry().registerAll(ModPotionTypes.VIKING_FRIEND_TYPE);
+        event.getRegistry().registerAll(
+        	ModPotionTypes.VIKING_FRIEND_TYPE
+       	);
     }
 	
 	@SubscribeEvent

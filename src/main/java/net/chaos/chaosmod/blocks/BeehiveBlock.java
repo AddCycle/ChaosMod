@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.blocks;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -8,6 +10,9 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemGlassBottle;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -31,6 +36,37 @@ public class BeehiveBlock extends BlockContainerBase {
         	this.blockState.getBaseState()
         	.withProperty(FACING, EnumFacing.NORTH)
         	.withProperty(AGE, 0));
+        this.setTickRandomly(true);
+	}
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItemMainhand();
+		if (stack.isEmpty()) return false;
+
+		if (!worldIn.isRemote) {
+			if (stack.getItem() instanceof ItemGlassBottle) {
+				
+			}
+		}
+		
+		// FIXME : make a honey bottle that can be filled with this liquid
+		
+		return false;
+	}
+	
+	@Override
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+		super.updateTick(worldIn, pos, state, rand);
+
+		int i = this.getAge(state);
+		EnumFacing facing = this.getFacing(state);
+		if (this.isMaxAge(state)) return;
+
+		boolean produced = rand.nextFloat() >= 0.8f;
+
+		if (produced) worldIn.setBlockState(pos, this.withProperties(i + 1, facing), 2);
 	}
 
 	@Override
@@ -82,4 +118,49 @@ public class BeehiveBlock extends BlockContainerBase {
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 		return state.withProperty(FACING, mirrorIn.mirror(state.getValue(FACING)));
 	}
+
+    protected PropertyInteger getAgeProperty()
+    {
+        return AGE;
+    }
+
+    protected PropertyDirection getFacingProperty()
+    {
+        return FACING;
+    }
+
+    protected EnumFacing getFacing(IBlockState state)
+    {
+        return state.getValue(this.getFacingProperty());
+    }
+
+    public int getMaxAge()
+    {
+        return 3;
+    }
+
+    protected int getAge(IBlockState state)
+    {
+        return ((Integer)state.getValue(this.getAgeProperty())).intValue();
+    }
+
+    public IBlockState withAge(int age)
+    {
+        return this.getDefaultState().withProperty(this.getAgeProperty(), Integer.valueOf(age));
+    }
+
+    public IBlockState withFacing(EnumFacing facing)
+    {
+        return this.getDefaultState().withProperty(this.getFacingProperty(), facing);
+    }
+    
+    public IBlockState withProperties(int age, EnumFacing facing)
+    {
+        return this.getDefaultState().withProperty(this.getAgeProperty(), Integer.valueOf(age)).withProperty(this.getFacingProperty(), facing);
+    }
+
+    public boolean isMaxAge(IBlockState state)
+    {
+        return ((Integer)state.getValue(this.getAgeProperty())).intValue() >= this.getMaxAge();
+    }
 }
