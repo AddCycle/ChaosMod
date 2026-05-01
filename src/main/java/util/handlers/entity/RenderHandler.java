@@ -16,8 +16,10 @@ import net.chaos.chaosmod.entity.EntitySwordOfWrath;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.animal.EntityBear;
+import net.chaos.chaosmod.entity.animal.EntityBee;
 import net.chaos.chaosmod.entity.animal.EntityVulture;
 import net.chaos.chaosmod.entity.animal.render.RenderBear;
+import net.chaos.chaosmod.entity.animal.render.RenderBee;
 import net.chaos.chaosmod.entity.animal.render.RenderVulture;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
@@ -86,6 +88,7 @@ public class RenderHandler {
 		registerEntityRenderer(EntitySwordOfWrath.class, EntitySwordOfWrathRenderer::new);
 		registerEntityRenderer(EntityBear.class, RenderBear::new);
 		registerEntityRenderer(EntityVulture.class, RenderVulture::new);
+		registerEntityRenderer(EntityBee.class, RenderBee::new);
 	}
 	
 	public static void bindTESRs() {

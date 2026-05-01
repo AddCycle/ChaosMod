@@ -11,6 +11,7 @@ import net.chaos.chaosmod.entity.EntitySwordOfWrath;
 import net.chaos.chaosmod.entity.EntityViking;
 import net.chaos.chaosmod.entity.LittleGiantEntity;
 import net.chaos.chaosmod.entity.animal.EntityBear;
+import net.chaos.chaosmod.entity.animal.EntityBee;
 import net.chaos.chaosmod.entity.animal.EntityVulture;
 import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
@@ -33,8 +34,10 @@ public class ModEntities {
 	
 	public static void registerEntityPlacements() {
 		EntitySpawnPlacementRegistry.setPlacementType(EntityVulture.class, SpawnPlacementType.IN_AIR);
+		EntitySpawnPlacementRegistry.setPlacementType(EntityBee.class, SpawnPlacementType.IN_AIR);
 	}
 	
+	// TODO : add EntityBee spawn inside the forests near nests
 	public static void registerEntitySpawn() {
 		EntityRegistry.addSpawn(EntityVulture.class, 10, 3, 5, EnumCreatureType.CREATURE, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.MESA, Biomes.MESA_CLEAR_ROCK, Biomes.MESA_ROCK, Biomes.MUTATED_MESA, Biomes.MUTATED_MESA_CLEAR_ROCK, Biomes.MUTATED_MESA_ROCK);
 	}
@@ -71,7 +74,9 @@ public class ModEntities {
 				new EntityFactory("bear", EntityBear.class, Reference.ENTITY_BEAR,
 						Colors.BROWN, Colors.ORANGE),
 				new EntityFactory("vulture", EntityVulture.class, Reference.ENTITY_VULTURE,
-						Colors.BROWN, Colors.RED)
+						Colors.BROWN, Colors.RED),
+				new EntityFactory("bee", EntityBee.class, Reference.ENTITY_BEE,
+						Colors.YELLOW, Colors.BLACK)
 				);
 		
 		registerEntitySpawn();
@@ -111,6 +116,5 @@ public class ModEntities {
 			this.color1 = color1;
 			this.color2 = color2;
 		}
-
 	}
 }

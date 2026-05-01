@@ -1,5 +1,8 @@
 # Changelog 1.0.16
 
+TODO (entities):
+  - make bee AI and behavior towards beehive & also make a pollen mechanic
+
 TODO (Structures):
   - make an abstract/reusable Iworldgenerator for generating structures
   - fix: stairs part head hit
@@ -8,7 +11,7 @@ TODO (Structures):
   - todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure (at boss death (more like a custom entity with animations + explosion))
   - todo: rework the boss altar to like hold the NBT data of the boss/entity
   - todo: make boss_room blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed or every player is dead (make them spectator (or just put a bedroom nearby the boss_room))
-  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
+  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners (vikings/pirates)) to prevent players from looting too easily) (good to start structures)
 
 TODO (Build):
   - (complex) add a `//copy` based on vanilla `/clone` (maybe because I might recode it in order to be compatible with `//undo` & `//redo` commands) command with completions
@@ -166,6 +169,7 @@ New:
   - feat: added overlay infos with icons & fixed the blocks displayName
   - feat: added `jigsaw_block` from 1.14 ported to 1.12.2 (the superior version)
   - feat: added `/jigsaw <structure_start> <x> <y> <z> <depth>` command placing procedural structure
+  - feat: added `bee`
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

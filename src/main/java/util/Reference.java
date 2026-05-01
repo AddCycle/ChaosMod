@@ -53,4 +53,5 @@ public class Reference {
 	public static final int ENTITY_SWORD_OF_WRATH = entityId++;
 	public static final int ENTITY_BEAR = entityId++;
 	public static final int ENTITY_VULTURE = entityId++;
+	public static final int ENTITY_BEE = entityId++;
 }

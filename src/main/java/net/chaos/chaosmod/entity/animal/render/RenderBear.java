@@ -23,9 +23,6 @@ public class RenderBear extends RenderLiving<EntityBear> {
 //		this.addLayer(new LayerHeldItem(this)); TODO : make a custom layer renderer
 	}
 
-    /**
-     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
-     */
     protected ResourceLocation getEntityTexture(EntityBear entity)
     {
     	EnumVariant variant = EnumVariant.values()[entity.getVariant()];
