@@ -1,0 +1,8 @@
+{
+	"parent": "block/orientable",
+	"textures": {
+		"top": "chaosmod:blocks/beehive_top",	
+		"front": "chaosmod:blocks/beehive_front1",	
+		"side": "chaosmod:blocks/beehive_side"
+	}
+}

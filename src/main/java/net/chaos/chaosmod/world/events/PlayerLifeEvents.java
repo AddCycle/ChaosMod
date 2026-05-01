@@ -46,6 +46,7 @@ import util.Reference;
 @EventBusSubscriber(modid = Reference.MODID)
 public class PlayerLifeEvents {
 	
+	// TODO : make separate fluid events I think ?
 	@SubscribeEvent
 	public static void onPlayerGatherLiquid(RightClickBlock event) {
 		World worldIn = event.getWorld();
@@ -56,13 +57,6 @@ public class PlayerLifeEvents {
         }
 
         RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
-        /**worldIn.rayTraceBlocks(
-                playerIn.getPositionEyes(1.0F),
-                playerIn.getPositionEyes(1.0F).add(
-                    playerIn.getLookVec().scale(playerIn.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue())
-                ),
-                true
-            );*/
         if (raytraceresult == null)
         {
         	return;
@@ -185,6 +179,7 @@ public class PlayerLifeEvents {
 		}
 	}
 
+	// TODO : remove ChaosSage
 //	private static void syncAccessory(EntityPlayerMP player) {
 //		IAccessory cap = player.getCapability(CapabilityAccessory.ACCESSORY, null);
 //		if (cap != null) {
@@ -266,11 +261,11 @@ public class PlayerLifeEvents {
         return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
     }
 
-    public static ItemStack turnBottleIntoItem(ItemStack p_185061_1_, EntityPlayer player, ItemStack stack)
+    public static ItemStack turnBottleIntoItem(ItemStack bottlestack, EntityPlayer player, ItemStack stack)
     {
-        p_185061_1_.shrink(1);
+        bottlestack.shrink(1);
 
-        if (p_185061_1_.isEmpty())
+        if (bottlestack.isEmpty())
         {
             return stack;
         }
@@ -281,7 +276,7 @@ public class PlayerLifeEvents {
                 player.dropItem(stack, false);
             }
 
-            return p_185061_1_;
+            return bottlestack;
         }
     }
 }

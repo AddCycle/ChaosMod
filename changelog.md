@@ -8,7 +8,7 @@ TODO (Structures):
   - todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure (at boss death (more like a custom entity with animations + explosion))
   - todo: rework the boss altar to like hold the NBT data of the boss/entity
   - todo: make boss_room blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed or every player is dead (make them spectator (or just put a bedroom nearby the boss_room))
-  - todo: add beehive behavior + tame bear with bucket content
+  - todo: add beehive behavior (right-click on it age > 0, then gives honey bottles/buckets) + tame bear with bucket content
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
 
 TODO (Build):

@@ -2,6 +2,7 @@ package net.chaos.chaosmod.blocks;
 
 import java.util.Random;
 
+import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -11,7 +12,8 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemGlassBottle;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -19,6 +21,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -28,7 +31,7 @@ import net.minecraft.world.World;
  */
 public class BeehiveBlock extends BlockContainerBase {
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
-	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
+	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 2);
 
 	public BeehiveBlock() {
 		super("beehive", Material.WOOD);
@@ -42,18 +45,27 @@ public class BeehiveBlock extends BlockContainerBase {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (hand != EnumHand.MAIN_HAND) return false;
+		
 		ItemStack stack = playerIn.getHeldItemMainhand();
-		if (stack.isEmpty()) return false;
+		if (stack.isEmpty() || stack.getItem() != Items.GLASS_BOTTLE) return false;
+		
+		int age = state.getValue(AGE);
+		EnumFacing blockfacing = state.getValue(FACING);
+		if (age == 0) return false;
 
 		if (!worldIn.isRemote) {
-			if (stack.getItem() instanceof ItemGlassBottle) {
-				
-			}
+			worldIn.setBlockState(pos, this.withProperties(age - 1, blockfacing));
+		}
+
+		worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+		
+		if (!worldIn.isRemote) {
+			ItemStack filledbottle = turnBottleIntoItem(stack, playerIn, new ItemStack(ModItems.HONEY_BOTTLE));
+			playerIn.setHeldItem(hand, filledbottle);
 		}
 		
-		// FIXME : make a honey bottle that can be filled with this liquid
-		
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -86,8 +98,8 @@ public class BeehiveBlock extends BlockContainerBase {
 	
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		int facing = ((EnumFacing)state.getValue(FACING)).getHorizontalIndex(); // 0-3, 4 values (2bits)
-		int age = state.getValue(AGE); // between 0 - 3 requires 2 bits to encode
+		int facing = ((EnumFacing)state.getValue(FACING)).getHorizontalIndex(); // 0-2, 3 values (2bits)
+		int age = state.getValue(AGE); // between 0 - 2 requires 2 bits to encode
         return (facing << 2) | age;
 	}
 	
@@ -136,7 +148,7 @@ public class BeehiveBlock extends BlockContainerBase {
 
     public int getMaxAge()
     {
-        return 3;
+        return 2;
     }
 
     protected int getAge(IBlockState state)
@@ -162,5 +174,24 @@ public class BeehiveBlock extends BlockContainerBase {
     public boolean isMaxAge(IBlockState state)
     {
         return ((Integer)state.getValue(this.getAgeProperty())).intValue() >= this.getMaxAge();
+    }
+
+    public static ItemStack turnBottleIntoItem(ItemStack bottlestack, EntityPlayer player, ItemStack stack)
+    {
+        bottlestack.shrink(1);
+
+        if (bottlestack.isEmpty())
+        {
+            return stack;
+        }
+        else
+        {
+            if (!player.inventory.addItemStackToInventory(stack))
+            {
+                player.dropItem(stack, false);
+            }
+
+            return bottlestack;
+        }
     }
 }
