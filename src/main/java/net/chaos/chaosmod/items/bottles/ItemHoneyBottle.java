@@ -17,21 +17,26 @@ public class ItemHoneyBottle extends ItemBase {
 
 	public ItemHoneyBottle() {
 		super("honey_bottle");
-		setMaxStackSize(1);
-        setMaxDamage(0);
+		setMaxStackSize(16);
 	}
 	
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
 		if (entityLiving instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) entityLiving;
+	        EntityPlayer player = (EntityPlayer) entityLiving;
 //            player.addPotionEffect(new PotionEffect(ModPotionTypes.HONEY, 200, 0));
 
-            if (!player.capabilities.isCreativeMode) {
-                return new ItemStack(Items.GLASS_BOTTLE);
-            }
-        }
-        return stack;
+	        if (!player.capabilities.isCreativeMode) {
+	            stack.shrink(1);
+
+	            ItemStack bottle = new ItemStack(Items.GLASS_BOTTLE);
+
+	            if (!player.inventory.addItemStackToInventory(bottle)) {
+	                player.dropItem(bottle, false);
+	            }
+	        }
+	    }
+	    return stack;
 	}
 
 	@Override

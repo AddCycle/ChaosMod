@@ -8,7 +8,6 @@ TODO (Structures):
   - todo: custom loot_tables (todo, do more with better loot) + make a custom chest in order to spawn loot with an effect on opened inside the structure (at boss death (more like a custom entity with animations + explosion))
   - todo: rework the boss altar to like hold the NBT data of the boss/entity
   - todo: make boss_room blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed or every player is dead (make them spectator (or just put a bedroom nearby the boss_room))
-  - todo: add beehive behavior (right-click on it age > 0, then gives honey bottles/buckets) + tame bear with bucket content
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners) to prevent players from looting too easily) (good to start structures)
 
 TODO (Build):
@@ -19,7 +18,7 @@ TODO (Build):
   - add axis rendering x red, z blue, y green (like structure block does)
 
 TODO (WorldGen):
-  - priority: add animals & mobs inside the `dense_forest` biome (bears - detail: have something in their mouth sometimes)
+  - priority: add animals & mobs inside the `dense_forest` biome
   - bear: armors support (todo: gold, leather, diamond)
   - vulture (done), detail: make it hybrid -> ground also (like chicken) to make interaction (later maybe)
   - Rework biomes (ender_garden, chaosland_biome, hell_biome) or completely remove them for other biome types
@@ -102,6 +101,7 @@ POLISH:
   - Shared tasks gui make it in the scoreboard pinnable maybe or just make a visual indicator in the gui
   - additionaloverlayinfos : health+armor icons drawing instead of raw values
   - Add SFX to jobs upon level up (TODO) (useless right now as long as every task completed is a level up
+  - bears - detail: have something in their mouth sometimes
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
@@ -160,7 +160,7 @@ New:
   - feat: `/locate` command replaced sending a TELEPORT message to the structure location
   - feat: added 3 `taunts`
   - feat: added `dense_forest` biome
-  - feat: added `bear` spawn with variants (tameable with various `sitting_poses`)
+  - feat: added `bear` spawn with variants (tameable with `honey_bottle`(s), healing with `fish` & having various `sitting_poses`)
   - feat: jobs `tasks_progress` are now shared between players for competition
   - feat: `//wand`, `//fill <block> <meta> [parameters]`, `//undo`, `//redo`, `//randomize <type> <block>:<meta>:<weight> ...`, `//paste <x> <y> <z>` commands to help build structures (creative only) + visuals
   - feat: added overlay infos with icons & fixed the blocks displayName

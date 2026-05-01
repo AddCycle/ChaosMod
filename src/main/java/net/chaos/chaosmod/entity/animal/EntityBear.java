@@ -3,6 +3,7 @@ package net.chaos.chaosmod.entity.animal;
 import javax.annotation.Nullable;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.init.ModItems;
 import net.chaos.chaosmod.items.food.fish.CustomFishFood;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -27,7 +28,6 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
@@ -43,15 +43,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
 
-/**
- * TODO : tame with honey, more precious than fish
- */
 public class EntityBear extends EntityTameable {
 	private static final DataParameter<Boolean> IS_STANDING = EntityDataManager.<Boolean>createKey(EntityBear.class,
 			DataSerializers.BOOLEAN);
@@ -95,7 +91,7 @@ public class EntityBear extends EntityTameable {
 	protected void initEntityAI() {
 		super.initEntityAI();
 		this.aiSit = new EntityAISit(this);
-		this.aiTempt = new EntityAITempt(this, 1.0D, Items.FISH, false);
+		this.aiTempt = new EntityAITempt(this, 1.0D, ModItems.HONEY_BOTTLE, false);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityBear.AIMeleeAttack());
 		this.tasks.addTask(1, new EntityBear.AIPanic());
@@ -170,7 +166,7 @@ public class EntityBear extends EntityTameable {
 						this.playTameEffect(true);
 					}
 				}
-			} else if ((this.aiTempt == null || this.aiTempt.isRunning()) && itemstack.getItem() == Items.FISH
+			} else if ((this.aiTempt == null || this.aiTempt.isRunning()) && itemstack.getItem() == ModItems.HONEY_BOTTLE
 					&& player.getDistanceSq(this) < 9.0D) {
 				if (!player.capabilities.isCreativeMode) {
 					itemstack.shrink(1);
