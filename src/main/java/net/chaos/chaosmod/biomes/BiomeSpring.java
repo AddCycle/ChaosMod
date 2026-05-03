@@ -20,7 +20,7 @@ public class BiomeSpring extends Biome {
 	private static final int GRASS_YELLOW_DARK  = 0x8a7a00;
 	
 	public BiomeSpring() {
-        super(new Biome.BiomeProperties("Spring Biome (to rename)")
+        super(new Biome.BiomeProperties("Spring Biome")
             .setBaseHeight(Biomes.PLAINS.getBaseHeight())
             .setHeightVariation(0.1F)
             .setTemperature(1.2F)
@@ -45,10 +45,15 @@ public class BiomeSpring extends Biome {
         this.flowers.clear();
         this.addFlower(((BlockCustomFlower) ModBlocks.CUSTOM_FLOWER).getStateFromMeta(3), 10);
     }
-	
+
 	@Override
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
         return BIRCH_TREE;
+	}
+	
+	@Override
+	public int getSkyColorByTemp(float currentTemperature) {
+		return super.getSkyColorByTemp(currentTemperature);
 	}
 
 	@Override
@@ -56,10 +61,6 @@ public class BiomeSpring extends Biome {
 		double scale = 0.01;
 		double noise = (1 + GRASS_COLOR_NOISE.getValue(pos.getX() * scale, pos.getZ() * scale)) / 2;
 
-//		return BiomeUtils.blendColors(noise, GRASS_YELLOW_DARK, GRASS_YELLOW_LIGHT); // savanna
-//		return BiomeUtils.blendColors(noise, 0x7a9a00, 0xe0d44a); // lush yellow-green
-//		return BiomeUtils.blendColors(noise, 0xa06000, 0xf0c030); // autumn golden
-//		return BiomeUtils.blendColors(noise, 0xaaaa44, 0xeeeebb); // pale sicky
 		return BiomeUtils.blendColors(noise, 0xffaf00, 0xffff00); // tweaking
 	}
 
@@ -67,10 +68,6 @@ public class BiomeSpring extends Biome {
 	public int getFoliageColorAtPos(BlockPos pos) {
 		double scale = 0.01;
 		double noise = (1 + GRASS_COLOR_NOISE.getValue(pos.getX() * scale, pos.getZ() * scale)) / 2;
-//		return BiomeUtils.blendColors(noise, GRASS_YELLOW_DARK, GRASS_YELLOW_LIGHT);
-//		return BiomeUtils.blendColors(noise, 0x7a9a00, 0xe0d44a);
-//		return BiomeUtils.blendColors(noise, 0xa06000, 0xf0c030);
-//		return BiomeUtils.blendColors(noise, 0xaaaa44, 0xeeeebb);
 		return BiomeUtils.blendColors(noise, 0xffaf00, 0xffff00); // tweaking
 	}
 }

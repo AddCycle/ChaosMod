@@ -127,7 +127,7 @@ public class WorldGenBirchTreeHive extends WorldGenAbstractTree {
                     }
                     
                     int hiveY = position.getY() + i - 4;
-                    if (rand.nextInt(10) == 0) return true;
+                    if (rand.nextInt(10) != 0) return true;
                     
                     BlockPos hiveBase = new BlockPos(position.getX(), hiveY, position.getZ());
                     EnumFacing facing = EnumFacing.Plane.HORIZONTAL.random(rand);

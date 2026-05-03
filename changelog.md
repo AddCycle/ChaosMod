@@ -1,14 +1,63 @@
 # Changelog 1.0.16
 
-TODO (tileentities):
-  - advanced enchanting table: lets you choose your enchantment among all in the game for crystals or another resource ?
-
 TODO (items):
-  - wings in order to double jump (and also make it like you can combine it inside a anvil/machine to have it on a piece of armor)
+ - wings
+ - honeycomb
+
+TODO (blocks):
+ - honeycombBlock
+ - pollenizedFlowers (multiple variants)
+
+TODO (tileentities(te)):
+ - advanced/enhanced enchanting_table
 
 TODO (entities):
-  - make bee AI and behavior towards beehive & also make a pollen mechanic
-  - make bees generate on top of beehives
+ - bee
+ - bumblebee
+ - honeyCow
+ - honeyWolf
+ - honeySlimes
+ - honeyBears
+
+TODO (bosses):
+ - Queen Bee
+
+TODO (dimensions):
+ - "The HIVE"
+
+TODO (WorldGen):
+ - "The HIVE"
+
+SCOPE:
+
+ items:
+  - wings: model -> texture -> wear it -> double-jump
+
+ blocks:
+ 
+
+ te:
+  - enchanting_table: model -> block -> te -> renderer -> gui -> container -> polish with effects (books flying, particles) -> crystals or another resource minable to make enhanced caves (amethyst or budding amethyst (charged(?))) -> choose enchantements cost 1 mineral
+
+ dims:
+  - "The Hive"
+   - items: honeycomb
+   - blocks: honeycombBlock
+   - entities: honeyCow, honeyWolf, honeySlimes, honeyBears
+   - boss: Queen Bee
+   - WorldGen:
+    - honeycomb blocks all around (main one)
+    - honey blocks (underneath sometimes)
+    - liquid honey ()
+    - bees
+    - all sorts of bees like:
+    - Worker bee (gathers resources for you)
+    - Fighter bees (fight for you)
+    - Queen bee boss (drops you the staff in order to control/tame bees)
+
+ entities:
+  - bee: AI and behavior towards beehive (go in and out of their hives) & also make a pollen mechanic (where they carry a certain amount AI flowers visited) (cannot ride only bumblebees)
+  - bumblebee: only ones flying + rideable with saddle inside the overworld dungeon
 
 TODO (Structures):
   - make an abstract/reusable Iworldgenerator for generating structures (maybe later when cascading worldgenlag is fixed)
@@ -95,6 +144,7 @@ MINOR:
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus
   - add an entirely customizable gui notes (armor equipped and durability on screen (position, scale, ... everything customizable) like a custom client would do (config disabling feature))
+  - gummy bears + candy dimension for christmas
 
 REWORK(funnier to grind):
   1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
@@ -139,6 +189,7 @@ ISSUES:
 REFACTOR (when needed):
   - entity package
   - DimensionWarpCommand
+  - events: needs each one to be inside a specific package, like relative to items inside items, relative to biomes inside biomes...
 
 OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)

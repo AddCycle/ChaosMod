@@ -1,5 +1,8 @@
 package net.chaos.chaosmod.init;
 
+import static net.minecraft.entity.EntitySpawnPlacementRegistry.setPlacementType;
+import static net.minecraftforge.fml.common.registry.EntityRegistry.addSpawn;
+
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.entity.EntityBipedBasic;
 import net.chaos.chaosmod.entity.EntityChaosSage;
@@ -22,7 +25,6 @@ import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving.SpawnPlacementType;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
@@ -33,13 +35,14 @@ import util.Reference;
 public class ModEntities {
 	
 	public static void registerEntityPlacements() {
-		EntitySpawnPlacementRegistry.setPlacementType(EntityVulture.class, SpawnPlacementType.IN_AIR);
-		EntitySpawnPlacementRegistry.setPlacementType(EntityBee.class, SpawnPlacementType.IN_AIR);
+		setPlacementType(EntityVulture.class, SpawnPlacementType.IN_AIR);
+		setPlacementType(EntityBee.class, SpawnPlacementType.IN_AIR);
 	}
 	
-	// TODO : add EntityBee spawn inside the forests near nests
+	// NOTE: AMBIENT being cave ones
 	public static void registerEntitySpawn() {
-		EntityRegistry.addSpawn(EntityVulture.class, 10, 3, 5, EnumCreatureType.CREATURE, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.MESA, Biomes.MESA_CLEAR_ROCK, Biomes.MESA_ROCK, Biomes.MUTATED_MESA, Biomes.MUTATED_MESA_CLEAR_ROCK, Biomes.MUTATED_MESA_ROCK);
+		addSpawn(EntityVulture.class, 10, 3, 5, EnumCreatureType.CREATURE, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.MESA, Biomes.MESA_CLEAR_ROCK, Biomes.MESA_ROCK, Biomes.MUTATED_MESA, Biomes.MUTATED_MESA_CLEAR_ROCK, Biomes.MUTATED_MESA_ROCK);
+		addSpawn(EntityBee.class, 10, 1, 3, EnumCreatureType.CREATURE, ModBiomes.SPRING_BIOME, ModBiomes.DENSE_FOREST);
 	}
 
 	public static void registerEntities() {
