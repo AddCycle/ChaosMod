@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -40,6 +41,7 @@ public class BeehiveBlock extends BlockContainerBase {
         	.withProperty(FACING, EnumFacing.NORTH)
         	.withProperty(AGE, 0));
         this.setTickRandomly(true);
+        setSoundType(SoundType.WOOD);
 	}
 	
 	@Override

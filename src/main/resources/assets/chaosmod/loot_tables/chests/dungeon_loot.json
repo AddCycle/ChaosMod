@@ -118,7 +118,7 @@
                         {
                             "function": "enchant_with_levels",
                             "levels": {
-                           		"min": 20, 
+                           		"min": 20,
                            		"max": 30
                             },
                             "treasure": true

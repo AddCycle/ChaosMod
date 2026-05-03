@@ -1,14 +1,21 @@
 # Changelog 1.0.16
 
+TODO (tileentities):
+  - advanced enchanting table: lets you choose your enchantment among all in the game for crystals or another resource ?
+
+TODO (items):
+  - wings in order to double jump (and also make it like you can combine it inside a anvil/machine to have it on a piece of armor)
+
 TODO (entities):
   - make bee AI and behavior towards beehive & also make a pollen mechanic
+  - make bees generate on top of beehives
 
 TODO (Structures):
   - make an abstract/reusable Iworldgenerator for generating structures (maybe later when cascading worldgenlag is fixed)
   - fix: stairs part head hit
   - I think everything is done except avoiding the vanilla generated structures (TODO: but I think it's already handled by forge salt system (maybe query other mods random in order to avoid them via intercommunicationevent ?))
   - Also add a button/mode to the jigsaw to generate along with maxDepth levels
-  - todo: custom loot_tables (todo, do more with better loot [DOING] also change the alone chest that is sealing the end of dungeons) + make a custom chest in order to spawn loot with an effect on opened inside the structure (at boss death (more like a custom entity with animations + explosion))
+  - todo: better loot_tables + make a custom chest in order to spawn loot with an effect on opened inside the structure (at boss death (more like a custom entity with animations + explosion))
   - todo: rework the boss altar to like hold the NBT data of the boss/entity
   - todo: make boss_room blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed or every player is dead (make them spectator (or just put a bedroom nearby the boss_room))
   - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners (vikings/pirates)) to prevent players from looting too easily) (good to start structures)

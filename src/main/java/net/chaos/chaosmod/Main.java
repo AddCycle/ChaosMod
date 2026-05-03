@@ -2,7 +2,7 @@ package net.chaos.chaosmod;
 
 import org.apache.logging.log4j.Logger;
 
-import net.chaos.chaosmod.biomes.gen.events.BiomeGenEventHandler;
+import net.chaos.chaosmod.biomes.events.BiomeGenEventHandler;
 import net.chaos.chaosmod.commands.CommandsManager;
 import net.chaos.chaosmod.common.capabilities.CapabilityEventHandler;
 import net.chaos.chaosmod.init.ModBiomes;

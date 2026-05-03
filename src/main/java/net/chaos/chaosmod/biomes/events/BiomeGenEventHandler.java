@@ -1,4 +1,4 @@
-package net.chaos.chaosmod.biomes.gen.events;
+package net.chaos.chaosmod.biomes.events;
 
 import java.util.ArrayList;
 import java.util.Arrays;
