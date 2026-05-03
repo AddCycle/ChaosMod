@@ -10,6 +10,7 @@ import java.util.Queue;
 import java.util.Random;
 
 import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.init.ModLootTableList;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
@@ -217,7 +218,7 @@ public class JigsawAssembler {
         result.nextTemplate.addBlocksToWorld(world, result.nextOrigin, result.matchSettings, flag);
         placedBoxes.add(result.nextBox);
         
-	    populateChestsLootable(world, result.nextTemplate, result.nextOrigin, world.rand, result.matchSettings, LootTableList.CHESTS_WOODLAND_MANSION);
+	    populateChestsLootable(world, result.nextTemplate, result.nextOrigin, world.rand, result.matchSettings, ModLootTableList.DUNGEON_LOOT);
 
         replaceJigsaw(world, pending.jigsawPos, pending.turnsInto);
         replaceJigsaw(world, result.nextOrigin.add(result.match.localPos), result.match.turnsInto);

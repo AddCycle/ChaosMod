@@ -10,7 +10,8 @@ import util.Reference;
 public class ModLootTableList {
 	private static final List<ResourceLocation> LOOT_TABLES = new ArrayList<>();
 
-	public static final ResourceLocation CHEST_VILLAGE_BLACKSMITH = register("dungeon_loot");
+	public static final ResourceLocation CHEST_VILLAGE_BLACKSMITH = register("chests/village_loot");
+	public static final ResourceLocation DUNGEON_LOOT = register("chests/dungeon_loot");
 	public static final ResourceLocation CUSTOM_FISHING = register("inject/gameplay/custom_fishing");
 	
 	public static void registerLootTables() {

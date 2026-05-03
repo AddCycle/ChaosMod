@@ -1,13 +1,17 @@
 package net.chaos.chaosmod.entity.animal.model;
 // Made with Blockbench 5.1.3
 
+import net.chaos.chaosmod.entity.animal.EntityBee;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class ModelBee extends ModelBase {
 	private final ModelRenderer torso;
 	private final ModelRenderer left_antenna;
@@ -85,6 +89,13 @@ public class ModelBee extends ModelBase {
 	@Override
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount,
 			float partialTickTime) {
+		EntityBee entity = (EntityBee) entitylivingbaseIn;
+		if (entity.isStinging()) {
+			float progress = MathHelper.sin((entity.ticksExisted + partialTickTime) * 0.6F);
+			torso.rotateAngleX = -progress * 0.8F;
+		} else {
+			torso.rotateAngleX = 0;
+		}
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
