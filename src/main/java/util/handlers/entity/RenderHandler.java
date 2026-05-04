@@ -2,6 +2,8 @@ package util.handlers.entity;
 
 import net.chaos.chaosmod.client.renderer.tileentity.AtmTESR;
 import net.chaos.chaosmod.client.renderer.tileentity.DrawerTESR;
+import net.chaos.chaosmod.client.renderer.tileentity.LanternTESR;
+import net.chaos.chaosmod.client.renderer.tileentity.TESRCookieJar;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBeamRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityBossAltarRenderer;
 import net.chaos.chaosmod.client.renderer.tileentity.TileEntityOxoniumChestRenderer;
@@ -45,8 +47,6 @@ import net.chaos.chaosmod.entity.render.LittleGiantRenderer;
 import net.chaos.chaosmod.entity.render.RenderChaosSage;
 import net.chaos.chaosmod.entity.render.RenderForgeGuardian;
 import net.chaos.chaosmod.init.ModFluidBlocks;
-import net.chaos.chaosmod.tileentity.LanternTESR;
-import net.chaos.chaosmod.tileentity.TESRCookieJar;
 import net.chaos.chaosmod.tileentity.TileEntityATM;
 import net.chaos.chaosmod.tileentity.TileEntityBeam;
 import net.chaos.chaosmod.tileentity.TileEntityBossAltar;

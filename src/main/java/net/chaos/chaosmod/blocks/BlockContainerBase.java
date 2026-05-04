@@ -4,13 +4,18 @@ import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import proxy.IBlockModel;
 
 public abstract class BlockContainerBase extends BlockContainer implements IBlockModel, ITileEntityProvider {
 
 	protected BlockContainerBase(String name, Material materialIn) {
-		super(materialIn);
+		this(name, materialIn, materialIn.getMaterialMapColor());
+	}
+
+	protected BlockContainerBase(String name, Material materialIn, MapColor mapColor) {
+		super(materialIn, mapColor);
 		setUnlocalizedName(name);
 		setRegistryName(name);
 	

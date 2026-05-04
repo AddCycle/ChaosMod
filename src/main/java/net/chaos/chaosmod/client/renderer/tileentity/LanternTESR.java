@@ -1,7 +1,8 @@
-package net.chaos.chaosmod.tileentity;
+package net.chaos.chaosmod.client.renderer.tileentity;
 
 import org.lwjgl.opengl.GL11;
 
+import net.chaos.chaosmod.tileentity.TileEntityLantern;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;

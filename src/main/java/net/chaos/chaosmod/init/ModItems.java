@@ -185,6 +185,8 @@ public class ModItems {
 	
 	// BOTTLES
 	public static final Item HONEY_BOTTLE = new ItemHoneyBottle();
+
+	public static final Item PLAYER_TRACKER = new net.chaos.chaosmod.items.ItemPlayerTracker();
 	
 	// Slab items
 	// public static Item ABSTRACT_SLAB;

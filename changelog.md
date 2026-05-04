@@ -224,6 +224,10 @@ TODO (last):
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
+  items:
+  - player_tracking_compass
+  - biome_tracking_compass
+  - structure_locator_compass
 
 New:
   - MainMenu custom `LOGO` (overrides `minecraft.png`)

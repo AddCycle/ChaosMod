@@ -3,6 +3,7 @@ package net.chaos.chaosmod.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.chaos.chaosmod.blocks.AdvancedEnchantmentTable;
 import net.chaos.chaosmod.blocks.AllemaniteBlock;
 import net.chaos.chaosmod.blocks.BeehiveBlock;
 import net.chaos.chaosmod.blocks.BlockBase;
@@ -108,4 +109,5 @@ public class ModBlocks {
 	public static final Block JIGSAW_BLOCK = new JigsawBlock();
 	public static final Block BEEHIVE = new BeehiveBlock();
 	public static final Block HONEYCOMB = new BlockBase("honeycomb_block", ModMaterials.SOLID_HONEY);
+	public static final Block ADVANCED_ENCHANTMENT_TABLE = new AdvancedEnchantmentTable();
 }
