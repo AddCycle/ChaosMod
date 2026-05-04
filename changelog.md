@@ -1,8 +1,16 @@
 # Changelog 1.0.16
 
+This should be a huge scope and surely enough for 1.0.16 ver.
+
 TODO (items):
  - wings
  - honeycomb
+ - player_tracking_compass
+ - biome_tracking_compass
+ - structure_locator_compass
+
+TODO (armors):
+ - bear_armors
 
 TODO (blocks):
  - honeycombBlock
@@ -13,14 +21,18 @@ TODO (tileentities(te)):
 
 TODO (entities):
  - bee
+ - chest(dungeon_reward)
  - bumblebee
  - honeyCow
  - honeyWolf
  - honeySlimes
  - honeyBears
+ LATER
+ - vulture
 
 TODO (bosses):
  - Queen Bee
+ - 4 bosses to rework (put altars inside later structures)
 
 TODO (dimensions):
  - "The HIVE"
@@ -28,13 +40,34 @@ TODO (dimensions):
 TODO (WorldGen):
  - "The HIVE"
 
+TODO (structures):
+ - stairs_part: head hit (FIXME)
+ - (chest)entity dungeon_reward
+ - worldgenerator
+ ISSUES:
+ - avoiding vanilla structures (with salt) (last time intersection with mineshaft)
+ LATER:
+ - maybe query other mods random in order to avoid them via intercommunicationevent(?)
+ - Also add a button/mode to the jigsaw to generate along with maxDepth levels (when friends will make structures as well only)
+ - when more items gets added at the end of update: add them for better loot_tables
+ - rework the boss altar to like hold the NBT data of the boss/entity
+ - make boss_room blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed or every player is dead (make them spectator (or just put a bedroom nearby the boss_room))
+ - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners (vikings/pirates)) to prevent players from looting too easily) (good for variety inside oceans)
+
 SCOPE:
 
  items:
   - wings: model -> texture -> wear it -> double-jump
+  - honeycomb: only for the block to be crafted (with 4)
+  - player_tracking_compass: direction + distance (look for vanilla compass code) (OR just coords for the start)
+  - biome_tracking_compass: direction + distance (look for vanilla compass code)(OR just coords for the start)
+  - structure_locator_compass: direction + distance (look for vanilla compass code)(OR just coords for the start)
 
  blocks:
- 
+  - honeycombBlock: decoration-only for now (add variants later slabs, polished... TODO: move to ideas)
+
+ armors:
+  - bear_armors: oxonium, allemanite, enderite
 
  te:
   - enchanting_table: model -> block -> te -> renderer -> gui -> container -> polish with effects (books flying, particles) -> crystals or another resource minable to make enhanced caves (amethyst or budding amethyst (charged(?))) -> choose enchantements cost 1 mineral
@@ -48,7 +81,8 @@ SCOPE:
    - WorldGen:
     - honeycomb blocks all around (main one)
     - honey blocks (underneath sometimes)
-    - liquid honey ()
+    - liquid honey (underneath forming like lakes)
+    (advanced TODO : move to ideas)
     - bees
     - all sorts of bees like:
     - Worker bee (gathers resources for you)
@@ -57,114 +91,96 @@ SCOPE:
 
  entities:
   - bee: AI and behavior towards beehive (go in and out of their hives) & also make a pollen mechanic (where they carry a certain amount AI flowers visited) (cannot ride only bumblebees)
-  - bumblebee: only ones flying + rideable with saddle inside the overworld dungeon
+  - bumblebee: only ones flying + rideable with (saddle (found inside the overworld dungeon structure))
+  - chest: in order to spawn loot with an effect on opened inside the structure (at boss death (with animations: rotation -> grow -> open -> rotation -> shrink -> dead + explosion))
+  LATER
+ - vulture
 
-TODO (Structures):
-  - make an abstract/reusable Iworldgenerator for generating structures (maybe later when cascading worldgenlag is fixed)
-  - fix: stairs part head hit
-  - I think everything is done except avoiding the vanilla generated structures (TODO: but I think it's already handled by forge salt system (maybe query other mods random in order to avoid them via intercommunicationevent ?))
-  - Also add a button/mode to the jigsaw to generate along with maxDepth levels
-  - todo: better loot_tables + make a custom chest in order to spawn loot with an effect on opened inside the structure (at boss death (more like a custom entity with animations + explosion))
-  - todo: rework the boss altar to like hold the NBT data of the boss/entity
-  - todo: make boss_room blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed or every player is dead (make them spectator (or just put a bedroom nearby the boss_room))
-  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners (vikings/pirates)) to prevent players from looting too easily) (good to start structures)
+ structures:
+ - worldgenerator: reusable Iworldgenerator for generating structures (maybe later when cascading worldgenlag is fixed)
+ - stairs_part: head hit (FIXME)
+ - (chest)entity dungeon_reward
 
-TODO (Build):
-  - (complex) add a `//copy` based on vanilla `/clone` (maybe because I might recode it in order to be compatible with `//undo` & `//redo` commands) command with completions
-  - (registry making it complex) make the `//paste <x> <y> <z> [registry (int)]` take from it (works finally with //undo & //redo)
-  - make a ruler item to measure distances between pos1 & pos2
-  - make noise values
-  - add axis rendering x red, z blue, y green (like structure block does)
+ biomes:
+  - `spring_biome`: with yellowish-colors for bees essentially [in_progress...]
 
+**TODO: move this inside the scope or ideas**
 TODO (WorldGen):
-  - priority: add animals & mobs inside the `dense_forest` biome
-  - bear: armors support (todo: gold, leather, diamond)
-  - vulture (done), detail: make it hybrid -> ground also (like chicken) to make interaction (later maybe)
-  - Rework biomes (ender_garden, chaosland_biome, hell_biome) or completely remove them for other biome types
-  - Removed the boss altars in order to put them inside the later-made structures (do not forget before release)
   - (advanced) add underground (biomes or caves) with vines and decoration and more minerals
   - (advanced) make a sky island biome
-  - (advanced) make a magma/fire biome with fire creatures
+  - (advanced) make a magma/fire biome with fire creatures, vulcano_biome
   - animals ideas: kangaroos (magma cube jump animations to look for), monkey, beaver, pheonix, hog
   - make a prehistorical biome with dinosaurs
-  - make like a `spring/summer` biome with yellowish-colors [in_progress...]
 
+**TODO: move this inside the scope or ideas**
 TODO (JOBS):
   - Make a separate button that leads to the sharedTasks display with ranking & other things inchaa'Allah
   (POLISH)
   - add scoreboard of current shared task (polish the design of the gui)
   - Make a button the claim global task reward so if players are offline they still get the reward [!!!! REALLY NEEDED !!!!]
 
+  - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER
+  LATER
   - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins + testing
-  - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER (`cobblestone_void` should be for miner exclusively maybe (like uncraftable otherwise or maybe just unlocking its craft))
-
-  - Add bedrock bridging feature [TODO] (for travelers I think)
-  - add a spelunkery table which requires translation like (alex's cave mod) (travelers I think to find coords of the structures or buried treasures (traveler job))
   - Add `traveler` job task `structures` discovery later... (using isInsideStructure method inside the generation)
   - allow `/locate` to find custom structures added by mathsmod & chaosmod
-  - Make a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
-  - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
   - Add UI toast upon task completion
-  - Get rid of patchouli API to make my own information book (might take some time but more reliable since it doesn't require any dependencies)
   - Add a utility for `Pixou` stealing precious blocks (giving you something in return) (maybe a quest/job achievement hidden reward for jobs/market) or cut picsou entity for a better one (idea: racoon that sneaks into bases & steals from players chests)
 
-TODO (Bosses):
+REFACTOR (when needed):
+  - entity package
+  - DimensionWarpCommand
+  - events: needs each one to be inside a specific package, like relative to items inside items, relative to biomes inside biomes...
+
+POLISH:
+  - weird offset when the name is too long or unlocalized
+  - Shared tasks gui make it in the scoreboard pinnable maybe or just make a visual indicator in the gui
+  - additionaloverlayinfos : health+armor icons drawing instead of raw values
+  - Add SFX to jobs upon level up (TODO) (useless right now as long as every task completed is a level up
+  - bears - detail: have something in their mouth sometimes
+
+IDEAS (Bosses):
   - 1: add a biome
   - 2: add a mob (ex: magma biome with magma_bears) that has special loot
   - 3: add a boss that spawns requires the special loot
   - 4: replicate and add variety
   - 5: they loot a good weapon or an armor piece that does something more (or just quest reward (every player gets it))
 
-TODO (rework):
+IDEAS (rework):
   - make the items upgrades instead of crafting others: oxonium -> forge -> allemanite -> forge -> enderite -> forge -> solarite and so on...
   - make the swords block attacks by holding right-click wielding them (pre-1.9 pvp)
   - remake armors (enderite_texture: more like a crying obsidian or maybe just remove it and go crying_obsidian_armor) + give them effects unique (variety)
   - remake allemanite_backpack and make it upgradable with more storage and actually syncs to not loose loot (verify/re-implement)
+  - Make a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
+  - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
+
+IDEAS(JOBS):
+  - Add bedrock bridging feature [TODO] (for travelers I think)
 
 IDEAS:
-  - make the end or nether disabled until a specific accomplishement is reached (I don't think it's a good idea because it means that mathsmod features in the nether won't be usable until then slowing progress)
-  - Add common tasks for all players to do but still competition and gui who farmed the most in each task and rewards accordingly (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
-  - Add an exclusive item, player tracking compass or biome tracking compass (for the hunt or exclusive to jobs)
-  - Wheat boss like a scarecrow
+  - Add rewards for common tasks for the most efficient player (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
+  - Wheat boss like a scarecrow (common task gather a ton of wheat)
+  LATER (maybe another ver.)
+  - add a spelunkery table which requires translation like (alex's cave mod) (travelers I think to find coords of the structures or buried treasures (traveler job))
   - Custom event only-tipped-arrows allowed
   - InventorySorter: like a little item that when you shift-right-click on, it sorts a container based on names/ids/types... depends on the mode that he's on
   - Also make the items have a rarity/tier so that you can basically reforge everything.
-  - Rework the current bosses and entities models (add effects + animations) [DOING]
+  - Rework the current bosses and entities models (add effects + animations) [PARTIALLY DOING more done like for new things]
   - Skill tree
   - add buried treasure with a minimap
-  - Herobrine, Putin, Technoblade, DaquavisMC, Dream boss
-  - Structure loot chest that when opened summons entities that will fight to protect the chest
-  - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = pillagerTower
+  - Herobrine, Putin, Technoblade, DaquavisMC, Dream bosses
+  - Structure loot chest that when opened summons entities that will fight to protect the chest (custom trapped chest)
+  - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = pillagerTower, or wizard tower
   - Cook (like with stats increasing if you have a good alimentation)
   - Add new lava fish inside the nether with a custom fishing rod too (bober entity fireResistant)
   - Sheepwars
   - Don't forget aerial structures as long as we have the jetpack + elytras(fireworks) (TODO : make it a task like use elytras with tier3 fireworks (traveler)))
-  - add variants to animals like skins and other models, no behavior, just reskin variety
-MINOR:
+  - add variants to vanilla animals like skins and other models, no behavior, just reskin for visual variety
+  MINOR
   - add a visual effect to gamemode switch with hotkeys F3+F4
   - add a custom cursor while ingame menus
   - add an entirely customizable gui notes (armor equipped and durability on screen (position, scale, ... everything customizable) like a custom client would do (config disabling feature))
   - gummy bears + candy dimension for christmas
-
-REWORK(funnier to grind):
-  1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
-  Instead, I can do some `missions/challenges` like `mine 10 iron without placing torches` ==> more engaging ### needs player restriction implementation (capability) ###
-  2- Add random `events` like rare fish appeared to fight and then when killed grants more EXP or treasure spot nearby
-  3- Let's player choose : pick tasks like a easy/hard one : risky job, or safe one
-  4- Add progression effect : for example when lvl 5 -> faster fishing, chance to double ores, lifesteal chance/crits... in each job
-  5- Add combo/streak system : catch fish in a row, mine ores without dying -> bonus (encourages skill)
-  6- Mini-goals inside tasks: `mine 50 iron` becomes `find cave`, `mine iron`, ...
-  7- Special contracts (limited-events): legendary fish appeared at night (making him glow at night)
-  8- Add `visual world` effects:
-
-POLISH:
-  - Shared tasks gui make it in the scoreboard pinnable maybe or just make a visual indicator in the gui
-  - additionaloverlayinfos : health+armor icons drawing instead of raw values
-  - Add SFX to jobs upon level up (TODO) (useless right now as long as every task completed is a level up
-  - bears - detail: have something in their mouth sometimes
-
-PLAYTEST:
-  - All jobs task completion + granting rewards correctly (client+server)
 
 TODO (next version) ?:
   - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals (later when more tasks like on 10 tasks make 5 only)
@@ -186,17 +202,33 @@ ISSUES:
   - Fix: bear canSpawnHere needs to check the AABB before (just override method)
   - make my own main menu gui in order to disable it from the mod's config
 
-REFACTOR (when needed):
-  - entity package
-  - DimensionWarpCommand
-  - events: needs each one to be inside a specific package, like relative to items inside items, relative to biomes inside biomes...
-
 OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
 
-TODO:
+TODO (Utilities):
+  - (complex) add a `//copy` based on vanilla `/clone` (maybe because I might recode it in order to be compatible with `//undo` & `//redo` commands) command with completions
+  - (registry making it complex) make the `//paste <x> <y> <z> [registry (int)]` take from it (works finally with //undo & //redo)
+  - make a ruler item to measure distances between pos1 & pos2
+  - make noise values
+  - add axis rendering x red, z blue, y green (like structure block does)
+
+REWORK(funnier to grind):
+  1- Jobs might be boring loops like : `do X -> get EXP` doesn't seem interesting enough
+  Instead, I can do some `missions/challenges` like `mine 10 iron without placing torches` ==> more engaging ### needs player restriction implementation (capability) ###
+  2- Add random `events` like rare fish appeared to fight and then when killed grants more EXP or treasure spot nearby
+  3- Let's player choose : pick tasks like a easy/hard one : risky job, or safe one
+  4- Add progression effect : for example when lvl 5 -> faster fishing, chance to double ores, lifesteal chance/crits... in each job
+  5- Add combo/streak system : catch fish in a row, mine ores without dying -> bonus (encourages skill)
+  6- Mini-goals inside tasks: `mine 50 iron` becomes `find cave`, `mine iron`, ...
+  7- Special contracts (limited-events): legendary fish appeared at night (making him glow at night)
+  8- Add `visual world` effects:
+
+TODO (last):
   - Make a tool for making easier animations in blockbench directly (plugin or else)
   - Make another tool for DjoCaillou to mod without coding (if not, make tutorials on MCreator for 1.12.2)
+
+PLAYTEST:
+  - All jobs task completion + granting rewards correctly (client+server)
 
 New:
   - MainMenu custom `LOGO` (overrides `minecraft.png`)
@@ -250,6 +282,7 @@ Changes:
   - balance: `custom_leaves` dropping too many `golden_apple` on decay
   - fix: `jobs` progress cleared when traveling between dimensions
   - style: `oxonium_sword` texture back to normal (short_sword)
+  - chore: `patchouliAPI` removed
 
 MODEL-ISSUES:
 Caused by: java.io.FileNotFoundException: chaosmod:models/item/atm_block.json
@@ -309,9 +342,6 @@ Caused by: java.io.FileNotFoundException: chaosmod:blockstates/chaosland_portal.
 	... 20 more
 [18:49:56] [Client thread/FATAL] [FML]: Suppressed additional 3 model loading errors for domain chaosmod
 
-Test without AT classes then show to Louis maybe not use coremod : useless
-Yep no need for it test it then :
-
 Rename AT file to mathsmod_at.cfg in src/main/resources/
 Add rename '(.+_at.cfg)', 'META-INF/$1' to processResources
 Add useDepAts = true to the minecraft {} block
@@ -335,3 +365,7 @@ jar {
 
 Inside minecraft :
 useDepAts = true
+
+make gradlew setupDecompWorkspace
+then gradlew eclipse
+it should be all

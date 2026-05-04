@@ -11,6 +11,8 @@ import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -60,11 +62,13 @@ public class BiomeDenseForest extends Biome {
 		this.topBlock = Blocks.GRASS.getDefaultState();
 		this.fillerBlock = Blocks.DIRT.getDefaultState();
 
-		this.spawnableMonsterList.clear();
 		this.spawnableCreatureList.clear();
-
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityBear.class, 4, 1, 2));
+        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityBear.class, 5, 1, 2));
 		this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 2, 2, 4));
+
+		this.spawnableMonsterList.clear();
+		spawnableMonsterList.add(new SpawnListEntry(EntitySkeleton.class, 5, 1, 3));
+		spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 5, 2, 4));
 
 		this.flowers.clear();
 		this.addFlower(ModBlocks.CUSTOM_FLOWER.getDefaultState(), 5);

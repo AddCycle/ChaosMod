@@ -4,7 +4,6 @@ import net.chaos.chaosmod.blocks.BeehiveBlock;
 import net.chaos.chaosmod.client.gui.inventory.GuiInventoryExtended;
 import net.chaos.chaosmod.client.inventory.IAccessory;
 import net.chaos.chaosmod.common.capabilities.accessory.CapabilityAccessory;
-import net.chaos.chaosmod.compatibility.patchouli.PatchouliPlugin;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModDimensions;
 import net.chaos.chaosmod.init.ModItems;
@@ -39,7 +38,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import net.minecraftforge.event.world.BlockEvent.FarmlandTrampleEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
@@ -145,10 +143,6 @@ public class PlayerLifeEvents {
 		if (firstJoin) {
 			persistentData.setBoolean(key, true);
 			entityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistentData);
-
-			if (Loader.isModLoaded(Reference.PATCHOULI)) {
-				PatchouliPlugin.giveBook(player);
-			}
 
 			// sets his first home on join
 			event.getWorld().getMinecraftServer().commandManager.executeCommand(player, "sethome spawn");
