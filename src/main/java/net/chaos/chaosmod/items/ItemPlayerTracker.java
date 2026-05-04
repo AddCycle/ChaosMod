@@ -13,7 +13,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -56,7 +55,7 @@ public class ItemPlayerTracker extends ItemBase {
             	{
             		double yaw = flag ? (double)entity.rotationYaw : this.getFrameRotation((EntityItemFrame)entity);
             		yaw = MathHelper.positiveModulo(yaw / 360.0D, 1.0D);
-            		double entityAngle = this.getClosestEntityToAngle(worldIn, entity) / (Math.PI * 2D);
+            		double entityAngle = this.getClosestEntityToAngle(worldIn, entity) / (Math.PI * 2D) + 0.25D;
             		angle = 0.5D - (yaw - 0.25D - entityAngle);
             	}
             	else
@@ -95,33 +94,49 @@ public class ItemPlayerTracker extends ItemBase {
             }
 
             @SideOnly(Side.CLIENT)
-            private double getSpawnToAngle(World world, Entity entity)
-            {
-                BlockPos blockpos = world.getSpawnPoint();
-                return Math.atan2((double)blockpos.getZ() - entity.posZ, (double)blockpos.getX() - entity.posX);
-            }
-
-            @SideOnly(Side.CLIENT)
             private double getClosestEntityToAngle(World world, Entity self)
             {
             	WorldClient clientworld = (WorldClient)world;
-            	EntityPlayer closest = clientworld.getClosestPlayerToEntity(self, 10000);
+
+            	double minDist = Double.MAX_VALUE;
+            	EntityPlayer closest = null;
+            	for (EntityPlayer player : clientworld.playerEntities) {
+                    if (player == self) continue;
+                    double dist = self.getDistance(player);
+                    if (dist < minDist) {
+                    	minDist = dist;
+                    	closest = player;
+                    }
+                }
+                
             	if (closest == null) return 0.0D;
-            	if (closest == self) return 0.0D;
-//            	Main.getLogger().info("Closest found entity: {}, being within : {}", closest.getName(), self.getDistance(closest));
-                return Math.atan2((double)closest.posZ - self.posZ, (double)closest.posX - self.posX);
+//            	Main.getLogger().info("Closest found entity: {}, being within : {}", closest.getName(), minDist);
+            	return Math.atan2(closest.posZ - self.posZ, closest.posX - self.posX);
             }
         });
 	}
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		EntityPlayer closest = worldIn.getClosestPlayerToEntity(playerIn, 10000);
-		if (closest == null || closest == playerIn) {
-			playerIn.sendStatusMessage(new TextComponentString("No player found within: 10000 range"), true);
-		} else {
-			playerIn.sendStatusMessage(new TextComponentString("Closest player: " + closest.getName() + " within: " + playerIn.getDistance(closest)), true);
-		}
+		EntityPlayer closest = null;
+	    double minDist = Double.MAX_VALUE;
+
+	    for (EntityPlayer player : worldIn.playerEntities) {
+	        if (player == playerIn) continue;
+	        double dist = playerIn.getDistance(player);
+//	        if (dist > 10000) continue; // fine small amount of players
+	        if (dist < minDist) {
+	            minDist = dist;
+	            closest = player;
+	        }
+	    }
+
+	    if (closest == null) {
+	        playerIn.sendStatusMessage(new TextComponentString("No player found within range"), true);
+	    } else {
+	        playerIn.sendStatusMessage(new TextComponentString(
+	            "Closest player: " + closest.getName() + " within: " + minDist), true);
+	    }
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
 	}
 }
