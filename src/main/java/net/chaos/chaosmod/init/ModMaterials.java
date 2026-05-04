@@ -7,4 +7,5 @@ import net.minecraft.block.material.MaterialLiquid;
 public class ModMaterials {
 	public static final Material PINK_LANTERN = new Material(MapColor.PINK);
 	public static final Material HONEY = new MaterialLiquid(MapColor.YELLOW); // TODO : make public setNoPushMobility()
+	public static final Material SOLID_HONEY = new Material(MapColor.YELLOW); // TODO : make public setNoPushMobility()
 }

@@ -4,7 +4,6 @@ This should be a huge scope and surely enough for 1.0.16 ver.
 
 TODO (items):
  - wings
- - honeycomb
  - player_tracking_compass
  - biome_tracking_compass
  - structure_locator_compass
@@ -13,7 +12,6 @@ TODO (armors):
  - bear_armors
 
 TODO (blocks):
- - honeycombBlock
  - pollenizedFlowers (multiple variants)
 
 TODO (tileentities(te)):
@@ -41,7 +39,6 @@ TODO (WorldGen):
  - "The HIVE"
 
 TODO (structures):
- - stairs_part: head hit (FIXME)
  - (chest)entity dungeon_reward
  - worldgenerator
  ISSUES:
@@ -58,13 +55,9 @@ SCOPE:
 
  items:
   - wings: model -> texture -> wear it -> double-jump
-  - honeycomb: only for the block to be crafted (with 4)
   - player_tracking_compass: direction + distance (look for vanilla compass code) (OR just coords for the start)
   - biome_tracking_compass: direction + distance (look for vanilla compass code)(OR just coords for the start)
   - structure_locator_compass: direction + distance (look for vanilla compass code)(OR just coords for the start)
-
- blocks:
-  - honeycombBlock: decoration-only for now (add variants later slabs, polished... TODO: move to ideas)
 
  armors:
   - bear_armors: oxonium, allemanite, enderite
@@ -94,11 +87,10 @@ SCOPE:
   - bumblebee: only ones flying + rideable with (saddle (found inside the overworld dungeon structure))
   - chest: in order to spawn loot with an effect on opened inside the structure (at boss death (with animations: rotation -> grow -> open -> rotation -> shrink -> dead + explosion))
   LATER
- - vulture
+ - vulture: make it hybrid ground also to interact with players and maybe steal their resources when they hit the players
 
  structures:
  - worldgenerator: reusable Iworldgenerator for generating structures (maybe later when cascading worldgenlag is fixed)
- - stairs_part: head hit (FIXME)
  - (chest)entity dungeon_reward
 
  biomes:
@@ -138,6 +130,9 @@ POLISH:
   - additionaloverlayinfos : health+armor icons drawing instead of raw values
   - Add SFX to jobs upon level up (TODO) (useless right now as long as every task completed is a level up
   - bears - detail: have something in their mouth sometimes
+
+IDEAS (Items):
+  - add variants later slabs, polished, to honeycomb_block
 
 IDEAS (Bosses):
   - 1: add a biome

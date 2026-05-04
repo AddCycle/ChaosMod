@@ -107,4 +107,5 @@ public class ModBlocks {
 	public static final Block ATM_BLOCK = new ATMBlock("atm_block", Material.IRON);
 	public static final Block JIGSAW_BLOCK = new JigsawBlock();
 	public static final Block BEEHIVE = new BeehiveBlock();
+	public static final Block HONEYCOMB = new BlockBase("honeycomb_block", ModMaterials.SOLID_HONEY);
 }

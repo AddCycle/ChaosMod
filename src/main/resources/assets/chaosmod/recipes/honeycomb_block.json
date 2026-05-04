@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"HH",
+		"HH",
+		""
+	],
+	
+	"key":
+	{
+		"H":
+		{
+			"item": "chaosmod:honeycomb"
+		}
+
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:honeycomb_block",
+		"count": 1
+	}
+}
