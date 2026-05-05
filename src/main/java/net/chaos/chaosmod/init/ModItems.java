@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.chaos.chaosmod.blocks.abstracted.ItemBlockSlab;
 import net.chaos.chaosmod.items.ItemBase;
+import net.chaos.chaosmod.items.ItemBiomeCompass;
 import net.chaos.chaosmod.items.armor.AllemaniteArmor;
 import net.chaos.chaosmod.items.armor.ArmorBase;
 import net.chaos.chaosmod.items.armor.EnderiteArmor;
@@ -187,6 +188,8 @@ public class ModItems {
 	public static final Item HONEY_BOTTLE = new ItemHoneyBottle();
 
 	public static final Item PLAYER_TRACKER = new net.chaos.chaosmod.items.ItemPlayerTracker();
+	public static final Item BIOME_FINDER = new ItemBiomeCompass();
+//	public static final Item STRUCTURE_LOCATOR = new ItemStructureLocator();
 	
 	// Slab items
 	// public static Item ABSTRACT_SLAB;

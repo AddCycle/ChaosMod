@@ -111,33 +111,6 @@ public class BiomeCommand extends CommandBase {
 	        player.sendMessage(text.appendSibling(teleport));
 
 	    }, server::addScheduledTask);
-
-//		BlockPos biomePos = world.getBiomeProvider().findBiomePosition(
-//			    playerPos.getX(), playerPos.getZ(), range,
-//			    Collections.singletonList(biome),
-//			    world.rand);
-//
-//		if (biomePos == null) {
-//			player.sendMessage(new TextComponentString("Biome not found within range " + range));
-//			return;
-//		}
-//
-//		int top = world.getTopSolidOrLiquidBlock(biomePos).getY(); // forces the chunk to load
-//		String coords = String.format("%d %d %d", biomePos.getX(),
-//				top, biomePos.getZ());
-//		String msg = String.format("The biome %s is located at: %s ", biome.getRegistryName(), coords);
-//		TextComponentString text = new TextComponentString(msg);
-//		TextComponentString teleport = new TextComponentString("TELEPORT");
-//		
-//		Style style = teleport.getStyle();
-//
-//		style.setColor(TextFormatting.RED).setBold(true);
-//		
-//		style.setClickEvent(new ClickEvent(Action.RUN_COMMAND, String.format("/tp %s %s", player.getName(), coords)));
-//		
-//		style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Teleport to biome")));
-//
-//		player.sendMessage(text.appendSibling(teleport));
 	}
 	
 	@Override

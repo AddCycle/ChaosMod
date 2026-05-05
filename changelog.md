@@ -3,10 +3,10 @@
 This should be a huge scope and surely enough for 1.0.16 ver.
 
 TODO (items):
- - wings
- - player_tracking_compass
- - biome_tracking_compass
+ - player_tracking_compass (seems done only texture remains)
+ - biome_tracking_compass [DOING - remains to do gui to type-in biome to find (right now only points towards `spring_biome`)]
  - structure_locator_compass
+ - wings (model & rendering might be the hardest part)
 
 TODO (armors):
  - bear_armors
@@ -18,7 +18,7 @@ TODO (tileentities(te)):
  - advanced/enhanced enchanting_table
 
 TODO (entities):
- - bee
+ - bee (behavior AI + pollen logic)
  - chest(dungeon_reward)
  - bumblebee
  - honeyCow
@@ -54,10 +54,10 @@ TODO (structures):
 SCOPE:
 
  items:
-  - wings: model -> texture -> wear it -> double-jump
-  - player_tracking_compass: direction + distance (look for vanilla compass code) (OR just coords for the start)
+  - player_tracking_compass: direction + distance (look for vanilla compass code) [seems DONE - only texture remains]
   - biome_tracking_compass: direction + distance (look for vanilla compass code)(OR just coords for the start)
   - structure_locator_compass: direction + distance (look for vanilla compass code)(OR just coords for the start)
+  - wings: model -> texture -> wear it -> double-jump
 
  armors:
   - bear_armors: oxonium, allemanite, enderite
