@@ -4,6 +4,7 @@ import java.util.Collections;
 
 import javax.annotation.Nullable;
 
+import net.chaos.chaosmod.Main;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItemFrame;
@@ -30,11 +31,13 @@ import util.Reference;
  * TODO : later make a gui to type in the id of the searched biome (with completion or suggestions)
  */
 public class ItemBiomeCompass extends ItemBase {
-	private static final ResourceLocation BIOME_RL = new ResourceLocation(Reference.MODID, "spring_biome");
-	private static final String BIOMEPOS_TAG = "biomepos";
+	public static final String BIOMEPOS_TAG = "biomepos";
+	public static final String SEARCHED_BIOME = "searched_biome";
+	public static final String IS_DIRTY = "dirty";
 
 	public ItemBiomeCompass() {
 		super("biome_compass");
+		setMaxStackSize(1);
 		
         this.addPropertyOverride(new ResourceLocation("angle"), new IItemPropertyGetter()
         {
@@ -124,21 +127,39 @@ public class ItemBiomeCompass extends ItemBase {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
 		ItemStack stack = player.getHeldItemMainhand();
+		if (player.isSneaking()) {
+//			if (!world.isRemote) {
+			if (world.isRemote) {
+				player.openGui(Main.instance, Reference.GUI_BIOME_COMPASS, world, (int)player.posX, (int)player.posY, (int)player.posZ);
+			}
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(handIn));
+		}
+
 		NBTTagCompound tag = stack.getOrCreateSubCompound("data");
-		Biome biome = ForgeRegistries.BIOMES.getValue(BIOME_RL);
+		String biomeRL = null;
+		if (tag.hasKey(SEARCHED_BIOME)) {
+			biomeRL = tag.getString(SEARCHED_BIOME);
+		} else {
+			player.sendStatusMessage(new TextComponentString("No biome being searched"), true);
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(handIn));
+		}
+
+		Biome biome = ForgeRegistries.BIOMES.getValue(new ResourceLocation(biomeRL));
 		if (biome == null) {
 			player.sendStatusMessage(new TextComponentString("No biome with this id exists"), true);
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(handIn));
 		}
+
 		int range = 2000;
 		BlockPos blockpos = null;
-		if (!tag.hasKey(BIOMEPOS_TAG)) {
+		if (!tag.hasKey(BIOMEPOS_TAG) || tag.getBoolean(IS_DIRTY)) {
 			blockpos = world.getBiomeProvider().findBiomePosition((int)player.posX, (int)player.posZ, range, Collections.singletonList(biome), world.rand);
 			if (blockpos == null) {
 				player.sendStatusMessage(new TextComponentString("Biome not found within range"), true);
 				return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(handIn));
 			}
 			tag.setLong(BIOMEPOS_TAG, blockpos.toLong());
+			tag.setBoolean(IS_DIRTY, false);
 		} else {
 			blockpos = BlockPos.fromLong(tag.getLong(BIOMEPOS_TAG));
 		}

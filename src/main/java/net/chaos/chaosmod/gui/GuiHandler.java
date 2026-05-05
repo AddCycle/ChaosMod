@@ -1,5 +1,7 @@
 package net.chaos.chaosmod.gui;
 
+import javax.annotation.Nullable;
+
 import net.chaos.chaosmod.client.gui.inventory.BackpackGui;
 import net.chaos.chaosmod.client.gui.inventory.ForgeInterfaceGui;
 import net.chaos.chaosmod.client.gui.inventory.GuiInventoryExtended;
@@ -13,6 +15,7 @@ import net.chaos.chaosmod.inventory.BackpackContainer;
 import net.chaos.chaosmod.inventory.ForgeInterfaceContainer;
 import net.chaos.chaosmod.inventory.OxoniumFurnaceContainer;
 import net.chaos.chaosmod.inventory.TrophyContainerBase;
+import net.chaos.chaosmod.items.ItemBiomeCompass;
 import net.chaos.chaosmod.items.special.PlayerInventoryBaseItem;
 import net.chaos.chaosmod.jobs.gui.fisherman.GuiFishingMinigame;
 import net.chaos.chaosmod.tileentity.TileEntityATM;
@@ -26,6 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -74,6 +78,8 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerBear(player, (EntityLiving) entity);
 		case Reference.GUI_JIGSAW_ID:
 			return emptyContainer();
+		case Reference.GUI_BIOME_COMPASS:
+			return emptyContainer();
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -111,6 +117,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiBear(player, (EntityLiving) entity);
 		case Reference.GUI_JIGSAW_ID:
 			return new GuiJigsaw((TileEntityJigsaw) world.getTileEntity(new BlockPos(x, y, z)));
+		case Reference.GUI_BIOME_COMPASS:
+			return new GuiBiomeCompass(getCompassBiome(player.getHeldItemMainhand()));
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -134,5 +142,22 @@ public class GuiHandler implements IGuiHandler {
 				return true;
 			}
 		};
+	}
+	
+	/**
+	 * Returns id of previously searched biome
+	 * @param stack
+	 * @return
+	 */
+	@Nullable
+	private String getCompassBiome(ItemStack stack) {
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemBiomeCompass) {
+			NBTTagCompound tag = stack.getOrCreateSubCompound("data");
+			if (tag.hasKey(ItemBiomeCompass.SEARCHED_BIOME)) {
+				return tag.getString(ItemBiomeCompass.SEARCHED_BIOME);
+			}
+		}
+
+		return null;
 	}
 }

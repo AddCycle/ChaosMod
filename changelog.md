@@ -4,8 +4,8 @@ This should be a huge scope and surely enough for 1.0.16 ver.
 
 TODO (items):
  - player_tracking_compass (seems done only texture remains)
- - biome_tracking_compass [DOING - remains to do gui to type-in biome to find (right now only points towards `spring_biome`)]
- - structure_locator_compass
+ - biome_tracking_compass [DONE only texture remains (might crash server-side (that's why playtest needed))]
+ - structure_locator_compass [DO IT ONLY WHEN OTHER STRUCTURES AND WORLDGENLAG issues are fixed]
  - wings (model & rendering might be the hardest part)
 
 TODO (armors):
@@ -42,7 +42,7 @@ TODO (structures):
  - (chest)entity dungeon_reward
  - worldgenerator
  ISSUES:
- - avoiding vanilla structures (with salt) (last time intersection with mineshaft)
+ - avoiding vanilla structures (with salt) (last time happened intersection with mineshaft)
  LATER:
  - maybe query other mods random in order to avoid them via intercommunicationevent(?)
  - Also add a button/mode to the jigsaw to generate along with maxDepth levels (when friends will make structures as well only)
@@ -55,15 +55,15 @@ SCOPE:
 
  items:
   - player_tracking_compass: direction + distance (look for vanilla compass code) [seems DONE - only texture remains]
-  - biome_tracking_compass: direction + distance (look for vanilla compass code)(OR just coords for the start)
-  - structure_locator_compass: direction + distance (look for vanilla compass code)(OR just coords for the start)
-  - wings: model -> texture -> wear it -> double-jump
+  - biome_tracking_compass: direction + distance (look for vanilla compass code)(OR just coords for the start) [needs gui & choosing biome]
+  - structure_locator_compass: direction + distance (look for vanilla compass code)(OR just coords for the start) [DO IT ONLY WHEN MORE STRUCTURES ARE DONE + cascadingWorldGenLag fixed]
+  - wings: model -> texture -> wear it -> double-jump (seems quite hard and long to have something pleasant/good-looking)
 
  armors:
-  - bear_armors: oxonium, allemanite, enderite
+  - bear_armors: oxonium, allemanite, enderite (simple almost just texturing)
 
  te:
-  - enchanting_table: model -> block -> te -> renderer -> gui -> container -> polish with effects (books flying, particles) -> crystals or another resource minable to make enhanced caves (amethyst or budding amethyst (charged(?))) -> choose enchantements cost 1 mineral
+  - enchanting_table: model -> block -> te -> renderer -> gui -> container -> polish with effects (books flying, particles) -> crystals or another resource minable to make enhanced caves (amethyst or budding amethyst or red-diamond mineral (new ones TODO: move to IDEAS) (charged(?))) -> choose enchantements cost 1 mineral [needs some steps beforehand + gui, might take some time]
 
  dims:
   - "The Hive"
@@ -86,6 +86,7 @@ SCOPE:
   - bee: AI and behavior towards beehive (go in and out of their hives) & also make a pollen mechanic (where they carry a certain amount AI flowers visited) (cannot ride only bumblebees)
   - bumblebee: only ones flying + rideable with (saddle (found inside the overworld dungeon structure))
   - chest: in order to spawn loot with an effect on opened inside the structure (at boss death (with animations: rotation -> grow -> open -> rotation -> shrink -> dead + explosion))
+  - honey versions: easy if only retexturing
   LATER
  - vulture: make it hybrid ground also to interact with players and maybe steal their resources when they hit the players
 
@@ -121,7 +122,6 @@ TODO (JOBS):
 
 REFACTOR (when needed):
   - entity package
-  - DimensionWarpCommand
   - events: needs each one to be inside a specific package, like relative to items inside items, relative to biomes inside biomes...
 
 POLISH:
