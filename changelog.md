@@ -66,14 +66,14 @@ SCOPE:
 
  dims:
   - "The Hive"
-   - items: honeycomb
-   - blocks: honeycombBlock
-   - entities: honeyCow, honeyWolf, honeySlimes, honeyBears
-   - boss: Queen Bee
+   - items: honeycomb [done]
+   - blocks: honeycombBlock [done]
+   - entities: honeyCow, honeyWolf, honeySlime, honeyBears
+   - boss: Queen Bee (+ structure)
    - WorldGen:
-    - honeycomb blocks all around (main one)
+    - honeycomb blocks all around (main one) [done]
     - honey blocks (underneath sometimes)
-    - liquid honey (underneath forming like lakes)
+    - liquid honey (underneath forming like lakes) [done]
     (advanced TODO : move to ideas)
     - bees
     - all sorts of bees like:
@@ -94,7 +94,7 @@ SCOPE:
  - (chest)entity dungeon_reward
 
  biomes:
-  - `spring_biome`: with yellowish-colors for bees essentially [in_progress...]
+  - `spring_biome`: with yellowish-colors for bees essentially & pollenized flowers maybe (replace vanilla pickflowers-code inside biome class) [in_progress...]
 
 **TODO: move this inside the scope or ideas**
 TODO (WorldGen):
@@ -151,6 +151,7 @@ IDEAS (rework):
 IDEAS(JOBS):
 
 IDEAS:
+  - Add bears reach for honey & bee try to defend it (make bears stand and break hive then drops honeycomb & bees fight the bear)
   - Add rewards for common tasks for the most efficient player (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
   - Wheat boss like a scarecrow (common task gather a ton of wheat)
   LATER (maybe another ver.)
@@ -188,6 +189,8 @@ TODO (next version) ?:
   - SwordOfWrath needs to target the entity if the player hits it
 
 ISSUES:
+  - honey_liquid: no overlay + must do physics like you stick inside of it (navigate very slowly inside)
+  - honeycombBlocks: needs to sometimes spawn a liquid_honey source when broken
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tameable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different [DOING]
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too caused by mathsmod:hunter entity))
   - EntityViking clearing inventory on right-click and kills you...

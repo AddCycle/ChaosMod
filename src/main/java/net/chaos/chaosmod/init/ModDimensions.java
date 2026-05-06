@@ -1,6 +1,7 @@
 package net.chaos.chaosmod.init;
 
 import net.chaos.chaosmod.world.gen.experimental.ExperimentalWorldProvider;
+import net.chaos.chaosmod.world.gen.hive.HiveWorldProvider;
 import net.chaos.chaosmod.world.structures.DimensionProvider;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
@@ -9,6 +10,7 @@ import net.minecraftforge.common.DimensionManager;
 public class ModDimensions {
 	public static DimensionType EXPERIMENTAL;
 	public static DimensionType CUSTOM;
+	public static DimensionType THE_HIVE;
 	
 	public static void init() {
 		registerDimensionTypes();
@@ -17,6 +19,7 @@ public class ModDimensions {
 	public static void registerDimensionTypes() {
 		CUSTOM = registerDimension("chaosland_dim", "_dim", DimensionProvider.class, false);
 		EXPERIMENTAL = registerDimension("experimental_dim", "_dim", ExperimentalWorldProvider.class, false);
+		THE_HIVE = registerDimension("the_hive", "_hive", HiveWorldProvider.class, false);
 	}
 	
 	private static DimensionType registerDimension(String name, String suffix, Class<? extends WorldProvider> clazz, boolean keepLoaded) {

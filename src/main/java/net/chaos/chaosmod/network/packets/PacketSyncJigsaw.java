@@ -58,7 +58,8 @@ public class PacketSyncJigsaw implements IMessage {
                     TileEntityJigsaw tileentityjigsaw = (TileEntityJigsaw) te;
                     tileentityjigsaw.readFromNBT(message.compound);
                     tileentityjigsaw.markDirty();
-                    Main.getLogger().info("Packet sync jigsaw received");
+                    Main.getLogger().info("Packet sync jigsaw received with te at : {}, {}, {}", message.compound.getInteger("x"), message.compound.getInteger("y"), message.compound.getInteger("z"));
+                    Main.getLogger().info("pool: {}", message.compound.getString("pool"));
                 }
             });
 

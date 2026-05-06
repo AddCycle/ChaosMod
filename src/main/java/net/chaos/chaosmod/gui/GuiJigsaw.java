@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 
+import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.network.packets.PacketManager;
 import net.chaos.chaosmod.network.packets.PacketSyncJigsaw;
 import net.chaos.chaosmod.tileentity.TileEntityJigsaw;
@@ -11,6 +12,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITabCompleter;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
@@ -18,8 +20,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiJigsaw extends GuiScreen implements ITabCompleter {
-//    private Mirror mirror = Mirror.NONE;
-//    private Rotation rotation = Rotation.NONE;
     private GuiTextField poolField;
     private GuiTextField attachementTypeField;
     private GuiTextField turnsIntoField;
@@ -71,7 +71,10 @@ public class GuiJigsaw extends GuiScreen implements ITabCompleter {
 	
 	private <T extends IMessage> boolean sendToServer(int id) {
 		if (id == 1) {
-			PacketManager.network.sendToServer(new PacketSyncJigsaw(tileJigsaw.getUpdateTag()));
+			NBTTagCompound tag = tileJigsaw.getUpdateTag();
+			String pool = tag.getString("pool");
+			Main.getLogger().info("pool: {}", pool);
+			PacketManager.network.sendToServer(new PacketSyncJigsaw(tag));
 		}
 		return true;
 	}

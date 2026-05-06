@@ -20,6 +20,7 @@ import net.chaos.chaosmod.entity.boss.entities.ChaosMasterBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityEyeCrystalBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityMountainGiantBoss;
 import net.chaos.chaosmod.entity.boss.entities.EntityRevengeBlazeBoss;
+import net.chaos.chaosmod.entity.mob.EntityHoneySlime;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
@@ -79,7 +80,9 @@ public class ModEntities {
 				new EntityFactory("vulture", EntityVulture.class, Reference.ENTITY_VULTURE,
 						Colors.BROWN, Colors.RED),
 				new EntityFactory("bee", EntityBee.class, Reference.ENTITY_BEE,
-						Colors.YELLOW, Colors.BLACK)
+						Colors.YELLOW, Colors.BLACK),
+				new EntityFactory("honey_slime", EntityHoneySlime.class, Reference.ENTITY_HONEY_SLIME,
+						Colors.ORANGE, Colors.YELLOW)
 				);
 		
 		registerEntitySpawn();

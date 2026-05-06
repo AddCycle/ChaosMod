@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.chaos.chaosmod.biomes.BiomeDenseForest;
+import net.chaos.chaosmod.biomes.BiomeHive;
 import net.chaos.chaosmod.biomes.BiomeSpring;
 import net.chaos.chaosmod.world.gen.experimental.biomes.ExperimentalBiome;
 import net.minecraft.util.ResourceLocation;
@@ -21,7 +22,9 @@ public class ModBiomes {
 //	public static Biome NETHER_CAVES = new CustomBiomeNether().setRegistryName(new ResourceLocation(Reference.MODID, "nether_caves"));
 //	public static Biome ENDER_GARDEN = new CustomBiomeEnderGarden().setRegistryName(new ResourceLocation(Reference.MODID, "ender_garden"));
 	public static Biome SPRING_BIOME = new BiomeSpring().setRegistryName(new ResourceLocation(Reference.MODID, "spring_biome"));
-//	public static Biome CUSTOM_HELL = new CustomBiomeHell().setRegistryName(new ResourceLocation(Reference.MODID, "custom_hell"));
+
+	// The Hive dim
+	public static Biome HIVE = new BiomeHive().setRegistryName(new ResourceLocation(Reference.MODID, "hive"));
 	public static Biome EXPERIMENTAL = new ExperimentalBiome().setRegistryName(new ResourceLocation(Reference.MODID, "experimental_biome"));
 
     public static void registerBiomes() {
@@ -31,6 +34,7 @@ public class ModBiomes {
 //        BIOMES.add(ENDER_GARDEN);
 //        BIOMES.add(CUSTOM_HELL);
         BIOMES.add(EXPERIMENTAL);
+        BIOMES.add(HIVE);
     }
     
     public static void init() {
@@ -39,7 +43,7 @@ public class ModBiomes {
 //        addBiome(ModBiomes.NETHER_CAVES);
 //        addBiome(ModBiomes.ENDER_GARDEN);
 //        addBiome(ModBiomes.CHAOS_LAND_BIOME);
-        addBiome(ModBiomes.EXPERIMENTAL, 10, BiomeType.WARM, BiomeDictionary.Type.PLAINS);
+//        addBiome(ModBiomes.EXPERIMENTAL, 0, BiomeType.WARM, BiomeDictionary.Type.PLAINS);
     }
     
     public static void addBiome(Biome biome, int weight, BiomeType type, BiomeDictionary.Type ...types) {

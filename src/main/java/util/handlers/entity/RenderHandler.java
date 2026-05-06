@@ -31,6 +31,8 @@ import net.chaos.chaosmod.entity.boss.renderer.CMRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityEyeCrystalBossRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityMountainGiantBossRenderer;
 import net.chaos.chaosmod.entity.boss.renderer.EntityRevengeBlazeRenderer;
+import net.chaos.chaosmod.entity.mob.EntityHoneySlime;
+import net.chaos.chaosmod.entity.mob.render.RenderHoneySlime;
 import net.chaos.chaosmod.entity.projectile.EntityMenhir;
 import net.chaos.chaosmod.entity.projectile.EntityRock;
 import net.chaos.chaosmod.entity.projectile.EntitySmallBlueFireball;
@@ -89,6 +91,7 @@ public class RenderHandler {
 		registerEntityRenderer(EntityBear.class, RenderBear::new);
 		registerEntityRenderer(EntityVulture.class, RenderVulture::new);
 		registerEntityRenderer(EntityBee.class, RenderBee::new);
+		registerEntityRenderer(EntityHoneySlime.class, RenderHoneySlime::new);
 	}
 	
 	public static void bindTESRs() {

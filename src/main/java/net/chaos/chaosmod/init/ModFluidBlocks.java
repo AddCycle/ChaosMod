@@ -25,13 +25,13 @@ public class ModFluidBlocks {
 	
 	public static final Block FERTILIZED_WATER_BLOCK = new BlockFertilizedWater("fertilized_water", ModFluids.FERTILIZED_WATER, Material.WATER, MapColor.GREEN);
 	public static final Block DIRTY_WATER_BLOCK = new BlockDirtyWater("dirty_water", ModFluids.DIRTY_WATER, Material.WATER, MapColor.DIRT);
-	public static final Block HONEY_FLUID_BLOCK = new BlockHoneyFluid("honey", ModFluids.HONEY, ModMaterials.HONEY, MapColor.YELLOW);
+	public static final Block HONEY = new BlockHoneyFluid("honey", ModFluids.HONEY, ModMaterials.HONEY, MapColor.YELLOW);
 
 	@SideOnly(Side.CLIENT)
 	public static void registerCustomMeshesAndStates() {
 		registerFluidRendering(FERTILIZED_WATER_BLOCK);
 		registerFluidRendering(DIRTY_WATER_BLOCK);
-		registerFluidRendering(HONEY_FLUID_BLOCK);
+		registerFluidRendering(HONEY);
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -7,6 +7,8 @@ import net.chaos.chaosmod.biomes.util.BiomeUtils;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
 import net.chaos.chaosmod.entity.animal.EntityBee;
 import net.chaos.chaosmod.init.ModBlocks;
+import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockFlower.EnumFlowerType;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Biomes;
@@ -47,6 +49,49 @@ public class BiomeSpring extends Biome {
         this.flowers.clear();
         this.addFlower(((BlockCustomFlower) ModBlocks.CUSTOM_FLOWER).getStateFromMeta(3), 10);
     }
+	
+	/**
+	 * Plains behavior-code
+	 */
+	@Override
+	public EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
+        double d0 = GRASS_COLOR_NOISE.getValue((double)pos.getX() / 200.0D, (double)pos.getZ() / 200.0D);
+
+        if (d0 < -0.8D)
+        {
+            int j = rand.nextInt(4);
+
+            switch (j)
+            {
+                case 0:
+                    return BlockFlower.EnumFlowerType.ORANGE_TULIP;
+                case 1:
+                    return BlockFlower.EnumFlowerType.RED_TULIP;
+                case 2:
+                    return BlockFlower.EnumFlowerType.PINK_TULIP;
+                case 3:
+                default:
+                    return BlockFlower.EnumFlowerType.WHITE_TULIP;
+            }
+        }
+        else if (rand.nextInt(3) > 0)
+        {
+            int i = rand.nextInt(3);
+
+            if (i == 0)
+            {
+                return BlockFlower.EnumFlowerType.POPPY;
+            }
+            else
+            {
+                return i == 1 ? BlockFlower.EnumFlowerType.HOUSTONIA : BlockFlower.EnumFlowerType.OXEYE_DAISY;
+            }
+        }
+        else
+        {
+            return BlockFlower.EnumFlowerType.DANDELION;
+        }
+	}
 
 	@Override
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {

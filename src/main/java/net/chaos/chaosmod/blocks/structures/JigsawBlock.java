@@ -22,6 +22,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class JigsawBlock extends BlockContainerBase {
@@ -54,6 +55,7 @@ public class JigsawBlock extends BlockContainerBase {
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
 		if (worldIn.isRemote) return;
+
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		if (tileentity instanceof TileEntityJigsaw) {
 			TileEntityJigsaw tileentityjigsaw = (TileEntityJigsaw) tileentity;
@@ -97,6 +99,12 @@ public class JigsawBlock extends BlockContainerBase {
 	public int getMetaFromState(IBlockState state) {
 		int i = ((EnumFacing) state.getValue(FACING)).getIndex(); // just OR them together with a specific value for example a bool property |= 8, then to retrieve, meta & 8
 		return i;
+	}
+	
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
+			EntityPlayer player) {
+		return super.getPickBlock(state, target, world, pos, player);
 	}
 	
 	@Override

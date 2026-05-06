@@ -4,6 +4,8 @@ import net.chaos.chaosmod.Main;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StringUtils;
 import util.Reference;
@@ -34,9 +36,7 @@ public class TileEntityJigsaw extends TileEntity {
 	}
 
 	@Override
-	public NBTTagCompound getUpdateTag() {
-		return this.writeToNBT(new NBTTagCompound());
-	}
+	public NBTTagCompound getUpdateTag() { return this.writeToNBT(new NBTTagCompound()); }
 
 	public boolean usedBy(EntityPlayer playerIn) {
 		if (!playerIn.canUseCommandBlock()) {
@@ -47,6 +47,16 @@ public class TileEntityJigsaw extends TileEntity {
 			playerIn.openGui(Main.instance, Reference.GUI_JIGSAW_ID, world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
+	}
+	
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+	    return new SPacketUpdateTileEntity(this.pos, 0, this.getUpdateTag());
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+	    this.readFromNBT(pkt.getNbtCompound());
 	}
 
 	public void createdBy(EntityLivingBase placer) {
