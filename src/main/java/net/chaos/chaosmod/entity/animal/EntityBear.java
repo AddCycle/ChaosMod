@@ -216,9 +216,8 @@ public class EntityBear extends EntityTameable {
 		return super.getTotalArmorValue();
 	}
 
-	// FIXME : duplication if holding an armor piece mainHand while right-clicking on the entity (equipped + inventory)
 	public void openGUI(EntityPlayer player) {
-		if (!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(player)) && this.isTamed()) {
+		if (!this.world.isRemote && player.getHeldItemMainhand().isEmpty() && (!this.isBeingRidden() || this.isPassenger(player)) && this.isTamed()) {
 			player.openGui(Main.instance, Reference.GUI_BEAR_ID, this.world, this.getEntityId(), (int) player.posY,
 					(int) player.posZ);
 		}

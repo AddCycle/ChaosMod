@@ -201,10 +201,12 @@ OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
 
 TODO (Utilities):
+  LATER
   - (complex) add a `//copy` based on vanilla `/clone` (maybe because I might recode it in order to be compatible with `//undo` & `//redo` commands) command with completions
   - (registry making it complex) make the `//paste <x> <y> <z> [registry (int)]` take from it (works finally with //undo & //redo)
   - make a ruler item to measure distances between pos1 & pos2
   - make noise values
+  EVEN MORE LATE
   - add axis rendering x red, z blue, y green (like structure block does)
 
 REWORK(funnier to grind):
