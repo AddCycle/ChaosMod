@@ -1,6 +1,10 @@
 package net.chaos.chaosmod.entity.animal;
 
+import java.util.Set;
+
 import javax.annotation.Nullable;
+
+import com.google.common.collect.Sets;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.init.ModItems;
@@ -28,7 +32,9 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -49,6 +55,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import util.Reference;
 
 public class EntityBear extends EntityTameable {
+	// TODO : add fishes here as more custom ones are added
+    private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(ModItems.HONEY_BOTTLE, Items.FISH, ModItems.DESERT_FISH, ModItems.IGLOO_FISH, ModItems.VINE_FISH);
 	private static final DataParameter<Boolean> IS_STANDING = EntityDataManager.<Boolean>createKey(EntityBear.class,
 			DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> VARIANT = EntityDataManager.<Integer>createKey(EntityBear.class,
@@ -91,7 +99,7 @@ public class EntityBear extends EntityTameable {
 	protected void initEntityAI() {
 		super.initEntityAI();
 		this.aiSit = new EntityAISit(this);
-		this.aiTempt = new EntityAITempt(this, 1.0D, ModItems.HONEY_BOTTLE, false);
+		this.aiTempt = new EntityAITempt(this, 1.0D, false, TEMPTATION_ITEMS);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityBear.AIMeleeAttack());
 		this.tasks.addTask(1, new EntityBear.AIPanic());
@@ -166,26 +174,37 @@ public class EntityBear extends EntityTameable {
 						this.playTameEffect(true);
 					}
 				}
-			} else if ((this.aiTempt == null || this.aiTempt.isRunning()) && itemstack.getItem() == ModItems.HONEY_BOTTLE
+			} else if ((this.aiTempt == null || this.aiTempt.isRunning())
 					&& player.getDistanceSq(this) < 9.0D) {
-				if (!player.capabilities.isCreativeMode) {
-					itemstack.shrink(1);
-				}
-
-				if (!this.world.isRemote) {
-					if (this.rand.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
-						this.setTamedBy(player);
-//                    this.setTameSkin(1 + this.world.rand.nextInt(3));
-						this.playTameEffect(true);
-						setSittingWithAnimation(true);
-						this.world.setEntityState(this, (byte) 7);
+				if (TEMPTATION_ITEMS.contains(itemstack.getItem())) {
+					int chance;
+					if (itemstack.getItem() == ModItems.HONEY_BOTTLE) {
+						chance = 3;
+					} else if (itemstack.getItem() instanceof CustomFishFood) {
+						chance = 20;
 					} else {
-						this.playTameEffect(false);
-						this.world.setEntityState(this, (byte) 6);
+						chance = 30;
 					}
-				}
+					
+					if (!player.capabilities.isCreativeMode) {
+						itemstack.shrink(1);
+					}
 
-				return true;
+					if (!this.world.isRemote) {
+						if (this.rand.nextInt(chance) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
+							this.setTamedBy(player);
+							//                    this.setTameSkin(1 + this.world.rand.nextInt(3));
+							this.playTameEffect(true);
+							setSittingWithAnimation(true);
+							this.world.setEntityState(this, (byte) 7);
+						} else {
+							this.playTameEffect(false);
+							this.world.setEntityState(this, (byte) 6);
+						}
+					}
+
+					return true;
+				}
 			}
 		}
 

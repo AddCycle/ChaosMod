@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.google.common.collect.Lists;
 
 import net.chaos.chaosmod.entity.inventory.SimpleEntityInventory;
+import net.chaos.chaosmod.init.ModItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,8 +61,15 @@ public class ContainerBear extends Container {
                 public boolean isItemValid(ItemStack stack)
                 {
                 	Item item = stack.getItem();
-                    return item.isValidArmor(stack, entityequipmentslot, entityBear) && (item instanceof ItemArmor) && ((ItemArmor) item).getArmorMaterial() == ArmorMaterial.IRON;
+                	if (item.isValidArmor(stack, entityequipmentslot, entityBear) && (item instanceof ItemArmor)) {
+                		ItemArmor armor = (ItemArmor) item;
+                		ArmorMaterial material = armor.getArmorMaterial();
+                		return material == ArmorMaterial.IRON
+                			|| material == ModItems.ARMOR_MATERIAL_OXONIUM;
+                	}
+                	return false;
                 }
+
                 /**
                  * Return whether this slot's stack can be taken from this slot.
                  */

@@ -83,14 +83,16 @@ public class ModItems {
 	//Materials
 	public static final Material BLOCK_MATERIAL_OXONIUM = new Material(MapColor.BLUE);
 	public static final Material BLOCK_MATERIAL_ENDERITE = new Material(MapColor.PURPLE);
-	public static final ToolMaterial MATERIAL_OXONIUM = EnumHelper.addToolMaterial("material_oxonium", 3, 250, 6.0F, 2.0F, 14);
-	public static final ToolMaterial MATERIAL_ALLEMANITE = EnumHelper.addToolMaterial("material_allemanite", 5, 600, 10.0f, 3.0f, 30);
-	public static final ToolMaterial MATERIAL_ENDERITE = EnumHelper.addToolMaterial("material_enderite", 7, 2000, 12.0f, 5.0f, 40);
-	public static final ArmorMaterial ARMOR_MATERIAL_OXONIUM = EnumHelper.addArmorMaterial("armor_material_oxonium", Reference.PREFIX + "oxonium_ingot", 14,
+
+	// FIXME : balance these
+	public static final ToolMaterial MATERIAL_OXONIUM = EnumHelper.addToolMaterial("oxonium", 3, 250, 6.0F, 2.0F, 14);
+	public static final ToolMaterial MATERIAL_ALLEMANITE = EnumHelper.addToolMaterial("allemanite", 5, 600, 10.0f, 3.0f, 30);
+	public static final ToolMaterial MATERIAL_ENDERITE = EnumHelper.addToolMaterial("enderite", 7, 2000, 12.0f, 5.0f, 40);
+	public static final ArmorMaterial ARMOR_MATERIAL_OXONIUM = EnumHelper.addArmorMaterial("oxonium", Reference.PREFIX + "oxonium_armor", 14,
 			new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f);
-	public static final ArmorMaterial ARMOR_MATERIAL_ALLEMANITE = EnumHelper.addArmorMaterial("armor_material_allemanite", Reference.PREFIX + "allemanite_armor", 20,
+	public static final ArmorMaterial ARMOR_MATERIAL_ALLEMANITE = EnumHelper.addArmorMaterial("allemanite", Reference.PREFIX + "allemanite_armor", 20,
 			new int[] { 3, 6, 8, 4 }, 20, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f);
-	public static final ArmorMaterial ARMOR_MATERIAL_ENDERITE = EnumHelper.addArmorMaterial("armor_material_enderite", Reference.PREFIX + "enderite_armor", 26,
+	public static final ArmorMaterial ARMOR_MATERIAL_ENDERITE = EnumHelper.addArmorMaterial("enderite", Reference.PREFIX + "enderite_armor", 26,
 			new int[] { 4, 7, 9, 5 }, 30, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f);
 	
 	//Items

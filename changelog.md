@@ -3,13 +3,13 @@
 This should be a huge scope and surely enough for 1.0.16 ver.
 
 TODO (items):
- - player_tracking_compass (seems done only texture remains)
- - biome_tracking_compass [DONE only texture remains (might crash server-side (that's why playtest needed))]
- - structure_locator_compass [DO IT ONLY WHEN OTHER STRUCTURES AND WORLDGENLAG issues are fixed]
+ - player_tracking_compass (seems done only texture remains) [TODO: make crafts expensive]
+ - biome_tracking_compass [DONE only texture remains (might crash server-side (that's why playtest needed))] [TODO : make crafts expensive]
+ - structure_locator_compass [DO IT ONLY WHEN OTHER STRUCTURES AND WORLDGENLAG issues are fixed] [TODO: don't make craft too expensive]
  - wings (model & rendering might be the hardest part)
 
 TODO (armors):
- - bear_armors
+ - bear_armors: maybe make a separate item for it or just let that be
 
 TODO (blocks):
  - pollenizedFlowers (multiple variants)
@@ -59,8 +59,7 @@ SCOPE:
   - structure_locator_compass: direction + distance (look for vanilla compass code)(OR just coords for the start) [DO IT ONLY WHEN MORE STRUCTURES ARE DONE + cascadingWorldGenLag fixed]
   - wings: model -> texture -> wear it -> double-jump (seems quite hard and long to have something pleasant/good-looking)
 
- armors:
-  - bear_armors: oxonium, allemanite, enderite (simple almost just texturing)
+ armors: DONE
 
  te:
   - enchanting_table: model -> block -> te -> renderer -> gui -> container -> polish with effects (books flying, particles) -> crystals or another resource minable to make enhanced caves (amethyst or budding amethyst or red-diamond mineral (new ones TODO: move to IDEAS) (charged(?))) -> choose enchantements cost 1 mineral [needs some steps beforehand + gui, might take some time]
@@ -150,7 +149,6 @@ IDEAS (rework):
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
 
 IDEAS(JOBS):
-  - Add bedrock bridging feature [TODO] (for travelers I think)
 
 IDEAS:
   - Add rewards for common tasks for the most efficient player (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
@@ -166,7 +164,7 @@ IDEAS:
   - Herobrine, Putin, Technoblade, DaquavisMC, Dream bosses
   - Structure loot chest that when opened summons entities that will fight to protect the chest (custom trapped chest)
   - Structures matching the biomes starting with vanilla ones for instance : desert = pyramid, plain = pillagerTower, or wizard tower
-  - Cook (like with stats increasing if you have a good alimentation)
+  - Cook (like with stats increasing if you have a good alimentation) + if you have a bad one you get `malnutrition effect` and downgrades like you can't deal damage or very low, also you hunger bar shrinks faster
   - Add new lava fish inside the nether with a custom fishing rod too (bober entity fireResistant)
   - Sheepwars
   - Don't forget aerial structures as long as we have the jetpack + elytras(fireworks) (TODO : make it a task like use elytras with tier3 fireworks (traveler)))
@@ -176,6 +174,8 @@ IDEAS:
   - add a custom cursor while ingame menus
   - add an entirely customizable gui notes (armor equipped and durability on screen (position, scale, ... everything customizable) like a custom client would do (config disabling feature))
   - gummy bears + candy dimension for christmas
+  - add mobs per-biome in vanilla biomes in order to add diversity
+  - make the hunt minigame with a map, chests & loot then you have to chase & kill your opponent or a specific player, clutch 1 vs 2 will be entertaining or maybe one player gets an overpowered item and tries to survive against more people that can be very good or maybe it's all players versus one boss or something interesting coop
 
 TODO (next version) ?:
   - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals (later when more tasks like on 10 tasks make 5 only)
@@ -189,7 +189,7 @@ TODO (next version) ?:
 
 ISSUES:
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tameable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different [DOING]
-  - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too (most probable cause: flag 2|16 or mathsmod:hunter entity)))
+  - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too caused by mathsmod:hunter entity))
   - EntityViking clearing inventory on right-click and kills you...
   - DrawerTESR: item icon lights even in the dark + container overflow issues (code issue)
   - Sword Of Wrath orientation towards monster attacked (fix animations)
