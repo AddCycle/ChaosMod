@@ -21,6 +21,7 @@ public class TileEntityManager {
 		registerTE(TileEntityATM.class, "atm_machine");
 		registerTE(TileEntityJigsaw.class, "jigsaw_block");
 		registerTE(TileEntityAdvancedEnchantmentTable.class, "advanced_enchantment_table");
+		registerTE(TileEntityBeehive.class, "beehive");
 	}
 	
 	private static void registerTE(Class<? extends TileEntity> clazz, String id) {

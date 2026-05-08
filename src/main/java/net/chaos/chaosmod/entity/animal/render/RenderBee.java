@@ -11,7 +11,7 @@ import util.Reference;
 
 @SideOnly(Side.CLIENT)
 public class RenderBee extends RenderLiving<EntityBee> {
-	    private static final ResourceLocation ORANGE_BEE_TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/animals/bear/orange_bear.png");
+//	    private static final ResourceLocation ORANGE_BEE_TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/animals/bee/orange_bee.png");
     private static final ResourceLocation YELLOW_BEE_TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/animals/bee/bee.png");
 	    private static final ResourceLocation YELLOW_BEE_ANGRY = new ResourceLocation(Reference.MODID, "textures/entity/animals/bee/bee_angry.png");
 
@@ -29,10 +29,9 @@ public class RenderBee extends RenderLiving<EntityBee> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
-    protected void preRenderCallback(EntityBee entitylivingbaseIn, float partialTickTime)
+    protected void preRenderCallback(EntityBee entity, float partialTickTime)
     {
 //        GlStateManager.scale(1.2F, 1.2F, 1.2F);
-        super.preRenderCallback(entitylivingbaseIn, partialTickTime);
     }
 
 }

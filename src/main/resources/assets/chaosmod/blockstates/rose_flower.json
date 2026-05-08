@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"pollenized=true": { "model": "chaosmod:rose_flower_pollenized" },
+		"pollenized=false": { "model": "chaosmod:rose_flower" }
+	}
+}

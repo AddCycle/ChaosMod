@@ -11,6 +11,7 @@ import net.chaos.chaosmod.blocks.BlockBeam;
 import net.chaos.chaosmod.blocks.BlockChaosGateway;
 import net.chaos.chaosmod.blocks.BlockChaosPortal;
 import net.chaos.chaosmod.blocks.BlockDrawer;
+import net.chaos.chaosmod.blocks.BlockRose;
 import net.chaos.chaosmod.blocks.BlockTrophy;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.CookieJarBlock;
@@ -110,4 +111,5 @@ public class ModBlocks {
 	public static final Block BEEHIVE = new BeehiveBlock();
 	public static final Block HONEYCOMB = new BlockBase("honeycomb_block", ModMaterials.SOLID_HONEY);
 	public static final Block ADVANCED_ENCHANTMENT_TABLE = new AdvancedEnchantmentTable();
+	public static final Block ROSE_FLOWER = new BlockRose();
 }

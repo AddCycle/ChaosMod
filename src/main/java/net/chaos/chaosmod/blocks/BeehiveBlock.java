@@ -2,7 +2,9 @@ package net.chaos.chaosmod.blocks;
 
 import java.util.Random;
 
+import net.chaos.chaosmod.entity.animal.EntityBee;
 import net.chaos.chaosmod.init.ModItems;
+import net.chaos.chaosmod.tileentity.TileEntityBeehive;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -26,10 +28,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-/**
- * TODO : make tileentity to store data or content honey buckets production & render
- * TODO : make texture & blockstates + model (other states than base one)
- */
 public class BeehiveBlock extends BlockContainerBase {
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 2);
@@ -54,7 +52,7 @@ public class BeehiveBlock extends BlockContainerBase {
 		
 		int age = state.getValue(AGE);
 		EnumFacing blockfacing = state.getValue(FACING);
-		if (age == 0) return false;
+		if (age == 0 || facing != blockfacing) return false;
 
 		if (!worldIn.isRemote) {
 			worldIn.setBlockState(pos, this.withProperties(age - 1, blockfacing));
@@ -76,16 +74,44 @@ public class BeehiveBlock extends BlockContainerBase {
 
 		int i = this.getAge(state);
 		EnumFacing facing = this.getFacing(state);
+
+		tickAge(worldIn, pos, state, rand, facing, i);
+	
+		tickBeeSpawn(worldIn, pos, state, rand, facing, i);
+	}
+	
+	private void tickAge(World world, BlockPos pos, IBlockState state, Random rand, EnumFacing facing, int age) {
 		if (this.isMaxAge(state)) return;
 
 		boolean produced = rand.nextFloat() >= 0.8f;
 
-		if (produced) worldIn.setBlockState(pos, this.withProperties(i + 1, facing), 2);
+		if (produced) world.setBlockState(pos, this.withProperties(age + 1, facing), 2);
 	}
+
+	private void tickBeeSpawn(World worldIn, BlockPos pos, IBlockState state, Random rand, EnumFacing facing, int age) {
+		if (!worldIn.isRemote) {
+			TileEntity te = worldIn.getTileEntity(pos);
+			if (te instanceof TileEntityBeehive) {
+				TileEntityBeehive beehivetile = (TileEntityBeehive) te;
+				if (beehivetile.getBeeCount() > 0 && worldIn.isDaytime()) {
+					EntityBee bee = new EntityBee(worldIn);
+					BlockPos vec3 = pos.offset(facing);
+					float yaw = facing.getHorizontalAngle();
+					float pitch = 0.0f;
+					bee.setPositionAndRotation(vec3.getX() + 0.5, vec3.getY(), vec3.getZ() + 0.5, yaw, pitch);
+					bee.setHome(pos);
+					worldIn.spawnEntity(bee);
+					beehivetile.setBeeCount(beehivetile.getBeeCount() - 1);
+					beehivetile.markDirty();
+				}
+			}
+		}
+	}
+
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return null;
+		return new TileEntityBeehive();
 	}
 	
 	@Override

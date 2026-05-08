@@ -2,17 +2,19 @@
 
 This should be a huge scope and surely enough for 1.0.16 ver.
 
+TOMORROW:
+ - bee AI + pollenized flowers logic (TODO+flower_gen inside biome, it's the only major AI thing before pursuing the dimension palace_structure+queen_boss) + in/out from the beehives (done)
+
 TODO (items):
  - player_tracking_compass (seems done only texture remains) [TODO: make crafts expensive]
  - biome_tracking_compass [DONE only texture remains (might crash server-side (that's why playtest needed))] [TODO : make crafts expensive]
  - structure_locator_compass [DO IT ONLY WHEN OTHER STRUCTURES AND WORLDGENLAG issues are fixed] [TODO: don't make craft too expensive]
  - wings (model & rendering might be the hardest part)
 
-TODO (armors):
- - bear_armors: maybe make a separate item for it or just let that be
+TODO (armors): DONE
 
 TODO (blocks):
- - pollenizedFlowers (multiple variants)
+ - pollenizedFlowers (multiple variants) [rose_flower (& logic) DONE] (needs texture rework doesn't look like a rose)
 
 TODO (tileentities(te)):
  - advanced/enhanced enchanting_table
@@ -29,7 +31,7 @@ TODO (entities):
  - vulture
 
 TODO (bosses):
- - Queen Bee
+ - Queen Bee (+ structure)
  - 4 bosses to rework (put altars inside later structures)
 
 TODO (dimensions):
@@ -147,10 +149,12 @@ IDEAS (rework):
   - remake allemanite_backpack and make it upgradable with more storage and actually syncs to not loose loot (verify/re-implement)
   - Make a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
+  - lantern model not good, also with chains to hand it downwards (decorations)
 
 IDEAS(JOBS):
 
 IDEAS:
+  - make a new painting with the_hive dimension & queen_bee (needs an overworld structure, maybe a house ?)
   - Add bears reach for honey & bee try to defend it (make bears stand and break hive then drops honeycomb & bees fight the bear)
   - Add rewards for common tasks for the most efficient player (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
   - Wheat boss like a scarecrow (common task gather a ton of wheat)
@@ -177,6 +181,8 @@ IDEAS:
   - gummy bears + candy dimension for christmas
   - add mobs per-biome in vanilla biomes in order to add diversity
   - make the hunt minigame with a map, chests & loot then you have to chase & kill your opponent or a specific player, clutch 1 vs 2 will be entertaining or maybe one player gets an overpowered item and tries to survive against more people that can be very good or maybe it's all players versus one boss or something interesting coop
+  - corpses with loot inside them when you shift-click (in front of bosses rooms)
+  - make a laser_block & some mirrors to reflect the laser & a detector_block (emitter, mirror, receptor) to trigger maybe puzzles or enigmas, or even open doors
 
 TODO (next version) ?:
   - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals (later when more tasks like on 10 tasks make 5 only)
@@ -226,6 +232,7 @@ REWORK(funnier to grind):
 TODO (last):
   - Make a tool for making easier animations in blockbench directly (plugin or else)
   - Make another tool for DjoCaillou to mod without coding (if not, make tutorials on MCreator for 1.12.2)
+  - Moreover than a mod, maybe making a lore with like a handbuilt map/quests could be good
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)

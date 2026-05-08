@@ -46,6 +46,7 @@ public class ModEntities {
 		addSpawn(EntityBee.class, 10, 1, 3, EnumCreatureType.CREATURE, ModBiomes.SPRING_BIOME, ModBiomes.DENSE_FOREST);
 	}
 
+	// TODO : refactor this shit with : EntityEntryBuilder#create
 	public static void registerEntities() {
 		registerEntities(
 				new EntityFactory("forge_guardian", EntityForgeGuardian.class, Reference.ENTITY_FORGE_GUARDIAN,

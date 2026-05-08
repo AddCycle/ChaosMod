@@ -1,33 +1,50 @@
 package net.chaos.chaosmod.entity.animal;
 
+import net.chaos.chaosmod.Main;
+import net.chaos.chaosmod.blocks.BeehiveBlock;
+import net.chaos.chaosmod.tileentity.TileEntityBeehive;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWaterFlying;
+import net.minecraft.entity.ai.EntityFlyHelper;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathNavigateFlying;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants.AiMutexBits;
 
-/**
- * TODO : make this tameable later on or maybe not if there is too many
- */
 public class EntityBee extends EntityAnimal {
 	private static final DataParameter<Boolean> ANGRY = EntityDataManager.<Boolean>createKey(EntityBee.class,
 			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> STINGING = EntityDataManager.<Boolean>createKey(EntityBee.class,
-			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> STINGING = EntityDataManager.<Boolean>createKey(EntityBee.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> POLLEN = EntityDataManager.<Integer>createKey(EntityBee.class, DataSerializers.VARINT);
+	private static final DataParameter<BlockPos> HOME = EntityDataManager.<BlockPos>createKey(EntityBee.class, DataSerializers.BLOCK_POS);
 
 	public EntityBee(World worldIn) {
 		super(worldIn);
 		this.setSize(0.6F, 0.7F);
+        this.moveHelper = new EntityFlyHelper(this);
 	}
 
 	@Override
@@ -35,18 +52,26 @@ public class EntityBee extends EntityAnimal {
 		super.entityInit();
 		this.dataManager.register(ANGRY, Boolean.valueOf(false));
 		this.dataManager.register(STINGING, Boolean.valueOf(false));
+		this.dataManager.register(POLLEN, Integer.valueOf(0));
+		this.dataManager.register(HOME, BlockPos.ORIGIN);
 	}
 
 	@Override
 	protected void initEntityAI() {
-		this.tasks.addTask(0, new EntityBee.AIMeleeAttack());
+        this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(1, new EntityBee.AIMeleeAttack());
+		this.tasks.addTask(2, new EntityBee.AIEnterBeehive(this));
+		this.tasks.addTask(3, new EntityAIWanderAvoidWaterFlying(this, 0.8D));
+//		this.tasks.addTask(4, new EntityBee.PollenizeNearbyFlowers());
 		this.targetTasks.addTask(1, new EntityBee.AIHurtByTarget());
 		this.targetTasks.addTask(2, new EntityBee.AIAttackPlayer());
 	}
-
+	
 	@Override
-	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
-		super.damageEntity(damageSrc, damageAmount);
+	protected PathNavigate createNavigator(World worldIn) {
+		PathNavigateFlying pathnavigateflying = new PathNavigateFlying(this, worldIn);
+//		pathnavigateflying.setCanFloat(true);
+        return pathnavigateflying;
 	}
 
 	@Override
@@ -55,7 +80,29 @@ public class EntityBee extends EntityAnimal {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.3D);
+	}
+	
+	@Override
+	public void fall(float distance, float damageMultiplier) {
+		// DONT CALL SUPER IN ORDER TO NOT TRIGGER FALL DAMAGE
+	}
+	
+	@Override
+	public void onLivingUpdate() {
+		super.onLivingUpdate();
+		
+		if (!this.onGround) {
+	        if (this.motionY < 0.0D) this.motionY *= 0.9D;
+	        if (this.motionY > 0.1D) this.motionY = 0.1D;
+	    }
+	}
+
+	@Override
+	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
+		super.damageEntity(damageSrc, damageAmount);
 	}
 
 	@Override
@@ -74,6 +121,26 @@ public class EntityBee extends EntityAnimal {
 	}
 
 	public boolean isStinging() { return this.dataManager.get(STINGING).booleanValue(); }
+
+	public void setPollen(int amount) {
+		this.dataManager.set(POLLEN, Integer.valueOf(amount));
+	}
+
+	public int getPollen() { return this.dataManager.get(POLLEN).intValue(); }
+	
+	public boolean isMaxPollen() { return getPollen() >= 2; } // TODO make it more later: 5 flowers at least
+
+	public void setHome(BlockPos pos) {
+		this.dataManager.set(HOME, pos);
+	}
+
+	public BlockPos getHome() {
+		return this.dataManager.get(HOME);
+	}
+
+	public boolean wantsToEnterHive() {
+		return !world.isDaytime() || isMaxPollen();
+	}
 	
 	@Override
 	protected void updateAITasks() {
@@ -85,8 +152,23 @@ public class EntityBee extends EntityAnimal {
 	}
 	
 	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItemMainhand();
+		Main.getLogger().info("Right-click");
+		if (stack.isEmpty()) {
+			if (!world.isRemote) setPollen(2); // max pollen
+			return true;
+		}
+		return super.processInteract(player, hand);
+	}
+	
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		float damage = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+
+		if (entityIn instanceof EntityLivingBase) {
+			((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:poison"), 20 * 5, 1));
+		}
 		return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
 	}
 	
@@ -100,10 +182,15 @@ public class EntityBee extends EntityAnimal {
 			EntityBee.this.setAngry(true);
 
 			if (EntityBee.this.isChild()) {
-				this.alertOthers();
+				this.alertOthers(); // TODO : implement alert others for all bees not only children
 				this.resetTask();
 			}
 		}
+		
+		@Override
+	    public boolean shouldContinueExecuting() {
+	        return EntityBee.this.isAngry() && super.shouldContinueExecuting();
+	    }
 
 		protected void setEntityAttackTarget(EntityCreature creatureIn, EntityLivingBase entityLivingBaseIn) {
 			if (creatureIn instanceof EntityBee && !creatureIn.isChild()) {
@@ -113,6 +200,7 @@ public class EntityBee extends EntityAnimal {
 	}
 
 	class AIAttackPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
+
 		public AIAttackPlayer() {
 			super(EntityBee.this, EntityPlayer.class, 20, true, true, null);
 		}
@@ -133,21 +221,26 @@ public class EntityBee extends EntityAnimal {
 			EntityBee.this.setAttackTarget((EntityLivingBase) null);
 			return false;
 		}
+		
+		@Override
+	    public boolean shouldContinueExecuting() {
+	        return EntityBee.this.isAngry() && EntityBee.this.getAttackTarget() != null;
+	    }
 
 		protected double getTargetDistance() { return super.getTargetDistance() * 0.5D; }
 	}
 	
 	class AIMeleeAttack extends EntityAIAttackMelee {
 		public AIMeleeAttack() {
-			super(EntityBee.this, 1.25D, true);
+			super(EntityBee.this, 5.0D, true);
 		}
 
-		protected void checkAndPerformAttack(EntityLivingBase p_190102_1_, double p_190102_2_) {
-			double d0 = this.getAttackReachSqr(p_190102_1_);
+		protected void checkAndPerformAttack(EntityLivingBase target, double p_190102_2_) {
+			double d0 = this.getAttackReachSqr(target);
 
 			if (p_190102_2_ <= d0 && this.attackTick <= 0) {
 				this.attackTick = 20;
-				this.attacker.attackEntityAsMob(p_190102_1_);
+				this.attacker.attackEntityAsMob(target);
 				EntityBee.this.setStinging(false);
 			} else if (p_190102_2_ <= d0 * 2.0D) {
 				if (this.attackTick <= 10) {
@@ -169,5 +262,66 @@ public class EntityBee extends EntityAnimal {
 			float reach = EntityBee.this.width * 2.0F + attackTarget.width;
 		    return (double)(reach * reach);
 		}
+	}
+
+	//TODO 
+	public class PollenizeNearbyFlowers extends EntityAIBase {
+
+		@Override
+		public boolean shouldExecute() {
+			return false;
+		}
+
+	}
+
+	class AIEnterBeehive extends EntityAIBase {
+	    private final EntityBee bee;
+
+	    public AIEnterBeehive(EntityBee bee) {
+	        this.bee = bee;
+	        this.setMutexBits(AiMutexBits.MOVE | AiMutexBits.LOOK);
+	    }
+
+	    @Override
+	    public boolean shouldExecute() {
+	        return bee.wantsToEnterHive()
+	            && !bee.getHome().equals(BlockPos.ORIGIN);
+	    }
+	    
+	    @Override
+	    public boolean shouldContinueExecuting() {
+	        return !bee.getHome().equals(BlockPos.ORIGIN);
+	    }
+
+
+	    @Override
+	    public void updateTask() {
+	        BlockPos home = bee.getHome();
+	        IBlockState state = bee.world.getBlockState(home);
+	        EnumFacing facing = state.getValue(BeehiveBlock.FACING);
+	        BlockPos target = home.offset(facing);
+	        bee.getNavigator().tryMoveToXYZ(
+	            target.getX() + 0.5,
+	            target.getY() + 0.5,
+	            target.getZ() + 0.5,
+	            1.0D
+	        );
+
+	        double dist = bee.getDistanceSq(
+	            home.getX() + 0.5,
+	            home.getY() + 0.5,
+	            home.getZ() + 0.5
+	        );
+
+	        if (dist <= 2.0D) {
+	            TileEntity te = bee.world.getTileEntity(home);
+	            if (te instanceof TileEntityBeehive) {
+	                TileEntityBeehive hive = (TileEntityBeehive) te;
+	                hive.setBeeCount(hive.getBeeCount() + 1);
+	                hive.markDirty();
+	            }
+	            bee.setDead();
+	        }
+	    }
 	}
 }

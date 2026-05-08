@@ -3,7 +3,6 @@ package net.chaos.chaosmod.network.packets;
 import java.io.IOException;
 
 import io.netty.buffer.ByteBuf;
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.tileentity.TileEntityJigsaw;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
@@ -58,8 +57,6 @@ public class PacketSyncJigsaw implements IMessage {
                     TileEntityJigsaw tileentityjigsaw = (TileEntityJigsaw) te;
                     tileentityjigsaw.readFromNBT(message.compound);
                     tileentityjigsaw.markDirty();
-                    Main.getLogger().info("Packet sync jigsaw received with te at : {}, {}, {}", message.compound.getInteger("x"), message.compound.getInteger("y"), message.compound.getInteger("z"));
-                    Main.getLogger().info("pool: {}", message.compound.getString("pool"));
                 }
             });
 

@@ -40,9 +40,9 @@ public class BiomeSpring extends Biome {
 
         this.spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 3, 5, 20));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 2, 4, 20));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityBee.class, 1, 3, 20));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityBee.class, 20, 1, 3));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 10, 2, 4));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 10, 3, 5));
 //        this.spawnableCreatureList.add(new SpawnListEntry(EntityPicsou.class, 4, 8, 10));
 //        this.spawnableMonsterList.add(new SpawnListEntry(EntityCreeper.class, 2, 5, 5));
 
