@@ -2,6 +2,8 @@ package net.chaos.chaosmod.entity.animal;
 
 import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.BeehiveBlock;
+import net.chaos.chaosmod.blocks.BlockRose;
+import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.tileentity.TileEntityBeehive;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -30,10 +32,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.AiMutexBits;
 
+/**
+ * FIXME: AI working but needs optimization, maybe run the profiler on some parts of the code
+ * REFACTOR: make classes out of this one in order to reuse AI parts
+ */
 public class EntityBee extends EntityAnimal {
 	private static final DataParameter<Boolean> ANGRY = EntityDataManager.<Boolean>createKey(EntityBee.class,
 			DataSerializers.BOOLEAN);
@@ -61,8 +68,8 @@ public class EntityBee extends EntityAnimal {
         this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityBee.AIMeleeAttack());
 		this.tasks.addTask(2, new EntityBee.AIEnterBeehive(this));
-		this.tasks.addTask(3, new EntityAIWanderAvoidWaterFlying(this, 0.8D));
-//		this.tasks.addTask(4, new EntityBee.PollenizeNearbyFlowers());
+		this.tasks.addTask(3, new EntityBee.AIPollenizeNearbyFlowers(this, 10));
+		this.tasks.addTask(4, new EntityAIWanderAvoidWaterFlying(this, 0.8D));
 		this.targetTasks.addTask(1, new EntityBee.AIHurtByTarget());
 		this.targetTasks.addTask(2, new EntityBee.AIAttackPlayer());
 	}
@@ -95,7 +102,7 @@ public class EntityBee extends EntityAnimal {
 		super.onLivingUpdate();
 		
 		if (!this.onGround) {
-	        if (this.motionY < 0.0D) this.motionY *= 0.9D;
+	        if (this.motionY < 0.0D) this.motionY *= 0.6D;
 	        if (this.motionY > 0.1D) this.motionY = 0.1D;
 	    }
 	}
@@ -264,16 +271,97 @@ public class EntityBee extends EntityAnimal {
 		}
 	}
 
-	//TODO 
-	public class PollenizeNearbyFlowers extends EntityAIBase {
+	public class AIPollenizeNearbyFlowers extends EntityAIBase {
+		private final EntityBee bee;
+		private final int range; // 5 should be enough, otherwise wander randomly
+		private int updateTicks = 100; // 5 seconds
+		private BlockPos targetPos;
+		private int pollenizingTimer = 0;
+		private static final int POLLENIZE_TICKS = 20; // time spent on flower
+		
+		public AIPollenizeNearbyFlowers(EntityBee bee, int searchedRange) {
+			this.bee = bee;
+			this.range = searchedRange;
+			this.setMutexBits(AiMutexBits.MOVE | AiMutexBits.LOOK);
+		}
 
 		@Override
 		public boolean shouldExecute() {
-			return false;
+			return !bee.isMaxPollen() && world.isDaytime() && !bee.isAngry() && bee.getNavigator().noPath();
+		}
+		
+		@Override
+		public void updateTask() {
+			if (targetPos == null) {
+		        if (updateTicks <= 0) {
+		            searchForFlowers();
+		            updateTicks = 100;
+		        } else {
+		            updateTicks--;
+		        }
+		        return;
+		    }
+			
+			double distSq = this.bee.getDistanceSq(
+			        targetPos.getX() + 0.5,
+			        targetPos.getY() + 0.5,
+			        targetPos.getZ() + 0.5
+			    );
+			
+			if (distSq > 4.0D) {
+		        if (bee.getNavigator().noPath()) {
+		            moveToTargetPos();
+		        }
+		        pollenizingTimer = 0;
+		        return;
+		    }
+			
+			bee.getNavigator().clearPath();
+		    pollenizingTimer++;
+
+		    if (pollenizingTimer >= POLLENIZE_TICKS) {
+		        IBlockState state = world.getBlockState(targetPos);
+		        if (state.getBlock() == ModBlocks.ROSE_FLOWER) {
+		            BlockRose flower = (BlockRose) state.getBlock();
+		            if (!flower.getPollenized(world, targetPos)) {
+		                flower.setPollenized(world, targetPos, true);
+		                bee.setPollen(bee.getPollen() + 1);
+		            }
+		        }
+		        pollenizingTimer = 0;
+		        targetPos = null;
+		    }
+		}
+		
+		private void moveToTargetPos() {
+			bee.getNavigator().tryMoveToXYZ(targetPos.getX(), targetPos.getY(), targetPos.getZ(), 1.0D);
 		}
 
+		@Override
+		public void resetTask() {
+			updateTicks = 100;
+			targetPos = null;
+		}
+
+		private void searchForFlowers() {
+			AxisAlignedBB searchedBox = bee.getEntityBoundingBox().grow(range);
+			BlockPos min = new BlockPos(searchedBox.minX, searchedBox.minY, searchedBox.minZ);
+			BlockPos max = new BlockPos(searchedBox.maxX, searchedBox.maxY, searchedBox.maxZ);
+			for (BlockPos pos : BlockPos.getAllInBoxMutable(min, max)) {
+				IBlockState state = world.getBlockState(pos);
+				if (state.getBlock() == ModBlocks.ROSE_FLOWER) {
+					BlockRose flower = (BlockRose) state.getBlock();
+					boolean pollenized = flower.getPollenized(world, pos);
+					if (!pollenized) {
+						targetPos = pos.toImmutable();
+						break;
+					}
+				}
+			}
+		}
 	}
 
+	// FIXME : don't call tryMoveTo every tick, this should be a one-shot task or maybe a 40 ticks cooldown task
 	class AIEnterBeehive extends EntityAIBase {
 	    private final EntityBee bee;
 
@@ -292,7 +380,6 @@ public class EntityBee extends EntityAnimal {
 	    public boolean shouldContinueExecuting() {
 	        return !bee.getHome().equals(BlockPos.ORIGIN);
 	    }
-
 
 	    @Override
 	    public void updateTask() {

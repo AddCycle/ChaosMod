@@ -3,7 +3,7 @@
 This should be a huge scope and surely enough for 1.0.16 ver.
 
 TOMORROW:
- - bee AI + pollenized flowers logic (TODO+flower_gen inside biome, it's the only major AI thing before pursuing the dimension palace_structure+queen_boss) + in/out from the beehives (done)
+ - bee AI + pollenized flowers logic (done only remains flower_gen inside biome (extends vanilla decorateBiome part and just add a decorator for custom flowers or maybe do it inside modWorldGen since it isn't that much of overhead)) (TODO+flower_gen inside biome, it's the only major AI thing before pursuing the dimension palace_structure+queen_boss) + in/out from the beehives (done)
 
 TODO (items):
  - player_tracking_compass (seems done only texture remains) [TODO: make crafts expensive]
