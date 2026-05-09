@@ -29,6 +29,7 @@ import net.chaos.chaosmod.items.special.CraftingWand;
 import net.chaos.chaosmod.items.special.CustomFireball;
 import net.chaos.chaosmod.items.special.EnderiteThunder;
 import net.chaos.chaosmod.items.special.ItemChaosLandCrystal;
+import net.chaos.chaosmod.items.special.ItemCustomPainting;
 import net.chaos.chaosmod.items.special.ItemHeart;
 import net.chaos.chaosmod.items.special.ItemMagnet;
 import net.chaos.chaosmod.items.special.ItemMoneyWad;
@@ -192,6 +193,8 @@ public class ModItems {
 	public static final Item PLAYER_TRACKER = new net.chaos.chaosmod.items.ItemPlayerTracker();
 	public static final Item BIOME_FINDER = new ItemBiomeCompass();
 //	public static final Item STRUCTURE_LOCATOR = new ItemStructureLocator();
+	
+	public static final Item CUSTOM_PAINTING = new ItemCustomPainting();
 	
 	// Slab items
 	// public static Item ABSTRACT_SLAB;

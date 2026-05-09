@@ -2,8 +2,11 @@
 
 This should be a huge scope and surely enough for 1.0.16 ver.
 
-TOMORROW:
- - bee AI + pollenized flowers logic (done only remains flower_gen inside biome (extends vanilla decorateBiome part and just add a decorator for custom flowers or maybe do it inside modWorldGen since it isn't that much of overhead)) (TODO+flower_gen inside biome, it's the only major AI thing before pursuing the dimension palace_structure+queen_boss) + in/out from the beehives (done)
+NEXT:
+ - add `rose_flower` spawn a lot in the `spring_biome`
+ - make a `queen_palace` structure
+ - make a `queen_boss` (along with an abstract EntityBoss class with phases to make the bosses creation process easier later-on)
+ - make the `advanced_enchanting_table` to choose enchants (gui_design first maybe then -> the logic)
 
 TODO (items):
  - player_tracking_compass (seems done only texture remains) [TODO: make crafts expensive]
@@ -20,8 +23,8 @@ TODO (tileentities(te)):
  - advanced/enhanced enchanting_table
 
 TODO (entities):
- - bee (behavior AI + pollen logic)
- - chest(dungeon_reward)
+ - bee (behavior AI + pollen logic) [DONE]
+ - chest (dungeon_reward)
  - bumblebee
  - honeyCow
  - honeyWolf
@@ -154,9 +157,10 @@ IDEAS (rework):
 IDEAS(JOBS):
 
 IDEAS:
-  - make a new painting with the_hive dimension & queen_bee (needs an overworld structure, maybe a house ?)
+  - make a new painting with the_hive dimension & queen_bee (needs an overworld structure, maybe a tiny house that hints how to inside the dimension + queen_boss cliffhanger)
   - Add bears reach for honey & bee try to defend it (make bears stand and break hive then drops honeycomb & bees fight the bear)
   - Add rewards for common tasks for the most efficient player (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
+  - make the bees be tempted by poppy_flowers
   - Wheat boss like a scarecrow (common task gather a ton of wheat)
   LATER (maybe another ver.)
   - add a spelunkery table which requires translation like (alex's cave mod) (travelers I think to find coords of the structures or buried treasures (traveler job))
@@ -205,6 +209,7 @@ ISSUES:
   - Cascading worldgen lag for generated structures... (seems fixed for now I will let it here as I will add more huge structures later)
   - Fix: bear canSpawnHere needs to check the AABB before (just override method)
   - make my own main menu gui in order to disable it from the mod's config
+  - bees might run out inside beehives if they die because no new ones are being created (add maybe later a child mechanic...)
 
 OPTIMIZATION:
   - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
@@ -270,7 +275,8 @@ New:
   - feat: added overlay infos with icons & fixed the blocks displayName
   - feat: added `jigsaw_block` from 1.14 ported to 1.12.2 (the superior version)
   - feat: added `/jigsaw <structure_start> <x> <y> <z> <depth>` command placing procedural structure
-  - feat: added `bee`
+  - feat: added `bee` with a slightly more complex AI than basic entities
+  - feat: added `rose_flower` which can be pollenized by bees
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
