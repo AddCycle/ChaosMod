@@ -48,6 +48,14 @@ public class BeehiveBlock extends BlockContainerBase {
 		if (hand != EnumHand.MAIN_HAND) return false;
 		
 		ItemStack stack = playerIn.getHeldItemMainhand();
+		if (stack.isEmpty() && playerIn.capabilities.isCreativeMode) {
+			EnumFacing f = state.getValue(FACING);
+			if (!worldIn.isRemote) {
+				worldIn.setBlockState(pos, this.withProperties(2, f)); // max age
+			}
+			return true;
+		}
+
 		if (stack.isEmpty() || stack.getItem() != Items.GLASS_BOTTLE) return false;
 		
 		int age = state.getValue(AGE);

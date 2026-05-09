@@ -1,6 +1,5 @@
 package net.chaos.chaosmod.entity.animal;
 
-import net.chaos.chaosmod.Main;
 import net.chaos.chaosmod.blocks.BeehiveBlock;
 import net.chaos.chaosmod.blocks.BlockRose;
 import net.chaos.chaosmod.init.ModBlocks;
@@ -77,6 +76,7 @@ public class EntityBee extends EntityAnimal {
 	@Override
 	protected PathNavigate createNavigator(World worldIn) {
 		PathNavigateFlying pathnavigateflying = new PathNavigateFlying(this, worldIn);
+		pathnavigateflying.setCanEnterDoors(true);
 //		pathnavigateflying.setCanFloat(true);
         return pathnavigateflying;
 	}
@@ -161,9 +161,8 @@ public class EntityBee extends EntityAnimal {
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItemMainhand();
-		Main.getLogger().info("Right-click");
 		if (stack.isEmpty()) {
-			if (!world.isRemote) setPollen(2); // max pollen
+			if (!world.isRemote && player.capabilities.isCreativeMode) setPollen(2); // max pollen
 			return true;
 		}
 		return super.processInteract(player, hand);
@@ -395,9 +394,9 @@ public class EntityBee extends EntityAnimal {
 	        );
 
 	        double dist = bee.getDistanceSq(
-	            home.getX() + 0.5,
-	            home.getY() + 0.5,
-	            home.getZ() + 0.5
+	            target.getX() + 0.5,
+	            target.getY() + 0.5,
+	            target.getZ() + 0.5
 	        );
 
 	        if (dist <= 2.0D) {

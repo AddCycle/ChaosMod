@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import net.chaos.chaosmod.blocks.BlockRose;
+import net.chaos.chaosmod.init.ModBiomes;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -61,7 +63,7 @@ public class ModWorldGen implements IWorldGenerator {
     private void generateEnder(World world, Random random, int x, int z)
     {
     	this.generateOre(ModBlocks.ENDERITE_ORE, Blocks.END_STONE, world, random, 3, 3, x, z, 40, 80);
-//        generateFlowers(world, random, x, z, 2);
+//        generateFlowers(world, random, x, z, ModBiomes.SPRING_BIOME, ((BlockRose)ModBlocks.ROSE_FLOWER).getStateFromMeta(0));
     }
 
     private void generateOverworld(World world, Random random, int x, int z, int chunkX, int chunkZ)
@@ -75,7 +77,7 @@ public class ModWorldGen implements IWorldGenerator {
     		this.generateOre(ModBlocks.OXONIUM_ORE, Blocks.STONE, world, random, 5, 5, x, z, 3, 50);
     	}
 
-//    	generateFlowers(world, random, x, z, 0);
+        generateFlowers(world, random, x, z, ModBiomes.SPRING_BIOME, ((BlockRose)ModBlocks.ROSE_FLOWER).getStateFromMeta(0));
 
     	if (!world.getWorldInfo().isMapFeaturesEnabled()) {
     		return;
@@ -174,35 +176,31 @@ public class ModWorldGen implements IWorldGenerator {
 
     }
 
-//    private void generateFlowers(World world, Random rand, int x, int z, int meta) {
-//
-//    	// Set block state with the random variant
-//    	IBlockState flowerState = ModBlocks.CUSTOM_FLOWER.getDefaultState().withProperty(BlockCustomFlower.type, FlowerType.byMetadata(meta));
-//        BlockPos pos = new BlockPos(x + rand.nextInt(16), 0, z + rand.nextInt(16));
-//        BlockPos topPos = world.getHeight(pos);
-//
-//        for (int i = 0; i < 4; i++) {
-//            int offsetX = x + rand.nextInt(16);
-//            int offsetZ = z + rand.nextInt(16);
-//            int offsetY = topPos.getY();
-//
-//            BlockPos flowerPos = new BlockPos(offsetX, offsetY, offsetZ);
-//             Biome biome = world.getBiome(flowerPos);
-//             if (meta == 0) {
-//            	 ResourceLocation biomeId = Biome.REGISTRY.getNameForObject(biome);
-//            	 if (biomeId != null && biomeId.toString().equals("chaosmod:giant_mountains")) {
-//            		 if (world.isAirBlock(flowerPos) && ModBlocks.CUSTOM_FLOWER.canPlaceBlockAt(world, flowerPos)) {
-//            			 world.setBlockState(flowerPos, flowerState, 2);
-//            		 }
-//            	 } else {
-//            		 return;
-//            	 }
-//             }
-//            	 
-//             if (world.isAirBlock(flowerPos) && ModBlocks.CUSTOM_FLOWER.canPlaceBlockAt(world, flowerPos)) {
-//            	 world.setBlockState(flowerPos, flowerState, 2);
-//             }
-//        }
-//    }
+    // FIXME: make the flower sustainable checks better...
+    private void generateFlowers(World world, Random rand, int x, int z, Biome biomeIn, IBlockState flower) {
+    	// Set block state with the random variant
+        BlockPos pos = new BlockPos(x + rand.nextInt(16), 0, z + rand.nextInt(16));
+        BlockPos topPos = world.getHeight(pos);
+
+        for (int i = 0; i < 4; i++) {
+            int offsetX = x + rand.nextInt(16);
+            int offsetZ = z + rand.nextInt(16);
+            int offsetY = topPos.getY();
+
+            BlockPos flowerPos = new BlockPos(offsetX, offsetY, offsetZ);
+            Biome biome = world.getBiome(flowerPos);
+            	 if (biome != null && biome == biomeIn) {
+            		 if (world.isAirBlock(flowerPos) && ModBlocks.CUSTOM_FLOWER.canPlaceBlockAt(world, flowerPos)) {
+            			 world.setBlockState(flowerPos, flower, 2);
+            		 }
+            	 } else {
+            		 return;
+            	 }
+            	 
+             if (world.isAirBlock(flowerPos) && ModBlocks.CUSTOM_FLOWER.canPlaceBlockAt(world, flowerPos)) {
+            	 world.setBlockState(flowerPos, flower, 2);
+             }
+        }
+    }
 
 }

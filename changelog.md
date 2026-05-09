@@ -3,7 +3,7 @@
 This should be a huge scope and surely enough for 1.0.16 ver.
 
 NEXT:
- - add `rose_flower` spawn a lot in the `spring_biome`
+ - fix: nothing spawns inside `the_hive` dim
  - make a `queen_palace` structure
  - make a `queen_boss` (along with an abstract EntityBoss class with phases to make the bosses creation process easier later-on)
  - make the `advanced_enchanting_table` to choose enchants (gui_design first maybe then -> the logic)
@@ -17,7 +17,7 @@ TODO (items):
 TODO (armors): DONE
 
 TODO (blocks):
- - pollenizedFlowers (multiple variants) [rose_flower (& logic) DONE] (needs texture rework doesn't look like a rose)
+ - pollenizedFlowers (multiple variants) [rose_flower (& logic) DONE] (needs texture rework doesn't look like a rose) (+ gen lag populate)
 
 TODO (tileentities(te)):
  - advanced/enhanced enchanting_table
@@ -99,7 +99,7 @@ SCOPE:
  - (chest)entity dungeon_reward
 
  biomes:
-  - `spring_biome`: with yellowish-colors for bees essentially & pollenized flowers maybe (replace vanilla pickflowers-code inside biome class) [in_progress...]
+  - `spring_biome`: with yellowish-colors for bees essentially & pollenized flowers maybe (replace vanilla pickflowers-code inside biome class) [mostly done maybe add the cliffhanger house for the dimension+instructions]
 
 **TODO: move this inside the scope or ideas**
 TODO (WorldGen):
@@ -157,7 +157,7 @@ IDEAS (rework):
 IDEAS(JOBS):
 
 IDEAS:
-  - make a new painting with the_hive dimension & queen_bee (needs an overworld structure, maybe a tiny house that hints how to inside the dimension + queen_boss cliffhanger)
+  - make a new painting with the_hive dimension & queen_bee (done) + todo: (needs an overworld structure, maybe a tiny house that hints how to inside the dimension + queen_boss cliffhanger)
   - Add bears reach for honey & bee try to defend it (make bears stand and break hive then drops honeycomb & bees fight the bear)
   - Add rewards for common tasks for the most efficient player (visual effects too like ranking stats and progress bars vertical animated for satisfaction)
   - make the bees be tempted by poppy_flowers
@@ -268,7 +268,7 @@ New:
   - feat: `fertilized_water` works with mathsmod flowers & colorized with green
   - feat: `/locate` command replaced sending a TELEPORT message to the structure location
   - feat: added 3 `taunts`
-  - feat: added `dense_forest` biome
+  - feat: added `dense_forest`, `spring_biome` biomes
   - feat: added `bear` spawn with variants (tameable with `honey_bottle`(s), healing with `fish` & having various `sitting_poses`)
   - feat: jobs `tasks_progress` are now shared between players for competition
   - feat: `//wand`, `//fill <block> <meta> [parameters]`, `//undo`, `//redo`, `//randomize <type> <block>:<meta>:<weight> ...`, `//paste <x> <y> <z>` commands to help build structures (creative only) + visuals
@@ -276,7 +276,8 @@ New:
   - feat: added `jigsaw_block` from 1.14 ported to 1.12.2 (the superior version)
   - feat: added `/jigsaw <structure_start> <x> <y> <z> <depth>` command placing procedural structure
   - feat: added `bee` with a slightly more complex AI than basic entities
-  - feat: added `rose_flower` which can be pollenized by bees
+  - feat: added `rose_flower` which can be pollenized by bees (can be found inside the `spring_biome`)
+  - feat: `custom_painting` item & entity
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

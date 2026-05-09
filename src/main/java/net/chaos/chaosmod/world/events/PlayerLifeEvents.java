@@ -77,7 +77,7 @@ public class PlayerLifeEvents {
 			event.setCanceled(true);
 			event.setCancellationResult(EnumActionResult.SUCCESS);
 			if (state.getValue(BeehiveBlock.AGE) == 2) {
-				stack.shrink(1);
+				if (!player.capabilities.isCreativeMode) stack.shrink(1);
 				TeleportUtil.teleportCenter(player, ModDimensions.THE_HIVE.getId(), 0, 100, 0);
 			}
 		}

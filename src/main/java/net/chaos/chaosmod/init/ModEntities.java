@@ -44,10 +44,10 @@ public class ModEntities {
 	// NOTE: AMBIENT being cave ones
 	public static void registerEntitySpawn() {
 		addSpawn(EntityVulture.class, 10, 3, 5, EnumCreatureType.CREATURE, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.MESA, Biomes.MESA_CLEAR_ROCK, Biomes.MESA_ROCK, Biomes.MUTATED_MESA, Biomes.MUTATED_MESA_CLEAR_ROCK, Biomes.MUTATED_MESA_ROCK);
-		addSpawn(EntityBee.class, 10, 1, 3, EnumCreatureType.CREATURE, ModBiomes.SPRING_BIOME, ModBiomes.DENSE_FOREST);
+//		addSpawn(EntityBee.class, 10, 1, 3, EnumCreatureType.CREATURE, ModBiomes.DENSE_FOREST);
 	}
 
-	// TODO : refactor this shit with : EntityEntryBuilder#create
+	// TODO : refactor this shit with : EntityEntryBuilder#create (maybe not possible actually)
 	public static void registerEntities() {
 		registerEntities(
 				new EntityFactory("forge_guardian", EntityForgeGuardian.class, Reference.ENTITY_FORGE_GUARDIAN,
