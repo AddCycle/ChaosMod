@@ -2,24 +2,40 @@ package net.chaos.chaosmod.inventory;
 
 import net.chaos.chaosmod.inventory.slots.SlotOutput;
 import net.chaos.chaosmod.inventory.slots.SlotStationMaterial;
+import net.chaos.chaosmod.items.upgrading.IUpgradingRecipe;
+import net.chaos.chaosmod.items.upgrading.UpgradingManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.server.SPacketSetSlot;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class ContainerUpgradingStation extends Container {
+	private InventoryUpgrading upgradingInventory = new InventoryUpgrading(this);
+	private InventoryUpgradingResult upgradingResult = new InventoryUpgradingResult();
 	private IInventory playerInventory;
 	private IInventory tileStation;
+	private final EntityPlayer player;
+    private final World world;
+    /** Position of the workbench */
+    private final BlockPos pos;
 	
-	public ContainerUpgradingStation(InventoryPlayer playerInventory, IInventory stationInventory) {
+	public ContainerUpgradingStation(InventoryPlayer playerInventory, IInventory stationInventory, World world, BlockPos pos) {
+		this.world = world;
+		this.pos = pos;
+		this.player = playerInventory.player;
 		this.playerInventory = playerInventory;
 		this.tileStation = stationInventory;
 
-        this.addSlotToContainer(new Slot(stationInventory, 0, 26, 35)); // input1
-        this.addSlotToContainer(new SlotStationMaterial(stationInventory, 1, 75, 35)); // input2
-        this.addSlotToContainer(new SlotOutput(stationInventory, 2, 134, 35));
+        this.addSlotToContainer(new SlotOutput(upgradingResult, 0, 134, 35)); // result
+        this.addSlotToContainer(new Slot(upgradingInventory, 1, 26, 35)); // input1
+        this.addSlotToContainer(new SlotStationMaterial(upgradingInventory, 2, 75, 35)); // input2
 
         for (int i = 0; i < 3; ++i)
         {
@@ -80,4 +96,34 @@ public class ContainerUpgradingStation extends Container {
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return true;
 	}
+	
+	/**
+	 * Call this to sync with a packet the result of the crafting to the client
+	 * @param inventoryIn
+	 */
+    public void onUpgradingChanged(IInventory inventoryIn)
+    {
+        this.slotChangedUpgrading(this.world, this.player, this.upgradingInventory, this.upgradingResult);
+    }
+	
+    protected void slotChangedUpgrading(World world, EntityPlayer player, InventoryUpgrading inventory, InventoryUpgradingResult inventoryResult)
+    {
+        if (!world.isRemote)
+        {
+            EntityPlayerMP entityplayermp = (EntityPlayerMP)player;
+            ItemStack itemstack = ItemStack.EMPTY;
+//            IRecipe irecipe = CraftingManager.findMatchingRecipe(inventory, world);
+            IUpgradingRecipe irecipe = UpgradingManager.findMatchingRecipe(inventory, world);
+
+            if (irecipe != null)
+            {
+//                inventoryResult.setRecipeUsed(irecipe);
+                itemstack = irecipe.getUpgradingResult(inventory);
+            }
+
+            inventoryResult.setInventorySlotContents(0, itemstack);
+            entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, itemstack));
+        }
+    }
+
 }

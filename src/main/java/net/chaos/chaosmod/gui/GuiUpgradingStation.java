@@ -18,7 +18,7 @@ public class GuiUpgradingStation extends GuiContainer {
 	private InventoryPlayer playerInventory;
 
 	public GuiUpgradingStation(EntityPlayer player, TileEntityUpgradingStation tileEntity) {
-		super(new ContainerUpgradingStation(player.inventory, tileEntity));
+		super(new ContainerUpgradingStation(player.inventory, tileEntity, player.world, tileEntity.getPos()));
 		this.playerInventory = player.inventory;
 		station = tileEntity;
 	}

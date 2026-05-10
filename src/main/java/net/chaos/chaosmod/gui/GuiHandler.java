@@ -83,7 +83,7 @@ public class GuiHandler implements IGuiHandler {
 		case Reference.GUI_BIOME_COMPASS:
 			return emptyContainer();
 		case Reference.GUI_UPGRADING_STATION:
-			return new ContainerUpgradingStation(inventory, (TileEntityUpgradingStation) te);
+			return new ContainerUpgradingStation(inventory, (TileEntityUpgradingStation) te, world, new BlockPos(x, y, z));
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}

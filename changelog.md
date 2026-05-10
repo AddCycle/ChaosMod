@@ -281,7 +281,8 @@ New:
   - feat: added `/jigsaw <structure_start> <x> <y> <z> <depth>` command placing procedural structure
   - feat: added `bee` with a slightly more complex AI than basic entities
   - feat: added `rose_flower` which can be pollenized by bees (can be found inside the `spring_biome`)
-  - feat: `custom_painting` item & entity
+  - feat: add `custom_painting` item & entity (lore)
+  - feat: added `upgrading_station` machine
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`
