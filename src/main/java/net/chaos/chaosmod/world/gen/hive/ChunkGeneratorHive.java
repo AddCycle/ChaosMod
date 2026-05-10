@@ -5,6 +5,7 @@ import java.util.Random;
 
 import net.chaos.chaosmod.init.ModBlocks;
 import net.chaos.chaosmod.init.ModFluidBlocks;
+import net.chaos.chaosmod.world.CustomWorldEntitySpawner;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -14,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.chunk.Chunk;
@@ -26,7 +26,8 @@ import net.minecraft.world.gen.NoiseGeneratorOctaves;
 
 public class ChunkGeneratorHive implements IChunkGenerator {
     protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
-    protected static final IBlockState HONEYCOMB = ModBlocks.HONEYCOMB.getDefaultState();
+//    protected static final IBlockState HONEYCOMB = Blocks.NETHERRACK.getDefaultState(); // FIXME
+    protected static final IBlockState HONEYCOMB = ModBlocks.HONEYCOMB.getDefaultState(); // FIXME
     protected static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
     protected static final IBlockState HONEY = ModFluidBlocks.HONEY.getDefaultState();
     private final World world;
@@ -180,7 +181,8 @@ public class ChunkGeneratorHive implements IChunkGenerator {
 
                         if (iblockstate2.getBlock() != null && iblockstate2.getMaterial() != Material.AIR)
                         {
-                            if (iblockstate2.getBlock() == ModBlocks.HONEYCOMB)
+                            if (iblockstate2.getBlock() == ModBlocks.HONEYCOMB) // FIXME
+//                            if (iblockstate2.getBlock() == Blocks.NETHERRACK) // FIXME
                             {
                                 if (i1 == -1)
                                 {
@@ -368,7 +370,7 @@ public class ChunkGeneratorHive implements IChunkGenerator {
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Pre(this.world, this.rand, chunkpos));
 
         biome.decorate(this.world, this.rand, new BlockPos(i, 0, j));
-        WorldEntitySpawner.performWorldGenSpawning(this.world, biome, i + 8, j + 8, 16, 16, this.rand);
+        CustomWorldEntitySpawner.performWorldGenSpawning(this.world, biome, i + 8, j + 8, 16, 16, this.rand);
 
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Post(this.world, this.rand, chunkpos));
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(false, this, this.world, this.rand, x, z, false);

@@ -4,7 +4,7 @@ import java.util.Random;
 
 import net.chaos.chaosmod.biomes.gen.treegen.WorldGenBirchTreeHive;
 import net.chaos.chaosmod.biomes.util.BiomeUtils;
-import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
+import net.chaos.chaosmod.blocks.BlockRose;
 import net.chaos.chaosmod.entity.animal.EntityBee;
 import net.chaos.chaosmod.init.ModBlocks;
 import net.minecraft.block.BlockFlower;
@@ -47,7 +47,7 @@ public class BiomeSpring extends Biome {
 //        this.spawnableMonsterList.add(new SpawnListEntry(EntityCreeper.class, 2, 5, 5));
 
         this.flowers.clear();
-        this.addFlower(((BlockCustomFlower) ModBlocks.CUSTOM_FLOWER).getStateFromMeta(3), 10);
+        this.addFlower(((BlockRose) ModBlocks.ROSE_FLOWER).getStateFromMeta(0), 10);
     }
 	
 	/**

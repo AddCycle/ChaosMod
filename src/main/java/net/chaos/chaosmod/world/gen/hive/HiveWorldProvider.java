@@ -48,7 +48,7 @@ public class HiveWorldProvider extends WorldProvider {
 	}
 	
 	@Override
-	public boolean isSurfaceWorld() { return false; }
+	public boolean isSurfaceWorld() { return false; } // not related to spawning
 	
 	@Override
 	public float calculateCelestialAngle(long worldTime, float partialTicks) {
@@ -67,7 +67,7 @@ public class HiveWorldProvider extends WorldProvider {
 		if (this.world.getBiome(blockpos).ignorePlayerSpawnSuitability()) {
 			return true;
 		} else {
-			return this.world.getGroundAboveSeaLevel(blockpos).getBlock() == ModBlocks.HONEYCOMB;
+			return this.world.getGroundAboveSeaLevel(blockpos).getBlock() == ModBlocks.HONEYCOMB; // FIXME
 		}
 	}
 
@@ -78,6 +78,7 @@ public class HiveWorldProvider extends WorldProvider {
 
 	@Override
 	public IChunkGenerator createChunkGenerator() {
+//		Main.getLogger().info("sealevel : {}", world.getSeaLevel());
 		return new ChunkGeneratorHive(this.world, this.world.getSeed());
 	}
 

@@ -3,10 +3,11 @@
 This should be a huge scope and surely enough for 1.0.16 ver.
 
 NEXT:
- - fix: nothing spawns inside `the_hive` dim
+ - fix: nothing spawns inside `the_hive` dimension (no entity)
  - make a `queen_palace` structure
  - make a `queen_boss` (along with an abstract EntityBoss class with phases to make the bosses creation process easier later-on)
  - make the `advanced_enchanting_table` to choose enchants (gui_design first maybe then -> the logic)
+ - finish items so that way, clears up the scope because there are too many things remaining I lost sigh of the end (stop adding things until they are done (except inside issues))
 
 TODO (items):
  - player_tracking_compass (seems done only texture remains) [TODO: make crafts expensive]
@@ -73,14 +74,14 @@ SCOPE:
   - "The Hive"
    - items: honeycomb [done]
    - blocks: honeycombBlock [done]
-   - entities: honeyCow, honeyWolf, honeySlime, honeyBears
+   - entities: honeyCow, honeyWolf, honeySlime, honeyBears, bees
    - boss: Queen Bee (+ structure)
    - WorldGen:
     - honeycomb blocks all around (main one) [done]
     - honey blocks (underneath sometimes)
     - liquid honey (underneath forming like lakes) [done]
     (advanced TODO : move to ideas)
-    - bees
+    + LATER
     - all sorts of bees like:
     - Worker bee (gathers resources for you)
     - Fighter bees (fight for you)

@@ -33,6 +33,7 @@ import net.chaos.chaosmod.blocks.abstracted.AbstractPressurePlate;
 import net.chaos.chaosmod.blocks.abstracted.AbstractStairs;
 import net.chaos.chaosmod.blocks.crops.OxoniumCarrotBlock;
 import net.chaos.chaosmod.blocks.decoration.BlockCustomFlower;
+import net.chaos.chaosmod.blocks.decoration.BlockHoneycomb;
 import net.chaos.chaosmod.blocks.decoration.BlockLantern;
 import net.chaos.chaosmod.blocks.decoration.CustomLeaves;
 import net.chaos.chaosmod.blocks.decoration.FlowerPatch;
@@ -109,7 +110,7 @@ public class ModBlocks {
 	public static final Block ATM_BLOCK = new ATMBlock("atm_block", Material.IRON);
 	public static final Block JIGSAW_BLOCK = new JigsawBlock();
 	public static final Block BEEHIVE = new BeehiveBlock();
-	public static final Block HONEYCOMB = new BlockBase("honeycomb_block", ModMaterials.SOLID_HONEY);
+	public static final Block HONEYCOMB = new BlockHoneycomb();
 	public static final Block ADVANCED_ENCHANTMENT_TABLE = new AdvancedEnchantmentTable();
 	public static final Block ROSE_FLOWER = new BlockRose();
 }
