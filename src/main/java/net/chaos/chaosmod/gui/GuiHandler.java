@@ -12,6 +12,7 @@ import net.chaos.chaosmod.entity.animal.container.ContainerBear;
 import net.chaos.chaosmod.entity.animal.gui.GuiBear;
 import net.chaos.chaosmod.inventory.ATMContainer;
 import net.chaos.chaosmod.inventory.BackpackContainer;
+import net.chaos.chaosmod.inventory.ContainerUpgradingStation;
 import net.chaos.chaosmod.inventory.ForgeInterfaceContainer;
 import net.chaos.chaosmod.inventory.OxoniumFurnaceContainer;
 import net.chaos.chaosmod.inventory.TrophyContainerBase;
@@ -23,6 +24,7 @@ import net.chaos.chaosmod.tileentity.TileEntityForge;
 import net.chaos.chaosmod.tileentity.TileEntityJigsaw;
 import net.chaos.chaosmod.tileentity.TileEntityOxoniumFurnace;
 import net.chaos.chaosmod.tileentity.TileEntityTrophyBase;
+import net.chaos.chaosmod.tileentity.TileEntityUpgradingStation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -80,6 +82,8 @@ public class GuiHandler implements IGuiHandler {
 			return emptyContainer();
 		case Reference.GUI_BIOME_COMPASS:
 			return emptyContainer();
+		case Reference.GUI_UPGRADING_STATION:
+			return new ContainerUpgradingStation(inventory, (TileEntityUpgradingStation) te);
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}
@@ -119,6 +123,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiJigsaw((TileEntityJigsaw) world.getTileEntity(new BlockPos(x, y, z)));
 		case Reference.GUI_BIOME_COMPASS:
 			return new GuiBiomeCompass(getCompassBiome(player.getHeldItemMainhand()));
+		case Reference.GUI_UPGRADING_STATION:
+			return new GuiUpgradingStation(player, (TileEntityUpgradingStation) world.getTileEntity(new BlockPos(x, y, z)));
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ID);
 		}

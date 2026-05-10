@@ -32,6 +32,7 @@ public class Reference {
 	public static final int GUI_BEAR_ID = 11;
 	public static final int GUI_JIGSAW_ID = 12;
 	public static final int GUI_BIOME_COMPASS = 13;
+	public static final int GUI_UPGRADING_STATION = 14;
 
     // Entities ids
     private static int entityId = 120;

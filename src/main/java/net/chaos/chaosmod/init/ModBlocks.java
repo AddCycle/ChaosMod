@@ -13,6 +13,7 @@ import net.chaos.chaosmod.blocks.BlockChaosPortal;
 import net.chaos.chaosmod.blocks.BlockDrawer;
 import net.chaos.chaosmod.blocks.BlockRose;
 import net.chaos.chaosmod.blocks.BlockTrophy;
+import net.chaos.chaosmod.blocks.BlockUpgradingStation;
 import net.chaos.chaosmod.blocks.BossAltar;
 import net.chaos.chaosmod.blocks.CookieJarBlock;
 import net.chaos.chaosmod.blocks.CustomBlockSapling;
@@ -113,4 +114,5 @@ public class ModBlocks {
 	public static final Block HONEYCOMB = new BlockHoneycomb();
 	public static final Block ADVANCED_ENCHANTMENT_TABLE = new AdvancedEnchantmentTable();
 	public static final Block ROSE_FLOWER = new BlockRose();
+	public static final Block UPGRADING_STATION = new BlockUpgradingStation();
 }

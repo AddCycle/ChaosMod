@@ -1,0 +1,8 @@
+{
+	"parent": "block/cube_bottom_top",
+	"textures": {
+		"top": "chaosmod:blocks/upgrading_station_top",	
+		"bottom": "chaosmod:blocks/upgrading_station_bottom",	
+		"side": "chaosmod:blocks/upgrading_station_side"
+	}
+}

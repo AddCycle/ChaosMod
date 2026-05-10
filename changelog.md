@@ -3,7 +3,7 @@
 This should be a huge scope and surely enough for 1.0.16 ver.
 
 NEXT:
- - fix: nothing spawns inside `the_hive` dimension (no entity)
+ Upgrading Station needs to be finished
  - make a `queen_palace` structure
  - make a `queen_boss` (along with an abstract EntityBoss class with phases to make the bosses creation process easier later-on)
  - make the `advanced_enchanting_table` to choose enchants (gui_design first maybe then -> the logic)
@@ -21,6 +21,7 @@ TODO (blocks):
  - pollenizedFlowers (multiple variants) [rose_flower (& logic) DONE] (needs texture rework doesn't look like a rose) (+ gen lag populate)
 
 TODO (tileentities(te)):
+ - upgrading_station (texture done, todo: logic implementation, tileentity saving & syncing via inventory + custom recipes registry)
  - advanced/enhanced enchanting_table
 
 TODO (entities):
@@ -69,6 +70,7 @@ SCOPE:
 
  te:
   - enchanting_table: model -> block -> te -> renderer -> gui -> container -> polish with effects (books flying, particles) -> crystals or another resource minable to make enhanced caves (amethyst or budding amethyst or red-diamond mineral (new ones TODO: move to IDEAS) (charged(?))) -> choose enchantements cost 1 mineral [needs some steps beforehand + gui, might take some time]
+  - upgrading_station: in order to go from diamond -> oxonium -> allemanite -> enderite -> (solarite)
 
  dims:
   - "The Hive"
@@ -200,6 +202,7 @@ TODO (next version) ?:
   - SwordOfWrath needs to target the entity if the player hits it
 
 ISSUES:
+  - Major: shift-clicking containers (bear+upgrading_station) causes crash because transferStackInSlots isn't implemented + tileentity isn't registered
   - honey_liquid: no overlay + must do physics like you stick inside of it (navigate very slowly inside)
   - honeycombBlocks: needs to sometimes spawn a liquid_honey source when broken
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tameable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different [DOING]
