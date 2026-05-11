@@ -3,7 +3,6 @@
 This should be a huge scope and surely enough for 1.0.16 ver.
 
 NEXT:
- - make the required crafts for upgrading_station & oxonium -> allemanite -> enderite (-> solarite later)
  - make a `queen_palace` structure
  - make a `queen_boss` (along with an abstract EntityBoss class with phases to make the bosses creation process easier later-on)
  - make the `advanced_enchanting_table` to choose enchants (gui_design first maybe then -> the logic)
@@ -21,11 +20,10 @@ TODO (blocks):
  - pollenizedFlowers (multiple variants) [rose_flower (& logic) DONE] (needs texture rework doesn't look like a rose) (+ gen lag populate)
 
 TODO (tileentities(te)):
- - upgrading_station (done)
  - advanced/enhanced enchanting_table
 
 TODO (entities):
- - bee (behavior AI + pollen logic) [DONE]
+ - bee (behavior AI + pollen logic) [needs AI rework because sometimes they does nothing at all]
  - chest (dungeon_reward)
  - bumblebee
  - honeyCow
@@ -52,25 +50,23 @@ TODO (structures):
  - avoiding vanilla structures (with salt) (last time happened intersection with mineshaft)
  LATER:
  - maybe query other mods random in order to avoid them via intercommunicationevent(?)
- - Also add a button/mode to the jigsaw to generate along with maxDepth levels (when friends will make structures as well only)
+ - Also add a button/mode to the jigsaw to generate along with maxDepth levels (when friends will make structures as well only) (just fire the custom commandJigsaw)
  - when more items gets added at the end of update: add them for better loot_tables
- - rework the boss altar to like hold the NBT data of the boss/entity
+ - rework the boss altar to like hold the NBT data of the boss/entity or just it's ID or call a bossfightmanager class / instance
  - make boss_room blocks to enclose the exit when you summon/enter the boss room maybe with unbreakable blocks until the boss is killed or every player is dead (make them spectator (or just put a bedroom nearby the boss_room))
  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners (vikings/pirates)) to prevent players from looting too easily) (good for variety inside oceans)
 
 SCOPE:
-
  items:
   - player_tracking_compass: direction + distance (look for vanilla compass code) [seems DONE - only texture remains]
   - biome_tracking_compass: direction + distance (look for vanilla compass code)(OR just coords for the start) [needs gui & choosing biome]
   - structure_locator_compass: direction + distance (look for vanilla compass code)(OR just coords for the start) [DO IT ONLY WHEN MORE STRUCTURES ARE DONE + cascadingWorldGenLag fixed]
   - wings: model -> texture -> wear it -> double-jump (seems quite hard and long to have something pleasant/good-looking)
 
- armors: DONE
+ armors+weapons: rework their protection/values and give some effect if the full set is worn
 
  te:
   - enchanting_table: model -> block -> te -> renderer -> gui -> container -> polish with effects (books flying, particles) -> crystals or another resource minable to make enhanced caves (amethyst or budding amethyst or red-diamond mineral (new ones TODO: move to IDEAS) (charged(?))) -> choose enchantements cost 1 mineral [needs some steps beforehand + gui, might take some time]
-  - upgrading_station: in order to go from diamond -> oxonium -> allemanite -> enderite -> (solarite)
 
  dims:
   - "The Hive"
@@ -90,10 +86,10 @@ SCOPE:
     - Queen bee boss (drops you the staff in order to control/tame bees)
 
  entities:
-  - bee: AI and behavior towards beehive (go in and out of their hives) & also make a pollen mechanic (where they carry a certain amount AI flowers visited) (cannot ride only bumblebees)
+  - bee: AI and behavior towards beehive (go in and out of their hives) & also make a pollen mechanic (where they carry a certain amount AI flowers visited) (cannot ride only bumblebees) [DONE + todo: rework the AI a little, sometimes they stop and don't do anything at all]
   - bumblebee: only ones flying + rideable with (saddle (found inside the overworld dungeon structure))
   - chest: in order to spawn loot with an effect on opened inside the structure (at boss death (with animations: rotation -> grow -> open -> rotation -> shrink -> dead + explosion))
-  - honey versions: easy if only retexturing
+  - honey versions of animals: easy if only retexturing (spoiler, no they need more than only textures)
   LATER
  - vulture: make it hybrid ground also to interact with players and maybe steal their resources when they hit the players
 
@@ -102,7 +98,7 @@ SCOPE:
  - (chest)entity dungeon_reward
 
  biomes:
-  - `spring_biome`: with yellowish-colors for bees essentially & pollenized flowers maybe (replace vanilla pickflowers-code inside biome class) [mostly done maybe add the cliffhanger house for the dimension+instructions]
+  - `spring_biome`: with yellowish-colors for bees essentially & pollenized flowers maybe (replace vanilla pickflowers-code inside biome class) [mostly done maybe add the cliffhanger house for the dimension+instructions+bossfight against bee_queen/other_boss]
 
 **TODO: move this inside the scope or ideas**
 TODO (WorldGen):
@@ -149,7 +145,6 @@ IDEAS (Bosses):
   - 5: they loot a good weapon or an armor piece that does something more (or just quest reward (every player gets it))
 
 IDEAS (rework):
-  - make the items upgrades instead of crafting others: oxonium -> forge -> allemanite -> forge -> enderite -> forge -> solarite and so on...
   - make the swords block attacks by holding right-click wielding them (pre-1.9 pvp)
   - remake armors (enderite_texture: more like a crying obsidian or maybe just remove it and go crying_obsidian_armor) + give them effects unique (variety)
   - remake allemanite_backpack and make it upgradable with more storage and actually syncs to not loose loot (verify/re-implement)
@@ -282,7 +277,7 @@ New:
   - feat: added `bee` with a slightly more complex AI than basic entities
   - feat: added `rose_flower` which can be pollenized by bees (can be found inside the `spring_biome`)
   - feat: add `custom_painting` item & entity (lore)
-  - feat: added `upgrading_station` machine
+  - feat: added `upgrading_station` machine (most custom armors & items are upgraded from diamond)
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

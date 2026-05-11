@@ -4,9 +4,11 @@ import net.chaos.chaosmod.inventory.InventoryUpgrading;
 import net.chaos.chaosmod.inventory.InventoryUpgradingResult;
 import net.chaos.chaosmod.items.upgrading.UpgradingManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 
 public class SlotUpgradingOutput extends Slot {
 	private final InventoryUpgrading inventory;
@@ -42,6 +44,10 @@ public class SlotUpgradingOutput extends Slot {
         }
         
         this.inventory.getEventHandler().onUpgradingChanged(this.inventory);
+        
+        if (!thePlayer.world.isRemote) {
+        	thePlayer.world.playSound(null, thePlayer.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, SoundCategory.BLOCKS, 1.0f, thePlayer.world.rand.nextFloat());
+        }
 
         return stack;
     }
