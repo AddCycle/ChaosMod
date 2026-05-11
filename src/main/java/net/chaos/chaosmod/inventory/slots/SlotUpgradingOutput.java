@@ -28,7 +28,7 @@ public class SlotUpgradingOutput extends Slot {
         NonNullList<ItemStack> nonnulllist = UpgradingManager.getRemainingItems(this.inventory, thePlayer.world);
         
         this.inventory.consumeInputs(); // decrease everything without firing any shitty event again
-        
+
         for (int i = 0; i < nonnulllist.size(); i++)
         {
             ItemStack remainder = nonnulllist.get(i);

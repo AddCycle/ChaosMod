@@ -17,16 +17,24 @@ public class SimpleUpgradingRecipe implements IUpgradingRecipe {
 	public boolean matches(InventoryUpgrading inv, World worldIn) {
 		ItemStack stack1 = inv.getStackInSlot(0);
 		ItemStack stack2 = inv.getStackInSlot(1);
+
 		if (stack1.isEmpty() || stack2.isEmpty()) return false;
-		if ((ItemStack.areItemStacksEqual(stack1, input1) || input1.isEmpty())
-		&& (ItemStack.areItemStacksEqual(stack2, input2) || input2.isEmpty())) {
-			return true;
-		}
-		return false;
+		
+		boolean flag =
+			(input1.isEmpty() || stack1.getItem() == input1.getItem()) &&
+			(input2.isEmpty() || stack2.getItem() == input2.getItem());
+
+		return flag;
 	}
 
 	@Override
 	public ItemStack getUpgradingResult(InventoryUpgrading inv) {
-		return result;
+		ItemStack output = result.copy(); // this was the issue, if I pass the itemstack stored, of course it will be discarded from the recipe registry needs to make a copy of the stack
+		ItemStack inputStack = inv.getStackInSlot(0);
+		if (inputStack.hasTagCompound()) {
+	        output.setTagCompound(inputStack.getTagCompound().copy());
+	    }
+
+		return output;
 	}
 }
