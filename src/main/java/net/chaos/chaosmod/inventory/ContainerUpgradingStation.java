@@ -132,5 +132,61 @@ public class ContainerUpgradingStation extends Container {
             entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 2, inventory.getStackInSlot(1)));
         }
     }
+    
+    @Override
+    public void onContainerClosed(EntityPlayer playerIn) {
+    	super.onContainerClosed(playerIn);
 
+        if (!this.world.isRemote)
+        {
+            this.clearContainer(playerIn, this.world, this.upgradingInventory);
+        }
+    }
+    
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+    	// TODO : implement (look at vanilla implementations for example furnace)
+//        Slot slot = this.inventorySlots.get(index);
+    	
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+//            int slotIn = slot.getSlotIndex();
+//        	Main.getLogger().info("stack : {}, index: {}, slotIn : {}", itemstack1.getDisplayName(), index, slotIn);
+        	
+        	// size was 2 (containerSlots: 0=output, 1=input1, 2=input2)
+
+        	// if output
+        	if (index == 0) {
+        		if (!this.mergeItemStack(itemstack1, 3, this.inventorySlots.size(), true)) {
+        			return ItemStack.EMPTY;
+        		}
+
+        		slot.onTake(playerIn, itemstack1);
+        	} else if (index == 1 || index == 2) {
+        		if (!this.mergeItemStack(itemstack1, 3, this.inventorySlots.size(), true)) {
+        			return ItemStack.EMPTY;
+        		}
+        	} else {
+        		if (!this.mergeItemStack(itemstack1, 0, 3, false)) {
+        			return ItemStack.EMPTY;
+        		}
+        	}
+
+            if (itemstack1.isEmpty())
+            {
+                slot.putStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
+    }
 }

@@ -4,7 +4,6 @@ This should be a huge scope and surely enough for 1.0.16 ver.
 
 NEXT:
  - make the required crafts for upgrading_station & oxonium -> allemanite -> enderite (-> solarite later)
- - fix: transferStackInSlot just take the vanilla code & adapt it
  - make a `queen_palace` structure
  - make a `queen_boss` (along with an abstract EntityBoss class with phases to make the bosses creation process easier later-on)
  - make the `advanced_enchanting_table` to choose enchants (gui_design first maybe then -> the logic)
@@ -203,7 +202,7 @@ TODO (next version) ?:
   - SwordOfWrath needs to target the entity if the player hits it
 
 ISSUES:
-  - Major: shift-clicking containers (bear+upgrading_station) causes crash because transferStackInSlots isn't implemented + tileentity isn't registered
+  - Major: shift-clicking containers (bear) might causes crash because transferStackInSlots isn't implemented
   - honey_liquid: no overlay + must do physics like you stick inside of it (navigate very slowly inside)
   - honeycombBlocks: needs to sometimes spawn a liquid_honey source when broken
   - Fun: biomes are kinda redundant, fix: add new custom decoration blocks, structures, mobs, tameable animals, each one being exclusive to the biome to match the color/style of each 4 biomes and make them different [DOING]

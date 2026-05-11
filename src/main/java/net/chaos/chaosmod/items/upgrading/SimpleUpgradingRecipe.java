@@ -17,6 +17,7 @@ public class SimpleUpgradingRecipe implements IUpgradingRecipe {
 	public boolean matches(InventoryUpgrading inv, World worldIn) {
 		ItemStack stack1 = inv.getStackInSlot(0);
 		ItemStack stack2 = inv.getStackInSlot(1);
+		// stack1.getItemDamage() == 0 additional condition maybe later so damaged items aren't taken accountability of (only undamaged items are accepted...)
 
 		if (stack1.isEmpty() || stack2.isEmpty()) return false;
 		
