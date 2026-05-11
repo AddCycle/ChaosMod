@@ -1,7 +1,7 @@
 package net.chaos.chaosmod.inventory;
 
-import net.chaos.chaosmod.inventory.slots.SlotOutput;
 import net.chaos.chaosmod.inventory.slots.SlotStationMaterial;
+import net.chaos.chaosmod.inventory.slots.SlotUpgradingOutput;
 import net.chaos.chaosmod.items.upgrading.IUpgradingRecipe;
 import net.chaos.chaosmod.items.upgrading.UpgradingManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +23,7 @@ public class ContainerUpgradingStation extends Container {
 	private IInventory tileStation;
 	private final EntityPlayer player;
     private final World world;
-    /** Position of the workbench */
+    /** Position of the station */
     private final BlockPos pos;
 	
 	public ContainerUpgradingStation(InventoryPlayer playerInventory, IInventory stationInventory, World world, BlockPos pos) {
@@ -33,9 +33,9 @@ public class ContainerUpgradingStation extends Container {
 		this.playerInventory = playerInventory;
 		this.tileStation = stationInventory;
 
-        this.addSlotToContainer(new SlotOutput(upgradingResult, 0, 134, 35)); // result
-        this.addSlotToContainer(new Slot(upgradingInventory, 1, 26, 35)); // input1
-        this.addSlotToContainer(new SlotStationMaterial(upgradingInventory, 2, 75, 35)); // input2
+        this.addSlotToContainer(new SlotUpgradingOutput(player, upgradingInventory, upgradingResult, 0, 134, 35)); // result
+        this.addSlotToContainer(new Slot(upgradingInventory, 0, 26, 35)); // input1
+        this.addSlotToContainer(new SlotStationMaterial(upgradingInventory, 1, 75, 35)); // input2
 
         for (int i = 0; i < 3; ++i)
         {
@@ -106,23 +106,30 @@ public class ContainerUpgradingStation extends Container {
         this.slotChangedUpgrading(this.world, this.player, this.upgradingInventory, this.upgradingResult);
     }
 	
+    /**
+     * FIXME : syncing issues are coming only from here
+     * @param world
+     * @param player
+     * @param inventory
+     * @param inventoryResult
+     */
     protected void slotChangedUpgrading(World world, EntityPlayer player, InventoryUpgrading inventory, InventoryUpgradingResult inventoryResult)
     {
         if (!world.isRemote)
         {
             EntityPlayerMP entityplayermp = (EntityPlayerMP)player;
             ItemStack itemstack = ItemStack.EMPTY;
-//            IRecipe irecipe = CraftingManager.findMatchingRecipe(inventory, world);
             IUpgradingRecipe irecipe = UpgradingManager.findMatchingRecipe(inventory, world);
 
             if (irecipe != null)
             {
-//                inventoryResult.setRecipeUsed(irecipe);
                 itemstack = irecipe.getUpgradingResult(inventory);
             }
 
             inventoryResult.setInventorySlotContents(0, itemstack);
             entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, itemstack));
+            entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 1, inventory.getStackInSlot(0)));
+            entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 2, inventory.getStackInSlot(1)));
         }
     }
 

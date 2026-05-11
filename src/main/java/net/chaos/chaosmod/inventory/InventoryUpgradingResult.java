@@ -104,5 +104,4 @@ public class InventoryUpgradingResult implements IInventory {
 	public void clear() {
 		resultStack.clear();
 	}
-
 }

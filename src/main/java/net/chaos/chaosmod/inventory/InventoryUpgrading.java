@@ -58,7 +58,7 @@ public class InventoryUpgrading implements IInventory {
 
         if (!itemstack.isEmpty())
         {
-            this.eventHandler.onUpgradingChanged(this);
+            this.getEventHandler().onUpgradingChanged(this);
         }
 
         return itemstack;
@@ -72,7 +72,7 @@ public class InventoryUpgrading implements IInventory {
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
         this.stackList.set(index, stack);
-        this.eventHandler.onUpgradingChanged(this);
+        this.getEventHandler().onUpgradingChanged(this);
 	}
 
 	@Override
@@ -115,5 +115,14 @@ public class InventoryUpgrading implements IInventory {
 	@Override
 	public void clear() {
         this.stackList.clear();
+	}
+	
+	public void consumeInputs() {
+	    ItemStackHelper.getAndSplit(this.stackList, 0, 1);
+	    ItemStackHelper.getAndSplit(this.stackList, 1, 1);
+	}
+
+	public ContainerUpgradingStation getEventHandler() {
+		return eventHandler;
 	}
 }
