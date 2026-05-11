@@ -3,7 +3,8 @@
 This should be a huge scope and surely enough for 1.0.16 ver.
 
 NEXT:
- Upgrading Station needs to be finished
+ - make the required crafts for upgrading_station & oxonium -> allemanite -> enderite (-> solarite later)
+ - fix: transferStackInSlot just take the vanilla code & adapt it
  - make a `queen_palace` structure
  - make a `queen_boss` (along with an abstract EntityBoss class with phases to make the bosses creation process easier later-on)
  - make the `advanced_enchanting_table` to choose enchants (gui_design first maybe then -> the logic)
@@ -21,7 +22,7 @@ TODO (blocks):
  - pollenizedFlowers (multiple variants) [rose_flower (& logic) DONE] (needs texture rework doesn't look like a rose) (+ gen lag populate)
 
 TODO (tileentities(te)):
- - upgrading_station (texture done, todo: logic implementation, tileentity saving & syncing via inventory + custom recipes registry)
+ - upgrading_station (done)
  - advanced/enhanced enchanting_table
 
 TODO (entities):
