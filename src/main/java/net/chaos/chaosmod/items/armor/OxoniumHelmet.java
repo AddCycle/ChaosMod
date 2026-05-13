@@ -20,5 +20,4 @@ public class OxoniumHelmet extends ArmorBase {
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(new TextComponentTranslation("item.oxonium_helmet.tooltip").setStyle(new Style().setColor(TextFormatting.BLUE)).getFormattedText()); // The sky is falling on our heads (astérix)
 	}
-
 }

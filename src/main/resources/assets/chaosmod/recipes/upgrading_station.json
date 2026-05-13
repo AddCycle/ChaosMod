@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern": [
+		"III",
+		"PPP",
+		"PPP"
+	],
+	
+	"key":
+	{
+		"I":
+		{
+			"item": "minecraft:iron"
+		},
+
+		"P":
+		{
+			"type": "forge:ore_dict",
+            "ore": "plankWood"
+		}
+	},
+	
+	"result":
+	{
+		"item": "chaosmod:upgrading_station",
+		"count": 1
+	}
+}

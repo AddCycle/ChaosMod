@@ -9,6 +9,7 @@ import net.chaos.chaosmod.items.ItemBiomeCompass;
 import net.chaos.chaosmod.items.armor.AllemaniteArmor;
 import net.chaos.chaosmod.items.armor.ArmorBase;
 import net.chaos.chaosmod.items.armor.EnderiteArmor;
+import net.chaos.chaosmod.items.armor.ItemWings;
 import net.chaos.chaosmod.items.armor.OxoniumBoots;
 import net.chaos.chaosmod.items.bottles.ItemHoneyBottle;
 import net.chaos.chaosmod.items.food.MineralFood;
@@ -95,6 +96,8 @@ public class ModItems {
 			new int[] { 3, 6, 8, 4 }, 20, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f);
 	public static final ArmorMaterial ARMOR_MATERIAL_ENDERITE = EnumHelper.addArmorMaterial("enderite", Reference.PREFIX + "enderite_armor", 26,
 			new int[] { 4, 7, 9, 5 }, 30, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f);
+	public static final ArmorMaterial ARMOR_WINGS = EnumHelper.addArmorMaterial("wings", Reference.PREFIX + "wings", 50,
+			new int[] { 4, 8, 9, 5 }, 30, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0f);
 	
 	//Items
 	public static final Item OXONIUM_INGOT = new ItemBase("oxonium_ingot");
@@ -195,6 +198,7 @@ public class ModItems {
 //	public static final Item STRUCTURE_LOCATOR = new ItemStructureLocator();
 	
 	public static final Item CUSTOM_PAINTING = new ItemCustomPainting();
+	public static final Item WINGS = new ItemWings("wings", ARMOR_WINGS);
 	
 	// Slab items
 	// public static Item ABSTRACT_SLAB;

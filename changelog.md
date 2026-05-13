@@ -3,6 +3,7 @@
 This should be a huge scope and surely enough for 1.0.16 ver.
 
 NEXT:
+ - finish items textures & crafts (or make items exclusive)
  - make a `queen_palace` structure
  - make a `queen_boss` (along with an abstract EntityBoss class with phases to make the bosses creation process easier later-on)
  - make the `advanced_enchanting_table` to choose enchants (gui_design first maybe then -> the logic)
@@ -12,7 +13,7 @@ TODO (items):
  - player_tracking_compass (seems done only texture remains) [TODO: make crafts expensive]
  - biome_tracking_compass [DONE only texture remains (might crash server-side (that's why playtest needed))] [TODO : make crafts expensive]
  - structure_locator_compass [DO IT ONLY WHEN OTHER STRUCTURES AND WORLDGENLAG issues are fixed] [TODO: don't make craft too expensive]
- - wings (model & rendering might be the hardest part)
+ - wings [DONE only craft remains (make the queen_bee_boss drop wing fragments) + make a painting with picture of wings]
 
 TODO (armors): DONE
 
@@ -61,7 +62,7 @@ SCOPE:
   - player_tracking_compass: direction + distance (look for vanilla compass code) [seems DONE - only texture remains]
   - biome_tracking_compass: direction + distance (look for vanilla compass code)(OR just coords for the start) [needs gui & choosing biome]
   - structure_locator_compass: direction + distance (look for vanilla compass code)(OR just coords for the start) [DO IT ONLY WHEN MORE STRUCTURES ARE DONE + cascadingWorldGenLag fixed]
-  - wings: model -> texture -> wear it -> double-jump (seems quite hard and long to have something pleasant/good-looking)
+  - wings: done
 
  armors+weapons: rework their protection/values and give some effect if the full set is worn
 
@@ -128,6 +129,7 @@ REFACTOR (when needed):
   - events: needs each one to be inside a specific package, like relative to items inside items, relative to biomes inside biomes...
 
 POLISH:
+  - add a questBook system or an explanatorybook like patchouli/wiki to list all items (might be good to do it inside a website)
   - weird offset when the name is too long or unlocalized
   - Shared tasks gui make it in the scoreboard pinnable maybe or just make a visual indicator in the gui
   - additionaloverlayinfos : health+armor icons drawing instead of raw values
@@ -185,6 +187,7 @@ IDEAS:
   - make the hunt minigame with a map, chests & loot then you have to chase & kill your opponent or a specific player, clutch 1 vs 2 will be entertaining or maybe one player gets an overpowered item and tries to survive against more people that can be very good or maybe it's all players versus one boss or something interesting coop
   - corpses with loot inside them when you shift-click (in front of bosses rooms)
   - make a laser_block & some mirrors to reflect the laser & a detector_block (emitter, mirror, receptor) to trigger maybe puzzles or enigmas, or even open doors
+  - add a steel ingot in order to go with machines & automation
 
 TODO (next version) ?:
   - Jobs : add a randomizer to job_tasks to remove the impression of doing the same tasks in all the survivals (later when more tasks like on 10 tasks make 5 only)
@@ -197,6 +200,7 @@ TODO (next version) ?:
   - SwordOfWrath needs to target the entity if the player hits it
 
 ISSUES:
+  - Still taking fall damage with wings
   - Major: shift-clicking containers (bear) might causes crash because transferStackInSlots isn't implemented
   - honey_liquid: no overlay + must do physics like you stick inside of it (navigate very slowly inside)
   - honeycombBlocks: needs to sometimes spawn a liquid_honey source when broken
@@ -237,6 +241,7 @@ TODO (last):
   - Make a tool for making easier animations in blockbench directly (plugin or else)
   - Make another tool for DjoCaillou to mod without coding (if not, make tutorials on MCreator for 1.12.2)
   - Moreover than a mod, maybe making a lore with like a handbuilt map/quests could be good
+  - maybe suggest to do the oneBlock adventure in multiplayer maybe it can be fun... (example: the divine block maybe it can be fun at 2 players ?)
 
 PLAYTEST:
   - All jobs task completion + granting rewards correctly (client+server)
@@ -278,6 +283,7 @@ New:
   - feat: added `rose_flower` which can be pollenized by bees (can be found inside the `spring_biome`)
   - feat: add `custom_painting` item & entity (lore)
   - feat: added `upgrading_station` machine (most custom armors & items are upgraded from diamond)
+  - feat: added item `wings` used to fly in the air by leaping when equipped
 
 Changes:
   - feat: `oxonium_pickaxe` has `vein miner` mode compatible with other mods `ores`

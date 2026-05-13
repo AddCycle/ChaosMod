@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import net.chaos.chaosmod.items.ItemBase;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 public class AllemaniteIngot extends ItemBase {
@@ -17,21 +18,8 @@ public class AllemaniteIngot extends ItemBase {
 	
 	@Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("\u00A7cMythical material");
-		tooltip.add("\u00a7eFrom the deepest of the Nether");
-		tooltip.add("\u00A7lCan you do something out of it ?");
+		tooltip.add(TextFormatting.RED + "Mythical material");
+		tooltip.add(TextFormatting.YELLOW + "From the deepest of the Nether");
+		tooltip.add(TextFormatting.BOLD + "Can you do something out of it ?");
 	}
-
-	/*@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand)
-	{
-		ItemStack stack = player.getHeldItem(hand);
-
-		if(hand == EnumHand.MAIN_HAND)
-		{
-			player.openGui(Main.instance, Reference.GUI_GUIDE_ID, worldIn, 0, 0, 0);
-		}
-
-		return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
-	}*/
 }

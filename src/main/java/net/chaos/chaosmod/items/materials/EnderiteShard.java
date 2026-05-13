@@ -27,6 +27,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
+// FIXME : remake that mechanic & make it more like a mechanic/industry based machine (with the steel material idea)
 public class EnderiteShard extends ItemBase {
 
 	public EnderiteShard(String name) {
@@ -149,7 +150,6 @@ public class EnderiteShard extends ItemBase {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.ITEMS }; // You can add other tabs
+        return new CreativeTabs[]{ CreativeTabs.MATERIALS, ModTabs.ITEMS, CreativeTabs.SEARCH };
     }
-
 }

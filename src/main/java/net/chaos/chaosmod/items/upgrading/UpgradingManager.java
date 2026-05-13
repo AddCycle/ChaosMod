@@ -15,9 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
-/**
- * FIXME : be careful to save the NBT of the stack in order to preserve enchants & durability
- */
 public class UpgradingManager {
 	private static final List<IUpgradingRecipe> REGISTRY = Lists.newArrayList();
 	

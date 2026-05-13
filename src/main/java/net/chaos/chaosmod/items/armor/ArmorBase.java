@@ -20,6 +20,6 @@ public class ArmorBase extends ItemArmor implements IItemModel {
 	@Override
 	public CreativeTabs[] getCreativeTabs()
     {
-        return new CreativeTabs[]{ CreativeTabs.COMBAT, ModTabs.ITEMS };
+        return new CreativeTabs[]{ CreativeTabs.COMBAT, ModTabs.ITEMS, CreativeTabs.SEARCH };
     }
 }
