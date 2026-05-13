@@ -19,13 +19,13 @@ import net.minecraft.entity.ai.EntityAIWanderAvoidWaterFlying;
 import net.minecraft.entity.ai.EntityFlyHelper;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateFlying;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
@@ -173,7 +173,7 @@ public class EntityBee extends EntityAnimal {
 		float damage = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 
 		if (entityIn instanceof EntityLivingBase) {
-			((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:poison"), 20 * 5, 1));
+			((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, 20 * 5, 1));
 		}
 		return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
 	}

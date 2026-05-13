@@ -3,25 +3,25 @@
 This should be a huge scope and surely enough for 1.0.16 ver.
 
 NEXT:
+ - make a `queen_boss` (along with an abstract EntityBoss class with phases to make the bosses creation process easier later-on) + drops wings
+ - the dungeon must have a surface entrance (make it more like a temple (multiple temples... each with a theme) main_room in the surface, then staircase -> underground)
  - finish items textures & crafts (or make items exclusive)
  - make a `queen_palace` structure
- - make a `queen_boss` (along with an abstract EntityBoss class with phases to make the bosses creation process easier later-on)
  - make the `advanced_enchanting_table` to choose enchants (gui_design first maybe then -> the logic)
- - finish items so that way, clears up the scope because there are too many things remaining I lost sigh of the end (stop adding things until they are done (except inside issues))
+ - finish items so that way, clears up the scope because there are too many things remaining I lost sight of the end (stop adding things until they are done (except inside issues))
 
 TODO (items):
  - player_tracking_compass (seems done only texture remains) [TODO: make crafts expensive]
  - biome_tracking_compass [DONE only texture remains (might crash server-side (that's why playtest needed))] [TODO : make crafts expensive]
  - structure_locator_compass [DO IT ONLY WHEN OTHER STRUCTURES AND WORLDGENLAG issues are fixed] [TODO: don't make craft too expensive]
- - wings [DONE only craft remains (make the queen_bee_boss drop wing fragments) + make a painting with picture of wings]
+ - wings [DONE only craft remains (make the queen_bee_boss drop wing fragments) + make a painting with picture of wings + make a cool particle effect of wind blow below the player when he uses wings]
 
 TODO (armors): DONE
 
-TODO (blocks):
- - pollenizedFlowers (multiple variants) [rose_flower (& logic) DONE] (needs texture rework doesn't look like a rose) (+ gen lag populate)
+TODO (blocks): DONE
 
 TODO (tileentities(te)):
- - advanced/enhanced enchanting_table
+ - advanced/enhanced enchanting_table (might take a lot of time since any logic must be adapted to contain all enchanting possible at a certain level chose by a slider, and a scrollbar... + container + sync)
 
 TODO (entities):
  - bee (behavior AI + pollen logic) [needs AI rework because sometimes they does nothing at all]
@@ -46,7 +46,7 @@ TODO (WorldGen):
 
 TODO (structures):
  - (chest)entity dungeon_reward
- - worldgenerator
+ - worldgenerator (abstract)
  ISSUES:
  - avoiding vanilla structures (with salt) (last time happened intersection with mineshaft)
  LATER:
@@ -58,7 +58,7 @@ TODO (structures):
  - Add variants to gallions and random loots (exemple a wooden bark, then a bigger ship, then a gallion with loots and pirates enemies (gives a challenge with spawners (vikings/pirates)) to prevent players from looting too easily) (good for variety inside oceans)
 
 SCOPE:
- items:
+ items: (textures-only when craft is defined to match materials)
   - player_tracking_compass: direction + distance (look for vanilla compass code) [seems DONE - only texture remains]
   - biome_tracking_compass: direction + distance (look for vanilla compass code)(OR just coords for the start) [needs gui & choosing biome]
   - structure_locator_compass: direction + distance (look for vanilla compass code)(OR just coords for the start) [DO IT ONLY WHEN MORE STRUCTURES ARE DONE + cascadingWorldGenLag fixed]
@@ -99,7 +99,7 @@ SCOPE:
  - (chest)entity dungeon_reward
 
  biomes:
-  - `spring_biome`: with yellowish-colors for bees essentially & pollenized flowers maybe (replace vanilla pickflowers-code inside biome class) [mostly done maybe add the cliffhanger house for the dimension+instructions+bossfight against bee_queen/other_boss]
+  - `spring_biome`: with yellowish-colors for bees essentially [mostly done maybe add the cliffhanger house for the dimension+instructions+bossfight against bee_queen/other_boss]
 
 **TODO: move this inside the scope or ideas**
 TODO (WorldGen):
@@ -116,7 +116,7 @@ TODO (JOBS):
   - add scoreboard of current shared task (polish the design of the gui)
   - Make a button the claim global task reward so if players are offline they still get the reward [!!!! REALLY NEEDED !!!!]
 
-  - Make jobs exclusive item rewards for FISHERMAN, TAMER, TRAVELER
+  - Make jobs exclusive item rewards
   LATER
   - Feat: `/jobs` command needs resetting tasks individually or setting individual tasks completion for admins + testing
   - Add `traveler` job task `structures` discovery later... (using isInsideStructure method inside the generation)
@@ -153,6 +153,7 @@ IDEAS (rework):
   - Make a new quest system kinda like `FTB Quests Mod` were you follow a roadmap (more like a separate mod/api)
   - Add a pin task button to make it on the scoreboard (if not too many inside the screen like a todo list)
   - lantern model not good, also with chains to hand it downwards (decorations)
+  - make villagers gives pieces in order to exchange from the market
 
 IDEAS(JOBS):
 
@@ -196,8 +197,7 @@ TODO (next version) ?:
   - Hunt (or custom pvp events which can be started with commands too but saves everything the player was doing before (position+dimension, stuff))
   - Market (let players sell and buy items and see the evolution of the price inside the market with some graphs)
   - Fix playlist and soundMgr system (need to reimplement everything)
-  - add `magnet` + `sword_of_wrath` to structures loots or jobs exclusive rewards
-  - SwordOfWrath needs to target the entity if the player hits it
+  - add custom items to structures loots or jobs exclusive rewards
 
 ISSUES:
   - Still taking fall damage with wings
@@ -208,14 +208,14 @@ ISSUES:
   - Fix: `oxonium_slab` order bottom/top order (on compiled versions (might be caused by lighting or mathsmod too caused by mathsmod:hunter entity))
   - EntityViking clearing inventory on right-click and kills you...
   - DrawerTESR: item icon lights even in the dark + container overflow issues (code issue)
-  - Sword Of Wrath orientation towards monster attacked (fix animations)
+  - Sword Of Wrath orientation towards monster attacked (fix animations) + make a skill tree (move to IDEAS) + make it so the player cannot hurt his
   - Cascading worldgen lag for generated structures... (seems fixed for now I will let it here as I will add more huge structures later)
-  - Fix: bear canSpawnHere needs to check the AABB before (just override method)
+  - Fix: bear canSpawnHere needs to check the AABB before (just override method) + skill tree (move to IDEAS)
   - make my own main menu gui in order to disable it from the mod's config
   - bees might run out inside beehives if they die because no new ones are being created (add maybe later a child mechanic...)
 
 OPTIMIZATION:
-  - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead)
+  - Biome gen rework a little bit slower than before, I Might as well remove the biome flower system and come back to IWorldGenerator gen (less overhead) (must go with forge events)
 
 TODO (Utilities):
   LATER
@@ -295,7 +295,7 @@ Changes:
   - fix: custom flowers drops the correct variant when the block below is broken
   - feat: every player is able to see the summoning boss `cutscene`
   - feat: `final credits` displayed after beating `ChaosMaster Boss`
-  - feat: `Minimap` should render the correct biome color for : foliage, grass or (water: prioritizes the mapcolor over it so it's not working)
+  - feat: `Minimap` should render the correct biome color for : foliage, grass or (water: prioritizes the mapcolor over it, so it's not working)
   - style: tree logs are breaking sequentially with `oxonium_axe`
   - style: vein miner progressive destroy blocks too
   - tweak: `OxoniumVillages` have only 40% to generate over vanilla `Village`

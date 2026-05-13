@@ -26,6 +26,8 @@ public class BlockRose extends BlockBase {
 
 	public BlockRose() {
 		super("rose_flower", Material.PLANTS);
+		setHardness(0.0f);
+		setResistance(0.0f);
 		setSoundType(SoundType.PLANT);
 		setDefaultState(this.blockState.getBaseState().withProperty(POLLENIZED, false));
 		this.setTickRandomly(true);
@@ -51,11 +53,21 @@ public class BlockRose extends BlockBase {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItemMainhand();
-		if (!worldIn.isRemote && stack.isEmpty()) {
-			setPollenized(worldIn, pos, !getPollenized(worldIn, pos));
+		boolean result = false;
+		if (stack.isEmpty()) {
+			boolean isPollenized = getPollenized(worldIn, pos);
+			if (playerIn.capabilities.isCreativeMode) {
+				if (!worldIn.isRemote) setPollenized(worldIn, pos, !getPollenized(worldIn, pos));
+				result = true;
+			} else {
+				if (isPollenized) {
+					if (!worldIn.isRemote) setPollenized(worldIn, pos, false);
+					result = true;
+				}
+			}
 		}
 
-		return true;
+		return result;
 	}
 	
 	@Override
