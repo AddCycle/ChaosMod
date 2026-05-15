@@ -78,7 +78,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
 import util.Reference;
 
-//initialize the blocks and declare them based on a vanilla block base type
 public class ModItems {
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	
@@ -186,11 +185,9 @@ public class ModItems {
 	public static final Item VINE_FISH = new CustomFishFood("vine_fish", 4);
 	public static final Item DESERT_FISH = new CustomFishFood("desert_fish", 2);
 	public static final Item HONEYCOMB = new ItemBase("honeycomb");
+
 	public static Item OXONIUM_CARROT;
-	
-	// DEBUG
-	
-	// BOTTLES
+
 	public static final Item HONEY_BOTTLE = new ItemHoneyBottle();
 
 	public static final Item PLAYER_TRACKER = new net.chaos.chaosmod.items.ItemPlayerTracker();

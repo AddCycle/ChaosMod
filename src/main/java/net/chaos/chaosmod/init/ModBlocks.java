@@ -50,7 +50,6 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.text.TextFormatting;
 
-// initialize the blocks and declare them based on a vanilla block base type
 public class ModBlocks {
 	public static final List<Block> BLOCKS = new ArrayList<Block>();
 	
@@ -110,6 +109,7 @@ public class ModBlocks {
 	public static final Block DRAWER = new BlockDrawer("drawer", Material.WOOD);
 	public static final Block ATM_BLOCK = new ATMBlock("atm_block", Material.IRON);
 	public static final Block JIGSAW_BLOCK = new JigsawBlock();
+
 	public static final Block BEEHIVE = new BeehiveBlock();
 	public static final Block HONEYCOMB = new BlockHoneycomb();
 	public static final Block ADVANCED_ENCHANTMENT_TABLE = new AdvancedEnchantmentTable();

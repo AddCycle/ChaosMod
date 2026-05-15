@@ -34,6 +34,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import util.Colors;
 import util.Reference;
 
+// FIXME : restablish entities
 public class ModEntities {
 	
 	public static void registerEntityPlacements() {
